@@ -7,7 +7,6 @@
 
 import Foundation
 
-// Comment added for testing Github.
 struct User: Codable {
     let firstName: String
     let lastName: String
