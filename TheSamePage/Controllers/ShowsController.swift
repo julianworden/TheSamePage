@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ShowsViewModel: ObservableObject {
+class ShowsController: ObservableObject {
     @Published var showsNearYou = [Show]()
     @Published var yourShows = [Show]()
     

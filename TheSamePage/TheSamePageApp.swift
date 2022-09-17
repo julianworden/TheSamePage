@@ -9,12 +9,14 @@ import SwiftUI
 
 @main
 struct TheSamePageApp: App {
-    @StateObject var showsViewModel = ShowsViewModel()
+    @StateObject var showsController = ShowsController()
+    @StateObject var userController = UserController()
     
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environmentObject(showsViewModel)
+                .environmentObject(showsController)
+                .environmentObject(userController)
         }
     }
 }

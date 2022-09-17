@@ -21,6 +21,29 @@ struct User: Codable {
         profileImageUrl: nil,
         phoneNumber: nil,
         emailAddress: nil,
-        bands: []
+        bands: [
+            Band(
+                id: UUID(),
+                name: "Pathetic Fallacy ROCKS!",
+                admin: "",
+                members: [],
+                genre: Genre.rock.rawValue,
+                links: nil,
+                shows: nil,
+                city: "Neptune",
+                state: "NJ"
+            ),
+            Band(
+                id: UUID(),
+                name: "Dumpweed",
+                admin: "",
+                members: [],
+                genre: Genre.rock.rawValue,
+                links: nil,
+                shows: nil,
+                city: "South Brunswick",
+                state: "NJ"
+            )
+        ]
     )
 }

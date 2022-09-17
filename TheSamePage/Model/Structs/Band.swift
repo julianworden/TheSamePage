@@ -7,22 +7,26 @@
 
 import Foundation
 
-struct Band: Codable {
-    let creator: User
-    let members: [User]
-    let genre: Genre
+struct Band: Codable, Identifiable {
+    let id: UUID
+    let name: String
+    let admin: String
+    let members: [String]
+    let genre: String
     let links: [Link]?
     let shows: [Show]?
     let city: String
     let state: String
     
     static let example = Band(
-        creator: User.example,
-        members: [User.example],
-        genre: .rock,
+        id: UUID(),
+        name: "Pathetic Fallacy",
+        admin: "",
+        members: [],
+        genre: Genre.rock.rawValue,
         links: nil,
         shows: nil,
         city: "Neptune",
-        state: "New Jersey"
+        state: "NJ"
     )
 }

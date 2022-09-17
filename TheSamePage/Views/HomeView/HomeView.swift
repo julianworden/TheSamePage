@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject var showsViewModel: ShowsViewModel
+    @EnvironmentObject var showsController: ShowsController
     
     var body: some View {
         NavigationView {
@@ -17,7 +17,7 @@ struct HomeView: View {
                     .padding(.top)
                 
                 ScrollView {
-                    ForEach(showsViewModel.showsNearYou) { show in
+                    ForEach(showsController.showsNearYou) { show in
                         HomeShowCard(show: show)
                     }
                     .padding(.top, 5)
@@ -26,7 +26,7 @@ struct HomeView: View {
             .navigationTitle("Home")
         }
         .onAppear {
-            showsViewModel.getShows()
+            showsController.getShows()
         }
     }
 }
@@ -34,6 +34,6 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
-            .environmentObject(ShowsViewModel())
+            .environmentObject(ShowsController())
     }
 }

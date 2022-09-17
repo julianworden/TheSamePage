@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MyShowsView: View {
-    @EnvironmentObject var showsViewModel: ShowsViewModel
+    @EnvironmentObject var showsController: ShowsController
     
     var body: some View {
         NavigationView {
@@ -19,7 +19,7 @@ struct MyShowsView: View {
                     
                     ScrollView(.horizontal, showsIndicators: true) {
                         HStack {
-                            ForEach(showsViewModel.yourShows) { show in
+                            ForEach(showsController.yourShows) { show in
                                 MyShowsShowCard(show: show)
                             }
                         }
@@ -54,7 +54,7 @@ struct MyShowsView: View {
                 }
                 .navigationTitle("My Shows")
                 .onAppear {
-                    showsViewModel.getShows()
+                    showsController.getShows()
                 }
             }
         }
@@ -64,6 +64,6 @@ struct MyShowsView: View {
 struct MyShowsView_Previews: PreviewProvider {
     static var previews: some View {
         MyShowsView()
-            .environmentObject(ShowsViewModel())
+            .environmentObject(ShowsController())
     }
 }

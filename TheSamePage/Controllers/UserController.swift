@@ -7,6 +7,10 @@
 
 import Foundation
 
-class UserViewModel: ObservableObject {
+class UserController: ObservableObject {
     @Published var bands = [Band]()
+    
+    func getBands() {
+        bands = User.example.bands ?? []
+    }
 }
