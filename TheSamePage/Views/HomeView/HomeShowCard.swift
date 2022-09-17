@@ -18,7 +18,8 @@ struct HomeShowCard: View {
         ZStack {
             Rectangle()
                 .foregroundColor(.white)
-                .frame(height: 175)
+                .cornerRadius(10)
+                .shadow(radius: 3)
             
             HStack(spacing: 13) {
                 Image(systemName: "photo.circle")
@@ -47,13 +48,19 @@ struct HomeShowCard: View {
                         
                         Spacer()
                         
-                        Text(viewModel.show.time.start.formatted(date: .numeric, time: .omitted))
-                            .font(.caption)
+                        if #available(iOS 15.0, *) {
+                            Text(viewModel.show.time.start.formatted(date: .numeric, time: .omitted))
+                                .font(.caption)
+                        } else {
+                            Text(TextUtility.formatDate(date: viewModel.show.time.start))
+                        }
                     }
                 }
             }
             .padding(.horizontal)
         }
+        .frame(height: 175)
+        .padding(.horizontal)
     }
 }
 

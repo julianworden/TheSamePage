@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct RootView: View {
+    init() {
+        UITabBar.appearance().backgroundColor = .white
+    }
+    
     var body: some View {
         TabView {
             HomeView()

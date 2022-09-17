@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB21E5BE28D55C3600BD286E /* GeoFire in Frameworks */ = {isa = PBXBuildFile; productRef = AB21E5BD28D55C3600BD286E /* GeoFire */; };
+		AB21E5C028D55C3600BD286E /* GeoFireUtils in Frameworks */ = {isa = PBXBuildFile; productRef = AB21E5BF28D55C3600BD286E /* GeoFireUtils */; };
 		AB36FF6628D356FD00AAC00C /* TheSamePageApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF6528D356FD00AAC00C /* TheSamePageApp.swift */; };
 		AB36FF6828D356FD00AAC00C /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF6728D356FD00AAC00C /* RootView.swift */; };
 		AB36FF6A28D356FE00AAC00C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB36FF6928D356FE00AAC00C /* Assets.xcassets */; };
@@ -27,6 +29,17 @@
 		AB36FF9D28D36BBF00AAC00C /* HomeShowCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF9C28D36BBF00AAC00C /* HomeShowCard.swift */; };
 		AB36FF9F28D36D0300AAC00C /* HomeShowCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF9E28D36D0300AAC00C /* HomeShowCardViewModel.swift */; };
 		AB36FFA228D372A900AAC00C /* ShowsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FFA128D372A900AAC00C /* ShowsViewModel.swift */; };
+		AB399AD228D4AF3E009B39F7 /* MyShowsShowCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB399AD128D4AF3E009B39F7 /* MyShowsShowCard.swift */; };
+		AB399AD428D4B12B009B39F7 /* MyShowsShowCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB399AD328D4B12B009B39F7 /* MyShowsShowCardViewModel.swift */; };
+		AB399AD628D4BCD8009B39F7 /* Notes.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AB399AD528D4BCD8009B39F7 /* Notes.rtf */; };
+		AB399AD928D4C1CE009B39F7 /* TextUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB399AD828D4C1CE009B39F7 /* TextUtility.swift */; };
+		AB399ADB28D4C548009B39F7 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB399ADA28D4C548009B39F7 /* UserViewModel.swift */; };
+		AB6C09DF28D4C7F500990313 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB6C09DE28D4C7F500990313 /* GoogleService-Info.plist */; };
+		ABA4A43728D564FF0074293A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43628D564FF0074293A /* FirebaseAnalytics */; };
+		ABA4A43928D564FF0074293A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43828D564FF0074293A /* FirebaseAuth */; };
+		ABA4A43B28D564FF0074293A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43A28D564FF0074293A /* FirebaseFirestore */; };
+		ABA4A43D28D564FF0074293A /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43C28D564FF0074293A /* FirebaseFirestoreSwift */; };
+		ABA4A43F28D564FF0074293A /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43E28D564FF0074293A /* FirebaseStorage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +64,12 @@
 		AB36FF9C28D36BBF00AAC00C /* HomeShowCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShowCard.swift; sourceTree = "<group>"; };
 		AB36FF9E28D36D0300AAC00C /* HomeShowCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShowCardViewModel.swift; sourceTree = "<group>"; };
 		AB36FFA128D372A900AAC00C /* ShowsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowsViewModel.swift; sourceTree = "<group>"; };
+		AB399AD128D4AF3E009B39F7 /* MyShowsShowCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowsShowCard.swift; sourceTree = "<group>"; };
+		AB399AD328D4B12B009B39F7 /* MyShowsShowCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowsShowCardViewModel.swift; sourceTree = "<group>"; };
+		AB399AD528D4BCD8009B39F7 /* Notes.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Notes.rtf; sourceTree = "<group>"; };
+		AB399AD828D4C1CE009B39F7 /* TextUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUtility.swift; sourceTree = "<group>"; };
+		AB399ADA28D4C548009B39F7 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		AB6C09DE28D4C7F500990313 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +77,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB21E5C028D55C3600BD286E /* GeoFireUtils in Frameworks */,
+				AB21E5BE28D55C3600BD286E /* GeoFire in Frameworks */,
+				ABA4A43728D564FF0074293A /* FirebaseAnalytics in Frameworks */,
+				ABA4A43B28D564FF0074293A /* FirebaseFirestore in Frameworks */,
+				ABA4A43F28D564FF0074293A /* FirebaseStorage in Frameworks */,
+				ABA4A43928D564FF0074293A /* FirebaseAuth in Frameworks */,
+				ABA4A43D28D564FF0074293A /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +95,7 @@
 			children = (
 				AB36FF6428D356FD00AAC00C /* TheSamePage */,
 				AB36FF6328D356FD00AAC00C /* Products */,
+				FF4320B392FCA7A1D9B09394 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -84,11 +111,14 @@
 			isa = PBXGroup;
 			children = (
 				AB36FF6528D356FD00AAC00C /* TheSamePageApp.swift */,
+				AB399AD528D4BCD8009B39F7 /* Notes.rtf */,
 				AB36FF7E28D35BDC00AAC00C /* Model */,
 				AB36FF7928D35B9500AAC00C /* Views */,
 				AB36FFA028D372A100AAC00C /* ViewModels */,
 				AB36FF9228D3619000AAC00C /* Services */,
+				AB399AD728D4C1C3009B39F7 /* Utilities */,
 				AB36FF6928D356FE00AAC00C /* Assets.xcassets */,
+				AB6C09DE28D4C7F500990313 /* GoogleService-Info.plist */,
 				AB36FF6B28D356FE00AAC00C /* Preview Content */,
 			);
 			path = TheSamePage;
@@ -136,6 +166,8 @@
 			isa = PBXGroup;
 			children = (
 				AB36FF7528D3598900AAC00C /* MyShowsView.swift */,
+				AB399AD128D4AF3E009B39F7 /* MyShowsShowCard.swift */,
+				AB399AD328D4B12B009B39F7 /* MyShowsShowCardViewModel.swift */,
 			);
 			path = MyShowsView;
 			sourceTree = "<group>";
@@ -199,8 +231,24 @@
 			isa = PBXGroup;
 			children = (
 				AB36FFA128D372A900AAC00C /* ShowsViewModel.swift */,
+				AB399ADA28D4C548009B39F7 /* UserViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		AB399AD728D4C1C3009B39F7 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				AB399AD828D4C1CE009B39F7 /* TextUtility.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		FF4320B392FCA7A1D9B09394 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,6 +267,15 @@
 			dependencies = (
 			);
 			name = TheSamePage;
+			packageProductDependencies = (
+				AB21E5BD28D55C3600BD286E /* GeoFire */,
+				AB21E5BF28D55C3600BD286E /* GeoFireUtils */,
+				ABA4A43628D564FF0074293A /* FirebaseAnalytics */,
+				ABA4A43828D564FF0074293A /* FirebaseAuth */,
+				ABA4A43A28D564FF0074293A /* FirebaseFirestore */,
+				ABA4A43C28D564FF0074293A /* FirebaseFirestoreSwift */,
+				ABA4A43E28D564FF0074293A /* FirebaseStorage */,
+			);
 			productName = TheSamePage;
 			productReference = AB36FF6228D356FD00AAC00C /* TheSamePage.app */;
 			productType = "com.apple.product-type.application";
@@ -247,6 +304,10 @@
 				Base,
 			);
 			mainGroup = AB36FF5928D356FD00AAC00C;
+			packageReferences = (
+				AB21E5BC28D55C3600BD286E /* XCRemoteSwiftPackageReference "geofire-objc" */,
+				ABA4A43528D564FF0074293A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = AB36FF6328D356FD00AAC00C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -262,6 +323,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB36FF6D28D356FE00AAC00C /* Preview Assets.xcassets in Resources */,
+				AB6C09DF28D4C7F500990313 /* GoogleService-Info.plist in Resources */,
+				AB399AD628D4BCD8009B39F7 /* Notes.rtf in Resources */,
 				AB36FF6A28D356FE00AAC00C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,12 +337,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB36FF7428D358FB00AAC00C /* HomeView.swift in Sources */,
+				AB399ADB28D4C548009B39F7 /* UserViewModel.swift in Sources */,
 				AB36FF9D28D36BBF00AAC00C /* HomeShowCard.swift in Sources */,
 				AB36FF7628D3598900AAC00C /* MyShowsView.swift in Sources */,
+				AB399AD928D4C1CE009B39F7 /* TextUtility.swift in Sources */,
 				AB36FF8B28D35CB500AAC00C /* Time.swift in Sources */,
 				AB36FF8528D35C1B00AAC00C /* Location.swift in Sources */,
 				AB36FF8028D35BFA00AAC00C /* User.swift in Sources */,
 				AB36FF9828D36A6600AAC00C /* SectionTitle.swift in Sources */,
+				AB399AD228D4AF3E009B39F7 /* MyShowsShowCard.swift in Sources */,
 				AB36FF7828D359E700AAC00C /* ProfileView.swift in Sources */,
 				AB36FF6828D356FD00AAC00C /* RootView.swift in Sources */,
 				AB36FF9F28D36D0300AAC00C /* HomeShowCardViewModel.swift in Sources */,
@@ -290,6 +356,7 @@
 				AB36FF8F28D35E8C00AAC00C /* Genre.swift in Sources */,
 				AB36FF6628D356FD00AAC00C /* TheSamePageApp.swift in Sources */,
 				AB36FF8D28D35CDF00AAC00C /* Backline.swift in Sources */,
+				AB399AD428D4B12B009B39F7 /* MyShowsShowCardViewModel.swift in Sources */,
 				AB36FF8928D35C2800AAC00C /* Link.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -427,6 +494,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -434,9 +502,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.julianmichaeltechnologies.TheSamePage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -456,6 +527,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -463,9 +535,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.julianmichaeltechnologies.TheSamePage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -491,6 +566,63 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AB21E5BC28D55C3600BD286E /* XCRemoteSwiftPackageReference "geofire-objc" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/geofire-objc";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		ABA4A43528D564FF0074293A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AB21E5BD28D55C3600BD286E /* GeoFire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AB21E5BC28D55C3600BD286E /* XCRemoteSwiftPackageReference "geofire-objc" */;
+			productName = GeoFire;
+		};
+		AB21E5BF28D55C3600BD286E /* GeoFireUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AB21E5BC28D55C3600BD286E /* XCRemoteSwiftPackageReference "geofire-objc" */;
+			productName = GeoFireUtils;
+		};
+		ABA4A43628D564FF0074293A /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ABA4A43528D564FF0074293A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		ABA4A43828D564FF0074293A /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ABA4A43528D564FF0074293A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		ABA4A43A28D564FF0074293A /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ABA4A43528D564FF0074293A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		ABA4A43C28D564FF0074293A /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ABA4A43528D564FF0074293A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+		ABA4A43E28D564FF0074293A /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ABA4A43528D564FF0074293A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AB36FF5A28D356FD00AAC00C /* Project object */;
 }

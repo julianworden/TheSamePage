@@ -13,6 +13,7 @@ struct Show: Codable, Identifiable {
     let name: String
     let description: String?
     let host: User
+    let participantUids: [String]
     let venueName: String
     let time: Time
     let ticketPrice: Double?
@@ -28,8 +29,9 @@ struct Show: Codable, Identifiable {
     static let example = Show(
         id: UUID(),
         name: "Dumpweed Extravaganza",
-        description: nil,
+        description: "A dank ass banger! Hop on the bill I freakin’ swear you won’t regret it! Like, it's gonna be the show of the absolute century, bro!",
         host: User.example,
+        participantUids: [],
         venueName: "Starland Ballroom",
         time: Time.example,
         ticketPrice: 100,

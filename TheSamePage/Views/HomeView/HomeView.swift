@@ -13,12 +13,14 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             VStack {
-                SectionTitle(title: "Home")
+                SectionTitle(title: "Shows near you")
+                    .padding(.top)
                 
                 ScrollView {
-                    ForEach(showsViewModel.shows) { show in
+                    ForEach(showsViewModel.showsNearYou) { show in
                         HomeShowCard(show: show)
                     }
+                    .padding(.top, 5)
                 }
             }
             .navigationTitle("Home")

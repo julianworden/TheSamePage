@@ -8,9 +8,11 @@
 import Foundation
 
 class ShowsViewModel: ObservableObject {
-    @Published var shows = [Show]()
+    @Published var showsNearYou = [Show]()
+    @Published var yourShows = [Show]()
     
     func getShows() {
-        shows = DatabaseService.shows
+        showsNearYou = DatabaseService.shows
+        yourShows = DatabaseService.shows
     }
 }
