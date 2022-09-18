@@ -5,17 +5,24 @@
 //  Created by Julian Worden on 9/15/22.
 //
 
+import FirebaseFirestore
 import Foundation
 
 class DatabaseService {
+    enum DatabaseServiceError: Error {
+        case firestoreError(message: String)
+    }
+    
+    static let shared = DatabaseService()
     static let shows = [
         Show(
-            id: UUID(),
             name: "Dumpweed Extravaganza",
             description: "A dank ass banger! Hop on the bill I freakin’ swear you won’t regret it I swear.",
-            host: User.example,
+            host: "DAA Entertainment",
+            hostUid: "",
             participantUids: [],
-            venueName: "Starland Ballroom",
+            venue: "Starland Ballroom",
+            date: Timestamp(date: Date()),
             time: Time.example,
             ticketPrice: 100,
             imageUrl: nil,
@@ -28,12 +35,13 @@ class DatabaseService {
             bands: [Band.example]
         ),
         Show(
-            id: UUID(),
             name: "The Return of Pathetic Fallacy",
             description: "They're back! And with a god damn vengeance you won’t want to miss.",
-            host: User.example,
+            host: "Damn Straight Entertainment",
+            hostUid: "",
             participantUids: [],
-            venueName: "Wembley Stadium",
+            venue: "Wembley Stadium",
+            date: Timestamp(date: Date()),
             time: Time.example,
             ticketPrice: 200,
             imageUrl: nil,
@@ -46,12 +54,13 @@ class DatabaseService {
             bands: [Band.example]
         ),
         Show(
-            id: UUID(),
             name: "Generation Underground",
             description: "No idea how they're playing a show this big. They probably paid somebody lots of money.",
-            host: User.example,
+            host: "DAA Entertainment",
+            hostUid: "",
             participantUids: [],
-            venueName: "Giants Stadium",
+            venue: "Giants Stadium",
+            date: Timestamp(date: Date()),
             time: Time.example,
             ticketPrice: 300,
             imageUrl: nil,
@@ -64,4 +73,18 @@ class DatabaseService {
             bands: [Band.example]
         )
     ]
+    
+    let db = Firestore.firestore()
+    
+    static func getShowsNearYou() -> [Show] {
+        return []
+    }
+    
+    func createShow(show: Show) throws {
+        do {
+            _ = try db.collection("shows").addDocument(from: show)
+        } catch {
+            throw DatabaseServiceError.firestoreError(message: "Failed to add show to database.")
+        }
+    }
 }

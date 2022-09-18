@@ -25,7 +25,7 @@ struct MyShowsShowCard: View {
                 Text(viewModel.show.name)
                     .font(.title3.bold())
                 
-                Text(viewModel.show.venueName)
+                Text(viewModel.show.venue)
                     .font(.caption)
                 
                 if let showDescription = viewModel.show.description {
@@ -41,10 +41,10 @@ struct MyShowsShowCard: View {
                     Image(systemName: "fork.knife.circle")
                     
                     if #available(iOS 15.0, *) {
-                        Text(viewModel.show.time.start.formatted(date: .numeric, time: .omitted))
+                        Text(viewModel.show.date.dateValue().formatted(date: .numeric, time: .omitted))
                             .font(.caption)
                     } else {
-                        Text(TextUtility.formatDate(date: viewModel.show.time.start))
+                        Text(TextUtility.formatDate(date: viewModel.show.date.dateValue()))
                     }
                 }
             }

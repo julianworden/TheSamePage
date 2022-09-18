@@ -5,10 +5,13 @@
 //  Created by Julian Worden on 9/15/22.
 //
 
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 import Foundation
 
 struct Band: Codable, Identifiable {
-    let id: UUID
+    @DocumentID var id: String?
+    @ServerTimestamp var dateCreated: Timestamp?
     let name: String
     let admin: String
     let members: [String]
@@ -19,7 +22,6 @@ struct Band: Codable, Identifiable {
     let state: String
     
     static let example = Band(
-        id: UUID(),
         name: "Pathetic Fallacy",
         admin: "",
         members: [],

@@ -10,6 +10,10 @@ import SwiftUI
 struct ProfileView: View {
     @EnvironmentObject var userController: UserController
     
+    @StateObject var viewModel = ProfileViewModel()
+    
+    @State private var streamingActionSheetIsShowing = false
+    
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     
     var body: some View {
@@ -27,7 +31,7 @@ struct ProfileView: View {
                     
                     LazyVGrid(columns: columns) {
                         ForEach(userController.bands) { band in
-                            ProfileBandCard(band: band)
+                            ProfileBandCard(band: band, streamingActionSheetIsShowing: $streamingActionSheetIsShowing)
                         }
                     }
                 }
@@ -35,6 +39,16 @@ struct ProfileView: View {
             .navigationTitle("Profile")
             .onAppear {
                 userController.getBands()
+            }
+            .actionSheet(isPresented: $streamingActionSheetIsShowing) {
+                ActionSheet(
+                    title: Text("Stream"),
+                    message: Text("Choose a streaming platform"),
+                    buttons: [
+                        .cancel(),
+                        .default(Text("Spotify")),
+                        .default(Text("Apple Music"))
+                    ])
             }
         }
     }

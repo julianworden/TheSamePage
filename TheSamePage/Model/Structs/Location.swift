@@ -5,9 +5,11 @@
 //  Created by Julian Worden on 9/15/22.
 //
 
+import FirebaseFirestoreSwift
 import Foundation
 
 struct Location: Codable {
+    @DocumentID var id: String?
     let address: String
     let latitude: String
     let longitude: String

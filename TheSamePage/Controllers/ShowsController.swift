@@ -13,6 +13,17 @@ class ShowsController: ObservableObject {
     
     func getShows() {
         showsNearYou = DatabaseService.shows
+        // TODO: Implement showsNearYou = DatabaseService.getShowsNearYou() and remove above line
         yourShows = DatabaseService.shows
+    }
+    
+    /// Fetches shows closest to the user based on their distance filter settings.
+    func getShowsNearYou() {
+        showsNearYou = DatabaseService.getShowsNearYou()
+    }
+    
+    /// Fetches all shows that the user is either the host of or is participating in.
+    func getYourShows() {
+        
     }
 }

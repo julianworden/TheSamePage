@@ -24,6 +24,11 @@ struct RootView: View {
                     Label("My Shows", systemImage: "music.mic")
                 }
             
+            NotificationsView()
+                .tabItem {
+                    Label("Notifications", systemImage: "bell")
+                }
+            
             ProfileView()
                 .tabItem {
                     Label("Profile", systemImage: "person")

@@ -42,6 +42,11 @@
 		ABA4A43B28D564FF0074293A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43A28D564FF0074293A /* FirebaseFirestore */; };
 		ABA4A43D28D564FF0074293A /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43C28D564FF0074293A /* FirebaseFirestoreSwift */; };
 		ABA4A43F28D564FF0074293A /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43E28D564FF0074293A /* FirebaseStorage */; };
+		ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D6F28D748FD0054269E /* NotificationsView.swift */; };
+		ABDC0D7228D74BFF0054269E /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D7128D74BFF0054269E /* ProfileViewModel.swift */; };
+		ABDC0D7428D75CC80054269E /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D7328D75CC80054269E /* AuthController.swift */; };
+		ABDC0D7928D76FC60054269E /* AddEditShowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D7828D76FC60054269E /* AddEditShowViewModel.swift */; };
+		ABDC0D7B28D76FDE0054269E /* AddEditShowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D7A28D76FDE0054269E /* AddEditShowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +79,11 @@
 		AB3E11E728D656FF000F147B /* ProfileBandCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBandCard.swift; sourceTree = "<group>"; };
 		AB3E11E928D65E94000F147B /* ProfileBandCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBandCardViewModel.swift; sourceTree = "<group>"; };
 		AB6C09DE28D4C7F500990313 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		ABDC0D6F28D748FD0054269E /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
+		ABDC0D7128D74BFF0054269E /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		ABDC0D7328D75CC80054269E /* AuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
+		ABDC0D7828D76FC60054269E /* AddEditShowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowViewModel.swift; sourceTree = "<group>"; };
+		ABDC0D7A28D76FDE0054269E /* AddEditShowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,7 +152,9 @@
 				AB36FF7A28D35B9A00AAC00C /* RootView */,
 				AB36FF7B28D35B9D00AAC00C /* HomeView */,
 				AB36FF7C28D35BA200AAC00C /* MyShowsView */,
+				ABDC0D6E28D748E50054269E /* NotificationsView */,
 				AB36FF7D28D35BA700AAC00C /* ProfileView */,
+				ABDC0D7528D76F980054269E /* AddEditShowView */,
 				AB36FF9628D36A4F00AAC00C /* Miscellaneous */,
 			);
 			path = Views;
@@ -180,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				AB36FF7728D359E700AAC00C /* ProfileView.swift */,
+				ABDC0D7128D74BFF0054269E /* ProfileViewModel.swift */,
 				AB3E11E728D656FF000F147B /* ProfileBandCard.swift */,
 				AB3E11E928D65E94000F147B /* ProfileBandCardViewModel.swift */,
 			);
@@ -238,6 +251,7 @@
 			children = (
 				AB36FFA128D372A900AAC00C /* ShowsController.swift */,
 				AB399ADA28D4C548009B39F7 /* UserController.swift */,
+				ABDC0D7328D75CC80054269E /* AuthController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -248,6 +262,23 @@
 				AB399AD828D4C1CE009B39F7 /* TextUtility.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		ABDC0D6E28D748E50054269E /* NotificationsView */ = {
+			isa = PBXGroup;
+			children = (
+				ABDC0D6F28D748FD0054269E /* NotificationsView.swift */,
+			);
+			path = NotificationsView;
+			sourceTree = "<group>";
+		};
+		ABDC0D7528D76F980054269E /* AddEditShowView */ = {
+			isa = PBXGroup;
+			children = (
+				ABDC0D7A28D76FDE0054269E /* AddEditShowView.swift */,
+				ABDC0D7828D76FC60054269E /* AddEditShowViewModel.swift */,
+			);
+			path = AddEditShowView;
 			sourceTree = "<group>";
 		};
 		FF4320B392FCA7A1D9B09394 /* Frameworks */ = {
@@ -346,18 +377,22 @@
 				AB399ADB28D4C548009B39F7 /* UserController.swift in Sources */,
 				AB36FF9D28D36BBF00AAC00C /* HomeShowCard.swift in Sources */,
 				AB36FF7628D3598900AAC00C /* MyShowsView.swift in Sources */,
+				ABDC0D7428D75CC80054269E /* AuthController.swift in Sources */,
 				AB399AD928D4C1CE009B39F7 /* TextUtility.swift in Sources */,
 				AB36FF8B28D35CB500AAC00C /* Time.swift in Sources */,
 				AB36FF8528D35C1B00AAC00C /* Location.swift in Sources */,
 				AB36FF8028D35BFA00AAC00C /* User.swift in Sources */,
 				AB36FF9828D36A6600AAC00C /* SectionTitle.swift in Sources */,
+				ABDC0D7B28D76FDE0054269E /* AddEditShowView.swift in Sources */,
 				AB3E11E828D656FF000F147B /* ProfileBandCard.swift in Sources */,
+				ABDC0D7228D74BFF0054269E /* ProfileViewModel.swift in Sources */,
 				AB399AD228D4AF3E009B39F7 /* MyShowsShowCard.swift in Sources */,
 				AB36FF7828D359E700AAC00C /* ProfileView.swift in Sources */,
 				AB36FF6828D356FD00AAC00C /* RootView.swift in Sources */,
 				AB3E11EA28D65E94000F147B /* ProfileBandCardViewModel.swift in Sources */,
 				AB36FF9F28D36D0300AAC00C /* HomeShowCardViewModel.swift in Sources */,
 				AB36FF8728D35C2000AAC00C /* Band.swift in Sources */,
+				ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */,
 				AB36FFA228D372A900AAC00C /* ShowsController.swift in Sources */,
 				AB36FF9428D361A100AAC00C /* DatabaseService.swift in Sources */,
 				AB36FF8328D35C0600AAC00C /* Show.swift in Sources */,
@@ -365,6 +400,7 @@
 				AB36FF6628D356FD00AAC00C /* TheSamePageApp.swift in Sources */,
 				AB36FF8D28D35CDF00AAC00C /* Backline.swift in Sources */,
 				AB399AD428D4B12B009B39F7 /* MyShowsShowCardViewModel.swift in Sources */,
+				ABDC0D7928D76FC60054269E /* AddEditShowViewModel.swift in Sources */,
 				AB36FF8928D35C2800AAC00C /* Link.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

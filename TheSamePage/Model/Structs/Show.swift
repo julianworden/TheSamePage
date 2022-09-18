@@ -5,16 +5,20 @@
 //  Created by Julian Worden on 9/15/22.
 //
 
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 import Foundation
 
 struct Show: Codable, Identifiable {
-    // TODO: Replace all id properties on all Models with a @DocumentID property from Firebase
-    let id: UUID
+    @DocumentID var id: String?
+    @ServerTimestamp var dateCreated: Timestamp?
     let name: String
     let description: String?
-    let host: User
+    let host: String
+    let hostUid: String
     let participantUids: [String]
-    let venueName: String
+    let venue: String
+    let date: Timestamp
     let time: Time
     let ticketPrice: Double?
     let imageUrl: String?
@@ -27,12 +31,13 @@ struct Show: Codable, Identifiable {
     let bands: [Band]?
     
     static let example = Show(
-        id: UUID(),
         name: "Dumpweed Extravaganza",
         description: "A dank ass banger! Hop on the bill I freakin’ swear you won’t regret it! Like, it's gonna be the show of the absolute century, bro!",
-        host: User.example,
+        host: "DAA Entertainment",
+        hostUid: "",
         participantUids: [],
-        venueName: "Starland Ballroom",
+        venue: "Starland Ballroom",
+        date: Timestamp(date: Date()),
         time: Time.example,
         ticketPrice: 100,
         imageUrl: nil,

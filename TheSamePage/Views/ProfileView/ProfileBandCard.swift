@@ -10,8 +10,11 @@ import SwiftUI
 struct ProfileBandCard: View {
     @StateObject var viewModel: ProfileBandCardViewModel
     
-    init(band: Band) {
+    @Binding var streamingActionSheetIsShowing: Bool
+    
+    init(band: Band, streamingActionSheetIsShowing: Binding<Bool>) {
         _viewModel = StateObject(wrappedValue: ProfileBandCardViewModel(band: band))
+        _streamingActionSheetIsShowing = Binding(projectedValue: streamingActionSheetIsShowing)
     }
     
     var body: some View {
@@ -31,7 +34,7 @@ struct ProfileBandCard: View {
                     .font(.caption)
                 
                 Button {
-                    // TODO: Show confirmation dialog with platforms
+                    streamingActionSheetIsShowing = true
                 } label: {
                     Image(systemName: "speaker.wave.2")
                         .padding(.top, 2)
@@ -45,6 +48,6 @@ struct ProfileBandCard: View {
 
 struct ProfileViewBandCard_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileBandCard(band: Band.example)
+        ProfileBandCard(band: Band.example, streamingActionSheetIsShowing: .constant(false))
     }
 }

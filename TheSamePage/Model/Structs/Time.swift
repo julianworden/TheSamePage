@@ -5,19 +5,21 @@
 //  Created by Julian Worden on 9/15/22.
 //
 
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 import Foundation
 
 struct Time: Codable {
-    // TODO: Replace Date types with Timestamp Firebase types
-    let loadIn: Date
-    let loadOut: Date
-    let start: Date
-    let end: Date
+    @DocumentID var id: String?
+    let loadIn: Timestamp?
+    let doors: Timestamp?
+    let firstSetStart: Timestamp?
+    let end: Timestamp?
     
     static let example = Time(
-        loadIn: Date(),
-        loadOut: Date(),
-        start: Date(),
-        end: Date()
+        loadIn: Timestamp(date: Date()),
+        doors: Timestamp(date: Date()),
+        firstSetStart: Timestamp(date: Date()),
+        end: Timestamp(date: Date())
     )
 }
