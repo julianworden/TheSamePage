@@ -69,6 +69,7 @@ struct AddEditShowView: View {
                     Button("Create Show") {
                         do {
                             try viewModel.createShow()
+                            addEditShowViewIsShowing = false
                         } catch {
                             print(error)
                         }

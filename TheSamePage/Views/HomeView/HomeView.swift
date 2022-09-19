@@ -19,7 +19,7 @@ struct HomeView: View {
                     .padding(.top)
                 
                 ScrollView {
-                    ForEach(showsController.showsNearYou) { show in
+                    ForEach(showsController.nearbyShows) { show in
                         HomeShowCard(show: show)
                     }
                     .padding(.top, 5)

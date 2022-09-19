@@ -5,25 +5,43 @@
 //  Created by Julian Worden on 9/15/22.
 //
 
+import FirebaseFirestore
 import Foundation
 
 class ShowsController: ObservableObject {
-    @Published var showsNearYou = [Show]()
-    @Published var yourShows = [Show]()
+    @Published var nearbyShows = [Show]()
+    @Published var playingShows = [Show]()
+    @Published var hostedShows = [Show]()
+    
+    let db = Firestore.firestore()
+    var hostedShowsListener: ListenerRegistration?
     
     func getShows() {
-        showsNearYou = DatabaseService.shows
+        nearbyShows = DatabaseService.shows
         // TODO: Implement showsNearYou = DatabaseService.getShowsNearYou() and remove above line
-        yourShows = DatabaseService.shows
+        playingShows = DatabaseService.shows
     }
     
     /// Fetches shows closest to the user based on their distance filter settings.
     func getShowsNearYou() {
-        showsNearYou = DatabaseService.getShowsNearYou()
+        nearbyShows = DatabaseService.shared.getShowsNearYou()
     }
     
     /// Fetches all shows that the user is either the host of or is participating in.
-    func getYourShows() {
-        
+    func getHostedShows() async throws {
+        db.collection("shows").whereField(
+            "hostUid",
+            isEqualTo: AuthController.getLoggedInUid()
+        ).addSnapshotListener(includeMetadataChanges: false) { snapshot, error in
+            if snapshot != nil && error == nil {
+                Task { @MainActor in
+                    self.hostedShows = try await DatabaseService.shared.getHostedShows()
+                }
+            }
+        }
+    }
+    
+    func removeShowListeners() {
+        hostedShowsListener?.remove()
     }
 }

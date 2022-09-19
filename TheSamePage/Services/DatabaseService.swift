@@ -11,6 +11,7 @@ import Foundation
 class DatabaseService {
     enum DatabaseServiceError: Error {
         case firestoreError(message: String)
+        case decodeError(message: String)
     }
     
     static let shared = DatabaseService()
@@ -76,8 +77,20 @@ class DatabaseService {
     
     let db = Firestore.firestore()
     
-    static func getShowsNearYou() -> [Show] {
+    func getShowsNearYou() -> [Show] {
         return []
+    }
+    
+    func getHostedShows() async throws -> [Show] {
+        let query = db.collection("shows").whereField("hostUid", isEqualTo: AuthController.getLoggedInUid())
+        let yourShows = try await query.getDocuments()
+        
+        do {
+            let showsArray = try yourShows.documents.map { try $0.data(as: Show.self) }
+            return showsArray
+        } catch {
+            throw DatabaseServiceError.decodeError(message: "Failed to decode show from database.")
+        }
     }
     
     func createShow(show: Show) throws {

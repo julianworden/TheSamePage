@@ -21,7 +21,7 @@ struct MyShowsView: View {
                     
                     ScrollView(.horizontal, showsIndicators: true) {
                         HStack {
-                            ForEach(showsController.yourShows) { show in
+                            ForEach(showsController.playingShows) { show in
                                 MyShowsShowCard(show: show)
                             }
                         }
@@ -40,27 +40,48 @@ struct MyShowsView: View {
                         .padding(.trailing)
                     }
                     
-                    VStack {
-                        Text("You're not hosting any shows.")
-                            .font(.body.italic())
-                        
-                        Button {
-                            addEditShowViewIsShowing = true
-                        } label: {
-                            Text("Tap here to create a show.")
+                    if !showsController.hostedShows.isEmpty {
+                        ScrollView(.horizontal, showsIndicators: true) {
+                            HStack {
+                                ForEach(showsController.hostedShows) { show in
+                                    MyShowsShowCard(show: show)
+                                }
+                            }
+                            .padding(.horizontal)
                         }
+                    } else {
+                        VStack {
+                            Text("You're not hosting any shows.")
+                                .font(.body.italic())
+                            
+                            Button {
+                                addEditShowViewIsShowing = true
+                            } label: {
+                                Text("Tap here to create a show.")
+                            }
+                        }
+                        .padding(.top)
                     }
-                    .padding(.top)
                     
                     Spacer()
                 }
-                .navigationTitle("My Shows")
-                .onAppear {
-                    showsController.getShows()
+            }
+            .navigationTitle("My Shows")
+            // TODO: Replace with .task in iOS 15
+            .onAppear {
+                Task {
+                    do {
+                        try await showsController.getHostedShows()
+                    } catch {
+                        print(error)
+                    }
                 }
-                .sheet(isPresented: $addEditShowViewIsShowing) {
-                    AddEditShowView(viewTitleText: "Create Show", addEditShowViewIsShowing: $addEditShowViewIsShowing)
-                }
+            }
+            .onDisappear {
+                showsController.removeShowListeners()
+            }
+            .sheet(isPresented: $addEditShowViewIsShowing) {
+                AddEditShowView(viewTitleText: "Create Show", addEditShowViewIsShowing: $addEditShowViewIsShowing)
             }
         }
     }
