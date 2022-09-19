@@ -14,4 +14,11 @@ struct TextUtility {
         let dateString = dateFormatter.string(from: date)
         return dateString
     }
+    
+    static func formatTime(time: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm a"
+        let timeString = dateFormatter.string(from: time)
+        return timeString
+    }
 }

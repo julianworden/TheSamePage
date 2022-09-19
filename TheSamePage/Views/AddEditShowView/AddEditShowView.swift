@@ -23,7 +23,6 @@ struct AddEditShowView: View {
     
     var body: some View {
         NavigationView {
-            
             Form {
                 if let showImage {
                     showImage

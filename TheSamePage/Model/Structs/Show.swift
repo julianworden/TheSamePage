@@ -9,6 +9,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
 
+// TODO: Add a parameter for max number of bands playing
 struct Show: Codable, Identifiable {
     @DocumentID var id: String?
     @ServerTimestamp var dateCreated: Timestamp?
@@ -29,6 +30,14 @@ struct Show: Codable, Identifiable {
     let is21Plus: Bool
     let genre: Genre?
     let bands: [Band]?
+    
+    var formattedDate: String {
+        return TextUtility.formatDate(date: date.dateValue())
+    }
+    
+    var formattedDoorsTime: String {
+        return TextUtility.formatTime(time: time.doors?.dateValue() ?? Date())
+    }
     
     static let example = Show(
         name: "Dumpweed Extravaganza",

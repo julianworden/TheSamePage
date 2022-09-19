@@ -19,13 +19,24 @@ struct MyShowsView: View {
                     SectionTitle(title: "You're Playing")
                         .padding(.top)
                     
-                    ScrollView(.horizontal, showsIndicators: true) {
-                        HStack {
-                            ForEach(showsController.playingShows) { show in
-                                MyShowsShowCard(show: show)
+                    if !showsController.playingShows.isEmpty {
+                        ScrollView(.horizontal, showsIndicators: true) {
+                            HStack {
+                                ForEach(showsController.playingShows) { show in
+                                    NavigationLink {
+                                        ShowDetailsView(show: show)
+                                    } label: {
+                                        MyShowsShowCard(show: show)
+                                    }
+                                    .foregroundColor(.black)
+                                }
                             }
+                            .padding(.horizontal)
                         }
-                        .padding(.horizontal)
+                    } else {
+                        Text("You're not playing any shows.")
+                            .font(.body.italic())
+                            .padding(.vertical)
                     }
                     
                     HStack {
@@ -44,7 +55,12 @@ struct MyShowsView: View {
                         ScrollView(.horizontal, showsIndicators: true) {
                             HStack {
                                 ForEach(showsController.hostedShows) { show in
-                                    MyShowsShowCard(show: show)
+                                    NavigationLink {
+                                        ShowDetailsView(show: show)
+                                    } label: {
+                                        MyShowsShowCard(show: show)
+                                    }
+                                    .foregroundColor(.black)
                                 }
                             }
                             .padding(.horizontal)
@@ -72,6 +88,7 @@ struct MyShowsView: View {
                 Task {
                     do {
                         try await showsController.getHostedShows()
+                        try await showsController.getPlayingShows()
                     } catch {
                         print(error)
                     }

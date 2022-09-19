@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Edited.jpeg",
+      "filename" : "concertPhoto.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Edited 1.jpeg",
+      "filename" : "concertPhoto 1.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Edited 2.jpeg",
+      "filename" : "concertPhoto 2.jpg",
       "idiom" : "universal",
       "scale" : "3x"
     }

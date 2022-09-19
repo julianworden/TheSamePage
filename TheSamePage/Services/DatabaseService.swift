@@ -81,12 +81,28 @@ class DatabaseService {
         return []
     }
     
+    /// Fetches all the shows of which the signed in user is the host.
+    /// - Returns: An array of shows that the signed in user is hosting.
     func getHostedShows() async throws -> [Show] {
         let query = db.collection("shows").whereField("hostUid", isEqualTo: AuthController.getLoggedInUid())
         let yourShows = try await query.getDocuments()
         
         do {
             let showsArray = try yourShows.documents.map { try $0.data(as: Show.self) }
+            return showsArray
+        } catch {
+            throw DatabaseServiceError.decodeError(message: "Failed to decode show from database.")
+        }
+    }
+    
+    /// Fetches all the shows in which the signed in user is a participant.
+    /// - Returns: All of the shows in which the signed in user is a participant.
+    func getPlayingShows() async throws -> [Show] {
+        let query = db.collection("shows").whereField("participantUids", arrayContains: AuthController.getLoggedInUid())
+        let playingShows = try await query.getDocuments()
+        
+        do {
+            let showsArray = try playingShows.documents.map { try $0.data(as: Show.self) }
             return showsArray
         } catch {
             throw DatabaseServiceError.decodeError(message: "Failed to decode show from database.")

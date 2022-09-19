@@ -27,7 +27,7 @@ struct User: Codable {
         emailAddress: nil,
         bands: [
             Band(
-                name: "Pathetic Fallacy ROCKS!",
+                name: "Pathetic Fallacy",
                 admin: "",
                 members: [],
                 genre: Genre.rock.rawValue,
