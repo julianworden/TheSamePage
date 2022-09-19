@@ -15,4 +15,12 @@ class AuthController: ObservableObject {
     static func getLoggedInUid() -> String {
         return Auth.auth().currentUser?.uid ?? "Unknown UID"
     }
+    
+    static func logOut() throws {
+        try Auth.auth().signOut()
+    }
+    
+    static func userIsLoggedOut() -> Bool {
+        return Auth.auth().currentUser == nil
+    }
 }

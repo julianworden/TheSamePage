@@ -15,6 +15,7 @@ struct TheSamePageApp: App {
     
     init() {
         FirebaseApp.configure()
+        UITabBar.appearance().backgroundColor = .white
     }
     
     var body: some Scene {

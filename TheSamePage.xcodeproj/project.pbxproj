@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		AB21E5BE28D55C3600BD286E /* GeoFire in Frameworks */ = {isa = PBXBuildFile; productRef = AB21E5BD28D55C3600BD286E /* GeoFire */; };
 		AB21E5C028D55C3600BD286E /* GeoFireUtils in Frameworks */ = {isa = PBXBuildFile; productRef = AB21E5BF28D55C3600BD286E /* GeoFireUtils */; };
+		AB24E3A628D7C9B0002B4F2C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24E3A528D7C9B0002B4F2C /* LoginView.swift */; };
+		AB24E3A828D7C9C4002B4F2C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24E3A728D7C9C4002B4F2C /* LoginViewModel.swift */; };
 		AB36FF6628D356FD00AAC00C /* TheSamePageApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF6528D356FD00AAC00C /* TheSamePageApp.swift */; };
 		AB36FF6828D356FD00AAC00C /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF6728D356FD00AAC00C /* RootView.swift */; };
 		AB36FF6A28D356FE00AAC00C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB36FF6928D356FE00AAC00C /* Assets.xcassets */; };
@@ -50,6 +52,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AB24E3A528D7C9B0002B4F2C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		AB24E3A728D7C9C4002B4F2C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		AB36FF6228D356FD00AAC00C /* TheSamePage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheSamePage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB36FF6528D356FD00AAC00C /* TheSamePageApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheSamePageApp.swift; sourceTree = "<group>"; };
 		AB36FF6728D356FD00AAC00C /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -104,6 +108,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AB24E3A428D7C9A8002B4F2C /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				AB24E3A528D7C9B0002B4F2C /* LoginView.swift */,
+				AB24E3A728D7C9C4002B4F2C /* LoginViewModel.swift */,
+			);
+			path = LoginView;
+			sourceTree = "<group>";
+		};
 		AB36FF5928D356FD00AAC00C = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +162,7 @@
 		AB36FF7928D35B9500AAC00C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AB24E3A428D7C9A8002B4F2C /* LoginView */,
 				AB36FF7A28D35B9A00AAC00C /* RootView */,
 				AB36FF7B28D35B9D00AAC00C /* HomeView */,
 				AB36FF7C28D35BA200AAC00C /* MyShowsView */,
@@ -390,7 +404,9 @@
 				AB36FF7828D359E700AAC00C /* ProfileView.swift in Sources */,
 				AB36FF6828D356FD00AAC00C /* RootView.swift in Sources */,
 				AB3E11EA28D65E94000F147B /* ProfileBandCardViewModel.swift in Sources */,
+				AB24E3A828D7C9C4002B4F2C /* LoginViewModel.swift in Sources */,
 				AB36FF9F28D36D0300AAC00C /* HomeShowCardViewModel.swift in Sources */,
+				AB24E3A628D7C9B0002B4F2C /* LoginView.swift in Sources */,
 				AB36FF8728D35C2000AAC00C /* Band.swift in Sources */,
 				ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */,
 				AB36FFA228D372A900AAC00C /* ShowsController.swift in Sources */,

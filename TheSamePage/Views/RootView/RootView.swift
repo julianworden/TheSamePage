@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct RootView: View {
-    init() {
-        UITabBar.appearance().backgroundColor = .white
-    }
+    @State private var userIsLoggedOut = AuthController.userIsLoggedOut()
     
     var body: some View {
         TabView {
-            HomeView()
+            HomeView(userIsLoggedOut: $userIsLoggedOut)
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
@@ -33,6 +31,10 @@ struct RootView: View {
                 .tabItem {
                     Label("Profile", systemImage: "person")
                 }
+        }
+        .navigationBarHidden(true)
+        .fullScreenCover(isPresented: $userIsLoggedOut) {
+            LoginView(userIsLoggedOut: $userIsLoggedOut)
         }
     }
 }
