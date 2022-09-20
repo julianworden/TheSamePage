@@ -33,6 +33,7 @@ class DatabaseService {
             hasBar: true,
             is21Plus: false,
             genre: nil,
+            maxNumberOfBands: 3,
             bands: [Band.example]
         ),
         Show(
@@ -52,6 +53,7 @@ class DatabaseService {
             hasBar: false,
             is21Plus: false,
             genre: nil,
+            maxNumberOfBands: 3,
             bands: [Band.example]
         ),
         Show(
@@ -71,6 +73,7 @@ class DatabaseService {
             hasBar: true,
             is21Plus: true,
             genre: nil,
+            maxNumberOfBands: 3,
             bands: [Band.example]
         )
     ]

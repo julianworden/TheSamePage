@@ -29,6 +29,7 @@ struct Show: Codable, Identifiable {
     let hasBar: Bool
     let is21Plus: Bool
     let genre: Genre?
+    let maxNumberOfBands: Int
     let bands: [Band]?
     
     var formattedDate: String {
@@ -56,6 +57,7 @@ struct Show: Codable, Identifiable {
         hasBar: true,
         is21Plus: false,
         genre: nil,
+        maxNumberOfBands: 2,
         bands: nil
     )
 }

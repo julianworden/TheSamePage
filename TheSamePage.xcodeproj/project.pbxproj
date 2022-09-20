@@ -51,6 +51,8 @@
 		ABDC0D7428D75CC80054269E /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D7328D75CC80054269E /* AuthController.swift */; };
 		ABDC0D7928D76FC60054269E /* AddEditShowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D7828D76FC60054269E /* AddEditShowViewModel.swift */; };
 		ABDC0D7B28D76FDE0054269E /* AddEditShowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D7A28D76FDE0054269E /* AddEditShowView.swift */; };
+		ABE3EFA628D91960002EEF23 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3EFA528D91960002EEF23 /* SignUpView.swift */; };
+		ABE3EFA828D919A2002EEF23 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +94,8 @@
 		ABDC0D7328D75CC80054269E /* AuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
 		ABDC0D7828D76FC60054269E /* AddEditShowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowViewModel.swift; sourceTree = "<group>"; };
 		ABDC0D7A28D76FDE0054269E /* AddEditShowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowView.swift; sourceTree = "<group>"; };
+		ABE3EFA528D91960002EEF23 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				AB24E3A428D7C9A8002B4F2C /* LoginView */,
+				ABE3EFA428D91955002EEF23 /* SignUpView */,
 				AB36FF7A28D35B9A00AAC00C /* RootView */,
 				AB36FF7B28D35B9D00AAC00C /* HomeView */,
 				AB36FF7C28D35BA200AAC00C /* MyShowsView */,
@@ -309,6 +314,15 @@
 			path = AddEditShowView;
 			sourceTree = "<group>";
 		};
+		ABE3EFA428D91955002EEF23 /* SignUpView */ = {
+			isa = PBXGroup;
+			children = (
+				ABE3EFA528D91960002EEF23 /* SignUpView.swift */,
+				ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */,
+			);
+			path = SignUpView;
+			sourceTree = "<group>";
+		};
 		FF4320B392FCA7A1D9B09394 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -413,6 +427,7 @@
 				AB36FF9828D36A6600AAC00C /* SectionTitle.swift in Sources */,
 				ABDC0D7B28D76FDE0054269E /* AddEditShowView.swift in Sources */,
 				AB3E11E828D656FF000F147B /* ProfileBandCard.swift in Sources */,
+				ABE3EFA628D91960002EEF23 /* SignUpView.swift in Sources */,
 				ABDC0D7228D74BFF0054269E /* ProfileViewModel.swift in Sources */,
 				AB399AD228D4AF3E009B39F7 /* MyShowsShowCard.swift in Sources */,
 				ABBE94C428D8AE7500790A04 /* ShowDetailsViewModel.swift in Sources */,
@@ -427,6 +442,7 @@
 				ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */,
 				AB36FFA228D372A900AAC00C /* ShowsController.swift in Sources */,
 				AB36FF9428D361A100AAC00C /* DatabaseService.swift in Sources */,
+				ABE3EFA828D919A2002EEF23 /* SignUpViewModel.swift in Sources */,
 				AB36FF8328D35C0600AAC00C /* Show.swift in Sources */,
 				AB36FF8F28D35E8C00AAC00C /* Genre.swift in Sources */,
 				AB36FF6628D356FD00AAC00C /* TheSamePageApp.swift in Sources */,

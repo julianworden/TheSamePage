@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AddEditShowView: View {
+    
     @StateObject var viewModel = AddEditShowViewModel()
     
     @Binding var addEditShowViewIsShowing: Bool
@@ -49,6 +50,20 @@ struct AddEditShowView: View {
                     TextEditor(text: $viewModel.showDescription)
                     TextField("Venue", text: $viewModel.showVenue)
                     DatePicker("Date", selection: $viewModel.showDate, in: viewModel.showDate..., displayedComponents: .date)
+                }
+                
+                Section {
+                    Stepper {
+                        Text("Max number of bands: \(viewModel.showMaxNumberOfBands)")
+                    } onIncrement: {
+                        if viewModel.showMaxNumberOfBands < 101 {
+                            viewModel.incrementMaxNumberOfBands()
+                        }
+                    } onDecrement: {
+                        if viewModel.showMaxNumberOfBands > 1 {
+                            viewModel.decrementMaxNumberOfBands()
+                        }
+                    }
                 }
                 
                 Section {

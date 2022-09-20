@@ -15,6 +15,7 @@ class AddEditShowViewModel: ObservableObject {
     @Published var showDescription = ""
     @Published var showVenue = ""
     @Published var showDate = Date()
+    @Published var showMaxNumberOfBands = 1
     @Published var showLoadInTime = Date()
     @Published var showFirstSetTime = Date()
     @Published var showDoorsTime = Date()
@@ -25,6 +26,14 @@ class AddEditShowViewModel: ObservableObject {
     
     init(showToEdit: Show? = nil) {
         self.showToEdit = showToEdit
+    }
+    
+    func incrementMaxNumberOfBands() {
+        showMaxNumberOfBands += 1
+    }
+    
+    func decrementMaxNumberOfBands() {
+        showMaxNumberOfBands -= 1
     }
     
     func createShow() throws {
@@ -51,6 +60,7 @@ class AddEditShowViewModel: ObservableObject {
             hasBar: showHasBar,
             is21Plus: showIs21Plus,
             genre: nil,
+            maxNumberOfBands: showMaxNumberOfBands,
             bands: nil
         )
         

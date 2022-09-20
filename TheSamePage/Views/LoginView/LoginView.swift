@@ -41,14 +41,13 @@ struct LoginView: View {
                 
                 Text("Don't have an account?")
                 NavigationLink {
-                    
+                    SignUpView(userIsLoggedOut: $userIsLoggedOut)
                 } label: {
                     Text("Sign Up")
                         .foregroundColor(.accentColor)
                 }
             }
             .navigationTitle("Log In")
-            .navigationBarBackButtonHidden()
         }
     }
 }
