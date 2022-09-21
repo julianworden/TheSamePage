@@ -17,34 +17,26 @@ struct SignUpView: View {
     
     var body: some View {
         Form {
-            Section {
-                Button {
-                    imagePickerIsShowing = true
-                } label: {
-                    if let profileImage {
-                        HStack {
-                            Spacer()
-                            Image(uiImage: profileImage)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 200)
-                            Spacer()
-                        }
-                    } else {
-                        NoImageView()
-                    }
-                }
+            Section("Account Info") {
+                ImageSelectionButton(imagePickerIsShowing: $imagePickerIsShowing, selectedImage: $profileImage)
                 TextField("Email Address", text: $viewModel.emailAddress)
                 SecureField("Password", text: $viewModel.password)
-            } header: {
-                Text("Account Info")
             }
 
-            Section {
+            Section("Name") {
                 TextField("First name", text: $viewModel.firstName)
                 TextField("Last name", text: $viewModel.lastName)
-            } header: {
-                Text("Name")
+            }
+            
+            Section("Your band") {
+                Toggle("Are you in a band?", isOn: $viewModel.userIsInABand)
+                if viewModel.userIsInABand {
+                    NavigationLink {
+                        AddEditBandView()
+                    } label: {
+                        Text("Create a band profile")
+                    }
+                }
             }
             
             Section {
@@ -65,6 +57,7 @@ struct SignUpView: View {
         }
         .navigationTitle("Sign Up")
         .navigationBarTitleDisplayMode(.inline)
+        .animation(.easeInOut, value: viewModel.userIsInABand)
         .sheet(isPresented: $imagePickerIsShowing) {
             ImagePicker(image: $profileImage, pickerIsShowing: $imagePickerIsShowing)
         }

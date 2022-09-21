@@ -54,6 +54,10 @@
 		ABDC0D7428D75CC80054269E /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D7328D75CC80054269E /* AuthController.swift */; };
 		ABDC0D7928D76FC60054269E /* AddEditShowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D7828D76FC60054269E /* AddEditShowViewModel.swift */; };
 		ABDC0D7B28D76FDE0054269E /* AddEditShowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D7A28D76FDE0054269E /* AddEditShowView.swift */; };
+		ABDDAD4528DB3ED200F1CF9B /* ProfileAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDDAD4428DB3ED200F1CF9B /* ProfileAsyncImage.swift */; };
+		ABDDAD4828DB45D100F1CF9B /* AddEditBandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDDAD4728DB45D000F1CF9B /* AddEditBandView.swift */; };
+		ABDDAD4A28DB46B500F1CF9B /* ImageSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDDAD4928DB46B500F1CF9B /* ImageSelectionButton.swift */; };
+		ABDDAD4C28DB49DF00F1CF9B /* AddEditBandViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDDAD4B28DB49DF00F1CF9B /* AddEditBandViewModel.swift */; };
 		ABE3EFA628D91960002EEF23 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3EFA528D91960002EEF23 /* SignUpView.swift */; };
 		ABE3EFA828D919A2002EEF23 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -100,6 +104,10 @@
 		ABDC0D7328D75CC80054269E /* AuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
 		ABDC0D7828D76FC60054269E /* AddEditShowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowViewModel.swift; sourceTree = "<group>"; };
 		ABDC0D7A28D76FDE0054269E /* AddEditShowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowView.swift; sourceTree = "<group>"; };
+		ABDDAD4428DB3ED200F1CF9B /* ProfileAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAsyncImage.swift; sourceTree = "<group>"; };
+		ABDDAD4728DB45D000F1CF9B /* AddEditBandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditBandView.swift; sourceTree = "<group>"; };
+		ABDDAD4928DB46B500F1CF9B /* ImageSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectionButton.swift; sourceTree = "<group>"; };
+		ABDDAD4B28DB49DF00F1CF9B /* AddEditBandViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditBandViewModel.swift; sourceTree = "<group>"; };
 		ABE3EFA528D91960002EEF23 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -185,6 +193,7 @@
 				AB36FF7D28D35BA700AAC00C /* ProfileView */,
 				ABDC0D7528D76F980054269E /* AddEditShowView */,
 				ABBE94C028D8AD9E00790A04 /* ShowDetailsView */,
+				ABDDAD4628DB45A800F1CF9B /* AddEditBandView */,
 				AB36FF9628D36A4F00AAC00C /* Miscellaneous */,
 			);
 			path = Views;
@@ -273,8 +282,10 @@
 			isa = PBXGroup;
 			children = (
 				AB36FF9728D36A6600AAC00C /* SectionTitle.swift */,
+				ABDDAD4428DB3ED200F1CF9B /* ProfileAsyncImage.swift */,
 				AB2B867B28D9F444004601B6 /* NoImageView.swift */,
 				AB2B867D28D9F884004601B6 /* ImagePicker.swift */,
+				ABDDAD4928DB46B500F1CF9B /* ImageSelectionButton.swift */,
 			);
 			path = Miscellaneous;
 			sourceTree = "<group>";
@@ -321,6 +332,15 @@
 				ABDC0D7828D76FC60054269E /* AddEditShowViewModel.swift */,
 			);
 			path = AddEditShowView;
+			sourceTree = "<group>";
+		};
+		ABDDAD4628DB45A800F1CF9B /* AddEditBandView */ = {
+			isa = PBXGroup;
+			children = (
+				ABDDAD4728DB45D000F1CF9B /* AddEditBandView.swift */,
+				ABDDAD4B28DB49DF00F1CF9B /* AddEditBandViewModel.swift */,
+			);
+			path = AddEditBandView;
 			sourceTree = "<group>";
 		};
 		ABE3EFA428D91955002EEF23 /* SignUpView */ = {
@@ -442,15 +462,18 @@
 				AB399AD228D4AF3E009B39F7 /* MyShowsShowCard.swift in Sources */,
 				ABBE94C428D8AE7500790A04 /* ShowDetailsViewModel.swift in Sources */,
 				AB2B867C28D9F444004601B6 /* NoImageView.swift in Sources */,
+				ABDDAD4A28DB46B500F1CF9B /* ImageSelectionButton.swift in Sources */,
 				AB36FF7828D359E700AAC00C /* ProfileView.swift in Sources */,
 				AB36FF6828D356FD00AAC00C /* RootView.swift in Sources */,
 				AB3E11EA28D65E94000F147B /* ProfileBandCardViewModel.swift in Sources */,
 				AB24E3A828D7C9C4002B4F2C /* LoginViewModel.swift in Sources */,
 				ABBE94C228D8ADBF00790A04 /* ShowDetailsView.swift in Sources */,
+				ABDDAD4828DB45D100F1CF9B /* AddEditBandView.swift in Sources */,
 				AB36FF9F28D36D0300AAC00C /* HomeShowCardViewModel.swift in Sources */,
 				AB24E3A628D7C9B0002B4F2C /* LoginView.swift in Sources */,
 				AB36FF8728D35C2000AAC00C /* Band.swift in Sources */,
 				ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */,
+				ABDDAD4528DB3ED200F1CF9B /* ProfileAsyncImage.swift in Sources */,
 				AB36FFA228D372A900AAC00C /* ShowsController.swift in Sources */,
 				AB2B867E28D9F884004601B6 /* ImagePicker.swift in Sources */,
 				AB36FF9428D361A100AAC00C /* DatabaseService.swift in Sources */,
@@ -458,6 +481,7 @@
 				AB36FF8328D35C0600AAC00C /* Show.swift in Sources */,
 				AB36FF8F28D35E8C00AAC00C /* Genre.swift in Sources */,
 				AB36FF6628D356FD00AAC00C /* TheSamePageApp.swift in Sources */,
+				ABDDAD4C28DB49DF00F1CF9B /* AddEditBandViewModel.swift in Sources */,
 				AB36FF8D28D35CDF00AAC00C /* Backline.swift in Sources */,
 				AB399AD428D4B12B009B39F7 /* MyShowsShowCardViewModel.swift in Sources */,
 				ABDC0D7928D76FC60054269E /* AddEditShowViewModel.swift in Sources */,

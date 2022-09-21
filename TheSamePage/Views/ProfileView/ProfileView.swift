@@ -18,22 +18,17 @@ struct ProfileView: View {
         NavigationView {
             ScrollView {
                 VStack {
-                    SectionTitle(title: "\(userController.firstName) \(userController.lastName)")
+                    if userController.firstName != nil && userController.lastName != nil {
+                        SectionTitle(title: "\(userController.firstName!) \(userController.lastName!)")
+                    } else {
+                        SectionTitle(title: "Your Profile")
+                    }
                     
-                    AsyncImage(url: URL(string: userController.profileImageUrl)) { phase in
-                        switch phase {
-                        case .empty:
-                            ProgressView()
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 200)
-                        case .failure:
-                            NoImageView()
-                        @unknown default:
-                            NoImageView()
-                        }
+                    if userController.profileImageUrl != nil  {
+                        ProfileAsyncImage(url: URL(string: userController.profileImageUrl ?? ""))
+                    } else {
+                        NoImageView()
+                            .padding(.horizontal)
                     }
                     
                     SectionTitle(title: "Member of")

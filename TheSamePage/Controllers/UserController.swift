@@ -14,20 +14,20 @@ class UserController: ObservableObject {
         case firestoreError(message: String)
     }
     
-    @Published var firstName = ""
-    @Published var lastName = ""
-    @Published var emailAddress = ""
-    @Published var profileImageUrl = ""
+    @Published var firstName: String?
+    @Published var lastName: String?
+    @Published var emailAddress: String?
+    @Published var profileImageUrl: String?
     @Published var bands = [Band]()
     
     @MainActor
     func initializeUser() async throws {
-        let user = try await DatabaseService.shared.initializeUser()
+        let user = try await DatabaseService.shared.getLoggedInUser()
         
         firstName = user.firstName
         lastName = user.lastName
-        emailAddress = user.emailAddress ?? ""
-        profileImageUrl = user.profileImageUrl ?? ""
+        emailAddress = user.emailAddress
+        profileImageUrl = user.profileImageUrl
     }
     
     func getBands() {

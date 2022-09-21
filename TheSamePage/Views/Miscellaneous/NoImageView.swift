@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Presented when an image either hasn't been selected or could not be loaded.
 struct NoImageView: View {
     var body: some View {
         ZStack {

@@ -120,6 +120,8 @@ class DatabaseService {
         }
     }
     
+    /// Creates a show in the Firestore shows collection.
+    /// - Parameter show: The show to be added to Firestore.
     func createShow(show: Show) throws {
         do {
             _ = try db.collection("shows").addDocument(from: show)
@@ -128,49 +130,44 @@ class DatabaseService {
         }
     }
     
-    /// Creates a user object in the Firestore users collection.
+    /// Creates a band in the Firestore bands collection.
+    /// - Parameter band: The band to be added to Firestore.
+    func createBand(band: Band) throws {
+        do {
+            _ = try db.collection("bands").addDocument(from: band)
+        } catch {
+            throw DatabaseServiceError.firestoreError(message: "Failed to create band")
+        }
+    }
+    
+    /// Fetches the logged in user's data from Firestore.
     ///
-    /// If the user added a profile picture when signing up, this method will call a subsequent method to
-    /// upload that image to Firebase storage and gain access to that image's URL.
+    /// Used to initialize the logged in user within UserController so that basic data (first name, last name, profile image URL, etc.) is
+    /// readily available on device.
+    /// - Returns: The logged in user.
+    func getLoggedInUser() async throws -> User {
+        guard AuthController.userIsLoggedOut() == false else { throw DatabaseServiceError.firebaseAuthError(message: "User is logged out") }
+        
+        do {
+            let userDocument = try await db.collection("users").document(AuthController.getLoggedInUid()).getDocument()
+            return try userDocument.data(as: User.self)
+        } catch {
+            throw DatabaseServiceError.firestoreError(message: "Failed to fetch logged in user")
+        }
+    }
+    
+    /// Creates a user object in the Firestore users collection.
     /// - Parameters:
-    ///   - firstName: The first name entered by the user.
-    ///   - lastName: The last name entered by the user.
-    ///   - image: The profile picture selected by the user.
-    func createUserObject(firstName: String, lastName: String, image: UIImage?) async throws {
+    ///   - user: The user being created in Firestore.
+    func createUserObject(user: User) async throws {
         guard AuthController.userIsLoggedOut() == false else { throw DatabaseServiceError.firebaseAuthError(message: "User not logged in") }
         
-        let document = db.collection("users").document(AuthController.getLoggedInUid())
-
-        if let image = image {
-            do {
-                let imageUrl = try await DatabaseService.shared.uploadImage(image: image)
-                let newUser = User(
-                    firstName: firstName,
-                    lastName: lastName,
-                    profileImageUrl: imageUrl ?? "",
-                    phoneNumber: nil,
-                    emailAddress: nil,
-                    bands: nil
-                )
-                try document.setData(from: newUser)
-            } catch {
-                throw DatabaseServiceError.firebaseStorageError(message: "Error setting profile picture")
-            }
-        } else if image == nil {
-            let newUser = User(
-                firstName: firstName,
-                lastName: lastName,
-                profileImageUrl: nil,
-                phoneNumber: nil,
-                emailAddress: nil,
-                bands: nil
-            )
-            do {
-                try document.setData(from: newUser)
-            } catch {
-                throw DatabaseServiceError.firestoreError(message: "Failed to set new user data")
-            }
+        do {
+            try db.collection("users").document(AuthController.getLoggedInUid()).setData(from: user)
+        } catch {
+            throw DatabaseServiceError.firestoreError(message: "Error creating user object.")
         }
+        
     }
     
     // MARK: - Firebase Storage
@@ -190,7 +187,7 @@ class DatabaseService {
         let path = "images/\(UUID().uuidString).jpg"
         let fileRef = storageRef.child(path)
         var imageUrl: URL?
-
+        
         do {
             _ = try await fileRef.putDataAsync(imageData!)
             let fetchedImageUrl = try await fileRef.downloadURL()
@@ -198,19 +195,6 @@ class DatabaseService {
             return imageUrl?.absoluteString
         } catch {
             throw DatabaseServiceError.firebaseStorageError(message: "Error setting profile picture")
-        }
-    }
-    
-    // MARK: - User
-    
-    func initializeUser() async throws -> User {
-        guard AuthController.userIsLoggedOut() == false else { throw DatabaseServiceError.firebaseAuthError(message: "User is logged out") }
-        
-        do {
-            let userDocument = try await db.collection("users").document(AuthController.getLoggedInUid()).getDocument()
-            return try userDocument.data(as: User.self)
-        } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to fetch logged in user")
         }
     }
 }

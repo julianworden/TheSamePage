@@ -28,6 +28,7 @@ struct User: Codable {
         bands: [
             Band(
                 name: "Pathetic Fallacy",
+                profileImageUrl: nil,
                 admin: "",
                 members: [],
                 genre: Genre.rock.rawValue,
@@ -38,6 +39,7 @@ struct User: Codable {
             ),
             Band(
                 name: "Dumpweed",
+                profileImageUrl: nil,
                 admin: "",
                 members: [],
                 genre: Genre.rock.rawValue,
