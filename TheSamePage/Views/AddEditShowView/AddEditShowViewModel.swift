@@ -10,6 +10,7 @@ import Foundation
 
 class AddEditShowViewModel: ObservableObject {
     var showToEdit: Show?
+    let viewTitleText: String
     
     @Published var showName = ""
     @Published var showDescription = ""
@@ -24,16 +25,21 @@ class AddEditShowViewModel: ObservableObject {
     @Published var showHasBar = false
     @Published var showHasFood = false
     
-    init(showToEdit: Show? = nil) {
+    init(viewTitleText: String, showToEdit: Show? = nil) {
         self.showToEdit = showToEdit
+        self.viewTitleText = viewTitleText
     }
     
     func incrementMaxNumberOfBands() {
-        showMaxNumberOfBands += 1
+        if showMaxNumberOfBands < 101 {
+            showMaxNumberOfBands += 1
+        }
     }
     
     func decrementMaxNumberOfBands() {
-        showMaxNumberOfBands -= 1
+        if showMaxNumberOfBands > 1 {
+            showMaxNumberOfBands -= 1
+        }
     }
     
     func createShow() throws {

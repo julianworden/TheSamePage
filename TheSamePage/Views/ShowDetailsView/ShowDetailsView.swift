@@ -110,8 +110,6 @@ struct ShowDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             ShowDetailsView(show: Show.example)
-                .navigationTitle("Show Details")
-                .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

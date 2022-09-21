@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var showsController: ShowsController
+    @EnvironmentObject var userController: UserController
     
     @Binding var userIsLoggedOut: Bool
     
@@ -26,8 +27,13 @@ struct HomeView: View {
                 }
             }
             .navigationTitle("Home")
-            .onAppear {
-                showsController.getShows()
+            .task {
+                do {
+                    showsController.getShows()
+                    try await userController.initializeUser()
+                } catch {
+                    print(error)
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

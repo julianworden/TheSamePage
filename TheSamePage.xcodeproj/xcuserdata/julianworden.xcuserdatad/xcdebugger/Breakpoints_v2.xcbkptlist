@@ -3,4 +3,54 @@
    uuid = "094B3A7A-1AFC-463F-88AB-EBA9854AADD0"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DF93078D-5A5E-4112-A482-1CB06DCFE9A9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/SignUpView/UserInfoViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "createUserObject(firstName:lastName:image:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DF93078D-5A5E-4112-A482-1CB06DCFE9A9 - 2d131f8e9b21fa52"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TheSamePage.UserInfoViewModel.createUserObject(firstName: Swift.String, lastName: Swift.String, image: Swift.Optional&lt;__C.UIImage&gt;) async throws -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/SignUpView/UserInfoViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "524">
+               </Location>
+               <Location
+                  uuid = "DF93078D-5A5E-4112-A482-1CB06DCFE9A9 - afd7b8c676923070"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for TheSamePage.UserInfoViewModel.createUserObject(firstName: Swift.String, lastName: Swift.String, image: Swift.Optional&lt;__C.UIImage&gt;) async throws -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/SignUpView/UserInfoViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "224">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

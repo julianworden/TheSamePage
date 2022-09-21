@@ -9,16 +9,14 @@ import SwiftUI
 
 struct AddEditShowView: View {
     
-    @StateObject var viewModel = AddEditShowViewModel()
+    @StateObject var viewModel: AddEditShowViewModel
     
     @Binding var addEditShowViewIsShowing: Bool
     
     @State private var showImage: Image?
-    let viewTitleText: String
     
     init(viewTitleText: String, addEditShowViewIsShowing: Binding<Bool>, show: Show? = nil) {
-        self.viewTitleText = viewTitleText
-        _viewModel = StateObject(wrappedValue: AddEditShowViewModel())
+        _viewModel = StateObject(wrappedValue: AddEditShowViewModel(viewTitleText: viewTitleText))
         _addEditShowViewIsShowing = Binding(projectedValue: addEditShowViewIsShowing)
     }
     
@@ -31,17 +29,7 @@ struct AddEditShowView: View {
                     Button {
                         // TODO: Show options for PHPhotoPicker
                     } label: {
-                        ZStack {
-                            Rectangle()
-                                .foregroundColor(.gray)
-                            
-                            Image(systemName: "camera")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 55, height: 55)
-                                .foregroundColor(.white)
-                        }
-                        .frame(height: 200)
+                        NoImageView()
                     }
                 }
                 
@@ -56,13 +44,9 @@ struct AddEditShowView: View {
                     Stepper {
                         Text("Max number of bands: \(viewModel.showMaxNumberOfBands)")
                     } onIncrement: {
-                        if viewModel.showMaxNumberOfBands < 101 {
-                            viewModel.incrementMaxNumberOfBands()
-                        }
+                        viewModel.incrementMaxNumberOfBands()
                     } onDecrement: {
-                        if viewModel.showMaxNumberOfBands > 1 {
-                            viewModel.decrementMaxNumberOfBands()
-                        }
+                        viewModel.decrementMaxNumberOfBands()
                     }
                 }
                 
@@ -91,7 +75,7 @@ struct AddEditShowView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle(viewTitleText)
+            .navigationTitle(viewModel.viewTitleText)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {

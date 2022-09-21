@@ -8,5 +8,5 @@
 import Foundation
 
 class ProfileViewModel: ObservableObject {
-    @Published var confirmationDialogIsShowing = false
+    @Published var streamingActionSheetIsShowing = false
 }

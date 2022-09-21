@@ -10,7 +10,7 @@ import SwiftUI
 struct MyShowsView: View {
     @EnvironmentObject var showsController: ShowsController
     
-    @State private var addEditShowViewIsShowing = false
+    @StateObject var viewModel = MyShowsViewModel()
     
     var body: some View {
         NavigationView {
@@ -43,7 +43,7 @@ struct MyShowsView: View {
                         SectionTitle(title: "You're Hosting")
                         
                         Button {
-                            addEditShowViewIsShowing = true
+                            viewModel.addEditShowViewIsShowing = true
                         } label: {
                             Image(systemName: "plus")
                                 .imageScale(.large)
@@ -71,7 +71,7 @@ struct MyShowsView: View {
                                 .font(.body.italic())
                             
                             Button {
-                                addEditShowViewIsShowing = true
+                                viewModel.addEditShowViewIsShowing = true
                             } label: {
                                 Text("Tap here to create a show.")
                             }
@@ -83,22 +83,20 @@ struct MyShowsView: View {
                 }
             }
             .navigationTitle("My Shows")
-            // TODO: Replace with .task in iOS 15
-            .onAppear {
-                Task {
-                    do {
-                        try await showsController.getHostedShows()
-                        try await showsController.getPlayingShows()
-                    } catch {
-                        print(error)
-                    }
+            .task {
+                // Leaving this logic here to maintain showsController architecture
+                do {
+                    try await showsController.getHostedShows()
+                    try await showsController.getPlayingShows()
+                } catch {
+                    print(error)
                 }
             }
             .onDisappear {
                 showsController.removeShowListeners()
             }
-            .sheet(isPresented: $addEditShowViewIsShowing) {
-                AddEditShowView(viewTitleText: "Create Show", addEditShowViewIsShowing: $addEditShowViewIsShowing)
+            .sheet(isPresented: $viewModel.addEditShowViewIsShowing) {
+                AddEditShowView(viewTitleText: "Create Show", addEditShowViewIsShowing: $viewModel.addEditShowViewIsShowing)
             }
         }
     }

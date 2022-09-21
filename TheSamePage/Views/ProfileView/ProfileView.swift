@@ -12,35 +12,49 @@ struct ProfileView: View {
     
     @StateObject var viewModel = ProfileViewModel()
     
-    @State private var streamingActionSheetIsShowing = false
-    
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
-                    SectionTitle(title: "Julian Worden")
+                    SectionTitle(title: "\(userController.firstName) \(userController.lastName)")
                     
-                    Image("profilePicture")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 158)
+                    AsyncImage(url: URL(string: userController.profileImageUrl)) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 200)
+                        case .failure:
+                            NoImageView()
+                        @unknown default:
+                            NoImageView()
+                        }
+                    }
                     
                     SectionTitle(title: "Member of")
                     
                     LazyVGrid(columns: columns) {
                         ForEach(userController.bands) { band in
-                            ProfileBandCard(band: band, streamingActionSheetIsShowing: $streamingActionSheetIsShowing)
+                            ProfileBandCard(band: band, streamingActionSheetIsShowing: $viewModel.streamingActionSheetIsShowing)
                         }
                     }
                 }
             }
             .navigationTitle("Profile")
-            .onAppear {
-                userController.getBands()
+            .task {
+                do {
+                    userController.getBands()
+                    try await userController.initializeUser()
+                } catch {
+                    print(error)
+                }
             }
-            .actionSheet(isPresented: $streamingActionSheetIsShowing) {
+            .actionSheet(isPresented: $viewModel.streamingActionSheetIsShowing) {
                 ActionSheet(
                     title: Text("Stream"),
                     message: Text("Choose a streaming platform"),
