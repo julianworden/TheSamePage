@@ -11,7 +11,7 @@ import SwiftUI
 struct LoginView: View {
     @StateObject var viewModel = LoginViewModel()
     
-    @Binding var userIsLoggedOut: Bool
+    @Binding var userIsOnboarding: Bool
     
     var hideNavigationLink = true
     
@@ -25,7 +25,7 @@ struct LoginView: View {
                         do {
                             viewModel.loginButtonIsDisabled = true
                             try await viewModel.logInButtonTapped()
-                            userIsLoggedOut = false
+                            userIsOnboarding = false
                         } catch {
                             viewModel.loginButtonIsDisabled = false
                             print(error)
@@ -38,7 +38,7 @@ struct LoginView: View {
                 
                 Text("Don't have an account?")
                 NavigationLink {
-                    SignUpView(userIsLoggedOut: $userIsLoggedOut)
+                    SignUpView(userIsOnboarding: $userIsOnboarding)
                 } label: {
                     Text("Sign Up")
                         .foregroundColor(.accentColor)
@@ -51,6 +51,6 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(userIsLoggedOut: .constant(true))
+        LoginView(userIsOnboarding: .constant(true))
     }
 }

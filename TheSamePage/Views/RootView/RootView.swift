@@ -10,11 +10,11 @@ import SwiftUI
 struct RootView: View {
     @EnvironmentObject var userController: UserController
     
-    @State private var userIsLoggedOut = AuthController.userIsLoggedOut()
+    @State private var userIsOnboarding = AuthController.userIsLoggedOut()
     
     var body: some View {
         TabView {
-            HomeView(userIsLoggedOut: $userIsLoggedOut)
+            HomeView(userIsLoggedOut: $userIsOnboarding)
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
@@ -36,7 +36,7 @@ struct RootView: View {
         }
         .navigationBarHidden(true)
         .fullScreenCover(
-            isPresented: $userIsLoggedOut,
+            isPresented: $userIsOnboarding,
             onDismiss: {
                 Task {
                     do {
@@ -46,7 +46,7 @@ struct RootView: View {
                     }
                 }
             }, content: {
-                LoginView(userIsLoggedOut: $userIsLoggedOut)
+                LoginView(userIsOnboarding: $userIsOnboarding)
             }
         )
     }

@@ -12,6 +12,8 @@ import SwiftUI
 struct AddEditBandView: View {
     @StateObject var viewModel = AddEditBandViewModel()
     
+    @Binding var userIsOnboarding: Bool
+    
     @State private var imagePickerIsShowing = false
     @State private var selectedImage: UIImage?
     
@@ -32,6 +34,7 @@ struct AddEditBandView: View {
                     Task {
                         do {
                             try await viewModel.createBand(withImage: selectedImage)
+                            userIsOnboarding = false
                         } catch {
                             print(error)
                         }
@@ -50,7 +53,7 @@ struct AddEditBandView: View {
 struct AddEditBandView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            AddEditBandView()
+            AddEditBandView(userIsOnboarding: .constant(false))
         }
     }
 }
