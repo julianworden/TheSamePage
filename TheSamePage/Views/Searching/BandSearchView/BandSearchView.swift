@@ -18,7 +18,7 @@ struct BandSearchView: View {
         .onSubmit(of: .search) {
             Task {
                 do {
-                    try await viewModel.getBands(withSearchText: viewModel.searchText)
+                    try await viewModel.getBands()
                 } catch {
                     print(error)
                 }

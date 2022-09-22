@@ -48,7 +48,7 @@ class SignUpViewModel: ObservableObject {
                 lastName: lastName,
                 profileImageUrl: imageUrl,
                 phoneNumber: nil,
-                emailAddress: nil,
+                emailAddress: emailAddress,
                 bands: nil
             )
         } else {
@@ -57,7 +57,7 @@ class SignUpViewModel: ObservableObject {
                 lastName: lastName,
                 profileImageUrl: nil,
                 phoneNumber: nil,
-                emailAddress: nil,
+                emailAddress: emailAddress,
                 bands: nil
             )
         }

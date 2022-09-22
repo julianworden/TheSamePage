@@ -193,6 +193,26 @@ class DatabaseService {
         }
     }
     
+    func searchForUsers(emailAddress: String) async throws -> [User] {
+        do {
+            var usersArray = [User]()
+            let query = try await db.collection("users").whereField("emailAddress", isEqualTo: emailAddress).getDocuments()
+            
+            for document in query.documents {
+                do {
+                    let user = try document.data(as: User.self)
+                    usersArray.append(user)
+                } catch {
+                    throw DatabaseServiceError.decodeError(message: "Failed to decode user")
+                }
+            }
+            
+            return usersArray
+        } catch {
+            throw DatabaseServiceError.firestoreError(message: "Failed to retrieve user documents")
+        }
+    }
+    
     // MARK: - Firebase Storage
     
     // TODO: Make this method delete the previous profile image if the user is replacing an existing image

@@ -12,7 +12,7 @@ class BandSearchViewModel: ObservableObject {
     @Published var searchText = ""
     
     @MainActor
-    func getBands(withSearchText searchText: String) async throws {
+    func getBands() async throws {
         fetchedBands = try await DatabaseService.shared.searchForBands(name: searchText)
     }
 }

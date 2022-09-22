@@ -9,45 +9,22 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
 
-struct User: Codable {
+struct User: Codable, Identifiable {
     @DocumentID var id: String?
     @ServerTimestamp var dateCreated: Timestamp?
     let firstName: String
     let lastName: String
     let profileImageUrl: String?
     let phoneNumber: String?
-    let emailAddress: String?
-    let bands: [Band]?
+    let emailAddress: String
+    let bandInvites: [Invite]?
     
     static let example = User(
         firstName: "Julian",
         lastName: "Worden",
         profileImageUrl: nil,
         phoneNumber: nil,
-        emailAddress: nil,
-        bands: [
-            Band(
-                name: "Pathetic Fallacy",
-                profileImageUrl: nil,
-                admin: "",
-                members: [],
-                genre: Genre.rock.rawValue,
-                links: nil,
-                shows: nil,
-                city: "Neptune",
-                state: "NJ"
-            ),
-            Band(
-                name: "Dumpweed",
-                profileImageUrl: nil,
-                admin: "",
-                members: [],
-                genre: Genre.rock.rawValue,
-                links: nil,
-                shows: nil,
-                city: "South Brunswick",
-                state: "NJ"
-            )
-        ]
+        emailAddress: "julianworden@gmail.com",
+        bandInvites: nil
     )
 }
