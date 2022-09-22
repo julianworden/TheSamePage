@@ -170,6 +170,29 @@ class DatabaseService {
         
     }
     
+    /// Fetches a band that the user searches for so it can be displayed in a List.
+    /// - Parameter name: The name of the band for which the user is searching.
+    /// - Returns: The bands that match the name the user searched for.
+    func searchForBands(name: String) async throws -> [Band] {
+        do {
+            var bandsArray = [Band]()
+            let query = try await db.collection("bands").whereField("name", isEqualTo: name).getDocuments()
+            
+            for document in query.documents {
+                do {
+                    let band = try document.data(as: Band.self)
+                    bandsArray.append(band)
+                } catch {
+                    throw DatabaseServiceError.decodeError(message: "Failed to decode band")
+                }
+            }
+            
+            return bandsArray
+        } catch {
+            throw DatabaseServiceError.firestoreError(message: "Failed to retrieve band documents")
+        }
+    }
+    
     // MARK: - Firebase Storage
     
     // TODO: Make this method delete the previous profile image if the user is replacing an existing image

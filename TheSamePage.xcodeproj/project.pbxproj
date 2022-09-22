@@ -39,6 +39,8 @@
 		AB399AD628D4BCD8009B39F7 /* Notes.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AB399AD528D4BCD8009B39F7 /* Notes.rtf */; };
 		AB399AD928D4C1CE009B39F7 /* TextUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB399AD828D4C1CE009B39F7 /* TextUtility.swift */; };
 		AB399ADB28D4C548009B39F7 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB399ADA28D4C548009B39F7 /* UserController.swift */; };
+		AB3C73D528DC0A1D0038085A /* BandSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3C73D428DC0A1D0038085A /* BandSearchView.swift */; };
+		AB3C73D728DC0A240038085A /* BandSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3C73D628DC0A240038085A /* BandSearchViewModel.swift */; };
 		AB3E11E828D656FF000F147B /* ProfileBandCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3E11E728D656FF000F147B /* ProfileBandCard.swift */; };
 		AB3E11EA28D65E94000F147B /* ProfileBandCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3E11E928D65E94000F147B /* ProfileBandCardViewModel.swift */; };
 		AB6C09DF28D4C7F500990313 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB6C09DE28D4C7F500990313 /* GoogleService-Info.plist */; };
@@ -96,6 +98,8 @@
 		AB399AD528D4BCD8009B39F7 /* Notes.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Notes.rtf; sourceTree = "<group>"; };
 		AB399AD828D4C1CE009B39F7 /* TextUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUtility.swift; sourceTree = "<group>"; };
 		AB399ADA28D4C548009B39F7 /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
+		AB3C73D428DC0A1D0038085A /* BandSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSearchView.swift; sourceTree = "<group>"; };
+		AB3C73D628DC0A240038085A /* BandSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSearchViewModel.swift; sourceTree = "<group>"; };
 		AB3E11E728D656FF000F147B /* ProfileBandCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBandCard.swift; sourceTree = "<group>"; };
 		AB3E11E928D65E94000F147B /* ProfileBandCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBandCardViewModel.swift; sourceTree = "<group>"; };
 		AB6C09DE28D4C7F500990313 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -188,8 +192,8 @@
 		AB36FF7928D35B9500AAC00C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AB3C73D328DC0A0C0038085A /* BandSearchView */,
 				ABEACE7628DBBB2900BB1D67 /* Onboarding */,
-				ABDDAD4628DB45A800F1CF9B /* AddEditBandView */,
 				AB36FF7A28D35B9A00AAC00C /* RootView */,
 				AB36FF7B28D35B9D00AAC00C /* HomeView */,
 				AB36FF7C28D35BA200AAC00C /* MyShowsView */,
@@ -197,6 +201,7 @@
 				AB36FF7D28D35BA700AAC00C /* ProfileView */,
 				ABDC0D7528D76F980054269E /* AddEditShowView */,
 				ABBE94C028D8AD9E00790A04 /* ShowDetailsView */,
+				ABDDAD4628DB45A800F1CF9B /* AddEditBandView */,
 				AB36FF9628D36A4F00AAC00C /* Miscellaneous */,
 			);
 			path = Views;
@@ -309,6 +314,15 @@
 				AB399AD828D4C1CE009B39F7 /* TextUtility.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		AB3C73D328DC0A0C0038085A /* BandSearchView */ = {
+			isa = PBXGroup;
+			children = (
+				AB3C73D428DC0A1D0038085A /* BandSearchView.swift */,
+				AB3C73D628DC0A240038085A /* BandSearchViewModel.swift */,
+			);
+			path = BandSearchView;
 			sourceTree = "<group>";
 		};
 		ABBE94C028D8AD9E00790A04 /* ShowDetailsView */ = {
@@ -495,6 +509,7 @@
 				AB36FF9F28D36D0300AAC00C /* HomeShowCardViewModel.swift in Sources */,
 				AB24E3A628D7C9B0002B4F2C /* LoginView.swift in Sources */,
 				AB36FF8728D35C2000AAC00C /* Band.swift in Sources */,
+				AB3C73D528DC0A1D0038085A /* BandSearchView.swift in Sources */,
 				ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */,
 				ABDDAD4528DB3ED200F1CF9B /* ProfileAsyncImage.swift in Sources */,
 				AB36FFA228D372A900AAC00C /* ShowsController.swift in Sources */,
@@ -506,6 +521,7 @@
 				AB36FF6628D356FD00AAC00C /* TheSamePageApp.swift in Sources */,
 				ABEACE7D28DBBB6F00BB1D67 /* InABandViewModel.swift in Sources */,
 				ABDDAD4C28DB49DF00F1CF9B /* AddEditBandViewModel.swift in Sources */,
+				AB3C73D728DC0A240038085A /* BandSearchViewModel.swift in Sources */,
 				AB36FF8D28D35CDF00AAC00C /* Backline.swift in Sources */,
 				AB399AD428D4B12B009B39F7 /* MyShowsShowCardViewModel.swift in Sources */,
 				ABDC0D7928D76FC60054269E /* AddEditShowViewModel.swift in Sources */,
