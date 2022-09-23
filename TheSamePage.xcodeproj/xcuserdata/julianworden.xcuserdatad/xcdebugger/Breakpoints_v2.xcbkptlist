@@ -14,40 +14,56 @@
             filePath = "TheSamePage/Services/DatabaseService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "217"
-            endingLineNumber = "217"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
             landmarkName = "sendBandInvite(invite:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9F43D4FA-F7A4-441A-A68E-10164E6E1697"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Controllers/UserController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "initializeUser()"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "F00C1060-2D37-420A-ACF4-6D5A3A730165 - ba3d644aad335861"
+                  uuid = "9F43D4FA-F7A4-441A-A68E-10164E6E1697 - 1adb8c7934538a75"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "TheSamePage.DatabaseService.sendBandInvite(invite: TheSamePage.Invite) async throws -&gt; ()"
+                  symbolName = "TheSamePage.UserController.initializeUser() async throws -&gt; ()"
                   moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Controllers/UserController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "217"
-                  endingLineNumber = "217"
-                  offsetFromSymbolStart = "84">
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "60">
                </Location>
                <Location
-                  uuid = "F00C1060-2D37-420A-ACF4-6D5A3A730165 - 72ee7456525c53f8"
+                  uuid = "9F43D4FA-F7A4-441A-A68E-10164E6E1697 - 6c62ae09db05b524"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for TheSamePage.DatabaseService.sendBandInvite(invite: TheSamePage.Invite) async throws -&gt; ()"
+                  symbolName = "(1) suspend resume partial function for TheSamePage.UserController.initializeUser() async throws -&gt; ()"
                   moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Controllers/UserController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "217"
-                  endingLineNumber = "217"
-                  offsetFromSymbolStart = "44">
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "32">
                </Location>
             </Locations>
          </BreakpointContent>

@@ -57,6 +57,7 @@ struct ProfileView: View {
             .navigationTitle("Profile")
             .task {
                 do {
+                    // This is needed because HomeView doesn't call initialize user onAppear if the user is onboarding. This is expected.
                     try await userController.initializeUser()
                 } catch {
                     print(error)

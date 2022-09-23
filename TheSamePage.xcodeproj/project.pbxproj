@@ -47,8 +47,9 @@
 		AB5054A928DC91D700321380 /* MemberSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054A828DC91D700321380 /* MemberSearchViewModel.swift */; };
 		AB5054AD28DC98BC00321380 /* InviteMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054AC28DC98BC00321380 /* InviteMembersView.swift */; };
 		AB5054AF28DC98C300321380 /* InviteMembersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054AE28DC98C300321380 /* InviteMembersViewModel.swift */; };
-		AB5054B328DCA04900321380 /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054B228DCA04900321380 /* Invite.swift */; };
+		AB5054B328DCA04900321380 /* BandInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054B228DCA04900321380 /* BandInvite.swift */; };
 		AB6C09DF28D4C7F500990313 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB6C09DE28D4C7F500990313 /* GoogleService-Info.plist */; };
+		ABA1020728DDE5BE00A4E818 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020628DDE5BE00A4E818 /* NotificationsViewModel.swift */; };
 		ABA4A43728D564FF0074293A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43628D564FF0074293A /* FirebaseAnalytics */; };
 		ABA4A43928D564FF0074293A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43828D564FF0074293A /* FirebaseAuth */; };
 		ABA4A43B28D564FF0074293A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43A28D564FF0074293A /* FirebaseFirestore */; };
@@ -111,8 +112,9 @@
 		AB5054A828DC91D700321380 /* MemberSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSearchViewModel.swift; sourceTree = "<group>"; };
 		AB5054AC28DC98BC00321380 /* InviteMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteMembersView.swift; sourceTree = "<group>"; };
 		AB5054AE28DC98C300321380 /* InviteMembersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteMembersViewModel.swift; sourceTree = "<group>"; };
-		AB5054B228DCA04900321380 /* Invite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invite.swift; sourceTree = "<group>"; };
+		AB5054B228DCA04900321380 /* BandInvite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandInvite.swift; sourceTree = "<group>"; };
 		AB6C09DE28D4C7F500990313 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		ABA1020628DDE5BE00A4E818 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
 		ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsView.swift; sourceTree = "<group>"; };
 		ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsViewModel.swift; sourceTree = "<group>"; };
 		ABDC0D6F28D748FD0054269E /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
@@ -276,7 +278,7 @@
 				AB36FF8828D35C2800AAC00C /* Link.swift */,
 				AB36FF8A28D35CB500AAC00C /* Time.swift */,
 				AB36FF8C28D35CDF00AAC00C /* Backline.swift */,
-				AB5054B228DCA04900321380 /* Invite.swift */,
+				AB5054B228DCA04900321380 /* BandInvite.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -385,6 +387,7 @@
 			isa = PBXGroup;
 			children = (
 				ABDC0D6F28D748FD0054269E /* NotificationsView.swift */,
+				ABA1020628DDE5BE00A4E818 /* NotificationsViewModel.swift */,
 			);
 			path = NotificationsView;
 			sourceTree = "<group>";
@@ -540,6 +543,7 @@
 				AB36FF8028D35BFA00AAC00C /* User.swift in Sources */,
 				AB36FF9828D36A6600AAC00C /* SectionTitle.swift in Sources */,
 				ABDC0D7B28D76FDE0054269E /* AddEditShowView.swift in Sources */,
+				ABA1020728DDE5BE00A4E818 /* NotificationsViewModel.swift in Sources */,
 				AB5054A728DC91CF00321380 /* MemberSearchView.swift in Sources */,
 				AB3E11E828D656FF000F147B /* ProfileBandCard.swift in Sources */,
 				ABEACE7B28DBBB6200BB1D67 /* InABandView.swift in Sources */,
@@ -571,7 +575,7 @@
 				AB36FF6628D356FD00AAC00C /* TheSamePageApp.swift in Sources */,
 				ABEACE7D28DBBB6F00BB1D67 /* InABandViewModel.swift in Sources */,
 				ABDDAD4C28DB49DF00F1CF9B /* AddEditBandViewModel.swift in Sources */,
-				AB5054B328DCA04900321380 /* Invite.swift in Sources */,
+				AB5054B328DCA04900321380 /* BandInvite.swift in Sources */,
 				AB3C73D728DC0A240038085A /* BandSearchViewModel.swift in Sources */,
 				AB5054AF28DC98C300321380 /* InviteMembersViewModel.swift in Sources */,
 				AB36FF8D28D35CDF00AAC00C /* Backline.swift in Sources */,

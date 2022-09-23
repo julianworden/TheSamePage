@@ -24,7 +24,7 @@ class ProfileViewModel: ObservableObject {
     func sendBandInviteNotification() async throws {
         if user != nil {
             // TODO: Get rid of force unwrapping
-            let invite = Invite(recipientUid: user!.id!, senderName: Auth.auth().currentUser!.email!, senderBand: band!.name)
+            let invite = BandInvite(recipientUid: user!.id!, senderName: Auth.auth().currentUser!.email!, senderBand: band!.name)
             try DatabaseService.shared.sendBandInvite(invite: invite)
         }
     }

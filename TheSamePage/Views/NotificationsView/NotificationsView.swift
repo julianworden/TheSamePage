@@ -8,10 +8,22 @@
 import SwiftUI
 
 struct NotificationsView: View {
+    @StateObject var viewModel = NotificationsViewModel()
+    
     var body: some View {
-        Text("Notifications")
+        List(viewModel.fetchedNotifications) { invite in
+            Text("\(invite.senderName) is inviting you to join \(invite.senderBand)")
+        }
+        .task {
+            do {
+                try await viewModel.getNotifications()
+            } catch {
+                print(error)
+            }
+        }
     }
 }
+
 
 struct NotificationsView_Previews: PreviewProvider {
     static var previews: some View {

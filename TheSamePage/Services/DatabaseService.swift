@@ -87,7 +87,23 @@ class DatabaseService {
     
     let db = Firestore.firestore()
     
-    // MARK: - Firestore
+    // MARK: - Firestore Reads
+    
+    /// Fetches the logged in user's data from Firestore.
+    ///
+    /// Used to initialize the logged in user within UserController so that basic data (first name, last name, profile image URL, etc.) is
+    /// readily available on device.
+    /// - Returns: The logged in user.
+    func getLoggedInUser() async throws -> User {
+        guard AuthController.userIsLoggedOut() == false else { throw DatabaseServiceError.firebaseAuthError(message: "User is logged out") }
+        
+        do {
+            let userDocument = try await db.collection("users").document(AuthController.getLoggedInUid()).getDocument()
+            return try userDocument.data(as: User.self)
+        } catch {
+            throw DatabaseServiceError.firestoreError(message: "Failed to fetch logged in user")
+        }
+    }
     
     func getShowsNearYou() -> [Show] {
         return []
@@ -121,6 +137,29 @@ class DatabaseService {
         }
     }
     
+    func getNotifications() async throws -> [BandInvite] {
+        var bandInvites = [BandInvite]()
+        
+        do {
+            let query = try await db.collection("users").document(AuthController.getLoggedInUid()).collection("bandInvites").getDocuments()
+            
+            for document in query.documents {
+                do {
+                    let bandInvite = try document.data(as: BandInvite.self)
+                    bandInvites.append(bandInvite)
+                } catch {
+                    throw DatabaseServiceError.decodeError(message: "Failed to decode bandInvite")
+                }
+            }
+            
+            return bandInvites
+        } catch {
+            throw DatabaseServiceError.firestoreError(message: "Failed to fetch band invites")
+        }
+    }
+    
+    //MARK: - Firestore Writes
+    
     /// Creates a show in the Firestore shows collection.
     /// - Parameter show: The show to be added to Firestore.
     func createShow(show: Show) throws {
@@ -131,29 +170,13 @@ class DatabaseService {
         }
     }
     
-    /// Creates a band in the Firestore bands collection.
+    /// Creates a band in the Firestore bands collection.d
     /// - Parameter band: The band to be added to Firestore.
     func createBand(band: Band) throws {
         do {
             _ = try db.collection("bands").addDocument(from: band)
         } catch {
             throw DatabaseServiceError.firestoreError(message: "Failed to create band")
-        }
-    }
-    
-    /// Fetches the logged in user's data from Firestore.
-    ///
-    /// Used to initialize the logged in user within UserController so that basic data (first name, last name, profile image URL, etc.) is
-    /// readily available on device.
-    /// - Returns: The logged in user.
-    func getLoggedInUser() async throws -> User {
-        guard AuthController.userIsLoggedOut() == false else { throw DatabaseServiceError.firebaseAuthError(message: "User is logged out") }
-        
-        do {
-            let userDocument = try await db.collection("users").document(AuthController.getLoggedInUid()).getDocument()
-            return try userDocument.data(as: User.self)
-        } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to fetch logged in user")
         }
     }
     
@@ -170,6 +193,8 @@ class DatabaseService {
         }
         
     }
+    
+    // MARK: - Firestore Searches
     
     /// Fetches a band that the user searches for so it can be displayed in a List.
     /// - Parameter name: The name of the band for which the user is searching.
@@ -194,6 +219,9 @@ class DatabaseService {
         }
     }
     
+    /// Searches for users based on their email address (will later work with usernames when I incorporate usernames).
+    /// - Parameter emailAddress: The email address for which the user searched.
+    /// - Returns: The users that match that email address.
     func searchForUsers(emailAddress: String) async throws -> [User] {
         do {
             var usersArray = [User]()
@@ -214,7 +242,13 @@ class DatabaseService {
         }
     }
     
-    func sendBandInvite(invite: Invite) throws {
+    // MARK: - Notifications
+    
+    /// Sends an invitation to a user to join a band.
+    ///
+    /// Uploads an invite object to the specified user's bandInvites collection in Firestore. Eventually, this will trigger a notification for the user.
+    /// - Parameter invite: The invite that is being sent.
+    func sendBandInvite(invite: BandInvite) throws {
         do {
             _ = try db.collection("users")
                 .document(invite.recipientUid)

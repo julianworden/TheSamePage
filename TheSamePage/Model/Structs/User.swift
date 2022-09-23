@@ -17,7 +17,7 @@ struct User: Codable, Identifiable {
     let profileImageUrl: String?
     let phoneNumber: String?
     let emailAddress: String
-    let bandInvites: [Invite]?
+    let bandInvites: [BandInvite]?
     
     static let example = User(
         firstName: "Julian",
