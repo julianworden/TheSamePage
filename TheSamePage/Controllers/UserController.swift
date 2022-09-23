@@ -18,7 +18,7 @@ class UserController: ObservableObject {
     @Published var lastName: String?
     @Published var emailAddress: String?
     @Published var profileImageUrl: String?
-    @Published var bands = [Band]()
+    @Published var selectedBand: Band?
     
     @MainActor
     func initializeUser() async throws {
@@ -28,9 +28,5 @@ class UserController: ObservableObject {
         lastName = user.lastName
         emailAddress = user.emailAddress
         profileImageUrl = user.profileImageUrl
-    }
-    
-    func getBands() {
-        bands = User.example.bands ?? []
     }
 }

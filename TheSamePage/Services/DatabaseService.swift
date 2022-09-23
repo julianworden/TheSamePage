@@ -7,6 +7,7 @@
 
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 import FirebaseStorage
 import Foundation
 import UIKit.UIImage
@@ -210,6 +211,17 @@ class DatabaseService {
             return usersArray
         } catch {
             throw DatabaseServiceError.firestoreError(message: "Failed to retrieve user documents")
+        }
+    }
+    
+    func sendBandInvite(invite: Invite) throws {
+        do {
+            _ = try db.collection("users")
+                .document(invite.recipientUid)
+                .collection("bandInvites")
+                .addDocument(from: invite)
+        } catch {
+            throw DatabaseServiceError.firestoreError(message: "Failed to set bandInvites property.")
         }
     }
     

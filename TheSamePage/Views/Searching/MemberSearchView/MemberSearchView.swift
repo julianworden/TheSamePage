@@ -8,14 +8,23 @@
 import SwiftUI
 
 struct MemberSearchView: View {
+    @EnvironmentObject var userController: UserController
+    
     @Binding var userIsOnboarding: Bool
     
     @StateObject var viewModel = MemberSearchViewModel()
 
     // TODO: Add done button to toolbar that will end onboarding
     var body: some View {
-        List(viewModel.fetchedUsers) { user in
-            Text("\(user.firstName) \(user.lastName)")
+        List {
+            ForEach(viewModel.fetchedUsers) { user in
+                NavigationLink {
+                    ProfileView(user: user, band: userController.selectedBand)
+                } label: {
+                    // TODO: Make reusable row for this
+                    Text("\(user.firstName) \(user.lastName)")
+                }
+            }
         }
         .searchable(text: $viewModel.searchText)
         .onSubmit(of: .search) {

@@ -10,6 +10,8 @@
 import SwiftUI
 
 struct AddEditBandView: View {
+    @EnvironmentObject var userController: UserController
+    
     @StateObject var viewModel = AddEditBandViewModel()
     
     @Binding var userIsOnboarding: Bool
@@ -24,6 +26,8 @@ struct AddEditBandView: View {
             Section("Info") {
                 ImageSelectionButton(imagePickerIsShowing: $imagePickerIsShowing, selectedImage: $selectedImage)
                 TextField("Name", text: $viewModel.bandName)
+                // TODO: Only display this option when a band is being created, not edited
+                Toggle("Do you play in this band?", isOn: $viewModel.userPlaysInBand)
             }
             
             Section("Location") {
@@ -36,7 +40,7 @@ struct AddEditBandView: View {
                     Task {
                         do {
                             bandCreationButtonIsDisabled = true
-                            try await viewModel.createBand(withImage: selectedImage)
+                            userController.selectedBand = try await viewModel.createBand(withImage: selectedImage)
                             bandCreationWasSuccessful = true
                         } catch {
                             bandCreationButtonIsDisabled = false

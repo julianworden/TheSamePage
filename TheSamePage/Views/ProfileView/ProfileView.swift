@@ -10,15 +10,21 @@ import SwiftUI
 struct ProfileView: View {
     @EnvironmentObject var userController: UserController
     
-    @StateObject var viewModel = ProfileViewModel()
+    @StateObject var viewModel: ProfileViewModel
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    
+    init(user: User? = nil, band: Band? = nil) {
+        _viewModel = StateObject(wrappedValue: ProfileViewModel(user: user, band: band))
+    }
     
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
-                    if userController.firstName != nil && userController.lastName != nil {
+                    if viewModel.user != nil {
+                        SectionTitle(title: "\(viewModel.user!.firstName) \(viewModel.user!.lastName)")
+                    } else if userController.firstName != nil && userController.lastName != nil {
                         SectionTitle(title: "\(userController.firstName!) \(userController.lastName!)")
                     } else {
                         SectionTitle(title: "Your Profile")
@@ -31,19 +37,26 @@ struct ProfileView: View {
                             .padding(.horizontal)
                     }
                     
+                    if viewModel.user != nil && viewModel.user?.id != nil {
+                        Button("Invite to your band") {
+                            Task {
+                                do {
+                                    try await viewModel.sendBandInviteNotification()
+                                }
+                            }
+                        }
+                    }
+                    
                     SectionTitle(title: "Member of")
                     
                     LazyVGrid(columns: columns) {
-                        ForEach(userController.bands) { band in
-                            ProfileBandCard(band: band, streamingActionSheetIsShowing: $viewModel.streamingActionSheetIsShowing)
-                        }
+                        // TODO: Add functionality to find bands the user is a member of and display them here
                     }
                 }
             }
             .navigationTitle("Profile")
             .task {
                 do {
-                    userController.getBands()
                     try await userController.initializeUser()
                 } catch {
                     print(error)

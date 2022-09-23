@@ -13,10 +13,11 @@ class AddEditBandViewModel: ObservableObject {
     @Published var bandGenre = ""
     @Published var bandCity = ""
     @Published var bandState = ""
+    @Published var userPlaysInBand = false
     
-    func createBand(withImage image: UIImage?) async throws {
+    func createBand(withImage image: UIImage?) async throws -> Band {
         var newBand: Band
-        
+        // TODO: Add admin to members list if they play in band
         if let image {
             let profileImageUrl = try await DatabaseService.shared.uploadImage(image: image)
             newBand = Band(
@@ -45,5 +46,6 @@ class AddEditBandViewModel: ObservableObject {
         }
         
         try DatabaseService.shared.createBand(band: newBand)
+        return newBand
     }
 }

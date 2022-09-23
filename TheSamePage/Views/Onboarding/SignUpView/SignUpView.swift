@@ -30,7 +30,7 @@ struct SignUpView: View {
             }
             
             Section {
-                Toggle("Are you in a band?", isOn: $viewModel.userIsInABand)
+                Toggle("Are affiliated with a band?", isOn: $viewModel.userIsInABand)
             }
             
             Section {
