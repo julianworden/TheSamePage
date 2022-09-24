@@ -12,8 +12,9 @@ struct NotificationsView: View {
     
     var body: some View {
         List(viewModel.fetchedNotifications) { invite in
-            Text("\(invite.senderName) is inviting you to join \(invite.senderBand)")
+            NotificationRow(notification: invite)
         }
+        .navigationTitle("Notifications")
         .task {
             do {
                 try await viewModel.getNotifications()
@@ -27,6 +28,15 @@ struct NotificationsView: View {
 
 struct NotificationsView_Previews: PreviewProvider {
     static var previews: some View {
-        NotificationsView()
+        NavigationView {
+            NotificationsView(
+                viewModel: { () -> NotificationsViewModel in
+                    let viewModel = NotificationsViewModel()
+                    
+                    viewModel.fetchedNotifications = [BandInvite.example]
+                    return viewModel
+                }()
+            )
+        }
     }
 }

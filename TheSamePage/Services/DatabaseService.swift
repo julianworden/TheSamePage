@@ -137,6 +137,8 @@ class DatabaseService {
         }
     }
     
+    /// Fetches the logged in user's notifications from their Firestore bandInvites collection.
+    /// - Returns: The logged in user's notifications.
     func getNotifications() async throws -> [BandInvite] {
         var bandInvites = [BandInvite]()
         
@@ -158,6 +160,43 @@ class DatabaseService {
         }
     }
     
+    func getBandIds(forUserUid uid: String) async throws -> [BandId] {
+        do {
+            let query = try await db.collection("users").document(uid).collection("bandIds").getDocuments()
+            var bandIds = [BandId]()
+            
+            for document in query.documents {
+                do {
+                    let bandId = try document.data(as: BandId.self)
+                    bandIds.append(bandId)
+                } catch {
+                    throw DatabaseServiceError.decodeError(message: "Failed to decode bandId")
+                }
+            }
+            
+            return bandIds
+        } catch {
+            throw DatabaseServiceError.firestoreError(message: "Failed to fetch user's bandIds")
+        }
+    }
+    
+    func getBands(withBandIds bandIds: [BandId]) async throws -> [Band] {
+        var bands = [Band]()
+        guard !bandIds.isEmpty else { bands = []; return bands }
+        
+        for bandId in bandIds {
+            do {
+                let band = try await db.collection("bands").document(bandId.bandId).getDocument(as: Band.self)
+                bands.append(band)
+            } catch {
+                throw DatabaseServiceError.decodeError(message: "Failed to decode band")
+            }
+        }
+        
+        return bands
+
+    }
+    
     //MARK: - Firestore Writes
     
     /// Creates a show in the Firestore shows collection.
@@ -172,9 +211,10 @@ class DatabaseService {
     
     /// Creates a band in the Firestore bands collection.d
     /// - Parameter band: The band to be added to Firestore.
-    func createBand(band: Band) throws {
+    func createBand(band: Band) throws -> String {
         do {
-            _ = try db.collection("bands").addDocument(from: band)
+            let bandReference = try db.collection("bands").addDocument(from: band)
+            return bandReference.documentID
         } catch {
             throw DatabaseServiceError.firestoreError(message: "Failed to create band")
         }
@@ -191,6 +231,21 @@ class DatabaseService {
         } catch {
             throw DatabaseServiceError.firestoreError(message: "Error creating user object.")
         }
+        
+    }
+    
+    func acceptBandInvite(fromBandId bandId: BandId, andBandMember bandMember: BandMember) throws {
+        // TODO: Turn this into a transaction?
+        
+        do {
+            _ = try db.collection("bands").document(bandId.bandId).collection("members").addDocument(from: bandMember)
+            _ = try db.collection("users").document(AuthController.getLoggedInUid()).collection("bandIds").addDocument(from: bandId)
+        } catch {
+            throw DatabaseServiceError.firestoreError(message: "Failed to join band. Please check your internet connection and try again.")
+        }
+    }
+    
+    func declinBandInvite() async throws {
         
     }
     

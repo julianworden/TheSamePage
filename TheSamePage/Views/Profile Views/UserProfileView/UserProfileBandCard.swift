@@ -7,14 +7,11 @@
 
 import SwiftUI
 
-struct ProfileBandCard: View {
-    @StateObject var viewModel: ProfileBandCardViewModel
+struct UserProfileBandCard: View {
+    @StateObject var viewModel: UserProfileBandCardViewModel
     
-    @Binding var streamingActionSheetIsShowing: Bool
-    
-    init(band: Band, streamingActionSheetIsShowing: Binding<Bool>) {
-        _viewModel = StateObject(wrappedValue: ProfileBandCardViewModel(band: band))
-        _streamingActionSheetIsShowing = Binding(projectedValue: streamingActionSheetIsShowing)
+    init(band: Band) {
+        _viewModel = StateObject(wrappedValue: UserProfileBandCardViewModel(band: band))
     }
     
     var body: some View {
@@ -32,13 +29,6 @@ struct ProfileBandCard: View {
                     .font(.caption)
                 Text("\(viewModel.band.city), \(viewModel.band.state)")
                     .font(.caption)
-                
-                Button {
-                    streamingActionSheetIsShowing = true
-                } label: {
-                    Image(systemName: "speaker.wave.2")
-                        .padding(.top, 2)
-                }
             }
             .multilineTextAlignment(.center)
         }
@@ -48,6 +38,6 @@ struct ProfileBandCard: View {
 
 struct ProfileViewBandCard_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileBandCard(band: Band.example, streamingActionSheetIsShowing: .constant(false))
+        UserProfileBandCard(band: Band.example)
     }
 }

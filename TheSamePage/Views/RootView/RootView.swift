@@ -29,7 +29,7 @@ struct RootView: View {
                     Label("Notifications", systemImage: "bell")
                 }
             
-            ProfileView()
+            UserProfileView()
                 .tabItem {
                     Label("Profile", systemImage: "person")
                 }

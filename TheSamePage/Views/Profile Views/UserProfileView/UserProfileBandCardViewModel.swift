@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ProfileBandCardViewModel: ObservableObject {
+class UserProfileBandCardViewModel: ObservableObject {
     @Published var band: Band
     
     init(band: Band) {

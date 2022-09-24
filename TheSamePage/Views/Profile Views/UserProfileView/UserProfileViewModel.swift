@@ -8,10 +8,14 @@
 import FirebaseAuth
 import Foundation
 
-class ProfileViewModel: ObservableObject {
+class UserProfileViewModel: ObservableObject {
+    enum ProfileViewModelError: Error {
+        case firebaseAuthError(message: String)
+    }
+    
     @Published var streamingActionSheetIsShowing = false
     
-    /// The UID of the user being displayed. When this value is nil, the logged in user is viewing their own profile
+    /// The user being displayed. When this value is nil, the logged in user is viewing their own profile
     @Published var user: User?
     /// The band that the user will be invited to join if their invite button is tapped.
     @Published var band: Band?
@@ -21,10 +25,15 @@ class ProfileViewModel: ObservableObject {
         self.band = band
     }
     
-    func sendBandInviteNotification() async throws {
+    func sendBandInviteNotification() throws {
         if user != nil {
             // TODO: Get rid of force unwrapping
-            let invite = BandInvite(recipientUid: user!.id!, senderName: Auth.auth().currentUser!.email!, senderBand: band!.name)
+            let invite = BandInvite(
+                recipientUid: user!.id!,
+                bandId: band!.id!,
+                senderName: Auth.auth().currentUser!.email!,
+                senderBand: band!.name
+            )
             try DatabaseService.shared.sendBandInvite(invite: invite)
         }
     }

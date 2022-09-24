@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-struct ProfileView: View {
+struct UserProfileView: View {
     @EnvironmentObject var userController: UserController
     
-    @StateObject var viewModel: ProfileViewModel
+    @StateObject var viewModel: UserProfileViewModel
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     
     init(user: User? = nil, band: Band? = nil) {
-        _viewModel = StateObject(wrappedValue: ProfileViewModel(user: user, band: band))
+        _viewModel = StateObject(wrappedValue: UserProfileViewModel(user: user, band: band))
     }
     
     var body: some View {
@@ -41,16 +41,27 @@ struct ProfileView: View {
                         Button("Invite to your band") {
                             Task {
                                 do {
-                                    try await viewModel.sendBandInviteNotification()
+                                    try viewModel.sendBandInviteNotification()
+                                } catch {
+                                    print(error)
                                 }
                             }
                         }
                     }
                     
-                    SectionTitle(title: "Member of")
+                    if let bands = userController.bands {
+                        
+                        SectionTitle(title: "Member of")
                     
-                    LazyVGrid(columns: columns) {
-                        // TODO: Add functionality to find bands the user is a member of and display them here
+                        LazyVGrid(columns: columns) {
+                            ForEach(bands) { band in
+                                NavigationLink {
+                                    
+                                } label: {
+                                    UserProfileBandCard(band: band)
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -59,6 +70,7 @@ struct ProfileView: View {
                 do {
                     // This is needed because HomeView doesn't call initialize user onAppear if the user is onboarding. This is expected.
                     try await userController.initializeUser()
+                    try await userController.getBands()
                 } catch {
                     print(error)
                 }
@@ -79,7 +91,7 @@ struct ProfileView: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView()
+        UserProfileView()
             .environmentObject(UserController())
     }
 }

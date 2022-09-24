@@ -14,8 +14,8 @@ struct Band: Codable, Identifiable {
     @ServerTimestamp var dateCreated: Timestamp?
     let name: String
     let profileImageUrl: String?
-    let admin: String
-    let members: [String]
+    let adminUid: String
+    let members: [BandMember]?
     let genre: String
     let links: [Link]?
     let shows: [Show]?
@@ -25,7 +25,7 @@ struct Band: Codable, Identifiable {
     static let example = Band(
         name: "Pathetic Fallacy",
         profileImageUrl: nil,
-        admin: "",
+        adminUid: "",
         members: [],
         genre: Genre.rock.rawValue,
         links: nil,

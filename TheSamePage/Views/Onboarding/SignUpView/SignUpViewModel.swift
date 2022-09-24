@@ -40,7 +40,6 @@ class SignUpViewModel: ObservableObject {
             throw SignUpViewModelError.firebaseAuthError(message: "Failed to create user.")
         }
         
-        // TODO: Allow the method to still create the user if the image upload fails.
         if let image {
             let imageUrl = try await DatabaseService.shared.uploadImage(image: image)
             newUser = User(
@@ -49,7 +48,8 @@ class SignUpViewModel: ObservableObject {
                 profileImageUrl: imageUrl,
                 phoneNumber: nil,
                 emailAddress: emailAddress,
-                bandInvites: nil
+                bandInvites: nil,
+                bandIds: []
             )
         } else {
             newUser = User(
@@ -58,7 +58,8 @@ class SignUpViewModel: ObservableObject {
                 profileImageUrl: nil,
                 phoneNumber: nil,
                 emailAddress: emailAddress,
-                bandInvites: nil
+                bandInvites: nil,
+                bandIds: []
             )
         }
         

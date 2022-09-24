@@ -19,7 +19,7 @@ struct MemberSearchView: View {
         List {
             ForEach(viewModel.fetchedUsers) { user in
                 NavigationLink {
-                    ProfileView(user: user, band: userController.selectedBand)
+                    UserProfileView(user: user, band: userController.selectedBand)
                 } label: {
                     // TODO: Make reusable row for this
                     Text("\(user.firstName) \(user.lastName)")
