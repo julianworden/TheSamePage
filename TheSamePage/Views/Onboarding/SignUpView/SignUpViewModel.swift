@@ -49,7 +49,7 @@ class SignUpViewModel: ObservableObject {
                 phoneNumber: nil,
                 emailAddress: emailAddress,
                 bandInvites: nil,
-                bandIds: nil
+                joinedBands: nil
             )
         } else {
             newUser = User(
@@ -59,7 +59,7 @@ class SignUpViewModel: ObservableObject {
                 phoneNumber: nil,
                 emailAddress: emailAddress,
                 bandInvites: nil,
-                bandIds: nil
+                joinedBands: nil
             )
         }
         

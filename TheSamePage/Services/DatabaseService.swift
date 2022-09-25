@@ -163,13 +163,13 @@ class DatabaseService {
     /// Fetches a user's bands by using the BandId objects in the bandIds collection of that user.
     /// - Parameter bandIds: The IDs associated with the bands for which the search is occuring.
     /// - Returns: The bands associated with the bandIds.
-    func getBands(withBandIds bandIds: [BandId]) async throws -> [Band] {
+    func getBands(withBandIds bandIds: [String]) async throws -> [Band] {
         var bands = [Band]()
         guard !bandIds.isEmpty else { bands = []; return bands }
         
         for bandId in bandIds {
             do {
-                let band = try await db.collection("bands").document(bandId.id).getDocument(as: Band.self)
+                let band = try await db.collection("bands").document(bandId).getDocument(as: Band.self)
                 bands.append(band)
             } catch {
                 throw DatabaseServiceError.decodeError(message: "Failed to decode band")
@@ -183,25 +183,27 @@ class DatabaseService {
     /// Fetches the id for every band of which a user is a member.
     /// - Parameter uid: The UID of the user whose bands are being queried.
     /// - Returns: The bandId objects associated with the bands of which the user is a member.
-    func getBandIds(forUserUid uid: String) async throws -> [BandId] {
+    func getIdsForJoinedBands(forUserUid uid: String) async throws -> [String] {
         do {
-            let query = try await db.collection("users").document(uid).collection("bandIds").getDocuments()
-            var bandIds = [BandId]()
+            let query = try await db.collection("users").document(uid).collection("joinedBands").getDocuments()
+            var joinedBands = [String]()
             
             if !query.documents.isEmpty {
                 for document in query.documents {
                     do {
-                        let bandId = try document.data(as: BandId.self)
-                        bandIds.append(bandId)
+                        let joinedBand = try document.data(as: JoinedBand.self)
+                        if joinedBand.id != nil {
+                            joinedBands.append(joinedBand.id!)
+                        }
                     } catch {
-                        throw DatabaseServiceError.decodeError(message: "Failed to decode bandId")
+                        throw DatabaseServiceError.decodeError(message: "Failed to decode joinedBand")
                     }
-                }
+                }ands
             }
             
-            return bandIds
+            return joinedBands
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to fetch user's bandIds")
+            throw DatabaseServiceError.firestoreError(message: "Failed to fetch user's joinedBands")
         }
     }
     
@@ -209,7 +211,7 @@ class DatabaseService {
     /// - Parameter band: The band for which the search is occuring.
     /// - Returns: An array of the BandMember objects associated with the band passed into the band parameter.
     func getBandMembers(forBand band: Band) async throws -> [BandMember] {
-        guard band.id != nil else { return [] }
+        guard band.id != nil else { throw DatabaseServiceError.unexpectedNilValue(value: "band.id") }
         var bandMembers = [BandMember]()
         
         do {
@@ -284,11 +286,13 @@ class DatabaseService {
     /// - Parameters:
     ///   - user: The user that is joining the band in the band parameter.
     ///   - band: The band that the user from the user parameter is joining.
-    func addUserToBand(_ user: BandMember, addToBand band: BandId) throws {
+    func addUserToBand(_ user: BandMember, addToBandUserJoined joinedBand: JoinedBand) throws {
+        guard joinedBand.id != nil else { throw DatabaseServiceError.unexpectedNilValue(value: "band.id") }
+        
         // TODO: Turn this into a transaction?
         do {
-            _ = try db.collection("bands").document(band.id).collection("members").addDocument(from: user)
-            _ = try db.collection("users").document(AuthController.getLoggedInUid()).collection("bandIds").addDocument(from: band)
+            _ = try db.collection("bands").document(joinedBand.id!).collection("members").addDocument(from: user)
+            db.collection("users").document(AuthController.getLoggedInUid()).collection("joinedBands").document(joinedBand.id!).setData([:])
         } catch {
             throw DatabaseServiceError.firestoreError(message: "Failed to join band. Please check your internet connection and try again.")
         }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB1ACE2D28E08F9E00B46C90 /* Instrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1ACE2C28E08F9E00B46C90 /* Instrument.swift */; };
 		AB21E5BE28D55C3600BD286E /* GeoFire in Frameworks */ = {isa = PBXBuildFile; productRef = AB21E5BD28D55C3600BD286E /* GeoFire */; };
 		AB21E5C028D55C3600BD286E /* GeoFireUtils in Frameworks */ = {isa = PBXBuildFile; productRef = AB21E5BF28D55C3600BD286E /* GeoFireUtils */; };
 		AB24E3A628D7C9B0002B4F2C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24E3A528D7C9B0002B4F2C /* LoginView.swift */; };
@@ -53,7 +54,7 @@
 		ABA1020928DDF3C000A4E818 /* NotificationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020828DDF3C000A4E818 /* NotificationRow.swift */; };
 		ABA1020B28DDF3E200A4E818 /* NotificationRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020A28DDF3E200A4E818 /* NotificationRowViewModel.swift */; };
 		ABA1020D28DDFD6900A4E818 /* BandMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020C28DDFD6900A4E818 /* BandMember.swift */; };
-		ABA1020F28DE00EC00A4E818 /* BandId.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020E28DE00EC00A4E818 /* BandId.swift */; };
+		ABA1020F28DE00EC00A4E818 /* JoinedBand.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020E28DE00EC00A4E818 /* JoinedBand.swift */; };
 		ABA4A43728D564FF0074293A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43628D564FF0074293A /* FirebaseAnalytics */; };
 		ABA4A43928D564FF0074293A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43828D564FF0074293A /* FirebaseAuth */; };
 		ABA4A43B28D564FF0074293A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43A28D564FF0074293A /* FirebaseFirestore */; };
@@ -80,6 +81,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AB1ACE2C28E08F9E00B46C90 /* Instrument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instrument.swift; sourceTree = "<group>"; };
 		AB24E3A528D7C9B0002B4F2C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		AB24E3A728D7C9C4002B4F2C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		AB2B867928D9EE43004601B6 /* MyShowsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowsViewModel.swift; sourceTree = "<group>"; };
@@ -125,7 +127,7 @@
 		ABA1020828DDF3C000A4E818 /* NotificationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRow.swift; sourceTree = "<group>"; };
 		ABA1020A28DDF3E200A4E818 /* NotificationRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRowViewModel.swift; sourceTree = "<group>"; };
 		ABA1020C28DDFD6900A4E818 /* BandMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMember.swift; sourceTree = "<group>"; };
-		ABA1020E28DE00EC00A4E818 /* BandId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandId.swift; sourceTree = "<group>"; };
+		ABA1020E28DE00EC00A4E818 /* JoinedBand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinedBand.swift; sourceTree = "<group>"; };
 		ABBADD7828DFE5FA00720C64 /* BandState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandState.swift; sourceTree = "<group>"; };
 		ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsView.swift; sourceTree = "<group>"; };
 		ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsViewModel.swift; sourceTree = "<group>"; };
@@ -223,9 +225,9 @@
 				AB36FF7B28D35B9D00AAC00C /* HomeView */,
 				AB36FF7C28D35BA200AAC00C /* MyShowsView */,
 				ABDC0D6E28D748E50054269E /* NotificationsView */,
-				AB4DD13A28DF7C2B0016F652 /* Profile Views */,
 				ABDC0D7528D76F980054269E /* AddEditShowView */,
 				ABBE94C028D8AD9E00790A04 /* ShowDetailsView */,
+				AB4DD13A28DF7C2B0016F652 /* Profile Views */,
 				AB5054B028DC9BD000321380 /* Band Creation */,
 				AB5054B128DC9BFF00321380 /* Searching */,
 				AB36FF9628D36A4F00AAC00C /* Miscellaneous */,
@@ -286,7 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				AB36FF7F28D35BFA00AAC00C /* User.swift */,
-				ABA1020E28DE00EC00A4E818 /* BandId.swift */,
+				ABA1020E28DE00EC00A4E818 /* JoinedBand.swift */,
 				AB36FF8228D35C0600AAC00C /* Show.swift */,
 				AB36FF8428D35C1B00AAC00C /* Location.swift */,
 				AB36FF8628D35C2000AAC00C /* Band.swift */,
@@ -304,6 +306,7 @@
 			children = (
 				AB36FF8E28D35E8C00AAC00C /* Genre.swift */,
 				ABBADD7828DFE5FA00720C64 /* BandState.swift */,
+				AB1ACE2C28E08F9E00B46C90 /* Instrument.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -607,6 +610,7 @@
 				AB3C73D528DC0A1D0038085A /* BandSearchView.swift in Sources */,
 				ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */,
 				ABDDAD4528DB3ED200F1CF9B /* ProfileAsyncImage.swift in Sources */,
+				AB1ACE2D28E08F9E00B46C90 /* Instrument.swift in Sources */,
 				ABF5563728DF93E40059E2DF /* BandProfileViewModel.swift in Sources */,
 				AB36FFA228D372A900AAC00C /* ShowsController.swift in Sources */,
 				AB2B867E28D9F884004601B6 /* ImagePicker.swift in Sources */,
@@ -625,7 +629,7 @@
 				AB399AD428D4B12B009B39F7 /* MyShowsShowCardViewModel.swift in Sources */,
 				ABDC0D7928D76FC60054269E /* AddEditShowViewModel.swift in Sources */,
 				AB36FF8928D35C2800AAC00C /* Link.swift in Sources */,
-				ABA1020F28DE00EC00A4E818 /* BandId.swift in Sources */,
+				ABA1020F28DE00EC00A4E818 /* JoinedBand.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

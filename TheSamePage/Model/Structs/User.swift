@@ -18,7 +18,7 @@ struct User: Codable, Identifiable {
     let phoneNumber: String?
     let emailAddress: String
     let bandInvites: [BandInvite]?
-    let bandIds: [BandId]?
+    let joinedBands: [JoinedBand]?
     
     static let example = User(
         firstName: "Julian",
@@ -27,6 +27,6 @@ struct User: Codable, Identifiable {
         phoneNumber: nil,
         emailAddress: "julianworden@gmail.com",
         bandInvites: nil,
-        bandIds: nil
+        joinedBands: nil
     )
 }

@@ -40,7 +40,7 @@ class UserController: ObservableObject {
     func getBands() async throws {
         guard !AuthController.userIsLoggedOut() else { throw UserControllerError.firebaseAuthError(message: "User not logged in") }
         
-        let bandIds = try await DatabaseService.shared.getBandIds(forUserUid: AuthController.getLoggedInUid())
+        let bandIds = try await DatabaseService.shared.getIdsForJoinedBands(forUserUid: AuthController.getLoggedInUid())
         
         // Prevents "Member Of" section from showing if user is not a member of any bands.
         if !bandIds.isEmpty {

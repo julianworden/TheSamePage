@@ -21,7 +21,7 @@ class NotificationRowViewModel: ObservableObject {
     
     func acceptBandinvite() throws {
         let user = BandMember(uid: AuthController.getLoggedInUid())
-        let bandId = BandId(id: notification.bandId)
-        try DatabaseService.shared.addUserToBand(user, addToBand: bandId)
+        let bandId = JoinedBand(id: notification.bandId)
+        try DatabaseService.shared.addUserToBand(user, addToBandUserJoined: bandId)
     }
 }

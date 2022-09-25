@@ -14,10 +14,10 @@
             filePath = "TheSamePage/Services/DatabaseService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "355"
-            endingLineNumber = "355"
+            startingLineNumber = "359"
+            endingLineNumber = "359"
             landmarkName = "sendBandInvite(invite:)"
-            landmarkType = "9">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
