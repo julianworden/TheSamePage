@@ -198,7 +198,7 @@ class DatabaseService {
                     } catch {
                         throw DatabaseServiceError.decodeError(message: "Failed to decode joinedBand")
                     }
-                }ands
+                }
             }
             
             return joinedBands

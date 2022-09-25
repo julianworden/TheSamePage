@@ -15,6 +15,7 @@ class BandProfileViewModel: ObservableObject {
     @Published var bandProfileImageUrl: String?
     @Published var bandGenre: String
     @Published var bandMembersAsUsers = [User]()
+    @Published var memberSearchSheetIsShowing = false
     
     let band: Band
     

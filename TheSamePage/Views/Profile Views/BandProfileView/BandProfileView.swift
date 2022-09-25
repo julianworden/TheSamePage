@@ -32,20 +32,29 @@ struct BandProfileView: View {
                 Text(bandBio)
                     .padding(.horizontal)
             }
-            
-            SectionTitle(title: "Members")
+            HStack {
+                SectionTitle(title: "Members")
+                
+                Button {
+                    viewModel.memberSearchSheetIsShowing = true
+                } label: {
+                    Image(systemName: "plus")
+                        .imageScale(.large)
+                }
+                .padding(.trailing)
+            }
             
             if !viewModel.bandMembersAsUsers.isEmpty {
                 Text(viewModel.bandMembersAsUsers.first!.firstName)
             } else {
                 VStack {
-                    Text("You're not hosting any shows.")
+                    Text("Your band doesn't have any members.")
                         .font(.body.italic())
                     
                     Button {
-                        
+                        viewModel.memberSearchSheetIsShowing = true
                     } label: {
-                        Text("Tap here to create a show.")
+                        Text("Tap here to find your band members on The Same Page.")
                     }
                 }
                 .padding(.top)
@@ -55,6 +64,11 @@ struct BandProfileView: View {
         }
         .navigationTitle("Band Profile")
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: $viewModel.memberSearchSheetIsShowing) {
+            NavigationView {
+                MemberSearchView(userIsOnboarding: .constant(false))
+            }
+        }
     }
 }
 
