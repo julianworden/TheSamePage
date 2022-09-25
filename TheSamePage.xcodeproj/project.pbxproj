@@ -59,6 +59,7 @@
 		ABA4A43B28D564FF0074293A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43A28D564FF0074293A /* FirebaseFirestore */; };
 		ABA4A43D28D564FF0074293A /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43C28D564FF0074293A /* FirebaseFirestoreSwift */; };
 		ABA4A43F28D564FF0074293A /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43E28D564FF0074293A /* FirebaseStorage */; };
+		ABBADD7928DFE5FA00720C64 /* BandState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBADD7828DFE5FA00720C64 /* BandState.swift */; };
 		ABBE94C228D8ADBF00790A04 /* ShowDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */; };
 		ABBE94C428D8AE7500790A04 /* ShowDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */; };
 		ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D6F28D748FD0054269E /* NotificationsView.swift */; };
@@ -74,6 +75,8 @@
 		ABE3EFA828D919A2002EEF23 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */; };
 		ABEACE7B28DBBB6200BB1D67 /* InABandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEACE7A28DBBB6200BB1D67 /* InABandView.swift */; };
 		ABEACE7D28DBBB6F00BB1D67 /* InABandViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEACE7C28DBBB6F00BB1D67 /* InABandViewModel.swift */; };
+		ABF5563528DF93DD0059E2DF /* BandProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF5563428DF93DD0059E2DF /* BandProfileView.swift */; };
+		ABF5563728DF93E40059E2DF /* BandProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF5563628DF93E40059E2DF /* BandProfileViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -123,6 +126,7 @@
 		ABA1020A28DDF3E200A4E818 /* NotificationRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRowViewModel.swift; sourceTree = "<group>"; };
 		ABA1020C28DDFD6900A4E818 /* BandMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMember.swift; sourceTree = "<group>"; };
 		ABA1020E28DE00EC00A4E818 /* BandId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandId.swift; sourceTree = "<group>"; };
+		ABBADD7828DFE5FA00720C64 /* BandState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandState.swift; sourceTree = "<group>"; };
 		ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsView.swift; sourceTree = "<group>"; };
 		ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsViewModel.swift; sourceTree = "<group>"; };
 		ABDC0D6F28D748FD0054269E /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
@@ -138,6 +142,8 @@
 		ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		ABEACE7A28DBBB6200BB1D67 /* InABandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InABandView.swift; sourceTree = "<group>"; };
 		ABEACE7C28DBBB6F00BB1D67 /* InABandViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InABandViewModel.swift; sourceTree = "<group>"; };
+		ABF5563428DF93DD0059E2DF /* BandProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileView.swift; sourceTree = "<group>"; };
+		ABF5563628DF93E40059E2DF /* BandProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				AB36FF8E28D35E8C00AAC00C /* Genre.swift */,
+				ABBADD7828DFE5FA00720C64 /* BandState.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -352,6 +359,7 @@
 			isa = PBXGroup;
 			children = (
 				AB36FF7D28D35BA700AAC00C /* UserProfileView */,
+				ABF5563328DF93CF0059E2DF /* BandProfileView */,
 			);
 			path = "Profile Views";
 			sourceTree = "<group>";
@@ -458,6 +466,15 @@
 			path = InABandView;
 			sourceTree = "<group>";
 		};
+		ABF5563328DF93CF0059E2DF /* BandProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				ABF5563428DF93DD0059E2DF /* BandProfileView.swift */,
+				ABF5563628DF93E40059E2DF /* BandProfileViewModel.swift */,
+			);
+			path = BandProfileView;
+			sourceTree = "<group>";
+		};
 		FF4320B392FCA7A1D9B09394 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -552,11 +569,13 @@
 			files = (
 				AB5054A928DC91D700321380 /* MemberSearchViewModel.swift in Sources */,
 				AB36FF7428D358FB00AAC00C /* HomeView.swift in Sources */,
+				ABBADD7928DFE5FA00720C64 /* BandState.swift in Sources */,
 				AB2B867A28D9EE43004601B6 /* MyShowsViewModel.swift in Sources */,
 				AB399ADB28D4C548009B39F7 /* UserController.swift in Sources */,
 				AB36FF9D28D36BBF00AAC00C /* HomeShowCard.swift in Sources */,
 				AB36FF7628D3598900AAC00C /* MyShowsView.swift in Sources */,
 				ABDC0D7428D75CC80054269E /* AuthController.swift in Sources */,
+				ABF5563528DF93DD0059E2DF /* BandProfileView.swift in Sources */,
 				AB399AD928D4C1CE009B39F7 /* TextUtility.swift in Sources */,
 				AB36FF8B28D35CB500AAC00C /* Time.swift in Sources */,
 				AB36FF8528D35C1B00AAC00C /* Location.swift in Sources */,
@@ -588,6 +607,7 @@
 				AB3C73D528DC0A1D0038085A /* BandSearchView.swift in Sources */,
 				ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */,
 				ABDDAD4528DB3ED200F1CF9B /* ProfileAsyncImage.swift in Sources */,
+				ABF5563728DF93E40059E2DF /* BandProfileViewModel.swift in Sources */,
 				AB36FFA228D372A900AAC00C /* ShowsController.swift in Sources */,
 				AB2B867E28D9F884004601B6 /* ImagePicker.swift in Sources */,
 				AB36FF9428D361A100AAC00C /* DatabaseService.swift in Sources */,

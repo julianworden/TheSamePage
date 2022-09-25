@@ -16,16 +16,17 @@ class UserController: ObservableObject {
         case firebaseAuthError(message: String)
     }
     
+    // TODO: Clear these values when user signs out
     @Published var firstName: String?
     @Published var lastName: String?
     @Published var emailAddress: String?
     @Published var profileImageUrl: String?
-    @Published var selectedBand: Band?
+    @Published var createdBand: Band?
     @Published var bands: [Band]?
 
     func initializeUser() async throws {
         // If these properties have values, there's no reason to make the database call
-        guard firstName == nil && lastName == nil else { return }
+        // TODO: Add this line when user values are cleared on log out: guard firstName == nil && lastName == nil else { return }
         
         let user = try await DatabaseService.shared.getLoggedInUser()
         
@@ -40,6 +41,10 @@ class UserController: ObservableObject {
         guard !AuthController.userIsLoggedOut() else { throw UserControllerError.firebaseAuthError(message: "User not logged in") }
         
         let bandIds = try await DatabaseService.shared.getBandIds(forUserUid: AuthController.getLoggedInUid())
-        bands = try await DatabaseService.shared.getBands(withBandIds: bandIds)
+        
+        // Prevents "Member Of" section from showing if user is not a member of any bands.
+        if !bandIds.isEmpty {
+            bands = try await DatabaseService.shared.getBands(withBandIds: bandIds)
+        }
     }
 }

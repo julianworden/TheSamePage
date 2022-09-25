@@ -7,6 +7,8 @@
 
 import Foundation
 
+/// An object used with a user's bandIds Firestore collection. This is to make up for the fact that
+/// making empty documents in Firestore is not possible.
 struct BandId: Codable {
-    let bandId: String
+    let id: String
 }

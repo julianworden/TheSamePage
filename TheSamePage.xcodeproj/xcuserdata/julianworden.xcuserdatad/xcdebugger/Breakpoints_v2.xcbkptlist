@@ -14,58 +14,10 @@
             filePath = "TheSamePage/Services/DatabaseService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "306"
-            endingLineNumber = "306"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
             landmarkName = "sendBandInvite(invite:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "9F43D4FA-F7A4-441A-A68E-10164E6E1697"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Controllers/UserController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "initializeUser()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "9F43D4FA-F7A4-441A-A68E-10164E6E1697 - 1adb8c7934538a75"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TheSamePage.UserController.initializeUser() async throws -&gt; ()"
-                  moduleName = "TheSamePage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Controllers/UserController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "24"
-                  endingLineNumber = "24"
-                  offsetFromSymbolStart = "60">
-               </Location>
-               <Location
-                  uuid = "9F43D4FA-F7A4-441A-A68E-10164E6E1697 - 6c62ae09db05b524"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for TheSamePage.UserController.initializeUser() async throws -&gt; ()"
-                  moduleName = "TheSamePage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Controllers/UserController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "24"
-                  endingLineNumber = "24"
-                  offsetFromSymbolStart = "32">
-               </Location>
-            </Locations>
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

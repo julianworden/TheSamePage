@@ -26,13 +26,26 @@ struct AddEditBandView: View {
             Section("Info") {
                 ImageSelectionButton(imagePickerIsShowing: $imagePickerIsShowing, selectedImage: $selectedImage)
                 TextField("Name", text: $viewModel.bandName)
-                // TODO: Only display this option when a band is being created, not edited
+                Picker("Genre", selection: $viewModel.bandGenre) {
+                    ForEach(Genre.allCases) { genre in
+                        Text(genre.rawValue)
+                    }
+                }
                 Toggle("Do you play in this band?", isOn: $viewModel.userPlaysInBand)
+                // TODO: Only display this option when a band is being created, not edited
+            }
+            
+            Section("Bio") {
+                TextEditor(text: $viewModel.bandBio)
             }
             
             Section("Location") {
                 TextField("City", text: $viewModel.bandCity)
-                TextField("State", text: $viewModel.bandState)
+                Picker("State", selection: $viewModel.bandState) {
+                    ForEach(BandState.allCases) { state in
+                        Text(state.rawValue)
+                    }
+                }
             }
             
             Section {
@@ -40,7 +53,7 @@ struct AddEditBandView: View {
                     Task {
                         do {
                             bandCreationButtonIsDisabled = true
-                            userController.selectedBand = try await viewModel.createBand(withImage: selectedImage)
+                            userController.createdBand = try await viewModel.createBand(withImage: selectedImage)
                             bandCreationWasSuccessful = true
                         } catch {
                             bandCreationButtonIsDisabled = false

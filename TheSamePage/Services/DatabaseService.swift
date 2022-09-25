@@ -160,33 +160,16 @@ class DatabaseService {
         }
     }
     
-    func getBandIds(forUserUid uid: String) async throws -> [BandId] {
-        do {
-            let query = try await db.collection("users").document(uid).collection("bandIds").getDocuments()
-            var bandIds = [BandId]()
-            
-            for document in query.documents {
-                do {
-                    let bandId = try document.data(as: BandId.self)
-                    bandIds.append(bandId)
-                } catch {
-                    throw DatabaseServiceError.decodeError(message: "Failed to decode bandId")
-                }
-            }
-            
-            return bandIds
-        } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to fetch user's bandIds")
-        }
-    }
-    
+    /// Fetches a user's bands by using the BandId objects in the bandIds collection of that user.
+    /// - Parameter bandIds: The IDs associated with the bands for which the search is occuring.
+    /// - Returns: The bands associated with the bandIds.
     func getBands(withBandIds bandIds: [BandId]) async throws -> [Band] {
         var bands = [Band]()
         guard !bandIds.isEmpty else { bands = []; return bands }
         
         for bandId in bandIds {
             do {
-                let band = try await db.collection("bands").document(bandId.bandId).getDocument(as: Band.self)
+                let band = try await db.collection("bands").document(bandId.id).getDocument(as: Band.self)
                 bands.append(band)
             } catch {
                 throw DatabaseServiceError.decodeError(message: "Failed to decode band")
@@ -197,7 +180,69 @@ class DatabaseService {
 
     }
     
-    //MARK: - Firestore Writes
+    /// Fetches the id for every band of which a user is a member.
+    /// - Parameter uid: The UID of the user whose bands are being queried.
+    /// - Returns: The bandId objects associated with the bands of which the user is a member.
+    func getBandIds(forUserUid uid: String) async throws -> [BandId] {
+        do {
+            let query = try await db.collection("users").document(uid).collection("bandIds").getDocuments()
+            var bandIds = [BandId]()
+            
+            if !query.documents.isEmpty {
+                for document in query.documents {
+                    do {
+                        let bandId = try document.data(as: BandId.self)
+                        bandIds.append(bandId)
+                    } catch {
+                        throw DatabaseServiceError.decodeError(message: "Failed to decode bandId")
+                    }
+                }
+            }
+            
+            return bandIds
+        } catch {
+            throw DatabaseServiceError.firestoreError(message: "Failed to fetch user's bandIds")
+        }
+    }
+    
+    /// Fetches the BandMember objects in a specified band's members collection.
+    /// - Parameter band: The band for which the search is occuring.
+    /// - Returns: An array of the BandMember objects associated with the band passed into the band parameter.
+    func getBandMembers(forBand band: Band) async throws -> [BandMember] {
+        guard band.id != nil else { return [] }
+        var bandMembers = [BandMember]()
+        
+        do {
+            let query = try await db.collection("bands").document(band.id!).collection("members").getDocuments()
+            
+            for document in query.documents {
+                do {
+                    let bandMember = try document.data(as: BandMember.self)
+                    bandMembers.append(bandMember)
+                } catch {
+                    throw DatabaseServiceError.decodeError(message: "Failed to decode bandMember")
+                }
+            }
+        } catch {
+            throw DatabaseServiceError.firestoreError(message: "Failed to fetch bandMember documents")
+        }
+        
+        return bandMembers
+    }
+    
+    /// Queries Firestore to convert a BandMember object to a User object.
+    /// - Parameter bandMember: The BandMember object that will be converted into a User object.
+    /// - Returns: The user returned from Firestore that corresponds to the BandMember object passed into the bandMember parameter.
+    func convertBandMemberToUser(bandMember: BandMember) async throws -> User {
+        do {
+            let user = try await db.collection("users").document(bandMember.uid).getDocument(as: User.self)
+            return user
+        } catch {
+            throw DatabaseServiceError.firestoreError(message: "Unable to convert bandMember to user")
+        }
+    }
+    
+    // MARK: - Firestore Writes
     
     /// Creates a show in the Firestore shows collection.
     /// - Parameter show: The show to be added to Firestore.
@@ -234,18 +279,22 @@ class DatabaseService {
         
     }
     
-    func acceptBandInvite(fromBandId bandId: BandId, andBandMember bandMember: BandMember) throws {
+    /// Performs Firestore calls to add a user to a band's members collection, and to add a band to a
+    /// user's bandIds collection.
+    /// - Parameters:
+    ///   - user: The user that is joining the band in the band parameter.
+    ///   - band: The band that the user from the user parameter is joining.
+    func addUserToBand(_ user: BandMember, addToBand band: BandId) throws {
         // TODO: Turn this into a transaction?
-        
         do {
-            _ = try db.collection("bands").document(bandId.bandId).collection("members").addDocument(from: bandMember)
-            _ = try db.collection("users").document(AuthController.getLoggedInUid()).collection("bandIds").addDocument(from: bandId)
+            _ = try db.collection("bands").document(band.id).collection("members").addDocument(from: user)
+            _ = try db.collection("users").document(AuthController.getLoggedInUid()).collection("bandIds").addDocument(from: band)
         } catch {
             throw DatabaseServiceError.firestoreError(message: "Failed to join band. Please check your internet connection and try again.")
         }
     }
     
-    func declinBandInvite() async throws {
+    func declineBandInvite() async throws {
         
     }
     

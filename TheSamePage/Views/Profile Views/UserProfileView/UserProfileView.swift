@@ -56,10 +56,11 @@ struct UserProfileView: View {
                         LazyVGrid(columns: columns) {
                             ForEach(bands) { band in
                                 NavigationLink {
-                                    
+                                    BandProfileView(band: band)
                                 } label: {
                                     UserProfileBandCard(band: band)
                                 }
+                                .tint(.black)
                             }
                         }
                     }
