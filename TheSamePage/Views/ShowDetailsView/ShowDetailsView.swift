@@ -37,23 +37,8 @@ struct ShowDetailsView: View {
                     }
                     
                     // TODO: Replace icons with icons8 icons to avoid iOS 15 restrictions
-                    HStack(spacing: 25) {
-                        Image(systemName: "21.circle")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 25, height: 22)
-                        
-                        Image(systemName: "fork.knife.circle")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 25, height: 22)
-                        
-                        Image(systemName: "wineglass")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 25, height: 22)
-                    }
-                    .padding(.top, 5)
+                    Text("This show is over 21")
+                        .padding(.top, 5)
                     
                     Text(viewModel.show.description ?? "")
                         .padding(.top, 3)

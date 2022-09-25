@@ -19,6 +19,10 @@ class BandProfileViewModel: ObservableObject {
     
     let band: Band
     
+    var loggedInUserIsBandAdmin: Bool {
+        band.adminUid == AuthController.getLoggedInUid()
+    }
+    
     init(band: Band) {
         self.band = band
         self.bandName = band.name

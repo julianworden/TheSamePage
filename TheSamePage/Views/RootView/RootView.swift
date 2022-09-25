@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct RootView: View {
-    @EnvironmentObject var userController: UserController
-    
     @State private var userIsOnboarding = AuthController.userIsLoggedOut()
     
     var body: some View {
@@ -29,33 +27,21 @@ struct RootView: View {
                     Label("Notifications", systemImage: "bell")
                 }
             
-            UserProfileView()
+            UserProfileView(user: nil, band: nil)
                 .tabItem {
                     Label("Profile", systemImage: "person")
                 }
         }
         .navigationBarHidden(true)
-        .fullScreenCover(
-            isPresented: $userIsOnboarding,
-            onDismiss: {
-                Task {
-                    do {
-                        try await userController.initializeUser()
-                    } catch {
-                        print(error)
-                    }
-                }
-            }, content: {
-                LoginView(userIsOnboarding: $userIsOnboarding)
-            }
-        )
-    }
-}
-    
-    struct RootView_Previews: PreviewProvider {
-        static var previews: some View {
-            RootView()
-                .environmentObject(ShowsController())
-                .environmentObject(UserController())
+        .fullScreenCover(isPresented: $userIsOnboarding) {
+            LoginView(userIsOnboarding: $userIsOnboarding)
         }
     }
+}
+
+struct RootView_Previews: PreviewProvider {
+    static var previews: some View {
+        RootView()
+            .environmentObject(ShowsController())
+    }
+}

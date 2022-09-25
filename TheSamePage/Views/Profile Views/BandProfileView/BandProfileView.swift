@@ -35,13 +35,15 @@ struct BandProfileView: View {
             HStack {
                 SectionTitle(title: "Members")
                 
-                Button {
-                    viewModel.memberSearchSheetIsShowing = true
-                } label: {
-                    Image(systemName: "plus")
-                        .imageScale(.large)
+                if viewModel.loggedInUserIsBandAdmin {
+                    Button {
+                        viewModel.memberSearchSheetIsShowing = true
+                    } label: {
+                        Image(systemName: "plus")
+                            .imageScale(.large)
+                    }
+                    .padding(.trailing)
                 }
-                .padding(.trailing)
             }
             
             if !viewModel.bandMembersAsUsers.isEmpty {
@@ -51,10 +53,14 @@ struct BandProfileView: View {
                     Text("Your band doesn't have any members.")
                         .font(.body.italic())
                     
-                    Button {
-                        viewModel.memberSearchSheetIsShowing = true
-                    } label: {
-                        Text("Tap here to find your band members on The Same Page.")
+                    if viewModel.loggedInUserIsBandAdmin {
+                        Button {
+                            viewModel.memberSearchSheetIsShowing = true
+                        } label: {
+                            Text("Tap here to find your band members and invite them to join the band.")
+                        }
+                    } else {
+                        Text("You are not the band admin. Only your band's admin is able to invite other members.")
                     }
                 }
                 .padding(.top)
@@ -67,6 +73,8 @@ struct BandProfileView: View {
         .sheet(isPresented: $viewModel.memberSearchSheetIsShowing) {
             NavigationView {
                 MemberSearchView(userIsOnboarding: .constant(false))
+                    .navigationTitle("Search for User Profile")
+                    .navigationBarTitleDisplayMode(.inline)
             }
         }
     }
