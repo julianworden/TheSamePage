@@ -29,7 +29,7 @@ struct NotificationRow: View {
                 }
                 
                 Button("Decline") {
-                    // TODO: Decline invitation
+                    viewModel.declineBandInvite()
                 }
             }
             .buttonStyle(.bordered)

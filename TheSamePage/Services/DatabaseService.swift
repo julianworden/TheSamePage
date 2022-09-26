@@ -280,7 +280,7 @@ class DatabaseService {
     
     // TODO: Make this method check if the invited member is already a member of the band
     /// Performs Firestore calls to add a user to a band's members collection, and to add a band to a
-    /// user's bandIds collection. Called when a user accepts a BandInvite.
+    /// user's joinedBands collection. Called when a user accepts a BandInvite.
     /// - Parameters:
     ///   - bandMember: The user that is joining the band in the band parameter.
     ///   - joinedBand: The band that the user from the user parameter is joining.
@@ -293,16 +293,18 @@ class DatabaseService {
             _ = try db.collection("bands").document(joinedBand.id!).collection("members").addDocument(from: bandMember)
             db.collection("users").document(AuthController.getLoggedInUid()).collection("joinedBands").document(joinedBand.id!).setData([:])
             
-            if bandInvite != nil && bandInvite?.id != nil {
-                db.collection("users").document(bandMember.uid).collection("bandInvites").document(bandInvite!.id!).delete()
+            if bandInvite != nil {
+                deleteBandInvite(bandInvite: bandInvite!)
             }
         } catch {
             throw DatabaseServiceError.firestoreError(message: "Failed to join band. Please check your internet connection and try again.")
         }
     }
     
-    func declineBandInvite() async throws {
-        
+    func deleteBandInvite(bandInvite: BandInvite) {
+        if bandInvite.id != nil {
+            db.collection("users").document(AuthController.getLoggedInUid()).collection("bandInvites").document(bandInvite.id!).delete()
+        }
     }
     
     // MARK: - Firestore Searches
