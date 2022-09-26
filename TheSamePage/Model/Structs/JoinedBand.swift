@@ -8,6 +8,6 @@
 import FirebaseFirestoreSwift
 import Foundation
 
-struct JoinedBand: Codable, Identifiable {
+struct JoinedBand: Codable, Equatable, Identifiable {
     @DocumentID var id: String?
 }

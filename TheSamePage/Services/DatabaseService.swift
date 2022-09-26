@@ -278,18 +278,24 @@ class DatabaseService {
         
     }
     
+    // TODO: Make this method check if the invited member is already a member of the band
     /// Performs Firestore calls to add a user to a band's members collection, and to add a band to a
-    /// user's bandIds collection.
+    /// user's bandIds collection. Called when a user accepts a BandInvite.
     /// - Parameters:
-    ///   - user: The user that is joining the band in the band parameter.
-    ///   - band: The band that the user from the user parameter is joining.
-    func addUserToBand(_ user: BandMember, addToBandUserJoined joinedBand: JoinedBand) throws {
-        guard joinedBand.id != nil else { throw DatabaseServiceError.unexpectedNilValue(value: "band.id") }
+    ///   - bandMember: The user that is joining the band in the band parameter.
+    ///   - joinedBand: The band that the user from the user parameter is joining.
+    ///   - bandInvite: The invite that the user is accepting in order to join the band. If this value is nil, the user joined the band at the time it was created.
+    func addUserToBand(_ bandMember: BandMember, addToBand joinedBand: JoinedBand, withBandInvite bandInvite: BandInvite?) throws {
+        guard joinedBand.id != nil else { throw DatabaseServiceError.unexpectedNilValue(value: "joinedBand.id") }
         
         // TODO: Turn this into a transaction?
         do {
-            _ = try db.collection("bands").document(joinedBand.id!).collection("members").addDocument(from: user)
+            _ = try db.collection("bands").document(joinedBand.id!).collection("members").addDocument(from: bandMember)
             db.collection("users").document(AuthController.getLoggedInUid()).collection("joinedBands").document(joinedBand.id!).setData([:])
+            
+            if bandInvite != nil && bandInvite?.id != nil {
+                db.collection("users").document(bandMember.uid).collection("bandInvites").document(bandInvite!.id!).delete()
+            }
         } catch {
             throw DatabaseServiceError.firestoreError(message: "Failed to join band. Please check your internet connection and try again.")
         }

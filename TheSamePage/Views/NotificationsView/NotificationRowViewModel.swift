@@ -23,6 +23,6 @@ class NotificationRowViewModel: ObservableObject {
         let name = try await AuthController.getLoggedInUserName()
         let bandMember = BandMember(uid: AuthController.getLoggedInUid(), role: notification.recipientRole, name: name)
         let bandId = JoinedBand(id: notification.bandId)
-        try DatabaseService.shared.addUserToBand(bandMember, addToBandUserJoined: bandId)
+        try DatabaseService.shared.addUserToBand(bandMember, addToBand: bandId, withBandInvite: notification)
     }
 }

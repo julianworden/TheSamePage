@@ -18,11 +18,15 @@ struct NotificationsView: View {
             .navigationTitle("Notifications")
             .task {
                 do {
-                    try await viewModel.getNotifications()
+                    try viewModel.getNotifications()
                 } catch {
                     print(error)
                 }
             }
+            .onDisappear {
+                viewModel.removeListeners()
+            }
+            .animation(.easeInOut, value: viewModel.fetchedNotifications)
         }
     }
 }

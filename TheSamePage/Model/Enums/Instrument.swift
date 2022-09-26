@@ -13,4 +13,5 @@ enum Instrument: String, CaseIterable, Identifiable {
     case guitar = "Guitar"
     case vocals = "Vocals"
     case drums = "Drums"
+    case keys = "Keys"
 }

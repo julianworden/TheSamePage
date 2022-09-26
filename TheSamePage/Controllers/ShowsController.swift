@@ -30,7 +30,7 @@ class ShowsController: ObservableObject {
         playingShowsListener = db.collection("shows").whereField(
             "participantUids",
             arrayContains: AuthController.getLoggedInUid()
-        ).addSnapshotListener(includeMetadataChanges: false) { snapshot, error in
+        ).addSnapshotListener { snapshot, error in
             if snapshot != nil && error == nil {
                 Task { @MainActor in
                     self.playingShows = try await DatabaseService.shared.getPlayingShows()

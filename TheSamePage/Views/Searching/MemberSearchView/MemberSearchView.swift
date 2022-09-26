@@ -39,6 +39,7 @@ struct MemberSearchView: View {
                 }
             }
         }
+        .animation(.easeInOut, value: viewModel.fetchedUsers)
     }
 }
 

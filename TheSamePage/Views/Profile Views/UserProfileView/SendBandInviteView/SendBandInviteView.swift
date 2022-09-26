@@ -18,7 +18,7 @@ struct SendBandInviteView: View {
     
     var body: some View {
         Form {
-            Picker("What role will \(viewModel.user.firstName) have?", selection: $viewModel.receipientRole) {
+            Picker("What role will \(viewModel.user.firstName) have?", selection: $viewModel.recipientRole) {
                 ForEach(Instrument.allCases) { instrument in
                     Text(instrument.rawValue)
                 }

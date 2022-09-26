@@ -9,7 +9,7 @@ import FirebaseAuth
 import Foundation
 
 class SendBandInviteViewModel: ObservableObject {
-    @Published var receipientRole = Instrument.vocals
+    @Published var recipientRole = Instrument.vocals
     
     /// The user who will be receiving the band invite.
     let user: User
@@ -26,7 +26,7 @@ class SendBandInviteViewModel: ObservableObject {
         if band?.id != nil && user.id != nil {
             let invite = BandInvite(
                 recipientUid: user.id!,
-                recipientRole: "Guitar",
+                recipientRole: recipientRole.rawValue,
                 bandId: band!.id!,
                 senderName: Auth.auth().currentUser!.email!,
                 senderBand: band!.name

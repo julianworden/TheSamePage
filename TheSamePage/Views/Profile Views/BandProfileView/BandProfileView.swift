@@ -48,7 +48,7 @@ struct BandProfileView: View {
             if !viewModel.bandMembers.isEmpty {
                 VStack {
                     ForEach(viewModel.bandMembers) { bandMember in
-                        Text(bandMember.name)
+                        Text(bandMember.name + " - " + bandMember.role)
                     }
                 }
             } else {
