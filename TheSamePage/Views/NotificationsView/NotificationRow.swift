@@ -19,10 +19,12 @@ struct NotificationRow: View {
             Text("\(viewModel.notificationSender) is inviting you to join \(viewModel.notificationBand)")
             HStack {
                 Button("Accept") {
-                    do {
-                        try viewModel.acceptBandinvite()
-                    } catch {
-                        print(error)
+                    Task {
+                        do {
+                            try await viewModel.acceptBandInvite()
+                        } catch {
+                            print(error)
+                        }
                     }
                 }
                 

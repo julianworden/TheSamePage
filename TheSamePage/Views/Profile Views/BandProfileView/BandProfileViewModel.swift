@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class BandProfileViewModel: ObservableObject {
     @Published var bandName: String
     @Published var bandBio: String?
@@ -14,7 +15,7 @@ class BandProfileViewModel: ObservableObject {
     @Published var bandState: String
     @Published var bandProfileImageUrl: String?
     @Published var bandGenre: String
-    @Published var bandMembersAsUsers = [User]()
+    @Published var bandMembers = [BandMember]()
     @Published var memberSearchSheetIsShowing = false
     
     let band: Band
@@ -33,16 +34,7 @@ class BandProfileViewModel: ObservableObject {
         self.bandProfileImageUrl = band.profileImageUrl
         
         Task {
-            let bandMembers = try await DatabaseService.shared.getBandMembers(forBand: band)
-            try await convertBandMembersToUsers(bandMembers: bandMembers)
-        }
-    }
-    
-    @MainActor
-    func convertBandMembersToUsers(bandMembers: [BandMember]) async throws {
-        for member in bandMembers {
-            let user = try await DatabaseService.shared.convertBandMemberToUser(bandMember: member)
-            bandMembersAsUsers.append(user)
+            bandMembers = try await DatabaseService.shared.getBandMembers(forBand: band)
         }
     }
 }

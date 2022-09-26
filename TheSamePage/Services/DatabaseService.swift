@@ -90,9 +90,6 @@ class DatabaseService {
     // MARK: - Firestore Reads
     
     /// Fetches the logged in user's data from Firestore.
-    ///
-    /// Used to initialize the logged in user within UserController so that basic data (first name, last name, profile image URL, etc.) is
-    /// readily available on device.
     /// - Returns: The logged in user.
     func getLoggedInUser() async throws -> User {
         guard AuthController.userIsLoggedOut() == false else { throw DatabaseServiceError.firebaseAuthError(message: "User is logged out") }

@@ -11,14 +11,5 @@ import Foundation
 
 @MainActor
 class UserController: ObservableObject {
-    enum UserControllerError: Error {
-        case firestoreError(message: String)
-        case firebaseAuthError(message: String)
-    }
-    
-    // TODO: Clear these values when user signs out
-    @Published var createdBand: Band?
-    
-
     
 }

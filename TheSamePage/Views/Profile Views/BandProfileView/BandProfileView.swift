@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct BandProfileView: View {
-    @EnvironmentObject var userController: UserController
     @StateObject var viewModel: BandProfileViewModel
     
     init(band: Band) {
@@ -46,8 +45,12 @@ struct BandProfileView: View {
                 }
             }
             
-            if !viewModel.bandMembersAsUsers.isEmpty {
-                Text(viewModel.bandMembersAsUsers.first!.firstName)
+            if !viewModel.bandMembers.isEmpty {
+                VStack {
+                    ForEach(viewModel.bandMembers) { bandMember in
+                        Text(bandMember.name)
+                    }
+                }
             } else {
                 VStack {
                     Text("Your band doesn't have any members.")
@@ -84,7 +87,6 @@ struct BandProfileView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             BandProfileView(band: Band.example)
-                .environmentObject(UserController())
         }
     }
 }

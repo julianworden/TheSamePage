@@ -10,8 +10,6 @@
 import SwiftUI
 
 struct AddEditBandView: View {
-    @EnvironmentObject var userController: UserController
-    
     @StateObject var viewModel: AddEditBandViewModel
     
     @Binding var userIsOnboarding: Bool
@@ -23,7 +21,7 @@ struct AddEditBandView: View {
     
     init(userIsOnboarding: Binding<Bool>, band: Band?) {
         _userIsOnboarding = Binding(projectedValue: userIsOnboarding)
-        _viewModel = StateObject(wrappedValue: AddEditBandViewModel(band: nil))
+        _viewModel = StateObject(wrappedValue: AddEditBandViewModel(band: band))
     }
     
     var body: some View {

@@ -11,7 +11,9 @@ import Foundation
 class SendBandInviteViewModel: ObservableObject {
     @Published var receipientRole = Instrument.vocals
     
+    /// The user who will be receiving the band invite.
     let user: User
+    /// The band that the user will be invited to join.
     let band: Band?
     
     init(user: User, band: Band?) {

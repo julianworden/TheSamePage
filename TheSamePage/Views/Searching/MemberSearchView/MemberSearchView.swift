@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct MemberSearchView: View {
-    @EnvironmentObject var userController: UserController
-    
     @Binding var userIsOnboarding: Bool
     
     @StateObject var viewModel: MemberSearchViewModel

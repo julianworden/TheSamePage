@@ -16,4 +16,5 @@ struct BandMember: Codable, Identifiable {
     @ServerTimestamp var dateJoined: Timestamp?
     let uid: String
     let role: String
+    let name: String
 }
