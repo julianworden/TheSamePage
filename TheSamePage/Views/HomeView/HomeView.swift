@@ -10,8 +10,6 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject var showsController: ShowsController
     
-    @Binding var userIsLoggedOut: Bool
-    
     var body: some View {
         NavigationView {
             VStack {
@@ -29,25 +27,13 @@ struct HomeView: View {
             .onAppear {
                 showsController.getShows()
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Log Out") {
-                        do {
-                            try AuthController.logOut()
-                            userIsLoggedOut = true
-                        } catch {
-                            print(error)
-                        }
-                    }
-                }
-            }
         }
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(userIsLoggedOut: .constant(false))
+        HomeView()
             .environmentObject(ShowsController())
     }
 }

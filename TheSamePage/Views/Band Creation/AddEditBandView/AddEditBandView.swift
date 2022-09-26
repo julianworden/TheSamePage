@@ -12,7 +12,7 @@ import SwiftUI
 struct AddEditBandView: View {
     @EnvironmentObject var userController: UserController
     
-    @StateObject var viewModel = AddEditBandViewModel()
+    @StateObject var viewModel: AddEditBandViewModel
     
     @Binding var userIsOnboarding: Bool
     
@@ -20,6 +20,11 @@ struct AddEditBandView: View {
     @State private var selectedImage: UIImage?
     @State private var bandCreationWasSuccessful = false
     @State private var bandCreationButtonIsDisabled = false
+    
+    init(userIsOnboarding: Binding<Bool>, band: Band?) {
+        _userIsOnboarding = Binding(projectedValue: userIsOnboarding)
+        _viewModel = StateObject(wrappedValue: AddEditBandViewModel(band: nil))
+    }
     
     var body: some View {
         Form {
@@ -32,6 +37,14 @@ struct AddEditBandView: View {
                     }
                 }
                 Toggle("Do you play in this band?", isOn: $viewModel.userPlaysInBand)
+                
+                if viewModel.userPlaysInBand {
+                    Picker("What's your role in this band?", selection: $viewModel.userRoleInBand) {
+                        ForEach(Instrument.allCases) { instrument in
+                            Text(instrument.rawValue)
+                        }
+                    }
+                }
                 // TODO: Only display this option when a band is being created, not edited
             }
             
@@ -49,20 +62,17 @@ struct AddEditBandView: View {
             }
             
             Section {
-                Button {
+                Button("Create Band") {
                     Task {
                         do {
                             bandCreationButtonIsDisabled = true
-                            userController.createdBand = try await viewModel.createBand(withImage: selectedImage)
+                            try await viewModel.createBand(withImage: selectedImage)
                             bandCreationWasSuccessful = true
+                            userIsOnboarding = false
                         } catch {
                             bandCreationButtonIsDisabled = false
                             print(error)
                         }
-                    }
-                } label: {
-                    NavigationLink(destination: InviteMembersView(userIsOnboarding: $userIsOnboarding), isActive: $bandCreationWasSuccessful) {
-                        Text("Create Band")
                     }
                 }
                 .disabled(bandCreationButtonIsDisabled)
@@ -79,7 +89,7 @@ struct AddEditBandView: View {
 struct AddEditBandView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            AddEditBandView(userIsOnboarding: .constant(false))
+            AddEditBandView(userIsOnboarding: .constant(false), band: Band.example)
         }
     }
 }

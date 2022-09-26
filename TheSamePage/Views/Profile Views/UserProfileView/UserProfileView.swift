@@ -10,10 +10,15 @@ import SwiftUI
 struct UserProfileView: View {
     @StateObject var viewModel: UserProfileViewModel
     
+    @Binding var userIsLoggedOut: Bool
+    @Binding var selectedTab: Int
+    
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     
-    init(user: User?, band: Band?) {
+    init(user: User?, band: Band?, userIsLoggedOut: Binding<Bool>, selectedTab: Binding<Int>) {
         _viewModel = StateObject(wrappedValue: UserProfileViewModel(user: user, band: band))
+        _userIsLoggedOut = Binding(projectedValue: userIsLoggedOut)
+        _selectedTab = Binding(projectedValue: selectedTab)
     }
     
     var body: some View {
@@ -36,18 +41,6 @@ struct UserProfileView: View {
                                 .padding(.horizontal)
                         }
                         
-                        if viewModel.user != nil && viewModel.user?.id != nil {
-                            Button("Invite to your band") {
-                                Task {
-                                    do {
-                                        try viewModel.sendBandInviteNotification()
-                                    } catch {
-                                        print(error)
-                                    }
-                                }
-                            }
-                        }
-                        
                         if let bands = viewModel.bands {
                             
                             SectionTitle(title: "Member of")
@@ -66,6 +59,27 @@ struct UserProfileView: View {
                     }
                 }
                 .navigationTitle("Profile")
+                .task {
+                    do {
+                        try await viewModel.initializeUser(user: nil)
+                        try await viewModel.getBands(forUser: nil)
+                    } catch {
+                        print(error)
+                    }
+                }
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("Log Out") {
+                            do {
+                                try viewModel.logOut()
+                                userIsLoggedOut = true
+                                selectedTab = 0
+                            } catch {
+                                print(error)
+                            }
+                        }
+                    }
+                }
             }
         } else {
             ScrollView {
@@ -85,16 +99,11 @@ struct UserProfileView: View {
                             .padding(.horizontal)
                     }
                     
-                    if viewModel.user != nil && viewModel.user?.id != nil {
-                        Button("Invite to your band") {
-                            Task {
-                                do {
-                                    try viewModel.sendBandInviteNotification()
-                                } catch {
-                                    print(error)
-                                }
-                            }
-                        }
+                    NavigationLink {
+                        // TODO: Fix force unwrapping
+                        SendBandInviteView(user: viewModel.user!, band: viewModel.band)
+                    } label: {
+                        Text("Invite to Band")
                     }
                     
                     if let bands = viewModel.bands {
@@ -115,12 +124,15 @@ struct UserProfileView: View {
                 }
             }
             .navigationTitle("Profile")
+            .sheet(isPresented: $viewModel.sendBandInviteSheetIsShowing) {
+                SendBandInviteView(user: viewModel.user!, band: viewModel.band!)
+            }
         }
     }
 }
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        UserProfileView(user: User.example, band: Band.example)
+        UserProfileView(user: User.example, band: Band.example, userIsLoggedOut: .constant(false), selectedTab: .constant(3))
     }
 }

@@ -8,5 +8,9 @@
 import Foundation
 
 class InviteMembersViewModel: ObservableObject {
+    let band: Band?
     
+    init(band: Band?) {
+        self.band = band
+    }
 }

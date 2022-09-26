@@ -13,12 +13,13 @@ class UserProfileViewModel: ObservableObject {
         case firebaseAuthError(message: String)
     }
     
-    @Published var streamingActionSheetIsShowing = false
+    @Published var sendBandInviteSheetIsShowing = false
     
     /// The user being displayed. When this value is nil, the logged in user is viewing their own profile
     @Published var user: User?
     /// The band that the user will be invited to join if their invite button is tapped.
     @Published var band: Band?
+    
     @Published var firstName: String?
     @Published var lastName: String?
     @Published var emailAddress: String?
@@ -46,19 +47,6 @@ class UserProfileViewModel: ObservableObject {
             } catch {
                 print(error)
             }
-        }
-    }
-    
-    func sendBandInviteNotification() throws {
-        if user != nil {
-            // TODO: Get rid of force unwrapping
-            let invite = BandInvite(
-                recipientUid: user!.id!,
-                bandId: band!.id!,
-                senderName: Auth.auth().currentUser!.email!,
-                senderBand: band!.name
-            )
-            try DatabaseService.shared.sendBandInvite(invite: invite)
         }
     }
     
@@ -98,6 +86,20 @@ class UserProfileViewModel: ObservableObject {
         // Prevents "Member Of" section from showing if user is not a member of any bands.
         if !bandIds.isEmpty {
             bands = try await DatabaseService.shared.getBands(withBandIds: bandIds)
+        }
+    }
+    
+    func logOut() throws {
+        firstName = nil
+        lastName = nil
+        emailAddress = nil
+        profileImageUrl = nil
+        bands = nil
+        
+        do {
+            try AuthController.logOut()
+        } catch {
+            throw UserProfileViewModelError.firebaseAuthError(message: "Failed to log out")
         }
     }
 }

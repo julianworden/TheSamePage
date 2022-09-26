@@ -15,13 +15,13 @@ struct InABandView: View {
             Text("If your band is already on The Same Page, the admin of your band's page must invite you to join the band.")
             
             NavigationLink {
-                InviteMembersView(userIsOnboarding: $userIsOnboarding)
+                BandSearchView()
             } label: {
                 Text("Tap here to search for your band and confirm they're on The Same Page")
             }
             
             NavigationLink {
-                AddEditBandView(userIsOnboarding: $userIsOnboarding)
+                AddEditBandView(userIsOnboarding: $userIsOnboarding, band: nil)
             } label: {
                 Text(", tap here to get your band on The Same Page")
             }

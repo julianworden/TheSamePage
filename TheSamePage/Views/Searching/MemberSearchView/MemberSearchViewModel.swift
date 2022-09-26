@@ -11,6 +11,12 @@ class MemberSearchViewModel: ObservableObject {
     @Published var fetchedUsers = [User]()
     @Published var searchText = ""
     
+    var band: Band?
+    
+    init(band: Band?) {
+        self.band = band
+    }
+    
     @MainActor
     func getUsers() async throws {
         fetchedUsers = try await DatabaseService.shared.searchForUsers(emailAddress: searchText)

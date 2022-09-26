@@ -10,5 +10,7 @@ import Foundation
 enum Instrument: String, CaseIterable, Identifiable {
     var id: Self { self }
     case bassGuitar = "Bass Guitar"
-    case acousticGuitar
+    case guitar = "Guitar"
+    case vocals = "Vocals"
+    case drums = "Drums"
 }

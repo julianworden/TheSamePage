@@ -15,4 +15,5 @@ struct BandMember: Codable, Identifiable {
     @DocumentID var id: String?
     @ServerTimestamp var dateJoined: Timestamp?
     let uid: String
+    let role: String
 }

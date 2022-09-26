@@ -72,7 +72,7 @@ struct BandProfileView: View {
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $viewModel.memberSearchSheetIsShowing) {
             NavigationView {
-                MemberSearchView(userIsOnboarding: .constant(false))
+                MemberSearchView(userIsOnboarding: .constant(false), band: viewModel.band)
                     .navigationTitle("Search for User Profile")
                     .navigationBarTitleDisplayMode(.inline)
             }
