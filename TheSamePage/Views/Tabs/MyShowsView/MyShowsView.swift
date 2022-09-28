@@ -12,6 +12,8 @@ struct MyShowsView: View {
     
     @StateObject var viewModel = MyShowsViewModel()
     
+    @State var addEditShowViewIsShowing = false
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -43,7 +45,7 @@ struct MyShowsView: View {
                         SectionTitle(title: "You're Hosting")
                         
                         Button {
-                            viewModel.addEditShowViewIsShowing = true
+                            addEditShowViewIsShowing = true
                         } label: {
                             Image(systemName: "plus")
                                 .imageScale(.large)
@@ -71,7 +73,7 @@ struct MyShowsView: View {
                                 .font(.body.italic())
                             
                             Button {
-                                viewModel.addEditShowViewIsShowing = true
+                                addEditShowViewIsShowing = true
                             } label: {
                                 Text("Tap here to create a show.")
                             }
@@ -95,8 +97,8 @@ struct MyShowsView: View {
             .onDisappear {
                 showsController.removeShowListeners()
             }
-            .sheet(isPresented: $viewModel.addEditShowViewIsShowing) {
-                AddEditShowView(viewTitleText: "Create Show", addEditShowViewIsShowing: $viewModel.addEditShowViewIsShowing)
+            .sheet(isPresented: $addEditShowViewIsShowing) {
+                AddEditShowView(viewTitleText: "Create Show", addEditShowViewIsShowing: $addEditShowViewIsShowing)
             }
         }
     }

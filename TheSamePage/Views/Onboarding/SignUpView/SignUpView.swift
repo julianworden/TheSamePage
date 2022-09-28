@@ -20,6 +20,7 @@ struct SignUpView: View {
         Form {
             Section("Account Info") {
                 ImageSelectionButton(imagePickerIsShowing: $imagePickerIsShowing, selectedImage: $profileImage)
+                TextField("Username", text: $viewModel.username)
                 TextField("Email Address", text: $viewModel.emailAddress)
                 SecureField("Password", text: $viewModel.password)
             }

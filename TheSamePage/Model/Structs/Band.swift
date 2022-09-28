@@ -9,7 +9,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
 
-struct Band: Codable, Identifiable {
+struct Band: Codable, Equatable, Identifiable, Searchable {
     @DocumentID var id: String?
     @ServerTimestamp var dateCreated: Timestamp?
     let name: String

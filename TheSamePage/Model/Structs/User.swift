@@ -9,9 +9,10 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
 
-struct User: Codable, Equatable, Identifiable {
+struct User: Codable, Equatable, Identifiable, Searchable {
     @DocumentID var id: String?
     @ServerTimestamp var dateCreated: Timestamp?
+    let name: String
     let firstName: String
     let lastName: String
     let profileImageUrl: String?
@@ -21,6 +22,7 @@ struct User: Codable, Equatable, Identifiable {
     let joinedBands: [JoinedBand]?
     
     static let example = User(
+        name: "julianworden",
         firstName: "Julian",
         lastName: "Worden",
         profileImageUrl: nil,

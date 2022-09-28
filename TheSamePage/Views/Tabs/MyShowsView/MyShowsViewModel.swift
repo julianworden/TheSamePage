@@ -8,5 +8,5 @@
 import Foundation
 
 class MyShowsViewModel: ObservableObject {
-    @Published var addEditShowViewIsShowing = false
+    
 }

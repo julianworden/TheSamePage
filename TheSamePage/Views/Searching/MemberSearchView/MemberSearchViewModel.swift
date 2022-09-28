@@ -19,6 +19,6 @@ class MemberSearchViewModel: ObservableObject {
     
     @MainActor
     func getUsers() async throws {
-        fetchedUsers = try await DatabaseService.shared.searchForUsers(emailAddress: searchText)
+        fetchedUsers = try await DatabaseService.shared.searchForUsers(username: searchText)
     }
 }

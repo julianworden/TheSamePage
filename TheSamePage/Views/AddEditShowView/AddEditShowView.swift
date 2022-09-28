@@ -13,7 +13,8 @@ struct AddEditShowView: View {
     
     @Binding var addEditShowViewIsShowing: Bool
     
-    @State private var showImage: Image?
+    @State private var showImage: UIImage?
+    @State private var imagePickerIsShowing = false
     
     init(viewTitleText: String, addEditShowViewIsShowing: Binding<Bool>, show: Show? = nil) {
         _viewModel = StateObject(wrappedValue: AddEditShowViewModel(viewTitleText: viewTitleText))
@@ -23,15 +24,7 @@ struct AddEditShowView: View {
     var body: some View {
         NavigationView {
             Form {
-                if let showImage {
-                    showImage
-                } else {
-                    Button {
-                        // TODO: Show options for PHPhotoPicker
-                    } label: {
-                        NoImageView()
-                    }
-                }
+                ImageSelectionButton(imagePickerIsShowing: $imagePickerIsShowing, selectedImage: $showImage)
                 
                 Section {
                     TextField("Name", text: $viewModel.showName)
@@ -76,6 +69,9 @@ struct AddEditShowView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(viewModel.viewTitleText)
+            .sheet(isPresented: $imagePickerIsShowing) {
+                ImagePicker(image: $showImage, pickerIsShowing: $imagePickerIsShowing)
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {

@@ -19,6 +19,7 @@ class SignUpViewModel: ObservableObject {
         case unexpectedNilValue(value: String)
     }
     
+    @Published var username = ""
     @Published var emailAddress = ""
     @Published var password = ""
     @Published var firstName = ""
@@ -43,6 +44,7 @@ class SignUpViewModel: ObservableObject {
         if let image {
             let imageUrl = try await DatabaseService.shared.uploadImage(image: image)
             newUser = User(
+                name: username,
                 firstName: firstName,
                 lastName: lastName,
                 profileImageUrl: imageUrl,
@@ -53,6 +55,7 @@ class SignUpViewModel: ObservableObject {
             )
         } else {
             newUser = User(
+                name: username,
                 firstName: firstName,
                 lastName: lastName,
                 profileImageUrl: nil,

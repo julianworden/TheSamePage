@@ -8,7 +8,7 @@
 import FirebaseFirestoreSwift
 import Foundation
 
-struct Link: Codable {
+struct Link: Codable, Equatable, Identifiable {
     @DocumentID var id: String?
     let platformName: String
     let url: String

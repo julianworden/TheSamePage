@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Genre: String, Codable, Identifiable, CaseIterable {
+enum Genre: String, Codable, Equatable, Identifiable, CaseIterable {
     var id: Self { self }
     case alternative = "Alternative"
     case edm = "EDM"

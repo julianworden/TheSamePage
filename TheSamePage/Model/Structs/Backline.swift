@@ -8,7 +8,7 @@
 import FirebaseFirestoreSwift
 import Foundation
 
-struct Backline: Codable {
+struct Backline: Codable, Equatable, Identifiable {
     @DocumentID var id: String?
     let hasDrums: Bool
     let drumsOwner: User?

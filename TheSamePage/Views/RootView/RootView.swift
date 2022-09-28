@@ -19,6 +19,11 @@ struct RootView: View {
                 }
                 .tag(0)
             
+            SearchView()
+                .tabItem {
+                    Label("Search", systemImage: "magnifyingglass")
+                }
+            
             MyShowsView()
                 .tabItem {
                     Label("My Shows", systemImage: "music.mic")

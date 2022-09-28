@@ -301,6 +301,8 @@ class DatabaseService {
         }
     }
     
+    /// Deletes a band invite from the logged in user's bandInvites Firestore collection.
+    /// - Parameter bandInvite: The band invite to be deleted.
     func deleteBandInvite(bandInvite: BandInvite) {
         if bandInvite.id != nil {
             db.collection("users").document(AuthController.getLoggedInUid()).collection("bandInvites").document(bandInvite.id!).delete()
@@ -308,6 +310,34 @@ class DatabaseService {
     }
     
     // MARK: - Firestore Searches
+    
+    func performSearch(for searchType: SearchType, withName name: String) async throws -> [AnySearchable] {
+        var fetchedResults = [AnySearchable]()
+        let query = try await db.collection(searchType.firestoreCollection).whereField("name", isEqualTo: name).getDocuments()
+        
+        for document in query.documents {
+            do {
+                switch searchType {
+                case .user:
+                    let result = try document.data(as: User.self)
+                    let searchable = AnySearchable(id: result.id!, searchable: result)
+                    fetchedResults.append(searchable)
+                case .band:
+                    let result = try document.data(as: Band.self)
+                    let searchable = AnySearchable(id: result.id!, searchable: result)
+                    fetchedResults.append(searchable)
+                case .show:
+                    let result = try document.data(as: Show.self)
+                    let searchable = AnySearchable(id: result.id!, searchable: result)
+                    fetchedResults.append(searchable)
+                }
+            } catch {
+                throw DatabaseServiceError.decodeError(message: "Failed to decode band")
+            }
+        }
+        
+        return fetchedResults
+    }
     
     /// Fetches a band that the user searches for so it can be displayed in a List.
     /// - Parameter name: The name of the band for which the user is searching.
@@ -335,10 +365,10 @@ class DatabaseService {
     /// Searches for users based on their email address (will later work with usernames when I incorporate usernames).
     /// - Parameter emailAddress: The email address for which the user searched.
     /// - Returns: The users that match that email address.
-    func searchForUsers(emailAddress: String) async throws -> [User] {
+    func searchForUsers(username: String) async throws -> [User] {
         do {
             var usersArray = [User]()
-            let query = try await db.collection("users").whereField("emailAddress", isEqualTo: emailAddress).getDocuments()
+            let query = try await db.collection("users").whereField("name", isEqualTo: username).getDocuments()
             
             for document in query.documents {
                 do {
@@ -352,6 +382,26 @@ class DatabaseService {
             return usersArray
         } catch {
             throw DatabaseServiceError.firestoreError(message: "Failed to retrieve user documents")
+        }
+    }
+    
+    func searchForShows(name: String) async throws -> [Show] {
+        do {
+            var showsArray = [Show]()
+            let query = try await db.collection("shows").whereField("name", isEqualTo: name).getDocuments()
+            
+            for document in query.documents {
+                do {
+                    let show = try document.data(as: Show.self)
+                    showsArray.append(show)
+                } catch {
+                    throw DatabaseServiceError.decodeError(message: "Failed to decode show")
+                }
+            }
+            
+            return showsArray
+        } catch {
+            throw DatabaseServiceError.firestoreError(message: "Failed to retrieve show documents")
         }
     }
     

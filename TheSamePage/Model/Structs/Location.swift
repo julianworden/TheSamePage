@@ -8,7 +8,7 @@
 import FirebaseFirestoreSwift
 import Foundation
 
-struct Location: Codable {
+struct Location: Codable, Equatable, Identifiable {
     @DocumentID var id: String?
     let address: String
     let latitude: String
