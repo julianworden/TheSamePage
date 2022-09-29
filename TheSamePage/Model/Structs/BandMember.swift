@@ -17,4 +17,10 @@ struct BandMember: Codable, Equatable, Identifiable {
     let uid: String
     let role: String
     let name: String
+    
+    static let example = BandMember(
+        uid: "as;ldkfajs;dlfkja",
+        role: "Guitar",
+        name: "Lou Sabba"
+    )
 }

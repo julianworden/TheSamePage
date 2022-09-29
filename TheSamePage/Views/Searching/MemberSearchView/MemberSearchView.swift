@@ -20,12 +20,14 @@ struct MemberSearchView: View {
     // TODO: Add done button to toolbar that will end onboarding
     var body: some View {
         List {
-            ForEach(viewModel.fetchedUsers) { user in
+            ForEach(viewModel.fetchedResults) { result in
+                let user = result.searchable as! User
+                
                 NavigationLink {
-                    UserProfileView(user: user, band: viewModel.band, userIsLoggedOut: $userIsOnboarding, selectedTab: .constant(3))
+                    UserProfileView(user: user, band: viewModel.band, bandMember: nil, userIsLoggedOut: $userIsOnboarding, selectedTab: .constant(3))
                 } label: {
                     // TODO: Make reusable row for this
-                    Text("\(user.firstName) \(user.lastName)")
+                    Text(user.name)
                 }
             }
         }
@@ -39,7 +41,7 @@ struct MemberSearchView: View {
                 }
             }
         }
-        .animation(.easeInOut, value: viewModel.fetchedUsers)
+        .animation(.easeInOut, value: viewModel.fetchedResults)
     }
 }
 

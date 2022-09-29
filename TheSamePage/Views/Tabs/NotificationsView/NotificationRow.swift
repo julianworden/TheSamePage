@@ -14,26 +14,38 @@ struct NotificationRow: View {
         _viewModel = StateObject(wrappedValue: NotificationRowViewModel(notification: notification))
     }
     
+    // TODO: Add notification timestamp
     var body: some View {
-        VStack {
-            Text("\(viewModel.notificationSender) is inviting you to join \(viewModel.notificationBand)")
+        ZStack {
+            Rectangle()
+                .foregroundColor(.white)
+                .cornerRadius(10)
+                .shadow(radius: 3)
+                .frame(height: 125)
+            
             HStack {
-                Button("Accept") {
-                    Task {
-                        do {
-                            try await viewModel.acceptBandInvite()
-                        } catch {
-                            print(error)
+                Text("\(viewModel.notificationSender) is inviting you to join \(viewModel.notificationBand)")
+                
+                VStack {
+                    Button("Accept") {
+                        Task {
+                            do {
+                                try await viewModel.acceptBandInvite()
+                            } catch {
+                                print(error)
+                            }
                         }
                     }
+                    
+                    Button("Decline") {
+                        viewModel.declineBandInvite()
+                    }
                 }
-                
-                Button("Decline") {
-                    viewModel.declineBandInvite()
-                }
+                .buttonStyle(.bordered)
             }
-            .buttonStyle(.bordered)
+            .padding(.horizontal)
         }
+        .padding(.horizontal)
     }
 }
 

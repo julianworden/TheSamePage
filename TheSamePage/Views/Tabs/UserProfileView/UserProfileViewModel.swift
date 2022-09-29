@@ -8,6 +8,7 @@
 import FirebaseAuth
 import Foundation
 
+@MainActor
 class UserProfileViewModel: ObservableObject {
     enum UserProfileViewModelError: Error {
         case firebaseAuthError(message: String)
@@ -19,6 +20,9 @@ class UserProfileViewModel: ObservableObject {
     @Published var user: User?
     /// The band that the user will be invited to join if their invite button is tapped.
     @Published var band: Band?
+    /// The bandMember for which the Profile is a representation. This is necessary for when a
+    /// user is selected from the BandProfile's Members section.
+    @Published var bandMember: BandMember?
     
     @Published var firstName: String?
     @Published var lastName: String?
@@ -30,19 +34,33 @@ class UserProfileViewModel: ObservableObject {
         return AuthController.getLoggedInUid() == user?.id
     }
     
-    init(user: User?, band: Band?) {
-        self.user = user
-        self.band = band
+    init(user: User?, band: Band?, bandMember: BandMember?) {
+        if let user {
+            self.user = user
+        }
+        
+        if let band {
+            self.band = band
+        }
+        
+        if let bandMember {
+            self.bandMember = bandMember
+        }
         
         Task {
             do {
                 // This is needed because HomeView doesn't call initialize user onAppear if the user is onboarding. This is expected.
-                if user == nil {
+                if user == nil && bandMember == nil {
                     try await initializeUser(user: nil)
                     try await getBands(forUser: nil)
-                } else {
+                } else if user != nil && bandMember == nil {
                     try await initializeUser(user: user)
                     try await getBands(forUser: user)
+                } else if user == nil && bandMember != nil {
+                    let convertedUser = try await convertBandMemberToUser(bandMember: bandMember!)
+                    self.user = convertedUser
+                    try await initializeUser(user: convertedUser)
+                    try await getBands(forUser: convertedUser)
                 }
             } catch {
                 print(error)
@@ -50,7 +68,6 @@ class UserProfileViewModel: ObservableObject {
         }
     }
     
-    @MainActor
     func initializeUser(user: User?) async throws {
         // If these properties have values, there's no reason to make the database call
         // TODO: Add this line when user values are cleared on log out: guard firstName == nil && lastName == nil else { return }
@@ -68,6 +85,11 @@ class UserProfileViewModel: ObservableObject {
             emailAddress = loggedInUser.emailAddress
             profileImageUrl = loggedInUser.profileImageUrl
         }
+        
+    }
+    
+    func convertBandMemberToUser(bandMember: BandMember) async throws -> User {
+        return try await DatabaseService.shared.convertBandMemberToUser(bandMember: bandMember)
     }
     
     // TODO: Incorporate a listener to this so the bands array is updated when the user joins a new band

@@ -8,7 +8,7 @@
 import Foundation
 
 class MemberSearchViewModel: ObservableObject {
-    @Published var fetchedUsers = [User]()
+    @Published var fetchedResults = [AnySearchable]()
     @Published var searchText = ""
     
     var band: Band?
@@ -19,6 +19,6 @@ class MemberSearchViewModel: ObservableObject {
     
     @MainActor
     func getUsers() async throws {
-        fetchedUsers = try await DatabaseService.shared.searchForUsers(username: searchText)
+        fetchedResults = try await DatabaseService.shared.performSearch(for: .user, withName: searchText)
     }
 }

@@ -7,17 +7,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "65A83D69-C196-4EFA-9585-0FB34CDDB4CD"
+            uuid = "F4564209-84A2-403B-8C6E-7543E1B8C9B9"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Views/Profile Views/UserProfileView/SendBandInviteView/SendBandInviteViewModel.swift"
+            filePath = "TheSamePage/Views/Tabs/UserProfileView/UserProfileViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "sendBandInviteNotification()"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "init(user:band:bandMember:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F4564209-84A2-403B-8C6E-7543E1B8C9B9 - df49f0d203759152"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TheSamePage.UserProfileViewModel.__allocating_init(user: Swift.Optional&lt;TheSamePage.User&gt;, band: Swift.Optional&lt;TheSamePage.Band&gt;, bandMember: Swift.Optional&lt;TheSamePage.BandMember&gt;) -&gt; TheSamePage.UserProfileViewModel"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/Tabs/UserProfileView/UserProfileViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  uuid = "F4564209-84A2-403B-8C6E-7543E1B8C9B9 - bda7c6da22d0db1c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TheSamePage.UserProfileViewModel.init(user: Swift.Optional&lt;TheSamePage.User&gt;, band: Swift.Optional&lt;TheSamePage.Band&gt;, bandMember: Swift.Optional&lt;TheSamePage.BandMember&gt;) -&gt; TheSamePage.UserProfileViewModel"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/Tabs/UserProfileView/UserProfileViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "476">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

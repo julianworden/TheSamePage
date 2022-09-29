@@ -12,8 +12,26 @@ struct NotificationsView: View {
     
     var body: some View {
         NavigationView {
-            List(viewModel.fetchedNotifications) { invite in
-                NotificationRow(notification: invite)
+            Group {
+                if !viewModel.fetchedNotifications.isEmpty {
+                    ScrollView {
+                        ForEach(viewModel.fetchedNotifications) { invite in
+                            NotificationRow(notification: invite)
+                        }
+                        .onDisappear {
+                            viewModel.removeListeners()
+                        }
+                        .animation(.easeInOut, value: viewModel.fetchedNotifications)
+                    }
+                    
+                } else {
+                    VStack {
+                        Text("Band invites, new messages, and more will appear here. You don't have any notifications at this time.")
+                            .italic()
+                            .multilineTextAlignment(.center)
+                    }
+                    .padding()
+                }
             }
             .navigationTitle("Notifications")
             .task {
@@ -23,10 +41,6 @@ struct NotificationsView: View {
                     print(error)
                 }
             }
-            .onDisappear {
-                viewModel.removeListeners()
-            }
-            .animation(.easeInOut, value: viewModel.fetchedNotifications)
         }
     }
 }

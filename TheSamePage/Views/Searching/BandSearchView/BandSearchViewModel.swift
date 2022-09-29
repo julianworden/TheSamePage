@@ -8,11 +8,11 @@
 import Foundation
 
 class BandSearchViewModel: ObservableObject {
-    @Published var fetchedBands = [Band]()
+    @Published var fetchedResults = [AnySearchable]()
     @Published var searchText = ""
     
     @MainActor
     func getBands() async throws {
-        fetchedBands = try await DatabaseService.shared.searchForBands(name: searchText)
+        fetchedResults = try await DatabaseService.shared.performSearch(for: .band, withName: searchText)
     }
 }

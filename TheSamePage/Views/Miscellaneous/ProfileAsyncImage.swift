@@ -15,8 +15,9 @@ struct ProfileAsyncImage: View {
             switch phase {
             case .empty:
                 ZStack {
-                    NoImageView()
-                        .opacity(0.5)
+                    Rectangle()
+                        .foregroundColor(.clear)
+                        .frame(height: 200)
                     
                     ProgressView()
                 }

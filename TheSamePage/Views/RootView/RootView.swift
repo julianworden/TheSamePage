@@ -36,7 +36,7 @@ struct RootView: View {
                 }
                 .tag(2)
             
-            UserProfileView(user: nil, band: nil, userIsLoggedOut: $userIsOnboarding, selectedTab: $selectedTab)
+            UserProfileView(user: nil, band: nil, bandMember: nil, userIsLoggedOut: $userIsOnboarding, selectedTab: $selectedTab)
                 .tabItem {
                     Label("Profile", systemImage: "person")
                 }

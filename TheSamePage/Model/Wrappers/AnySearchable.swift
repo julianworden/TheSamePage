@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// A wrapper for the Searchable protocol that allows it to conform to the Identifiable protocol.
 struct AnySearchable: Equatable, Identifiable {
     var id: String
     var searchable: any Searchable

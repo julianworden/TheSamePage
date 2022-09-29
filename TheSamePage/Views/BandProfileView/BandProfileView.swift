@@ -10,14 +10,14 @@ import SwiftUI
 struct BandProfileView: View {
     @StateObject var viewModel: BandProfileViewModel
     
+    let columns = [GridItem(.fixed(149), spacing: 15), GridItem(.fixed(149), spacing: 15)]
+    
     init(band: Band) {
         _viewModel = StateObject(wrappedValue: BandProfileViewModel(band: band))
     }
     
     var body: some View {
         VStack(spacing: 20) {
-            SectionTitle(title: viewModel.bandName)
-            
             if viewModel.bandProfileImageUrl != nil {
                 ProfileAsyncImage(url: URL(string: viewModel.bandProfileImageUrl!))
             } else {
@@ -46,11 +46,17 @@ struct BandProfileView: View {
             }
             
             if !viewModel.bandMembers.isEmpty {
-                VStack {
+                LazyVGrid(columns: columns, spacing: 15) {
                     ForEach(viewModel.bandMembers) { bandMember in
-                        Text(bandMember.name + " - " + bandMember.role)
+                        NavigationLink {
+                            UserProfileView(user: nil, band: viewModel.band, bandMember: bandMember, userIsLoggedOut: .constant(false), selectedTab: .constant(4))
+                        } label: {
+                            BandMemberCard(bandMember: bandMember)
+                        }
+                        .tint(.black)
                     }
                 }
+                .padding(.horizontal)
             } else {
                 VStack {
                     Text("Your band doesn't have any members.")
@@ -64,14 +70,16 @@ struct BandProfileView: View {
                         }
                     } else {
                         Text("You are not the band admin. Only your band's admin is able to invite other members.")
+                            .italic()
                     }
                 }
+                .multilineTextAlignment(.center)
                 .padding(.top)
             }
             
             Spacer()
         }
-        .navigationTitle("Band Profile")
+        .navigationTitle(viewModel.bandName)
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $viewModel.memberSearchSheetIsShowing) {
             NavigationView {
