@@ -24,6 +24,10 @@ struct Band: Codable, Equatable, Identifiable, Searchable {
     let city: String
     let state: String
     
+    var loggedInUserIsBandAdmin: Bool {
+        return adminUid == AuthController.getLoggedInUid()
+    }
+    
     static let example = Band(
         name: "Pathetic Fallacy",
         bio: "A bangin metalcore band from New Jersey. We will slay all the shows. ALL OF THEM!!! Nobody will be spared, not even your mom.",

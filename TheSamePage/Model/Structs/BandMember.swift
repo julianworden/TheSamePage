@@ -18,6 +18,10 @@ struct BandMember: Codable, Equatable, Identifiable {
     let role: String
     let name: String
     
+    var bandMemberIsLoggedInUser: Bool {
+        return AuthController.getLoggedInUid() == uid
+    }
+    
     static let example = BandMember(
         uid: "as;ldkfajs;dlfkja",
         role: "Guitar",

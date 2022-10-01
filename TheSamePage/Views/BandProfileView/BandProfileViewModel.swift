@@ -15,14 +15,10 @@ class BandProfileViewModel: ObservableObject {
     @Published var bandState: String
     @Published var bandProfileImageUrl: String?
     @Published var bandGenre: String
+    @Published var bandLinks = [Link]()
     @Published var bandMembers = [BandMember]()
-    @Published var memberSearchSheetIsShowing = false
     
     let band: Band
-    
-    var loggedInUserIsBandAdmin: Bool {
-        band.adminUid == AuthController.getLoggedInUid()
-    }
     
     init(band: Band) {
         self.band = band
@@ -35,6 +31,7 @@ class BandProfileViewModel: ObservableObject {
         
         Task {
             bandMembers = try await DatabaseService.shared.getBandMembers(forBand: band)
+            bandLinks = try await DatabaseService.shared.getBandLinks(forBand: band)
         }
     }
 }

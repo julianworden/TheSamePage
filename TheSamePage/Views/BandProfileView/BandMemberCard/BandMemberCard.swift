@@ -24,7 +24,7 @@ struct BandMemberCard: View {
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text(viewModel.memberName)
+                    Text(viewModel.memberUid == AuthController.getLoggedInUid() ? "You" : viewModel.memberName)
                     
                     Text(viewModel.memberRole)
                         .font(.caption)
@@ -38,7 +38,6 @@ struct BandMemberCard: View {
             .padding(.horizontal)
         }
         .frame(width: 149, height: 70)
-//        .padding(.horizontal)
     }
 }
 

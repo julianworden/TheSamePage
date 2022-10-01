@@ -241,6 +241,30 @@ class DatabaseService {
         }
     }
     
+    func getBandLinks(forBand band: Band) async throws -> [Link] {
+        if band.id != nil {
+            do {
+                var links = [Link]()
+                let query = try await db.collection("bands").document(band.id!).collection("links").getDocuments()
+                
+                for document in query.documents {
+                    do {
+                        let link = try document.data(as: Link.self)
+                        links.append(link)
+                    } catch {
+                        throw DatabaseServiceError.decodeError(message: "Failed to decode Link.")
+                    }
+                }
+                
+                return links
+            } catch {
+                throw DatabaseServiceError.firestoreError(message: "Failed to fetch band links.")
+            }
+        } else {
+            return []
+        }
+    }
+    
     // MARK: - Firestore Writes
     
     /// Creates a show in the Firestore shows collection.
@@ -306,6 +330,12 @@ class DatabaseService {
     func deleteBandInvite(bandInvite: BandInvite) {
         if bandInvite.id != nil {
             db.collection("users").document(AuthController.getLoggedInUid()).collection("bandInvites").document(bandInvite.id!).delete()
+        }
+    }
+    
+    func uploadBandLink(withLink link: Link, forBand band: Band) throws {
+        if band.id != nil {
+            _ = try db.collection("bands").document(band.id!).collection("links").addDocument(from: link)
         }
     }
     
