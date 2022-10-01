@@ -70,6 +70,8 @@
 		ABBADD7928DFE5FA00720C64 /* BandState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBADD7828DFE5FA00720C64 /* BandState.swift */; };
 		ABBE94C228D8ADBF00790A04 /* ShowDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */; };
 		ABBE94C428D8AE7500790A04 /* ShowDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */; };
+		ABD029B428E8978F00BDF73C /* BandMemberList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD029B328E8978F00BDF73C /* BandMemberList.swift */; };
+		ABD029B628E897A400BDF73C /* BandMemberListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD029B528E897A400BDF73C /* BandMemberListViewModel.swift */; };
 		ABD323EF28E1180C00540B93 /* SendBandInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD323EE28E1180C00540B93 /* SendBandInviteView.swift */; };
 		ABD323F128E1181F00540B93 /* SendBandInviteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD323F028E1181F00540B93 /* SendBandInviteViewModel.swift */; };
 		ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D6F28D748FD0054269E /* NotificationsView.swift */; };
@@ -150,6 +152,8 @@
 		ABBADD7828DFE5FA00720C64 /* BandState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandState.swift; sourceTree = "<group>"; };
 		ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsView.swift; sourceTree = "<group>"; };
 		ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsViewModel.swift; sourceTree = "<group>"; };
+		ABD029B328E8978F00BDF73C /* BandMemberList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMemberList.swift; sourceTree = "<group>"; };
+		ABD029B528E897A400BDF73C /* BandMemberListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMemberListViewModel.swift; sourceTree = "<group>"; };
 		ABD323EE28E1180C00540B93 /* SendBandInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendBandInviteView.swift; sourceTree = "<group>"; };
 		ABD323F028E1181F00540B93 /* SendBandInviteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendBandInviteViewModel.swift; sourceTree = "<group>"; };
 		ABDC0D6F28D748FD0054269E /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
@@ -468,6 +472,15 @@
 			path = ShowDetailsView;
 			sourceTree = "<group>";
 		};
+		ABD029B228E8978400BDF73C /* BandMemberList */ = {
+			isa = PBXGroup;
+			children = (
+				ABD029B328E8978F00BDF73C /* BandMemberList.swift */,
+				ABD029B528E897A400BDF73C /* BandMemberListViewModel.swift */,
+			);
+			path = BandMemberList;
+			sourceTree = "<group>";
+		};
 		ABD323ED28E117F800540B93 /* SendBandInviteView */ = {
 			isa = PBXGroup;
 			children = (
@@ -557,6 +570,7 @@
 			children = (
 				ABF5563428DF93DD0059E2DF /* BandProfileView.swift */,
 				ABF5563628DF93E40059E2DF /* BandProfileViewModel.swift */,
+				ABD029B228E8978400BDF73C /* BandMemberList */,
 				ABEF10E228E64CC100A1DBAC /* BandMemberCard */,
 				AB5B77C328E72B7100B32537 /* BandLinkCard */,
 				ABEF10E328E64CCB00A1DBAC /* AddEditLinkView */,
@@ -656,6 +670,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABD029B428E8978F00BDF73C /* BandMemberList.swift in Sources */,
 				AB5054A928DC91D700321380 /* MemberSearchViewModel.swift in Sources */,
 				AB36FF7428D358FB00AAC00C /* HomeView.swift in Sources */,
 				ABBADD7928DFE5FA00720C64 /* BandState.swift in Sources */,
@@ -670,6 +685,7 @@
 				AB36FF8B28D35CB500AAC00C /* Time.swift in Sources */,
 				AB36FF8528D35C1B00AAC00C /* Location.swift in Sources */,
 				AB36FF8028D35BFA00AAC00C /* User.swift in Sources */,
+				ABD029B628E897A400BDF73C /* BandMemberListViewModel.swift in Sources */,
 				AB36FF9828D36A6600AAC00C /* SectionTitle.swift in Sources */,
 				ABDC0D7B28D76FDE0054269E /* AddEditShowView.swift in Sources */,
 				ABA1020728DDE5BE00A4E818 /* NotificationsViewModel.swift in Sources */,

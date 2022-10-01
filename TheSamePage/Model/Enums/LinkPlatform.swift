@@ -23,7 +23,7 @@ enum LinkPlatform: String, CaseIterable, Identifiable {
         case .instagram:
             return "instagram://user?username="
         case .facebook:
-            return "https://facebook.com/"
+            return "https://en-gb.facebook.com/"
         case .none:
             return ""
         }

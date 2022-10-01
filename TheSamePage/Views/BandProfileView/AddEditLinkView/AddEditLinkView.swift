@@ -20,7 +20,9 @@ struct AddEditLinkView: View {
         Form {
             Picker("Choose Platform", selection: $viewModel.linkPlatform) {
                 ForEach(LinkPlatform.allCases) { platform in
-                    Text(platform.rawValue)
+                    if platform != LinkPlatform.none {
+                        Text(platform.rawValue)
+                    }
                 }
             }
             TextField("URL", text: $viewModel.enteredText)

@@ -56,21 +56,7 @@ struct BandProfileView: View {
             }
             
             if !viewModel.bandMembers.isEmpty {
-                LazyVGrid(columns: columns, spacing: 15) {
-                    ForEach(viewModel.bandMembers) { bandMember in
-                        if !bandMember.bandMemberIsLoggedInUser {
-                            NavigationLink {
-                                UserProfileView(user: nil, band: viewModel.band, bandMember: bandMember, userIsLoggedOut: .constant(false), selectedTab: .constant(4))
-                            } label: {
-                                BandMemberCard(bandMember: bandMember)
-                            }
-                            .tint(.black)
-                        } else {
-                            BandMemberCard(bandMember: bandMember)
-                        }
-                    }
-                }
-                .padding(.horizontal)
+                BandMemberList(bandMembers: viewModel.bandMembers, band: viewModel.band)
             } else {
                 VStack {
                     Text("Your band doesn't have any members.")
@@ -88,6 +74,7 @@ struct BandProfileView: View {
                             .italic()
                     }
                 }
+                .padding([.leading, .trailing])
                 .multilineTextAlignment(.center)
             }
             
@@ -111,12 +98,33 @@ struct BandProfileView: View {
                         BandLinkCard(link: link)
                     }
                 }
+                .background(Color(uiColor: .secondarySystemBackground))
+            } else {
+                VStack {
+                    Text("Your band doesn't have any links")
+                        .italic()
+                    
+                    if viewModel.band.loggedInUserIsBandAdmin {
+                        Button {
+                            linkCreationSheetIsShowing = true
+                        } label: {
+                            Text("Tap here to add links that will make your band easier to follow")
+                                .italic()
+                        }
+                    } else {
+                        Text("You are not the band admin. Only the band admin can add links to your profile")
+                            .italic()
+                    }
+                }
+                .padding([.leading, .trailing])
+                .multilineTextAlignment(.center)
             }
             
             Spacer()
         }
         .navigationTitle("Band Profile")
         .navigationBarTitleDisplayMode(.inline)
+        .background(Color(uiColor: .systemGroupedBackground))
         .sheet(isPresented: $memberSearchSheetIsShowing) {
             NavigationView {
                 MemberSearchView(userIsOnboarding: .constant(false), band: viewModel.band)

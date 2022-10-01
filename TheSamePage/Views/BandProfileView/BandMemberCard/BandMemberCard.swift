@@ -10,19 +10,21 @@ import SwiftUI
 struct BandMemberCard: View {
     @StateObject var viewModel: BandMemberCardViewModel
     
-    init(bandMember: BandMember) {
+    let index: Int
+    let membersCount: Int
+    
+    init(bandMember: BandMember, index: Int, membersCount: Int) {
         _viewModel = StateObject(wrappedValue: BandMemberCardViewModel(bandMember: bandMember))
+        self.index = index
+        self.membersCount = membersCount
     }
     
-    // TODO: Make the name say "You" for the logged in user's card if they're a member of the band you're viewing
     var body: some View {
-        ZStack {
-            Rectangle()
-                .foregroundColor(.white)
-                .cornerRadius(10)
-                .shadow(radius: 3)
-            
+        VStack(spacing: 0) {
             HStack {
+                Image(systemName: "person")
+                    .padding(.leading)
+                
                 VStack(alignment: .leading) {
                     Text(viewModel.memberUid == AuthController.getLoggedInUid() ? "You" : viewModel.memberName)
                     
@@ -33,16 +35,21 @@ struct BandMemberCard: View {
                 
                 Spacer()
                 
-                Image(systemName: "person")
+                Image(systemName: "chevron.right")
+                    .padding(.trailing)
             }
-            .padding(.horizontal)
+            .frame(height: 50)
+            .background(Color(uiColor: .secondarySystemGroupedBackground))
+            
+            if index != membersCount - 1 {
+                Divider()
+            }
         }
-        .frame(width: 149, height: 70)
     }
 }
 
 struct BandMemberRow_Previews: PreviewProvider {
     static var previews: some View {
-        BandMemberCard(bandMember: BandMember.example)
+        BandMemberCard(bandMember: BandMember.example, index: 0, membersCount: 0)
     }
 }

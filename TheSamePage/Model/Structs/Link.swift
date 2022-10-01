@@ -9,6 +9,10 @@ import FirebaseFirestoreSwift
 import Foundation
 
 struct Link: Codable, Equatable, Identifiable {
+    enum LinkError: Error {
+        case invalidPlatformName(message: String)
+    }
+    
     @DocumentID var id: String?
     let platformName: String
     let url: String

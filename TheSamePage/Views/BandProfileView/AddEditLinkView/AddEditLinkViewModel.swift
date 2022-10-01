@@ -28,13 +28,13 @@ class AddEditLinkViewModel: ObservableObject {
     func createLink() {
         switch linkPlatform {
         case .spotify:
-            linkUrl = linkPlatform.urlPrefix + enteredText.lowercased()
+            linkUrl = enteredText.lowercased()
         case .instagram:
             linkUrl = linkPlatform.urlPrefix + enteredText.lowercased()
         case .facebook:
-            linkUrl = linkPlatform.urlPrefix + enteredText.lowercased()
+            linkUrl = linkPlatform.urlPrefix + enteredText.lowercased() + "/posts/?ref=page_internal"
         case .none:
-            print("None")
+            break
         }
     }
     
