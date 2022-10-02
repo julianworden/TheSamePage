@@ -9,12 +9,10 @@ import FirebaseAuth
 import Foundation
 
 @MainActor
-class UserProfileViewModel: ObservableObject {
+class UserProfileRootViewModel: ObservableObject {
     enum UserProfileViewModelError: Error {
         case firebaseAuthError(message: String)
     }
-    
-    @Published var sendBandInviteSheetIsShowing = false
     
     /// The user being displayed. When this value is nil, the logged in user is viewing their own profile
     @Published var user: User?

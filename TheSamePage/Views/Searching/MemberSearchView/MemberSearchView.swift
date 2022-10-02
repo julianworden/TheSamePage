@@ -24,7 +24,7 @@ struct MemberSearchView: View {
                 let user = result.searchable as! User
                 
                 NavigationLink {
-                    UserProfileView(user: user, band: viewModel.band, bandMember: nil, userIsLoggedOut: $userIsOnboarding, selectedTab: .constant(3))
+                    UserProfileRootView(user: user, band: viewModel.band, bandMember: nil, userIsLoggedOut: $userIsOnboarding, selectedTab: .constant(3))
                 } label: {
                     // TODO: Make reusable row for this
                     Text(user.name)

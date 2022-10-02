@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class BandMemberCardViewModel: ObservableObject {
+final class BandMemberRowViewModel: ObservableObject {
     @Published var memberRole = ""
     @Published var memberName = ""
     

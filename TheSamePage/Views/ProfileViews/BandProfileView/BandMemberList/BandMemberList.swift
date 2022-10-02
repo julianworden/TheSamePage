@@ -20,15 +20,15 @@ struct BandMemberList: View {
                 if !bandMember.bandMemberIsLoggedInUser {
                     VStack {
                         NavigationLink {
-                            UserProfileView(user: nil, band: viewModel.band, bandMember: bandMember, userIsLoggedOut: .constant(false), selectedTab: .constant(4))
+                            UserProfileRootView(user: nil, band: viewModel.band, bandMember: bandMember, userIsLoggedOut: .constant(false), selectedTab: .constant(4))
                         } label: {
-                            BandMemberCard(bandMember: bandMember, index: index, membersCount: viewModel.bandMembers.count)
+                            BandMemberRow(bandMember: bandMember, index: index, membersCount: viewModel.bandMembers.count)
                                 .padding(.horizontal)
                         }
                     }
                     .tint(.black)
                 } else {
-                    BandMemberCard(bandMember: bandMember, index: index, membersCount: viewModel.bandMembers.count)
+                    BandMemberRow(bandMember: bandMember, index: index, membersCount: viewModel.bandMembers.count)
                         .padding(.horizontal)
                 }
             }

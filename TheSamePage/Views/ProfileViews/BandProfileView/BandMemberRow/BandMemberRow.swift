@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct BandMemberCard: View {
-    @StateObject var viewModel: BandMemberCardViewModel
+struct BandMemberRow: View {
+    @StateObject var viewModel: BandMemberRowViewModel
     
     let index: Int
     let membersCount: Int
     
     init(bandMember: BandMember, index: Int, membersCount: Int) {
-        _viewModel = StateObject(wrappedValue: BandMemberCardViewModel(bandMember: bandMember))
+        _viewModel = StateObject(wrappedValue: BandMemberRowViewModel(bandMember: bandMember))
         self.index = index
         self.membersCount = membersCount
     }
@@ -50,6 +50,6 @@ struct BandMemberCard: View {
 
 struct BandMemberRow_Previews: PreviewProvider {
     static var previews: some View {
-        BandMemberCard(bandMember: BandMember.example, index: 0, membersCount: 0)
+        BandMemberRow(bandMember: BandMember.example, index: 0, membersCount: 0)
     }
 }
