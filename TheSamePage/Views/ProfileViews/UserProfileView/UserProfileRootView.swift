@@ -20,18 +20,19 @@ struct UserProfileRootView: View {
     }
     
     var body: some View {
-        if viewModel.user == nil && viewModel.bandMember == nil {
-            LoggedInUserProfileView(
-                userIsLoggedOut: $userIsLoggedOut,
-                selectedTab: $selectedTab
-            )
-        } else {
-            OtherUserProfileView(
-                user: viewModel.user,
-                band: viewModel.band,
-                bandMember: viewModel.bandMember
-            )
-        }
+            if viewModel.user == nil && viewModel.bandMember == nil {
+                LoggedInUserProfileView(
+                    userIsLoggedOut: $userIsLoggedOut,
+                    selectedTab: $selectedTab
+                )
+            } else {
+                OtherUserProfileView(
+                    user: viewModel.user,
+                    band: viewModel.band,
+                    bandMember: viewModel.bandMember
+                )
+            }
+        
     }
 }
 

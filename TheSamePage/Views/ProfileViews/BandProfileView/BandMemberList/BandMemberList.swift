@@ -22,13 +22,13 @@ struct BandMemberList: View {
                         NavigationLink {
                             UserProfileRootView(user: nil, band: viewModel.band, bandMember: bandMember, userIsLoggedOut: .constant(false), selectedTab: .constant(4))
                         } label: {
-                            BandMemberRow(bandMember: bandMember, index: index, membersCount: viewModel.bandMembers.count)
+                            BandMemberRow(bandMember: bandMember, index: index, membersCount: viewModel.bandMembers.count, bandMemberIsLoggedInUser: false)
                                 .padding(.horizontal)
                         }
                     }
                     .tint(.black)
                 } else {
-                    BandMemberRow(bandMember: bandMember, index: index, membersCount: viewModel.bandMembers.count)
+                    BandMemberRow(bandMember: bandMember, index: index, membersCount: viewModel.bandMembers.count, bandMemberIsLoggedInUser: true)
                         .padding(.horizontal)
                 }
             }

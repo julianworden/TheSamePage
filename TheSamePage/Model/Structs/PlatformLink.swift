@@ -1,5 +1,5 @@
 //
-//  Link.swift
+//  PlatformLink.swift
 //  TheSamePage
 //
 //  Created by Julian Worden on 9/15/22.
@@ -8,7 +8,7 @@
 import FirebaseFirestoreSwift
 import Foundation
 
-struct Link: Codable, Equatable, Identifiable {
+struct PlatformLink: Codable, Equatable, Hashable, Identifiable {
     enum LinkError: Error {
         case invalidPlatformName(message: String)
     }
@@ -31,7 +31,7 @@ struct Link: Codable, Equatable, Identifiable {
         }
     }
     
-    static let example = Link(
+    static let example = PlatformLink(
         platformName: "spotify",
         url: "asdfasdf"
     )

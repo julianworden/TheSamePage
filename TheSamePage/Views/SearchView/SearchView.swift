@@ -26,6 +26,7 @@ struct SearchView: View {
                     .pickerStyle(.segmented)
                 }
             }
+            .background(Color(uiColor: .systemGroupedBackground))
             .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .automatic), prompt: Text(viewModel.searchBarPrompt))
             .onSubmit(of: .search) {
                 Task {

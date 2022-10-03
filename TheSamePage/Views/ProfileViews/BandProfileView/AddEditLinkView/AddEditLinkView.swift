@@ -12,7 +12,7 @@ struct AddEditLinkView: View {
     
     @StateObject var viewModel: AddEditLinkViewModel
     
-    init(link: Link?, band: Band) {
+    init(link: PlatformLink?, band: Band) {
         _viewModel = StateObject(wrappedValue: AddEditLinkViewModel(link: link, band: band))
     }
     
@@ -54,7 +54,7 @@ struct AddEditLinkView: View {
 struct AddLinkView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            AddEditLinkView(link: Link.example, band: Band.example)
+            AddEditLinkView(link: PlatformLink.example, band: Band.example)
         }
     }
 }

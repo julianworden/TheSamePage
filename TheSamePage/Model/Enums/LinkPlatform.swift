@@ -11,6 +11,7 @@ enum LinkPlatform: String, CaseIterable, Identifiable {
     case spotify = "Spotify"
     case instagram = "Instagram"
     case facebook = "Facebook"
+    case appleMusic = "Apple Music"
     // For satisfying exhaustive enum requirements
     case none
     
@@ -18,13 +19,11 @@ enum LinkPlatform: String, CaseIterable, Identifiable {
     
     var urlPrefix: String {
         switch self {
-        case .spotify:
-            return ""
         case .instagram:
             return "instagram://user?username="
         case .facebook:
             return "https://en-gb.facebook.com/"
-        case .none:
+        case .appleMusic, .spotify, .none:
             return ""
         }
     }

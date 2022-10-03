@@ -10,13 +10,8 @@ import SwiftUI
 struct BandMemberRow: View {
     @StateObject var viewModel: BandMemberRowViewModel
     
-    let index: Int
-    let membersCount: Int
-    
-    init(bandMember: BandMember, index: Int, membersCount: Int) {
-        _viewModel = StateObject(wrappedValue: BandMemberRowViewModel(bandMember: bandMember))
-        self.index = index
-        self.membersCount = membersCount
+    init(bandMember: BandMember, index: Int, membersCount: Int, bandMemberIsLoggedInUser: Bool) {
+        _viewModel = StateObject(wrappedValue: BandMemberRowViewModel(bandMember: bandMember, index: index, membersCount: membersCount, bandMemberIsLoggedInUser: bandMemberIsLoggedInUser))
     }
     
     var body: some View {
@@ -35,13 +30,15 @@ struct BandMemberRow: View {
                 
                 Spacer()
                 
-                Image(systemName: "chevron.right")
-                    .padding(.trailing)
+                if !viewModel.bandMemberIsLoggedInUser {
+                    Image(systemName: "chevron.right")
+                        .padding(.trailing)
+                }
             }
             .frame(height: 50)
             .background(Color(uiColor: .secondarySystemGroupedBackground))
             
-            if index != membersCount - 1 {
+            if viewModel.index != viewModel.membersCount - 1 {
                 Divider()
             }
         }
@@ -50,6 +47,6 @@ struct BandMemberRow: View {
 
 struct BandMemberRow_Previews: PreviewProvider {
     static var previews: some View {
-        BandMemberRow(bandMember: BandMember.example, index: 0, membersCount: 0)
+        BandMemberRow(bandMember: BandMember.example, index: 0, membersCount: 0, bandMemberIsLoggedInUser: false)
     }
 }

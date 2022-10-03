@@ -9,7 +9,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
 
-struct Time: Codable, Equatable, Identifiable {
+struct Time: Codable, Equatable, Hashable, Identifiable {
     @DocumentID var id: String?
     let loadIn: Timestamp?
     let doors: Timestamp?

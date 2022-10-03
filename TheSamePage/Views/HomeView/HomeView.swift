@@ -23,6 +23,7 @@ struct HomeView: View {
                     .padding(.top, 5)
                 }
             }
+            .background(Color(uiColor: .systemGroupedBackground))
             .navigationTitle("Home")
             .onAppear {
                 showsController.getShows()

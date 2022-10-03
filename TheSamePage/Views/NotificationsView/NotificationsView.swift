@@ -12,7 +12,10 @@ struct NotificationsView: View {
     
     var body: some View {
         NavigationView {
-            Group {
+            ZStack {
+                Color(uiColor: .systemGroupedBackground)
+                    .ignoresSafeArea()
+                
                 if !viewModel.fetchedNotifications.isEmpty {
                     ScrollView {
                         ForEach(viewModel.fetchedNotifications) { invite in

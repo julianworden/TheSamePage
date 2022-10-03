@@ -13,28 +13,40 @@ struct SendBandInviteView: View {
     @StateObject var viewModel: SendBandInviteViewModel
     
     init(user: User, band: Band?) {
-        _viewModel = StateObject(wrappedValue: SendBandInviteViewModel(user: user, band: band))
+        _viewModel = StateObject(wrappedValue: SendBandInviteViewModel(user: user))
     }
     
     var body: some View {
-        Form {
-            Picker("What role will \(viewModel.user.firstName) have?", selection: $viewModel.recipientRole) {
-                ForEach(Instrument.allCases) { instrument in
-                    Text(instrument.rawValue)
+        if !viewModel.userBands.isEmpty {
+            Form {
+                Picker("Which band would you like to invite \(viewModel.user.firstName) to?", selection: $viewModel.selectedBand) {
+                    ForEach(viewModel.userBands) { band in
+                        Text(band.name).tag(band as Band?)
+                    }
+                }
+                .id(viewModel.selectedBand)
+                
+                Picker("What role will \(viewModel.user.firstName) have?", selection: $viewModel.recipientRole) {
+                    ForEach(Instrument.allCases) { instrument in
+                        Text(instrument.rawValue)
+                    }
+                }
+                
+                Button("Send invite") {
+                    do {
+                        try viewModel.sendBandInviteNotification()
+                        dismiss()
+                    } catch {
+                        print(error)
+                    }
                 }
             }
-            
-            Button("Send invite") {
-                do {
-                    try viewModel.sendBandInviteNotification()
-                    dismiss()
-                } catch {
-                    print(error)
-                }
-            }
+            .navigationTitle("Band Invite")
+            .navigationBarTitleDisplayMode(.inline)
+        } else {
+            Text("You are not the admin for any bands. You can only invite others to join your band if you are the band admin.")
+                .italic()
         }
-        .navigationTitle("Band Invite")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

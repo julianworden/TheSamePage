@@ -45,9 +45,19 @@ class UserProfileRootViewModel: ObservableObject {
             self.bandMember = bandMember
         }
         
+        // This is needed because HomeView doesn't call initialize user in onAppear if the user is onboarding. This is expected.
         Task {
             do {
-                // This is needed because HomeView doesn't call initialize user onAppear if the user is onboarding. This is expected.
+                try await setUpView()
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func setUpView() async throws {
+        Task {
+            do {
                 if user == nil && bandMember == nil {
                     try await initializeUser(user: nil)
                     try await getBands(forUser: nil)

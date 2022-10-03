@@ -9,20 +9,9 @@ import Foundation
 import UIKit
 
 class BandLinkCardViewModel: ObservableObject {
-    @Published var iconName: String
+    let iconName: String
     
-    let linkUrl: String
-    
-    init(link: Link) {
+    init(link: PlatformLink) {
         self.iconName = link.platformName.lowercased()
-        self.linkUrl = link.url
-    }
-    
-    func openLink() {
-        if UIApplication.shared.canOpenURL(URL(string: linkUrl)!) {
-            UIApplication.shared.open(URL(string: linkUrl)!)
-        } else {
-            print("Failed to open link")
-        }
     }
 }

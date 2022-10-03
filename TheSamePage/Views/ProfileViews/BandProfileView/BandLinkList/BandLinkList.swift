@@ -12,22 +12,24 @@ struct BandLinkList: View {
     
     @StateObject var viewModel: BandLinkListViewModel
     
-    init(bandLinks: [Link]) {
+    init(bandLinks: [PlatformLink]) {
         _viewModel = StateObject(wrappedValue: BandLinkListViewModel(bandLinks: bandLinks))
     }
     
     var body: some View {
-        LazyVGrid(columns: columns, spacing: 15) {
+        VStack {
             ForEach(viewModel.bandLinks) { link in
-                BandLinkCard(link: link)
+                Link(destination: URL(string: link.url)!) {
+                    BandLinkCard(link: link)
+                }
             }
+            .background(Color(uiColor: .secondarySystemBackground))
         }
-        .background(Color(uiColor: .secondarySystemBackground))
     }
 }
-
-struct BandLinkList_Previews: PreviewProvider {
-    static var previews: some View {
-        BandLinkList(bandLinks: [Link.example])
+    
+    struct BandLinkList_Previews: PreviewProvider {
+        static var previews: some View {
+            BandLinkList(bandLinks: [PlatformLink.example])
+        }
     }
-}

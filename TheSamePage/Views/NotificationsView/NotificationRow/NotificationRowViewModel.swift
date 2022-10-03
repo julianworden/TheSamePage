@@ -8,8 +8,8 @@
 import Foundation
 
 class NotificationRowViewModel: ObservableObject {
-    @Published var notificationSender: String
-    @Published var notificationBand: String
+    let notificationSender: String
+    let notificationBand: String
     
     let notification: BandInvite
     

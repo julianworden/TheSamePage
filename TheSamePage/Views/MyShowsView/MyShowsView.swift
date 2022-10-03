@@ -85,6 +85,7 @@ struct MyShowsView: View {
                 }
             }
             .navigationTitle("My Shows")
+            .background(Color(uiColor: .systemGroupedBackground))
             .task {
                 // Leaving this logic here to maintain showsController architecture
                 do {

@@ -9,7 +9,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
 
-struct BandInvite: Codable, Equatable, Identifiable {
+struct BandInvite: Codable, Equatable, Hashable, Identifiable {
     @DocumentID var id: String?
     @ServerTimestamp var dateSent: Timestamp?
     let recipientUid: String

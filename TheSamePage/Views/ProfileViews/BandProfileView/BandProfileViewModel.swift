@@ -15,7 +15,7 @@ class BandProfileViewModel: ObservableObject {
     @Published var bandState: String
     @Published var bandProfileImageUrl: String?
     @Published var bandGenre: String
-    @Published var bandLinks = [Link]()
+    @Published var bandLinks = [PlatformLink]()
     @Published var bandMembers = [BandMember]()
     
     let band: Band

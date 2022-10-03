@@ -11,11 +11,11 @@ class AddEditLinkViewModel: ObservableObject {
     @Published var linkPlatform = LinkPlatform.instagram
     @Published var enteredText = ""
     
-    var link: Link?
+    var link: PlatformLink?
     let band: Band
     var linkUrl = ""
     
-    init(link: Link?, band: Band) {
+    init(link: PlatformLink?, band: Band) {
         self.band = band
         
         if let link {
@@ -27,8 +27,8 @@ class AddEditLinkViewModel: ObservableObject {
     
     func createLink() {
         switch linkPlatform {
-        case .spotify:
-            linkUrl = enteredText.lowercased()
+        case .spotify, .appleMusic:
+            linkUrl = enteredText
         case .instagram:
             linkUrl = linkPlatform.urlPrefix + enteredText.lowercased()
         case .facebook:
@@ -39,7 +39,7 @@ class AddEditLinkViewModel: ObservableObject {
     }
     
     func uploadBandLink() throws {
-        let newLink = Link(platformName: linkPlatform.rawValue, url: linkUrl)
+        let newLink = PlatformLink(platformName: linkPlatform.rawValue, url: linkUrl)
         print(newLink.url)
         
         try DatabaseService.shared.uploadBandLink(withLink: newLink, forBand: band)

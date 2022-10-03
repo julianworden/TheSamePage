@@ -20,36 +20,45 @@ struct BandProfileRootView: View {
     }
     
     var body: some View {
-        if viewModel.band.loggedInUserIsBandAdmin {
-            BandProfileAdminView(
-                band: viewModel.band,
-                memberSearchSheetIsShowing: $memberSearchSheetIsShowing,
-                linkCreationSheetIsShowing: $linkCreationSheetIsShowing
-            )
-            .sheet(isPresented: $memberSearchSheetIsShowing) {
-                NavigationView {
-                    MemberSearchView(userIsOnboarding: .constant(false), band: viewModel.band)
-                        .navigationTitle("Search for User Profile")
-                        .navigationBarTitleDisplayMode(.inline)
+        ZStack {
+            Color(uiColor: .systemGroupedBackground)
+                .ignoresSafeArea()
+            
+            if viewModel.band.loggedInUserIsBandAdmin {
+                ScrollView {
+                    BandProfileAdminView(
+                        band: viewModel.band,
+                        memberSearchSheetIsShowing: $memberSearchSheetIsShowing,
+                        linkCreationSheetIsShowing: $linkCreationSheetIsShowing
+                    )
+                    .sheet(isPresented: $memberSearchSheetIsShowing) {
+                        NavigationView {
+                            MemberSearchView(userIsOnboarding: .constant(false), band: viewModel.band)
+                                .navigationTitle("Search for User Profile")
+                                .navigationBarTitleDisplayMode(.inline)
+                        }
+                    }
+                    .sheet(isPresented: $linkCreationSheetIsShowing) {
+                        NavigationView {
+                            AddEditLinkView(link: nil, band: viewModel.band)
+                        }
+                    }
+                }
+            } else {
+                ScrollView {
+                    BandProfileOtherUserView(
+                        band: viewModel.band
+                    )
                 }
             }
-            .sheet(isPresented: $linkCreationSheetIsShowing) {
-                NavigationView {
-                    AddEditLinkView(link: nil, band: viewModel.band)
-                }
-            }
-        } else {
-            BandProfileOtherUserView(
-                band: viewModel.band
-            )
         }
     }
 }
-
-struct BandProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            BandProfileRootView(band: Band.example)
+    
+    struct BandProfileView_Previews: PreviewProvider {
+        static var previews: some View {
+            NavigationView {
+                BandProfileRootView(band: Band.example)
+            }
         }
     }
-}

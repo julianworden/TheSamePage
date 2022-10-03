@@ -33,7 +33,7 @@
 		AB36FF8328D35C0600AAC00C /* Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF8228D35C0600AAC00C /* Show.swift */; };
 		AB36FF8528D35C1B00AAC00C /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF8428D35C1B00AAC00C /* Location.swift */; };
 		AB36FF8728D35C2000AAC00C /* Band.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF8628D35C2000AAC00C /* Band.swift */; };
-		AB36FF8928D35C2800AAC00C /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF8828D35C2800AAC00C /* Link.swift */; };
+		AB36FF8928D35C2800AAC00C /* PlatformLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF8828D35C2800AAC00C /* PlatformLink.swift */; };
 		AB36FF8B28D35CB500AAC00C /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF8A28D35CB500AAC00C /* Time.swift */; };
 		AB36FF8D28D35CDF00AAC00C /* Backline.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF8C28D35CDF00AAC00C /* Backline.swift */; };
 		AB36FF8F28D35E8C00AAC00C /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF8E28D35E8C00AAC00C /* Genre.swift */; };
@@ -130,7 +130,7 @@
 		AB36FF8228D35C0600AAC00C /* Show.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Show.swift; sourceTree = "<group>"; };
 		AB36FF8428D35C1B00AAC00C /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		AB36FF8628D35C2000AAC00C /* Band.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Band.swift; sourceTree = "<group>"; };
-		AB36FF8828D35C2800AAC00C /* Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
+		AB36FF8828D35C2800AAC00C /* PlatformLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformLink.swift; sourceTree = "<group>"; };
 		AB36FF8A28D35CB500AAC00C /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		AB36FF8C28D35CDF00AAC00C /* Backline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backline.swift; sourceTree = "<group>"; };
 		AB36FF8E28D35E8C00AAC00C /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
@@ -336,8 +336,7 @@
 			children = (
 				AB36FF7528D3598900AAC00C /* MyShowsView.swift */,
 				AB2B867928D9EE43004601B6 /* MyShowsViewModel.swift */,
-				AB399AD128D4AF3E009B39F7 /* MyShowsShowCard.swift */,
-				AB399AD328D4B12B009B39F7 /* MyShowsShowCardViewModel.swift */,
+				ABCAAA0828E9F66000685F91 /* MyShowsShowCard */,
 			);
 			path = MyShowsView;
 			sourceTree = "<group>";
@@ -375,7 +374,7 @@
 				AB36FF8428D35C1B00AAC00C /* Location.swift */,
 				AB36FF8628D35C2000AAC00C /* Band.swift */,
 				ABA1020C28DDFD6900A4E818 /* BandMember.swift */,
-				AB36FF8828D35C2800AAC00C /* Link.swift */,
+				AB36FF8828D35C2800AAC00C /* PlatformLink.swift */,
 				AB36FF8A28D35CB500AAC00C /* Time.swift */,
 				AB36FF8C28D35CDF00AAC00C /* Backline.swift */,
 				AB5054B228DCA04900321380 /* BandInvite.swift */,
@@ -469,6 +468,15 @@
 			path = BandLinkCard;
 			sourceTree = "<group>";
 		};
+		AB6A6AF628EA498600996557 /* NotificationRow */ = {
+			isa = PBXGroup;
+			children = (
+				ABA1020828DDF3C000A4E818 /* NotificationRow.swift */,
+				ABA1020A28DDF3E200A4E818 /* NotificationRowViewModel.swift */,
+			);
+			path = NotificationRow;
+			sourceTree = "<group>";
+		};
 		AB794E2B28E25902000ABB37 /* SearchView */ = {
 			isa = PBXGroup;
 			children = (
@@ -530,6 +538,15 @@
 			path = BandLinkList;
 			sourceTree = "<group>";
 		};
+		ABCAAA0828E9F66000685F91 /* MyShowsShowCard */ = {
+			isa = PBXGroup;
+			children = (
+				AB399AD128D4AF3E009B39F7 /* MyShowsShowCard.swift */,
+				AB399AD328D4B12B009B39F7 /* MyShowsShowCardViewModel.swift */,
+			);
+			path = MyShowsShowCard;
+			sourceTree = "<group>";
+		};
 		ABD029B228E8978400BDF73C /* BandMemberList */ = {
 			isa = PBXGroup;
 			children = (
@@ -553,8 +570,7 @@
 			children = (
 				ABDC0D6F28D748FD0054269E /* NotificationsView.swift */,
 				ABA1020628DDE5BE00A4E818 /* NotificationsViewModel.swift */,
-				ABA1020828DDF3C000A4E818 /* NotificationRow.swift */,
-				ABA1020A28DDF3E200A4E818 /* NotificationRowViewModel.swift */,
+				AB6A6AF628EA498600996557 /* NotificationRow */,
 			);
 			path = NotificationsView;
 			sourceTree = "<group>";
@@ -812,7 +828,7 @@
 				AB35A8D628E9DC73009FB203 /* BandProfileAdminView.swift in Sources */,
 				ABDC0D7928D76FC60054269E /* AddEditShowViewModel.swift in Sources */,
 				AB49330D28E5D70C0031A4E7 /* BandMemberRow.swift in Sources */,
-				AB36FF8928D35C2800AAC00C /* Link.swift in Sources */,
+				AB36FF8928D35C2800AAC00C /* PlatformLink.swift in Sources */,
 				ABEF10EA28E6506000A1DBAC /* LinkPlatform.swift in Sources */,
 				AB35A8DF28E9DE29009FB203 /* UserBandList.swift in Sources */,
 				ABA1020F28DE00EC00A4E818 /* JoinedBand.swift in Sources */,

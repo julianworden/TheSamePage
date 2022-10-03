@@ -8,9 +8,9 @@
 import Foundation
 
 class BandLinkListViewModel: ObservableObject {
-    @Published var bandLinks = [Link]()
+    @Published var bandLinks = [PlatformLink]()
     
-    init(bandLinks: [Link]) {
+    init(bandLinks: [PlatformLink]) {
         self.bandLinks = bandLinks
     }
 }

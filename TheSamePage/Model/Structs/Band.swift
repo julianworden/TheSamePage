@@ -9,7 +9,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
 
-struct Band: Codable, Equatable, Identifiable, Searchable {
+struct Band: Codable, Equatable, Hashable, Identifiable, Searchable {
     @DocumentID var id: String?
     @ServerTimestamp var dateCreated: Timestamp?
     let name: String
@@ -19,7 +19,7 @@ struct Band: Codable, Equatable, Identifiable, Searchable {
     let members: [BandMember]?
     let genre: String
     // TODO: Links
-    let links: [Link]?
+    let links: [PlatformLink]?
     let shows: [Show]?
     let city: String
     let state: String

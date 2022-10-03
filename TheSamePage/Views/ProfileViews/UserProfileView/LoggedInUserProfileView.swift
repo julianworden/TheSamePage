@@ -39,6 +39,7 @@ struct LoggedInUserProfileView: View {
                 }
             }
             .navigationTitle("Profile")
+            .background(Color(uiColor: .systemGroupedBackground))
             .task {
                 do {
                     try await viewModel.initializeUser(user: nil)

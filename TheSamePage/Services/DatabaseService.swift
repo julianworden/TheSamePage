@@ -241,15 +241,15 @@ class DatabaseService {
         }
     }
     
-    func getBandLinks(forBand band: Band) async throws -> [Link] {
+    func getBandLinks(forBand band: Band) async throws -> [PlatformLink] {
         if band.id != nil {
             do {
-                var links = [Link]()
+                var links = [PlatformLink]()
                 let query = try await db.collection("bands").document(band.id!).collection("links").getDocuments()
                 
                 for document in query.documents {
                     do {
-                        let link = try document.data(as: Link.self)
+                        let link = try document.data(as: PlatformLink.self)
                         links.append(link)
                     } catch {
                         throw DatabaseServiceError.decodeError(message: "Failed to decode Link.")
@@ -333,7 +333,7 @@ class DatabaseService {
         }
     }
     
-    func uploadBandLink(withLink link: Link, forBand band: Band) throws {
+    func uploadBandLink(withLink link: PlatformLink, forBand band: Band) throws {
         if band.id != nil {
             _ = try db.collection("bands").document(band.id!).collection("links").addDocument(from: link)
         }

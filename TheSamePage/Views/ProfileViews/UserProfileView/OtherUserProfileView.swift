@@ -23,15 +23,30 @@ struct OtherUserProfileView: View {
                     NoImageView()
                         .padding(.horizontal)
                 }
-                
-                NavigationLink {
-                    if viewModel.user != nil {
-                        SendBandInviteView(user: viewModel.user!, band: viewModel.band)
+            
+                HStack {
+                    NavigationLink {
+                        if viewModel.user != nil {
+                            SendBandInviteView(user: viewModel.user!, band: viewModel.band)
+                        }
+                    } label: {
+                        HStack {
+                            Image(systemName: "envelope")
+                            Text("Invite to Band")
+                        }
                     }
-                } label: {
-                    Text("Invite to Band")
+                    
+                    NavigationLink {
+                        EmptyView()
+                    } label: {
+                        HStack {
+                            Image(systemName: "message")
+                            Text("Chat")
+                        }
+                    }
                 }
-                
+                .buttonStyle(.bordered)
+                    
                 if let bands = viewModel.bands {
                     SectionTitle(title: "Member of")
                     UserBandList(bands: bands)
@@ -39,6 +54,7 @@ struct OtherUserProfileView: View {
             }
         }
         .navigationTitle("\(viewModel.firstName ?? "User Profile") \(viewModel.lastName ?? "")")
+        .background(Color(uiColor: .systemGroupedBackground))
     }
 }
 
