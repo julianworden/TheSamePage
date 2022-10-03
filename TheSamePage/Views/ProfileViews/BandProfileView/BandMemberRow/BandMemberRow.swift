@@ -17,8 +17,11 @@ struct BandMemberRow: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Image(systemName: "person")
-                    .padding(.leading)
+                Image(viewModel.iconName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 35, height: 35)
+                    .padding(.leading, 10)
                 
                 VStack(alignment: .leading) {
                     Text(viewModel.memberUid == AuthController.getLoggedInUid() ? "You" : viewModel.memberName)
@@ -47,6 +50,6 @@ struct BandMemberRow: View {
 
 struct BandMemberRow_Previews: PreviewProvider {
     static var previews: some View {
-        BandMemberRow(bandMember: BandMember.example, index: 0, membersCount: 0, bandMemberIsLoggedInUser: false)
+        BandMemberRow(bandMember: BandMember.example, index: 0, membersCount: 1, bandMemberIsLoggedInUser: false)
     }
 }
