@@ -17,7 +17,6 @@ struct MemberSearchView: View {
         _userIsOnboarding = Binding(projectedValue: userIsOnboarding)
     }
 
-    // TODO: Add done button to toolbar that will end onboarding
     var body: some View {
         List {
             ForEach(viewModel.fetchedResults) { result in

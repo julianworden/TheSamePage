@@ -14,7 +14,7 @@ struct UserProfileRootView: View {
     @Binding var selectedTab: Int
         
     init(user: User?, band: Band?, bandMember: BandMember?, userIsLoggedOut: Binding<Bool>, selectedTab: Binding<Int>) {
-        _viewModel = StateObject(wrappedValue: UserProfileRootViewModel(user: user, band: band, bandMember: bandMember))
+        _viewModel = StateObject(wrappedValue: UserProfileRootViewModel(user: user, bandMember: bandMember))
         _userIsLoggedOut = Binding(projectedValue: userIsLoggedOut)
         _selectedTab = Binding(projectedValue: selectedTab)
     }
@@ -28,7 +28,6 @@ struct UserProfileRootView: View {
             } else {
                 OtherUserProfileView(
                     user: viewModel.user,
-                    band: viewModel.band,
                     bandMember: viewModel.bandMember
                 )
             }

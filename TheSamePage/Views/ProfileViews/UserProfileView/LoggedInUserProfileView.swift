@@ -16,7 +16,7 @@ struct LoggedInUserProfileView: View {
     let columns = [GridItem(.fixed(149), spacing: 15), GridItem(.fixed(149), spacing: 15)]
     
     init(userIsLoggedOut: Binding<Bool>, selectedTab: Binding<Int>) {
-        _viewModel = StateObject(wrappedValue: UserProfileRootViewModel(user: nil, band: nil, bandMember: nil))
+        _viewModel = StateObject(wrappedValue: UserProfileRootViewModel(user: nil, bandMember: nil))
         _userIsLoggedOut = Binding(projectedValue: userIsLoggedOut)
         _selectedTab = Binding(projectedValue: selectedTab)
     }

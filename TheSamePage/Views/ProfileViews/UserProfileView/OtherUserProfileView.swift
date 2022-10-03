@@ -10,8 +10,8 @@ import SwiftUI
 struct OtherUserProfileView: View {
     @StateObject var viewModel: UserProfileRootViewModel
     
-    init(user: User?, band: Band?, bandMember: BandMember?) {
-        _viewModel = StateObject(wrappedValue: UserProfileRootViewModel(user: user, band: band, bandMember: bandMember))
+    init(user: User?, bandMember: BandMember?) {
+        _viewModel = StateObject(wrappedValue: UserProfileRootViewModel(user: user, bandMember: bandMember))
     }
     
     var body: some View {
@@ -27,7 +27,7 @@ struct OtherUserProfileView: View {
                 HStack {
                     NavigationLink {
                         if viewModel.user != nil {
-                            SendBandInviteView(user: viewModel.user!, band: viewModel.band)
+                            SendBandInviteView(user: viewModel.user!)
                         }
                     } label: {
                         HStack {
@@ -60,6 +60,6 @@ struct OtherUserProfileView: View {
 
 struct OtherUserProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        OtherUserProfileView(user: User.example, band: Band.example, bandMember: BandMember.example)
+        OtherUserProfileView(user: User.example, bandMember: BandMember.example)
     }
 }

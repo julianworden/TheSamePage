@@ -12,7 +12,7 @@ struct SendBandInviteView: View {
     
     @StateObject var viewModel: SendBandInviteViewModel
     
-    init(user: User, band: Band?) {
+    init(user: User) {
         _viewModel = StateObject(wrappedValue: SendBandInviteViewModel(user: user))
     }
     
@@ -53,7 +53,7 @@ struct SendBandInviteView: View {
 struct SendBandInviteView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            SendBandInviteView(user: User.example, band: Band.example)
+            SendBandInviteView(user: User.example)
         }
     }
 }

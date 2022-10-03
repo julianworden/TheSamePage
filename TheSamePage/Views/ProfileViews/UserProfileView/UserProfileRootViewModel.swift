@@ -16,8 +16,6 @@ class UserProfileRootViewModel: ObservableObject {
     
     /// The user being displayed. When this value is nil, the logged in user is viewing their own profile
     @Published var user: User?
-    /// The band that the user will be invited to join if their invite button is tapped.
-    @Published var band: Band?
     /// The bandMember for which the Profile is a representation. This is necessary for when a
     /// user is selected from the BandProfile's Members section.
     @Published var bandMember: BandMember?
@@ -32,13 +30,9 @@ class UserProfileRootViewModel: ObservableObject {
         return AuthController.getLoggedInUid() == user?.id
     }
     
-    init(user: User?, band: Band?, bandMember: BandMember?) {
+    init(user: User?, bandMember: BandMember?) {
         if let user {
             self.user = user
-        }
-        
-        if let band {
-            self.band = band
         }
         
         if let bandMember {

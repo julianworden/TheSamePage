@@ -13,6 +13,7 @@
 		AB24E3A628D7C9B0002B4F2C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24E3A528D7C9B0002B4F2C /* LoginView.swift */; };
 		AB24E3A828D7C9C4002B4F2C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24E3A728D7C9C4002B4F2C /* LoginViewModel.swift */; };
 		AB26B90428E3EA1A00048454 /* AnySearchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB26B90328E3EA1A00048454 /* AnySearchable.swift */; };
+		AB28A0F128EB1FEC008F1A82 /* Typesense in Frameworks */ = {isa = PBXBuildFile; productRef = AB28A0F028EB1FEC008F1A82 /* Typesense */; };
 		AB2B867A28D9EE43004601B6 /* MyShowsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867928D9EE43004601B6 /* MyShowsViewModel.swift */; };
 		AB2B867C28D9F444004601B6 /* NoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867B28D9F444004601B6 /* NoImageView.swift */; };
 		AB2B867E28D9F884004601B6 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867D28D9F884004601B6 /* ImagePicker.swift */; };
@@ -203,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB21E5C028D55C3600BD286E /* GeoFireUtils in Frameworks */,
+				AB28A0F128EB1FEC008F1A82 /* Typesense in Frameworks */,
 				AB21E5BE28D55C3600BD286E /* GeoFire in Frameworks */,
 				ABA4A43728D564FF0074293A /* FirebaseAnalytics in Frameworks */,
 				ABA4A43B28D564FF0074293A /* FirebaseFirestore in Frameworks */,
@@ -687,6 +689,7 @@
 				ABA4A43A28D564FF0074293A /* FirebaseFirestore */,
 				ABA4A43C28D564FF0074293A /* FirebaseFirestoreSwift */,
 				ABA4A43E28D564FF0074293A /* FirebaseStorage */,
+				AB28A0F028EB1FEC008F1A82 /* Typesense */,
 			);
 			productName = TheSamePage;
 			productReference = AB36FF6228D356FD00AAC00C /* TheSamePage.app */;
@@ -719,6 +722,7 @@
 			packageReferences = (
 				AB21E5BC28D55C3600BD286E /* XCRemoteSwiftPackageReference "geofire-objc" */,
 				ABA4A43528D564FF0074293A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				AB28A0EF28EB1FEC008F1A82 /* XCRemoteSwiftPackageReference "typesense-swift" */,
 			);
 			productRefGroup = AB36FF6328D356FD00AAC00C /* Products */;
 			projectDirPath = "";
@@ -1052,6 +1056,14 @@
 				kind = branch;
 			};
 		};
+		AB28A0EF28EB1FEC008F1A82 /* XCRemoteSwiftPackageReference "typesense-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/typesense/typesense-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		ABA4A43528D564FF0074293A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -1072,6 +1084,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AB21E5BC28D55C3600BD286E /* XCRemoteSwiftPackageReference "geofire-objc" */;
 			productName = GeoFireUtils;
+		};
+		AB28A0F028EB1FEC008F1A82 /* Typesense */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AB28A0EF28EB1FEC008F1A82 /* XCRemoteSwiftPackageReference "typesense-swift" */;
+			productName = Typesense;
 		};
 		ABA4A43628D564FF0074293A /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
