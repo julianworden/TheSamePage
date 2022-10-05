@@ -9,17 +9,16 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
 
-// TODO: Add a parameter for max number of bands playing
+// TODO: Add a participant uid collection for a showParticipants collection on shows
 struct Show: Codable, Equatable, Hashable, Identifiable {
     var id: String?
     let name: String
     let description: String?
     let host: String
     let hostUid: String
-    let participantUids: [String]
     let venue: String
     let date: Timestamp
-    let time: Time
+    let time: Time?
     let ticketPrice: Double?
     let imageUrl: String?
     let location: Location
@@ -27,16 +26,24 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     let hasFood: Bool
     let hasBar: Bool
     let is21Plus: Bool
-    let genre: Genre?
+    let genre: String
     let maxNumberOfBands: Int
     let bands: [Band]?
     
-    var formattedDate: String {
+    var formattedDate: String? {
         return TextUtility.formatDate(date: date.dateValue())
     }
     
-    var formattedDoorsTime: String {
-        return TextUtility.formatTime(time: time.doors?.dateValue() ?? Date())
+    var formattedDoorsTime: String? {
+        if let time {
+            return TextUtility.formatTime(time: time.doors?.dateValue() ?? Date())
+        } else {
+            return nil
+        }
+    }
+    
+    var loggedInUserIsShowHost: Bool {
+        return hostUid == AuthController.getLoggedInUid()
     }
     
     static let example = Show(
@@ -44,7 +51,6 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         description: "A dank ass banger! Hop on the bill I freakin’ swear you won’t regret it! Like, it's gonna be the show of the absolute century, bro!",
         host: "DAA Entertainment",
         hostUid: "",
-        participantUids: [],
         venue: "Starland Ballroom",
         date: Timestamp(date: Date()),
         time: Time.example,
@@ -55,7 +61,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         hasFood: true,
         hasBar: true,
         is21Plus: false,
-        genre: nil,
+        genre: Genre.rock.rawValue,
         maxNumberOfBands: 2,
         bands: nil
     )

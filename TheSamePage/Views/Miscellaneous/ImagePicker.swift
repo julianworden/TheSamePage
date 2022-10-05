@@ -46,7 +46,9 @@ struct ImagePicker: UIViewControllerRepresentable {
                             return
                         }
                         
-                        self.parent.image = image as? UIImage
+                        Task { @MainActor in
+                            self.parent.image = image as? UIImage
+                        }
                     }
                 } else {
                     print("Image failed to load")

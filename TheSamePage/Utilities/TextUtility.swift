@@ -8,6 +8,7 @@
 import Foundation
 
 struct TextUtility {
+    // TODO: Use .formatted() methods for these things instead
     static func formatDate(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"

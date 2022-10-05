@@ -73,7 +73,7 @@
 		ABA4A43D28D564FF0074293A /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43C28D564FF0074293A /* FirebaseFirestoreSwift */; };
 		ABA4A43F28D564FF0074293A /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43E28D564FF0074293A /* FirebaseStorage */; };
 		ABBADD7928DFE5FA00720C64 /* BandState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBADD7828DFE5FA00720C64 /* BandState.swift */; };
-		ABBE94C228D8ADBF00790A04 /* ShowDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */; };
+		ABBE94C228D8ADBF00790A04 /* ShowDetailsRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE94C128D8ADBF00790A04 /* ShowDetailsRootView.swift */; };
 		ABBE94C428D8AE7500790A04 /* ShowDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */; };
 		ABCAA9FF28E9E56C00685F91 /* BandProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAA9FE28E9E56C00685F91 /* BandProfileHeader.swift */; };
 		ABCAAA0228E9ED6C00685F91 /* BandLinkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAAA0128E9ED6C00685F91 /* BandLinkList.swift */; };
@@ -81,6 +81,9 @@
 		ABCAAA0728E9F13B00685F91 /* BandProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAAA0628E9F13B00685F91 /* BandProfileHeaderViewModel.swift */; };
 		ABD029B428E8978F00BDF73C /* BandMemberList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD029B328E8978F00BDF73C /* BandMemberList.swift */; };
 		ABD029B628E897A400BDF73C /* BandMemberListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD029B528E897A400BDF73C /* BandMemberListViewModel.swift */; };
+		ABD034E328EDCFA600F37E4B /* ShowDetailsHostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD034E228EDCFA600F37E4B /* ShowDetailsHostView.swift */; };
+		ABD034E528EDD11100F37E4B /* ShowDetailsParticipantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD034E428EDD11100F37E4B /* ShowDetailsParticipantView.swift */; };
+		ABD034E728EDD11700F37E4B /* ShowDetailsOtherUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD034E628EDD11700F37E4B /* ShowDetailsOtherUserView.swift */; };
 		ABD323EF28E1180C00540B93 /* SendBandInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD323EE28E1180C00540B93 /* SendBandInviteView.swift */; };
 		ABD323F128E1181F00540B93 /* SendBandInviteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD323F028E1181F00540B93 /* SendBandInviteViewModel.swift */; };
 		ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D6F28D748FD0054269E /* NotificationsView.swift */; };
@@ -169,7 +172,7 @@
 		ABA1020C28DDFD6900A4E818 /* BandMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMember.swift; sourceTree = "<group>"; };
 		ABA1020E28DE00EC00A4E818 /* JoinedBand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinedBand.swift; sourceTree = "<group>"; };
 		ABBADD7828DFE5FA00720C64 /* BandState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandState.swift; sourceTree = "<group>"; };
-		ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsView.swift; sourceTree = "<group>"; };
+		ABBE94C128D8ADBF00790A04 /* ShowDetailsRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsRootView.swift; sourceTree = "<group>"; };
 		ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsViewModel.swift; sourceTree = "<group>"; };
 		ABCAA9FE28E9E56C00685F91 /* BandProfileHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BandProfileHeader.swift; sourceTree = "<group>"; };
 		ABCAAA0128E9ED6C00685F91 /* BandLinkList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLinkList.swift; sourceTree = "<group>"; };
@@ -177,6 +180,9 @@
 		ABCAAA0628E9F13B00685F91 /* BandProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		ABD029B328E8978F00BDF73C /* BandMemberList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMemberList.swift; sourceTree = "<group>"; };
 		ABD029B528E897A400BDF73C /* BandMemberListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMemberListViewModel.swift; sourceTree = "<group>"; };
+		ABD034E228EDCFA600F37E4B /* ShowDetailsHostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsHostView.swift; sourceTree = "<group>"; };
+		ABD034E428EDD11100F37E4B /* ShowDetailsParticipantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsParticipantView.swift; sourceTree = "<group>"; };
+		ABD034E628EDD11700F37E4B /* ShowDetailsOtherUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsOtherUserView.swift; sourceTree = "<group>"; };
 		ABD323EE28E1180C00540B93 /* SendBandInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendBandInviteView.swift; sourceTree = "<group>"; };
 		ABD323F028E1181F00540B93 /* SendBandInviteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendBandInviteViewModel.swift; sourceTree = "<group>"; };
 		ABDC0D6F28D748FD0054269E /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
@@ -511,7 +517,10 @@
 		ABBE94C028D8AD9E00790A04 /* ShowDetailsView */ = {
 			isa = PBXGroup;
 			children = (
-				ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */,
+				ABBE94C128D8ADBF00790A04 /* ShowDetailsRootView.swift */,
+				ABD034E228EDCFA600F37E4B /* ShowDetailsHostView.swift */,
+				ABD034E428EDD11100F37E4B /* ShowDetailsParticipantView.swift */,
+				ABD034E628EDD11700F37E4B /* ShowDetailsOtherUserView.swift */,
 				ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */,
 			);
 			path = ShowDetailsView;
@@ -760,6 +769,7 @@
 				AB5054A928DC91D700321380 /* MemberSearchViewModel.swift in Sources */,
 				AB36FF7428D358FB00AAC00C /* HomeView.swift in Sources */,
 				ABBADD7928DFE5FA00720C64 /* BandState.swift in Sources */,
+				ABD034E328EDCFA600F37E4B /* ShowDetailsHostView.swift in Sources */,
 				AB2B867A28D9EE43004601B6 /* MyShowsViewModel.swift in Sources */,
 				ABF1C40A28ECF09F0004A3C1 /* BandSearchResultsList.swift in Sources */,
 				AB399ADB28D4C548009B39F7 /* UserController.swift in Sources */,
@@ -801,7 +811,7 @@
 				AB36FF6828D356FD00AAC00C /* RootView.swift in Sources */,
 				AB3E11EA28D65E94000F147B /* UserProfileBandCardViewModel.swift in Sources */,
 				AB24E3A828D7C9C4002B4F2C /* LoginViewModel.swift in Sources */,
-				ABBE94C228D8ADBF00790A04 /* ShowDetailsView.swift in Sources */,
+				ABBE94C228D8ADBF00790A04 /* ShowDetailsRootView.swift in Sources */,
 				ABDDAD4828DB45D100F1CF9B /* AddEditBandView.swift in Sources */,
 				ABA1020D28DDFD6900A4E818 /* BandMember.swift in Sources */,
 				AB36FF9F28D36D0300AAC00C /* HomeShowCardViewModel.swift in Sources */,
@@ -817,6 +827,7 @@
 				ABEF10E528E64CD800A1DBAC /* AddEditLinkView.swift in Sources */,
 				ABCAA9FF28E9E56C00685F91 /* BandProfileHeader.swift in Sources */,
 				ABF5563728DF93E40059E2DF /* BandProfileViewModel.swift in Sources */,
+				ABD034E728EDD11700F37E4B /* ShowDetailsOtherUserView.swift in Sources */,
 				AB36FFA228D372A900AAC00C /* ShowsController.swift in Sources */,
 				AB2B867E28D9F884004601B6 /* ImagePicker.swift in Sources */,
 				AB36FF9428D361A100AAC00C /* DatabaseService.swift in Sources */,
@@ -843,6 +854,7 @@
 				AB36FF8928D35C2800AAC00C /* PlatformLink.swift in Sources */,
 				ABEF10EA28E6506000A1DBAC /* LinkPlatform.swift in Sources */,
 				AB35A8DF28E9DE29009FB203 /* UserBandList.swift in Sources */,
+				ABD034E528EDD11100F37E4B /* ShowDetailsParticipantView.swift in Sources */,
 				ABA1020F28DE00EC00A4E818 /* JoinedBand.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

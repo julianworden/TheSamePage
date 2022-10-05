@@ -21,6 +21,7 @@ class SignUpViewModel: ObservableObject {
     
     @Published var username = ""
     @Published var emailAddress = ""
+    @Published var profileImage: UIImage?
     @Published var password = ""
     @Published var firstName = ""
     @Published var lastName = ""
@@ -32,7 +33,7 @@ class SignUpViewModel: ObservableObject {
     /// Once the user is created in Firebase Auth, a new user object is created and passed to the DatabaseService,
     /// which will add that new user object to the users collection in Firestore.
     /// - Parameter image: The profile image selected by the user.
-    func registerUser(withImage image: UIImage?) async throws {
+    func registerUser() async throws {
         var newUser: User
         var uid: String?
         
@@ -43,8 +44,8 @@ class SignUpViewModel: ObservableObject {
             throw SignUpViewModelError.firebaseAuthError(message: "Failed to create user.")
         }
         
-        if let image {
-            let imageUrl = try await DatabaseService.shared.uploadImage(image: image)
+        if let profileImage {
+            let imageUrl = try await DatabaseService.shared.uploadImage(image: profileImage)
             newUser = User(
                 id: uid,
                 username: username,

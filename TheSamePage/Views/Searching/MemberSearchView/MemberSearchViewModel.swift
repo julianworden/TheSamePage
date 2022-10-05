@@ -9,6 +9,10 @@ import Foundation
 import Typesense
 
 class MemberSearchViewModel: ObservableObject {
+    enum MemberSearchViewModelError: Error {
+        case searchFailed(message: String)
+    }
+    
     @Published var fetchedResults = [SearchResultHit<User>]()
     @Published var queryText = ""
     
@@ -20,7 +24,7 @@ class MemberSearchViewModel: ObservableObject {
     }
     
     @MainActor
-    func fetchUsers(searchQuery: String) async {
+    func fetchUsers(searchQuery: String) async throws {
         guard !queryText.isEmpty else { return }
         
         let collectionParams = MultiSearchCollectionParameters(q: searchQuery, collection: "users")
@@ -29,8 +33,8 @@ class MemberSearchViewModel: ObservableObject {
         do {
             let (data, _) = try await TypesenseController.client.multiSearch().perform(searchRequests: [collectionParams], commonParameters: searchParams, for: User.self)
             fetchedResults = (data?.results[0].hits) ?? []
-        } catch (let error) {
-            print(error.localizedDescription)
+        } catch {
+            throw MemberSearchViewModelError.searchFailed(message: "User search failed")
         }
     }
 }

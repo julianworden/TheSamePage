@@ -7,6 +7,7 @@
 
 import FirebaseFirestore
 import Foundation
+import UIKit.UIImage
 
 class AddEditShowViewModel: ObservableObject {
     var showToEdit: Show?
@@ -14,13 +15,18 @@ class AddEditShowViewModel: ObservableObject {
     
     @Published var showName = ""
     @Published var showDescription = ""
+    @Published var showImage: UIImage?
     @Published var showVenue = ""
-    @Published var showDate = Date()
+    @Published var showHostName = ""
+    @Published var showGenre = Genre.rock
     @Published var showMaxNumberOfBands = 1
+    @Published var showDate = Date()
+    @Published var showDateIsKnown = false
     @Published var showLoadInTime = Date()
     @Published var showFirstSetTime = Date()
     @Published var showDoorsTime = Date()
     @Published var showEndTime = Date()
+    @Published var showTimesAreKnown = false
     @Published var showIs21Plus = false
     @Published var showHasBar = false
     @Published var showHasFood = false
@@ -43,32 +49,60 @@ class AddEditShowViewModel: ObservableObject {
     }
     
     func createShow() async throws {
-        let showTime = Time(
-            loadIn: Timestamp(date: showLoadInTime),
-            doors: Timestamp(date: showDoorsTime),
-            firstSetStart: Timestamp(date: showFirstSetTime),
-            end: Timestamp(date: showEndTime)
-        )
-        let newShow = Show(
-            name: showName,
-            description: showDescription,
-            host: "DAA Entertainment",
-            hostUid: AuthController.getLoggedInUid(),
-            participantUids: [],
-            venue: showVenue,
-            date: Timestamp(date: showDate),
-            time: showTime,
-            ticketPrice: nil,
-            imageUrl: nil,
-            location: Location.example,
-            backline: nil,
-            hasFood: showHasFood,
-            hasBar: showHasBar,
-            is21Plus: showIs21Plus,
-            genre: nil,
-            maxNumberOfBands: showMaxNumberOfBands,
-            bands: nil
-        )
+        var newShow: Show
+        var showTime: Time?
+        
+        if showTimesAreKnown {
+            showTime = Time(
+                loadIn: Timestamp(date: showLoadInTime),
+                doors: Timestamp(date: showDoorsTime),
+                firstSetStart: Timestamp(date: showFirstSetTime),
+                end: Timestamp(date: showEndTime)
+            )
+        }
+        
+        if let showImage {
+            let imageUrl = try await DatabaseService.shared.uploadImage(image: showImage)
+            newShow = Show(
+                name: showName,
+                description: showDescription,
+                host: showHostName,
+                hostUid: AuthController.getLoggedInUid(),
+                venue: showVenue,
+                date: Timestamp(date: showDate),
+                time: showTime,
+                ticketPrice: nil,
+                imageUrl: imageUrl,
+                location: Location.example,
+                backline: nil,
+                hasFood: showHasFood,
+                hasBar: showHasBar,
+                is21Plus: showIs21Plus,
+                genre: showGenre.rawValue,
+                maxNumberOfBands: showMaxNumberOfBands,
+                bands: nil
+            )
+        } else {
+            newShow = Show(
+                name: showName,
+                description: showDescription,
+                host: showHostName,
+                hostUid: AuthController.getLoggedInUid(),
+                venue: showVenue,
+                date: Timestamp(date: showDate),
+                time: showTime,
+                ticketPrice: nil,
+                imageUrl: nil,
+                location: Location.example,
+                backline: nil,
+                hasFood: showHasFood,
+                hasBar: showHasBar,
+                is21Plus: showIs21Plus,
+                genre: showGenre.rawValue,
+                maxNumberOfBands: showMaxNumberOfBands,
+                bands: nil
+            )
+        }
         
         try await DatabaseService.shared.createShow(show: newShow)
     }

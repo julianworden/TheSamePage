@@ -26,7 +26,7 @@ struct MyShowsView: View {
                             HStack {
                                 ForEach(showsController.playingShows) { show in
                                     NavigationLink {
-                                        ShowDetailsView(show: show)
+                                        ShowDetailsRootView(show: show)
                                     } label: {
                                         MyShowsShowCard(show: show)
                                     }
@@ -58,7 +58,7 @@ struct MyShowsView: View {
                             HStack {
                                 ForEach(showsController.hostedShows) { show in
                                     NavigationLink {
-                                        ShowDetailsView(show: show)
+                                        ShowDetailsRootView(show: show)
                                     } label: {
                                         MyShowsShowCard(show: show)
                                     }

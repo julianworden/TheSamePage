@@ -32,11 +32,12 @@ struct MemberSearchView: View {
         .searchable(text: $viewModel.queryText)
         .onChange(of: viewModel.queryText) { query in
             Task {
-                await viewModel.fetchUsers(searchQuery: query)
+                do {
+                    try await viewModel.fetchUsers(searchQuery: query)
+                } catch {
+                    print(error)
+                }
             }
-        }
-        .task {
-            await viewModel.fetchUsers(searchQuery: "")
         }
     }
 }

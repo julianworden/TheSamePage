@@ -12,14 +12,13 @@ struct SignUpView: View {
     
     @Binding var userIsOnboarding: Bool
     
-    @State private var profileImage: UIImage?
     @State private var imagePickerIsShowing = false
     @State private var profileCreationWasSuccessful = false
     
     var body: some View {
         Form {
             Section("Account Info") {
-                ImageSelectionButton(imagePickerIsShowing: $imagePickerIsShowing, selectedImage: $profileImage)
+                ImageSelectionButton(imagePickerIsShowing: $imagePickerIsShowing, selectedImage: $viewModel.profileImage)
                 TextField("Username", text: $viewModel.username)
                 TextField("Email Address", text: $viewModel.emailAddress)
                 SecureField("Password", text: $viewModel.password)
@@ -39,7 +38,7 @@ struct SignUpView: View {
                     Task {
                         do {
                             viewModel.signUpButtonIsDisabled = true
-                            try await viewModel.registerUser(withImage: profileImage)
+                            try await viewModel.registerUser()
                             
                             if viewModel.userIsInABand {
                                 // Segue to InABandView
@@ -64,7 +63,7 @@ struct SignUpView: View {
         .navigationBarTitleDisplayMode(.inline)
         .animation(.easeInOut, value: viewModel.userIsInABand)
         .sheet(isPresented: $imagePickerIsShowing) {
-            ImagePicker(image: $profileImage, pickerIsShowing: $imagePickerIsShowing)
+            ImagePicker(image: $viewModel.profileImage, pickerIsShowing: $imagePickerIsShowing)
         }
     }
 }

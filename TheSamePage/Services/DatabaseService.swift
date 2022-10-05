@@ -28,7 +28,6 @@ class DatabaseService {
             description: "A dank ass banger! Hop on the bill I freakin’ swear you won’t regret it I swear.",
             host: "DAA Entertainment",
             hostUid: "",
-            participantUids: [],
             venue: "Starland Ballroom",
             date: Timestamp(date: Date()),
             time: Time.example,
@@ -39,7 +38,7 @@ class DatabaseService {
             hasFood: true,
             hasBar: true,
             is21Plus: false,
-            genre: nil,
+            genre: Genre.rock.rawValue,
             maxNumberOfBands: 3,
             bands: [Band.example]
         ),
@@ -48,7 +47,6 @@ class DatabaseService {
             description: "They're back! And with a god damn vengeance you won’t want to miss.",
             host: "Damn Straight Entertainment",
             hostUid: "",
-            participantUids: [],
             venue: "Wembley Stadium",
             date: Timestamp(date: Date()),
             time: Time.example,
@@ -59,7 +57,7 @@ class DatabaseService {
             hasFood: true,
             hasBar: false,
             is21Plus: false,
-            genre: nil,
+            genre: Genre.rock.rawValue,
             maxNumberOfBands: 3,
             bands: [Band.example]
         ),
@@ -68,7 +66,6 @@ class DatabaseService {
             description: "No idea how they're playing a show this big. They probably paid somebody lots of money.",
             host: "DAA Entertainment",
             hostUid: "",
-            participantUids: [],
             venue: "Giants Stadium",
             date: Timestamp(date: Date()),
             time: Time.example,
@@ -79,7 +76,7 @@ class DatabaseService {
             hasFood: true,
             hasBar: true,
             is21Plus: true,
-            genre: nil,
+            genre: Genre.rock.rawValue,
             maxNumberOfBands: 3,
             bands: [Band.example]
         )

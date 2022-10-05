@@ -1,18 +1,14 @@
 //
-//  ShowDetailsView.swift
+//  ShowDetailsHostView.swift
 //  TheSamePage
 //
-//  Created by Julian Worden on 9/19/22.
+//  Created by Julian Worden on 10/5/22.
 //
 
 import SwiftUI
 
-struct ShowDetailsView: View {
-    @StateObject var viewModel: ShowDetailsViewModel
-    
-    init(show: Show) {
-        _viewModel = StateObject(wrappedValue: ShowDetailsViewModel(show: show))
-    }
+struct ShowDetailsHostView: View {
+    @ObservedObject var viewModel: ShowDetailsViewModel
     
     var body: some View {
         ScrollView {
@@ -32,8 +28,11 @@ struct ShowDetailsView: View {
                             .font(.title2)
                         
                         // TODO: Make time dynamic depending on what time is soonest
-                        Text("\(viewModel.show.formattedDate) | Doors at \(viewModel.show.formattedDoorsTime)")
-                            .font(.title2)
+                        if let showDate = viewModel.show.formattedDate,
+                           let doorsTime = viewModel.show.formattedDoorsTime {
+                            Text("\(showDate) | Doors at \(doorsTime)")
+                                .font(.title2)
+                        }
                     }
                     
                     // TODO: Replace icons with icons8 icons to avoid iOS 15 restrictions
@@ -55,7 +54,18 @@ struct ShowDetailsView: View {
                     .cornerRadius(10)
                     .padding(.top, 10)
                     
-                    // TODO: Design bill section that shows who's on the bill in a nice layout
+                    // TODO: Design lineup section that shows who's on the bill in a nice layout
+                    
+                    HStack {
+                        SectionTitle(title: "Lineup")
+                            .padding([.vertical, .leading])
+                        
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "plus")
+                        }
+                    }
                     
                     SectionTitle(title: "Details")
                         .padding([.vertical, .leading])
@@ -63,7 +73,6 @@ struct ShowDetailsView: View {
                     // TODO: Make details dynamic
                     HStack(spacing: 30) {
                         VStack(spacing: 20) {
-                            Text("2 out of 4 bands booked so far: Pathetic Fallacy and Dumpweed")
                             Text("Ticket Price: $15")
                             Text("Food is being served")
                         }
@@ -85,16 +94,11 @@ struct ShowDetailsView: View {
                 }
             }
         }
-        .navigationTitle("Show Details")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
-// TODO: Figure out why this preview crashes
-struct ShowDetailsView_Previews: PreviewProvider {
+struct ShowDetailsHostView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            ShowDetailsView(show: Show.example)
-        }
+        ShowDetailsHostView(viewModel: ShowDetailsViewModel(show: Show.example))
     }
 }

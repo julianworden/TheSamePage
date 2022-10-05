@@ -11,7 +11,27 @@ struct BandSearchView: View {
     @StateObject var viewModel = BandSearchViewModel()
     
     var body: some View {
-        Text("Fix this")
+        List {
+            ForEach(viewModel.fetchedBands, id: \.document) { result in
+                let band = result.document!
+                
+                NavigationLink {
+                    BandProfileRootView(band: band)
+                } label: {
+                    SearchResultRow(band: band, user: nil, show: nil)
+                }
+            }
+        }
+        .searchable(text: $viewModel.queryText)
+        .onChange(of: viewModel.queryText) { query in
+            Task {
+                do {
+                    try await viewModel.fetchBands(searchQuery: query)
+                } catch {
+                    print(error)
+                }
+            }
+        }
     }
 }
 

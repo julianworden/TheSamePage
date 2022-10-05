@@ -41,6 +41,7 @@ struct MyShowsShowCard: View {
                     Image(systemName: "fork.knife.circle")
                     
                     Text(TextUtility.formatDate(date: viewModel.show.date.dateValue()))
+                    
                 }
             }
             .multilineTextAlignment(.center)
