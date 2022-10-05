@@ -21,7 +21,7 @@ struct InABandView: View {
             }
             
             NavigationLink {
-                AddEditBandView(userIsOnboarding: $userIsOnboarding, band: nil)
+                AddEditBandView(userIsOnboarding: $userIsOnboarding, bandToEdit: nil)
             } label: {
                 Text(", tap here to get your band on The Same Page")
             }

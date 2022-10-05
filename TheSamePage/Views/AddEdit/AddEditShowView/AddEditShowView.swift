@@ -16,8 +16,8 @@ struct AddEditShowView: View {
     @State private var showImage: UIImage?
     @State private var imagePickerIsShowing = false
     
-    init(viewTitleText: String, addEditShowViewIsShowing: Binding<Bool>, show: Show? = nil) {
-        _viewModel = StateObject(wrappedValue: AddEditShowViewModel(viewTitleText: viewTitleText))
+    init(viewTitleText: String, addEditShowViewIsShowing: Binding<Bool>, showToEdit: Show?) {
+        _viewModel = StateObject(wrappedValue: AddEditShowViewModel(viewTitleText: viewTitleText, showToEdit: showToEdit))
         _addEditShowViewIsShowing = Binding(projectedValue: addEditShowViewIsShowing)
     }
     
@@ -58,11 +58,13 @@ struct AddEditShowView: View {
                 
                 Section {
                     Button("Create Show") {
-                        do {
-                            try viewModel.createShow()
-                            addEditShowViewIsShowing = false
-                        } catch {
-                            print(error)
+                        Task {
+                            do {
+                                try await viewModel.createShow()
+                                addEditShowViewIsShowing = false
+                            } catch {
+                                print(error)
+                            }
                         }
                     }
                 }
@@ -87,6 +89,6 @@ struct AddEditShowView: View {
 
 struct AddEditShowView_Previews: PreviewProvider {
     static var previews: some View {
-        AddEditShowView(viewTitleText: "Add Show", addEditShowViewIsShowing: .constant(true))
+        AddEditShowView(viewTitleText: "Add Show", addEditShowViewIsShowing: .constant(true), showToEdit: nil)
     }
 }

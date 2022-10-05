@@ -19,9 +19,9 @@ struct AddEditBandView: View {
     @State private var bandCreationWasSuccessful = false
     @State private var bandCreationButtonIsDisabled = false
     
-    init(userIsOnboarding: Binding<Bool>, band: Band?) {
+    init(userIsOnboarding: Binding<Bool>, bandToEdit: Band?) {
         _userIsOnboarding = Binding(projectedValue: userIsOnboarding)
-        _viewModel = StateObject(wrappedValue: AddEditBandViewModel(band: band))
+        _viewModel = StateObject(wrappedValue: AddEditBandViewModel(bandToEdit: bandToEdit))
     }
     
     var body: some View {
@@ -87,7 +87,7 @@ struct AddEditBandView: View {
 struct AddEditBandView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            AddEditBandView(userIsOnboarding: .constant(false), band: Band.example)
+            AddEditBandView(userIsOnboarding: .constant(false), bandToEdit: Band.example)
         }
     }
 }

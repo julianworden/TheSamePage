@@ -8,7 +8,7 @@
 import FirebaseAuth
 import Foundation
 
-class AuthController: ObservableObject {
+final class AuthController: ObservableObject {
     /// Fetched UID for logged in user.
     /// - Returns: The UID of the logged in user. This value will be "Unknown UID" if fetching the
     /// UID fails for any reason.

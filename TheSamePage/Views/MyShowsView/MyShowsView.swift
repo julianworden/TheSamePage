@@ -99,7 +99,7 @@ struct MyShowsView: View {
                 showsController.removeShowListeners()
             }
             .sheet(isPresented: $addEditShowViewIsShowing) {
-                AddEditShowView(viewTitleText: "Create Show", addEditShowViewIsShowing: $addEditShowViewIsShowing)
+                AddEditShowView(viewTitleText: "Create Show", addEditShowViewIsShowing: $addEditShowViewIsShowing, showToEdit: nil)
             }
         }
     }

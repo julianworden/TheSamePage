@@ -25,7 +25,7 @@ class AddEditShowViewModel: ObservableObject {
     @Published var showHasBar = false
     @Published var showHasFood = false
     
-    init(viewTitleText: String, showToEdit: Show? = nil) {
+    init(viewTitleText: String, showToEdit: Show?) {
         self.showToEdit = showToEdit
         self.viewTitleText = viewTitleText
     }
@@ -42,7 +42,7 @@ class AddEditShowViewModel: ObservableObject {
         }
     }
     
-    func createShow() throws {
+    func createShow() async throws {
         let showTime = Time(
             loadIn: Timestamp(date: showLoadInTime),
             doors: Timestamp(date: showDoorsTime),
@@ -70,6 +70,6 @@ class AddEditShowViewModel: ObservableObject {
             bands: nil
         )
         
-        try DatabaseService.shared.createShow(show: newShow)
+        try await DatabaseService.shared.createShow(show: newShow)
     }
 }

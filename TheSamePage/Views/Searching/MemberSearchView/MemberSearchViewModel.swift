@@ -6,19 +6,31 @@
 //
 
 import Foundation
+import Typesense
 
 class MemberSearchViewModel: ObservableObject {
-    @Published var fetchedResults = [AnySearchable]()
-    @Published var searchText = ""
+    @Published var fetchedResults = [SearchResultHit<User>]()
+    @Published var queryText = ""
     
     var band: Band?
+    
     
     init(band: Band?) {
         self.band = band
     }
     
     @MainActor
-    func getUsers() async throws {
-        fetchedResults = try await DatabaseService.shared.performSearch(for: .user, withName: searchText)
+    func fetchUsers(searchQuery: String) async {
+        guard !queryText.isEmpty else { return }
+        
+        let collectionParams = MultiSearchCollectionParameters(q: searchQuery, collection: "users")
+        let searchParams = MultiSearchParameters(queryBy: "username")
+        
+        do {
+            let (data, _) = try await TypesenseController.client.multiSearch().perform(searchRequests: [collectionParams], commonParameters: searchParams, for: User.self)
+            fetchedResults = (data?.results[0].hits) ?? []
+        } catch (let error) {
+            print(error.localizedDescription)
+        }
     }
 }

@@ -185,6 +185,8 @@ class DatabaseService {
             let query = try await db.collection("users").document(uid).collection("joinedBands").getDocuments()
             var joinedBands = [String]()
             
+            
+            
             if !query.documents.isEmpty {
                 for document in query.documents {
                     do {
@@ -269,9 +271,10 @@ class DatabaseService {
     
     /// Creates a show in the Firestore shows collection.
     /// - Parameter show: The show to be added to Firestore.
-    func createShow(show: Show) throws {
+    func createShow(show: Show) async throws {
         do {
-            _ = try db.collection("shows").addDocument(from: show)
+            let showReference = try db.collection("shows").addDocument(from: show)
+            try await showReference.setData(["id": showReference.documentID], merge: true)
         } catch {
             throw DatabaseServiceError.firestoreError(message: "Failed to add show to database.")
         }
@@ -279,9 +282,10 @@ class DatabaseService {
     
     /// Creates a band in the Firestore bands collection.d
     /// - Parameter band: The band to be added to Firestore.
-    func createBand(band: Band) throws -> String {
+    func createBand(band: Band) async throws -> String {
         do {
             let bandReference = try db.collection("bands").addDocument(from: band)
+            try await bandReference.setData(["id": bandReference.documentID], merge: true)
             return bandReference.documentID
         } catch {
             throw DatabaseServiceError.firestoreError(message: "Failed to create band")
@@ -341,33 +345,34 @@ class DatabaseService {
     
     // MARK: - Firestore Searches
     
-    func performSearch(for searchType: SearchType, withName name: String) async throws -> [AnySearchable] {
-        var fetchedResults = [AnySearchable]()
-        let query = try await db.collection(searchType.firestoreCollection).whereField("name", isEqualTo: name).getDocuments()
-        
-        for document in query.documents {
-            do {
-                switch searchType {
-                case .user:
-                    let result = try document.data(as: User.self)
-                    let searchable = AnySearchable(id: result.id!, searchable: result)
-                    fetchedResults.append(searchable)
-                case .band:
-                    let result = try document.data(as: Band.self)
-                    let searchable = AnySearchable(id: result.id!, searchable: result)
-                    fetchedResults.append(searchable)
-                case .show:
-                    let result = try document.data(as: Show.self)
-                    let searchable = AnySearchable(id: result.id!, searchable: result)
-                    fetchedResults.append(searchable)
-                }
-            } catch {
-                throw DatabaseServiceError.decodeError(message: "Failed to decode band")
-            }
-        }
-        
-        return fetchedResults
-    }
+    // TODO: Redo this function without searchable
+//    func performSearch(for searchType: SearchType, withName name: String) async throws -> [AnySearchable] {
+//        var fetchedResults = [AnySearchable]()
+//        let query = try await db.collection(searchType.firestoreCollection).whereField("name", isEqualTo: name).getDocuments()
+//
+//        for document in query.documents {
+//            do {
+//                switch searchType {
+//                case .user:
+//                    let result = try document.data(as: User.self)
+//                    let searchable = AnySearchable(id: result.id!, searchable: result)
+//                    fetchedResults.append(searchable)
+//                case .band:
+//                    let result = try document.data(as: Band.self)
+//                    let searchable = AnySearchable(id: result.id!, searchable: result)
+//                    fetchedResults.append(searchable)
+//                case .show:
+//                    let result = try document.data(as: Show.self)
+//                    let searchable = AnySearchable(id: result.id!, searchable: result)
+//                    fetchedResults.append(searchable)
+//                }
+//            } catch {
+//                throw DatabaseServiceError.decodeError(message: "Failed to decode band")
+//            }
+//        }
+//
+//        return fetchedResults
+//    }
     
     // MARK: - Notifications
     

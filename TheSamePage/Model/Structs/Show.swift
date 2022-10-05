@@ -10,9 +10,8 @@ import FirebaseFirestoreSwift
 import Foundation
 
 // TODO: Add a parameter for max number of bands playing
-struct Show: Codable, Equatable, Hashable, Identifiable, Searchable {
-    @DocumentID var id: String?
-    @ServerTimestamp var dateCreated: Timestamp?
+struct Show: Codable, Equatable, Hashable, Identifiable {
+    var id: String?
     let name: String
     let description: String?
     let host: String

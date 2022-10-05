@@ -8,7 +8,7 @@
 import FirebaseFirestore
 import Foundation
 
-class ShowsController: ObservableObject {
+final class ShowsController: ObservableObject {
     @Published var nearbyShows = [Show]()
     @Published var playingShows = [Show]()
     @Published var hostedShows = [Show]()

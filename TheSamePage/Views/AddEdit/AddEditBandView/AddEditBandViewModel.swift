@@ -17,10 +17,10 @@ class AddEditBandViewModel: ObservableObject {
     @Published var userPlaysInBand = false
     @Published var userRoleInBand = Instrument.vocals
     
-    var createdBand: Band?
+    var bandToEdit: Band?
     
-    init(band: Band?) {
-        self.createdBand = band
+    init(bandToEdit: Band?) {
+        self.bandToEdit = bandToEdit
     }
     
     func createBand(withImage image: UIImage?) async throws {
@@ -41,7 +41,7 @@ class AddEditBandViewModel: ObservableObject {
                 city: bandCity,
                 state: bandState.rawValue
             )
-            newBandId = try DatabaseService.shared.createBand(band: newBand)
+            newBandId = try await DatabaseService.shared.createBand(band: newBand)
         } else {
             newBand = Band(
                 name: bandName,
@@ -55,7 +55,7 @@ class AddEditBandViewModel: ObservableObject {
                 city: bandCity,
                 state: bandState.rawValue
             )
-            newBandId = try DatabaseService.shared.createBand(band: newBand)
+            newBandId = try await DatabaseService.shared.createBand(band: newBand)
         }
         
         if userPlaysInBand {
@@ -64,20 +64,5 @@ class AddEditBandViewModel: ObservableObject {
             let band = JoinedBand(id: newBandId)
             try DatabaseService.shared.addUserToBand(user, addToBand: band, withBandInvite: nil)
         }
-        
-        // Done this way because the band that's returned needs to have an id property
-        createdBand = Band(
-            id: newBandId,
-            name: bandName,
-            bio: bandBio,
-            profileImageUrl: profileImageUrl,
-            adminUid: AuthController.getLoggedInUid(),
-            members: nil,
-            genre: bandGenre.rawValue,
-            links: nil,
-            shows: nil,
-            city: bandCity,
-            state: bandState.rawValue
-        )
     }
 }

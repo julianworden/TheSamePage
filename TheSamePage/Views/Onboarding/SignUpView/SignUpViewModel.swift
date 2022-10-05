@@ -34,9 +34,11 @@ class SignUpViewModel: ObservableObject {
     /// - Parameter image: The profile image selected by the user.
     func registerUser(withImage image: UIImage?) async throws {
         var newUser: User
+        var uid: String?
         
         do {
-            _ = try await Auth.auth().createUser(withEmail: emailAddress, password: password)
+            let result = try await Auth.auth().createUser(withEmail: emailAddress, password: password)
+            uid = result.user.uid
         } catch {
             throw SignUpViewModelError.firebaseAuthError(message: "Failed to create user.")
         }
@@ -44,7 +46,8 @@ class SignUpViewModel: ObservableObject {
         if let image {
             let imageUrl = try await DatabaseService.shared.uploadImage(image: image)
             newUser = User(
-                name: username,
+                id: uid,
+                username: username,
                 firstName: firstName,
                 lastName: lastName,
                 profileImageUrl: imageUrl,
@@ -55,7 +58,8 @@ class SignUpViewModel: ObservableObject {
             )
         } else {
             newUser = User(
-                name: username,
+                id: uid,
+                username: username,
                 firstName: firstName,
                 lastName: lastName,
                 profileImageUrl: nil,

@@ -19,28 +19,25 @@ struct MemberSearchView: View {
 
     var body: some View {
         List {
-            ForEach(viewModel.fetchedResults) { result in
-                let user = result.searchable as! User
+            ForEach(viewModel.fetchedResults, id: \.document) { result in
+                let user = result.document!
                 
                 NavigationLink {
                     UserProfileRootView(user: user, band: viewModel.band, bandMember: nil, userIsLoggedOut: $userIsOnboarding, selectedTab: .constant(3))
                 } label: {
-                    // TODO: Make reusable row for this
-                    Text(user.name)
+                    SearchResultRow(band: nil, user: user, show: nil)
                 }
             }
         }
-        .searchable(text: $viewModel.searchText)
-        .onSubmit(of: .search) {
+        .searchable(text: $viewModel.queryText)
+        .onChange(of: viewModel.queryText) { query in
             Task {
-                do {
-                    try await viewModel.getUsers()
-                } catch {
-                    print(error)
-                }
+                await viewModel.fetchUsers(searchQuery: query)
             }
         }
-        .animation(.easeInOut, value: viewModel.fetchedResults)
+        .task {
+            await viewModel.fetchUsers(searchQuery: "")
+        }
     }
 }
 
