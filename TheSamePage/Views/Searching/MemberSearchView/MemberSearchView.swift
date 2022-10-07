@@ -23,7 +23,7 @@ struct MemberSearchView: View {
                 let user = result.document!
                 
                 NavigationLink {
-                    UserProfileRootView(user: user, band: viewModel.band, bandMember: nil, userIsLoggedOut: $userIsOnboarding, selectedTab: .constant(3))
+                    UserProfileRootView(user: user, bandMember: nil, userIsLoggedOut: $userIsOnboarding, selectedTab: .constant(3))
                 } label: {
                     SearchResultRow(band: nil, user: user, show: nil)
                 }

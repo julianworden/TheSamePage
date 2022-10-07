@@ -15,7 +15,6 @@ class AddEditShowViewModel: ObservableObject {
     
     @Published var showName = ""
     @Published var showDescription = ""
-    @Published var showImage: UIImage?
     @Published var showVenue = ""
     @Published var showHostName = ""
     @Published var showGenre = Genre.rock
@@ -48,7 +47,7 @@ class AddEditShowViewModel: ObservableObject {
         }
     }
     
-    func createShow() async throws {
+    func createShow(withImage image: UIImage?) async throws {
         var newShow: Show
         var showTime: Time?
         
@@ -61,8 +60,8 @@ class AddEditShowViewModel: ObservableObject {
             )
         }
         
-        if let showImage {
-            let imageUrl = try await DatabaseService.shared.uploadImage(image: showImage)
+        if let image {
+            let imageUrl = try await DatabaseService.shared.uploadImage(image: image)
             newShow = Show(
                 name: showName,
                 description: showDescription,

@@ -12,6 +12,8 @@ struct BandProfileOtherUserView: View {
     
     let columns = [GridItem(.fixed(149), spacing: 15), GridItem(.fixed(149), spacing: 15)]
     
+    @State private var inviteToShowSheetIsShowing = false
+    
     init(band: Band) {
         _viewModel = StateObject(wrappedValue: BandProfileViewModel(band: band))
     }
@@ -19,6 +21,15 @@ struct BandProfileOtherUserView: View {
     var body: some View {
         VStack(spacing: 15) {
             BandProfileHeader(band: viewModel.band)
+            
+            // TODO: Keep this button from showing for anybody that's in the band
+            Button {
+                inviteToShowSheetIsShowing = true
+            } label: {
+                Label("Invite to Show", systemImage: "envelope")
+            }
+            .buttonStyle(.bordered)
+            
             
             SectionTitle(title: "Members")
             
@@ -57,6 +68,9 @@ struct BandProfileOtherUserView: View {
         .navigationTitle("Band Profile")
         .navigationBarTitleDisplayMode(.inline)
         .background(Color(uiColor: .systemGroupedBackground))
+        .sheet(isPresented: $inviteToShowSheetIsShowing) {
+            SendShowInviteView(band: viewModel.band)
+        }
     }
 }
 

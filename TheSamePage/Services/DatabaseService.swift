@@ -103,6 +103,7 @@ class DatabaseService {
         return []
     }
     
+    // TODO: Make this query the user's hostedShows collection instead
     /// Fetches all the shows of which the signed in user is the host.
     /// - Returns: An array of shows that the signed in user is hosting.
     func getHostedShows() async throws -> [Show] {
@@ -133,7 +134,7 @@ class DatabaseService {
     
     /// Fetches the logged in user's notifications from their Firestore bandInvites collection.
     /// - Returns: The logged in user's notifications.
-    func getNotifications() async throws -> [BandInvite] {
+    func getBandInvites() async throws -> [BandInvite] {
         var bandInvites = [BandInvite]()
         
         do {
@@ -151,6 +152,27 @@ class DatabaseService {
             return bandInvites
         } catch {
             throw DatabaseServiceError.firestoreError(message: "Failed to fetch band invites")
+        }
+    }
+    
+    func getShowInvites() async throws -> [ShowInvite] {
+        var showInvites = [ShowInvite]()
+        
+        do {
+            let query = try await db.collection("users").document(AuthController.getLoggedInUid()).collection("showInvites").getDocuments()
+            
+            for document in query.documents {
+                do {
+                    let showInvite = try document.data(as: ShowInvite.self)
+                    showInvites.append(showInvite)
+                } catch {
+                    throw DatabaseServiceError.decodeError(message: "Failed to decode showInvite")
+                }
+            }
+            
+            return showInvites
+        } catch {
+            throw DatabaseServiceError.firestoreError(message: "Failed to fetch show invites")
         }
     }
     
@@ -266,7 +288,8 @@ class DatabaseService {
     
     // MARK: - Firestore Writes
     
-    /// Creates a show in the Firestore shows collection.
+    /// Creates a show in the Firestore shows collection and also adds the show's id
+    /// to the logged in user's hostedShows collection.
     /// - Parameter show: The show to be added to Firestore.
     func createShow(show: Show) async throws {
         do {
@@ -313,7 +336,6 @@ class DatabaseService {
     func addUserToBand(_ bandMember: BandMember, addToBand joinedBand: JoinedBand, withBandInvite bandInvite: BandInvite?) throws {
         guard joinedBand.id != nil else { throw DatabaseServiceError.unexpectedNilValue(value: "joinedBand.id") }
         
-        // TODO: Turn this into a transaction?
         do {
             _ = try db.collection("bands").document(joinedBand.id!).collection("members").addDocument(from: bandMember)
             db.collection("users").document(AuthController.getLoggedInUid()).collection("joinedBands").document(joinedBand.id!).setData([:])
@@ -334,42 +356,40 @@ class DatabaseService {
         }
     }
     
+    /// Adds band to show's bands collection, adds show to every member of the band's joinedShows collection (including the band admin in case they don't play in the band), adds user to show's participants collection,
+    func addBandToShow(withShowInvite showInvite: ShowInvite) async throws {
+//        guard joinedShow.id != nil else { throw DatabaseServiceError.unexpectedNilValue(value: "joinedShow.id") }
+        
+        let bandMembersQuery = try await db.collection("bands").document(showInvite.bandId).collection("members").getDocuments()
+        
+        // Add the show to every band member's joinedShows collection
+        for document in bandMembersQuery.documents {
+            let bandMember = try document.data(as: BandMember.self)
+            try await db.collection("users").document(bandMember.uid).collection("joinedShows").document(showInvite.showId).setData([:])
+        }
+        
+        // Add the show to the band admin's joinedShows collection
+        try await db.collection("users").document(showInvite.recipientUid).collection("joinedShows").document(showInvite.showId).setData([:])
+        // Add the show to the band's joinedShows collection
+        try await db.collection("bands").document(showInvite.bandId).collection("joinedShows").document(showInvite.showId).setData([:])
+        // Add the band to the show's participants collection
+        try await db.collection("shows").document(showInvite.showId).collection("participants").document(showInvite.bandId).setData([:])
+        
+        deleteShowInvite(showInvite: showInvite)
+    }
+    
+    func deleteShowInvite(showInvite: ShowInvite) {
+        if showInvite.id != nil {
+            print(showInvite.id!)
+            db.collection("users").document(AuthController.getLoggedInUid()).collection("showInvites").document(showInvite.id!).delete()
+        }
+    }
+    
     func uploadBandLink(withLink link: PlatformLink, forBand band: Band) throws {
         if band.id != nil {
             _ = try db.collection("bands").document(band.id!).collection("links").addDocument(from: link)
         }
     }
-    
-    // MARK: - Firestore Searches
-    
-    // TODO: Redo this function without searchable
-//    func performSearch(for searchType: SearchType, withName name: String) async throws -> [AnySearchable] {
-//        var fetchedResults = [AnySearchable]()
-//        let query = try await db.collection(searchType.firestoreCollection).whereField("name", isEqualTo: name).getDocuments()
-//
-//        for document in query.documents {
-//            do {
-//                switch searchType {
-//                case .user:
-//                    let result = try document.data(as: User.self)
-//                    let searchable = AnySearchable(id: result.id!, searchable: result)
-//                    fetchedResults.append(searchable)
-//                case .band:
-//                    let result = try document.data(as: Band.self)
-//                    let searchable = AnySearchable(id: result.id!, searchable: result)
-//                    fetchedResults.append(searchable)
-//                case .show:
-//                    let result = try document.data(as: Show.self)
-//                    let searchable = AnySearchable(id: result.id!, searchable: result)
-//                    fetchedResults.append(searchable)
-//                }
-//            } catch {
-//                throw DatabaseServiceError.decodeError(message: "Failed to decode band")
-//            }
-//        }
-//
-//        return fetchedResults
-//    }
     
     // MARK: - Notifications
     
@@ -384,7 +404,18 @@ class DatabaseService {
                 .collection("bandInvites")
                 .addDocument(from: invite)
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to set bandInvites property.")
+            throw DatabaseServiceError.firestoreError(message: "Failed to send bandInvite.")
+        }
+    }
+    
+    func sendShowInvite(invite: ShowInvite) throws {
+        do {
+            _ = try db.collection("users")
+                .document(invite.recipientUid)
+                .collection("showInvites")
+                .addDocument(from: invite)
+        } catch {
+            throw DatabaseServiceError.firestoreError(message: "Failed to send showInvite.")
         }
     }
     

@@ -43,28 +43,18 @@ struct ShowDetailsHostView: View {
                         .padding(.top, 3)
                         .padding(.horizontal)
                     
-                    // TODO: Make this say something other than "Apply Now"
-                    // TODO: Make this a reusable button
-                    Button("Apply Now") {
-                        // TODO: Send application
-                    }
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.accentColor)
-                    .cornerRadius(10)
-                    .padding(.top, 10)
-                    
                     // TODO: Design lineup section that shows who's on the bill in a nice layout
                     
                     HStack {
                         SectionTitle(title: "Lineup")
                             .padding([.vertical, .leading])
                         
-                        Button {
-                            
+                        NavigationLink {
+                            BandSearchView()
                         } label: {
                             Image(systemName: "plus")
                         }
+                        .padding(.trailing)
                     }
                     
                     SectionTitle(title: "Details")

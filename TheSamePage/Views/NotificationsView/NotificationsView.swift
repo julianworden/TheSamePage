@@ -16,34 +16,25 @@ struct NotificationsView: View {
                 Color(uiColor: .systemGroupedBackground)
                     .ignoresSafeArea()
                 
-                if !viewModel.fetchedNotifications.isEmpty {
-                    ScrollView {
-                        ForEach(viewModel.fetchedNotifications) { invite in
-                            NotificationRow(notification: invite)
+                VStack {
+                    Picker("Select Notification Type", selection: $viewModel.selectedNotificationType) {
+                        ForEach(NotificationType.allCases) { notificationType in
+                            Text(notificationType.rawValue)
                         }
-                        .onDisappear {
-                            viewModel.removeListeners()
-                        }
-                        .animation(.easeInOut, value: viewModel.fetchedNotifications)
+                    }
+                    .pickerStyle(.segmented)
+                    .padding(.horizontal)
+                    
+                    if viewModel.selectedNotificationType == .bandInvite {
+                        BandInvitesList(viewModel: viewModel)
                     }
                     
-                } else {
-                    VStack {
-                        Text("Band invites, new messages, and more will appear here. You don't have any notifications at this time.")
-                            .italic()
-                            .multilineTextAlignment(.center)
+                    if viewModel.selectedNotificationType == .showInvite {
+                        ShowInvitesList(viewModel: viewModel)
                     }
-                    .padding()
                 }
             }
             .navigationTitle("Notifications")
-            .task {
-                do {
-                    try viewModel.getNotifications()
-                } catch {
-                    print(error)
-                }
-            }
         }
     }
 }
@@ -55,7 +46,7 @@ struct NotificationsView_Previews: PreviewProvider {
             viewModel: { () -> NotificationsViewModel in
                 let viewModel = NotificationsViewModel()
                 
-                viewModel.fetchedNotifications = [BandInvite.example]
+                viewModel.fetchedBandInvites = [BandInvite.example]
                 return viewModel
             }()
         )

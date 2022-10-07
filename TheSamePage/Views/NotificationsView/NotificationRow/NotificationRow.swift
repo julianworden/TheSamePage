@@ -10,8 +10,8 @@ import SwiftUI
 struct NotificationRow: View {
     @StateObject var viewModel: NotificationRowViewModel
     
-    init(notification: BandInvite) {
-        _viewModel = StateObject(wrappedValue: NotificationRowViewModel(notification: notification))
+    init(bandInvite: BandInvite?, showInvite: ShowInvite?) {
+        _viewModel = StateObject(wrappedValue: NotificationRowViewModel(bandInvite: bandInvite, showInvite: showInvite))
     }
     
     // TODO: Add notification timestamp
@@ -24,13 +24,21 @@ struct NotificationRow: View {
                 .frame(height: 125)
             
             HStack {
-                Text("\(viewModel.notificationSender) is inviting you to join \(viewModel.notificationBand)")
+                if let bandInvite = viewModel.bandInvite {
+                    Text(bandInvite.inviteMessage)
+                } else if let showInvite = viewModel.showInvite {
+                    Text(showInvite.inviteMessage)
+                }
                 
                 VStack {
                     Button("Accept") {
                         Task {
                             do {
-                                try await viewModel.acceptBandInvite()
+                                if viewModel.bandInvite != nil {
+                                    try await viewModel.acceptBandInvite()
+                                } else if viewModel.showInvite != nil {
+                                    try await viewModel.acceptShowInvite()
+                                }
                             } catch {
                                 print(error)
                             }
@@ -38,7 +46,11 @@ struct NotificationRow: View {
                     }
                     
                     Button("Decline") {
-                        viewModel.declineBandInvite()
+                        if viewModel.bandInvite != nil {
+                            viewModel.declineBandInvite()
+                        } else if viewModel.showInvite != nil {
+                            viewModel.declineShowInvite()
+                        }
                     }
                 }
                 .buttonStyle(.bordered)
@@ -51,6 +63,6 @@ struct NotificationRow: View {
 
 struct NotificationRowView_Previews: PreviewProvider {
     static var previews: some View {
-        NotificationRow(notification: BandInvite.example)
+        NotificationRow(bandInvite: BandInvite.example, showInvite: ShowInvite.example)
     }
 }

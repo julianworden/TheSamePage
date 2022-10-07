@@ -9,22 +9,36 @@ import FirebaseFirestore
 import Foundation
 
 class NotificationsViewModel: ObservableObject {
-    @Published var fetchedNotifications = [BandInvite]()
+    @Published var fetchedBandInvites = [BandInvite]()
+    @Published var fetchedShowInvites = [ShowInvite]()
+    @Published var selectedNotificationType = NotificationType.bandInvite
     
     let db = Firestore.firestore()
-    var notificationsListener: ListenerRegistration?
+    var bandInvitesListener: ListenerRegistration?
+    var showInvitesListener: ListenerRegistration?
     
-    func getNotifications() throws {
-        notificationsListener = db.collection("users").document(AuthController.getLoggedInUid()).collection("bandInvites").addSnapshotListener { snapshot, error in
+    func getBandInvites() throws {
+        bandInvitesListener = db.collection("users").document(AuthController.getLoggedInUid()).collection("bandInvites").addSnapshotListener { snapshot, error in
             if snapshot != nil && error == nil {
                 Task { @MainActor in
-                    self.fetchedNotifications = try await DatabaseService.shared.getNotifications()
+                    self.fetchedBandInvites = try await DatabaseService.shared.getBandInvites()
+                }
+            }
+        }
+    }
+    
+    func getShowInvites() throws {
+        showInvitesListener = db.collection("users").document(AuthController.getLoggedInUid()).collection("showInvites").addSnapshotListener { snapshot, error in
+            if snapshot != nil && error == nil {
+                Task { @MainActor in
+                    self.fetchedShowInvites = try await DatabaseService.shared.getShowInvites()
                 }
             }
         }
     }
     
     func removeListeners() {
-        notificationsListener?.remove()
+        bandInvitesListener?.remove()
+        showInvitesListener?.remove()
     }
 }

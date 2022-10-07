@@ -18,6 +18,10 @@ struct BandInvite: Codable, Equatable, Hashable, Identifiable {
     let senderName: String
     let senderBand: String
     
+    var inviteMessage: String {
+        return "\(senderName) is inviting you to join \(senderBand)"
+    }
+    
     static var example = BandInvite(
         recipientUid: "as;ldkfjapwoiefhaw;jgr",
         recipientRole: "Guitar",

@@ -13,7 +13,7 @@ struct UserProfileRootView: View {
     @Binding var userIsLoggedOut: Bool
     @Binding var selectedTab: Int
         
-    init(user: User?, band: Band?, bandMember: BandMember?, userIsLoggedOut: Binding<Bool>, selectedTab: Binding<Int>) {
+    init(user: User?, bandMember: BandMember?, userIsLoggedOut: Binding<Bool>, selectedTab: Binding<Int>) {
         _viewModel = StateObject(wrappedValue: UserProfileRootViewModel(user: user, bandMember: bandMember))
         _userIsLoggedOut = Binding(projectedValue: userIsLoggedOut)
         _selectedTab = Binding(projectedValue: selectedTab)
@@ -37,6 +37,6 @@ struct UserProfileRootView: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        UserProfileRootView(user: User.example, band: Band.example, bandMember: BandMember.example, userIsLoggedOut: .constant(false), selectedTab: .constant(3))
+        UserProfileRootView(user: User.example, bandMember: BandMember.example, userIsLoggedOut: .constant(false), selectedTab: .constant(3))
     }
 }

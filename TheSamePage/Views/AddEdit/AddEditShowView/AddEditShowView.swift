@@ -13,7 +13,10 @@ struct AddEditShowView: View {
     
     @Binding var addEditShowViewIsShowing: Bool
     
+    @State var showImage: UIImage?
+    
     @State private var imagePickerIsShowing = false
+    @State private var bandSearchSheetIsShowing = false
     
     init(viewTitleText: String, addEditShowViewIsShowing: Binding<Bool>, showToEdit: Show?) {
         _viewModel = StateObject(wrappedValue: AddEditShowViewModel(viewTitleText: viewTitleText, showToEdit: showToEdit))
@@ -23,7 +26,7 @@ struct AddEditShowView: View {
     var body: some View {
         NavigationView {
             Form {
-                ImageSelectionButton(imagePickerIsShowing: $imagePickerIsShowing, selectedImage: $viewModel.showImage)
+                ImageSelectionButton(imagePickerIsShowing: $imagePickerIsShowing, selectedImage: $showImage)
                 
                 Section {
                     TextField("Name", text: $viewModel.showName)
@@ -69,7 +72,7 @@ struct AddEditShowView: View {
                     Button("Create Show") {
                         Task {
                             do {
-                                try await viewModel.createShow()
+                                try await viewModel.createShow(withImage: showImage)
                                 addEditShowViewIsShowing = false
                             } catch {
                                 print(error)
@@ -81,8 +84,13 @@ struct AddEditShowView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(viewModel.viewTitleText)
             .sheet(isPresented: $imagePickerIsShowing) {
-                ImagePicker(image: $viewModel.showImage, pickerIsShowing: $imagePickerIsShowing)
+                ImagePicker(image: $showImage, pickerIsShowing: $imagePickerIsShowing)
             }
+            
+            // TODO: Make this appear
+//            .sheet(isPresented: $bandSearchSheetIsShowing) {
+//                BandSearchView()
+//            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {

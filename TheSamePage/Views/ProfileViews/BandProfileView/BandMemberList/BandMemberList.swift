@@ -20,7 +20,7 @@ struct BandMemberList: View {
                 if !bandMember.bandMemberIsLoggedInUser {
                     VStack {
                         NavigationLink {
-                            UserProfileRootView(user: nil, band: viewModel.band, bandMember: bandMember, userIsLoggedOut: .constant(false), selectedTab: .constant(4))
+                            UserProfileRootView(user: nil, bandMember: bandMember, userIsLoggedOut: .constant(false), selectedTab: .constant(4))
                         } label: {
                             BandMemberRow(bandMember: bandMember, index: index, membersCount: viewModel.bandMembers.count, bandMemberIsLoggedInUser: false)
                                 .padding(.horizontal)

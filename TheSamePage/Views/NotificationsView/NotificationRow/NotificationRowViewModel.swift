@@ -8,25 +8,54 @@
 import Foundation
 
 class NotificationRowViewModel: ObservableObject {
-    let notificationSender: String
-    let notificationBand: String
+    enum NotificationRowViewModelError: Error {
+        case unexpectedNilValue(message: String)
+    }
     
-    let notification: BandInvite
+    var notificationSender: String?
+    var notificationBandName: String?
+    var notificationShowName: String?
+    var bandInvite: BandInvite?
+    var showInvite: ShowInvite?
     
-    init(notification: BandInvite) {
-        self.notification = notification
-        self.notificationSender = notification.senderName
-        self.notificationBand = notification.senderBand
+    init(bandInvite: BandInvite?, showInvite: ShowInvite?) {
+        if let bandInvite {
+            self.bandInvite = bandInvite
+            self.notificationSender = bandInvite.senderName
+            self.notificationBandName = bandInvite.senderBand
+        } else if let showInvite {
+            self.showInvite = showInvite
+            self.notificationSender = showInvite.senderUsername
+            self.notificationBandName = showInvite.bandName
+            self.notificationShowName = showInvite.showName
+        }
     }
     
     func acceptBandInvite() async throws {
+        guard bandInvite != nil else { throw NotificationRowViewModelError.unexpectedNilValue(message: "bandInvite") }
+        
+        // TODO: Make this show logged in user first and last name, not username
         let name = try await AuthController.getLoggedInUserName()
-        let bandMember = BandMember(uid: AuthController.getLoggedInUid(), role: notification.recipientRole, name: name)
-        let bandId = JoinedBand(id: notification.bandId)
-        try DatabaseService.shared.addUserToBand(bandMember, addToBand: bandId, withBandInvite: notification)
+        let bandMember = BandMember(uid: AuthController.getLoggedInUid(), role: bandInvite!.recipientRole, name: name)
+        let bandId = JoinedBand(id: bandInvite!.bandId)
+        try DatabaseService.shared.addUserToBand(bandMember, addToBand: bandId, withBandInvite: bandInvite!)
+    }
+    
+    func acceptShowInvite() async throws {
+        guard showInvite != nil else { throw NotificationRowViewModelError.unexpectedNilValue(message: "showInvite") }
+        
+        try await DatabaseService.shared.addBandToShow(withShowInvite: showInvite!)
     }
     
     func declineBandInvite() {
-        DatabaseService.shared.deleteBandInvite(bandInvite: notification)
+        guard bandInvite != nil else { return }
+        
+        DatabaseService.shared.deleteBandInvite(bandInvite: bandInvite!)
+    }
+    
+    func declineShowInvite() {
+        guard showInvite != nil else { return }
+        
+        DatabaseService.shared.deleteShowInvite(showInvite: showInvite!)
     }
 }
