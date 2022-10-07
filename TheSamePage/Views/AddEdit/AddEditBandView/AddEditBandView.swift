@@ -72,7 +72,6 @@ struct AddEditBandView: View {
                             if userIsOnboarding {
                                 userIsOnboarding = false
                             } else {
-                                // TODO: Incorporate this functionality in the UserProfileView when the plus button next to the Member Of title is pressed
                                 dismiss()
                             }
                         } catch {

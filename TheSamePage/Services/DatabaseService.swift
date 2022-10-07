@@ -132,8 +132,8 @@ class DatabaseService {
         }
     }
     
-    /// Fetches the logged in user's notifications from their Firestore bandInvites collection.
-    /// - Returns: The logged in user's notifications.
+    /// Fetches the logged in user's BandInvites from their bandInvites collection.
+    /// - Returns: The logged in user's BandInvites.
     func getBandInvites() async throws -> [BandInvite] {
         var bandInvites = [BandInvite]()
         
@@ -155,6 +155,8 @@ class DatabaseService {
         }
     }
     
+    /// Fetches the logged in user's showInvites from their showInvites collection.
+    /// - Returns: The logged in user's ShowInvites.
     func getShowInvites() async throws -> [ShowInvite] {
         var showInvites = [ShowInvite]()
         
@@ -262,6 +264,9 @@ class DatabaseService {
         }
     }
     
+    /// Fetches a band's links from their links collection.
+    /// - Parameter band: The band whose links are to be fetched.
+    /// - Returns: An array of the links that the provided band has.
     func getBandLinks(forBand band: Band) async throws -> [PlatformLink] {
         if band.id != nil {
             do {
@@ -356,7 +361,10 @@ class DatabaseService {
         }
     }
     
-    /// Adds band to show's bands collection, adds show to every member of the band's joinedShows collection (including the band admin in case they don't play in the band), adds user to show's participants collection,
+    /// Adds band to show's bands collection, adds show to every member of the band's joinedShows collection (including the
+    /// band admin in case they don't play in the band), adds user to show's participants collection. Also deletes the
+    /// ShowInvite in the user's showInvites collection.
+    /// - Parameter showInvite: The ShowInvite that was accepted in order for the band to get added to the show.
     func addBandToShow(withShowInvite showInvite: ShowInvite) async throws {
 //        guard joinedShow.id != nil else { throw DatabaseServiceError.unexpectedNilValue(value: "joinedShow.id") }
         
@@ -378,6 +386,9 @@ class DatabaseService {
         deleteShowInvite(showInvite: showInvite)
     }
     
+    
+    /// Deletes a show invite from the logged in user's showInvites collection.
+    /// - Parameter showInvite: The ShowInvite to be deleted.
     func deleteShowInvite(showInvite: ShowInvite) {
         if showInvite.id != nil {
             print(showInvite.id!)
@@ -385,6 +396,10 @@ class DatabaseService {
         }
     }
     
+    /// Adds a social media link to a band's links collection.
+    /// - Parameters:
+    ///   - link: The link to be added to the band's links collection.
+    ///   - band: The band that the link belongs to.
     func uploadBandLink(withLink link: PlatformLink, forBand band: Band) throws {
         if band.id != nil {
             _ = try db.collection("bands").document(band.id!).collection("links").addDocument(from: link)
@@ -393,10 +408,9 @@ class DatabaseService {
     
     // MARK: - Notifications
     
-    /// Sends an invitation to a user to join a band.
-    ///
-    /// Uploads an invite object to the specified user's bandInvites collection in Firestore. Eventually, this will trigger a notification for the user.
-    /// - Parameter invite: The invite that is being sent.
+    /// Sends an invitation to a user to join a band. Uploads a BandInvite object to the specified user's bandInvites collection in
+    /// Firestore.
+    /// - Parameter invite: The BandInvite that is being sent.
     func sendBandInvite(invite: BandInvite) throws {
         do {
             _ = try db.collection("users")
@@ -408,6 +422,9 @@ class DatabaseService {
         }
     }
     
+    /// Sends an invitation to a band's admin to have their band join a show. Uploads a ShowInvite object
+    /// to the specified user's showInvites collection in Firestore.
+    /// - Parameter invite: The ShowInvite that is being sent.
     func sendShowInvite(invite: ShowInvite) throws {
         do {
             _ = try db.collection("users")

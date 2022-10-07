@@ -37,7 +37,17 @@ struct LoggedInUserProfileView: View {
                         }
                         
                         if let bands = viewModel.bands {
-                            SectionTitle(title: "Member of")
+                            HStack {
+                                SectionTitle(title: "Member of")
+                                
+                                NavigationLink {
+                                    AddEditBandView(userIsOnboarding: .constant(false), bandToEdit: nil)
+                                } label: {
+                                    Image(systemName: "plus")
+                                }
+                                .padding(.trailing)
+                            }
+                            
                             UserBandList(bands: bands)
                         }
                     }
