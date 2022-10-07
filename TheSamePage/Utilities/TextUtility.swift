@@ -9,8 +9,10 @@ import Foundation
 
 struct TextUtility {
     // TODO: Use .formatted() methods for these things instead
-    static func formatDate(date: Date) -> String {
+    static func formatDate(unixDate: Double) -> String {
         let dateFormatter = DateFormatter()
+        let date = Date(timeIntervalSince1970: unixDate)
+        
         dateFormatter.dateFormat = "MM/dd/yyyy"
         let dateString = dateFormatter.string(from: date)
         return dateString

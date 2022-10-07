@@ -49,14 +49,7 @@ struct HomeShowCard: View {
                         
                         Spacer()
                         
-
-                        if #available(iOS 15.0, *) {
-                            Text(viewModel.show.date.dateValue().formatted(date: .numeric, time: .omitted))
-                                .font(.caption)
-                        } else {
-                            Text(TextUtility.formatDate(date: viewModel.show.date.dateValue()))
-                        }
-                        
+                        Text(TextUtility.formatDate(unixDate: viewModel.show.date))
                     }
                 }
             }

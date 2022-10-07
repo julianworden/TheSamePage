@@ -12,10 +12,10 @@ struct ShowSearchResultsList: View {
     @ObservedObject var viewModel: SearchViewModel
     
     var body: some View {
-        List(viewModel.fetchedUsers, id: \.document) { result in
-            let user = result.document!
+        List(viewModel.fetchedShows, id: \.document) { result in
+            let show = result.document!
             
-            Text("\(user.firstName) \(user.lastName)")
+            SearchResultRow(band: nil, user: nil, show: show)
         }
         .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
         .onChange(of: viewModel.queryText) { query in

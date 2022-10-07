@@ -75,7 +75,7 @@ class SearchViewModel: ObservableObject {
             let (data, _) = try await TypesenseController.client.multiSearch().perform(searchRequests: [collectionParams], commonParameters: searchParams, for: Show.self)
             fetchedShows = (data?.results[0].hits) ?? []
         } catch {
-            throw SearchViewModelError.searchFailed(message: "Show search failed")
+            throw SearchViewModelError.searchFailed(message: "Show search failed \(error)")
         }
     }
 }

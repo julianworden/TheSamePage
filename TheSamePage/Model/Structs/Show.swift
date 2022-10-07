@@ -17,11 +17,11 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     let host: String
     let hostUid: String
     let venue: String
-    let date: Timestamp
+    let date: Double
     let time: Time?
     let ticketPrice: Double?
     let imageUrl: String?
-    let location: Location
+//    let location: Location
     let backline: Backline?
     let hasFood: Bool
     let hasBar: Bool
@@ -31,7 +31,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     let bands: [Band]?
     
     var formattedDate: String? {
-        return TextUtility.formatDate(date: date.dateValue())
+        return TextUtility.formatDate(unixDate: date)
     }
     
     var formattedDoorsTime: String? {
@@ -52,11 +52,11 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         host: "DAA Entertainment",
         hostUid: "",
         venue: "Starland Ballroom",
-        date: Timestamp(date: Date()),
+        date: Date().timeIntervalSince1970,
         time: Time.example,
         ticketPrice: 100,
         imageUrl: nil,
-        location: Location.example,
+//        location: Location.example,
         backline: nil,
         hasFood: true,
         hasBar: true,

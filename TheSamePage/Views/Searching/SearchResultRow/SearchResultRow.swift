@@ -54,9 +54,9 @@ struct SearchResultRow: View {
                 
                 VStack(alignment: .leading) {
                     Text(show.name)
-                    
-                    Text(show.location.address)
-                        .font(.caption)
+//                    
+//                    Text(show.location.address)
+//                        .font(.caption)
                 }
             }
             

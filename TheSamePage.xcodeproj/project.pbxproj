@@ -490,10 +490,10 @@
 		AB5054B128DC9BFF00321380 /* Searching */ = {
 			isa = PBXGroup;
 			children = (
+				AB794E2B28E25902000ABB37 /* SearchView */,
 				ABF1C40028ECD0E70004A3C1 /* SearchResultRow */,
 				AB3C73D328DC0A0C0038085A /* BandSearchView */,
 				AB5054A528DC91B400321380 /* MemberSearchView */,
-				AB794E2B28E25902000ABB37 /* SearchView */,
 			);
 			path = Searching;
 			sourceTree = "<group>";

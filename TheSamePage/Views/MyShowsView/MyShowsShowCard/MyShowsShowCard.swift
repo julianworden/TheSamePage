@@ -40,7 +40,7 @@ struct MyShowsShowCard: View {
                     
                     Image(systemName: "fork.knife.circle")
                     
-                    Text(TextUtility.formatDate(date: viewModel.show.date.dateValue()))
+                    Text(TextUtility.formatDate(unixDate: viewModel.show.date))
                     
                 }
             }
