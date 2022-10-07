@@ -14,6 +14,7 @@ struct SignUpView: View {
     
     @State private var imagePickerIsShowing = false
     @State private var profileCreationWasSuccessful = false
+    @State private var signUpButtonIsDisabled = false
     
     var body: some View {
         Form {
@@ -37,7 +38,7 @@ struct SignUpView: View {
                 Button {
                     Task {
                         do {
-                            viewModel.signUpButtonIsDisabled = true
+                            signUpButtonIsDisabled = true
                             try await viewModel.registerUser()
                             
                             if viewModel.userIsInABand {
@@ -47,16 +48,16 @@ struct SignUpView: View {
                                 userIsOnboarding = false
                             }
                         } catch {
-                            viewModel.signUpButtonIsDisabled = false
+                            signUpButtonIsDisabled = false
                             print(error)
                         }
                     }
                 } label: {
                     NavigationLink(destination: InABandView(userIsOnboarding: $userIsOnboarding), isActive: $profileCreationWasSuccessful) {
-                        Text("Create Profile")
+                        AsyncButtonLabel(buttonIsDisabled: $signUpButtonIsDisabled, title: "Create Profile")
                     }
                 }
-                .disabled(viewModel.signUpButtonIsDisabled)
+                .disabled(signUpButtonIsDisabled)
             }
         }
         .navigationTitle("Sign Up")

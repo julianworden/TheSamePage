@@ -17,9 +17,6 @@ class LoginViewModel: ObservableObject {
     @Published var emailAddress = ""
     @Published var password = ""
     
-    @Published var loginWasSuccessful = false
-    @Published var loginButtonIsDisabled = false
-    
     func logInButtonTapped() async throws {
         do {
             try await Auth.auth().signIn(withEmail: emailAddress, password: password)

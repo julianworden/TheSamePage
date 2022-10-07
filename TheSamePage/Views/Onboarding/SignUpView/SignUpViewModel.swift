@@ -26,7 +26,6 @@ class SignUpViewModel: ObservableObject {
     @Published var firstName = ""
     @Published var lastName = ""
     @Published var userIsInABand = false
-    @Published var signUpButtonIsDisabled = false
     
     /// Creates and registers a user in Firebase Auth with the email address and password entered by the user.
     ///

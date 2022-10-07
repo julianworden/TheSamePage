@@ -17,6 +17,7 @@ struct AddEditShowView: View {
     
     @State private var imagePickerIsShowing = false
     @State private var bandSearchSheetIsShowing = false
+    @State private var createShowButtonIsDisabled = false
     
     init(viewTitleText: String, addEditShowViewIsShowing: Binding<Bool>, showToEdit: Show?) {
         _viewModel = StateObject(wrappedValue: AddEditShowViewModel(viewTitleText: viewTitleText, showToEdit: showToEdit))
@@ -54,14 +55,6 @@ struct AddEditShowView: View {
                     }
                 }
                 
-                // TODO: Add this to a new view that's shown when editing a show
-//                Section {
-//                    DatePicker("Load In", selection: $viewModel.showLoadInTime, in: viewModel.showDate..., displayedComponents: .hourAndMinute)
-//                    DatePicker("Doors", selection: $viewModel.showDoorsTime, in: viewModel.showLoadInTime..., displayedComponents: .hourAndMinute)
-//                    DatePicker("First Set", selection: $viewModel.showFirstSetTime, in: viewModel.showDoorsTime..., displayedComponents: .hourAndMinute)
-//                    DatePicker("End", selection: $viewModel.showEndTime, in: viewModel.showFirstSetTime..., displayedComponents: .hourAndMinute)
-//                }
-                
                 Section {
                     Toggle("21+", isOn: $viewModel.showIs21Plus)
                     Toggle("Food", isOn: $viewModel.showHasFood)
@@ -69,16 +62,21 @@ struct AddEditShowView: View {
                 }
                 
                 Section {
-                    Button("Create Show") {
+                    Button {
                         Task {
                             do {
+                                createShowButtonIsDisabled = true
                                 try await viewModel.createShow(withImage: showImage)
                                 addEditShowViewIsShowing = false
                             } catch {
+                                createShowButtonIsDisabled = false
                                 print(error)
                             }
                         }
+                    } label: {
+                        AsyncButtonLabel(buttonIsDisabled: $createShowButtonIsDisabled, title: "Create Show")
                     }
+                    .disabled(createShowButtonIsDisabled)
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
@@ -86,11 +84,6 @@ struct AddEditShowView: View {
             .sheet(isPresented: $imagePickerIsShowing) {
                 ImagePicker(image: $showImage, pickerIsShowing: $imagePickerIsShowing)
             }
-            
-            // TODO: Make this appear
-//            .sheet(isPresented: $bandSearchSheetIsShowing) {
-//                BandSearchView()
-//            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {

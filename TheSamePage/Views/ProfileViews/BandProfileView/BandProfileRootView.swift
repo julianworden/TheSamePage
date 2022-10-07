@@ -28,16 +28,8 @@ struct BandProfileRootView: View {
                 ScrollView {
                     BandProfileAdminView(
                         band: viewModel.band,
-                        memberSearchSheetIsShowing: $memberSearchSheetIsShowing,
                         linkCreationSheetIsShowing: $linkCreationSheetIsShowing
                     )
-                    .sheet(isPresented: $memberSearchSheetIsShowing) {
-                        NavigationView {
-                            MemberSearchView(userIsOnboarding: .constant(false), band: viewModel.band)
-                                .navigationTitle("Search for User Profile")
-                                .navigationBarTitleDisplayMode(.inline)
-                        }
-                    }
                     .sheet(isPresented: $linkCreationSheetIsShowing) {
                         NavigationView {
                             AddEditLinkView(link: nil, band: viewModel.band)

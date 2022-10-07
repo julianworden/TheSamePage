@@ -10,6 +10,8 @@
 import SwiftUI
 
 struct AddEditBandView: View {
+    @Environment(\.dismiss) var dismiss
+    
     @StateObject var viewModel: AddEditBandViewModel
     
     @Binding var userIsOnboarding: Bool
@@ -60,18 +62,26 @@ struct AddEditBandView: View {
             }
             
             Section {
-                Button("Create Band") {
+                Button {
                     Task {
                         do {
                             bandCreationButtonIsDisabled = true
                             try await viewModel.createBand(withImage: selectedImage)
                             bandCreationWasSuccessful = true
-                            userIsOnboarding = false
+                            
+                            if userIsOnboarding {
+                                userIsOnboarding = false
+                            } else {
+                                // TODO: Incorporate this functionality in the UserProfileView when the plus button next to the Member Of title is pressed
+                                dismiss()
+                            }
                         } catch {
                             bandCreationButtonIsDisabled = false
                             print(error)
                         }
                     }
+                } label: {
+                    AsyncButtonLabel(buttonIsDisabled: $bandCreationButtonIsDisabled, title: "Create Band")
                 }
                 .disabled(bandCreationButtonIsDisabled)
             }

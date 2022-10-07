@@ -13,6 +13,8 @@ struct LoginView: View {
     
     @Binding var userIsOnboarding: Bool
     
+    @State private var loginButtonIsDisabled = false
+    
     var hideNavigationLink = true
     
     var body: some View {
@@ -23,18 +25,18 @@ struct LoginView: View {
                 Button {
                     Task {
                         do {
-                            viewModel.loginButtonIsDisabled = true
+                            loginButtonIsDisabled = true
                             try await viewModel.logInButtonTapped()
                             userIsOnboarding = false
                         } catch {
-                            viewModel.loginButtonIsDisabled = false
+                            loginButtonIsDisabled = false
                             print(error)
                         }
                     }
                 } label: {
-                    Text("Log In")
+                    AsyncButtonLabel(buttonIsDisabled: $loginButtonIsDisabled, title: "Log In")
                 }
-                .disabled(viewModel.loginButtonIsDisabled)
+                .disabled(loginButtonIsDisabled)
                 
                 Text("Don't have an account?")
                 NavigationLink {

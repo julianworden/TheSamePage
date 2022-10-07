@@ -10,12 +10,10 @@ import SwiftUI
 struct BandProfileAdminView: View {
     @StateObject var viewModel: BandProfileViewModel
     
-    @Binding var memberSearchSheetIsShowing: Bool
     @Binding var linkCreationSheetIsShowing: Bool
     
-    init(band: Band, memberSearchSheetIsShowing: Binding<Bool>, linkCreationSheetIsShowing: Binding<Bool>) {
+    init(band: Band, linkCreationSheetIsShowing: Binding<Bool>) {
         _viewModel = StateObject(wrappedValue: BandProfileViewModel(band: band))
-        _memberSearchSheetIsShowing = Binding(projectedValue: memberSearchSheetIsShowing)
         _linkCreationSheetIsShowing = Binding(projectedValue: linkCreationSheetIsShowing)
     }
     
@@ -26,8 +24,10 @@ struct BandProfileAdminView: View {
             HStack {
                 SectionTitle(title: "Members")
                 
-                Button {
-                    memberSearchSheetIsShowing = true
+                NavigationLink {
+                    MemberSearchView(userIsOnboarding: .constant(false), band: viewModel.band)
+                        .navigationTitle("Search for User Profile")
+                        .navigationBarTitleDisplayMode(.inline)
                 } label: {
                     Image(systemName: "plus")
                         .imageScale(.large)
@@ -42,8 +42,10 @@ struct BandProfileAdminView: View {
                     Text("This band doesn't have any members.")
                         .italic()
                     
-                    Button {
-                        memberSearchSheetIsShowing = true
+                    NavigationLink {
+                        MemberSearchView(userIsOnboarding: .constant(false), band: viewModel.band)
+                            .navigationTitle("Search for User Profile")
+                            .navigationBarTitleDisplayMode(.inline)
                     } label: {
                         Text("Tap here to find your band members and invite them to join the band.")
                             .italic()
@@ -94,6 +96,6 @@ struct BandProfileAdminView: View {
 
 struct BandProfileAdminView_Previews: PreviewProvider {
     static var previews: some View {
-        BandProfileAdminView(band: Band.example, memberSearchSheetIsShowing: .constant(false), linkCreationSheetIsShowing: .constant(false))
+        BandProfileAdminView(band: Band.example, linkCreationSheetIsShowing: .constant(false))
     }
 }
