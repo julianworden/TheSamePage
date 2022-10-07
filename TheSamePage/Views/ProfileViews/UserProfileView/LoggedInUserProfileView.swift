@@ -23,23 +23,27 @@ struct LoggedInUserProfileView: View {
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                VStack {
-                    if viewModel.profileImageUrl != nil  {
-                        ProfileAsyncImage(url: URL(string: viewModel.profileImageUrl!))
-                    } else {
-                        NoImageView()
-                            .padding(.horizontal)
-                    }
-                    
-                    if let bands = viewModel.bands {
-                        SectionTitle(title: "Member of")
-                        UserBandList(bands: bands)
+            ZStack {
+                Color(uiColor: .systemGroupedBackground)
+                    .ignoresSafeArea()
+            
+                ScrollView {
+                    VStack {
+                        if viewModel.profileImageUrl != nil  {
+                            ProfileAsyncImage(url: URL(string: viewModel.profileImageUrl!))
+                        } else {
+                            NoImageView()
+                                .padding(.horizontal)
+                        }
+                        
+                        if let bands = viewModel.bands {
+                            SectionTitle(title: "Member of")
+                            UserBandList(bands: bands)
+                        }
                     }
                 }
             }
             .navigationTitle("Profile")
-            .background(Color(uiColor: .systemGroupedBackground))
             .task {
                 do {
                     try await viewModel.initializeUser(user: nil)
@@ -61,6 +65,7 @@ struct LoggedInUserProfileView: View {
                     }
                 }
             }
+                
         }
     }
 }

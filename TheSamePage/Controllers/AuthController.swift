@@ -16,9 +16,14 @@ final class AuthController: ObservableObject {
         return Auth.auth().currentUser?.uid ?? "Unknown UID"
     }
     
-    static func getLoggedInUserName() async throws -> String {
+    static func getLoggedInUsername() async throws -> String {
         let user = try await DatabaseService.shared.getLoggedInUser()
         return user.username
+    }
+    
+    static func getLoggedInFullName() async throws -> String {
+        let user = try await DatabaseService.shared.getLoggedInUser()
+        return "\(user.firstName) \(user.lastName)"
     }
     
     static func logOut() throws {

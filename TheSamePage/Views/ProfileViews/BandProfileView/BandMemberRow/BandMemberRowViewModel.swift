@@ -18,7 +18,7 @@ final class BandMemberRowViewModel: ObservableObject {
     
     init(bandMember: BandMember, index: Int, membersCount: Int, bandMemberIsLoggedInUser: Bool) {
         self.memberRole = bandMember.role
-        self.memberName = bandMember.name
+        self.memberName = bandMember.fullName
         self.iconName = bandMember.role.lowercased()
         self.memberUid = bandMember.uid
         self.index = index

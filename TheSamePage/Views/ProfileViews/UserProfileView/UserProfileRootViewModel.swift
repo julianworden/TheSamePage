@@ -19,7 +19,6 @@ class UserProfileRootViewModel: ObservableObject {
     /// The bandMember for which the Profile is a representation. This is necessary for when a
     /// user is selected from the BandProfile's Members section.
     @Published var bandMember: BandMember?
-    
     @Published var firstName: String?
     @Published var lastName: String?
     @Published var emailAddress: String?

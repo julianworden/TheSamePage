@@ -20,18 +20,24 @@ struct UserProfileRootView: View {
     }
     
     var body: some View {
+        ZStack {
+            Color(uiColor: .systemGroupedBackground)
+                .ignoresSafeArea()
+            
+            // The logged in user's profile is being shown
             if viewModel.user == nil && viewModel.bandMember == nil {
                 LoggedInUserProfileView(
                     userIsLoggedOut: $userIsLoggedOut,
                     selectedTab: $selectedTab
                 )
             } else {
+                // Somebody else's profile is being shown
                 OtherUserProfileView(
                     user: viewModel.user,
                     bandMember: viewModel.bandMember
                 )
             }
-        
+        }
     }
 }
 

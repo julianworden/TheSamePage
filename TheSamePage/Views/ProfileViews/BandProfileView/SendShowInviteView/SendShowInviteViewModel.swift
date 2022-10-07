@@ -23,7 +23,7 @@ final class SendShowInviteViewModel: ObservableObject {
         self.recipientUid = band.adminUid
         Task {
             do {
-                let username = try await AuthController.getLoggedInUserName()
+                let username = try await AuthController.getLoggedInUsername()
                 senderUsername = username
             } catch {
                 print(error)

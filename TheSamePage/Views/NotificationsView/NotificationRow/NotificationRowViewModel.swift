@@ -35,8 +35,9 @@ class NotificationRowViewModel: ObservableObject {
         guard bandInvite != nil else { throw NotificationRowViewModelError.unexpectedNilValue(message: "bandInvite") }
         
         // TODO: Make this show logged in user first and last name, not username
-        let name = try await AuthController.getLoggedInUserName()
-        let bandMember = BandMember(uid: AuthController.getLoggedInUid(), role: bandInvite!.recipientRole, name: name)
+        let username = try await AuthController.getLoggedInUsername()
+        let fullName = try await AuthController.getLoggedInFullName()
+        let bandMember = BandMember(uid: AuthController.getLoggedInUid(), role: bandInvite!.recipientRole, username: username, fullName: fullName)
         let bandId = JoinedBand(id: bandInvite!.bandId)
         try DatabaseService.shared.addUserToBand(bandMember, addToBand: bandId, withBandInvite: bandInvite!)
     }

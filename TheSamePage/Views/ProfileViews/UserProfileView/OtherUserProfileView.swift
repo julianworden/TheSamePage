@@ -15,46 +15,50 @@ struct OtherUserProfileView: View {
     }
     
     var body: some View {
-        ScrollView {
-            VStack {
-                if viewModel.profileImageUrl != nil  {
-                    ProfileAsyncImage(url: URL(string: viewModel.profileImageUrl!))
-                } else {
-                    NoImageView()
-                        .padding(.horizontal)
-                }
+        ZStack {
+            Color(uiColor: .systemGroupedBackground)
+                .ignoresSafeArea()
             
-                HStack {
-                    NavigationLink {
-                        if viewModel.user != nil {
-                            SendBandInviteView(user: viewModel.user!)
-                        }
-                    } label: {
-                        HStack {
-                            Image(systemName: "envelope")
-                            Text("Invite to Band")
-                        }
+            ScrollView {
+                VStack {
+                    if viewModel.profileImageUrl != nil  {
+                        ProfileAsyncImage(url: URL(string: viewModel.profileImageUrl!))
+                    } else {
+                        NoImageView()
+                            .padding(.horizontal)
                     }
                     
-                    NavigationLink {
-                        EmptyView()
-                    } label: {
-                        HStack {
-                            Image(systemName: "message")
-                            Text("Chat")
+                    HStack {
+                        NavigationLink {
+                            if viewModel.user != nil {
+                                SendBandInviteView(user: viewModel.user!)
+                            }
+                        } label: {
+                            HStack {
+                                Image(systemName: "envelope")
+                                Text("Invite to Band")
+                            }
+                        }
+                        
+                        NavigationLink {
+                            EmptyView()
+                        } label: {
+                            HStack {
+                                Image(systemName: "message")
+                                Text("Chat")
+                            }
                         }
                     }
-                }
-                .buttonStyle(.bordered)
+                    .buttonStyle(.bordered)
                     
-                if let bands = viewModel.bands {
-                    SectionTitle(title: "Member of")
-                    UserBandList(bands: bands)
+                    if let bands = viewModel.bands {
+                        SectionTitle(title: "Member of")
+                        UserBandList(bands: bands)
+                    }
                 }
             }
         }
         .navigationTitle("\(viewModel.firstName ?? "User Profile") \(viewModel.lastName ?? "")")
-        .background(Color(uiColor: .systemGroupedBackground))
     }
 }
 

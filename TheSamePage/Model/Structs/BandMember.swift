@@ -16,7 +16,8 @@ struct BandMember: Codable, Equatable, Hashable, Identifiable {
     @ServerTimestamp var dateJoined: Timestamp?
     let uid: String
     let role: String
-    let name: String
+    let username: String
+    let fullName: String
     
     var bandMemberIsLoggedInUser: Bool {
         return AuthController.getLoggedInUid() == uid
@@ -25,6 +26,7 @@ struct BandMember: Codable, Equatable, Hashable, Identifiable {
     static let example = BandMember(
         uid: "as;ldkfajs;dlfkja",
         role: "Guitar",
-        name: "Lou Sabba"
+        username: "Lousabba",
+        fullName: "Lou Sabba"
     )
 }

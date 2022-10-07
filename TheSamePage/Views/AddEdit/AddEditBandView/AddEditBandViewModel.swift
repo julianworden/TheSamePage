@@ -59,8 +59,9 @@ class AddEditBandViewModel: ObservableObject {
         }
         
         if userPlaysInBand {
-            let loggedInUserName = try await AuthController.getLoggedInUserName()
-            let user = BandMember(uid: AuthController.getLoggedInUid(), role: userRoleInBand.rawValue, name: loggedInUserName)
+            let loggedInUsername = try await AuthController.getLoggedInUsername()
+            let loggedInFullName = try await AuthController.getLoggedInFullName()
+            let user = BandMember(uid: AuthController.getLoggedInUid(), role: userRoleInBand.rawValue, username: loggedInUsername, fullName: loggedInFullName)
             let band = JoinedBand(id: newBandId)
             try DatabaseService.shared.addUserToBand(user, addToBand: band, withBandInvite: nil)
         }
