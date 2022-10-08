@@ -21,13 +21,27 @@ struct BandMemberList: View {
                     NavigationLink {
                         UserProfileRootView(user: nil, bandMember: bandMember, userIsLoggedOut: .constant(false), selectedTab: .constant(4))
                     } label: {
-                        BandMemberRow(bandMember: bandMember, rowIndex: rowIndex, membersCount: viewModel.bandMembers.count, bandMemberIsLoggedInUser: false)
-                            .padding(.horizontal)
+                        ListRow(
+                            title: bandMember.fullName,
+                            subtitle: bandMember.role,
+                            iconName: bandMember.listRowIconName,
+                            displayChevron: true,
+                            rowIndex: rowIndex,
+                            listItemCount: viewModel.bandMembers.count
+                        )
+                        .padding(.horizontal)
                     }
                     .tint(.black)
                 } else {
-                    BandMemberRow(bandMember: bandMember, rowIndex: rowIndex, membersCount: viewModel.bandMembers.count, bandMemberIsLoggedInUser: true)
-                        .padding(.horizontal)
+                    ListRow(
+                        title: "You",
+                        subtitle: bandMember.role,
+                        iconName: bandMember.listRowIconName,
+                        displayChevron: false,
+                        rowIndex: rowIndex,
+                        listItemCount: viewModel.bandMembers.count
+                    )
+                    .padding(.horizontal)
                 }
             }
         }

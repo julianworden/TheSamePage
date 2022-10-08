@@ -52,11 +52,10 @@
 		AB3C73D728DC0A240038085A /* BandSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3C73D628DC0A240038085A /* BandSearchViewModel.swift */; };
 		AB3E11E828D656FF000F147B /* UserProfileBandCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3E11E728D656FF000F147B /* UserProfileBandCard.swift */; };
 		AB3E11EA28D65E94000F147B /* UserProfileBandCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3E11E928D65E94000F147B /* UserProfileBandCardViewModel.swift */; };
-		AB49330D28E5D70C0031A4E7 /* BandMemberRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB49330C28E5D70C0031A4E7 /* BandMemberRow.swift */; };
-		AB49330F28E5D71D0031A4E7 /* BandMemberRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB49330E28E5D71D0031A4E7 /* BandMemberRowViewModel.swift */; };
 		AB5054A728DC91CF00321380 /* MemberSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054A628DC91CF00321380 /* MemberSearchView.swift */; };
 		AB5054A928DC91D700321380 /* MemberSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054A828DC91D700321380 /* MemberSearchViewModel.swift */; };
 		AB5054B328DCA04900321380 /* BandInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054B228DCA04900321380 /* BandInvite.swift */; };
+		AB5251EB28F22DCB00D61018 /* Atlantis in Frameworks */ = {isa = PBXBuildFile; productRef = AB5251EA28F22DCB00D61018 /* Atlantis */; };
 		AB5B77C528E72B8E00B32537 /* BandLinkCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5B77C428E72B8E00B32537 /* BandLinkCard.swift */; };
 		AB5B77C728E72B9600B32537 /* BandLinkCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5B77C628E72B9600B32537 /* BandLinkCardViewModel.swift */; };
 		AB66B9B828F0D2EF00E7F0E0 /* ShowDetailsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB66B9B728F0D2EF00E7F0E0 /* ShowDetailsHeader.swift */; };
@@ -111,8 +110,8 @@
 		ABE3EFA828D919A2002EEF23 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */; };
 		ABEACE7B28DBBB6200BB1D67 /* InABandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEACE7A28DBBB6200BB1D67 /* InABandView.swift */; };
 		ABEACE7D28DBBB6F00BB1D67 /* InABandViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEACE7C28DBBB6F00BB1D67 /* InABandViewModel.swift */; };
-		ABEC487328F1B886005C9A99 /* ShowLineupRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC487228F1B886005C9A99 /* ShowLineupRow.swift */; };
-		ABEC487528F1B88E005C9A99 /* ShowLineupRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC487428F1B88E005C9A99 /* ShowLineupRowViewModel.swift */; };
+		ABEC487C28F1DD23005C9A99 /* ListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC487B28F1DD23005C9A99 /* ListRow.swift */; };
+		ABEC487E28F1DD32005C9A99 /* ListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC487D28F1DD32005C9A99 /* ListRowViewModel.swift */; };
 		ABEF10E528E64CD800A1DBAC /* AddEditLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEF10E428E64CD800A1DBAC /* AddEditLinkView.swift */; };
 		ABEF10E728E64CE100A1DBAC /* AddEditLinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEF10E628E64CE100A1DBAC /* AddEditLinkViewModel.swift */; };
 		ABEF10EA28E6506000A1DBAC /* LinkPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEF10E928E6506000A1DBAC /* LinkPlatform.swift */; };
@@ -170,8 +169,6 @@
 		AB3C73D628DC0A240038085A /* BandSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSearchViewModel.swift; sourceTree = "<group>"; };
 		AB3E11E728D656FF000F147B /* UserProfileBandCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileBandCard.swift; sourceTree = "<group>"; };
 		AB3E11E928D65E94000F147B /* UserProfileBandCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileBandCardViewModel.swift; sourceTree = "<group>"; };
-		AB49330C28E5D70C0031A4E7 /* BandMemberRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMemberRow.swift; sourceTree = "<group>"; };
-		AB49330E28E5D71D0031A4E7 /* BandMemberRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMemberRowViewModel.swift; sourceTree = "<group>"; };
 		AB5054A628DC91CF00321380 /* MemberSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSearchView.swift; sourceTree = "<group>"; };
 		AB5054A828DC91D700321380 /* MemberSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSearchViewModel.swift; sourceTree = "<group>"; };
 		AB5054B228DCA04900321380 /* BandInvite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandInvite.swift; sourceTree = "<group>"; };
@@ -224,8 +221,8 @@
 		ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		ABEACE7A28DBBB6200BB1D67 /* InABandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InABandView.swift; sourceTree = "<group>"; };
 		ABEACE7C28DBBB6F00BB1D67 /* InABandViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InABandViewModel.swift; sourceTree = "<group>"; };
-		ABEC487228F1B886005C9A99 /* ShowLineupRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLineupRow.swift; sourceTree = "<group>"; };
-		ABEC487428F1B88E005C9A99 /* ShowLineupRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLineupRowViewModel.swift; sourceTree = "<group>"; };
+		ABEC487B28F1DD23005C9A99 /* ListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRow.swift; sourceTree = "<group>"; };
+		ABEC487D28F1DD32005C9A99 /* ListRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowViewModel.swift; sourceTree = "<group>"; };
 		ABEF10E428E64CD800A1DBAC /* AddEditLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditLinkView.swift; sourceTree = "<group>"; };
 		ABEF10E628E64CE100A1DBAC /* AddEditLinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditLinkViewModel.swift; sourceTree = "<group>"; };
 		ABEF10E828E64F8800A1DBAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -252,6 +249,7 @@
 				ABA4A43B28D564FF0074293A /* FirebaseFirestore in Frameworks */,
 				ABA4A43F28D564FF0074293A /* FirebaseStorage in Frameworks */,
 				ABA4A43928D564FF0074293A /* FirebaseAuth in Frameworks */,
+				AB5251EB28F22DCB00D61018 /* Atlantis in Frameworks */,
 				ABA4A43D28D564FF0074293A /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -465,6 +463,7 @@
 				AB2B867D28D9F884004601B6 /* ImagePicker.swift */,
 				ABDDAD4928DB46B500F1CF9B /* ImageSelectionButton.swift */,
 				ABB93F3728F0732D0055659B /* AsyncButtonLabel.swift */,
+				ABEC487A28F1DC7E005C9A99 /* ListRow */,
 			);
 			path = Miscellaneous;
 			sourceTree = "<group>";
@@ -565,7 +564,6 @@
 				ABD034E628EDD11700F37E4B /* ShowDetailsOtherUserView.swift */,
 				AB0DD4D128F0D82E00CEA1BD /* ShowLineupList.swift */,
 				ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */,
-				ABEC487128F1B87B005C9A99 /* ShowLineupRow */,
 				AB0DD4D328F0D8A500CEA1BD /* Miscellaneous */,
 			);
 			path = ShowDetailsView;
@@ -683,22 +681,13 @@
 			path = InABandView;
 			sourceTree = "<group>";
 		};
-		ABEC487128F1B87B005C9A99 /* ShowLineupRow */ = {
+		ABEC487A28F1DC7E005C9A99 /* ListRow */ = {
 			isa = PBXGroup;
 			children = (
-				ABEC487228F1B886005C9A99 /* ShowLineupRow.swift */,
-				ABEC487428F1B88E005C9A99 /* ShowLineupRowViewModel.swift */,
+				ABEC487B28F1DD23005C9A99 /* ListRow.swift */,
+				ABEC487D28F1DD32005C9A99 /* ListRowViewModel.swift */,
 			);
-			path = ShowLineupRow;
-			sourceTree = "<group>";
-		};
-		ABEF10E228E64CC100A1DBAC /* BandMemberRow */ = {
-			isa = PBXGroup;
-			children = (
-				AB49330C28E5D70C0031A4E7 /* BandMemberRow.swift */,
-				AB49330E28E5D71D0031A4E7 /* BandMemberRowViewModel.swift */,
-			);
-			path = BandMemberRow;
+			path = ListRow;
 			sourceTree = "<group>";
 		};
 		ABEF10E328E64CCB00A1DBAC /* AddEditLinkView */ = {
@@ -729,7 +718,6 @@
 				ABD18AAB28EE14B1002286C3 /* SendShowInviteView */,
 				ABCAA9FD28E9E56C00685F91 /* BandProfileHeader */,
 				ABD029B228E8978400BDF73C /* BandMemberList */,
-				ABEF10E228E64CC100A1DBAC /* BandMemberRow */,
 				ABCAAA0028E9ED4900685F91 /* BandLinkList */,
 				AB5B77C328E72B7100B32537 /* BandLinkCard */,
 				ABEF10E328E64CCB00A1DBAC /* AddEditLinkView */,
@@ -769,6 +757,7 @@
 				ABA4A43C28D564FF0074293A /* FirebaseFirestoreSwift */,
 				ABA4A43E28D564FF0074293A /* FirebaseStorage */,
 				AB28A0F028EB1FEC008F1A82 /* Typesense */,
+				AB5251EA28F22DCB00D61018 /* Atlantis */,
 			);
 			productName = TheSamePage;
 			productReference = AB36FF6228D356FD00AAC00C /* TheSamePage.app */;
@@ -802,6 +791,7 @@
 				AB21E5BC28D55C3600BD286E /* XCRemoteSwiftPackageReference "geofire-objc" */,
 				ABA4A43528D564FF0074293A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				AB28A0EF28EB1FEC008F1A82 /* XCRemoteSwiftPackageReference "typesense-swift" */,
+				AB5251E928F22DCB00D61018 /* XCRemoteSwiftPackageReference "atlantis" */,
 			);
 			productRefGroup = AB36FF6328D356FD00AAC00C /* Products */;
 			projectDirPath = "";
@@ -835,7 +825,6 @@
 				AB5054A928DC91D700321380 /* MemberSearchViewModel.swift in Sources */,
 				AB36FF7428D358FB00AAC00C /* HomeView.swift in Sources */,
 				ABBADD7928DFE5FA00720C64 /* BandState.swift in Sources */,
-				ABEC487328F1B886005C9A99 /* ShowLineupRow.swift in Sources */,
 				ABD034E328EDCFA600F37E4B /* ShowDetailsHostView.swift in Sources */,
 				AB2B867A28D9EE43004601B6 /* MyShowsViewModel.swift in Sources */,
 				ABF1C40A28ECF09F0004A3C1 /* BandSearchResultsList.swift in Sources */,
@@ -860,11 +849,11 @@
 				ABD323F128E1181F00540B93 /* SendBandInviteViewModel.swift in Sources */,
 				AB794E2D28E25A77000ABB37 /* SearchView.swift in Sources */,
 				ABF1C40628ECE83F0004A3C1 /* TypesenseController.swift in Sources */,
+				ABEC487E28F1DD32005C9A99 /* ListRowViewModel.swift in Sources */,
 				AB5054A728DC91CF00321380 /* MemberSearchView.swift in Sources */,
 				AB3E11E828D656FF000F147B /* UserProfileBandCard.swift in Sources */,
 				ABEACE7B28DBBB6200BB1D67 /* InABandView.swift in Sources */,
 				ABF1C40228ECD0F60004A3C1 /* SearchResultRow.swift in Sources */,
-				ABEC487528F1B88E005C9A99 /* ShowLineupRowViewModel.swift in Sources */,
 				AB7F381328EF1B56007741C7 /* NotificationType.swift in Sources */,
 				ABB93F3828F0732D0055659B /* AsyncButtonLabel.swift in Sources */,
 				ABE3EFA628D91960002EEF23 /* SignUpView.swift in Sources */,
@@ -877,12 +866,12 @@
 				AB2B867C28D9F444004601B6 /* NoImageView.swift in Sources */,
 				ABDDAD4A28DB46B500F1CF9B /* ImageSelectionButton.swift in Sources */,
 				AB35A8D028E9CFFB009FB203 /* OtherUserProfileView.swift in Sources */,
-				AB49330F28E5D71D0031A4E7 /* BandMemberRowViewModel.swift in Sources */,
 				AB36FF7828D359E700AAC00C /* UserProfileRootView.swift in Sources */,
 				ABCAAA0428E9ED7500685F91 /* BandLinkListViewModel.swift in Sources */,
 				AB36FF6828D356FD00AAC00C /* RootView.swift in Sources */,
 				AB7F380F28EF1AA9007741C7 /* ShowInvitesList.swift in Sources */,
 				AB3E11EA28D65E94000F147B /* UserProfileBandCardViewModel.swift in Sources */,
+				ABEC487C28F1DD23005C9A99 /* ListRow.swift in Sources */,
 				AB24E3A828D7C9C4002B4F2C /* LoginViewModel.swift in Sources */,
 				ABBE94C228D8ADBF00790A04 /* ShowDetailsRootView.swift in Sources */,
 				ABDDAD4828DB45D100F1CF9B /* AddEditBandView.swift in Sources */,
@@ -930,7 +919,6 @@
 				AB35A8D628E9DC73009FB203 /* BandProfileAdminView.swift in Sources */,
 				ABDC0D7928D76FC60054269E /* AddEditShowViewModel.swift in Sources */,
 				ABF1C40428ECD0FD0004A3C1 /* SearchResultRowViewModel.swift in Sources */,
-				AB49330D28E5D70C0031A4E7 /* BandMemberRow.swift in Sources */,
 				AB36FF8928D35C2800AAC00C /* PlatformLink.swift in Sources */,
 				ABEF10EA28E6506000A1DBAC /* LinkPlatform.swift in Sources */,
 				AB35A8DF28E9DE29009FB203 /* UserBandList.swift in Sources */,
@@ -1068,6 +1056,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheSamePage/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Atlantis would use Bonjour Service to discover Proxyman app from your local network";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1102,6 +1091,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheSamePage/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Atlantis would use Bonjour Service to discover Proxyman app from your local network";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1164,6 +1154,14 @@
 				kind = branch;
 			};
 		};
+		AB5251E928F22DCB00D61018 /* XCRemoteSwiftPackageReference "atlantis" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ProxymanApp/atlantis";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		ABA4A43528D564FF0074293A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -1189,6 +1187,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AB28A0EF28EB1FEC008F1A82 /* XCRemoteSwiftPackageReference "typesense-swift" */;
 			productName = Typesense;
+		};
+		AB5251EA28F22DCB00D61018 /* Atlantis */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AB5251E928F22DCB00D61018 /* XCRemoteSwiftPackageReference "atlantis" */;
+			productName = Atlantis;
 		};
 		ABA4A43628D564FF0074293A /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;

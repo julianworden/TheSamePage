@@ -22,7 +22,7 @@ struct ShowDetailsHostView: View {
             
             HStack {
                 SectionTitle(title: "Lineup (\(viewModel.showLineupSummary))")
-                    .padding([.vertical, .leading])
+                    .padding(.vertical)
                 
                 NavigationLink {
                     BandSearchView()
@@ -35,7 +35,7 @@ struct ShowDetailsHostView: View {
             ShowLineupList(viewModel: viewModel)
             
             SectionTitle(title: "Details")
-                .padding([.vertical, .leading])
+                .padding(.vertical)
             
             // TODO: Add DetailsList
             HStack(spacing: 30) {
@@ -57,7 +57,7 @@ struct ShowDetailsHostView: View {
             
             // TODO: Design backline section
             SectionTitle(title: "Backline")
-                .padding([.vertical, .leading])
+                .padding(.vertical)
         }
     }
 }

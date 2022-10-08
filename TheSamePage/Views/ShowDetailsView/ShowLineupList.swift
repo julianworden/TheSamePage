@@ -19,8 +19,8 @@ struct ShowLineupList: View {
             ForEach(Array(zip(viewModel.showLineup.indices, viewModel.showLineup)), id: \.0) { rowIndex, showParticipant in
                 NavigationLink {
                     BandProfileRootView(band: nil, showParticipant: showParticipant)
-                } label: {
-                    ShowLineupRow(showParticipant: showParticipant, rowIndex: rowIndex, lineupCount: viewModel.showLineup.count)
+                } label: {                        
+                    ListRow(title: showParticipant.name, subtitle: nil, iconName: "band", displayChevron: true, rowIndex: rowIndex, listItemCount: viewModel.showLineup.count)
                         .padding(.horizontal)
                 }
                 .tint(.black)

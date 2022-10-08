@@ -23,6 +23,10 @@ struct BandMember: Codable, Equatable, Hashable, Identifiable {
         return AuthController.getLoggedInUid() == uid
     }
     
+    var listRowIconName: String {
+        return role.lowercased()
+    }
+    
     static let example = BandMember(
         uid: "as;ldkfajs;dlfkja",
         role: "Guitar",
