@@ -15,10 +15,10 @@ class UserProfileRootViewModel: ObservableObject {
     }
     
     /// The user being displayed. When this value is nil, the logged in user is viewing their own profile
-    @Published var user: User?
+    var user: User?
     /// The bandMember for which the Profile is a representation. This is necessary for when a
     /// user is selected from the BandProfile's Members section.
-    @Published var bandMember: BandMember?
+    var bandMember: BandMember?
     @Published var firstName: String?
     @Published var lastName: String?
     @Published var emailAddress: String?
@@ -49,23 +49,21 @@ class UserProfileRootViewModel: ObservableObject {
     }
     
     func setUpView() async throws {
-        Task {
-            do {
-                if user == nil && bandMember == nil {
-                    try await initializeUser(user: nil)
-                    try await getBands(forUser: nil)
-                } else if user != nil && bandMember == nil {
-                    try await initializeUser(user: user)
-                    try await getBands(forUser: user)
-                } else if user == nil && bandMember != nil {
-                    let convertedUser = try await convertBandMemberToUser(bandMember: bandMember!)
-                    self.user = convertedUser
-                    try await initializeUser(user: convertedUser)
-                    try await getBands(forUser: convertedUser)
-                }
-            } catch {
-                print(error)
+        do {
+            if user == nil && bandMember == nil {
+                try await initializeUser(user: nil)
+                try await getBands(forUser: nil)
+            } else if user != nil && bandMember == nil {
+                try await initializeUser(user: user)
+                try await getBands(forUser: user)
+            } else if user == nil && bandMember != nil {
+                let convertedUser = try await convertBandMemberToUser(bandMember: bandMember!)
+                self.user = convertedUser
+                try await initializeUser(user: convertedUser)
+                try await getBands(forUser: convertedUser)
             }
+        } catch {
+            print(error)
         }
     }
     

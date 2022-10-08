@@ -45,7 +45,9 @@ class NotificationRowViewModel: ObservableObject {
     func acceptShowInvite() async throws {
         guard showInvite != nil else { throw NotificationRowViewModelError.unexpectedNilValue(message: "showInvite") }
         
-        try await DatabaseService.shared.addBandToShow(withShowInvite: showInvite!)
+        let showParticipant = ShowParticipant(name: showInvite!.bandName, bandId: showInvite!.bandId, showId: showInvite!.showId)
+        
+        try await DatabaseService.shared.addBandToShow(showParticipant: showParticipant, withShowInvite: showInvite!)
     }
     
     func declineBandInvite() {

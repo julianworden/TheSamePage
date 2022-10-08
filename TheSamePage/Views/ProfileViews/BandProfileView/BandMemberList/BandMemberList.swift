@@ -16,19 +16,17 @@ struct BandMemberList: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            ForEach(Array(zip(viewModel.bandMembers.indices, viewModel.bandMembers)), id: \.0) { index, bandMember in
+            ForEach(Array(zip(viewModel.bandMembers.indices, viewModel.bandMembers)), id: \.0) { rowIndex, bandMember in
                 if !bandMember.bandMemberIsLoggedInUser {
-                    VStack {
-                        NavigationLink {
-                            UserProfileRootView(user: nil, bandMember: bandMember, userIsLoggedOut: .constant(false), selectedTab: .constant(4))
-                        } label: {
-                            BandMemberRow(bandMember: bandMember, index: index, membersCount: viewModel.bandMembers.count, bandMemberIsLoggedInUser: false)
-                                .padding(.horizontal)
-                        }
+                    NavigationLink {
+                        UserProfileRootView(user: nil, bandMember: bandMember, userIsLoggedOut: .constant(false), selectedTab: .constant(4))
+                    } label: {
+                        BandMemberRow(bandMember: bandMember, rowIndex: rowIndex, membersCount: viewModel.bandMembers.count, bandMemberIsLoggedInUser: false)
+                            .padding(.horizontal)
                     }
                     .tint(.black)
                 } else {
-                    BandMemberRow(bandMember: bandMember, index: index, membersCount: viewModel.bandMembers.count, bandMemberIsLoggedInUser: true)
+                    BandMemberRow(bandMember: bandMember, rowIndex: rowIndex, membersCount: viewModel.bandMembers.count, bandMemberIsLoggedInUser: true)
                         .padding(.horizontal)
                 }
             }

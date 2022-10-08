@@ -15,8 +15,8 @@ struct BandProfileRootView: View {
     
     let columns = [GridItem(.fixed(149), spacing: 15), GridItem(.fixed(149), spacing: 15)]
     
-    init(band: Band) {
-        _viewModel = StateObject(wrappedValue: BandProfileViewModel(band: band))
+    init(band: Band?, showParticipant: ShowParticipant?) {
+        _viewModel = StateObject(wrappedValue: BandProfileViewModel(band: band, showParticipant: showParticipant))
     }
     
     var body: some View {
@@ -24,33 +24,42 @@ struct BandProfileRootView: View {
             Color(uiColor: .systemGroupedBackground)
                 .ignoresSafeArea()
             
-            if viewModel.band.loggedInUserIsBandAdmin {
-                ScrollView {
-                    BandProfileAdminView(
-                        band: viewModel.band,
-                        linkCreationSheetIsShowing: $linkCreationSheetIsShowing
-                    )
-                    .sheet(isPresented: $linkCreationSheetIsShowing) {
-                        NavigationView {
-                            AddEditLinkView(link: nil, band: viewModel.band)
+            if viewModel.band != nil {
+                if viewModel.band!.loggedInUserIsBandAdmin {
+                    ScrollView {
+                        BandProfileAdminView(
+                            viewModel: viewModel,
+                            linkCreationSheetIsShowing: $linkCreationSheetIsShowing
+                        )
+                        .sheet(isPresented: $linkCreationSheetIsShowing) {
+                            NavigationView {
+                                AddEditLinkView(link: nil, band: viewModel.band!)
+                            }
                         }
                     }
+                } else {
+                    ScrollView {
+                        BandProfileOtherUserView(
+                            viewModel: viewModel
+                        )
+                    }
                 }
-            } else {
-                ScrollView {
-                    BandProfileOtherUserView(
-                        band: viewModel.band
-                    )
-                }
+            }
+        }
+        .task {
+            do {
+                try await viewModel.setupView()
+            } catch {
+                print(error)
             }
         }
     }
 }
-    
-    struct BandProfileView_Previews: PreviewProvider {
-        static var previews: some View {
-            NavigationView {
-                BandProfileRootView(band: Band.example)
-            }
+
+struct BandProfileView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            BandProfileRootView(band: Band.example, showParticipant: nil)
         }
     }
+}

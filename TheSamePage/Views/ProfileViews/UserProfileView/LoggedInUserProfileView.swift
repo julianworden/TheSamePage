@@ -13,6 +13,8 @@ struct LoggedInUserProfileView: View {
     @Binding var userIsLoggedOut: Bool
     @Binding var selectedTab: Int
     
+    @State private var addEditBandSheetIsShowing = false
+    
     let columns = [GridItem(.fixed(149), spacing: 15), GridItem(.fixed(149), spacing: 15)]
     
     init(userIsLoggedOut: Binding<Bool>, selectedTab: Binding<Int>) {
@@ -40,8 +42,8 @@ struct LoggedInUserProfileView: View {
                             HStack {
                                 SectionTitle(title: "Member of")
                                 
-                                NavigationLink {
-                                    AddEditBandView(userIsOnboarding: .constant(false), bandToEdit: nil)
+                                Button {
+                                    addEditBandSheetIsShowing = true
                                 } label: {
                                     Image(systemName: "plus")
                                 }
@@ -60,6 +62,11 @@ struct LoggedInUserProfileView: View {
                     try await viewModel.getBands(forUser: nil)
                 } catch {
                     print(error)
+                }
+            }
+            .sheet(isPresented: $addEditBandSheetIsShowing) {
+                NavigationView {
+                    AddEditBandView(userIsOnboarding: .constant(false), bandToEdit: nil)
                 }
             }
             .toolbar {

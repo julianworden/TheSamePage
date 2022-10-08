@@ -291,6 +291,31 @@ class DatabaseService {
         }
     }
     
+    /// Converts a ShowParticipant object to a Band object.
+    /// - Parameter showParticipant: The ShowParticipant to be converted.
+    /// - Returns: The Band object that the showParticipant was converted into.
+    func convertShowParticipantToBand(showParticipant: ShowParticipant) async throws -> Band {
+        do {
+            let band = try await db.collection("bands").document(showParticipant.bandId).getDocument(as: Band.self)
+            return band
+        } catch {
+            throw DatabaseServiceError.firestoreError(message: "Failed to convert showParticipant to Band.")
+        }
+    }
+    
+    func getShowLineup(forShow show: Show) async throws -> [ShowParticipant] {
+        guard show.id != nil else { throw DatabaseServiceError.unexpectedNilValue(value: "DatabaseService.getShowLineup(forShow:).show.id") }
+        
+        let query = try await db.collection("shows").document(show.id!).collection("participants").getDocuments()
+        
+        do {
+            let showParticipants = try query.documents.map { try $0.data(as: ShowParticipant.self) }
+            return showParticipants
+        } catch {
+            throw DatabaseServiceError.decodeError(message: "Failed to decode ShowParticipant in DatabaseService.getShowLineup(forShow:)")
+        }
+    }
+    
     // MARK: - Firestore Writes
     
     /// Creates a show in the Firestore shows collection and also adds the show's id
@@ -364,10 +389,9 @@ class DatabaseService {
     /// Adds band to show's bands collection, adds show to every member of the band's joinedShows collection (including the
     /// band admin in case they don't play in the band), adds user to show's participants collection. Also deletes the
     /// ShowInvite in the user's showInvites collection.
+    /// - Parameter showParticipant: The showParticipant to be added to the Show's participants collection.
     /// - Parameter showInvite: The ShowInvite that was accepted in order for the band to get added to the show.
-    func addBandToShow(withShowInvite showInvite: ShowInvite) async throws {
-//        guard joinedShow.id != nil else { throw DatabaseServiceError.unexpectedNilValue(value: "joinedShow.id") }
-        
+    func addBandToShow(showParticipant: ShowParticipant, withShowInvite showInvite: ShowInvite) async throws {
         let bandMembersQuery = try await db.collection("bands").document(showInvite.bandId).collection("members").getDocuments()
         
         // Add the show to every band member's joinedShows collection
@@ -381,11 +405,10 @@ class DatabaseService {
         // Add the show to the band's joinedShows collection
         try await db.collection("bands").document(showInvite.bandId).collection("joinedShows").document(showInvite.showId).setData([:])
         // Add the band to the show's participants collection
-        try await db.collection("shows").document(showInvite.showId).collection("participants").document(showInvite.bandId).setData([:])
+        _ = try db.collection("shows").document(showInvite.showId).collection("participants").addDocument(from: showParticipant)
         
         deleteShowInvite(showInvite: showInvite)
     }
-    
     
     /// Deletes a show invite from the logged in user's showInvites collection.
     /// - Parameter showInvite: The ShowInvite to be deleted.

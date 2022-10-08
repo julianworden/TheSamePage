@@ -30,7 +30,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     let maxNumberOfBands: Int
     let bands: [Band]?
     
-    var formattedDate: String? {
+    var formattedDate: String {
         return TextUtility.formatDate(unixDate: date)
     }
     

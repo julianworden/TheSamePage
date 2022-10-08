@@ -16,7 +16,7 @@ struct BandSearchView: View {
                 let band = result.document!
                 
                 NavigationLink {
-                    BandProfileRootView(band: band)
+                    BandProfileRootView(band: band, showParticipant: nil)
                 } label: {
                     SearchResultRow(band: band, user: nil, show: nil)
                 }
