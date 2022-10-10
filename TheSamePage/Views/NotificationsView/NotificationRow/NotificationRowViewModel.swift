@@ -46,8 +46,17 @@ class NotificationRowViewModel: ObservableObject {
         guard showInvite != nil else { throw NotificationRowViewModelError.unexpectedNilValue(message: "showInvite") }
         
         let showParticipant = ShowParticipant(name: showInvite!.bandName, bandId: showInvite!.bandId, showId: showInvite!.showId)
+        let joinedShow = JoinedShow(
+            showId: showInvite!.showId,
+            name: showInvite!.showName,
+            date: showInvite!.showDate,
+            venue: showInvite!.showVenue,
+            hasFood: showInvite!.hasFood,
+            hasBar: showInvite!.hasBar,
+            is21Plus: showInvite!.is21Plus
+        )
         
-        try await DatabaseService.shared.addBandToShow(showParticipant: showParticipant, withShowInvite: showInvite!)
+        try await DatabaseService.shared.addBandToShow(add: showParticipant, to: joinedShow, with: showInvite!)
     }
     
     func declineBandInvite() {

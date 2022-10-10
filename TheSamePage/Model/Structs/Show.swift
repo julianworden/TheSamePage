@@ -60,7 +60,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         backline: nil,
         hasFood: true,
         hasBar: true,
-        is21Plus: false,
+        is21Plus: true,
         genre: Genre.rock.rawValue,
         maxNumberOfBands: 2,
         bands: nil

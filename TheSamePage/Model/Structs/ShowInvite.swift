@@ -17,10 +17,16 @@ struct ShowInvite: Codable, Equatable, Identifiable {
     let bandId: String
     let showId: String
     let showName: String
+    let showDate: String
+    let showVenue: String
+    var showDescription: String?
     let senderUsername: String
+    let hasFood: Bool
+    let hasBar: Bool
+    let is21Plus: Bool
     
     var inviteMessage: String {
-        return "\(senderUsername) is inviting \(bandName) to play \(showName)"
+        return "\(senderUsername) is inviting \(bandName) to play \(showName) at \(showVenue) on \(showDate)"
     }
     
     static let example = ShowInvite(
@@ -29,6 +35,12 @@ struct ShowInvite: Codable, Equatable, Identifiable {
         bandId: "a;lsdkjfa;lsdjf",
         showId: "asdkfa;wefj",
         showName: "Banger",
-        senderUsername: "ericpalermo"
+        showDate: "03/22/22",
+        showVenue: "Starland Ballroom",
+        showDescription: "This one is gonna be so sick!",
+        senderUsername: "ericpalermo",
+        hasFood: true,
+        hasBar: true,
+        is21Plus: true
     )
 }

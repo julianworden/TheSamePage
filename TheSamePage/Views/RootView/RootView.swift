@@ -24,7 +24,7 @@ struct RootView: View {
                     Label("Search", systemImage: "magnifyingglass")
                 }
             
-            MyShowsView()
+            MyShowsRootView()
                 .tabItem {
                     Label("My Shows", systemImage: "music.mic")
                 }

@@ -20,7 +20,7 @@ struct ShowLineupList: View {
                 NavigationLink {
                     BandProfileRootView(band: nil, showParticipant: showParticipant)
                 } label: {                        
-                    ListRow(title: showParticipant.name, subtitle: nil, iconName: "band", displayChevron: true, rowIndex: rowIndex, listItemCount: viewModel.showLineup.count)
+                    SmallListRow(title: showParticipant.name, subtitle: nil, iconName: "band", displayChevron: true, rowIndex: rowIndex, listItemCount: viewModel.showLineup.count)
                         .padding(.horizontal)
                 }
                 .tint(.black)

@@ -52,7 +52,7 @@ class BandProfileViewModel: ObservableObject {
             try await initializeBand(band: convertedBand)
         }
     }
-//
+
     func initializeBand(band: Band) async throws {
         self.bandName = band.name
         self.bandBio = band.bio

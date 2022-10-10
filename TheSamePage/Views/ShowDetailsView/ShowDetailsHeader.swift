@@ -17,6 +17,7 @@ struct ShowDetailsHeader: View {
             VStack(spacing: 7) {
                 Text(viewModel.showName)
                     .font(.title.bold())
+                    .multilineTextAlignment(.center)
                 
                 VStack {
                     // TODO: Stop hard coding the show address

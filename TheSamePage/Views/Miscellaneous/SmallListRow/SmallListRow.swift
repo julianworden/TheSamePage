@@ -1,5 +1,5 @@
 //
-//  ListRow.swift
+//  SmallListRow.swift
 //  TheSamePage
 //
 //  Created by Julian Worden on 10/8/22.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct ListRow: View {
-    @StateObject var viewModel: ListRowViewModel
+struct SmallListRow: View {
+    @StateObject var viewModel: SmallListRowViewModel
     
     init(
         title: String,
@@ -19,7 +19,7 @@ struct ListRow: View {
         listItemCount: Int
     ) {
         _viewModel = StateObject(
-            wrappedValue: ListRowViewModel(
+            wrappedValue: SmallListRowViewModel(
                 title: title,
                 subtitle: subtitle,
                 iconName: iconName,
@@ -70,6 +70,6 @@ struct ListRow: View {
 
 struct ListRow_Previews: PreviewProvider {
     static var previews: some View {
-        ListRow(title: "Julian Worden", subtitle: "Vocals", iconName: "vocals", displayChevron: true, rowIndex: 0, listItemCount: 1)
+        SmallListRow(title: "Julian Worden", subtitle: "Vocals", iconName: "vocals", displayChevron: true, rowIndex: 0, listItemCount: 1)
     }
 }

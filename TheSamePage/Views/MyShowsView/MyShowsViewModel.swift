@@ -11,6 +11,7 @@ import Foundation
 class MyShowsViewModel: ObservableObject {
     @Published var playingShows = [Show]()
     @Published var hostedShows = [Show]()
+    @Published var selectedShowType = ShowType.hosting
     
     let db = Firestore.firestore()
     var hostedShowsListener: ListenerRegistration?
@@ -43,8 +44,11 @@ class MyShowsViewModel: ObservableObject {
         }
     }
     
-    func removeShowListeners() {
-        hostedShowsListener?.remove()
+    func removePlayingShowsListener() {
         playingShowsListener?.remove()
+    }
+    
+    func removeHostedShowsListener() {
+        hostedShowsListener?.remove()
     }
 }

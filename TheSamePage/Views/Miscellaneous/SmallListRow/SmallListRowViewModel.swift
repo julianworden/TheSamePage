@@ -1,5 +1,5 @@
 //
-//  ListRowViewModel.swift
+//  SmallListRowViewModel.swift
 //  TheSamePage
 //
 //  Created by Julian Worden on 10/8/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ListRowViewModel: ObservableObject {
+class SmallListRowViewModel: ObservableObject {
     let rowTitle: String
     let displayChevron: Bool
     let rowIndex: Int

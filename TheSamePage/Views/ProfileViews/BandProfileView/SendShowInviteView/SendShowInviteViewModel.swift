@@ -8,6 +8,10 @@
 import Foundation
 
 final class SendShowInviteViewModel: ObservableObject {
+    enum SendShowInviteViewModelError: Error {
+        case unexpectedNilValue(message: String)
+    }
+    
     var userShows = [Show]()
     var selectedShow: Show?
     
@@ -33,13 +37,22 @@ final class SendShowInviteViewModel: ObservableObject {
     
     // TODO: Make DatabaseService Method for this
     func sendShowInviteNotification() throws {
+        guard selectedShow != nil && selectedShow?.id != nil else {
+            throw SendShowInviteViewModelError.unexpectedNilValue(message: "selectedShow in sendShowInviteNotification()")
+        }
+        
         let showInvite = ShowInvite(
             recipientUid: recipientUid,
             bandName: bandName,
             bandId: bandId,
-            showId: selectedShow?.id ?? "",
-            showName: selectedShow?.name ?? "A Show",
-            senderUsername: senderUsername ?? "A User"
+            showId: selectedShow!.id!,
+            showName: selectedShow!.name,
+            showDate: selectedShow!.formattedDate,
+            showVenue: selectedShow!.venue,
+            senderUsername: senderUsername ?? "A User",
+            hasFood: selectedShow!.hasFood,
+            hasBar: selectedShow!.hasBar,
+            is21Plus: selectedShow!.is21Plus
         )
         
         try DatabaseService.shared.sendShowInvite(invite: showInvite)

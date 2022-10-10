@@ -28,8 +28,6 @@ struct SendShowInviteView: View {
                             Text(show.name).tag(show as Show?)
                         }
                     }
-                    // TODO: Idk if I need this
-                    //                    .id(viewModel.selectedShow)
                     
                     Button("Send invite") {
                         do {

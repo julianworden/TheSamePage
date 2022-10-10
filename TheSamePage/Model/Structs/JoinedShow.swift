@@ -8,7 +8,16 @@
 import FirebaseFirestoreSwift
 import Foundation
 
+// TODO: Add a imageUrl to this
 /// An object in either a band's or user's joinedShows collection
-struct JoinedShow: Identifiable {
+struct JoinedShow: Codable, Identifiable {
     @DocumentID var id: String?
+    let showId: String
+    let name: String
+    let date: String
+    let venue: String
+    let hasFood: Bool
+    let hasBar: Bool
+    let is21Plus: Bool
+    var description: String?
 }

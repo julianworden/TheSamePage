@@ -21,7 +21,7 @@ struct BandMemberList: View {
                     NavigationLink {
                         UserProfileRootView(user: nil, bandMember: bandMember, userIsLoggedOut: .constant(false), selectedTab: .constant(4))
                     } label: {
-                        ListRow(
+                        SmallListRow(
                             title: bandMember.fullName,
                             subtitle: bandMember.role,
                             iconName: bandMember.listRowIconName,
@@ -33,7 +33,7 @@ struct BandMemberList: View {
                     }
                     .tint(.black)
                 } else {
-                    ListRow(
+                    SmallListRow(
                         title: "You",
                         subtitle: bandMember.role,
                         iconName: bandMember.listRowIconName,

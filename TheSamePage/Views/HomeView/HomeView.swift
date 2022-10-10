@@ -12,19 +12,19 @@ struct HomeView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                SectionTitle(title: "Shows near you")
-                    .padding(.top)
+            ZStack {
+                Color(uiColor: .systemGroupedBackground)
+                    .ignoresSafeArea()
                 
-                ScrollView {
-                    ForEach(showsController.nearbyShows) { show in
-                        HomeShowCard(show: show)
+                VStack {
+                    ScrollView {
+                        ForEach(showsController.nearbyShows) { show in
+                            LargeListRow(show: show, joinedShow: nil)
+                        }
                     }
-                    .padding(.top, 5)
                 }
             }
-            .background(Color(uiColor: .systemGroupedBackground))
-            .navigationTitle("Home")
+            .navigationTitle("Shows Near You")
             .onAppear {
                 showsController.getShows()
             }

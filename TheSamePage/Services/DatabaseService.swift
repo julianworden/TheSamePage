@@ -391,17 +391,17 @@ class DatabaseService {
     /// ShowInvite in the user's showInvites collection.
     /// - Parameter showParticipant: The showParticipant to be added to the Show's participants collection.
     /// - Parameter showInvite: The ShowInvite that was accepted in order for the band to get added to the show.
-    func addBandToShow(showParticipant: ShowParticipant, withShowInvite showInvite: ShowInvite) async throws {
+    func addBandToShow(add showParticipant: ShowParticipant, to joinedShow: JoinedShow, with showInvite: ShowInvite) async throws {
         let bandMembersQuery = try await db.collection("bands").document(showInvite.bandId).collection("members").getDocuments()
         
         // Add the show to every band member's joinedShows collection
         for document in bandMembersQuery.documents {
             let bandMember = try document.data(as: BandMember.self)
-            try await db.collection("users").document(bandMember.uid).collection("joinedShows").document(showInvite.showId).setData([:])
+            _ = try db.collection("users").document(bandMember.uid).collection("joinedShows").addDocument(from: joinedShow)
         }
         
         // Add the show to the band admin's joinedShows collection
-        try await db.collection("users").document(showInvite.recipientUid).collection("joinedShows").document(showInvite.showId).setData([:])
+        _ = try db.collection("users").document(showInvite.recipientUid).collection("joinedShows").addDocument(from: joinedShow)
         // Add the show to the band's joinedShows collection
         try await db.collection("bands").document(showInvite.bandId).collection("joinedShows").document(showInvite.showId).setData([:])
         // Add the band to the show's participants collection
