@@ -29,7 +29,7 @@ struct ShowDetailsRootView: View {
 }
 
 // TODO: Figure out why this preview crashes
-struct ShowDetailsView_Previews: PreviewProvider {
+struct ShowDetailsRootView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             ShowDetailsRootView(show: Show.example)

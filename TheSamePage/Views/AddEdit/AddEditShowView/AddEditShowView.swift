@@ -44,11 +44,21 @@ struct AddEditShowView: View {
             
             Section {
                 Stepper {
-                    Text("Max number of bands: \(viewModel.showMaxNumberOfBands)")
+                    Text("Max Number of Bands: \(viewModel.showMaxNumberOfBands)")
                 } onIncrement: {
                     viewModel.incrementMaxNumberOfBands()
                 } onDecrement: {
                     viewModel.decrementMaxNumberOfBands()
+                }
+            }
+            
+            Section {
+                TextField("Ticket Price", text: $viewModel.ticketPrice)
+                    .keyboardType(.numberPad)
+                Toggle("Are ticket sales required?", isOn: $viewModel.ticketSalesAreRequired)
+                if viewModel.ticketSalesAreRequired {
+                    TextField("How many must be sold?", text: $viewModel.minimumRequiredTicketsSold)
+                        .keyboardType(.numberPad)
                 }
             }
             

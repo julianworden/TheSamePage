@@ -10,8 +10,6 @@ import SwiftUI
 struct MyShowsRootView: View {
     @StateObject var viewModel = MyShowsViewModel()
     
-    @State var addEditShowViewIsShowing = false
-    
     var body: some View {
         NavigationView {
             ZStack {
@@ -29,8 +27,7 @@ struct MyShowsRootView: View {
                     
                     if viewModel.selectedShowType == .hosting {
                         MyHostedShowsView(
-                            viewModel: viewModel,
-                            addEditShowViewIsShowing: $addEditShowViewIsShowing
+                            viewModel: viewModel
                         )
                         .padding(.top)
                     }

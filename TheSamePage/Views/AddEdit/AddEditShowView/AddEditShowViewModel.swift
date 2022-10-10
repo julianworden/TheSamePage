@@ -20,6 +20,9 @@ class AddEditShowViewModel: ObservableObject {
     @Published var showGenre = Genre.rock
     @Published var showMaxNumberOfBands = 1
     @Published var showDate = Date()
+    @Published var ticketPrice = ""
+    @Published var ticketSalesAreRequired = false
+    @Published var minimumRequiredTicketsSold = ""
     @Published var showDateIsKnown = false
     @Published var showLoadInTime = Date()
     @Published var showFirstSetTime = Date()
@@ -70,7 +73,9 @@ class AddEditShowViewModel: ObservableObject {
                 venue: showVenue,
                 date: showDate.timeIntervalSince1970,
                 time: showTime,
-                ticketPrice: nil,
+                ticketPrice: Double(ticketPrice),
+                ticketSalesAreRequired: ticketSalesAreRequired,
+                minimumRequiredTicketsSold: Int(minimumRequiredTicketsSold),
                 imageUrl: imageUrl,
 //                location: Location.example,
                 backline: nil,
@@ -90,7 +95,9 @@ class AddEditShowViewModel: ObservableObject {
                 venue: showVenue,
                 date: showDate.timeIntervalSince1970,
                 time: showTime,
-                ticketPrice: nil,
+                ticketPrice: Double(ticketPrice),
+                ticketSalesAreRequired: ticketSalesAreRequired,
+                minimumRequiredTicketsSold: Int(minimumRequiredTicketsSold),
                 imageUrl: nil,
 //                location: Location.example,
                 backline: nil,

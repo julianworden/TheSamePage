@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// TODO: Allow for the band admin to add band to any of their hosted shows
+
 struct BandProfileAdminView: View {
     @ObservedObject var viewModel: BandProfileViewModel
     

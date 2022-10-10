@@ -19,7 +19,6 @@ struct LargeListRow: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(viewModel.showName)
                     .font(.title3.bold())
-                    .multilineTextAlignment(.leading)
                 
                 Text(viewModel.showVenue)
                 
@@ -45,7 +44,7 @@ struct LargeListRow: View {
                 .imageScale(.small)
                 
             }
-//            .padding(.vertical)
+            .multilineTextAlignment(.leading)
             
             Spacer()
         }

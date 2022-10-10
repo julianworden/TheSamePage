@@ -14,18 +14,14 @@ struct SmallListRow: View {
         title: String,
         subtitle: String?,
         iconName: String?,
-        displayChevron: Bool,
-        rowIndex: Int,
-        listItemCount: Int
+        displayChevron: Bool
     ) {
         _viewModel = StateObject(
             wrappedValue: SmallListRowViewModel(
                 title: title,
                 subtitle: subtitle,
                 iconName: iconName,
-                displayChevron: displayChevron,
-                rowIndex: rowIndex,
-                listItemCount: listItemCount
+                displayChevron: displayChevron
             )
         )
     }
@@ -61,15 +57,13 @@ struct SmallListRow: View {
             .frame(height: 50)
             .background(Color(uiColor: .secondarySystemGroupedBackground))
             
-            if viewModel.rowIndex != viewModel.listItemCount - 1 {
-                Divider()
-            }
+            Divider()
         }
     }
 }
 
 struct ListRow_Previews: PreviewProvider {
     static var previews: some View {
-        SmallListRow(title: "Julian Worden", subtitle: "Vocals", iconName: "vocals", displayChevron: true, rowIndex: 0, listItemCount: 1)
+        SmallListRow(title: "Julian Worden", subtitle: "Vocals", iconName: "vocals", displayChevron: true)
     }
 }

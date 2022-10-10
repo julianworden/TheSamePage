@@ -16,11 +16,11 @@ struct ShowLineupList: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            ForEach(Array(zip(viewModel.showLineup.indices, viewModel.showLineup)), id: \.0) { rowIndex, showParticipant in
+            ForEach(viewModel.showLineup) { showParticipant in
                 NavigationLink {
                     BandProfileRootView(band: nil, showParticipant: showParticipant)
                 } label: {                        
-                    SmallListRow(title: showParticipant.name, subtitle: nil, iconName: "band", displayChevron: true, rowIndex: rowIndex, listItemCount: viewModel.showLineup.count)
+                    SmallListRow(title: showParticipant.name, subtitle: nil, iconName: "band", displayChevron: true)
                         .padding(.horizontal)
                 }
                 .tint(.black)

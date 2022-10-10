@@ -20,6 +20,8 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     let date: Double
     let time: Time?
     let ticketPrice: Double?
+    let ticketSalesAreRequired: Bool
+    let minimumRequiredTicketsSold: Int?
     let imageUrl: String?
 //    let location: Location
     let backline: Backline?
@@ -42,6 +44,14 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         }
     }
     
+    var formattedTicketPrice: String? {
+        if let ticketPrice {
+            return ticketPrice.formatted(.currency(code: Locale.current.currencyCode ?? "USD"))
+        } else {
+            return nil
+        }
+    }
+    
     var loggedInUserIsShowHost: Bool {
         return hostUid == AuthController.getLoggedInUid()
     }
@@ -55,6 +65,8 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         date: Date().timeIntervalSince1970,
         time: Time.example,
         ticketPrice: 100,
+        ticketSalesAreRequired: true,
+        minimumRequiredTicketsSold: 20,
         imageUrl: nil,
 //        location: Location.example,
         backline: nil,

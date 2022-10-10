@@ -9,9 +9,7 @@ import SwiftUI
 
 struct MyHostedShowsView: View {
     @ObservedObject var viewModel: MyShowsViewModel
-    
-    @Binding var addEditShowViewIsShowing: Bool
-    
+        
     var body: some View {
         Group {
             if !viewModel.hostedShows.isEmpty {
@@ -33,8 +31,8 @@ struct MyHostedShowsView: View {
                     Text("You're not hosting any shows.")
                         .font(.body.italic())
                     
-                    Button {
-                        addEditShowViewIsShowing = true
+                    NavigationLink {
+                        AddEditShowView(viewTitleText: "Create Show", showToEdit: nil)
                     } label: {
                         Text("Tap here to create a show.")
                     }
@@ -57,6 +55,6 @@ struct MyHostedShowsView: View {
 
 struct MyHostedShowsView_Previews: PreviewProvider {
     static var previews: some View {
-        MyHostedShowsView(viewModel: MyShowsViewModel(), addEditShowViewIsShowing: .constant(false))
+        MyHostedShowsView(viewModel: MyShowsViewModel())
     }
 }

@@ -16,7 +16,7 @@ struct BandMemberList: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            ForEach(Array(zip(viewModel.bandMembers.indices, viewModel.bandMembers)), id: \.0) { rowIndex, bandMember in
+            ForEach(viewModel.bandMembers) { bandMember in
                 if !bandMember.bandMemberIsLoggedInUser {
                     NavigationLink {
                         UserProfileRootView(user: nil, bandMember: bandMember, userIsLoggedOut: .constant(false), selectedTab: .constant(4))
@@ -25,9 +25,7 @@ struct BandMemberList: View {
                             title: bandMember.fullName,
                             subtitle: bandMember.role,
                             iconName: bandMember.listRowIconName,
-                            displayChevron: true,
-                            rowIndex: rowIndex,
-                            listItemCount: viewModel.bandMembers.count
+                            displayChevron: true
                         )
                         .padding(.horizontal)
                     }
@@ -37,9 +35,7 @@ struct BandMemberList: View {
                         title: "You",
                         subtitle: bandMember.role,
                         iconName: bandMember.listRowIconName,
-                        displayChevron: false,
-                        rowIndex: rowIndex,
-                        listItemCount: viewModel.bandMembers.count
+                        displayChevron: false
                     )
                     .padding(.horizontal)
                 }

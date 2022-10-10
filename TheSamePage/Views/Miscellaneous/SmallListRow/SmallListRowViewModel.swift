@@ -10,8 +10,6 @@ import Foundation
 class SmallListRowViewModel: ObservableObject {
     let rowTitle: String
     let displayChevron: Bool
-    let rowIndex: Int
-    let listItemCount: Int
     var rowSubtitle: String?
     var rowIconName: String?
     
@@ -19,15 +17,11 @@ class SmallListRowViewModel: ObservableObject {
         title: String,
         subtitle: String?,
         iconName: String?,
-        displayChevron: Bool,
-        rowIndex: Int,
-        listItemCount: Int
+        displayChevron: Bool
     ) {
         self.rowTitle = title
         self.rowSubtitle = subtitle
         self.rowIconName = iconName
         self.displayChevron = displayChevron
-        self.rowIndex = rowIndex
-        self.listItemCount = listItemCount
     }
 }

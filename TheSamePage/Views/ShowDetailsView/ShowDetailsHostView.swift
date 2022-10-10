@@ -18,46 +18,26 @@ struct ShowDetailsHostView: View {
                 .padding(.top, 3)
                 .padding(.horizontal)
             
-            // TODO: Design lineup section that shows who's on the bill in a nice layout
-            
-            HStack {
-                SectionTitle(title: "Lineup (\(viewModel.showLineupSummary))")
-                    .padding(.vertical)
-                
-                NavigationLink {
-                    BandSearchView()
-                } label: {
-                    Image(systemName: "plus")
+            Picker("Select View", selection: $viewModel.selectedTab) {
+                ForEach(SelectedShowDetailsTab.allCases) { tabName in
+                    Text(tabName.rawValue)
                 }
-                .padding(.trailing)
             }
-            
-            ShowLineupList(viewModel: viewModel)
-            
-            SectionTitle(title: "Details")
-                .padding(.vertical)
-            
-            // TODO: Add DetailsList
-            HStack(spacing: 30) {
-                VStack(spacing: 20) {
-                    Text("Ticket Price: $15")
-                    Text("Food is being served")
-                }
-                .padding(.horizontal)
-                
-                VStack(spacing: 20) {
-                    Text("Hosted by \(viewModel.showHost)")
-                    Text("21 and over")
-                    Text("Drinks are being served")
-                }
-                .padding(.horizontal)
-            }
+            .pickerStyle(.segmented)
             .padding(.horizontal)
-            .multilineTextAlignment(.center)
             
-            // TODO: Design backline section
-            SectionTitle(title: "Backline")
-                .padding(.vertical)
+            switch viewModel.selectedTab {
+            case .lineup:
+                ShowLineupTab(viewModel: viewModel)
+            case .backline:
+                ShowBacklineTab()
+            case .times:
+                EmptyView()
+            case .location:
+                ShowLocationTab()
+            case .details:
+                ShowDetailsTab(viewModel: viewModel)
+            }
         }
     }
 }

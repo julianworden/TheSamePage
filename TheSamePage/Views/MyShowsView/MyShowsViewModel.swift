@@ -17,7 +17,7 @@ class MyShowsViewModel: ObservableObject {
     var hostedShowsListener: ListenerRegistration?
     var playingShowsListener: ListenerRegistration?
     
-    /// Fetches all shows that the user is either the host of or is participating in.
+    /// Fetches all shows that the user is hosting.
     func getHostedShows() async throws {
         hostedShowsListener = db.collection("shows").whereField(
             "hostUid",
@@ -31,6 +31,7 @@ class MyShowsViewModel: ObservableObject {
         }
     }
     
+    /// Fetches all shows that the user is playing.
     func getPlayingShows() async throws {
         playingShowsListener = db.collection("shows").whereField(
             "participantUids",
