@@ -17,9 +17,6 @@ struct Band: Codable, Equatable, Hashable, Identifiable {
     let adminUid: String
     let memberUids: [String]?
     let genre: String
-    // TODO: Links
-    let links: [PlatformLink]?
-    let shows: [Show]?
     let city: String
     let state: String
     
@@ -34,8 +31,6 @@ struct Band: Codable, Equatable, Hashable, Identifiable {
         adminUid: "",
         memberUids: [],
         genre: Genre.rock.rawValue,
-        links: nil,
-        shows: nil,
         city: "Neptune",
         state: "NJ"
     )

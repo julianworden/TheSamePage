@@ -42,8 +42,6 @@ class AddEditBandViewModel: ObservableObject {
                 adminUid: AuthController.getLoggedInUid(),
                 memberUids: nil,
                 genre: bandGenre.rawValue,
-                links: nil,
-                shows: nil,
                 city: bandCity,
                 state: bandState.rawValue
             )
@@ -56,8 +54,6 @@ class AddEditBandViewModel: ObservableObject {
                 adminUid: AuthController.getLoggedInUid(),
                 memberUids: nil,
                 genre: bandGenre.rawValue,
-                links: nil,
-                shows: nil,
                 city: bandCity,
                 state: bandState.rawValue
             )
