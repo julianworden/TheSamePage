@@ -47,9 +47,21 @@ struct NotificationRow: View {
                     
                     Button("Decline") {
                         if viewModel.bandInvite != nil {
-                            viewModel.declineBandInvite()
+                            Task {
+                                do {
+                                    try await viewModel.declineBandInvite()
+                                } catch {
+                                    print(error)
+                                }
+                            }
                         } else if viewModel.showInvite != nil {
-                            viewModel.declineShowInvite()
+                            Task {
+                                do {
+                                    try await viewModel.declineShowInvite()
+                                } catch {
+                                    print(error)
+                                }
+                            }
                         }
                     }
                 }

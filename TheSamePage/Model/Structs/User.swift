@@ -17,8 +17,6 @@ struct User: Codable, Equatable, Hashable, Identifiable {
     let profileImageUrl: String?
     let phoneNumber: String?
     let emailAddress: String
-    let bandInvites: [BandInvite]?
-    let joinedBands: [JoinedBand]?
     
     static let example = User(
         username: "julianworden",
@@ -26,8 +24,6 @@ struct User: Codable, Equatable, Hashable, Identifiable {
         lastName: "Worden",
         profileImageUrl: nil,
         phoneNumber: nil,
-        emailAddress: "julianworden@gmail.com",
-        bandInvites: nil,
-        joinedBands: nil
+        emailAddress: "julianworden@gmail.com"
     )
 }

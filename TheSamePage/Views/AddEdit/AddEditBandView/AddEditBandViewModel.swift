@@ -23,6 +23,12 @@ class AddEditBandViewModel: ObservableObject {
         self.bandToEdit = bandToEdit
     }
     
+    /// Creates a band object and calls the DatabaseService method to add the band to the bands Firestore collection.
+    ///
+    /// If the user has indicated that they are also a member of the band that they are creating, this method will call
+    /// a subsequent DatabaseService method that will add the user as a BandMember to the band's members collection,
+    /// and then add the user's UID to the band's memberUids array.
+    /// - Parameter image: The band's profile image.
     func createBand(withImage image: UIImage?) async throws {
         var newBand: Band
         var newBandId: String
@@ -34,7 +40,7 @@ class AddEditBandViewModel: ObservableObject {
                 bio: bandBio,
                 profileImageUrl: profileImageUrl,
                 adminUid: AuthController.getLoggedInUid(),
-                members: nil,
+                memberUids: nil,
                 genre: bandGenre.rawValue,
                 links: nil,
                 shows: nil,
@@ -48,7 +54,7 @@ class AddEditBandViewModel: ObservableObject {
                 bio: bandBio,
                 profileImageUrl: nil,
                 adminUid: AuthController.getLoggedInUid(),
-                members: nil,
+                memberUids: nil,
                 genre: bandGenre.rawValue,
                 links: nil,
                 shows: nil,
@@ -61,9 +67,8 @@ class AddEditBandViewModel: ObservableObject {
         if userPlaysInBand {
             let loggedInUsername = try await AuthController.getLoggedInUsername()
             let loggedInFullName = try await AuthController.getLoggedInFullName()
-            let user = BandMember(uid: AuthController.getLoggedInUid(), role: userRoleInBand.rawValue, username: loggedInUsername, fullName: loggedInFullName)
-            let band = JoinedBand(id: newBandId)
-            try DatabaseService.shared.addUserToBand(user, addToBand: band, withBandInvite: nil)
+            let bandMember = BandMember(uid: AuthController.getLoggedInUid(), role: userRoleInBand.rawValue, username: loggedInUsername, fullName: loggedInFullName)
+            try await DatabaseService.shared.addUserToBand(add: bandMember, toBandWithId: newBandId, withBandInvite: nil)
         }
     }
 }

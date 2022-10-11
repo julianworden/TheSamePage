@@ -8,7 +8,7 @@
 import FirebaseFirestoreSwift
 import Foundation
 
-// TODO: Add a imageUrl to this
+// TODO: Get rid of this type
 /// An object in either a band's or user's joinedShows collection
 struct JoinedShow: Codable, Identifiable {
     @DocumentID var id: String?

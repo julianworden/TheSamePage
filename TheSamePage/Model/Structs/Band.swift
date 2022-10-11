@@ -15,7 +15,7 @@ struct Band: Codable, Equatable, Hashable, Identifiable {
     let bio: String?
     let profileImageUrl: String?
     let adminUid: String
-    let members: [BandMember]?
+    let memberUids: [String]?
     let genre: String
     // TODO: Links
     let links: [PlatformLink]?
@@ -32,7 +32,7 @@ struct Band: Codable, Equatable, Hashable, Identifiable {
         bio: "A bangin metalcore band from New Jersey. We will slay all the shows. ALL OF THEM!!! Nobody will be spared, not even your mom.",
         profileImageUrl: nil,
         adminUid: "",
-        members: [],
+        memberUids: [],
         genre: Genre.rock.rawValue,
         links: nil,
         shows: nil,

@@ -77,7 +77,6 @@
 		ABA1020928DDF3C000A4E818 /* NotificationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020828DDF3C000A4E818 /* NotificationRow.swift */; };
 		ABA1020B28DDF3E200A4E818 /* NotificationRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020A28DDF3E200A4E818 /* NotificationRowViewModel.swift */; };
 		ABA1020D28DDFD6900A4E818 /* BandMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020C28DDFD6900A4E818 /* BandMember.swift */; };
-		ABA1020F28DE00EC00A4E818 /* JoinedBand.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020E28DE00EC00A4E818 /* JoinedBand.swift */; };
 		ABA4A43728D564FF0074293A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43628D564FF0074293A /* FirebaseAnalytics */; };
 		ABA4A43928D564FF0074293A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43828D564FF0074293A /* FirebaseAuth */; };
 		ABA4A43B28D564FF0074293A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43A28D564FF0074293A /* FirebaseFirestore */; };
@@ -102,7 +101,6 @@
 		ABD18AAD28EE14C1002286C3 /* SendShowInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD18AAC28EE14C1002286C3 /* SendShowInviteView.swift */; };
 		ABD18AAF28EE14C9002286C3 /* SendShowInviteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD18AAE28EE14C9002286C3 /* SendShowInviteViewModel.swift */; };
 		ABD18AB128EE2FAB002286C3 /* ShowInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD18AB028EE2FAB002286C3 /* ShowInvite.swift */; };
-		ABD18AB328EE3728002286C3 /* HostedShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD18AB228EE3728002286C3 /* HostedShow.swift */; };
 		ABD1D16D28F30CDF00791969 /* MyHostedShowsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1D16C28F30CDF00791969 /* MyHostedShowsView.swift */; };
 		ABD1D16F28F30CE500791969 /* MyPlayingShowsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1D16E28F30CE500791969 /* MyPlayingShowsView.swift */; };
 		ABD1D17128F30D3200791969 /* ShowType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1D17028F30D3200791969 /* ShowType.swift */; };
@@ -204,7 +202,6 @@
 		ABA1020828DDF3C000A4E818 /* NotificationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRow.swift; sourceTree = "<group>"; };
 		ABA1020A28DDF3E200A4E818 /* NotificationRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRowViewModel.swift; sourceTree = "<group>"; };
 		ABA1020C28DDFD6900A4E818 /* BandMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMember.swift; sourceTree = "<group>"; };
-		ABA1020E28DE00EC00A4E818 /* JoinedBand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinedBand.swift; sourceTree = "<group>"; };
 		ABAB45F828F24C2400FA8F70 /* LargeListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeListRow.swift; sourceTree = "<group>"; };
 		ABAB45FA28F24C6100FA8F70 /* LargeListRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeListRowViewModel.swift; sourceTree = "<group>"; };
 		ABB93F3728F0732D0055659B /* AsyncButtonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncButtonLabel.swift; sourceTree = "<group>"; };
@@ -224,7 +221,6 @@
 		ABD18AAC28EE14C1002286C3 /* SendShowInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendShowInviteView.swift; sourceTree = "<group>"; };
 		ABD18AAE28EE14C9002286C3 /* SendShowInviteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendShowInviteViewModel.swift; sourceTree = "<group>"; };
 		ABD18AB028EE2FAB002286C3 /* ShowInvite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowInvite.swift; sourceTree = "<group>"; };
-		ABD18AB228EE3728002286C3 /* HostedShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostedShow.swift; sourceTree = "<group>"; };
 		ABD1D16C28F30CDF00791969 /* MyHostedShowsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHostedShowsView.swift; sourceTree = "<group>"; };
 		ABD1D16E28F30CE500791969 /* MyPlayingShowsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlayingShowsView.swift; sourceTree = "<group>"; };
 		ABD1D17028F30D3200791969 /* ShowType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowType.swift; sourceTree = "<group>"; };
@@ -466,9 +462,7 @@
 			isa = PBXGroup;
 			children = (
 				AB36FF7F28D35BFA00AAC00C /* User.swift */,
-				ABA1020E28DE00EC00A4E818 /* JoinedBand.swift */,
 				ABD18AA928EE13B9002286C3 /* JoinedShow.swift */,
-				ABD18AB228EE3728002286C3 /* HostedShow.swift */,
 				AB36FF8228D35C0600AAC00C /* Show.swift */,
 				ABD18AB028EE2FAB002286C3 /* ShowInvite.swift */,
 				AB7F381428EF20EA007741C7 /* ShowParticipant.swift */,
@@ -987,7 +981,6 @@
 				AB36FF8D28D35CDF00AAC00C /* Backline.swift in Sources */,
 				AB399AD428D4B12B009B39F7 /* MyShowsShowCardViewModel.swift in Sources */,
 				AB07296128F467010069B268 /* ShowDetailsTab.swift in Sources */,
-				ABD18AB328EE3728002286C3 /* HostedShow.swift in Sources */,
 				ABF1C40C28ECF0A50004A3C1 /* ShowSearchResultsList.swift in Sources */,
 				AB07295F28F466510069B268 /* ShowLineupTab.swift in Sources */,
 				AB35A8DA28E9DC93009FB203 /* BandProfileOtherUserView.swift in Sources */,
@@ -999,7 +992,6 @@
 				ABEF10EA28E6506000A1DBAC /* LinkPlatform.swift in Sources */,
 				AB35A8DF28E9DE29009FB203 /* UserBandList.swift in Sources */,
 				ABD034E528EDD11100F37E4B /* ShowDetailsParticipantView.swift in Sources */,
-				ABA1020F28DE00EC00A4E818 /* JoinedBand.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

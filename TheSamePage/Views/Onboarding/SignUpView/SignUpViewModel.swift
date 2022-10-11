@@ -52,9 +52,7 @@ class SignUpViewModel: ObservableObject {
                 lastName: lastName,
                 profileImageUrl: imageUrl,
                 phoneNumber: nil,
-                emailAddress: emailAddress,
-                bandInvites: nil,
-                joinedBands: nil
+                emailAddress: emailAddress
             )
         } else {
             newUser = User(
@@ -64,9 +62,7 @@ class SignUpViewModel: ObservableObject {
                 lastName: lastName,
                 profileImageUrl: nil,
                 phoneNumber: nil,
-                emailAddress: emailAddress,
-                bandInvites: nil,
-                joinedBands: nil
+                emailAddress: emailAddress
             )
         }
         

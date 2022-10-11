@@ -95,18 +95,11 @@ class UserProfileRootViewModel: ObservableObject {
     @MainActor
     func getBands(forUser user: User?) async throws {
         guard !AuthController.userIsLoggedOut() else { throw UserProfileViewModelError.firebaseAuthError(message: "User not logged in") }
-        
-        var bandIds = [String]()
-        
+                
         if user != nil && user?.id != nil {
-            bandIds = try await DatabaseService.shared.getIdsForJoinedBands(forUserUid: user!.id!)
+            bands = try await DatabaseService.shared.getBands(withUid: user!.id!)
         } else {
-            bandIds = try await DatabaseService.shared.getIdsForJoinedBands(forUserUid: AuthController.getLoggedInUid())
-        }
-        
-        // Prevents "Member Of" section from showing if user is not a member of any bands.
-        if !bandIds.isEmpty {
-            bands = try await DatabaseService.shared.getBands(withBandIds: bandIds)
+            bands = try await DatabaseService.shared.getBands(withUid: AuthController.getLoggedInUid())
         }
     }
     

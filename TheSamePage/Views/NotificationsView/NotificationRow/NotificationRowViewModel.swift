@@ -38,8 +38,7 @@ class NotificationRowViewModel: ObservableObject {
         let username = try await AuthController.getLoggedInUsername()
         let fullName = try await AuthController.getLoggedInFullName()
         let bandMember = BandMember(uid: AuthController.getLoggedInUid(), role: bandInvite!.recipientRole, username: username, fullName: fullName)
-        let bandId = JoinedBand(id: bandInvite!.bandId)
-        try DatabaseService.shared.addUserToBand(bandMember, addToBand: bandId, withBandInvite: bandInvite!)
+        try await DatabaseService.shared.addUserToBand(add: bandMember, toBandWithId: bandInvite!.bandId, withBandInvite: bandInvite)
     }
     
     func acceptShowInvite() async throws {
@@ -59,15 +58,15 @@ class NotificationRowViewModel: ObservableObject {
         try await DatabaseService.shared.addBandToShow(add: showParticipant, to: joinedShow, with: showInvite!)
     }
     
-    func declineBandInvite() {
+    func declineBandInvite() async throws {
         guard bandInvite != nil else { return }
         
-        DatabaseService.shared.deleteBandInvite(bandInvite: bandInvite!)
+        try await DatabaseService.shared.deleteBandInvite(bandInvite: bandInvite!)
     }
     
-    func declineShowInvite() {
+    func declineShowInvite() async throws {
         guard showInvite != nil else { return }
         
-        DatabaseService.shared.deleteShowInvite(showInvite: showInvite!)
+        try await DatabaseService.shared.deleteShowInvite(showInvite: showInvite!)
     }
 }

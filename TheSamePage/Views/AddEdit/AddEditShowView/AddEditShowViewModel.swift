@@ -83,8 +83,7 @@ class AddEditShowViewModel: ObservableObject {
                 hasBar: showHasBar,
                 is21Plus: showIs21Plus,
                 genre: showGenre.rawValue,
-                maxNumberOfBands: showMaxNumberOfBands,
-                bands: nil
+                maxNumberOfBands: showMaxNumberOfBands
             )
         } else {
             newShow = Show(
@@ -105,8 +104,7 @@ class AddEditShowViewModel: ObservableObject {
                 hasBar: showHasBar,
                 is21Plus: showIs21Plus,
                 genre: showGenre.rawValue,
-                maxNumberOfBands: showMaxNumberOfBands,
-                bands: nil
+                maxNumberOfBands: showMaxNumberOfBands
             )
         }
         

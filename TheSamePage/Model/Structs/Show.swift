@@ -30,7 +30,6 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     let is21Plus: Bool
     let genre: String
     let maxNumberOfBands: Int
-    let bands: [Band]?
     
     var formattedDate: String {
         return TextUtility.formatDate(unixDate: date)
@@ -74,7 +73,6 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         hasBar: true,
         is21Plus: true,
         genre: Genre.rock.rawValue,
-        maxNumberOfBands: 2,
-        bands: nil
+        maxNumberOfBands: 2
     )
 }
