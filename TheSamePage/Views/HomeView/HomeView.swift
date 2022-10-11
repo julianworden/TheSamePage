@@ -16,8 +16,8 @@ struct HomeView: View {
                 Color(uiColor: .systemGroupedBackground)
                     .ignoresSafeArea()
                 
-                VStack {
-                    ScrollView {
+                ScrollView {
+                    VStack(spacing: 0) {
                         ForEach(showsController.nearbyShows) { show in
                             LargeListRow(show: show, joinedShow: nil)
                         }

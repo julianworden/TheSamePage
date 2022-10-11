@@ -15,40 +15,42 @@ struct LargeListRow: View {
     }
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 2) {
-                Text(viewModel.showName)
-                    .font(.title3.bold())
-                
-                Text(viewModel.showVenue)
-                
-                Text(viewModel.showDate)
-                
-                Text(viewModel.showDescription)
-                    .lineLimit(2)
-                    .font(.caption)
-                
-                HStack {
-                    if viewModel.showHasBar {
-                        Image(systemName: "wineglass")
-                    }
+        VStack(spacing: 0) {
+            HStack {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(viewModel.showName)
+                        .font(.title3.bold())
                     
-                    if viewModel.showHasFood {
-                        Image(systemName: "fork.knife")
-                    }
+                    Text(viewModel.showVenue)
                     
-                    if viewModel.showIs21Plus {
-                        Image(systemName: "21.circle")
+                    Text(viewModel.showDate)
+                    
+                    Text(viewModel.showDescription)
+                        .lineLimit(2)
+                        .font(.caption)
+                    
+                    HStack {
+                        if viewModel.showHasBar {
+                            Image(systemName: "wineglass")
+                        }
+                        
+                        if viewModel.showHasFood {
+                            Image(systemName: "fork.knife")
+                        }
+                        
+                        if viewModel.showIs21Plus {
+                            Image(systemName: "21.circle")
+                        }
                     }
+                    .imageScale(.small)
                 }
-                .imageScale(.small)
-                
+                .multilineTextAlignment(.leading)
             }
-            .multilineTextAlignment(.leading)
+            .padding()
             
-            Spacer()
+            Divider()
         }
-        .padding()
+        .background(.white)
     }
 }
 
