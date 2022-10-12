@@ -16,6 +16,8 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     let description: String?
     let host: String
     let hostUid: String
+    var bandIds: [String]?
+    var participantUids: [String]?
     let venue: String
     let date: Double
     let time: Time?
@@ -60,6 +62,8 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         description: "A dank ass banger! Hop on the bill I freakin’ swear you won’t regret it! Like, it's gonna be the show of the absolute century, bro!",
         host: "DAA Entertainment",
         hostUid: "",
+        bandIds: nil,
+        participantUids: nil,
         venue: "Starland Ballroom",
         date: Date().timeIntervalSince1970,
         time: Time.example,

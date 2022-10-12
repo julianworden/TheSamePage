@@ -35,7 +35,7 @@ class DatabaseService {
             ticketSalesAreRequired: true,
             minimumRequiredTicketsSold: 20,
             imageUrl: nil,
-//            location: Location.example,
+            //            location: Location.example,
             backline: nil,
             hasFood: true,
             hasBar: true,
@@ -55,7 +55,7 @@ class DatabaseService {
             ticketSalesAreRequired: false,
             minimumRequiredTicketsSold: nil,
             imageUrl: nil,
-//            location: Location.example,
+            //            location: Location.example,
             backline: nil,
             hasFood: true,
             hasBar: false,
@@ -75,7 +75,7 @@ class DatabaseService {
             ticketSalesAreRequired: true,
             minimumRequiredTicketsSold: 10,
             imageUrl: nil,
-//            location: Location.example,
+            //            location: Location.example,
             backline: nil,
             hasFood: true,
             hasBar: true,
@@ -340,36 +340,36 @@ class DatabaseService {
     /// band admin in case they don't play in the band), adds user to show's participants collection. Also deletes the
     /// ShowInvite in the user's showInvites collection.
     /// - Parameter showParticipant: The showParticipant to be added to the Show's participants collection.
-    /// - Parameter showInvite: The ShowInvite that was accepted in order for the band to get added to the show.
-    func addBandToShow(add showParticipant: ShowParticipant, to joinedShow: JoinedShow, with showInvite: ShowInvite) async throws {
+    /// - Parameter showInvite: The ShowInvite that was arunccepted in order for the band to get added to the show.
+    func addBandToShow(add showParticipant: ShowParticipant, withShowInvite showInvite: ShowInvite) async throws {
         do {
-            let bandMembersQuery = try await db.collection("bands").document(showInvite.bandId).collection("members").getDocuments()
+            // Add showParticipant to the show's showParticipants collection
+            _ = try db.collection("shows").document(showInvite.showId).collection("participants").addDocument(from: showParticipant)
+            
+            // Add the band's ID to the show's bandIds property
+            try await db.collection("shows").document(showInvite.showId).updateData(["bandIds": FieldValue.arrayUnion([showInvite.bandId])])
+            
+            // Get the band object so that the members are accessible
+            let band = try await db.collection("bands").document(showInvite.bandId).getDocument(as: Band.self)
+            
+            if !band.memberUids.isEmpty {
+                try await db.collection("shows").document(showInvite.showId).updateData(["participantUids": FieldValue.arrayUnion(band.memberUids)])
+            }
+            
+            // Check to see if the band admin is already in the memberUids array. If it isn't, add it to the show's participantUids property.
+            if !band.memberUids.contains(showInvite.recipientUid) {
+                try await db.collection("shows").document(showInvite.showId).updateData(["participantUids": FieldValue.arrayUnion([showInvite.recipientUid])])
+            }
             
             do {
-                // Add the show to every band member's joinedShows collection
-                for document in bandMembersQuery.documents {
-                    let bandMember = try document.data(as: BandMember.self)
-                    _ = try db.collection("users").document(bandMember.uid).collection("joinedShows").addDocument(from: joinedShow)
-                }
-                
-                // Add the show to the band admin's joinedShows collection
-                _ = try db.collection("users").document(showInvite.recipientUid).collection("joinedShows").addDocument(from: joinedShow)
-                // Add the show to the band's joinedShows collection
-                try await db.collection("bands").document(showInvite.bandId).collection("joinedShows").document(showInvite.showId).setData([:])
-                // Add the band to the show's participants collection
-                _ = try db.collection("shows").document(showInvite.showId).collection("participants").addDocument(from: showParticipant)
-                
-                do {
-                    try await deleteShowInvite(showInvite: showInvite)
-                } catch {
-                    throw error
-                }
+                try await deleteShowInvite(showInvite: showInvite)
             } catch {
-                throw DatabaseServiceError.firestoreError(message: "Failed to add band to show in DatabaseService.addBandToShow(add:to:with:)")
+                throw error
             }
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to fetch BandMembers in DatabaseService.addBandToShow(add:to:with:)")
+            throw DatabaseServiceError.firestoreError(message: "Failed to add band to show in DatabaseService.addBandToShow(add:to:with:)")
         }
+        
     }
     
     /// Deletes a show invite from the logged in user's showInvites collection.
