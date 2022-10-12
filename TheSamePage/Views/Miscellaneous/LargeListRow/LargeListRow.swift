@@ -45,10 +45,10 @@ struct LargeListRow: View {
                     .imageScale(.small)
                 }
                 .multilineTextAlignment(.leading)
+                
+                Spacer()
             }
             .padding()
-            
-            Spacer()
             
             Divider()
         }
