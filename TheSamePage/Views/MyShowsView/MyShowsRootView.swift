@@ -41,6 +41,13 @@ struct MyShowsRootView: View {
                 }
             }
             .navigationTitle("My Shows")
+            .task {
+                do {
+                    try await viewModel.getHostedShows()
+                } catch {
+                    print(error)
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {

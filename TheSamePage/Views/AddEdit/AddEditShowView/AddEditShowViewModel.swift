@@ -23,12 +23,6 @@ class AddEditShowViewModel: ObservableObject {
     @Published var ticketPrice = ""
     @Published var ticketSalesAreRequired = false
     @Published var minimumRequiredTicketsSold = ""
-    @Published var showDateIsKnown = false
-    @Published var showLoadInTime = Date()
-    @Published var showFirstSetTime = Date()
-    @Published var showDoorsTime = Date()
-    @Published var showEndTime = Date()
-    @Published var showTimesAreKnown = false
     @Published var showIs21Plus = false
     @Published var showHasBar = false
     @Published var showHasFood = false
@@ -52,16 +46,6 @@ class AddEditShowViewModel: ObservableObject {
     
     func createShow(withImage image: UIImage?) async throws {
         var newShow: Show
-        var showTime: Time?
-        
-        if showTimesAreKnown {
-            showTime = Time(
-                loadIn: Timestamp(date: showLoadInTime),
-                doors: Timestamp(date: showDoorsTime),
-                firstSetStart: Timestamp(date: showFirstSetTime),
-                end: Timestamp(date: showEndTime)
-            )
-        }
         
         if let image {
             let imageUrl = try await DatabaseService.shared.uploadImage(image: image)
@@ -72,13 +56,14 @@ class AddEditShowViewModel: ObservableObject {
                 hostUid: AuthController.getLoggedInUid(),
                 venue: showVenue,
                 date: showDate.timeIntervalSince1970,
-                time: showTime,
+                loadInTime: nil,
+                doorsTime: nil,
+                musicStartTime: nil,
+                endTime: nil,
                 ticketPrice: Double(ticketPrice),
                 ticketSalesAreRequired: ticketSalesAreRequired,
                 minimumRequiredTicketsSold: Int(minimumRequiredTicketsSold),
                 imageUrl: imageUrl,
-//                location: Location.example,
-                backline: nil,
                 hasFood: showHasFood,
                 hasBar: showHasBar,
                 is21Plus: showIs21Plus,
@@ -93,13 +78,14 @@ class AddEditShowViewModel: ObservableObject {
                 hostUid: AuthController.getLoggedInUid(),
                 venue: showVenue,
                 date: showDate.timeIntervalSince1970,
-                time: showTime,
+                loadInTime: nil,
+                doorsTime: nil,
+                musicStartTime: nil,
+                endTime: nil,
                 ticketPrice: Double(ticketPrice),
                 ticketSalesAreRequired: ticketSalesAreRequired,
                 minimumRequiredTicketsSold: Int(minimumRequiredTicketsSold),
                 imageUrl: nil,
-//                location: Location.example,
-                backline: nil,
                 hasFood: showHasFood,
                 hasBar: showHasBar,
                 is21Plus: showIs21Plus,

@@ -40,13 +40,6 @@ struct MyHostedShowsView: View {
                 .padding(.top)
             }
         }
-        .task {
-            do {
-                try await viewModel.getHostedShows()
-            } catch {
-                print(error)
-            }
-        }
         .onDisappear {
             viewModel.removeHostedShowsListener()
         }

@@ -19,6 +19,12 @@
 		AB21E5C028D55C3600BD286E /* GeoFireUtils in Frameworks */ = {isa = PBXBuildFile; productRef = AB21E5BF28D55C3600BD286E /* GeoFireUtils */; };
 		AB24E3A628D7C9B0002B4F2C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24E3A528D7C9B0002B4F2C /* LoginView.swift */; };
 		AB24E3A828D7C9C4002B4F2C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24E3A728D7C9C4002B4F2C /* LoginViewModel.swift */; };
+		AB285AFA28F6F76200EB5F2B /* ShowTimeTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285AF928F6F76200EB5F2B /* ShowTimeTab.swift */; };
+		AB285AFC28F6F7EE00EB5F2B /* ShowTimeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285AFB28F6F7EE00EB5F2B /* ShowTimeList.swift */; };
+		AB285B0228F6FE8A00EB5F2B /* ShowTimeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285B0128F6FE8A00EB5F2B /* ShowTimeType.swift */; };
+		AB285B0428F6FF6600EB5F2B /* AddEditShowTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285B0328F6FF6600EB5F2B /* AddEditShowTimeView.swift */; };
+		AB285B0628F701A400EB5F2B /* ShowTimeTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285B0528F701A400EB5F2B /* ShowTimeTabViewModel.swift */; };
+		AB285B0828F7086D00EB5F2B /* AddEditShowTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285B0728F7086D00EB5F2B /* AddEditShowTimeViewModel.swift */; };
 		AB28A0F128EB1FEC008F1A82 /* Typesense in Frameworks */ = {isa = PBXBuildFile; productRef = AB28A0F028EB1FEC008F1A82 /* Typesense */; };
 		AB2B867A28D9EE43004601B6 /* MyShowsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867928D9EE43004601B6 /* MyShowsViewModel.swift */; };
 		AB2B867C28D9F444004601B6 /* NoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867B28D9F444004601B6 /* NoImageView.swift */; };
@@ -145,6 +151,12 @@
 		AB1ACE2C28E08F9E00B46C90 /* Instrument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instrument.swift; sourceTree = "<group>"; };
 		AB24E3A528D7C9B0002B4F2C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		AB24E3A728D7C9C4002B4F2C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		AB285AF928F6F76200EB5F2B /* ShowTimeTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimeTab.swift; sourceTree = "<group>"; };
+		AB285AFB28F6F7EE00EB5F2B /* ShowTimeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimeList.swift; sourceTree = "<group>"; };
+		AB285B0128F6FE8A00EB5F2B /* ShowTimeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimeType.swift; sourceTree = "<group>"; };
+		AB285B0328F6FF6600EB5F2B /* AddEditShowTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowTimeView.swift; sourceTree = "<group>"; };
+		AB285B0528F701A400EB5F2B /* ShowTimeTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimeTabViewModel.swift; sourceTree = "<group>"; };
+		AB285B0728F7086D00EB5F2B /* AddEditShowTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowTimeViewModel.swift; sourceTree = "<group>"; };
 		AB2B867928D9EE43004601B6 /* MyShowsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowsViewModel.swift; sourceTree = "<group>"; };
 		AB2B867B28D9F444004601B6 /* NoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoImageView.swift; sourceTree = "<group>"; };
 		AB2B867D28D9F884004601B6 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -318,6 +330,18 @@
 			path = LoginView;
 			sourceTree = "<group>";
 		};
+		AB285AF828F6F71D00EB5F2B /* ShowTime */ = {
+			isa = PBXGroup;
+			children = (
+				AB285AF928F6F76200EB5F2B /* ShowTimeTab.swift */,
+				AB285AFB28F6F7EE00EB5F2B /* ShowTimeList.swift */,
+				AB285B0528F701A400EB5F2B /* ShowTimeTabViewModel.swift */,
+				AB285B0328F6FF6600EB5F2B /* AddEditShowTimeView.swift */,
+				AB285B0728F7086D00EB5F2B /* AddEditShowTimeViewModel.swift */,
+			);
+			path = ShowTime;
+			sourceTree = "<group>";
+		};
 		AB35A8D328E9D044009FB203 /* ProfileViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -488,6 +512,7 @@
 				AB7F381228EF1B56007741C7 /* NotificationType.swift */,
 				ABD1D17028F30D3200791969 /* ShowType.swift */,
 				AB07295728F4631D0069B268 /* SelectedShowDetailsTab.swift */,
+				AB285B0128F6FE8A00EB5F2B /* ShowTimeType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -619,11 +644,12 @@
 				ABD034E428EDD11100F37E4B /* ShowDetailsParticipantView.swift */,
 				ABD034E628EDD11700F37E4B /* ShowDetailsOtherUserView.swift */,
 				AB66B9B728F0D2EF00E7F0E0 /* ShowDetailsHeader.swift */,
-				ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */,
+				AB285AF828F6F71D00EB5F2B /* ShowTime */,
 				AB07295D28F466220069B268 /* ShowLocation */,
 				AB07295C28F4661D0069B268 /* ShowBackline */,
 				AB07295B28F4661B0069B268 /* ShowDetails */,
 				AB07295928F4660B0069B268 /* ShowLineup */,
+				ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */,
 			);
 			path = ShowDetailsView;
 			sourceTree = "<group>";
@@ -912,6 +938,7 @@
 				ABF1C40628ECE83F0004A3C1 /* TypesenseController.swift in Sources */,
 				ABEC487E28F1DD32005C9A99 /* SmallListRowViewModel.swift in Sources */,
 				AB5054A728DC91CF00321380 /* MemberSearchView.swift in Sources */,
+				AB285AFA28F6F76200EB5F2B /* ShowTimeTab.swift in Sources */,
 				AB3E11E828D656FF000F147B /* UserProfileBandCard.swift in Sources */,
 				ABEACE7B28DBBB6200BB1D67 /* InABandView.swift in Sources */,
 				ABF1C40228ECD0F60004A3C1 /* SearchResultRow.swift in Sources */,
@@ -950,6 +977,7 @@
 				ABD18AAA28EE13B9002286C3 /* JoinedShow.swift in Sources */,
 				ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */,
 				AB7F381528EF20EA007741C7 /* ShowParticipant.swift in Sources */,
+				AB285B0628F701A400EB5F2B /* ShowTimeTabViewModel.swift in Sources */,
 				AB07295828F4631D0069B268 /* SelectedShowDetailsTab.swift in Sources */,
 				ABDDAD4528DB3ED200F1CF9B /* ProfileAsyncImage.swift in Sources */,
 				AB5B77C728E72B9600B32537 /* BandLinkCardViewModel.swift in Sources */,
@@ -958,6 +986,7 @@
 				ABF1C40828ECF0950004A3C1 /* UserSearchResultsList.swift in Sources */,
 				AB1ACE2D28E08F9E00B46C90 /* Instrument.swift in Sources */,
 				ABEF10E528E64CD800A1DBAC /* AddEditLinkView.swift in Sources */,
+				AB285B0428F6FF6600EB5F2B /* AddEditShowTimeView.swift in Sources */,
 				ABCAA9FF28E9E56C00685F91 /* BandProfileHeader.swift in Sources */,
 				ABF5563728DF93E40059E2DF /* BandProfileViewModel.swift in Sources */,
 				ABD034E728EDD11700F37E4B /* ShowDetailsOtherUserView.swift in Sources */,
@@ -977,6 +1006,7 @@
 				AB5054B328DCA04900321380 /* BandInvite.swift in Sources */,
 				AB3C73D728DC0A240038085A /* BandSearchViewModel.swift in Sources */,
 				ABCAAA0728E9F13B00685F91 /* BandProfileHeaderViewModel.swift in Sources */,
+				AB285B0828F7086D00EB5F2B /* AddEditShowTimeViewModel.swift in Sources */,
 				AB07296328F468530069B268 /* ShowLocationTab.swift in Sources */,
 				AB36FF8D28D35CDF00AAC00C /* Backline.swift in Sources */,
 				AB399AD428D4B12B009B39F7 /* MyShowsShowCardViewModel.swift in Sources */,
@@ -985,7 +1015,9 @@
 				AB07295F28F466510069B268 /* ShowLineupTab.swift in Sources */,
 				AB35A8DA28E9DC93009FB203 /* BandProfileOtherUserView.swift in Sources */,
 				AB794E3128E25B0F000ABB37 /* SearchType.swift in Sources */,
+				AB285B0228F6FE8A00EB5F2B /* ShowTimeType.swift in Sources */,
 				AB35A8D628E9DC73009FB203 /* BandProfileAdminView.swift in Sources */,
+				AB285AFC28F6F7EE00EB5F2B /* ShowTimeList.swift in Sources */,
 				ABDC0D7928D76FC60054269E /* AddEditShowViewModel.swift in Sources */,
 				ABF1C40428ECD0FD0004A3C1 /* SearchResultRowViewModel.swift in Sources */,
 				AB36FF8928D35C2800AAC00C /* PlatformLink.swift in Sources */,

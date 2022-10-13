@@ -91,7 +91,6 @@ struct AddEditShowView: View {
         .sheet(isPresented: $imagePickerIsShowing) {
             ImagePicker(image: $showImage, pickerIsShowing: $imagePickerIsShowing)
         }
-        .animation(.easeInOut, value: viewModel.showDateIsKnown)
     }
 }
 

@@ -11,15 +11,15 @@ import Foundation
 
 struct Time: Codable, Equatable, Hashable, Identifiable {
     @DocumentID var id: String?
-    let loadIn: Timestamp?
-    let doors: Timestamp?
-    let firstSetStart: Timestamp?
-    let end: Timestamp?
+    let type: String
+    let time: Double
+//    let loadIn: Double?
+//    let doors: Double?
+//    let musicStart: Double?
+//    let end: Double?
     
     static let example = Time(
-        loadIn: Timestamp(date: Date()),
-        doors: Timestamp(date: Date()),
-        firstSetStart: Timestamp(date: Date()),
-        end: Timestamp(date: Date())
+        type: ShowTimeType.doors.rawValue,
+        time: 4637586987
     )
 }

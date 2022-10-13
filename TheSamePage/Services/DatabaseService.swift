@@ -30,13 +30,14 @@ class DatabaseService {
             hostUid: "",
             venue: "Starland Ballroom",
             date: Date().timeIntervalSince1970,
-            time: Time.example,
+            loadInTime: nil,
+            doorsTime: nil,
+            musicStartTime: nil,
+            endTime: nil,
             ticketPrice: 100,
             ticketSalesAreRequired: true,
             minimumRequiredTicketsSold: 20,
             imageUrl: nil,
-            //            location: Location.example,
-            backline: nil,
             hasFood: true,
             hasBar: true,
             is21Plus: false,
@@ -50,13 +51,14 @@ class DatabaseService {
             hostUid: "",
             venue: "Wembley Stadium",
             date: Date().timeIntervalSince1970,
-            time: Time.example,
+            loadInTime: nil,
+            doorsTime: nil,
+            musicStartTime: nil,
+            endTime: nil,
             ticketPrice: 300,
             ticketSalesAreRequired: false,
             minimumRequiredTicketsSold: nil,
             imageUrl: nil,
-            //            location: Location.example,
-            backline: nil,
             hasFood: true,
             hasBar: false,
             is21Plus: false,
@@ -70,13 +72,14 @@ class DatabaseService {
             hostUid: "",
             venue: "Giants Stadium",
             date: Date().timeIntervalSince1970,
-            time: Time.example,
+            loadInTime: nil,
+            doorsTime: nil,
+            musicStartTime: nil,
+            endTime: nil,
             ticketPrice: 30,
             ticketSalesAreRequired: true,
             minimumRequiredTicketsSold: 10,
             imageUrl: nil,
-            //            location: Location.example,
-            backline: nil,
             hasFood: true,
             hasBar: true,
             is21Plus: true,
@@ -370,6 +373,29 @@ class DatabaseService {
             throw DatabaseServiceError.firestoreError(message: "Failed to add band to show in DatabaseService.addBandToShow(add:to:with:)")
         }
         
+    }
+    
+    func addTimeToShow(addTime time: Date, ofType showTimeType: ShowTimeType, forShow show: Show) async throws {
+        guard show.id != nil else {
+            throw DatabaseServiceError.unexpectedNilValue(value: "show.id in DatabaseService.addTimeToShow(addTime:ofType:forShow)")
+        }
+        
+        do {
+            switch showTimeType {
+            case .loadIn:
+                try await db.collection("shows").document(show.id!).updateData(["loadInTime": time.timeIntervalSince1970])
+            case .musicStart:
+                try await db.collection("shows").document(show.id!).updateData(["musicStartTime": time.timeIntervalSince1970])
+            case .end:
+                try await db.collection("shows").document(show.id!).updateData(["endTime": time.timeIntervalSince1970])
+            case .doors:
+                try await db.collection("shows").document(show.id!).updateData(["doorsTime": time.timeIntervalSince1970])
+            }
+            
+            print(time.formatted())
+        } catch {
+            throw DatabaseServiceError.firestoreError(message: "Failed to add time to show in in DatabaseService.addTimeToShow(addTime:ofType:forShow)")
+        }
     }
     
     /// Deletes a show invite from the logged in user's showInvites collection.

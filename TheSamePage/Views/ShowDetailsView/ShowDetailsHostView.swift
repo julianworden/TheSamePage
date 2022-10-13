@@ -32,7 +32,7 @@ struct ShowDetailsHostView: View {
             case .backline:
                 ShowBacklineTab()
             case .times:
-                EmptyView()
+                ShowTimeTab(show: viewModel.show)
             case .location:
                 ShowLocationTab()
             case .details:

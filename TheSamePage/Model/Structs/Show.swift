@@ -9,7 +9,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
 
-// TODO: Add a participant uid collection for a showParticipants collection on shows
+// TODO: Create individual properties for location
 struct Show: Codable, Equatable, Hashable, Identifiable {
     var id: String?
     let name: String
@@ -20,13 +20,14 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     var participantUids: [String]?
     let venue: String
     let date: Double
-    let time: Time?
+    let loadInTime: Double?
+    let doorsTime: Double?
+    let musicStartTime: Double?
+    let endTime: Double?
     let ticketPrice: Double?
     let ticketSalesAreRequired: Bool
     let minimumRequiredTicketsSold: Int?
     let imageUrl: String?
-//    let location: Location
-    let backline: Backline?
     let hasFood: Bool
     let hasBar: Bool
     let is21Plus: Bool
@@ -37,13 +38,13 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         return TextUtility.formatDate(unixDate: date)
     }
     
-    var formattedDoorsTime: String? {
-        if let time {
-            return TextUtility.formatTime(time: time.doors?.dateValue() ?? Date())
-        } else {
-            return nil
-        }
-    }
+//    var formattedDoorsTime: String? {
+//        if let time {
+//            return TextUtility.formatTime(unixTime: time.doors)
+//        } else {
+//            return nil
+//        }
+//    }
     
     var formattedTicketPrice: String? {
         if let ticketPrice {
@@ -66,13 +67,14 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         participantUids: nil,
         venue: "Starland Ballroom",
         date: Date().timeIntervalSince1970,
-        time: Time.example,
+        loadInTime: nil,
+        doorsTime: nil,
+        musicStartTime: nil,
+        endTime: nil,
         ticketPrice: 100,
         ticketSalesAreRequired: true,
         minimumRequiredTicketsSold: 20,
         imageUrl: nil,
-//        location: Location.example,
-        backline: nil,
         hasFood: true,
         hasBar: true,
         is21Plus: true,

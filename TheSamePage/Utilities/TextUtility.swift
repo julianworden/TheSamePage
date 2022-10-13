@@ -18,10 +18,12 @@ struct TextUtility {
         return dateString
     }
     
-    static func formatTime(time: Date) -> String {
+    static func formatTime(unixTime: Double) -> String {
         let dateFormatter = DateFormatter()
+        let date = Date(timeIntervalSince1970: unixTime)
+        
         dateFormatter.dateFormat = "hh:mm a"
-        let timeString = dateFormatter.string(from: time)
+        let timeString = dateFormatter.string(from: date)
         return timeString
     }
 }
