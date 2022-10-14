@@ -16,8 +16,8 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     let description: String?
     let host: String
     let hostUid: String
-    var bandIds: [String]?
-    var participantUids: [String]?
+    var bandIds: [String]
+    var participantUids: [String]
     let venue: String
     let date: Double
     let loadInTime: Double?
@@ -34,6 +34,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     let genre: String
     let maxNumberOfBands: Int
     
+    // TODO: Use a custom Date .formatted() extension for this instead
     var formattedDate: String {
         return TextUtility.formatDate(unixDate: date)
     }
@@ -58,13 +59,17 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         return hostUid == AuthController.getLoggedInUid()
     }
     
+    var loggedInUserIsShowParticipant: Bool {
+        return participantUids.contains(AuthController.getLoggedInUid())
+    }
+    
     static let example = Show(
         name: "Dumpweed Extravaganza",
         description: "A dank ass banger! Hop on the bill I freakin’ swear you won’t regret it! Like, it's gonna be the show of the absolute century, bro!",
         host: "DAA Entertainment",
         hostUid: "",
-        bandIds: nil,
-        participantUids: nil,
+        bandIds: [],
+        participantUids: [],
         venue: "Starland Ballroom",
         date: Date().timeIntervalSince1970,
         loadInTime: nil,

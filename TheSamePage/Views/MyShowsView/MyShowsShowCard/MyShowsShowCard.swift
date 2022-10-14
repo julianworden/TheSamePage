@@ -40,6 +40,7 @@ struct MyShowsShowCard: View {
                     
                     Image(systemName: "fork.knife.circle")
                     
+                    // TODO: Use a custom Date .formatted() extension for this instead
                     Text(TextUtility.formatDate(unixDate: viewModel.show.date))
                     
                 }

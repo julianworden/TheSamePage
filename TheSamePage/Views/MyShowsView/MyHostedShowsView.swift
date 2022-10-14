@@ -16,7 +16,7 @@ struct MyHostedShowsView: View {
                 ScrollView {
                     ForEach(viewModel.hostedShows) { show in
                         NavigationLink {
-                            ShowDetailsRootView(show: show)
+                            ShowDetailsView(show: show)
                         } label: {
                             LargeListRow(show: show, joinedShow: nil)
                         }
@@ -35,6 +35,7 @@ struct MyHostedShowsView: View {
                         AddEditShowView(viewTitleText: "Create Show", showToEdit: nil)
                     } label: {
                         Text("Tap here to create a show.")
+                            .italic()
                     }
                 }
                 .padding(.top)

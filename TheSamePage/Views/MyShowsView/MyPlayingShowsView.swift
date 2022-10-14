@@ -16,7 +16,7 @@ struct MyPlayingShowsView: View {
                 ScrollView {
                     ForEach(viewModel.playingShows) { show in
                         NavigationLink {
-                            ShowDetailsRootView(show: show)
+                            ShowDetailsView(show: show)
                         } label: {
                             LargeListRow(show: show, joinedShow: nil)
                         }

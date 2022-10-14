@@ -15,9 +15,14 @@ struct ShowSearchResultsList: View {
         List(viewModel.fetchedShows, id: \.document) { result in
             let show = result.document!
             
-            SearchResultRow(band: nil, user: nil, show: show)
+            NavigationLink {
+                ShowDetailsView(show: show)
+            } label: {
+                SearchResultRow(band: nil, user: nil, show: show)
+            }
         }
         .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
+        .autocorrectionDisabled(true)
         .onChange(of: viewModel.queryText) { query in
             if !query.isEmpty {
                 Task {

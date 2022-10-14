@@ -11,15 +11,28 @@ struct ShowDetailsTab: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
     
     var body: some View {
-        SectionTitle(title: "Details")
-            .padding(.vertical)
-        
-        ShowDetailsList(viewModel: viewModel)
+        VStack(spacing: 8) {
+            HStack {
+                Text(viewModel.showDescription)
+                    .padding(.bottom, 5)
+                
+                Spacer()
+            }
+            .padding(.horizontal)
+            
+            ShowDetailsList(viewModel: viewModel)
+        }
+        .padding(.top, 2)
     }
 }
 
 struct ShowDetailsTab_Previews: PreviewProvider {
     static var previews: some View {
-        ShowDetailsTab(viewModel: ShowDetailsViewModel(show: Show.example))
+        ZStack {
+            Color(uiColor: .systemGroupedBackground)
+                .ignoresSafeArea()
+            
+            ShowDetailsTab(viewModel: ShowDetailsViewModel(show: Show.example))
+        }
     }
 }

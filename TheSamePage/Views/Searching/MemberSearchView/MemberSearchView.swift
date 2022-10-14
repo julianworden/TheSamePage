@@ -30,6 +30,7 @@ struct MemberSearchView: View {
             }
         }
         .searchable(text: $viewModel.queryText)
+        .autocorrectionDisabled(true)
         .onChange(of: viewModel.queryText) { query in
             Task {
                 do {

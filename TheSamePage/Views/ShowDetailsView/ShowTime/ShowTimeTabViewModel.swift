@@ -25,6 +25,21 @@ class ShowTimeTabViewModel: ObservableObject {
     var formattedLoadInTime: String {
         showLoadInTime!.formatted(date: .omitted, time: .shortened)
     }
+    
+    var noShowTimesMessage: String {
+        if show.loggedInUserIsShowHost {
+            return "No times have been added to this show. Choose from the buttons above to add show times."
+        } else {
+            return "No times have been added to this show. Only the show's host can add times."
+        }
+    }
+    
+    var showHasTimes: Bool {
+        showDoorsTime != nil ||
+        showMusicStartTime != nil ||
+        showLoadInTime != nil ||
+        showEndTime != nil
+    }
        
     init(show: Show) {
         self.show = show

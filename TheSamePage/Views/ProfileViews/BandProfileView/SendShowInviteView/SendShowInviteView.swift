@@ -21,7 +21,10 @@ struct SendShowInviteView: View {
             Color(uiColor: .systemGroupedBackground)
                 .ignoresSafeArea()
             
-            if !viewModel.userShows.isEmpty {
+            switch viewModel.state {
+            case .loading:
+                ProgressView()
+            case .foundResults:
                 Form {
                     Picker("Which show would you like to invite \(viewModel.bandName) to?", selection: $viewModel.selectedShow) {
                         ForEach(viewModel.userShows) { show in
@@ -38,15 +41,16 @@ struct SendShowInviteView: View {
                         }
                     }
                 }
-                .navigationTitle("Show Invite")
-                .navigationBarTitleDisplayMode(.inline)
-            } else {
+            case .foundNoResults:
                 Text("You are not hosting any shows. You must be a show admin to invite bands to play. You can create a show in the My Shows tab.")
                     .italic()
                     .multilineTextAlignment(.center)
                     .padding(.horizontal)
             }
         }
+        .navigationTitle("Send Show Invite")
+        .navigationBarTitleDisplayMode(.inline)
+        
         .task {
             do {
                 try await viewModel.getHostedShows()

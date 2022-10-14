@@ -9,8 +9,7 @@ import SwiftUI
 
 struct ShowBacklineTab: View {
     var body: some View {
-        SectionTitle(title: "Backline")
-            .padding(.vertical)
+        Text("Hello World")
     }
 }
 

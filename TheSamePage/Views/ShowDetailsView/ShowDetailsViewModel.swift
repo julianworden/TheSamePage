@@ -25,9 +25,9 @@ class ShowDetailsViewModel: ObservableObject {
     let showMaxNumberOfBands: Int
     let showFormattedTicketPrice: String?
     @Published var showLineup = [ShowParticipant]()
-    @Published var selectedTab = SelectedShowDetailsTab.lineup
+    @Published var selectedTab = SelectedShowDetailsTab.details
     
-    var showSlotsRemaining: String {
+    var showSlotsRemainingMessage: String {
         let slotsRemainingCount = showMaxNumberOfBands - showLineup.count
         
         if slotsRemainingCount == 1 {

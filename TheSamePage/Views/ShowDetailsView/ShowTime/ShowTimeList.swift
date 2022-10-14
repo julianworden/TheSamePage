@@ -11,9 +11,6 @@ import SwiftUI
 struct ShowTimeList: View {
     @ObservedObject var viewModel: ShowTimeTabViewModel
     
-//    @Binding var selectedShowTimeType: ShowTimeType?
-//    @Binding var showTimeToEdit: Date?
-    
     var body: some View {
         VStack(spacing: 0) {
             if viewModel.showLoadInTime != nil {

@@ -15,9 +15,14 @@ struct BandSearchResultsList: View {
         List(viewModel.fetchedBands, id: \.document) { result in
             let band = result.document!
             
-            SearchResultRow(band: band, user: nil, show: nil)
+            NavigationLink {
+                BandProfileRootView(band: band, showParticipant: nil)
+            } label: {
+                SearchResultRow(band: band, user: nil, show: nil)
+            }
         }
         .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
+        .autocorrectionDisabled(true)
         .onChange(of: viewModel.queryText) { query in
             if !query.isEmpty {
                 Task {

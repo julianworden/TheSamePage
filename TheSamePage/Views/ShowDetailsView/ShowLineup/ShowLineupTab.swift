@@ -12,15 +12,17 @@ struct ShowLineupTab: View {
     
     var body: some View {
         HStack {
-            SectionTitle(title: "Lineup (\(viewModel.showSlotsRemaining))")
+            SectionTitle(title: viewModel.showSlotsRemainingMessage)
                 .padding(.vertical)
             
-            NavigationLink {
-                BandSearchView()
-            } label: {
-                Image(systemName: "plus")
+            if viewModel.show.loggedInUserIsShowHost {
+                NavigationLink {
+                    BandSearchView()
+                } label: {
+                    Image(systemName: "plus")
+                }
+                .padding(.trailing)
             }
-            .padding(.trailing)
         }
         
         ShowLineupList(viewModel: viewModel)

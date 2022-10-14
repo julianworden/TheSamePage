@@ -49,6 +49,7 @@ struct HomeShowCard: View {
                         
                         Spacer()
                         
+                        // TODO: Use a custom Date .formatted() extension for this instead
                         Text(TextUtility.formatDate(unixDate: viewModel.show.date))
                     }
                 }

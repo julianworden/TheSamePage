@@ -1,0 +1,62 @@
+//
+//  ShowDetailsView.swift
+//  TheSamePage
+//
+//  Created by Julian Worden on 9/19/22.
+//
+
+import SwiftUI
+
+struct ShowDetailsView: View {
+    @StateObject var viewModel: ShowDetailsViewModel
+    
+//    @State private var playThisShowSheetIsShowing = false
+    
+    init(show: Show) {
+        _viewModel = StateObject(wrappedValue: ShowDetailsViewModel(show: show))
+    }
+    
+    var body: some View {
+        ZStack {
+            Color(uiColor: .systemGroupedBackground)
+                .ignoresSafeArea()
+            
+            ScrollView {
+                ShowDetailsHeader(viewModel: viewModel)
+                
+                Picker("Select View", selection: $viewModel.selectedTab) {
+                    ForEach(SelectedShowDetailsTab.allCases) { tabName in
+                        Text(tabName.rawValue)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
+                
+                switch viewModel.selectedTab {
+                case .lineup:
+                    ShowLineupTab(viewModel: viewModel)
+                case .backline:
+                    ShowBacklineTab()
+                case .times:
+                    ShowTimeTab(show: viewModel.show)
+                case .location:
+                    ShowLocationTab()
+                case .details:
+                    ShowDetailsTab(viewModel: viewModel)
+                }
+            }
+        }
+        .navigationTitle("Show Details")
+        .navigationBarTitleDisplayMode(.inline)
+        
+    }
+}
+
+// TODO: Figure out why this preview crashes
+struct ShowDetailsRootView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            ShowDetailsView(show: Show.example)
+        }
+    }
+}

@@ -19,44 +19,20 @@ struct ShowTimeTab: View {
     
     var body: some View {
         VStack {
-            HStack {
-                // TODO: Make this scrollview a separate view
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        if viewModel.showDoorsTime == nil {
-                            Button("Add Doors Time") {
-                                selectedShowTimeType = .doors
-                            }
-                        }
-                        
-                        if viewModel.showEndTime == nil {
-                            Button("Add End Time") {
-                                selectedShowTimeType = .end
-                            }
-                        }
-                        
-                        if viewModel.showLoadInTime == nil {
-                            Button("Add Load In Time") {
-                                selectedShowTimeType = .loadIn
-                            }
-                        }
-                        
-                        if viewModel.showMusicStartTime == nil {
-                            Button("Add Music Start Time") {
-                                selectedShowTimeType = .musicStart
-                            }
-                        }
-                    }
-                    .buttonStyle(.borderedProminent)
-                }
-                
-                EditButton()
+            if viewModel.show.loggedInUserIsShowHost {
+                AddShowTimeButtons(viewModel: viewModel, selectedShowTimeType: $selectedShowTimeType)
             }
-            .padding(.horizontal)
             
-            ShowTimeList(viewModel: viewModel)
-                .padding(.horizontal)
+            if viewModel.showHasTimes {
+                ShowTimeList(viewModel: viewModel)
+            } else {
+                Text(viewModel.noShowTimesMessage)
+                    .italic()
+                    .multilineTextAlignment(.center)
+                    .padding(.top)
+            }
         }
+        .padding(.horizontal)
         .onAppear {
             do {
                 try viewModel.addShowTimesListener()
