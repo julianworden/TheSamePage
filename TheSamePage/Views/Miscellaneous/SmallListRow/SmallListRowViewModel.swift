@@ -8,10 +8,10 @@
 import Foundation
 
 class SmallListRowViewModel: ObservableObject {
-    let rowTitle: String
-    let displayChevron: Bool
-    var rowSubtitle: String?
-    var rowIconName: String?
+    @Published var rowTitle: String
+    @Published var displayChevron: Bool
+    @Published var rowSubtitle: String?
+    @Published var rowIconName: String?
     
     init(
         title: String,

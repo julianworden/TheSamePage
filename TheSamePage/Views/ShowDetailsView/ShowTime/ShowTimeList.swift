@@ -7,30 +7,35 @@
 
 import SwiftUI
 
+@MainActor
 struct ShowTimeList: View {
     @ObservedObject var viewModel: ShowTimeTabViewModel
     
+//    @Binding var selectedShowTimeType: ShowTimeType?
+//    @Binding var showTimeToEdit: Date?
+    
     var body: some View {
         VStack(spacing: 0) {
+            if viewModel.showLoadInTime != nil {
+                ShowTimeRow(viewModel: viewModel, showTimeType: .loadIn)
+            }
+                
+            if viewModel.showDoorsTime != nil {
+                ShowTimeRow(viewModel: viewModel, showTimeType: .doors)
+            }
+            
             if viewModel.showMusicStartTime != nil {
-                SmallListRow(title: "Music Start: \(viewModel.showMusicStartTime!.formatted(date: .omitted, time: .shortened))", subtitle: nil, iconName: "musicStart", displayChevron: false)
+                ShowTimeRow(viewModel: viewModel, showTimeType: .musicStart)
             }
             
             if viewModel.showEndTime != nil {
-                SmallListRow(title: "End: \(viewModel.showEndTime!.formatted(date: .omitted, time: .shortened))", subtitle: nil, iconName: "end", displayChevron: false)
-            }
-            
-            if viewModel.showLoadInTime != nil {
-                SmallListRow(title: "Load In: \(viewModel.showLoadInTime!.formatted(date: .omitted, time: .shortened))", subtitle: nil, iconName: "loadIn", displayChevron: false)
-            }
-            
-            if viewModel.showDoorsTime != nil {
-                SmallListRow(title: "Doors: \(viewModel.showDoorsTime!.formatted(date: .omitted, time: .shortened))", subtitle: nil, iconName: "doors", displayChevron: false)
+                ShowTimeRow(viewModel: viewModel, showTimeType: .end)
             }
         }
     }
 }
 
+    
 struct ShowTimeList_Previews: PreviewProvider {
     static var previews: some View {
         ShowTimeList(viewModel: ShowTimeTabViewModel(show: Show.example))

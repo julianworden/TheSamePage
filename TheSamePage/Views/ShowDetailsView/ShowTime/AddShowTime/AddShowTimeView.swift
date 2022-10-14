@@ -1,4 +1,4 @@
-//
+
 //  AddShowTimeView.swift
 //  TheSamePage
 //
@@ -7,20 +7,20 @@
 
 import SwiftUI
 
-struct AddEditShowTimeView: View {
+struct AddShowTimeView: View {
     @Environment(\.dismiss) var dismiss
     
-    @StateObject var viewModel: AddEditShowTimeViewModel
+    @StateObject var viewModel: AddShowTimeViewModel
     
-    init(show: Show, showTimeType: ShowTimeType, showTimeToEdit: Date?) {
-        _viewModel = StateObject(wrappedValue: AddEditShowTimeViewModel(show: show, showTimeType: showTimeType, showTimeToEdit: showTimeToEdit))
+    init(show: Show, showTimeType: ShowTimeType) {
+        _viewModel = StateObject(wrappedValue: AddShowTimeViewModel(show: show, showTimeType: showTimeType))
     }
     
     var body: some View {
         Form {
-            DatePicker("Add \(viewModel.showTimeType.rawValue) Time:", selection: $viewModel.showTime, displayedComponents: .hourAndMinute)
+            DatePicker("\(viewModel.showTimeType.rawValue) Time", selection: $viewModel.showTime, displayedComponents: .hourAndMinute)
         }
-        .navigationTitle(viewModel.showTimeToEdit == nil ? "Add Time" : "Edit Time")
+        .navigationTitle("Edit Show Time")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -48,6 +48,6 @@ struct AddEditShowTimeView: View {
 
 struct AddShowTimeView_Previews: PreviewProvider {
     static var previews: some View {
-        AddEditShowTimeView(show: Show.example, showTimeType: .loadIn, showTimeToEdit: nil)
+        AddShowTimeView(show: Show.example, showTimeType: .loadIn)
     }
 }

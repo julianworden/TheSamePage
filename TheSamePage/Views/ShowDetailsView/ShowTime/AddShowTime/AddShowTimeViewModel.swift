@@ -1,5 +1,5 @@
 //
-//  AddEditShowTimeViewModel.swift
+//  AddShowTimeViewModel.swift
 //  TheSamePage
 //
 //  Created by Julian Worden on 10/12/22.
@@ -7,20 +7,15 @@
 
 import Foundation
 
-class AddEditShowTimeViewModel: ObservableObject {
+class AddShowTimeViewModel: ObservableObject {
     @Published var showTime = Date()
     
     let show: Show
-    var showTimeToEdit: Date?
     var showTimeType: ShowTimeType
     
-    init(show: Show, showTimeType: ShowTimeType, showTimeToEdit: Date?) {
+    init(show: Show, showTimeType: ShowTimeType) {
         self.show = show
         self.showTimeType = showTimeType
-        
-        if let showTimeToEdit {
-            self.showTime = showTimeToEdit
-        }
     }
     
     func addShowTime(ofType showTimeType: ShowTimeType) async throws {

@@ -391,10 +391,27 @@ class DatabaseService {
             case .doors:
                 try await db.collection("shows").document(show.id!).updateData(["doorsTime": time.timeIntervalSince1970])
             }
-            
-            print(time.formatted())
         } catch {
             throw DatabaseServiceError.firestoreError(message: "Failed to add time to show in in DatabaseService.addTimeToShow(addTime:ofType:forShow)")
+        }
+    }
+    
+    func deleteTimeFromShow(delete showTimeType: ShowTimeType, fromShow show: Show) async throws {
+        guard show.id != nil else { throw DatabaseServiceError.unexpectedNilValue(value: "show.id in DatabaseService.deleteTimeFromShow(delete:fromShow:)")}
+        
+        do {
+            switch showTimeType {
+            case .loadIn:
+                try await db.collection("shows").document(show.id!).updateData(["loadInTime": FieldValue.delete()])
+            case .musicStart:
+                try await db.collection("shows").document(show.id!).updateData(["musicStartTime": FieldValue.delete()])
+            case .end:
+                try await db.collection("shows").document(show.id!).updateData(["endTime": FieldValue.delete()])
+            case .doors:
+                try await db.collection("shows").document(show.id!).updateData(["doorsTime": FieldValue.delete()])
+            }
+        } catch {
+            throw DatabaseServiceError.firestoreError(message: "Failed to delete show time in DatabaseService.deleteTimeFromShow(delete:fromShow:)")
         }
     }
     

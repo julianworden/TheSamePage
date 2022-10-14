@@ -5,18 +5,48 @@
 //  Created by Julian Worden on 10/12/22.
 //
 
+import FirebaseFirestore
 import Foundation
 
+@MainActor
 class ShowTimeTabViewModel: ObservableObject {
+    enum ShowTimeTabViewModelError: Error {
+        case unexpectedNilValue(value: String)
+    }
+    
     let show: Show
-    var showDoorsTime: Date?
-    var showMusicStartTime: Date?
-    var showLoadInTime: Date?
-    var showEndTime: Date?
+    @Published var showDoorsTime: Date?
+    @Published var showMusicStartTime: Date?
+    @Published var showLoadInTime: Date?
+    @Published var showEndTime: Date?
+    
+    var showTimeListener: ListenerRegistration?
+    
+    var formattedLoadInTime: String {
+        showLoadInTime!.formatted(date: .omitted, time: .shortened)
+    }
        
     init(show: Show) {
         self.show = show
+    }
+    
+    func addShowTimesListener() throws {
+        guard show.id != nil else { throw ShowTimeTabViewModelError.unexpectedNilValue(value: "show.id in ShowTimeTabViewModel.addShowTimesListener()") }
         
+        showTimeListener = DatabaseService.shared.db.collection("shows").document(show.id!).addSnapshotListener { snapshot, error in
+            if snapshot != nil && error == nil {
+                let updatedShow = try? snapshot?.data(as: Show.self)
+                if let updatedShow {
+                    self.initializeShowTimes(forShow: updatedShow)
+
+                } else {
+                    print("Error in ShowTimeTabViewModel.addShowTimesListener()")
+                }
+            }
+        }
+    }
+    
+    func initializeShowTimes(forShow show: Show) {
         if let showDoorsTime = show.doorsTime {
             self.showDoorsTime = Date(timeIntervalSince1970: showDoorsTime)
         }
@@ -32,5 +62,53 @@ class ShowTimeTabViewModel: ObservableObject {
         if let showEndTime = show.endTime {
             self.showEndTime = Date(timeIntervalSince1970: showEndTime)
         }
+    }
+    
+    func removeShowTimeFromShow(showTimeType: ShowTimeType) {
+        Task {
+            do {
+                try await DatabaseService.shared.deleteTimeFromShow(delete: showTimeType, fromShow: show)
+                
+                switch showTimeType {
+                case .loadIn:
+                    showLoadInTime = nil
+                case .musicStart:
+                    showMusicStartTime = nil
+                case .end:
+                    showEndTime = nil
+                case .doors:
+                    showDoorsTime = nil
+                }
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func getRowText(forShowTimeType showTimeType: ShowTimeType) -> String? {
+        switch showTimeType {
+        case .loadIn:
+            if showLoadInTime != nil {
+                return "\(showTimeType.rowTitleText) \(showLoadInTime!.timeShortened)"
+            }
+        case .musicStart:
+            if showMusicStartTime != nil {
+                return "\(showTimeType.rowTitleText) \(showMusicStartTime!.timeShortened)"
+            }
+        case .end:
+            if showEndTime != nil {
+                return "\(showTimeType.rowTitleText) \(showEndTime!.timeShortened)"
+            }
+        case .doors:
+            if showDoorsTime != nil {
+                return "\(showTimeType.rowTitleText) \(showDoorsTime!.timeShortened)"
+            }
+        }
+        
+        return nil
+    }
+    
+    func removeShowTimesListener() {
+        showTimeListener?.remove()
     }
 }
