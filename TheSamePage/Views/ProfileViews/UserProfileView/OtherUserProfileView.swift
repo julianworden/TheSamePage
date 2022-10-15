@@ -10,6 +10,8 @@ import SwiftUI
 struct OtherUserProfileView: View {
     @StateObject var viewModel: UserProfileRootViewModel
     
+    @State private var sendBandInviteViewIsShowing = false
+    
     init(user: User?, bandMember: BandMember?) {
         _viewModel = StateObject(wrappedValue: UserProfileRootViewModel(user: user, bandMember: bandMember))
     }
@@ -29,23 +31,23 @@ struct OtherUserProfileView: View {
                     }
                     
                     HStack {
-                        NavigationLink {
-                            if viewModel.user != nil {
-                                SendBandInviteView(user: viewModel.user!)
+                        if viewModel.user != nil {
+                            Button {
+                                sendBandInviteViewIsShowing = true
+                            } label: {
+                                HStack {
+                                    Image(systemName: "envelope")
+                                    Text("Invite to Band")
+                                }
                             }
-                        } label: {
-                            HStack {
-                                Image(systemName: "envelope")
-                                Text("Invite to Band")
-                            }
-                        }
-                        
-                        NavigationLink {
-                            EmptyView()
-                        } label: {
-                            HStack {
-                                Image(systemName: "message")
-                                Text("Chat")
+                            
+                            NavigationLink {
+                                EmptyView()
+                            } label: {
+                                HStack {
+                                    Image(systemName: "message")
+                                    Text("Chat")
+                                }
                             }
                         }
                     }
@@ -59,6 +61,12 @@ struct OtherUserProfileView: View {
             }
         }
         .navigationTitle("\(viewModel.firstName ?? "User Profile") \(viewModel.lastName ?? "")")
+        .sheet(isPresented: $sendBandInviteViewIsShowing) {
+            // Force unwrap is safe because the button that shows this sheet is already checking if user is nil
+            NavigationView {
+                SendBandInviteView(user: viewModel.user!)
+            }
+        }
     }
 }
 

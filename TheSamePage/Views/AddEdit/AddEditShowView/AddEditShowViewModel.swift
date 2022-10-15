@@ -5,8 +5,9 @@
 //  Created by Julian Worden on 9/18/22.
 //
 
+import Contacts
 import FirebaseFirestore
-import Foundation
+import MapKit
 import UIKit.UIImage
 
 class AddEditShowViewModel: ObservableObject {
@@ -27,6 +28,11 @@ class AddEditShowViewModel: ObservableObject {
     @Published var showHasBar = false
     @Published var showHasFood = false
     
+    @Published var queryText = ""
+    @Published var addressSearchResults = [CLPlacemark]()
+    var showAddress: String?
+    var search: MKLocalSearch?
+    
     init(viewTitleText: String, showToEdit: Show?) {
         self.showToEdit = showToEdit
         self.viewTitleText = viewTitleText
@@ -41,6 +47,28 @@ class AddEditShowViewModel: ObservableObject {
     func decrementMaxNumberOfBands() {
         if showMaxNumberOfBands > 1 {
             showMaxNumberOfBands -= 1
+        }
+    }
+    
+    func search(withText text: String) async throws {
+        let searchRequest = MKLocalSearch.Request()
+        if let userRegion = LocationController.shared.userRegion {
+            searchRequest.region = userRegion
+        }
+        
+        searchRequest.naturalLanguageQuery = text
+        
+        search = MKLocalSearch(request: searchRequest)
+        
+        do {
+            let response = try await search!.start()
+            
+            Task { @MainActor in
+                addressSearchResults = response.mapItems.map { $0.placemark }
+                search?.cancel()
+            }
+        } catch {
+            print("\(error) search failed")
         }
     }
     

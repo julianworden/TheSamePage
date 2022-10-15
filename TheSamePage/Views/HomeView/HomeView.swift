@@ -26,6 +26,7 @@ struct HomeView: View {
             }
             .navigationTitle("Shows Near You")
             .onAppear {
+                LocationController.shared.startLocationServices()	
                 showsController.getShows()
             }
         }

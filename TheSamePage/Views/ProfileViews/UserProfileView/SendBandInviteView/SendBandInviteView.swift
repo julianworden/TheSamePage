@@ -41,7 +41,7 @@ struct SendBandInviteView: View {
                     }
                 }
             }
-            .navigationTitle("Band Invite")
+            .navigationTitle("Send Band Invite")
             .navigationBarTitleDisplayMode(.inline)
         } else {
             Text("You are not the admin for any bands. You can only invite others to join your band if you are the band admin.")

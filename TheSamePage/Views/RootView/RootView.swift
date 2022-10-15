@@ -23,24 +23,25 @@ struct RootView: View {
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
                 }
+                .tag(1)
             
             MyShowsRootView()
                 .tabItem {
                     Label("My Shows", systemImage: "music.mic")
                 }
-                .tag(1)
+                .tag(2)
             
             NotificationsView()
                 .tabItem {
                     Label("Notifications", systemImage: "bell")
                 }
-                .tag(2)
+                .tag(3)
             
             UserProfileRootView(user: nil, bandMember: nil, userIsLoggedOut: $userIsOnboarding, selectedTab: $selectedTab)
                 .tabItem {
                     Label("Profile", systemImage: "person")
                 }
-                .tag(3)
+                .tag(4)
         }
         .navigationBarHidden(true)
         .fullScreenCover(isPresented: $userIsOnboarding) {

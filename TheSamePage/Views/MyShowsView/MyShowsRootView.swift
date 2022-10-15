@@ -52,6 +52,9 @@ struct MyShowsRootView: View {
                 }
             }
         }
+        // If this isn't set, dismissing the AddEditShowAddressView with @EnvironmentObject(\.dismiss)
+        // causes the UI to freeze. I have no idea why.
+        .navigationViewStyle(.stack)
     }
 }
 

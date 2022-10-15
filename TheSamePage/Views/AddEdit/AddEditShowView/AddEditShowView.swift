@@ -13,6 +13,7 @@ struct AddEditShowView: View {
     @StateObject var viewModel: AddEditShowViewModel
     
     @State var showImage: UIImage?
+    @State private var showAddress: String?
     
     @State private var imagePickerIsShowing = false
     @State private var bandSearchSheetIsShowing = false
@@ -36,6 +37,21 @@ struct AddEditShowView: View {
                     }
                 }
                 DatePicker("Date", selection: $viewModel.showDate, in: viewModel.showDate..., displayedComponents: .date)
+            }
+            
+            Section("Address") {
+                if let showAddress = viewModel.showAddress {
+                    Text(showAddress)
+                } else {
+                    Text("No show address selected")
+                        .italic()
+                }
+                
+                NavigationLink {
+                    AddEditShowAddressView(viewModel: viewModel, showAddress: $showAddress)
+                } label: {
+                    Text("Select Address")
+                }
             }
             
             Section("Description") {
