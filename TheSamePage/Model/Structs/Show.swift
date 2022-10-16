@@ -5,7 +5,7 @@
 //  Created by Julian Worden on 9/15/22.
 //
 
-import CoreLocation
+import MapKit
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
@@ -28,13 +28,13 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     let ticketPrice: Double?
     let ticketSalesAreRequired: Bool
     let minimumRequiredTicketsSold: Int?
-    let addressIsPubliclyVisible: Bool
+    let addressIsPrivate: Bool
     let address: String
     let city: String
     let state: String
-    let latitude: Double?
-    let longitude: Double?
-    let geohash: String?
+    let latitude: Double
+    let longitude: Double
+    let geohash: String
     let imageUrl: String?
     let hasFood: Bool
     let hasBar: Bool
@@ -56,13 +56,13 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
          ticketPrice: Double? = nil,
          ticketSalesAreRequired: Bool,
          minimumRequiredTicketsSold: Int? = nil,
-         addressIsPubliclyVisible: Bool,
+         addressIsPrivate: Bool,
          address: String,
          city: String,
          state: String,
-         latitude: Double?,
-         longitude: Double?,
-         geohash: String?,
+         latitude: Double,
+         longitude: Double,
+         geohash: String,
          imageUrl: String? = nil,
          hasFood: Bool,
          hasBar: Bool,
@@ -86,7 +86,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         self.ticketPrice = ticketPrice
         self.ticketSalesAreRequired = ticketSalesAreRequired
         self.minimumRequiredTicketsSold = minimumRequiredTicketsSold
-        self.addressIsPubliclyVisible = addressIsPubliclyVisible
+        self.addressIsPrivate = addressIsPrivate
         self.address = address
         self.city = city
         self.state = state
@@ -122,22 +122,39 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         return participantUids.contains(AuthController.getLoggedInUid())
     }
     
-    var showLocation: CLLocation? {
-        if let latitude,
-           let longitude {
-                return CLLocation(latitude: latitude, longitude: longitude)
+    var loggedInUserIsNotInvolvedInShow: Bool {
+        return !loggedInUserIsShowHost && !loggedInUserIsShowParticipant
+    }
+    
+    var loggedInUserIsInvolvedInShow: Bool {
+        return loggedInUserIsShowHost || loggedInUserIsShowParticipant
+    }
+    
+    var addressIsVisibleToUser: Bool {
+        return loggedInUserIsInvolvedInShow || !addressIsPrivate
+    }
+    
+    var distanceFromUser: String? {
+        if let userLocation = LocationController.shared.userLocation {
+            let distanceInMeters = location.distance(from: userLocation)
+            let measurementInMeters = Measurement(value: distanceInMeters, unit: UnitLength.meters)
+            let formatter = MKDistanceFormatter()
+            return formatter.string(fromDistance: measurementInMeters.value)
         } else {
-                return nil
+            return nil
         }
     }
     
-    var showCoordinates: CLLocationCoordinate2D? {
-        if let latitude,
-           let longitude {
-                return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        } else {
-                return nil
-        }
+    var location: CLLocation {
+        return CLLocation(latitude: latitude, longitude: longitude)
+    }
+    
+    var coordinates: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
+    
+    var region: MKCoordinateRegion {
+        return MKCoordinateRegion(center: coordinates, latitudinalMeters: 500, longitudinalMeters: 500)
     }
     
     static let example = Show(
@@ -150,7 +167,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         ticketPrice: 100,
         ticketSalesAreRequired: true,
         minimumRequiredTicketsSold: 20,
-        addressIsPubliclyVisible: true,
+        addressIsPrivate: true,
         address: "4 Shorebrook Circle, Neptune NJ, 07753",
         city: "Neptune",
         state: "NJ",

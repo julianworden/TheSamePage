@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MapKit
 
 class ShowDetailsViewModel: ObservableObject {
     let show: Show
@@ -24,6 +25,8 @@ class ShowDetailsViewModel: ObservableObject {
     let showIs21Plus: Bool
     let showMaxNumberOfBands: Int
     let showFormattedTicketPrice: String?
+    let showState: String
+    let showCity: String
     @Published var showLineup = [ShowParticipant]()
     @Published var selectedTab = SelectedShowDetailsTab.details
     
@@ -54,6 +57,8 @@ class ShowDetailsViewModel: ObservableObject {
         self.showIs21Plus = show.is21Plus
         self.showFormattedTicketPrice = show.formattedTicketPrice
         self.showMaxNumberOfBands = show.maxNumberOfBands
+        self.showState = show.state
+        self.showCity = show.city
         
         Task {
             do {

@@ -39,6 +39,20 @@ struct AddEditShowView: View {
                 DatePicker("Date", selection: $viewModel.showDate, in: viewModel.showDate..., displayedComponents: .date)
             }
             
+            Section("Description") {
+                TextEditor(text: $viewModel.showDescription)
+            }
+            
+            Section {
+                Stepper {
+                    Text("Max Number of Bands: \(viewModel.showMaxNumberOfBands)")
+                } onIncrement: {
+                    viewModel.incrementMaxNumberOfBands()
+                } onDecrement: {
+                    viewModel.decrementMaxNumberOfBands()
+                }
+            }
+            
             Section {
                 if let showAddress = viewModel.showAddress {
                     Text(showAddress)
@@ -58,20 +72,6 @@ struct AddEditShowView: View {
                 Text("Address")
             } footer: {
                 Text(viewModel.publiclyVisibleAddressExplanation)
-            }
-            
-            Section("Description") {
-                TextEditor(text: $viewModel.showDescription)
-            }
-            
-            Section {
-                Stepper {
-                    Text("Max Number of Bands: \(viewModel.showMaxNumberOfBands)")
-                } onIncrement: {
-                    viewModel.incrementMaxNumberOfBands()
-                } onDecrement: {
-                    viewModel.decrementMaxNumberOfBands()
-                }
             }
             
             Section {

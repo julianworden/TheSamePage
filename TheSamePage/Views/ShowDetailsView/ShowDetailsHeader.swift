@@ -19,18 +19,16 @@ struct ShowDetailsHeader: View {
                     .font(.title.bold())
                     .multilineTextAlignment(.center)
                 
-                // TODO: Stop hard coding the show address
-                Text("\(viewModel.showVenue) | Sayreville, NJ")
+                Text("\(viewModel.showVenue) | \(viewModel.showCity), \(viewModel.showState)")
                     .font(.title2)
                 
-                // TODO: Make time dynamic depending on what time is soonest
                 if let showDate = viewModel.showDate {
                     Text("\(showDate)")
                         .font(.title2)
                 }
                 
                 // I'd like for this to be a sheet instead, but when I do this I get unexpected navigation behavior
-                if !viewModel.show.loggedInUserIsShowHost && !viewModel.show.loggedInUserIsShowParticipant {
+                if viewModel.show.loggedInUserIsNotInvolvedInShow {
                     NavigationLink {
                         EmptyView()
                     } label: {

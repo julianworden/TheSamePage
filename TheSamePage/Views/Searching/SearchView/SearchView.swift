@@ -25,7 +25,7 @@ struct SearchView: View {
                     .pickerStyle(.segmented)
                     .padding(.horizontal)
                     
-                    if viewModel.searchType == .user{
+                    if viewModel.searchType == .user {
                         UserSearchResultsList(viewModel: viewModel)
                     }
                     

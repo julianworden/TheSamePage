@@ -40,7 +40,7 @@ struct ShowDetailsView: View {
                 case .times:
                     ShowTimeTab(show: viewModel.show)
                 case .location:
-                    ShowLocationTab()
+                    ShowLocationTab(show: viewModel.show)
                 case .details:
                     ShowDetailsTab(viewModel: viewModel)
                 }

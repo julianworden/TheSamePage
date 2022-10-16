@@ -29,9 +29,9 @@ class AddEditShowViewModel: ObservableObject {
     var showAddress: String?
     var showCity: String?
     var showState: String?
-    var showLatitude: Double?
-    var showLongitude: Double?
-    var showGeohash: String?
+    var showLatitude: Double = 0
+    var showLongitude: Double = 0
+    var showGeohash = ""
     var addressSearch: MKLocalSearch?
     
     @Published var ticketPrice = ""
@@ -117,7 +117,7 @@ class AddEditShowViewModel: ObservableObject {
                 ticketPrice: Double(ticketPrice),
                 ticketSalesAreRequired: ticketSalesAreRequired,
                 minimumRequiredTicketsSold: Int(minimumRequiredTicketsSold),
-                addressIsPubliclyVisible: addressIsPubliclyVisible,
+                addressIsPrivate: addressIsPubliclyVisible,
                 address: showAddress ?? "Unknown Address",
                 city: showCity ?? "Unknown City",
                 state: showState ?? "Unknown State",
@@ -142,7 +142,7 @@ class AddEditShowViewModel: ObservableObject {
                 ticketPrice: Double(ticketPrice),
                 ticketSalesAreRequired: ticketSalesAreRequired,
                 minimumRequiredTicketsSold: Int(minimumRequiredTicketsSold),
-                addressIsPubliclyVisible: addressIsPubliclyVisible,
+                addressIsPrivate: addressIsPubliclyVisible,
                 address: showAddress ?? "Unknown Address",
                 city: showCity ?? "Unknown City",
                 state: showState ?? "Unknown State",
