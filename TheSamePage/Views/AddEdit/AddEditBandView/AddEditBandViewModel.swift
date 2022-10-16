@@ -40,7 +40,6 @@ class AddEditBandViewModel: ObservableObject {
                 bio: bandBio,
                 profileImageUrl: profileImageUrl,
                 adminUid: AuthController.getLoggedInUid(),
-                memberUids: [],
                 genre: bandGenre.rawValue,
                 city: bandCity,
                 state: bandState.rawValue
@@ -50,9 +49,7 @@ class AddEditBandViewModel: ObservableObject {
             newBand = Band(
                 name: bandName,
                 bio: bandBio,
-                profileImageUrl: nil,
                 adminUid: AuthController.getLoggedInUid(),
-                memberUids: [],
                 genre: bandGenre.rawValue,
                 city: bandCity,
                 state: bandState.rawValue

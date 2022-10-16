@@ -25,6 +25,7 @@ class SignUpViewModel: ObservableObject {
     @Published var password = ""
     @Published var firstName = ""
     @Published var lastName = ""
+    @Published var phoneNumber: String?
     @Published var userIsInABand = false
     
     /// Creates and registers a user in Firebase Auth with the email address and password entered by the user.
@@ -51,7 +52,7 @@ class SignUpViewModel: ObservableObject {
                 firstName: firstName,
                 lastName: lastName,
                 profileImageUrl: imageUrl,
-                phoneNumber: nil,
+                phoneNumber: phoneNumber,
                 emailAddress: emailAddress
             )
         } else {
@@ -60,8 +61,7 @@ class SignUpViewModel: ObservableObject {
                 username: username,
                 firstName: firstName,
                 lastName: lastName,
-                profileImageUrl: nil,
-                phoneNumber: nil,
+                phoneNumber: phoneNumber,
                 emailAddress: emailAddress
             )
         }

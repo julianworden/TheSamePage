@@ -39,7 +39,7 @@ struct AddEditShowView: View {
                 DatePicker("Date", selection: $viewModel.showDate, in: viewModel.showDate..., displayedComponents: .date)
             }
             
-            Section("Address") {
+            Section {
                 if let showAddress = viewModel.showAddress {
                     Text(showAddress)
                 } else {
@@ -52,6 +52,12 @@ struct AddEditShowView: View {
                 } label: {
                     Text("Select Address")
                 }
+                
+                Toggle("Publicly display show address", isOn: $viewModel.addressIsPubliclyVisible)
+            } header: {
+                Text("Address")
+            } footer: {
+                Text(viewModel.publiclyVisibleAddressExplanation)
             }
             
             Section("Description") {

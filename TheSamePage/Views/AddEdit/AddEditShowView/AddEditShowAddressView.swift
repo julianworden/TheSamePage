@@ -20,8 +20,7 @@ struct AddEditShowAddressView: View {
                 Button {
                     // Done this way to avoid a "Publishing changes from view updates is not allowed" runtime error"
                     showAddress = address
-                    viewModel.showAddress = address
-                    // TODO: Call and make a function in the viewModel for setting latitude and longitude and generating a geohash for the selected location
+                    viewModel.setShowLocationInfo(withPlacemark: placemark)
                     dismiss()
                 } label: {
                     VStack(alignment: .leading) {
@@ -49,7 +48,7 @@ struct AddEditShowAddressView: View {
             }
         }
         .onDisappear {
-            viewModel.search?.cancel()
+            viewModel.addressSearch?.cancel()
             viewModel.queryText = ""
         }
     }

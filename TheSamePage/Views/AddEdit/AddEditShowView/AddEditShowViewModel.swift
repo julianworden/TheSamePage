@@ -7,6 +7,7 @@
 
 import Contacts
 import FirebaseFirestore
+import GeoFireUtils
 import MapKit
 import UIKit.UIImage
 
@@ -21,6 +22,18 @@ class AddEditShowViewModel: ObservableObject {
     @Published var showGenre = Genre.rock
     @Published var showMaxNumberOfBands = 1
     @Published var showDate = Date()
+    
+    @Published var queryText = ""
+    @Published var addressSearchResults = [CLPlacemark]()
+    @Published var addressIsPubliclyVisible = true
+    var showAddress: String?
+    var showCity: String?
+    var showState: String?
+    var showLatitude: Double?
+    var showLongitude: Double?
+    var showGeohash: String?
+    var addressSearch: MKLocalSearch?
+    
     @Published var ticketPrice = ""
     @Published var ticketSalesAreRequired = false
     @Published var minimumRequiredTicketsSold = ""
@@ -28,10 +41,13 @@ class AddEditShowViewModel: ObservableObject {
     @Published var showHasBar = false
     @Published var showHasFood = false
     
-    @Published var queryText = ""
-    @Published var addressSearchResults = [CLPlacemark]()
-    var showAddress: String?
-    var search: MKLocalSearch?
+    var publiclyVisibleAddressExplanation: String {
+        if addressIsPubliclyVisible {
+            return "Anybody can see this show's address"
+        } else {
+            return "Anybody can see this show's city and state, but only this show's participants can see the full address"
+        }
+    }
     
     init(viewTitleText: String, showToEdit: Show?) {
         self.showToEdit = showToEdit
@@ -58,23 +74,37 @@ class AddEditShowViewModel: ObservableObject {
         
         searchRequest.naturalLanguageQuery = text
         
-        search = MKLocalSearch(request: searchRequest)
+        addressSearch = MKLocalSearch(request: searchRequest)
         
         do {
-            let response = try await search!.start()
+            let response = try await addressSearch!.start()
             
             Task { @MainActor in
                 addressSearchResults = response.mapItems.map { $0.placemark }
-                search?.cancel()
+                addressSearch?.cancel()
             }
         } catch {
             print("\(error) search failed")
         }
     }
     
+    func setShowLocationInfo(withPlacemark placemark: CLPlacemark) {
+        if let showLatitude = placemark.location?.coordinate.latitude,
+           let showLongitude = placemark.location?.coordinate.longitude {
+                let showCoordinates = CLLocationCoordinate2D(latitude: showLatitude, longitude: showLongitude)
+                self.showLatitude = showLatitude
+                self.showLongitude = showLongitude
+                showGeohash = GFUtils.geoHash(forLocation: showCoordinates)
+        }
+        
+        showAddress = placemark.formattedAddress
+        showCity = placemark.postalAddress?.city
+        showState = placemark.postalAddress?.state
+    }
+    
     func createShow(withImage image: UIImage?) async throws {
         var newShow: Show
-        
+
         if let image {
             let imageUrl = try await DatabaseService.shared.uploadImage(image: image)
             newShow = Show(
@@ -82,17 +112,18 @@ class AddEditShowViewModel: ObservableObject {
                 description: showDescription,
                 host: showHostName,
                 hostUid: AuthController.getLoggedInUid(),
-                bandIds: [],
-                participantUids: [],
                 venue: showVenue,
                 date: showDate.timeIntervalSince1970,
-                loadInTime: nil,
-                doorsTime: nil,
-                musicStartTime: nil,
-                endTime: nil,
                 ticketPrice: Double(ticketPrice),
                 ticketSalesAreRequired: ticketSalesAreRequired,
                 minimumRequiredTicketsSold: Int(minimumRequiredTicketsSold),
+                addressIsPubliclyVisible: addressIsPubliclyVisible,
+                address: showAddress ?? "Unknown Address",
+                city: showCity ?? "Unknown City",
+                state: showState ?? "Unknown State",
+                latitude: showLatitude,
+                longitude: showLongitude,
+                geohash: showGeohash,
                 imageUrl: imageUrl,
                 hasFood: showHasFood,
                 hasBar: showHasBar,
@@ -106,18 +137,18 @@ class AddEditShowViewModel: ObservableObject {
                 description: showDescription,
                 host: showHostName,
                 hostUid: AuthController.getLoggedInUid(),
-                bandIds: [],
-                participantUids: [],
                 venue: showVenue,
                 date: showDate.timeIntervalSince1970,
-                loadInTime: nil,
-                doorsTime: nil,
-                musicStartTime: nil,
-                endTime: nil,
                 ticketPrice: Double(ticketPrice),
                 ticketSalesAreRequired: ticketSalesAreRequired,
                 minimumRequiredTicketsSold: Int(minimumRequiredTicketsSold),
-                imageUrl: nil,
+                addressIsPubliclyVisible: addressIsPubliclyVisible,
+                address: showAddress ?? "Unknown Address",
+                city: showCity ?? "Unknown City",
+                state: showState ?? "Unknown State",
+                latitude: showLatitude,
+                longitude: showLongitude,
+                geohash: showGeohash,
                 hasFood: showHasFood,
                 hasBar: showHasBar,
                 is21Plus: showIs21Plus,

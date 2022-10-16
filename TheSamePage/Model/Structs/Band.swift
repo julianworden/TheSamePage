@@ -20,6 +20,28 @@ struct Band: Codable, Equatable, Hashable, Identifiable {
     let city: String
     let state: String
     
+    init(
+        id: String? = nil,
+        name: String,
+        bio: String? = nil,
+        profileImageUrl: String? = nil,
+        adminUid: String,
+        memberUids: [String] = [],
+        genre: String,
+        city: String,
+        state: String
+    ) {
+        self.id = id
+        self.name = name
+        self.bio = bio
+        self.profileImageUrl = profileImageUrl
+        self.adminUid = adminUid
+        self.memberUids = memberUids
+        self.genre = genre
+        self.city = city
+        self.state = state
+    }
+    
     var loggedInUserIsBandAdmin: Bool {
         return adminUid == AuthController.getLoggedInUid()
     }
@@ -31,9 +53,7 @@ struct Band: Codable, Equatable, Hashable, Identifiable {
     static let example = Band(
         name: "Pathetic Fallacy",
         bio: "A bangin metalcore band from New Jersey. We will slay all the shows. ALL OF THEM!!! Nobody will be spared, not even your mom.",
-        profileImageUrl: nil,
-        adminUid: "",
-        memberUids: [],
+        adminUid: "sdfadgasergawergae",
         genre: Genre.rock.rawValue,
         city: "Neptune",
         state: "NJ"

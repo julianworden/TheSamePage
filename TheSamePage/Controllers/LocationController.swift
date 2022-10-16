@@ -45,7 +45,4 @@ final class LocationController: NSObject, ObservableObject, CLLocationManagerDel
             break
         }
     }
-    
-    // TODO: Move this to whatever screen I use to search for a location
-    
 }

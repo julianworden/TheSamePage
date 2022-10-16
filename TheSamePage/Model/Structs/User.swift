@@ -18,6 +18,24 @@ struct User: Codable, Equatable, Hashable, Identifiable {
     let phoneNumber: String?
     let emailAddress: String
     
+    init(
+        id: String? = nil,
+        username: String,
+        firstName: String,
+        lastName: String,
+        profileImageUrl: String? = nil,
+        phoneNumber: String? = nil,
+        emailAddress: String
+    ) {
+        self.id = id
+        self.username = username
+        self.firstName = firstName
+        self.lastName = lastName
+        self.profileImageUrl = profileImageUrl
+        self.phoneNumber = phoneNumber
+        self.emailAddress = emailAddress
+    }
+    
     static let example = User(
         username: "julianworden",
         firstName: "Julian",
