@@ -46,9 +46,7 @@ class ShowTimeTabViewModel: ObservableObject {
     }
     
     func addShowTimesListener() throws {
-        guard show.id != nil else { throw ShowTimeTabViewModelError.unexpectedNilValue(value: "show.id in ShowTimeTabViewModel.addShowTimesListener()") }
-        
-        showTimeListener = DatabaseService.shared.db.collection("shows").document(show.id!).addSnapshotListener { snapshot, error in
+        showTimeListener = DatabaseService.shared.db.collection("shows").document(show.id).addSnapshotListener { snapshot, error in
             if snapshot != nil && error == nil {
                 let updatedShow = try? snapshot?.data(as: Show.self)
                 if let updatedShow {

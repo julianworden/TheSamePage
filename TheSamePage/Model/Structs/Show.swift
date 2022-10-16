@@ -12,7 +12,7 @@ import Foundation
 
 // TODO: Create individual properties for location
 struct Show: Codable, Equatable, Hashable, Identifiable {
-    var id: String?
+    let id: String
     let name: String
     let description: String?
     let host: String
@@ -42,7 +42,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     let genre: String
     let maxNumberOfBands: Int
     
-    init(id: String? = nil,
+    init(id: String,
          name: String,
          description: String? = nil,
          host: String, hostUid: String,
@@ -158,6 +158,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     }
     
     static let example = Show(
+        id: "lawuehfaklwue",
         name: "Dumpweed Extravaganza",
         description: "A dank ass banger! Hop on the bill I freakin’ swear you won’t regret it! Like, it's gonna be the show of the absolute century, bro!",
         host: "DAA Entertainment",

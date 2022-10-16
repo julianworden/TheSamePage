@@ -36,6 +36,7 @@ class AddEditBandViewModel: ObservableObject {
         if let image {
             profileImageUrl = try await DatabaseService.shared.uploadImage(image: image)
             newBand = Band(
+                id: "",
                 name: bandName,
                 bio: bandBio,
                 profileImageUrl: profileImageUrl,
@@ -47,6 +48,7 @@ class AddEditBandViewModel: ObservableObject {
             newBandId = try await DatabaseService.shared.createBand(band: newBand)
         } else {
             newBand = Band(
+                id: "",
                 name: bandName,
                 bio: bandBio,
                 adminUid: AuthController.getLoggedInUid(),

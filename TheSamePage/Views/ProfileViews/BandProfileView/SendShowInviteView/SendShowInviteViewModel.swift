@@ -24,7 +24,7 @@ final class SendShowInviteViewModel: ObservableObject {
     let recipientUid: String
     
     init(band: Band) {
-        self.bandId = band.id ?? ""
+        self.bandId = band.id
         self.bandName = band.name
         self.recipientUid = band.adminUid
         Task {
@@ -39,7 +39,7 @@ final class SendShowInviteViewModel: ObservableObject {
     
     // TODO: Make DatabaseService Method for this
     func sendShowInviteNotification() throws {
-        guard selectedShow != nil && selectedShow?.id != nil else {
+        guard selectedShow != nil else {
             throw SendShowInviteViewModelError.unexpectedNilValue(message: "selectedShow in sendShowInviteNotification()")
         }
         
@@ -47,7 +47,7 @@ final class SendShowInviteViewModel: ObservableObject {
             recipientUid: recipientUid,
             bandName: bandName,
             bandId: bandId,
-            showId: selectedShow!.id!,
+            showId: selectedShow!.id,
             showName: selectedShow!.name,
             showDate: selectedShow!.formattedDate,
             showVenue: selectedShow!.venue,

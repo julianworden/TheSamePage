@@ -24,6 +24,7 @@ class DatabaseService {
     static let shared = DatabaseService()
     static let shows = [
         Show(
+            id: "a;wioefja;wlefj",
             name: "Dumpweed Extravaganza",
             description: "A dank ass banger! Hop on the bill I freakin’ swear you won’t regret it I swear.",
             host: "DAA Entertainment",
@@ -47,6 +48,7 @@ class DatabaseService {
             maxNumberOfBands: 3
         ),
         Show(
+            id: "a;asdfwefwa;wlefj",
             name: "The Return of Pathetic Fallacy",
             description: "They're back! And with a god damn vengeance you won’t want to miss.",
             host: "Damn Straight Entertainment",
@@ -70,6 +72,7 @@ class DatabaseService {
             maxNumberOfBands: 3
         ),
         Show(
+            id: "poawiehfaivb",
             name: "Generation Underground",
             description: "No idea how they're playing a show this big. They probably paid somebody lots of money.",
             host: "DAA Entertainment",
@@ -199,10 +202,8 @@ class DatabaseService {
     /// - Parameter band: The band for which the search is occuring.
     /// - Returns: An array of the BandMember objects associated with the band passed into the band parameter.
     func getBandMembers(forBand band: Band) async throws -> [BandMember] {
-        guard band.id != nil else { throw DatabaseServiceError.unexpectedNilValue(value: "band.id") }
-        
         do {
-            let query = try await db.collection("bands").document(band.id!).collection("members").getDocuments()
+            let query = try await db.collection("bands").document(band.id).collection("members").getDocuments()
             
             do {
                 return try query.documents.map { try $0.data(as: BandMember.self) }
@@ -229,10 +230,8 @@ class DatabaseService {
     /// - Parameter band: The band whose links are to be fetched.
     /// - Returns: An array of the links that the provided band has.
     func getBandLinks(forBand band: Band) async throws -> [PlatformLink] {
-        guard band.id != nil else { return [] }
-        
         do {
-            let query = try await db.collection("bands").document(band.id!).collection("links").getDocuments()
+            let query = try await db.collection("bands").document(band.id).collection("links").getDocuments()
             
             do {
                 return try query.documents.map { try $0.data(as: PlatformLink.self) }
@@ -256,9 +255,7 @@ class DatabaseService {
     }
     
     func getShowLineup(forShow show: Show) async throws -> [ShowParticipant] {
-        guard show.id != nil else { throw DatabaseServiceError.unexpectedNilValue(value: "DatabaseService.getShowLineup(forShow:).show.id") }
-        
-        let query = try await db.collection("shows").document(show.id!).collection("participants").getDocuments()
+        let query = try await db.collection("shows").document(show.id).collection("participants").getDocuments()
         
         do {
             return try query.documents.map { try $0.data(as: ShowParticipant.self) }
@@ -275,7 +272,7 @@ class DatabaseService {
     func createShow(show: Show) async throws {
         do {
             let showReference = try db.collection("shows").addDocument(from: show)
-            try await showReference.setData(["id": showReference.documentID], merge: true)
+            try await showReference.updateData(["id": showReference.documentID])
         } catch {
             throw DatabaseServiceError.firestoreError(message: "Failed to add show to database in DatabaseService.createShow(show:)")
         }
@@ -286,7 +283,7 @@ class DatabaseService {
     func createBand(band: Band) async throws -> String {
         do {
             let bandReference = try db.collection("bands").addDocument(from: band)
-            try await bandReference.setData(["id": bandReference.documentID], merge: true)
+            try await bandReference.updateData(["id": bandReference.documentID])
             return bandReference.documentID
         } catch {
             throw DatabaseServiceError.firestoreError(message: "Failed to create band in DatabaseService.createBand(band:)")
@@ -382,20 +379,16 @@ class DatabaseService {
     }
     
     func addTimeToShow(addTime time: Date, ofType showTimeType: ShowTimeType, forShow show: Show) async throws {
-        guard show.id != nil else {
-            throw DatabaseServiceError.unexpectedNilValue(value: "show.id in DatabaseService.addTimeToShow(addTime:ofType:forShow)")
-        }
-        
         do {
             switch showTimeType {
             case .loadIn:
-                try await db.collection("shows").document(show.id!).updateData(["loadInTime": time.timeIntervalSince1970])
+                try await db.collection("shows").document(show.id).updateData(["loadInTime": time.timeIntervalSince1970])
             case .musicStart:
-                try await db.collection("shows").document(show.id!).updateData(["musicStartTime": time.timeIntervalSince1970])
+                try await db.collection("shows").document(show.id).updateData(["musicStartTime": time.timeIntervalSince1970])
             case .end:
-                try await db.collection("shows").document(show.id!).updateData(["endTime": time.timeIntervalSince1970])
+                try await db.collection("shows").document(show.id).updateData(["endTime": time.timeIntervalSince1970])
             case .doors:
-                try await db.collection("shows").document(show.id!).updateData(["doorsTime": time.timeIntervalSince1970])
+                try await db.collection("shows").document(show.id).updateData(["doorsTime": time.timeIntervalSince1970])
             }
         } catch {
             throw DatabaseServiceError.firestoreError(message: "Failed to add time to show in in DatabaseService.addTimeToShow(addTime:ofType:forShow)")
@@ -403,18 +396,16 @@ class DatabaseService {
     }
     
     func deleteTimeFromShow(delete showTimeType: ShowTimeType, fromShow show: Show) async throws {
-        guard show.id != nil else { throw DatabaseServiceError.unexpectedNilValue(value: "show.id in DatabaseService.deleteTimeFromShow(delete:fromShow:)")}
-        
         do {
             switch showTimeType {
             case .loadIn:
-                try await db.collection("shows").document(show.id!).updateData(["loadInTime": FieldValue.delete()])
+                try await db.collection("shows").document(show.id).updateData(["loadInTime": FieldValue.delete()])
             case .musicStart:
-                try await db.collection("shows").document(show.id!).updateData(["musicStartTime": FieldValue.delete()])
+                try await db.collection("shows").document(show.id).updateData(["musicStartTime": FieldValue.delete()])
             case .end:
-                try await db.collection("shows").document(show.id!).updateData(["endTime": FieldValue.delete()])
+                try await db.collection("shows").document(show.id).updateData(["endTime": FieldValue.delete()])
             case .doors:
-                try await db.collection("shows").document(show.id!).updateData(["doorsTime": FieldValue.delete()])
+                try await db.collection("shows").document(show.id).updateData(["doorsTime": FieldValue.delete()])
             }
         } catch {
             throw DatabaseServiceError.firestoreError(message: "Failed to delete show time in DatabaseService.deleteTimeFromShow(delete:fromShow:)")
@@ -438,9 +429,7 @@ class DatabaseService {
     ///   - link: The link to be added to the band's links collection.
     ///   - band: The band that the link belongs to.
     func uploadBandLink(withLink link: PlatformLink, forBand band: Band) throws {
-        if band.id != nil {
-            _ = try db.collection("bands").document(band.id!).collection("links").addDocument(from: link)
-        }
+        _ = try db.collection("bands").document(band.id).collection("links").addDocument(from: link)
     }
     
     // MARK: - Notifications

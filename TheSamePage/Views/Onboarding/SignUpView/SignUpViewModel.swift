@@ -34,38 +34,36 @@ class SignUpViewModel: ObservableObject {
     /// which will add that new user object to the users collection in Firestore.
     /// - Parameter image: The profile image selected by the user.
     func registerUser() async throws {
-        var newUser: User
-        var uid: String?
-        
         do {
             let result = try await Auth.auth().createUser(withEmail: emailAddress, password: password)
-            uid = result.user.uid
+            let uid = result.user.uid
+            let newUser: User
+            
+            if let profileImage {
+                let imageUrl = try await DatabaseService.shared.uploadImage(image: profileImage)
+                newUser = User(
+                    id: uid,
+                    username: username,
+                    firstName: firstName,
+                    lastName: lastName,
+                    profileImageUrl: imageUrl,
+                    phoneNumber: phoneNumber,
+                    emailAddress: emailAddress
+                )
+            } else {
+                newUser = User(
+                    id: uid,
+                    username: username,
+                    firstName: firstName,
+                    lastName: lastName,
+                    phoneNumber: phoneNumber,
+                    emailAddress: emailAddress
+                )
+            }
+            
+            try await DatabaseService.shared.createUserObject(user: newUser)
         } catch {
             throw SignUpViewModelError.firebaseAuthError(message: "Failed to create user.")
         }
-        
-        if let profileImage {
-            let imageUrl = try await DatabaseService.shared.uploadImage(image: profileImage)
-            newUser = User(
-                id: uid,
-                username: username,
-                firstName: firstName,
-                lastName: lastName,
-                profileImageUrl: imageUrl,
-                phoneNumber: phoneNumber,
-                emailAddress: emailAddress
-            )
-        } else {
-            newUser = User(
-                id: uid,
-                username: username,
-                firstName: firstName,
-                lastName: lastName,
-                phoneNumber: phoneNumber,
-                emailAddress: emailAddress
-            )
-        }
-        
-        try await DatabaseService.shared.createUserObject(user: newUser)
     }
 }

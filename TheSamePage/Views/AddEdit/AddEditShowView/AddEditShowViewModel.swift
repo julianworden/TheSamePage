@@ -108,6 +108,7 @@ class AddEditShowViewModel: ObservableObject {
         if let image {
             let imageUrl = try await DatabaseService.shared.uploadImage(image: image)
             newShow = Show(
+                id: "",
                 name: showName,
                 description: showDescription,
                 host: showHostName,
@@ -133,6 +134,7 @@ class AddEditShowViewModel: ObservableObject {
             )
         } else {
             newShow = Show(
+                id: "",
                 name: showName,
                 description: showDescription,
                 host: showHostName,

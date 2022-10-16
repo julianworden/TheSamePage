@@ -10,7 +10,7 @@ import FirebaseFirestoreSwift
 import Foundation
 
 struct Band: Codable, Equatable, Hashable, Identifiable {
-    var id: String?
+    let id: String
     let name: String
     let bio: String?
     let profileImageUrl: String?
@@ -21,7 +21,7 @@ struct Band: Codable, Equatable, Hashable, Identifiable {
     let state: String
     
     init(
-        id: String? = nil,
+        id: String,
         name: String,
         bio: String? = nil,
         profileImageUrl: String? = nil,
@@ -51,6 +51,7 @@ struct Band: Codable, Equatable, Hashable, Identifiable {
     }
     
     static let example = Band(
+        id: "a;efhalskehasf",
         name: "Pathetic Fallacy",
         bio: "A bangin metalcore band from New Jersey. We will slay all the shows. ALL OF THEM!!! Nobody will be spared, not even your mom.",
         adminUid: "sdfadgasergawergae",

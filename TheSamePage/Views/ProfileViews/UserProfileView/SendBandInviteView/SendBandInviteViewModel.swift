@@ -44,11 +44,11 @@ final class SendBandInviteViewModel: ObservableObject {
     
     func sendBandInviteNotification() throws {
         // TODO: Handle error
-        if selectedBand != nil && selectedBand?.id != nil && user.id != nil {
+        if selectedBand != nil {
             let invite = BandInvite(
-                recipientUid: user.id!,
+                recipientUid: user.id,
                 recipientRole: recipientRole.rawValue,
-                bandId: selectedBand!.id!,
+                bandId: selectedBand!.id,
                 senderName: Auth.auth().currentUser!.email!,
                 senderBand: selectedBand!.name
             )

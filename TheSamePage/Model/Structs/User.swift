@@ -10,7 +10,7 @@ import FirebaseFirestoreSwift
 import Foundation
 
 struct User: Codable, Equatable, Hashable, Identifiable {
-    var id: String?
+    let id: String
     let username: String
     let firstName: String
     let lastName: String
@@ -18,8 +18,12 @@ struct User: Codable, Equatable, Hashable, Identifiable {
     let phoneNumber: String?
     let emailAddress: String
     
+    var userIsLoggedInUser: Bool {
+        return id == AuthController.getLoggedInUid()
+    }
+    
     init(
-        id: String? = nil,
+        id: String,
         username: String,
         firstName: String,
         lastName: String,
@@ -37,6 +41,7 @@ struct User: Codable, Equatable, Hashable, Identifiable {
     }
     
     static let example = User(
+        id: "alisuhefawuilfn",
         username: "julianworden",
         firstName: "Julian",
         lastName: "Worden",
