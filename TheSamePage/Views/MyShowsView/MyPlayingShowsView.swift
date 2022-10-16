@@ -12,7 +12,10 @@ struct MyPlayingShowsView: View {
     
     var body: some View {
         Group {
-            if !viewModel.playingShows.isEmpty {
+            switch viewModel.state {
+            case .dataLoading:
+                ProgressView()
+            case .dataLoaded:
                 ScrollView {
                     ForEach(viewModel.playingShows) { show in
                         NavigationLink {
@@ -23,17 +26,22 @@ struct MyPlayingShowsView: View {
                         .foregroundColor(.black)
                     }
                 }
-            } else {
+            case .dataNotFound:
                 Text("You're not playing any shows.")
                     .font(.body.italic())
                     .padding(.vertical)
+            case .error(let error):
+                ErrorMessage(
+                    message: "Failed to fetch your shows. Please check your internet connection and relaunch the app.",
+                    errorText: error
+                )
             }
         }
         .task {
             do {
                 try await viewModel.getPlayingShows()
             } catch {
-                print(error)
+                viewModel.state = .error(message: error.localizedDescription)
             }
         }
         .onDisappear {

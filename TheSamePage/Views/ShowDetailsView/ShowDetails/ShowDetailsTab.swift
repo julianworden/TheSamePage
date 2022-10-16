@@ -13,8 +13,10 @@ struct ShowDetailsTab: View {
     var body: some View {
         VStack(spacing: 8) {
             HStack {
-                Text(viewModel.showDescription)
-                    .padding(.bottom, 5)
+                if let showDescription = viewModel.showDescription {
+                    Text(showDescription)
+                        .padding(.bottom, 5)
+                }
                 
                 Spacer()
             }

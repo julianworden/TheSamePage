@@ -11,7 +11,7 @@ import MapKit
 class ShowDetailsViewModel: ObservableObject {
     let show: Show
     let showName: String
-    let showDescription: String
+    let showDescription: String?
     let showDate: String
     let showGenre: String
     let showHost: String
@@ -30,6 +30,8 @@ class ShowDetailsViewModel: ObservableObject {
     @Published var showLineup = [ShowParticipant]()
     @Published var selectedTab = SelectedShowDetailsTab.details
     
+    @Published var state = ViewState.dataLoading
+    
     var showSlotsRemainingMessage: String {
         let slotsRemainingCount = showMaxNumberOfBands - showLineup.count
         
@@ -43,7 +45,7 @@ class ShowDetailsViewModel: ObservableObject {
     init(show: Show) {
         self.show = show
         self.showName = show.name
-        self.showDescription = show.description ?? ""
+        self.showDescription = show.description
         self.showDate = show.formattedDate
         self.showGenre = show.genre
         self.showHost = show.host
@@ -60,13 +62,16 @@ class ShowDetailsViewModel: ObservableObject {
         self.showState = show.state
         self.showCity = show.city
         
+        // TODO: Get the show lineup in a dedicated ShowLineup viewmodel
         Task {
             do {
                 try await getShowLineup()
             } catch {
-                print(error)
+                state = .error(message: error.localizedDescription)
             }
         }
+        
+        state = .dataLoaded
     }
     
     @MainActor

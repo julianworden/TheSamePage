@@ -21,7 +21,7 @@ struct SearchResultRow: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 35, height: 35)
-                    .padding(.leading, 10)
+                    .padding(.trailing, 7)
                 
                 VStack(alignment: .leading) {
                     Text(band.name)
@@ -36,6 +36,7 @@ struct SearchResultRow: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 35, height: 35)
+                    .padding(.trailing)
                 
                 VStack(alignment: .leading) {
                     Text(user.username)
@@ -50,13 +51,13 @@ struct SearchResultRow: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 35, height: 35)
-                    .padding(.leading, 10)
+                    .padding(.trailing)
                 
                 VStack(alignment: .leading) {
                     Text(show.name)
-//                    
-//                    Text(show.location.address)
-//                        .font(.caption)
+                    
+                    Text(show.venue)
+                        .font(.caption)
                 }
             }
             

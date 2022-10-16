@@ -7,8 +7,9 @@
 
 import Foundation
 
-enum SendShowInviteViewState {
-    case loading
-    case foundResults
-    case foundNoResults
+enum ViewState {
+    case dataLoading
+    case dataLoaded
+    case dataNotFound
+    case error(message: String)
 }

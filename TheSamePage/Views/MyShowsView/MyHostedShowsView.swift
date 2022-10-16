@@ -9,24 +9,26 @@ import SwiftUI
 
 struct MyHostedShowsView: View {
     @ObservedObject var viewModel: MyShowsViewModel
-        
+    
     var body: some View {
         Group {
-            if !viewModel.hostedShows.isEmpty {
+            switch viewModel.state {
+            case .dataLoading:
+                ProgressView()
+            case .dataLoaded:
                 ScrollView {
-                    ForEach(viewModel.hostedShows) { show in
-                        NavigationLink {
-                            ShowDetailsView(show: show)
-                        } label: {
-                            LargeListRow(show: show, joinedShow: nil)
+                    VStack(spacing: 0) {
+                        ForEach(viewModel.hostedShows) { show in
+                            NavigationLink {
+                                ShowDetailsView(show: show)
+                            } label: {
+                                LargeListRow(show: show, joinedShow: nil)
+                            }
+                            .foregroundColor(.black)
                         }
-                        .foregroundColor(.black)
                     }
                 }
-                .onDisappear {
-                    viewModel.removeHostedShowsListener()
-                }
-            } else {
+            case .dataNotFound:
                 VStack {
                     Text("You're not hosting any shows.")
                         .font(.body.italic())
@@ -39,13 +41,18 @@ struct MyHostedShowsView: View {
                     }
                 }
                 .padding(.top)
+            case .error(let message):
+                ErrorMessage(
+                    message: "Failed to fetch your hosted shows. Please check your internet connection and relaunch the app.",
+                    errorText: message
+                )
             }
         }
         .task {
             do {
                 try await viewModel.getHostedShows()
             } catch {
-                print(error)
+                viewModel.state = .error(message: error.localizedDescription)
             }
         }
         .onDisappear {

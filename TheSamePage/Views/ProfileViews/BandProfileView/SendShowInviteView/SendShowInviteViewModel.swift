@@ -12,7 +12,7 @@ final class SendShowInviteViewModel: ObservableObject {
         case unexpectedNilValue(message: String)
     }
     
-    @Published var state = SendShowInviteViewState.loading
+    @Published var state = ViewState.dataLoading
     
     var userShows = [Show]()
     var selectedShow: Show?
@@ -62,15 +62,19 @@ final class SendShowInviteViewModel: ObservableObject {
     
     @MainActor
     func getHostedShows() async throws {
-        state = .loading
+        state = .dataLoading
         
-        userShows = try await DatabaseService.shared.getHostedShows()
-        
-        if !userShows.isEmpty {
-            state = .foundResults
-            selectedShow = userShows.first!
-        } else {
-            state = .foundNoResults
+        do {
+            userShows = try await DatabaseService.shared.getHostedShows()
+            
+            if !userShows.isEmpty {
+                state = .dataLoaded
+                selectedShow = userShows.first!
+            } else {
+                state = .dataNotFound
+            }
+        } catch {
+            throw error
         }
     }
 }

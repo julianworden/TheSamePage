@@ -22,9 +22,9 @@ struct SendShowInviteView: View {
                 .ignoresSafeArea()
             
             switch viewModel.state {
-            case .loading:
+            case .dataLoading:
                 ProgressView()
-            case .foundResults:
+            case .dataLoaded:
                 Form {
                     Picker("Which show would you like to invite \(viewModel.bandName) to?", selection: $viewModel.selectedShow) {
                         ForEach(viewModel.userShows) { show in
@@ -41,21 +41,25 @@ struct SendShowInviteView: View {
                         }
                     }
                 }
-            case .foundNoResults:
-                Text("You are not hosting any shows. You must be a show admin to invite bands to play. You can create a show in the My Shows tab.")
+            case .dataNotFound:
+                Text("No hosted shows found. You either have no internet connection or you are not hosting any shows. You can create a show in the My Shows tab.")
                     .italic()
                     .multilineTextAlignment(.center)
                     .padding(.horizontal)
+            case .error(let message):
+                ErrorMessage(
+                    message: "Failed to fetch your hosted shows. Please check your internet connection and relaunch the app.",
+                    errorText: message
+                )
             }
         }
         .navigationTitle("Send Show Invite")
         .navigationBarTitleDisplayMode(.inline)
-        
         .task {
             do {
                 try await viewModel.getHostedShows()
             } catch {
-                print(error)
+                viewModel.state = .error(message: error.localizedDescription)
             }
         }
     }

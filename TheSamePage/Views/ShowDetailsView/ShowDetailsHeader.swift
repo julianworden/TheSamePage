@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ShowDetailsHeader: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
+    
+    @State private var showImage: Image?
         
     var body: some View {
         VStack {
@@ -27,7 +29,7 @@ struct ShowDetailsHeader: View {
                         .font(.title2)
                 }
                 
-                // I'd like for this to be a sheet instead, but when I do this I get unexpected navigation behavior
+                // TODO: Make this a sheet instead
                 if viewModel.show.loggedInUserIsNotInvolvedInShow {
                     NavigationLink {
                         EmptyView()

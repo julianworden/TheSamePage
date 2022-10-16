@@ -9,9 +9,7 @@ import SwiftUI
 
 struct ShowDetailsView: View {
     @StateObject var viewModel: ShowDetailsViewModel
-    
-//    @State private var playThisShowSheetIsShowing = false
-    
+        
     init(show: Show) {
         _viewModel = StateObject(wrappedValue: ShowDetailsViewModel(show: show))
     }
@@ -21,29 +19,44 @@ struct ShowDetailsView: View {
             Color(uiColor: .systemGroupedBackground)
                 .ignoresSafeArea()
             
-            ScrollView {
-                ShowDetailsHeader(viewModel: viewModel)
-                
-                Picker("Select View", selection: $viewModel.selectedTab) {
-                    ForEach(SelectedShowDetailsTab.allCases) { tabName in
-                        Text(tabName.rawValue)
+            switch viewModel.state {
+            case .dataLoading:
+                ProgressView()
+            case .dataLoaded:
+                ScrollView {
+                    ShowDetailsHeader(viewModel: viewModel)
+                    
+                    Picker("Select View", selection: $viewModel.selectedTab) {
+                        ForEach(SelectedShowDetailsTab.allCases) { tabName in
+                            Text(tabName.rawValue)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                    .padding(.horizontal)
+                    
+                    switch viewModel.selectedTab {
+                    case .lineup:
+                        ShowLineupTab(viewModel: viewModel)
+                    case .backline:
+                        ShowBacklineTab()
+                    case .times:
+                        ShowTimeTab(show: viewModel.show)
+                    case .location:
+                        ShowLocationTab(show: viewModel.show)
+                    case .details:
+                        ShowDetailsTab(viewModel: viewModel)
                     }
                 }
-                .pickerStyle(.segmented)
-                .padding(.horizontal)
-                
-                switch viewModel.selectedTab {
-                case .lineup:
-                    ShowLineupTab(viewModel: viewModel)
-                case .backline:
-                    ShowBacklineTab()
-                case .times:
-                    ShowTimeTab(show: viewModel.show)
-                case .location:
-                    ShowLocationTab(show: viewModel.show)
-                case .details:
-                    ShowDetailsTab(viewModel: viewModel)
-                }
+            case .dataNotFound:
+                ErrorMessage(
+                    message: "Failed to fetch details for this show.",
+                    errorText: "Please check your internet connection and restart the app."
+                )
+            case .error(let message):
+                ErrorMessage(
+                    message: "Failed to fetch details for this show.",
+                    errorText: message
+                )
             }
         }
         .navigationTitle("Show Details")
