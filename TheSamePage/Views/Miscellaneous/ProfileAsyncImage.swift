@@ -14,31 +14,22 @@ struct ProfileAsyncImage: View {
         AsyncImage(url: url) { phase in
             switch phase {
             case .empty:
-                ZStack {
-                    Rectangle()
-                        .foregroundColor(.clear)
-                    
-                    ProgressView()
-                }
-                .frame(height: 200)
-                .padding(.horizontal)
-                
+                ProgressView()
             case .success(let image):
                 image
                     .resizable()
                     .scaledToFit()
                     .border(.white, width: 3)
-                    .frame(height: 200)
                 
             case .failure:
                 NoImageView()
-                    .padding(.horizontal)
                 
             @unknown default:
                 NoImageView()
-                    .padding(.horizontal)
             }
         }
+        .frame(height: 200)
+        .padding(.horizontal)
     }
 }
 
