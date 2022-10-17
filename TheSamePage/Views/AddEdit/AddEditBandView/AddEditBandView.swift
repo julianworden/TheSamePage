@@ -21,7 +21,7 @@ struct AddEditBandView: View {
     @State private var bandCreationWasSuccessful = false
     @State private var bandCreationButtonIsDisabled = false
     
-    init(userIsOnboarding: Binding<Bool>, bandToEdit: Band?) {
+    init(userIsOnboarding: Binding<Bool> = .constant(false), bandToEdit: Band? = nil) {
         _userIsOnboarding = Binding(projectedValue: userIsOnboarding)
         _viewModel = StateObject(wrappedValue: AddEditBandViewModel(bandToEdit: bandToEdit))
     }

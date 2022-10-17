@@ -15,10 +15,14 @@ struct UserSearchResultsList: View {
         List(viewModel.fetchedUsers, id: \.document) { result in
             let user = result.document!
             
-            NavigationLink {
-                OtherUserProfileView(user: user, bandMember: nil)
-            } label: {
+            if user.profileBelongsToLoggedInUser {
                 SearchResultRow(band: nil, user: user, show: nil)
+            } else {
+                NavigationLink {
+                    OtherUserProfileView(user: user, bandMember: nil)
+                } label: {
+                    SearchResultRow(band: nil, user: user, show: nil)
+                }
             }
         }
         .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))

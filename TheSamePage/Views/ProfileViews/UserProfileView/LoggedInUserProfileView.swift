@@ -8,81 +8,56 @@
 import SwiftUI
 
 struct LoggedInUserProfileView: View {
-    @StateObject var viewModel: UserProfileRootViewModel
+    @EnvironmentObject var loggedInUserController: LoggedInUserController
     
     @Binding var userIsLoggedOut: Bool
     @Binding var selectedTab: Int
     
-    @State private var addEditBandSheetIsShowing = false
-    
-    let columns = [GridItem(.fixed(149), spacing: 15), GridItem(.fixed(149), spacing: 15)]
-    
-    init(userIsLoggedOut: Binding<Bool>, selectedTab: Binding<Int>) {
-        _viewModel = StateObject(wrappedValue: UserProfileRootViewModel(user: nil, bandMember: nil))
-        _userIsLoggedOut = Binding(projectedValue: userIsLoggedOut)
-        _selectedTab = Binding(projectedValue: selectedTab)
-    }
-    
     var body: some View {
-        NavigationView {
-            ZStack {
-                Color(uiColor: .systemGroupedBackground)
-                    .ignoresSafeArea()
+        ZStack {
+            Color(uiColor: .systemGroupedBackground)
+                .ignoresSafeArea()
             
+            if loggedInUserController.loggedInUser != nil {
                 ScrollView {
                     VStack {
-                        if viewModel.profileImageUrl != nil  {
-                            ProfileAsyncImage(url: URL(string: viewModel.profileImageUrl!))
-                        } else {
-                            NoImageView()
-                                .padding(.horizontal)
+                        ProfileAsyncImage(url: URL(string: loggedInUserController.profileImageUrl ?? ""))
+                        
+                        HStack {
+                            SectionTitle(title: "Member of")
+                            
+                            NavigationLink {
+                                AddEditBandView(userIsOnboarding: .constant(false), bandToEdit: nil)
+                            } label: {
+                                Image(systemName: "plus")
+                            }
+                            .padding(.trailing)
                         }
                         
-                        if let bands = viewModel.bands {
-                            HStack {
-                                SectionTitle(title: "Member of")
-                                
-                                Button {
-                                    addEditBandSheetIsShowing = true
-                                } label: {
-                                    Image(systemName: "plus")
-                                }
-                                .padding(.trailing)
+                        UserBandList(bands: loggedInUserController.bands)
+                    }
+                }
+                .navigationTitle("\(loggedInUserController.firstName ?? "You") \(loggedInUserController.lastName ?? "")")
+                .navigationBarTitleDisplayMode(.large)
+                .toolbar {
+                    ToolbarItem {
+                        Button {
+                            do {
+                                try loggedInUserController.logOut()
+                                userIsLoggedOut = true
+                            } catch {
+                                print(error)
                             }
-                            
-                            UserBandList(bands: bands)
+                        } label: {
+                            Label("Log Out", systemImage: "plus")
                         }
                     }
                 }
+            } else {
+                ErrorMessage(
+                    message: "Failed to fetch logged in user. Please check your internet connection and restart the app."
+                )
             }
-            .navigationTitle("Profile")
-            .task {
-                do {
-                    try await viewModel.initializeUser(user: nil)
-                    try await viewModel.getBands(forUser: nil)
-                } catch {
-                    print(error)
-                }
-            }
-            .sheet(isPresented: $addEditBandSheetIsShowing) {
-                NavigationView {
-                    AddEditBandView(userIsOnboarding: .constant(false), bandToEdit: nil)
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Log Out") {
-                        do {
-                            try viewModel.logOut()
-                            userIsLoggedOut = true
-                            selectedTab = 0
-                        } catch {
-                            print(error)
-                        }
-                    }
-                }
-            }
-                
         }
     }
 }

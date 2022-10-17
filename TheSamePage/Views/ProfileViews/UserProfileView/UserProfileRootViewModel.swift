@@ -15,7 +15,7 @@ class UserProfileRootViewModel: ObservableObject {
     }
     
     /// The user being displayed. When this value is nil, the logged in user is viewing their own profile
-    var user: User?
+    @Published var user: User?
     /// The bandMember for which the Profile is a representation. This is necessary for when a
     /// user is selected from the BandProfile's Members section.
     var bandMember: BandMember?
@@ -30,61 +30,26 @@ class UserProfileRootViewModel: ObservableObject {
     }
     
     init(user: User?, bandMember: BandMember?) {
-        if let user {
-            self.user = user
-        }
-        
-        if let bandMember {
-            self.bandMember = bandMember
-        }
-        
-        // This is needed because HomeView doesn't call initialize user in onAppear if the user is onboarding. This is expected.
         Task {
-            do {
-                try await setUpView()
-            } catch {
-                print(error)
-            }
-        }
-    }
-    
-    func setUpView() async throws {
-        do {
-            if user == nil && bandMember == nil {
-                try await initializeUser(user: nil)
-                try await getBands(forUser: nil)
-            } else if user != nil && bandMember == nil {
+            if let user {
                 try await initializeUser(user: user)
-                try await getBands(forUser: user)
-            } else if user == nil && bandMember != nil {
-                let convertedUser = try await convertBandMemberToUser(bandMember: bandMember!)
-                self.user = convertedUser
-                try await initializeUser(user: convertedUser)
-                try await getBands(forUser: convertedUser)
             }
-        } catch {
-            print(error)
+            
+            if let bandMember {
+                let convertedUser = try await convertBandMemberToUser(bandMember: bandMember)
+                try await initializeUser(user: convertedUser)
+            }
         }
     }
     
-    func initializeUser(user: User?) async throws {
-        // If these properties have values, there's no reason to make the database call
+    func initializeUser(user: User) async throws {
         // TODO: Add this line when user values are cleared on log out: guard firstName == nil && lastName == nil else { return }
-        
-        if let user {
-            firstName = user.firstName
-            lastName = user.lastName
-            emailAddress = user.emailAddress
-            profileImageUrl = user.profileImageUrl
-        } else {
-            let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
-            
-            firstName = loggedInUser.firstName
-            lastName = loggedInUser.lastName
-            emailAddress = loggedInUser.emailAddress
-            profileImageUrl = loggedInUser.profileImageUrl
-        }
-        
+        self.user = user
+        self.firstName = user.firstName
+        self.lastName = user.lastName
+        self.emailAddress = user.emailAddress
+        self.profileImageUrl = user.profileImageUrl
+        self.bands = try await getBands(forUser: user)
     }
     
     func convertBandMemberToUser(bandMember: BandMember) async throws -> User {
@@ -92,28 +57,10 @@ class UserProfileRootViewModel: ObservableObject {
     }
     
     // TODO: Incorporate a listener to this so the bands array is updated when the user joins a new band
-    @MainActor
-    func getBands(forUser user: User?) async throws {
+    func getBands(forUser user: User) async throws -> [Band] {
         guard !AuthController.userIsLoggedOut() else { throw UserProfileViewModelError.firebaseAuthError(message: "User not logged in") }
-                
-        if user != nil {
-            bands = try await DatabaseService.shared.getBands(withUid: user!.id)
-        } else {
-            bands = try await DatabaseService.shared.getBands(withUid: AuthController.getLoggedInUid())
-        }
-    }
-    
-    func logOut() throws {
-        firstName = nil
-        lastName = nil
-        emailAddress = nil
-        profileImageUrl = nil
-        bands = nil
         
-        do {
-            try AuthController.logOut()
-        } catch {
-            throw UserProfileViewModelError.firebaseAuthError(message: "Failed to log out")
-        }
+        return try await DatabaseService.shared.getBands(withUid: user.id)
+        
     }
 }

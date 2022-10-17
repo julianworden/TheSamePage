@@ -41,8 +41,13 @@ struct SearchResultRow: View {
                 VStack(alignment: .leading) {
                     Text(user.username)
                     
-                    Text("\(user.firstName) \(user.lastName)")
-                        .font(.caption)
+                    if user.profileBelongsToLoggedInUser {
+                        Text("You")
+                            .font(.caption)
+                    } else {
+                        Text("\(user.firstName) \(user.lastName)")
+                            .font(.caption)
+                    }
                 }
             }
             

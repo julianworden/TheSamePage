@@ -18,7 +18,7 @@ struct User: Codable, Equatable, Hashable, Identifiable {
     let phoneNumber: String?
     let emailAddress: String
     
-    var userIsLoggedInUser: Bool {
+    var profileBelongsToLoggedInUser: Bool {
         return id == AuthController.getLoggedInUid()
     }
     

@@ -10,9 +10,9 @@ import SwiftUI
 struct ErrorMessage: View {
     let color: Color
     let message: String
-    let errorText: String
+    let errorText: String?
     
-    init(color: Color = .primary, message: String, errorText: String) {
+    init(color: Color = .primary, message: String, errorText: String? = nil) {
         self.color = color
         self.message = message
         self.errorText = errorText
@@ -24,9 +24,11 @@ struct ErrorMessage: View {
                 .italic()
                 .foregroundColor(color)
             
-            Text("Error: \(errorText)")
-                .italic()
-                .foregroundColor(color)
+            if let errorText {
+                Text("Error: \(errorText)")
+                    .italic()
+                    .foregroundColor(color)
+            }
         }
         .multilineTextAlignment(.center)
     }

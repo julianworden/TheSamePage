@@ -9,6 +9,8 @@ import UIKit
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject var loggedInUserController: LoggedInUserController
+    
     @StateObject var viewModel = LoginViewModel()
     
     @Binding var userIsOnboarding: Bool
@@ -27,6 +29,7 @@ struct LoginView: View {
                         do {
                             loginButtonIsDisabled = true
                             try await viewModel.logInButtonTapped()
+                            try await loggedInUserController.getLoggedInUserInfo()
                             userIsOnboarding = false
                         } catch {
                             loginButtonIsDisabled = false

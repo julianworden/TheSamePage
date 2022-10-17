@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct RootView: View {
+    @EnvironmentObject var loggedInUserController: LoggedInUserController
+    
     @State private var userIsOnboarding = AuthController.userIsLoggedOut()
     @State private var selectedTab = 0
     
@@ -37,11 +39,16 @@ struct RootView: View {
                 }
                 .tag(3)
             
-            UserProfileRootView(user: nil, bandMember: nil, userIsLoggedOut: $userIsOnboarding, selectedTab: $selectedTab)
-                .tabItem {
-                    Label("Profile", systemImage: "person")
-                }
-                .tag(4)
+            NavigationView {
+                LoggedInUserProfileView(
+                    userIsLoggedOut: $userIsOnboarding,
+                    selectedTab: $selectedTab
+                )
+            }
+            .tabItem {
+                Label("Profile", systemImage: "person")
+            }
+            .tag(4)
         }
         .navigationBarHidden(true)
         .fullScreenCover(isPresented: $userIsOnboarding) {

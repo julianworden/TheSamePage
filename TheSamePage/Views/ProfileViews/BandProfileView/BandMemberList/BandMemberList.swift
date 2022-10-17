@@ -19,7 +19,7 @@ struct BandMemberList: View {
             ForEach(viewModel.bandMembers) { bandMember in
                 if !bandMember.bandMemberIsLoggedInUser {
                     NavigationLink {
-                        UserProfileRootView(user: nil, bandMember: bandMember, userIsLoggedOut: .constant(false), selectedTab: .constant(4))
+                        OtherUserProfileView(user: nil, bandMember: bandMember)
                     } label: {
                         SmallListRow(
                             title: bandMember.fullName,

@@ -43,15 +43,6 @@ class BandProfileViewModel: ObservableObject {
     func convertShowParticipantToBand(showParticipant: ShowParticipant) async throws -> Band {
         return try await DatabaseService.shared.convertShowParticipantToBand(showParticipant: showParticipant)
     }
-    
-    func setupView() async throws {
-        if band != nil && showParticipant == nil {
-            try await initializeBand(band: band!)
-        } else if band == nil && showParticipant != nil {
-            let convertedBand = try await DatabaseService.shared.convertShowParticipantToBand(showParticipant: showParticipant!)
-            try await initializeBand(band: convertedBand)
-        }
-    }
 
     func initializeBand(band: Band) async throws {
         self.bandName = band.name

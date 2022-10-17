@@ -14,13 +14,13 @@ struct SO62626652_AppDelegateAdaptorApp: App {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     
     @StateObject var showsController = ShowsController()
-    @StateObject var userController = UserController()
+    @StateObject var loggedInUserController = LoggedInUserController()
     
     var body: some Scene {
         WindowGroup {
             RootView()
                 .environmentObject(showsController)
-                .environmentObject(userController)
+                .environmentObject(loggedInUserController)
         }
     }
 }
@@ -28,7 +28,7 @@ struct SO62626652_AppDelegateAdaptorApp: App {
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
-        Atlantis.start()
+//        Atlantis.start()
         UITabBar.appearance().backgroundColor = .systemGroupedBackground
         return true
     }

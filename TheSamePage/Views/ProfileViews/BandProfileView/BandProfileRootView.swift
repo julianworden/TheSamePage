@@ -46,13 +46,6 @@ struct BandProfileRootView: View {
                 }
             }
         }
-        .task {
-            do {
-                try await viewModel.setupView()
-            } catch {
-                print(error)
-            }
-        }
     }
 }
 

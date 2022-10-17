@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MemberSearchView: View {
+struct MemberSearchView: View {    
     @Binding var userIsOnboarding: Bool
     
     @StateObject var viewModel: MemberSearchViewModel
@@ -18,25 +18,34 @@ struct MemberSearchView: View {
     }
 
     var body: some View {
-        List {
-            ForEach(viewModel.fetchedResults, id: \.document) { result in
-                let user = result.document!
-                
-                NavigationLink {
-                    UserProfileRootView(user: user, bandMember: nil, userIsLoggedOut: $userIsOnboarding, selectedTab: .constant(3))
-                } label: {
-                    SearchResultRow(band: nil, user: user, show: nil)
+        ZStack {
+            Color(uiColor: .systemGroupedBackground)
+                .ignoresSafeArea()
+            
+            List {
+                ForEach(viewModel.fetchedResults, id: \.document) { result in
+                    let user = result.document!
+                    
+                    if user.profileBelongsToLoggedInUser {
+                        SearchResultRow(band: nil, user: user, show: nil)
+                    } else {
+                        NavigationLink {
+                            OtherUserProfileView(user: user, bandMember: nil)
+                        } label: {
+                            SearchResultRow(band: nil, user: user, show: nil)
+                        }
+                    }
                 }
             }
-        }
-        .searchable(text: $viewModel.queryText)
-        .autocorrectionDisabled(true)
-        .onChange(of: viewModel.queryText) { query in
-            Task {
-                do {
-                    try await viewModel.fetchUsers(searchQuery: query)
-                } catch {
-                    print(error)
+            .searchable(text: $viewModel.queryText)
+            .autocorrectionDisabled(true)
+            .onChange(of: viewModel.queryText) { query in
+                Task {
+                    do {
+                        try await viewModel.fetchUsers(searchQuery: query)
+                    } catch {
+                        print(error)
+                    }
                 }
             }
         }
