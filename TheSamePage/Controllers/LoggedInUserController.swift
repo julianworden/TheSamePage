@@ -51,6 +51,10 @@ class LoggedInUserController: ObservableObject {
     }
     
     func logOut() throws {
+        guard !AuthController.userIsLoggedOut() else {
+            throw UserControllerError.firebaseAuth(message: "User is already logged out. Thrown in LoggedInUserController.logOut()")
+        }
+        
         self.loggedInUser = nil
         self.firstName = nil
         self.lastName = nil

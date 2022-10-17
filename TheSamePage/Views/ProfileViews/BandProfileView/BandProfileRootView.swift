@@ -46,6 +46,9 @@ struct BandProfileRootView: View {
                 }
             }
         }
+        .navigationTitle("Band Profile")
+        .navigationBarTitleDisplayMode(.inline)
+        .background(Color(uiColor: .systemGroupedBackground))
     }
 }
 

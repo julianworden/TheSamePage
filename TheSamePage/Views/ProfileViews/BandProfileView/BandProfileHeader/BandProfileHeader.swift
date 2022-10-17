@@ -15,12 +15,7 @@ struct BandProfileHeader: View {
     }
     
     var body: some View {
-        if viewModel.bandImageUrl != nil {
-            ProfileAsyncImage(url: URL(string: viewModel.bandImageUrl!))
-        } else {
-            NoImageView()
-                .padding(.horizontal)
-        }
+        ProfileAsyncImage(url: URL(string: viewModel.bandImageUrl ?? ""))
         
         VStack {
             Text(viewModel.bandName)

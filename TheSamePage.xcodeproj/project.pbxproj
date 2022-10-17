@@ -40,7 +40,7 @@
 		AB36FF6D28D356FE00AAC00C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB36FF6C28D356FE00AAC00C /* Preview Assets.xcassets */; };
 		AB36FF7428D358FB00AAC00C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF7328D358FA00AAC00C /* HomeView.swift */; };
 		AB36FF7628D3598900AAC00C /* MyShowsRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF7528D3598900AAC00C /* MyShowsRootView.swift */; };
-		AB36FF7828D359E700AAC00C /* NewOtherUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF7728D359E700AAC00C /* NewOtherUserProfileView.swift */; };
+		AB36FF7828D359E700AAC00C /* OtherUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF7728D359E700AAC00C /* OtherUserProfileView.swift */; };
 		AB36FF8028D35BFA00AAC00C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF7F28D35BFA00AAC00C /* User.swift */; };
 		AB36FF8328D35C0600AAC00C /* Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF8228D35C0600AAC00C /* Show.swift */; };
 		AB36FF8528D35C1B00AAC00C /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF8428D35C1B00AAC00C /* Location.swift */; };
@@ -83,6 +83,7 @@
 		AB7F381128EF1AB4007741C7 /* BandInvitesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7F381028EF1AB4007741C7 /* BandInvitesList.swift */; };
 		AB7F381328EF1B56007741C7 /* NotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7F381228EF1B56007741C7 /* NotificationType.swift */; };
 		AB7F381528EF20EA007741C7 /* ShowParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7F381428EF20EA007741C7 /* ShowParticipant.swift */; };
+		AB9D086128FDA24B0098A244 /* UserSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9D086028FDA24B0098A244 /* UserSettingsView.swift */; };
 		ABA1020728DDE5BE00A4E818 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020628DDE5BE00A4E818 /* NotificationsViewModel.swift */; };
 		ABA1020928DDF3C000A4E818 /* NotificationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020828DDF3C000A4E818 /* NotificationRow.swift */; };
 		ABA1020B28DDF3E200A4E818 /* NotificationRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020A28DDF3E200A4E818 /* NotificationRowViewModel.swift */; };
@@ -178,7 +179,7 @@
 		AB36FF6C28D356FE00AAC00C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AB36FF7328D358FA00AAC00C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		AB36FF7528D3598900AAC00C /* MyShowsRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowsRootView.swift; sourceTree = "<group>"; };
-		AB36FF7728D359E700AAC00C /* NewOtherUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOtherUserProfileView.swift; sourceTree = "<group>"; };
+		AB36FF7728D359E700AAC00C /* OtherUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserProfileView.swift; sourceTree = "<group>"; };
 		AB36FF7F28D35BFA00AAC00C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AB36FF8228D35C0600AAC00C /* Show.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Show.swift; sourceTree = "<group>"; };
 		AB36FF8428D35C1B00AAC00C /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -220,6 +221,7 @@
 		AB7F381028EF1AB4007741C7 /* BandInvitesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandInvitesList.swift; sourceTree = "<group>"; };
 		AB7F381228EF1B56007741C7 /* NotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationType.swift; sourceTree = "<group>"; };
 		AB7F381428EF20EA007741C7 /* ShowParticipant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowParticipant.swift; sourceTree = "<group>"; };
+		AB9D086028FDA24B0098A244 /* UserSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsView.swift; sourceTree = "<group>"; };
 		ABA1020628DDE5BE00A4E818 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
 		ABA1020828DDF3C000A4E818 /* NotificationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRow.swift; sourceTree = "<group>"; };
 		ABA1020A28DDF3E200A4E818 /* NotificationRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRowViewModel.swift; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 				ABB5804E28E47A8000F6C141 /* AddEdit */,
 				ABBE94C028D8AD9E00790A04 /* ShowDetailsView */,
 				AB5054B128DC9BFF00321380 /* Searching */,
+				AB9D085F28FDA2300098A244 /* Settings */,
 				AB36FF9628D36A4F00AAC00C /* Miscellaneous */,
 			);
 			path = Views;
@@ -478,7 +481,7 @@
 			isa = PBXGroup;
 			children = (
 				AB35A8CB28E9CFCF009FB203 /* LoggedInUserProfileView.swift */,
-				AB36FF7728D359E700AAC00C /* NewOtherUserProfileView.swift */,
+				AB36FF7728D359E700AAC00C /* OtherUserProfileView.swift */,
 				ABDC0D7128D74BFF0054269E /* UserProfileRootViewModel.swift */,
 				ABD323ED28E117F800540B93 /* SendBandInviteView */,
 				AB35A8DB28E9DDDB009FB203 /* UserBandList */,
@@ -652,6 +655,14 @@
 				AB794E2E28E25A81000ABB37 /* SearchViewModel.swift */,
 			);
 			path = SearchView;
+			sourceTree = "<group>";
+		};
+		AB9D085F28FDA2300098A244 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				AB9D086028FDA24B0098A244 /* UserSettingsView.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		ABAB45F728F24C1D00FA8F70 /* LargeListRow */ = {
@@ -992,7 +1003,7 @@
 				ABBE94C428D8AE7500790A04 /* ShowDetailsViewModel.swift in Sources */,
 				AB2B867C28D9F444004601B6 /* NoImageView.swift in Sources */,
 				ABDDAD4A28DB46B500F1CF9B /* ImageSelectionButton.swift in Sources */,
-				AB36FF7828D359E700AAC00C /* NewOtherUserProfileView.swift in Sources */,
+				AB36FF7828D359E700AAC00C /* OtherUserProfileView.swift in Sources */,
 				ABCAAA0428E9ED7500685F91 /* BandLinkListViewModel.swift in Sources */,
 				AB36FF6828D356FD00AAC00C /* RootView.swift in Sources */,
 				AB7F380F28EF1AA9007741C7 /* ShowInvitesList.swift in Sources */,
@@ -1050,6 +1061,7 @@
 				AB285B0828F7086D00EB5F2B /* AddShowTimeViewModel.swift in Sources */,
 				AB07296328F468530069B268 /* ShowLocationTab.swift in Sources */,
 				AB36FF8D28D35CDF00AAC00C /* Backline.swift in Sources */,
+				AB9D086128FDA24B0098A244 /* UserSettingsView.swift in Sources */,
 				AB399AD428D4B12B009B39F7 /* MyShowsShowCardViewModel.swift in Sources */,
 				AB07296128F467010069B268 /* ShowDetailsTab.swift in Sources */,
 				ABF1C40C28ECF0A50004A3C1 /* ShowSearchResultsList.swift in Sources */,

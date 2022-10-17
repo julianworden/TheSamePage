@@ -91,9 +91,6 @@ struct BandProfileAdminView: View {
                 
                 Spacer()
             }
-            .navigationTitle("Band Profile")
-            .navigationBarTitleDisplayMode(.inline)
-            .background(Color(uiColor: .systemGroupedBackground))
         }
     }
 }

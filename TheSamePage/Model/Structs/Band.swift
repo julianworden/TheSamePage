@@ -50,6 +50,10 @@ struct Band: Codable, Equatable, Hashable, Identifiable {
         return memberUids.contains(AuthController.getLoggedInUid())
     }
     
+    var loggedInUserIsNotInvolvedWithBand: Bool {
+        return !loggedInUserIsBandAdmin && !loggedInUserIsBandMember
+    }
+    
     static let example = Band(
         id: "a;efhalskehasf",
         name: "Pathetic Fallacy",

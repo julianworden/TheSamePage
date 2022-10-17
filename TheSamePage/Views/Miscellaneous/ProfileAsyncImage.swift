@@ -17,10 +17,10 @@ struct ProfileAsyncImage: View {
                 ZStack {
                     Rectangle()
                         .foregroundColor(.clear)
-                        .frame(height: 200)
                     
                     ProgressView()
                 }
+                .frame(height: 200)
                 .padding(.horizontal)
                 
             case .success(let image):

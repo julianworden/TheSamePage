@@ -21,7 +21,7 @@ struct BandProfileOtherUserView: View {
             VStack(spacing: 15) {
                 BandProfileHeader(band: viewModel.band!)
                 
-                if !viewModel.band!.loggedInUserIsBandMember && !viewModel.band!.loggedInUserIsBandAdmin {
+                if !viewModel.band!.loggedInUserIsBandAdmin {
                     NavigationLink {
                         SendShowInviteView(band: viewModel.band!)
                     } label: {

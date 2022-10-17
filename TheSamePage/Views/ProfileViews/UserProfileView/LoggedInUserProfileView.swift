@@ -11,7 +11,6 @@ struct LoggedInUserProfileView: View {
     @EnvironmentObject var loggedInUserController: LoggedInUserController
     
     @Binding var userIsLoggedOut: Bool
-    @Binding var selectedTab: Int
     
     var body: some View {
         ZStack {
@@ -41,15 +40,10 @@ struct LoggedInUserProfileView: View {
                 .navigationBarTitleDisplayMode(.large)
                 .toolbar {
                     ToolbarItem {
-                        Button {
-                            do {
-                                try loggedInUserController.logOut()
-                                userIsLoggedOut = true
-                            } catch {
-                                print(error)
-                            }
+                        NavigationLink {
+                            UserSettingsView(userIsLoggedOut: $userIsLoggedOut)
                         } label: {
-                            Label("Log Out", systemImage: "plus")
+                            Label("Settings", systemImage: "gear")
                         }
                     }
                 }
@@ -64,6 +58,6 @@ struct LoggedInUserProfileView: View {
 
 struct LoggedInUserProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        LoggedInUserProfileView(userIsLoggedOut: .constant(false), selectedTab: .constant(4))
+        LoggedInUserProfileView(userIsLoggedOut: .constant(false))
     }
 }
