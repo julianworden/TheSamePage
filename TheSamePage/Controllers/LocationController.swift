@@ -12,6 +12,7 @@ import Foundation
 final class LocationController: NSObject, ObservableObject, CLLocationManagerDelegate {
     static let shared = LocationController()
     
+    @Published var locationSet = false
     @Published var userLocation: CLLocation?
     @Published var userCoordinates: CLLocationCoordinate2D?
     @Published var userRegion: MKCoordinateRegion?
@@ -40,6 +41,7 @@ final class LocationController: NSObject, ObservableObject, CLLocationManagerDel
             
             if let userCoordinates {
                 userRegion = MKCoordinateRegion(center: userCoordinates, latitudinalMeters: 0.5, longitudinalMeters: 0.5)
+                locationSet = true
             }
         @unknown default:
             break

@@ -64,6 +64,7 @@ struct RootView: View {
                 .navigationBarHidden(true)
                 .onAppear {
                     selectedTab = 0
+                    LocationController.shared.startLocationServices()
                 }
             }
         }

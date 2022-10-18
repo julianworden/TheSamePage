@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject var showsController: ShowsController
+    @StateObject var viewModel = HomeViewModel()
     
     var body: some View {
         NavigationView {
@@ -18,16 +18,21 @@ struct HomeView: View {
                 
                 ScrollView {
                     VStack(spacing: 0) {
-                        ForEach(showsController.nearbyShows) { show in
-                            LargeListRow(show: show, joinedShow: nil)
+                        if !viewModel.nearbyShows.isEmpty {
+                            ForEach(viewModel.nearbyShows) { show in
+                                LargeListRow(show: show, joinedShow: nil)
+                            }
                         }
                     }
                 }
             }
             .navigationTitle("Shows Near You")
-            .onAppear {
-                LocationController.shared.startLocationServices()	
-                showsController.getShows()
+            .task {
+                do {
+                    try await viewModel.performShowsGeoQuery()
+                } catch {
+                    print(error)
+                }
             }
         }
     }
@@ -35,7 +40,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
-            .environmentObject(ShowsController())
+        HomeView(viewModel: HomeViewModel())
     }
 }
