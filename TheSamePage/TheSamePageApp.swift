@@ -13,13 +13,11 @@ import SwiftUI
 struct SO62626652_AppDelegateAdaptorApp: App {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     
-    @StateObject var showsController = ShowsController()
     @StateObject var loggedInUserController = LoggedInUserController()
     
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environmentObject(showsController)
                 .environmentObject(loggedInUserController)
         }
     }

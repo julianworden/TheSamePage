@@ -12,10 +12,11 @@ struct MyPlayingShowsView: View {
     
     var body: some View {
         Group {
-            switch viewModel.state {
+            switch viewModel.myPlayingShowsViewState {
             case .dataLoading:
                 ProgressView()
             case .dataLoaded:
+                // TODO: Make this a list instead
                 ScrollView {
                     ForEach(viewModel.playingShows) { show in
                         NavigationLink {
@@ -38,10 +39,12 @@ struct MyPlayingShowsView: View {
             }
         }
         .task {
-            do {
-                try await viewModel.getPlayingShows()
-            } catch {
-                viewModel.state = .error(message: error.localizedDescription)
+            if viewModel.playingShows.isEmpty {
+                do {
+                    try await viewModel.getPlayingShows()
+                } catch {
+                    viewModel.myPlayingShowsViewState = .error(message: error.localizedDescription)
+                }
             }
         }
         .onDisappear {

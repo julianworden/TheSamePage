@@ -53,7 +53,6 @@
 		AB36FF9828D36A6600AAC00C /* SectionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF9728D36A6600AAC00C /* SectionTitle.swift */; };
 		AB36FF9D28D36BBF00AAC00C /* HomeShowCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF9C28D36BBF00AAC00C /* HomeShowCard.swift */; };
 		AB36FF9F28D36D0300AAC00C /* HomeShowCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF9E28D36D0300AAC00C /* HomeShowCardViewModel.swift */; };
-		AB36FFA228D372A900AAC00C /* ShowsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FFA128D372A900AAC00C /* ShowsController.swift */; };
 		AB38E1B128FB21CB006D1788 /* AddEditShowAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38E1B028FB21CB006D1788 /* AddEditShowAddressView.swift */; };
 		AB38E1B328FB2422006D1788 /* CLPlacemark+formattedAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38E1B228FB2422006D1788 /* CLPlacemark+formattedAddress.swift */; };
 		AB399AD228D4AF3E009B39F7 /* MyShowsShowCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB399AD128D4AF3E009B39F7 /* MyShowsShowCard.swift */; };
@@ -72,6 +71,7 @@
 		AB582B7E28FA3B3D00D357F3 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB582B7D28FA3B3D00D357F3 /* LocationController.swift */; };
 		AB5B77C528E72B8E00B32537 /* BandLinkCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5B77C428E72B8E00B32537 /* BandLinkCard.swift */; };
 		AB5B77C728E72B9600B32537 /* BandLinkCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5B77C628E72B9600B32537 /* BandLinkCardViewModel.swift */; };
+		AB5E48F5290029B20076EABE /* NearbyShowsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E48F4290029B20076EABE /* NearbyShowsList.swift */; };
 		AB6514DD28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6514DC28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift */; };
 		AB6514DF28F911EB008DFDD0 /* ShowTimeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6514DE28F911EB008DFDD0 /* ShowTimeRow.swift */; };
 		AB66B9B828F0D2EF00E7F0E0 /* ShowDetailsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB66B9B728F0D2EF00E7F0E0 /* ShowDetailsHeader.swift */; };
@@ -193,7 +193,6 @@
 		AB36FF9728D36A6600AAC00C /* SectionTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTitle.swift; sourceTree = "<group>"; };
 		AB36FF9C28D36BBF00AAC00C /* HomeShowCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShowCard.swift; sourceTree = "<group>"; };
 		AB36FF9E28D36D0300AAC00C /* HomeShowCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShowCardViewModel.swift; sourceTree = "<group>"; };
-		AB36FFA128D372A900AAC00C /* ShowsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowsController.swift; sourceTree = "<group>"; };
 		AB38E1B028FB21CB006D1788 /* AddEditShowAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowAddressView.swift; sourceTree = "<group>"; };
 		AB38E1B228FB2422006D1788 /* CLPlacemark+formattedAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLPlacemark+formattedAddress.swift"; sourceTree = "<group>"; };
 		AB399AD128D4AF3E009B39F7 /* MyShowsShowCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowsShowCard.swift; sourceTree = "<group>"; };
@@ -211,6 +210,7 @@
 		AB582B7D28FA3B3D00D357F3 /* LocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
 		AB5B77C428E72B8E00B32537 /* BandLinkCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLinkCard.swift; sourceTree = "<group>"; };
 		AB5B77C628E72B9600B32537 /* BandLinkCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLinkCardViewModel.swift; sourceTree = "<group>"; };
+		AB5E48F4290029B20076EABE /* NearbyShowsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyShowsList.swift; sourceTree = "<group>"; };
 		AB6514DC28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+CustomTimeFormat.swift"; sourceTree = "<group>"; };
 		AB6514DE28F911EB008DFDD0 /* ShowTimeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimeRow.swift; sourceTree = "<group>"; };
 		AB66B9B728F0D2EF00E7F0E0 /* ShowDetailsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsHeader.swift; sourceTree = "<group>"; };
@@ -461,6 +461,7 @@
 			isa = PBXGroup;
 			children = (
 				AB36FF7328D358FA00AAC00C /* HomeView.swift */,
+				AB5E48F4290029B20076EABE /* NearbyShowsList.swift */,
 				ABB71C4928FE08D500D3126D /* HomeViewModel.swift */,
 				AB36FF9C28D36BBF00AAC00C /* HomeShowCard.swift */,
 				AB36FF9E28D36D0300AAC00C /* HomeShowCardViewModel.swift */,
@@ -566,7 +567,6 @@
 		AB36FFA028D372A100AAC00C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				AB36FFA128D372A900AAC00C /* ShowsController.swift */,
 				AB399ADA28D4C548009B39F7 /* LoggedInUserController.swift */,
 				ABDC0D7328D75CC80054269E /* AuthController.swift */,
 				ABF1C40528ECE83F0004A3C1 /* TypesenseController.swift */,
@@ -1001,6 +1001,7 @@
 				ABE3EFA628D91960002EEF23 /* SignUpView.swift in Sources */,
 				ABDC0D7228D74BFF0054269E /* UserProfileRootViewModel.swift in Sources */,
 				AB399AD228D4AF3E009B39F7 /* MyShowsShowCard.swift in Sources */,
+				AB5E48F5290029B20076EABE /* NearbyShowsList.swift in Sources */,
 				AB794E2F28E25A81000ABB37 /* SearchViewModel.swift in Sources */,
 				AB5B77C528E72B8E00B32537 /* BandLinkCard.swift in Sources */,
 				ABA1020928DDF3C000A4E818 /* NotificationRow.swift in Sources */,
@@ -1044,7 +1045,6 @@
 				AB285B0428F6FF6600EB5F2B /* AddShowTimeView.swift in Sources */,
 				ABCAA9FF28E9E56C00685F91 /* BandProfileHeader.swift in Sources */,
 				ABF5563728DF93E40059E2DF /* BandProfileViewModel.swift in Sources */,
-				AB36FFA228D372A900AAC00C /* ShowsController.swift in Sources */,
 				AB2B867E28D9F884004601B6 /* ImagePicker.swift in Sources */,
 				AB582B7E28FA3B3D00D357F3 /* LocationController.swift in Sources */,
 				AB36FF9428D361A100AAC00C /* DatabaseService.swift in Sources */,

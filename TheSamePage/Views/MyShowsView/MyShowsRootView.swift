@@ -29,12 +29,10 @@ struct MyShowsRootView: View {
                         MyHostedShowsView(
                             viewModel: viewModel
                         )
-                        .padding(.top)
                     }
                     
                     if viewModel.selectedShowType == .playing {
                         MyPlayingShowsView(viewModel: viewModel)
-                            .padding(.top)
                     }
                     
                     Spacer()

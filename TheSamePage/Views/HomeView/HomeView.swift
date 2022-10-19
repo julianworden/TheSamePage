@@ -10,28 +10,42 @@ import SwiftUI
 struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
     
+    @State private var filterConfirmationDialogIsShowing = false
+    
     var body: some View {
         NavigationView {
             ZStack {
                 Color(uiColor: .systemGroupedBackground)
                     .ignoresSafeArea()
                 
-                ScrollView {
-                    VStack(spacing: 0) {
-                        if !viewModel.nearbyShows.isEmpty {
-                            ForEach(viewModel.nearbyShows) { show in
-                                LargeListRow(show: show, joinedShow: nil)
-                            }
-                        }
-                    }
+                switch viewModel.state {
+                case .dataLoading:
+                    ProgressView()
+                    
+                case .dataLoaded:
+                    NearbyShowsList(
+                        viewModel: viewModel,
+                        filterConfirmationDialogIsShowing: $filterConfirmationDialogIsShowing
+                    )
+                    
+                case .dataNotFound:
+                    Text("We can't find any shows near you, try widening your search radius with the filter button!")
+                    
+                case .error(let message):
+                    ErrorMessage(message: "Faileline.horizontal.3.decrease.circled to fetch shows near you. Please use Settings to ensure that location services are enabled for The Same Page, check your internet connection, and restart the app.", errorText: message)
                 }
             }
             .navigationTitle("Shows Near You")
+            .confirmationDialog("Select a search radius", isPresented: $filterConfirmationDialogIsShowing) {
+                Button("10 Miles") { viewModel.changeSearchRadius(toValue: 10) }
+                Button("25 Miles (Default)") { viewModel.changeSearchRadius(toValue: 25) }
+                Button("50 Miles") { viewModel.changeSearchRadius(toValue: 50) }
+                Button("Cancel", role: .cancel) { }
+            }
             .task {
-                do {
-                    try await viewModel.performShowsGeoQuery()
-                } catch {
-                    print(error)
+                if viewModel.nearbyShows.isEmpty {
+                    viewModel.state = .dataLoading
+                    await viewModel.performShowsGeoQuery()
                 }
             }
         }

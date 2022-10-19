@@ -13,53 +13,50 @@ class MyShowsViewModel: ObservableObject {
     @Published var playingShows = [Show]()
     @Published var hostedShows = [Show]()
     @Published var selectedShowType = ShowType.hosting
-    @Published var state = ViewState.dataLoading
+    @Published var myHostedShowsViewState = ViewState.dataLoading
+    @Published var myPlayingShowsViewState = ViewState.dataLoading
     
     let db = Firestore.firestore()
     var hostedShowsListener: ListenerRegistration?
     var playingShowsListener: ListenerRegistration?
     
     /// Fetches all shows that the user is hosting.
-    func getHostedShows() async throws {
-        state = .dataLoading
-        
+    func getHostedShows() async throws {        
         hostedShowsListener = db.collection("shows").whereField(
             "hostUid",
             isEqualTo: AuthController.getLoggedInUid()
         ).addSnapshotListener { snapshot, error in
             if snapshot != nil && error == nil {
-                Task {
-                    self.hostedShows = try await DatabaseService.shared.getHostedShows()
-                    
-                    if self.hostedShows.isEmpty {
-                        self.state = .dataNotFound
-                    } else {
-                        self.state = .dataLoaded
-                    }
+                guard !snapshot!.documents.isEmpty else {
+                    self.myHostedShowsViewState = .dataNotFound
+                    return
+                }
+                
+                if let hostedShows = try? snapshot!.documents.map({ try $0.data(as: Show.self) }) {
+                    self.hostedShows = hostedShows
+                    self.myHostedShowsViewState = .dataLoaded
                 }
             } else if error != nil {
-                self.state = .error(message: error!.localizedDescription)
+                self.myHostedShowsViewState = .error(message: error!.localizedDescription)
             }
         }
     }
     
     /// Fetches all shows that the user is playing.
     func getPlayingShows() async throws {
-        state = .dataLoading
-        
         playingShowsListener = db.collection("shows").whereField(
             "participantUids",
             arrayContains: AuthController.getLoggedInUid()
         ).addSnapshotListener { snapshot, error in
             if snapshot != nil && error == nil {
-                Task {
-                    self.playingShows = try await DatabaseService.shared.getPlayingShows()
-                    
-                    if self.playingShows.isEmpty {
-                        self.state = .dataNotFound
-                    } else {
-                        self.state = .dataLoaded
-                    }
+                guard !snapshot!.documents.isEmpty else {
+                    self.myPlayingShowsViewState = .dataNotFound
+                    return
+                }
+                
+                if let playingShows = try? snapshot!.documents.map({ try $0.data(as: Show.self) }) {
+                    self.playingShows = playingShows
+                    self.myPlayingShowsViewState = .dataLoaded
                 }
             }
         }

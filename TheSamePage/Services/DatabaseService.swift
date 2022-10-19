@@ -22,80 +22,6 @@ class DatabaseService {
     }
     
     static let shared = DatabaseService()
-    static let shows = [
-        Show(
-            id: "a;wioefja;wlefj",
-            name: "Dumpweed Extravaganza",
-            description: "A dank ass banger! Hop on the bill I freakin’ swear you won’t regret it I swear.",
-            host: "DAA Entertainment",
-            hostUid: "awefawefawefawef",
-            venue: "Starland Ballroom",
-            date: Date().timeIntervalSince1970,
-            ticketPrice: 100,
-            ticketSalesAreRequired: true,
-            minimumRequiredTicketsSold: 20,
-            addressIsPrivate: true,
-            address: "Starland Ballroom's address here",
-            city: "Sayreville",
-            state: "NJ",
-            latitude: 2341234,
-            longitude: 123412341,
-            geohash: "ja;wijfawi;efj",
-            hasFood: true,
-            hasBar: true,
-            is21Plus: false,
-            genre: Genre.rock.rawValue,
-            maxNumberOfBands: 3
-        ),
-        Show(
-            id: "a;asdfwefwa;wlefj",
-            name: "The Return of Pathetic Fallacy",
-            description: "They're back! And with a god damn vengeance you won’t want to miss.",
-            host: "Damn Straight Entertainment",
-            hostUid: "asdfawefawef",
-            venue: "Wembley Stadium",
-            date: Date().timeIntervalSince1970,
-            ticketPrice: 300,
-            ticketSalesAreRequired: false,
-            addressIsPrivate: true,
-            address: "Wembley Stadium's address here",
-            city: "Some City",
-            state: "England",
-            latitude: 2341234,
-            longitude: 123412341,
-            geohash: "ja;wijfawi;efj",
-            imageUrl: nil,
-            hasFood: true,
-            hasBar: false,
-            is21Plus: false,
-            genre: Genre.rock.rawValue,
-            maxNumberOfBands: 3
-        ),
-        Show(
-            id: "poawiehfaivb",
-            name: "Generation Underground",
-            description: "No idea how they're playing a show this big. They probably paid somebody lots of money.",
-            host: "DAA Entertainment",
-            hostUid: "awefawefawefawef",
-            venue: "Giants Stadium",
-            date: Date().timeIntervalSince1970,
-            ticketPrice: 30,
-            ticketSalesAreRequired: true,
-            minimumRequiredTicketsSold: 10,
-            addressIsPrivate: true,
-            address: "Giant stadium address here",
-            city: "NY",
-            state: "NY",
-            latitude: 23452345,
-            longitude: 45234234,
-            geohash: "asfergrtgh",
-            hasFood: true,
-            hasBar: true,
-            is21Plus: true,
-            genre: Genre.rock.rawValue,
-            maxNumberOfBands: 3
-        )
-    ]
     
     let db = Firestore.firestore()
     
@@ -111,10 +37,6 @@ class DatabaseService {
         } catch {
             throw DatabaseServiceError.firestoreError(message: "Failed to fetch logged in user")
         }
-    }
-    
-    func getShowsNearYou() -> [Show] {
-        return []
     }
     
     /// Fetches all the shows of which the signed in user is the host.

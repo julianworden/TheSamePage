@@ -48,11 +48,8 @@ struct LargeListRow: View {
                 
                 Spacer()
             }
-            .padding()
-            
-            Divider()
+//            .padding()
         }
-        .background(.white)
     }
 }
 

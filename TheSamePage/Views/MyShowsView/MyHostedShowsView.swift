@@ -12,12 +12,12 @@ struct MyHostedShowsView: View {
     
     var body: some View {
         Group {
-            switch viewModel.state {
+            switch viewModel.myHostedShowsViewState {
             case .dataLoading:
                 ProgressView()
             case .dataLoaded:
-                ScrollView {
-                    VStack(spacing: 0) {
+                List {
+                    Section("You're hosting...") {
                         ForEach(viewModel.hostedShows) { show in
                             NavigationLink {
                                 ShowDetailsView(show: show)
@@ -28,6 +28,7 @@ struct MyHostedShowsView: View {
                         }
                     }
                 }
+                .listStyle(.grouped)
             case .dataNotFound:
                 VStack {
                     Text("You're not hosting any shows.")
@@ -49,10 +50,12 @@ struct MyHostedShowsView: View {
             }
         }
         .task {
-            do {
-                try await viewModel.getHostedShows()
-            } catch {
-                viewModel.state = .error(message: error.localizedDescription)
+            if viewModel.hostedShows.isEmpty {
+                do {
+                    try await viewModel.getHostedShows()
+                } catch {
+                    viewModel.myHostedShowsViewState = .error(message: error.localizedDescription)
+                }
             }
         }
         .onDisappear {
