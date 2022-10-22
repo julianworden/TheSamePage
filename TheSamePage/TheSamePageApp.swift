@@ -5,8 +5,9 @@
 //  Created by Julian Worden on 9/15/22.
 //
 
-import Atlantis
+//import Atlantis
 import FirebaseCore
+//import Geohash
 import SwiftUI
 
 @main

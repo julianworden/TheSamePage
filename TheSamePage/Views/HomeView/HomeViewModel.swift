@@ -5,9 +5,10 @@
 //  Created by Julian Worden on 10/17/22.
 //
 
+import CoreLocation
 import FirebaseFirestore
 import Foundation
-import GeoFireUtils
+import Typesense
 
 @MainActor
 class HomeViewModel: ObservableObject {
@@ -15,7 +16,7 @@ class HomeViewModel: ObservableObject {
         case locationController(message: String)
     }
     
-    @Published var nearbyShows = [Show]()
+    @Published var nearbyShows = [SearchResultHit<Show>]()
     @Published var searchRadiusInMiles: Double = 25
     @Published var state = ViewState.dataLoading
     
@@ -31,78 +32,35 @@ class HomeViewModel: ObservableObject {
         return milesValue.converted(to: UnitLength.meters).value
     }
     
-    func performShowsGeoQuery() async {
+    func fetchNearbyShows() async throws {
         guard let userCoordinates = LocationController.shared.userCoordinates else { return }
         
-        self.userCoordinates = userCoordinates
+        let searchParameters = SearchParameters(
+            q: "*",
+            queryBy: "name",
+            filterBy: "typesenseCoordinates:(\(userCoordinates.latitude), \(userCoordinates.longitude), \(searchRadiusInMiles) mi)",
+            sortBy: "typesenseCoordinates(\(userCoordinates.latitude), \(userCoordinates.longitude)):asc"
+        )
         
-        let queryBounds = GFUtils.queryBounds(forLocation: userCoordinates,
-                                              withRadius: searchRadiusInMeters)
-        
-        let queries = queryBounds.map { bound -> Query in
-            return db.collection("shows")
-                .order(by: "geohash")
-                .start(at: [bound.startValue])
-                .end(at: [bound.endValue])
-        }
-        
-        var filteredShows = [Show]()
-        
-        for query in queries {
-            do {
-                let querySnapshot = try await query.getDocuments()
-                guard !querySnapshot.documents.isEmpty else { continue }
-                
-                for document in querySnapshot.documents {
-                    do {
-                        // Filter out retrieved documents that aren't Show objects (for some reason non Show documents can get fetched)
-                        let show = try document.data(as: Show.self)
-                        if let filteredShow = try checkForFalsePositive(withShow: show) {
-                            filteredShows.append(filteredShow)
-                        }
-                    } catch {
-                        continue
-                    }
-                }
-            } catch {
-                state = .error(message: "Failed to perform GeoQuery in HomeViewModel.performShowsGeoQuery()")
+        do {
+            let (data, _) = try await TypesenseController.client.collection(name: "shows").documents().search(searchParameters, for: Show.self)
+            if let fetchedNearbyShows = data?.hits,
+               !fetchedNearbyShows.isEmpty {
+                nearbyShows = fetchedNearbyShows
+                state = .dataLoaded
+            } else {
+                state = .dataNotFound
             }
+        } catch {
+//            throw SearchViewModelError.searchFailed(message: "User search failed")
         }
-        
-        if filteredShows.isEmpty {
-            state = .dataNotFound
-        } else {
-            nearbyShows = [Show]()
-            nearbyShows = filteredShows
-        }
-    }
-    
-    func checkForFalsePositive(withShow show: Show) throws -> Show? {
-        guard let userCoordinates = self.userCoordinates else {
-            state = .error(message: "User location not available in HomeViewModel.checkForFalsePositive(withShow:)")
-            throw HomeViewModelError.locationController(message: "User location not available in HomeViewModel.checkForFalsePositive(withShow:)")
-        }
-        
-        let showLatitude = show.latitude
-        let showLongitude = show.longitude
-        let showLocation = CLLocation(latitude: showLatitude, longitude: showLongitude)
-        let userLocation = CLLocation(latitude: userCoordinates.latitude, longitude: userCoordinates.longitude)
-        let distanceBetweenUserAndShow = GFUtils.distance(from: userLocation, to: showLocation)
-        
-        // Filter out false positives
-        if distanceBetweenUserAndShow <= searchRadiusInMeters {
-            state = .dataLoaded
-            return show
-        }
-        
-        return nil
     }
     
     func changeSearchRadius(toValue value: Double) {
         state = .dataLoading
         searchRadiusInMiles = value
         Task {
-            await performShowsGeoQuery()
+            try await fetchNearbyShows()
         }
     }
 }

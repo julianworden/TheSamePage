@@ -15,7 +15,9 @@ struct NearbyShowsList: View {
     var body: some View {
         List {
             Section(viewModel.nearbyShowsListHeaderText) {
-                ForEach(viewModel.nearbyShows) { show in
+                ForEach(viewModel.nearbyShows, id: \.document) { result in
+                    let show = result.document!
+                    
                     NavigationLink {
                         ShowDetailsView(show: show)
                     } label: {
@@ -25,19 +27,14 @@ struct NearbyShowsList: View {
             }
         }
         .listStyle(.grouped)
-        .toolbar {
-            ToolbarItem {
-                Button {
-                    filterConfirmationDialogIsShowing = true
-                } label: {
-                    Label("Filter", systemImage: "line.horizontal.3.decrease.circle")
-                }
+        .refreshable {
+            do {
+                try await viewModel.fetchNearbyShows()
+            } catch {
+                print(error)
             }
         }
-        .refreshable {
-            await viewModel.performShowsGeoQuery()
-        }
-        .animation(.default, value: viewModel.nearbyShows)
+//        .animation(.default, value: viewModel.nearbyShows)
     }
 }
 

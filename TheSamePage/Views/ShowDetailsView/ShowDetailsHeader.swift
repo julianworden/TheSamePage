@@ -21,13 +21,8 @@ struct ShowDetailsHeader: View {
                     .font(.title.bold())
                     .multilineTextAlignment(.center)
                 
-                Text("\(viewModel.showVenue) | \(viewModel.showCity), \(viewModel.showState)")
+                Text("At \(viewModel.showVenue) in \(viewModel.showCity), \(viewModel.showState) on \(viewModel.showDate)")
                     .font(.title2)
-                
-                if let showDate = viewModel.showDate {
-                    Text("\(showDate)")
-                        .font(.title2)
-                }
                 
                 // TODO: Make this a sheet instead
                 if viewModel.show.loggedInUserIsNotInvolvedInShow {
@@ -40,6 +35,8 @@ struct ShowDetailsHeader: View {
                     .padding(.vertical)
                 }
             }
+            .multilineTextAlignment(.center)
+            
         }
     }
 }

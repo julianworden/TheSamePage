@@ -12,8 +12,11 @@ struct ShowLineupTab: View {
     
     var body: some View {
         HStack {
-            SectionTitle(title: viewModel.showSlotsRemainingMessage)
-                .padding(.vertical)
+            Text(viewModel.showSlotsRemainingMessage)
+                .font(.title3.bold())
+                .padding()
+            
+            Spacer()
             
             if viewModel.show.loggedInUserIsShowHost {
                 NavigationLink {

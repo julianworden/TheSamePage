@@ -11,5 +11,5 @@ enum ViewState {
     case dataLoading
     case dataLoaded
     case dataNotFound
-    case error(message: String)
+    case error(message: String?)
 }

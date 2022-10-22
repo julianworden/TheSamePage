@@ -16,17 +16,19 @@ struct MyPlayingShowsView: View {
             case .dataLoading:
                 ProgressView()
             case .dataLoaded:
-                // TODO: Make this a list instead
-                ScrollView {
-                    ForEach(viewModel.playingShows) { show in
-                        NavigationLink {
-                            ShowDetailsView(show: show)
-                        } label: {
-                            LargeListRow(show: show, joinedShow: nil)
+                List {
+                    Section("You're playing...") {
+                        ForEach(viewModel.playingShows) { show in
+                            NavigationLink {
+                                ShowDetailsView(show: show)
+                            } label: {
+                                LargeListRow(show: show, joinedShow: nil)
+                            }
+                            .foregroundColor(.black)
                         }
-                        .foregroundColor(.black)
                     }
                 }
+                .listStyle(.grouped)
             case .dataNotFound:
                 Text("You're not playing any shows.")
                     .font(.body.italic())

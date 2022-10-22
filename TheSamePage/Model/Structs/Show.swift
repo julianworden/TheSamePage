@@ -34,7 +34,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     let state: String
     let latitude: Double
     let longitude: Double
-    let geohash: String
+    let typesenseCoordinates: [Double]
     let imageUrl: String?
     let hasFood: Bool
     let hasBar: Bool
@@ -62,7 +62,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
          state: String,
          latitude: Double,
          longitude: Double,
-         geohash: String,
+         typesenseCoordinates: [Double],
          imageUrl: String? = nil,
          hasFood: Bool,
          hasBar: Bool,
@@ -92,7 +92,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         self.state = state
         self.latitude = latitude
         self.longitude = longitude
-        self.geohash = geohash
+        self.typesenseCoordinates = typesenseCoordinates
         self.imageUrl = imageUrl
         self.hasFood = hasFood
         self.hasBar = hasBar
@@ -174,7 +174,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         state: "NJ",
         latitude: 2318273.1231,
         longitude: 14562378946.33,
-        geohash: "hekfjawe2342",
+        typesenseCoordinates: [2318273.1231, 14562378946.33],
         hasFood: true,
         hasBar: true,
         is21Plus: true,

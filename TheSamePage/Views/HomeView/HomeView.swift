@@ -32,10 +32,21 @@ struct HomeView: View {
                     Text("We can't find any shows near you, try widening your search radius with the filter button!")
                     
                 case .error(let message):
-                    ErrorMessage(message: "Faileline.horizontal.3.decrease.circled to fetch shows near you. Please use Settings to ensure that location services are enabled for The Same Page, check your internet connection, and restart the app.", errorText: message)
+                    ErrorMessage(
+                        message: "Failed to fetch shows near you. Please use Settings to ensure that location services are enabled for The Same Page, check your internet connection, and restart the app.",
+                        errorText: message)
                 }
             }
             .navigationTitle("Shows Near You")
+            .toolbar {
+                ToolbarItem {
+                    Button {
+                        filterConfirmationDialogIsShowing = true
+                    } label: {
+                        Label("Filter", systemImage: "line.horizontal.3.decrease.circle")
+                    }
+                }
+            }
             .confirmationDialog("Select a search radius", isPresented: $filterConfirmationDialogIsShowing) {
                 Button("10 Miles") { viewModel.changeSearchRadius(toValue: 10) }
                 Button("25 Miles (Default)") { viewModel.changeSearchRadius(toValue: 25) }
@@ -45,7 +56,11 @@ struct HomeView: View {
             .task {
                 if viewModel.nearbyShows.isEmpty {
                     viewModel.state = .dataLoading
-                    await viewModel.performShowsGeoQuery()
+                    do {
+                        try await viewModel.fetchNearbyShows()
+                    } catch {
+                        print(error)
+                    }
                 }
             }
         }

@@ -12,28 +12,29 @@ struct ShowSearchResultsList: View {
     @ObservedObject var viewModel: SearchViewModel
     
     var body: some View {
-        List(viewModel.fetchedShows, id: \.document) { result in
-            let show = result.document!
-            
-            NavigationLink {
-                ShowDetailsView(show: show)
-            } label: {
-                SearchResultRow(band: nil, user: nil, show: show)
+        List {
+            Section("Search Results...") {
+                ForEach(viewModel.fetchedShows, id: \.document) { result in
+                    let show = result.document!
+                    
+                    NavigationLink {
+                        ShowDetailsView(show: show)
+                    } label: {
+                        SearchResultRow(band: nil, user: nil, show: show)
+                    }
+                }
             }
         }
+        .listStyle(.grouped)
         .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
         .autocorrectionDisabled(true)
         .onChange(of: viewModel.queryText) { query in
-            if !query.isEmpty {
-                Task {
-                    do {
-                        try await viewModel.fetchShows(searchQuery: query)
-                    } catch {
-                        print(error)
-                    }
+            Task {
+                do {
+                    try await viewModel.fetchShows(searchQuery: query)
+                } catch {
+                    print(error)
                 }
-            } else {
-                viewModel.fetchedShows = [SearchResultHit<Show>]()
             }
         }
     }

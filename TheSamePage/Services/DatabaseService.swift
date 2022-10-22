@@ -14,10 +14,10 @@ import UIKit.UIImage
 
 class DatabaseService {
     enum DatabaseServiceError: Error {
-        case firebaseAuthError(message: String)
-        case firebaseStorageError(message: String)
-        case firestoreError(message: String)
-        case decodeError(message: String)
+        case firebaseAuth(message: String)
+        case firebaseStorage(message: String)
+        case firestore(message: String)
+        case decode(message: String)
         case unexpectedNilValue(value: String)
     }
     
@@ -30,12 +30,12 @@ class DatabaseService {
     /// Fetches the logged in user's data from Firestore.
     /// - Returns: The logged in user.
     func getLoggedInUser() async throws -> User {
-        guard AuthController.userIsLoggedOut() == false else { throw DatabaseServiceError.firebaseAuthError(message: "User is logged out") }
+        guard AuthController.userIsLoggedOut() == false else { throw DatabaseServiceError.firebaseAuth(message: "User is logged out") }
         
         do {
             return try await db.collection("users").document(AuthController.getLoggedInUid()).getDocument().data(as: User.self)
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to fetch logged in user")
+            throw DatabaseServiceError.firestore(message: "Failed to fetch logged in user")
         }
     }
     
@@ -48,10 +48,10 @@ class DatabaseService {
             do {
                 return try query.documents.map { try $0.data(as: Show.self) }
             } catch {
-                throw DatabaseServiceError.decodeError(message: "Failed to decode show from database.")
+                throw DatabaseServiceError.decode(message: "Failed to decode show from database.")
             }
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to fetch shows in DatabaseService.getHostedShows")
+            throw DatabaseServiceError.firestore(message: "Failed to fetch shows in DatabaseService.getHostedShows")
         }
     }
     
@@ -64,10 +64,10 @@ class DatabaseService {
             do {
                 return try query.documents.map { try $0.data(as: Show.self) }
             } catch {
-                throw DatabaseServiceError.decodeError(message: "Failed to decode show from database in DatabaseService.getPlayingShows()")
+                throw DatabaseServiceError.decode(message: "Failed to decode show from database in DatabaseService.getPlayingShows()")
             }
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to fetch show participants in DatabaseService.getPlayingShows()")
+            throw DatabaseServiceError.firestore(message: "Failed to fetch show participants in DatabaseService.getPlayingShows()")
         }
     }
     
@@ -80,10 +80,10 @@ class DatabaseService {
             do {
                 return try query.documents.map { try $0.data(as: BandInvite.self) }
             } catch {
-                throw DatabaseServiceError.decodeError(message: "Failed to decode bandInvite in DatabaseService.getBandInvites()")
+                throw DatabaseServiceError.decode(message: "Failed to decode bandInvite in DatabaseService.getBandInvites()")
             }
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to fetch band invites in DatabaseService.getBandInvites()")
+            throw DatabaseServiceError.firestore(message: "Failed to fetch band invites in DatabaseService.getBandInvites()")
         }
     }
     
@@ -96,10 +96,10 @@ class DatabaseService {
             do {
                 return try query.documents.map { try $0.data(as: ShowInvite.self) }
             } catch {
-                throw DatabaseServiceError.decodeError(message: "Failed to decode showInvite in DatabaseService.getShowinvites()")
+                throw DatabaseServiceError.decode(message: "Failed to decode showInvite in DatabaseService.getShowinvites()")
             }
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to fetch show invites in DatabaseService.getShowinvites()")
+            throw DatabaseServiceError.firestore(message: "Failed to fetch show invites in DatabaseService.getShowinvites()")
         }
     }
     
@@ -113,10 +113,10 @@ class DatabaseService {
             do {
                 return try query.documents.map { try $0.data(as: Band.self) }
             } catch {
-                throw DatabaseServiceError.decodeError(message: "Failed to decode band in DatabaseService.getBands(withUid:)")
+                throw DatabaseServiceError.decode(message: "Failed to decode band in DatabaseService.getBands(withUid:)")
             }
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to fetch bands in DatabaseService.getBands(withUid:)")
+            throw DatabaseServiceError.firestore(message: "Failed to fetch bands in DatabaseService.getBands(withUid:)")
         }
     }
     
@@ -130,10 +130,10 @@ class DatabaseService {
             do {
                 return try query.documents.map { try $0.data(as: BandMember.self) }
             } catch {
-                throw DatabaseServiceError.decodeError(message: "Failed to decode BandMember in DatabaseService.getBandMembers(forBand:)")
+                throw DatabaseServiceError.decode(message: "Failed to decode BandMember in DatabaseService.getBandMembers(forBand:)")
             }
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to fetch BandMember documents in DatabaseService.getBandMembers(forBand:)")
+            throw DatabaseServiceError.firestore(message: "Failed to fetch BandMember documents in DatabaseService.getBandMembers(forBand:)")
         }
     }
     
@@ -144,7 +144,7 @@ class DatabaseService {
         do {
             return try await db.collection("users").document(bandMember.uid).getDocument(as: User.self)
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Unable to convert BandMember to user in DatabaseService.convertBandMemberToUser(bandMember:)")
+            throw DatabaseServiceError.firestore(message: "Unable to convert BandMember to user in DatabaseService.convertBandMemberToUser(bandMember:)")
         }
     }
     
@@ -158,10 +158,10 @@ class DatabaseService {
             do {
                 return try query.documents.map { try $0.data(as: PlatformLink.self) }
             } catch {
-                throw DatabaseServiceError.decodeError(message: "Failed to decode Link in DatabaseService.getBandLinks(forBand:)")
+                throw DatabaseServiceError.decode(message: "Failed to decode Link in DatabaseService.getBandLinks(forBand:)")
             }
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to fetch band links in DatabaseService.getBandLinks(forBand:)")
+            throw DatabaseServiceError.firestore(message: "Failed to fetch band links in DatabaseService.getBandLinks(forBand:)")
         }
     }
     
@@ -172,7 +172,7 @@ class DatabaseService {
         do {
             return try await db.collection("bands").document(showParticipant.bandId).getDocument(as: Band.self)
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to convert showParticipant to Band in DatabaseService.convertShowParticipantToBand(showParticipant:)")
+            throw DatabaseServiceError.firestore(message: "Failed to convert showParticipant to Band in DatabaseService.convertShowParticipantToBand(showParticipant:)")
         }
     }
     
@@ -182,7 +182,7 @@ class DatabaseService {
         do {
             return try query.documents.map { try $0.data(as: ShowParticipant.self) }
         } catch {
-            throw DatabaseServiceError.decodeError(message: "Failed to decode ShowParticipant in DatabaseService.getShowLineup(forShow:)")
+            throw DatabaseServiceError.decode(message: "Failed to decode ShowParticipant in DatabaseService.getShowLineup(forShow:)")
         }
     }
     
@@ -196,7 +196,7 @@ class DatabaseService {
             let showReference = try db.collection("shows").addDocument(from: show)
             try await showReference.updateData(["id": showReference.documentID])
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to add show to database in DatabaseService.createShow(show:)")
+            throw DatabaseServiceError.firestore(message: "Failed to add show to database in DatabaseService.createShow(show:)")
         }
     }
     
@@ -208,7 +208,7 @@ class DatabaseService {
             try await bandReference.updateData(["id": bandReference.documentID])
             return bandReference.documentID
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to create band in DatabaseService.createBand(band:)")
+            throw DatabaseServiceError.firestore(message: "Failed to create band in DatabaseService.createBand(band:)")
         }
     }
     
@@ -216,12 +216,12 @@ class DatabaseService {
     /// - Parameters:
     ///   - user: The user being created in Firestore.
     func createUserObject(user: User) async throws {
-        guard AuthController.userIsLoggedOut() == false else { throw DatabaseServiceError.firebaseAuthError(message: "User not logged in") }
+        guard AuthController.userIsLoggedOut() == false else { throw DatabaseServiceError.firebaseAuth(message: "User not logged in") }
         
         do {
             try db.collection("users").document(AuthController.getLoggedInUid()).setData(from: user)
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Error creating user object in DatabaseService.createUserObject(user:)")
+            throw DatabaseServiceError.firestore(message: "Error creating user object in DatabaseService.createUserObject(user:)")
         }
         
     }
@@ -248,7 +248,7 @@ class DatabaseService {
                 }
             }
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Error adding user to band in DatabaseService.addUserToBand(add:toBandWithId:withBandInvite:)")
+            throw DatabaseServiceError.firestore(message: "Error adding user to band in DatabaseService.addUserToBand(add:toBandWithId:withBandInvite:)")
         }
     }
     
@@ -259,7 +259,7 @@ class DatabaseService {
             do {
                 try await db.collection("users").document(AuthController.getLoggedInUid()).collection("bandInvites").document(bandInvite.id!).delete()
             } catch {
-                throw DatabaseServiceError.firestoreError(message: "Failed to delete BandInvite in DatabaseService.deleteBandInvite(bandInvite:)")
+                throw DatabaseServiceError.firestore(message: "Failed to delete BandInvite in DatabaseService.deleteBandInvite(bandInvite:)")
             }
         }
     }
@@ -295,7 +295,7 @@ class DatabaseService {
                 throw error
             }
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to add band to show in DatabaseService.addBandToShow(add:to:with:)")
+            throw DatabaseServiceError.firestore(message: "Failed to add band to show in DatabaseService.addBandToShow(add:to:with:)")
         }
         
     }
@@ -313,7 +313,7 @@ class DatabaseService {
                 try await db.collection("shows").document(show.id).updateData(["doorsTime": time.timeIntervalSince1970])
             }
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to add time to show in in DatabaseService.addTimeToShow(addTime:ofType:forShow)")
+            throw DatabaseServiceError.firestore(message: "Failed to add time to show in in DatabaseService.addTimeToShow(addTime:ofType:forShow)")
         }
     }
     
@@ -330,7 +330,7 @@ class DatabaseService {
                 try await db.collection("shows").document(show.id).updateData(["doorsTime": FieldValue.delete()])
             }
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to delete show time in DatabaseService.deleteTimeFromShow(delete:fromShow:)")
+            throw DatabaseServiceError.firestore(message: "Failed to delete show time in DatabaseService.deleteTimeFromShow(delete:fromShow:)")
         }
     }
     
@@ -341,7 +341,7 @@ class DatabaseService {
             do {
                 try await db.collection("users").document(AuthController.getLoggedInUid()).collection("showInvites").document(showInvite.id!).delete()
             } catch {
-                throw DatabaseServiceError.firestoreError(message: "Failed to delete BandInvite in DatabaseService.deleteShowInvite(showInvite:)")
+                throw DatabaseServiceError.firestore(message: "Failed to delete BandInvite in DatabaseService.deleteShowInvite(showInvite:)")
             }
         }
     }
@@ -366,7 +366,7 @@ class DatabaseService {
                 .collection("bandInvites")
                 .addDocument(from: invite)
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to send bandInvite.")
+            throw DatabaseServiceError.firestore(message: "Failed to send bandInvite.")
         }
     }
     
@@ -380,7 +380,39 @@ class DatabaseService {
                 .collection("showInvites")
                 .addDocument(from: invite)
         } catch {
-            throw DatabaseServiceError.firestoreError(message: "Failed to send showInvite.")
+            throw DatabaseServiceError.firestore(message: "Failed to send showInvite.")
+        }
+    }
+    
+    func addBacklineItemToShow(backlineItem: BacklineItem?, drumKitBacklineItem: DrumKitBacklineItem?, show: Show) throws {
+        do {
+            if let backlineItem {
+                _ = try db.collection("shows").document(show.id).collection("backlineItems").addDocument(from: backlineItem)
+            }
+            
+            if let drumKitBacklineItem {
+                _ = try db.collection("shows").document(show.id).collection("backlineItems").addDocument(from: drumKitBacklineItem)
+            }
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to add backlineItem to show in DatabaseService.addBacklineItemToShow(add:to:)")
+        }
+    }
+    
+    func getBacklineItems(forShow show: Show) async throws -> [BacklineItem] {
+        do {
+            let query = try await db.collection("shows").document(show.id).collection("backlineItems").getDocuments()
+            return try query.documents.map { try $0.data(as: BacklineItem.self) }
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to fetch backlineItems for show in DatabaseService.getBacklineItems(forShow:)")
+        }
+    }
+    
+    func getDrumKitBacklineItems(forShow show: Show) async throws -> [DrumKitBacklineItem] {
+        do {
+            let query = try await db.collection("shows").document(show.id).collection("backlineItems").getDocuments()
+            return try query.documents.map { try $0.data(as: DrumKitBacklineItem.self) }
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to fetch backlineItems for show in DatabaseService.getDrumKitBacklineItems(forShow:)")
         }
     }
     
@@ -408,7 +440,7 @@ class DatabaseService {
             imageUrl = fetchedImageUrl
             return imageUrl?.absoluteString
         } catch {
-            throw DatabaseServiceError.firebaseStorageError(message: "Error setting profile picture")
+            throw DatabaseServiceError.firebaseStorage(message: "Error setting profile picture")
         }
     }
 }

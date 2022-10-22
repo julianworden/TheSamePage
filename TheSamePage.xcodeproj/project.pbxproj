@@ -13,10 +13,16 @@
 		AB07296128F467010069B268 /* ShowDetailsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07296028F467010069B268 /* ShowDetailsTab.swift */; };
 		AB07296328F468530069B268 /* ShowLocationTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07296228F468530069B268 /* ShowLocationTab.swift */; };
 		AB07296528F468820069B268 /* ShowBacklineTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07296428F468820069B268 /* ShowBacklineTab.swift */; };
+		AB07AC2C290452B900E378C6 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = AB07AC2B290452B900E378C6 /* FirebaseAuth */; };
+		AB07AC2E290452B900E378C6 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = AB07AC2D290452B900E378C6 /* FirebaseFirestore */; };
+		AB07AC30290452B900E378C6 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AB07AC2F290452B900E378C6 /* FirebaseFirestoreSwift */; };
+		AB07AC32290452B900E378C6 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = AB07AC31290452B900E378C6 /* FirebaseStorage */; };
+		AB07AC352904534F00E378C6 /* Typesense in Frameworks */ = {isa = PBXBuildFile; productRef = AB07AC342904534F00E378C6 /* Typesense */; };
+		AB07AC372904738B00E378C6 /* PercussionBacklineList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07AC362904738B00E378C6 /* PercussionBacklineList.swift */; };
+		AB07AC3929047F1800E378C6 /* ElectricGuitarBacklineList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07AC3829047F1800E378C6 /* ElectricGuitarBacklineList.swift */; };
+		AB07AC3B290486F200E378C6 /* BassGuitarBacklineList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07AC3A290486F200E378C6 /* BassGuitarBacklineList.swift */; };
 		AB0DD4D228F0D82E00CEA1BD /* ShowLineupList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DD4D128F0D82E00CEA1BD /* ShowLineupList.swift */; };
 		AB1ACE2D28E08F9E00B46C90 /* Instrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1ACE2C28E08F9E00B46C90 /* Instrument.swift */; };
-		AB21E5BE28D55C3600BD286E /* GeoFire in Frameworks */ = {isa = PBXBuildFile; productRef = AB21E5BD28D55C3600BD286E /* GeoFire */; };
-		AB21E5C028D55C3600BD286E /* GeoFireUtils in Frameworks */ = {isa = PBXBuildFile; productRef = AB21E5BF28D55C3600BD286E /* GeoFireUtils */; };
 		AB24E3A628D7C9B0002B4F2C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24E3A528D7C9B0002B4F2C /* LoginView.swift */; };
 		AB24E3A828D7C9C4002B4F2C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24E3A728D7C9C4002B4F2C /* LoginViewModel.swift */; };
 		AB285AFA28F6F76200EB5F2B /* ShowTimeTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285AF928F6F76200EB5F2B /* ShowTimeTab.swift */; };
@@ -25,7 +31,6 @@
 		AB285B0428F6FF6600EB5F2B /* AddShowTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285B0328F6FF6600EB5F2B /* AddShowTimeView.swift */; };
 		AB285B0628F701A400EB5F2B /* ShowTimeTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285B0528F701A400EB5F2B /* ShowTimeTabViewModel.swift */; };
 		AB285B0828F7086D00EB5F2B /* AddShowTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285B0728F7086D00EB5F2B /* AddShowTimeViewModel.swift */; };
-		AB28A0F128EB1FEC008F1A82 /* Typesense in Frameworks */ = {isa = PBXBuildFile; productRef = AB28A0F028EB1FEC008F1A82 /* Typesense */; };
 		AB2B867A28D9EE43004601B6 /* MyShowsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867928D9EE43004601B6 /* MyShowsViewModel.swift */; };
 		AB2B867C28D9F444004601B6 /* NoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867B28D9F444004601B6 /* NoImageView.swift */; };
 		AB2B867E28D9F884004601B6 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867D28D9F884004601B6 /* ImagePicker.swift */; };
@@ -47,7 +52,7 @@
 		AB36FF8728D35C2000AAC00C /* Band.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF8628D35C2000AAC00C /* Band.swift */; };
 		AB36FF8928D35C2800AAC00C /* PlatformLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF8828D35C2800AAC00C /* PlatformLink.swift */; };
 		AB36FF8B28D35CB500AAC00C /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF8A28D35CB500AAC00C /* Time.swift */; };
-		AB36FF8D28D35CDF00AAC00C /* Backline.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF8C28D35CDF00AAC00C /* Backline.swift */; };
+		AB36FF8D28D35CDF00AAC00C /* BacklineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF8C28D35CDF00AAC00C /* BacklineItem.swift */; };
 		AB36FF8F28D35E8C00AAC00C /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF8E28D35E8C00AAC00C /* Genre.swift */; };
 		AB36FF9428D361A100AAC00C /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF9328D361A100AAC00C /* DatabaseService.swift */; };
 		AB36FF9828D36A6600AAC00C /* SectionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF9728D36A6600AAC00C /* SectionTitle.swift */; };
@@ -64,14 +69,23 @@
 		AB3C73D728DC0A240038085A /* BandSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3C73D628DC0A240038085A /* BandSearchViewModel.swift */; };
 		AB3E11E828D656FF000F147B /* UserProfileBandCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3E11E728D656FF000F147B /* UserProfileBandCard.swift */; };
 		AB3E11EA28D65E94000F147B /* UserProfileBandCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3E11E928D65E94000F147B /* UserProfileBandCardViewModel.swift */; };
+		AB4750192900B55C0000DB13 /* AddPercussionBacklineF.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4750182900B55C0000DB13 /* AddPercussionBacklineF.swift */; };
 		AB5054A728DC91CF00321380 /* MemberSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054A628DC91CF00321380 /* MemberSearchView.swift */; };
 		AB5054A928DC91D700321380 /* MemberSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054A828DC91D700321380 /* MemberSearchViewModel.swift */; };
 		AB5054B328DCA04900321380 /* BandInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054B228DCA04900321380 /* BandInvite.swift */; };
-		AB5251EB28F22DCB00D61018 /* Atlantis in Frameworks */ = {isa = PBXBuildFile; productRef = AB5251EA28F22DCB00D61018 /* Atlantis */; };
+		AB55E7722901F651009F039B /* DrumKitBacklineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB55E7712901F651009F039B /* DrumKitBacklineItem.swift */; };
+		AB55E7752901FBB8009F039B /* Backline.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB55E7742901FBB8009F039B /* Backline.swift */; };
 		AB582B7E28FA3B3D00D357F3 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB582B7D28FA3B3D00D357F3 /* LocationController.swift */; };
 		AB5B77C528E72B8E00B32537 /* BandLinkCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5B77C428E72B8E00B32537 /* BandLinkCard.swift */; };
 		AB5B77C728E72B9600B32537 /* BandLinkCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5B77C628E72B9600B32537 /* BandLinkCardViewModel.swift */; };
 		AB5E48F5290029B20076EABE /* NearbyShowsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E48F4290029B20076EABE /* NearbyShowsList.swift */; };
+		AB5E48F829003ACF0076EABE /* GuitarGear.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E48F729003ACF0076EABE /* GuitarGear.swift */; };
+		AB5E48FC29003B950076EABE /* PercussionGearType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E48FB29003B950076EABE /* PercussionGearType.swift */; };
+		AB5E48FE29003CA80076EABE /* VocalGear.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E48FD29003CA80076EABE /* VocalGear.swift */; };
+		AB5E490029003CF10076EABE /* BacklineItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E48FF29003CF10076EABE /* BacklineItemType.swift */; };
+		AB5E490429003D980076EABE /* ShowBacklineTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E490329003D980076EABE /* ShowBacklineTabViewModel.swift */; };
+		AB5E490629003F870076EABE /* AddBacklineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E490529003F870076EABE /* AddBacklineView.swift */; };
+		AB5E490829003F8D0076EABE /* AddBacklineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E490729003F8D0076EABE /* AddBacklineViewModel.swift */; };
 		AB6514DD28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6514DC28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift */; };
 		AB6514DF28F911EB008DFDD0 /* ShowTimeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6514DE28F911EB008DFDD0 /* ShowTimeRow.swift */; };
 		AB66B9B828F0D2EF00E7F0E0 /* ShowDetailsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB66B9B728F0D2EF00E7F0E0 /* ShowDetailsHeader.swift */; };
@@ -90,11 +104,6 @@
 		ABA1020D28DDFD6900A4E818 /* BandMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020C28DDFD6900A4E818 /* BandMember.swift */; };
 		ABA1DDCC28F9A35700E7A72E /* AddShowTimeButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1DDCB28F9A35700E7A72E /* AddShowTimeButtons.swift */; };
 		ABA1DDCE28F9B2AC00E7A72E /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1DDCD28F9B2AC00E7A72E /* ViewState.swift */; };
-		ABA4A43728D564FF0074293A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43628D564FF0074293A /* FirebaseAnalytics */; };
-		ABA4A43928D564FF0074293A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43828D564FF0074293A /* FirebaseAuth */; };
-		ABA4A43B28D564FF0074293A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43A28D564FF0074293A /* FirebaseFirestore */; };
-		ABA4A43D28D564FF0074293A /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43C28D564FF0074293A /* FirebaseFirestoreSwift */; };
-		ABA4A43F28D564FF0074293A /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = ABA4A43E28D564FF0074293A /* FirebaseStorage */; };
 		ABAB45F928F24C2400FA8F70 /* LargeListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAB45F828F24C2400FA8F70 /* LargeListRow.swift */; };
 		ABAB45FB28F24C6100FA8F70 /* LargeListRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAB45FA28F24C6100FA8F70 /* LargeListRowViewModel.swift */; };
 		ABB71C4A28FE08D500D3126D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB71C4928FE08D500D3126D /* HomeViewModel.swift */; };
@@ -155,6 +164,9 @@
 		AB07296028F467010069B268 /* ShowDetailsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsTab.swift; sourceTree = "<group>"; };
 		AB07296228F468530069B268 /* ShowLocationTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLocationTab.swift; sourceTree = "<group>"; };
 		AB07296428F468820069B268 /* ShowBacklineTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowBacklineTab.swift; sourceTree = "<group>"; };
+		AB07AC362904738B00E378C6 /* PercussionBacklineList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercussionBacklineList.swift; sourceTree = "<group>"; };
+		AB07AC3829047F1800E378C6 /* ElectricGuitarBacklineList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectricGuitarBacklineList.swift; sourceTree = "<group>"; };
+		AB07AC3A290486F200E378C6 /* BassGuitarBacklineList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BassGuitarBacklineList.swift; sourceTree = "<group>"; };
 		AB0DD4D128F0D82E00CEA1BD /* ShowLineupList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLineupList.swift; sourceTree = "<group>"; };
 		AB1ACE2C28E08F9E00B46C90 /* Instrument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instrument.swift; sourceTree = "<group>"; };
 		AB24E3A528D7C9B0002B4F2C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -187,7 +199,7 @@
 		AB36FF8628D35C2000AAC00C /* Band.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Band.swift; sourceTree = "<group>"; };
 		AB36FF8828D35C2800AAC00C /* PlatformLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformLink.swift; sourceTree = "<group>"; };
 		AB36FF8A28D35CB500AAC00C /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
-		AB36FF8C28D35CDF00AAC00C /* Backline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backline.swift; sourceTree = "<group>"; };
+		AB36FF8C28D35CDF00AAC00C /* BacklineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BacklineItem.swift; sourceTree = "<group>"; };
 		AB36FF8E28D35E8C00AAC00C /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		AB36FF9328D361A100AAC00C /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		AB36FF9728D36A6600AAC00C /* SectionTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTitle.swift; sourceTree = "<group>"; };
@@ -204,13 +216,23 @@
 		AB3C73D628DC0A240038085A /* BandSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSearchViewModel.swift; sourceTree = "<group>"; };
 		AB3E11E728D656FF000F147B /* UserProfileBandCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileBandCard.swift; sourceTree = "<group>"; };
 		AB3E11E928D65E94000F147B /* UserProfileBandCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileBandCardViewModel.swift; sourceTree = "<group>"; };
+		AB4750182900B55C0000DB13 /* AddPercussionBacklineF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPercussionBacklineF.swift; sourceTree = "<group>"; };
 		AB5054A628DC91CF00321380 /* MemberSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSearchView.swift; sourceTree = "<group>"; };
 		AB5054A828DC91D700321380 /* MemberSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSearchViewModel.swift; sourceTree = "<group>"; };
 		AB5054B228DCA04900321380 /* BandInvite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandInvite.swift; sourceTree = "<group>"; };
+		AB55E7712901F651009F039B /* DrumKitBacklineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrumKitBacklineItem.swift; sourceTree = "<group>"; };
+		AB55E7742901FBB8009F039B /* Backline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backline.swift; sourceTree = "<group>"; };
 		AB582B7D28FA3B3D00D357F3 /* LocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
 		AB5B77C428E72B8E00B32537 /* BandLinkCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLinkCard.swift; sourceTree = "<group>"; };
 		AB5B77C628E72B9600B32537 /* BandLinkCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLinkCardViewModel.swift; sourceTree = "<group>"; };
 		AB5E48F4290029B20076EABE /* NearbyShowsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyShowsList.swift; sourceTree = "<group>"; };
+		AB5E48F729003ACF0076EABE /* GuitarGear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarGear.swift; sourceTree = "<group>"; };
+		AB5E48FB29003B950076EABE /* PercussionGearType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercussionGearType.swift; sourceTree = "<group>"; };
+		AB5E48FD29003CA80076EABE /* VocalGear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocalGear.swift; sourceTree = "<group>"; };
+		AB5E48FF29003CF10076EABE /* BacklineItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BacklineItemType.swift; sourceTree = "<group>"; };
+		AB5E490329003D980076EABE /* ShowBacklineTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowBacklineTabViewModel.swift; sourceTree = "<group>"; };
+		AB5E490529003F870076EABE /* AddBacklineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBacklineView.swift; sourceTree = "<group>"; };
+		AB5E490729003F8D0076EABE /* AddBacklineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBacklineViewModel.swift; sourceTree = "<group>"; };
 		AB6514DC28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+CustomTimeFormat.swift"; sourceTree = "<group>"; };
 		AB6514DE28F911EB008DFDD0 /* ShowTimeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimeRow.swift; sourceTree = "<group>"; };
 		AB66B9B728F0D2EF00E7F0E0 /* ShowDetailsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsHeader.swift; sourceTree = "<group>"; };
@@ -288,15 +310,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB21E5C028D55C3600BD286E /* GeoFireUtils in Frameworks */,
-				AB28A0F128EB1FEC008F1A82 /* Typesense in Frameworks */,
-				AB21E5BE28D55C3600BD286E /* GeoFire in Frameworks */,
-				ABA4A43728D564FF0074293A /* FirebaseAnalytics in Frameworks */,
-				ABA4A43B28D564FF0074293A /* FirebaseFirestore in Frameworks */,
-				ABA4A43F28D564FF0074293A /* FirebaseStorage in Frameworks */,
-				ABA4A43928D564FF0074293A /* FirebaseAuth in Frameworks */,
-				AB5251EB28F22DCB00D61018 /* Atlantis in Frameworks */,
-				ABA4A43D28D564FF0074293A /* FirebaseFirestoreSwift in Frameworks */,
+				AB07AC2C290452B900E378C6 /* FirebaseAuth in Frameworks */,
+				AB07AC32290452B900E378C6 /* FirebaseStorage in Frameworks */,
+				AB07AC2E290452B900E378C6 /* FirebaseFirestore in Frameworks */,
+				AB07AC352904534F00E378C6 /* Typesense in Frameworks */,
+				AB07AC30290452B900E378C6 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,6 +343,11 @@
 			isa = PBXGroup;
 			children = (
 				AB07296428F468820069B268 /* ShowBacklineTab.swift */,
+				AB07AC362904738B00E378C6 /* PercussionBacklineList.swift */,
+				AB07AC3829047F1800E378C6 /* ElectricGuitarBacklineList.swift */,
+				AB07AC3A290486F200E378C6 /* BassGuitarBacklineList.swift */,
+				AB5E490329003D980076EABE /* ShowBacklineTabViewModel.swift */,
+				AB5E490929003FA00076EABE /* AddBackline */,
 			);
 			path = ShowBackline;
 			sourceTree = "<group>";
@@ -417,6 +440,7 @@
 				AB399AD728D4C1C3009B39F7 /* Utilities */,
 				AB6514DA28F90EED008DFDD0 /* Extensions */,
 				AB36FF6928D356FE00AAC00C /* Assets.xcassets */,
+				AB55E7732901FBB2009F039B /* Protocols */,
 				AB6C09DE28D4C7F500990313 /* GoogleService-Info.plist */,
 				AB36FF6B28D356FE00AAC00C /* Preview Content */,
 			);
@@ -516,7 +540,8 @@
 				ABA1020C28DDFD6900A4E818 /* BandMember.swift */,
 				AB36FF8828D35C2800AAC00C /* PlatformLink.swift */,
 				AB36FF8A28D35CB500AAC00C /* Time.swift */,
-				AB36FF8C28D35CDF00AAC00C /* Backline.swift */,
+				AB36FF8C28D35CDF00AAC00C /* BacklineItem.swift */,
+				AB55E7712901F651009F039B /* DrumKitBacklineItem.swift */,
 				AB5054B228DCA04900321380 /* BandInvite.swift */,
 				ABF8B81828FC43C400608657 /* CustomMapAnnotation.swift */,
 			);
@@ -536,6 +561,7 @@
 				AB07295728F4631D0069B268 /* SelectedShowDetailsTab.swift */,
 				AB285B0128F6FE8A00EB5F2B /* ShowTimeType.swift */,
 				ABA1DDCD28F9B2AC00E7A72E /* ViewState.swift */,
+				AB5E48F629003ABD0076EABE /* Backline */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -612,6 +638,14 @@
 			path = Searching;
 			sourceTree = "<group>";
 		};
+		AB55E7732901FBB2009F039B /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				AB55E7742901FBB8009F039B /* Backline.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		AB5B77C328E72B7100B32537 /* BandLinkCard */ = {
 			isa = PBXGroup;
 			children = (
@@ -619,6 +653,27 @@
 				AB5B77C628E72B9600B32537 /* BandLinkCardViewModel.swift */,
 			);
 			path = BandLinkCard;
+			sourceTree = "<group>";
+		};
+		AB5E48F629003ABD0076EABE /* Backline */ = {
+			isa = PBXGroup;
+			children = (
+				AB5E48FF29003CF10076EABE /* BacklineItemType.swift */,
+				AB5E48F729003ACF0076EABE /* GuitarGear.swift */,
+				AB5E48FB29003B950076EABE /* PercussionGearType.swift */,
+				AB5E48FD29003CA80076EABE /* VocalGear.swift */,
+			);
+			path = Backline;
+			sourceTree = "<group>";
+		};
+		AB5E490929003FA00076EABE /* AddBackline */ = {
+			isa = PBXGroup;
+			children = (
+				AB5E490529003F870076EABE /* AddBacklineView.swift */,
+				AB4750182900B55C0000DB13 /* AddPercussionBacklineF.swift */,
+				AB5E490729003F8D0076EABE /* AddBacklineViewModel.swift */,
+			);
+			path = AddBackline;
 			sourceTree = "<group>";
 		};
 		AB6514DA28F90EED008DFDD0 /* Extensions */ = {
@@ -882,15 +937,11 @@
 			);
 			name = TheSamePage;
 			packageProductDependencies = (
-				AB21E5BD28D55C3600BD286E /* GeoFire */,
-				AB21E5BF28D55C3600BD286E /* GeoFireUtils */,
-				ABA4A43628D564FF0074293A /* FirebaseAnalytics */,
-				ABA4A43828D564FF0074293A /* FirebaseAuth */,
-				ABA4A43A28D564FF0074293A /* FirebaseFirestore */,
-				ABA4A43C28D564FF0074293A /* FirebaseFirestoreSwift */,
-				ABA4A43E28D564FF0074293A /* FirebaseStorage */,
-				AB28A0F028EB1FEC008F1A82 /* Typesense */,
-				AB5251EA28F22DCB00D61018 /* Atlantis */,
+				AB07AC2B290452B900E378C6 /* FirebaseAuth */,
+				AB07AC2D290452B900E378C6 /* FirebaseFirestore */,
+				AB07AC2F290452B900E378C6 /* FirebaseFirestoreSwift */,
+				AB07AC31290452B900E378C6 /* FirebaseStorage */,
+				AB07AC342904534F00E378C6 /* Typesense */,
 			);
 			productName = TheSamePage;
 			productReference = AB36FF6228D356FD00AAC00C /* TheSamePage.app */;
@@ -921,10 +972,8 @@
 			);
 			mainGroup = AB36FF5928D356FD00AAC00C;
 			packageReferences = (
-				AB21E5BC28D55C3600BD286E /* XCRemoteSwiftPackageReference "geofire-objc" */,
-				ABA4A43528D564FF0074293A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				AB28A0EF28EB1FEC008F1A82 /* XCRemoteSwiftPackageReference "typesense-swift" */,
-				AB5251E928F22DCB00D61018 /* XCRemoteSwiftPackageReference "atlantis" */,
+				AB07AC2A290452B900E378C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				AB07AC332904534F00E378C6 /* XCRemoteSwiftPackageReference "typesense-swift" */,
 			);
 			productRefGroup = AB36FF6328D356FD00AAC00C /* Products */;
 			projectDirPath = "";
@@ -954,6 +1003,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB5E48FC29003B950076EABE /* PercussionGearType.swift in Sources */,
+				AB5E48FE29003CA80076EABE /* VocalGear.swift in Sources */,
 				ABD029B428E8978F00BDF73C /* BandMemberList.swift in Sources */,
 				AB5054A928DC91D700321380 /* MemberSearchViewModel.swift in Sources */,
 				AB36FF7428D358FB00AAC00C /* HomeView.swift in Sources */,
@@ -977,6 +1028,7 @@
 				AB36FF8028D35BFA00AAC00C /* User.swift in Sources */,
 				AB6514DD28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift in Sources */,
 				ABF8B81728FC3E4F00608657 /* ShowLocationTabViewModel.swift in Sources */,
+				AB5E490629003F870076EABE /* AddBacklineView.swift in Sources */,
 				ABD029B628E897A400BDF73C /* BandMemberListViewModel.swift in Sources */,
 				AB36FF9828D36A6600AAC00C /* SectionTitle.swift in Sources */,
 				AB07295628F454EE0069B268 /* ShowDetailsList.swift in Sources */,
@@ -996,11 +1048,13 @@
 				ABF1C40228ECD0F60004A3C1 /* SearchResultRow.swift in Sources */,
 				AB7F381328EF1B56007741C7 /* NotificationType.swift in Sources */,
 				ABD1D16D28F30CDF00791969 /* MyHostedShowsView.swift in Sources */,
+				AB5E490829003F8D0076EABE /* AddBacklineViewModel.swift in Sources */,
 				ABB93F3828F0732D0055659B /* AsyncButtonLabel.swift in Sources */,
 				ABF8B81928FC43C400608657 /* CustomMapAnnotation.swift in Sources */,
 				ABE3EFA628D91960002EEF23 /* SignUpView.swift in Sources */,
 				ABDC0D7228D74BFF0054269E /* UserProfileRootViewModel.swift in Sources */,
 				AB399AD228D4AF3E009B39F7 /* MyShowsShowCard.swift in Sources */,
+				AB07AC3B290486F200E378C6 /* BassGuitarBacklineList.swift in Sources */,
 				AB5E48F5290029B20076EABE /* NearbyShowsList.swift in Sources */,
 				AB794E2F28E25A81000ABB37 /* SearchViewModel.swift in Sources */,
 				AB5B77C528E72B8E00B32537 /* BandLinkCard.swift in Sources */,
@@ -1012,16 +1066,20 @@
 				ABCAAA0428E9ED7500685F91 /* BandLinkListViewModel.swift in Sources */,
 				AB36FF6828D356FD00AAC00C /* RootView.swift in Sources */,
 				AB7F380F28EF1AA9007741C7 /* ShowInvitesList.swift in Sources */,
+				AB4750192900B55C0000DB13 /* AddPercussionBacklineF.swift in Sources */,
 				AB3E11EA28D65E94000F147B /* UserProfileBandCardViewModel.swift in Sources */,
 				ABEC487C28F1DD23005C9A99 /* SmallListRow.swift in Sources */,
 				AB24E3A828D7C9C4002B4F2C /* LoginViewModel.swift in Sources */,
+				AB07AC3929047F1800E378C6 /* ElectricGuitarBacklineList.swift in Sources */,
 				ABBE94C228D8ADBF00790A04 /* ShowDetailsView.swift in Sources */,
+				AB55E7722901F651009F039B /* DrumKitBacklineItem.swift in Sources */,
 				ABDDAD4828DB45D100F1CF9B /* AddEditBandView.swift in Sources */,
 				ABA1020D28DDFD6900A4E818 /* BandMember.swift in Sources */,
 				AB36FF9F28D36D0300AAC00C /* HomeShowCardViewModel.swift in Sources */,
 				AB07296528F468820069B268 /* ShowBacklineTab.swift in Sources */,
 				ABD18AAF28EE14C9002286C3 /* SendShowInviteViewModel.swift in Sources */,
 				ABD18AB128EE2FAB002286C3 /* ShowInvite.swift in Sources */,
+				AB55E7752901FBB8009F039B /* Backline.swift in Sources */,
 				AB24E3A628D7C9B0002B4F2C /* LoginView.swift in Sources */,
 				ABAB45FB28F24C6100FA8F70 /* LargeListRowViewModel.swift in Sources */,
 				AB36FF8728D35C2000AAC00C /* Band.swift in Sources */,
@@ -1033,6 +1091,7 @@
 				ABA1DDCE28F9B2AC00E7A72E /* ViewState.swift in Sources */,
 				AB7F381528EF20EA007741C7 /* ShowParticipant.swift in Sources */,
 				AB285B0628F701A400EB5F2B /* ShowTimeTabViewModel.swift in Sources */,
+				AB5E490429003D980076EABE /* ShowBacklineTabViewModel.swift in Sources */,
 				AB07295828F4631D0069B268 /* SelectedShowDetailsTab.swift in Sources */,
 				ABDDAD4528DB3ED200F1CF9B /* ProfileAsyncImage.swift in Sources */,
 				AB5B77C728E72B9600B32537 /* BandLinkCardViewModel.swift in Sources */,
@@ -1043,6 +1102,7 @@
 				AB1ACE2D28E08F9E00B46C90 /* Instrument.swift in Sources */,
 				ABEF10E528E64CD800A1DBAC /* AddEditLinkView.swift in Sources */,
 				AB285B0428F6FF6600EB5F2B /* AddShowTimeView.swift in Sources */,
+				AB5E490029003CF10076EABE /* BacklineItemType.swift in Sources */,
 				ABCAA9FF28E9E56C00685F91 /* BandProfileHeader.swift in Sources */,
 				ABF5563728DF93E40059E2DF /* BandProfileViewModel.swift in Sources */,
 				AB2B867E28D9F884004601B6 /* ImagePicker.swift in Sources */,
@@ -1063,8 +1123,9 @@
 				AB38E1B328FB2422006D1788 /* CLPlacemark+formattedAddress.swift in Sources */,
 				ABCAAA0728E9F13B00685F91 /* BandProfileHeaderViewModel.swift in Sources */,
 				AB285B0828F7086D00EB5F2B /* AddShowTimeViewModel.swift in Sources */,
+				AB5E48F829003ACF0076EABE /* GuitarGear.swift in Sources */,
 				AB07296328F468530069B268 /* ShowLocationTab.swift in Sources */,
-				AB36FF8D28D35CDF00AAC00C /* Backline.swift in Sources */,
+				AB36FF8D28D35CDF00AAC00C /* BacklineItem.swift in Sources */,
 				AB9D086128FDA24B0098A244 /* UserSettingsView.swift in Sources */,
 				AB399AD428D4B12B009B39F7 /* MyShowsShowCardViewModel.swift in Sources */,
 				AB07296128F467010069B268 /* ShowDetailsTab.swift in Sources */,
@@ -1079,6 +1140,7 @@
 				ABF1C40428ECD0FD0004A3C1 /* SearchResultRowViewModel.swift in Sources */,
 				AB36FF8928D35C2800AAC00C /* PlatformLink.swift in Sources */,
 				ABEF10EA28E6506000A1DBAC /* LinkPlatform.swift in Sources */,
+				AB07AC372904738B00E378C6 /* PercussionBacklineList.swift in Sources */,
 				AB35A8DF28E9DE29009FB203 /* UserBandList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1296,85 +1358,49 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		AB21E5BC28D55C3600BD286E /* XCRemoteSwiftPackageReference "geofire-objc" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/geofire-objc";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		AB28A0EF28EB1FEC008F1A82 /* XCRemoteSwiftPackageReference "typesense-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/typesense/typesense-swift";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		AB5251E928F22DCB00D61018 /* XCRemoteSwiftPackageReference "atlantis" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ProxymanApp/atlantis";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-		ABA4A43528D564FF0074293A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		AB07AC2A290452B900E378C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
+		AB07AC332904534F00E378C6 /* XCRemoteSwiftPackageReference "typesense-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/typesense/typesense-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		AB21E5BD28D55C3600BD286E /* GeoFire */ = {
+		AB07AC2B290452B900E378C6 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AB21E5BC28D55C3600BD286E /* XCRemoteSwiftPackageReference "geofire-objc" */;
-			productName = GeoFire;
-		};
-		AB21E5BF28D55C3600BD286E /* GeoFireUtils */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AB21E5BC28D55C3600BD286E /* XCRemoteSwiftPackageReference "geofire-objc" */;
-			productName = GeoFireUtils;
-		};
-		AB28A0F028EB1FEC008F1A82 /* Typesense */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AB28A0EF28EB1FEC008F1A82 /* XCRemoteSwiftPackageReference "typesense-swift" */;
-			productName = Typesense;
-		};
-		AB5251EA28F22DCB00D61018 /* Atlantis */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AB5251E928F22DCB00D61018 /* XCRemoteSwiftPackageReference "atlantis" */;
-			productName = Atlantis;
-		};
-		ABA4A43628D564FF0074293A /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = ABA4A43528D564FF0074293A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		ABA4A43828D564FF0074293A /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = ABA4A43528D564FF0074293A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = AB07AC2A290452B900E378C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		ABA4A43A28D564FF0074293A /* FirebaseFirestore */ = {
+		AB07AC2D290452B900E378C6 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = ABA4A43528D564FF0074293A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = AB07AC2A290452B900E378C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
-		ABA4A43C28D564FF0074293A /* FirebaseFirestoreSwift */ = {
+		AB07AC2F290452B900E378C6 /* FirebaseFirestoreSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = ABA4A43528D564FF0074293A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = AB07AC2A290452B900E378C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
 		};
-		ABA4A43E28D564FF0074293A /* FirebaseStorage */ = {
+		AB07AC31290452B900E378C6 /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = ABA4A43528D564FF0074293A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = AB07AC2A290452B900E378C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		AB07AC342904534F00E378C6 /* Typesense */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AB07AC332904534F00E378C6 /* XCRemoteSwiftPackageReference "typesense-swift" */;
+			productName = Typesense;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

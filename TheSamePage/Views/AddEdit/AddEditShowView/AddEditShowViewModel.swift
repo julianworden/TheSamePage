@@ -7,7 +7,7 @@
 
 import Contacts
 import FirebaseFirestore
-import GeoFireUtils
+//import GeoFireUtils
 import MapKit
 import UIKit.UIImage
 
@@ -31,7 +31,7 @@ class AddEditShowViewModel: ObservableObject {
     var showState: String?
     var showLatitude: Double = 0
     var showLongitude: Double = 0
-    var showGeohash = ""
+    var showTypesenseCoordinates = [Double]()
     var addressSearch: MKLocalSearch?
     
     @Published var ticketPrice = ""
@@ -91,10 +91,10 @@ class AddEditShowViewModel: ObservableObject {
     func setShowLocationInfo(withPlacemark placemark: CLPlacemark) {
         if let showLatitude = placemark.location?.coordinate.latitude,
            let showLongitude = placemark.location?.coordinate.longitude {
-                let showCoordinates = CLLocationCoordinate2D(latitude: showLatitude, longitude: showLongitude)
+//                let showCoordinates = CLLocationCoordinate2D(latitude: showLatitude, longitude: showLongitude)
                 self.showLatitude = showLatitude
                 self.showLongitude = showLongitude
-                showGeohash = GFUtils.geoHash(forLocation: showCoordinates)
+                self.showTypesenseCoordinates = [showLatitude, showLongitude]
         }
         
         showAddress = placemark.formattedAddress
@@ -124,7 +124,7 @@ class AddEditShowViewModel: ObservableObject {
                 state: showState ?? "Unknown State",
                 latitude: showLatitude,
                 longitude: showLongitude,
-                geohash: showGeohash,
+                typesenseCoordinates: showTypesenseCoordinates,
                 imageUrl: imageUrl,
                 hasFood: showHasFood,
                 hasBar: showHasBar,
@@ -150,7 +150,7 @@ class AddEditShowViewModel: ObservableObject {
                 state: showState ?? "Unknown State",
                 latitude: showLatitude,
                 longitude: showLongitude,
-                geohash: showGeohash,
+                typesenseCoordinates: showTypesenseCoordinates,
                 hasFood: showHasFood,
                 hasBar: showHasBar,
                 is21Plus: showIs21Plus,

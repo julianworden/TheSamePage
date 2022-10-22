@@ -48,10 +48,8 @@ class ShowTimeTabViewModel: ObservableObject {
     func addShowTimesListener() throws {
         showTimeListener = DatabaseService.shared.db.collection("shows").document(show.id).addSnapshotListener { snapshot, error in
             if snapshot != nil && error == nil {
-                let updatedShow = try? snapshot?.data(as: Show.self)
-                if let updatedShow {
+                if let updatedShow = try? snapshot?.data(as: Show.self) {
                     self.initializeShowTimes(forShow: updatedShow)
-
                 } else {
                     print("Error in ShowTimeTabViewModel.addShowTimesListener()")
                 }

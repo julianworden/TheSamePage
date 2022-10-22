@@ -8,13 +8,9 @@
 import SwiftUI
 
 struct SmallListRow: View {
-//    @StateObject var viewModel: SmallListRowViewModel
+    @StateObject var viewModel: SmallListRowViewModel
     
     // TODO: Put these properties back into the viewmodel if it's not causing the update issue
-    @State private var title: String
-    @State private var subtitle: String?
-    @State private var iconName: String?
-    @State private var displayChevron: Bool
     
     init(
         title: String,
@@ -22,35 +18,31 @@ struct SmallListRow: View {
         iconName: String?,
         displayChevron: Bool
     ) {
-        self.title = title
-        self.subtitle = subtitle
-        self.iconName = iconName
-        self.displayChevron = displayChevron
-//        _viewModel = StateObject(
-//            wrappedValue: SmallListRowViewModel(
-//                title: title,
-//                subtitle: subtitle,
-//                iconName: iconName,
-//                displayChevron: displayChevron
-//            )
-//        )
+        _viewModel = StateObject(
+            wrappedValue: SmallListRowViewModel(
+                title: title,
+                subtitle: subtitle,
+                iconName: iconName,
+                displayChevron: displayChevron
+            )
+        )
     }
     
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                if let rowIconName = iconName {
+                if let rowIconName = viewModel.rowIconName {
                     Image(rowIconName)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 35, height: 35)
-                        .padding(.leading, 10)
+                        .padding(.leading, 5)
                 }
                 
                 VStack(alignment: .leading) {
-                    Text(title)
+                    Text(viewModel.rowTitle)
                     
-                    if let rowSubtitle = subtitle {
+                    if let rowSubtitle = viewModel.rowSubtitle {
                         Text(rowSubtitle)
                             .font(.caption)
                     }
@@ -59,12 +51,13 @@ struct SmallListRow: View {
                 
                 Spacer()
 
-                if displayChevron {
+                if viewModel.displayChevron {
                     Image(systemName: "chevron.right")
                         .padding(.trailing)
                 }
             }
-            .frame(height: 50)
+            .padding(6)
+//            .frame(height: 50)
             .background(Color(uiColor: .secondarySystemGroupedBackground))
             
             Divider()

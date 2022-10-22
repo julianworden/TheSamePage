@@ -7,159 +7,464 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E4CB5473-12C1-47C7-9FBB-650B0F55886D"
+            uuid = "B0775706-1A7D-4A83-B192-7246D48AE67A"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Views/HomeView/HomeViewModel.swift"
+            filePath = "TheSamePage/Views/HomeView/HomeView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "checkForFalsePositive(withShow:)"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6043270E-7330-49EA-A151-FFC38942447A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/HomeView/HomeView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "6043270E-7330-49EA-A151-FFC38942447A - 9cad07ddf11b3593"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #4 @Sendable () async -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.task(priority: Swift.TaskPriority, _: @Sendable () async -&gt; ()) -&gt; some&gt;&gt;.0 in TheSamePage.HomeView.body.getter : some"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/HomeView/HomeView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "60"
+                  endingLineNumber = "60"
+                  offsetFromSymbolStart = "232">
+               </Location>
+               <Location
+                  uuid = "6043270E-7330-49EA-A151-FFC38942447A - e6365d3aceb3dceb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for closure #4 @Sendable () async -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.task(priority: Swift.TaskPriority, _: @Sendable () async -&gt; ()) -&gt; some&gt;&gt;.0 in TheSamePage.HomeView.body.getter : some"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/HomeView/HomeView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "60"
+                  endingLineNumber = "60"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  uuid = "6043270E-7330-49EA-A151-FFC38942447A - b9f5cad892515f8c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #4 @Sendable () async -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.task(priority: Swift.TaskPriority, _: @Sendable () async -&gt; ()) -&gt; some&gt;&gt;.0 in TheSamePage.HomeView.body.getter : some"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/HomeView/HomeView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "60"
+                  endingLineNumber = "60"
+                  offsetFromSymbolStart = "60">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4D8CFAD1-1EB5-44A0-9827-266E3D6A26C1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/TheSamePage-djfbdcroxihobkcljvgzuakwnjcq/SourcePackages/checkouts/GeoHasher/Sources/GeoHasher/GeoHashQuery.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "geoHashQuery(withGeoHash:bits:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "ABA28C48-9800-4670-AF34-B9AB172FA0BF"
+            uuid = "6433E91A-3FAA-445B-8461-4E26051A125B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Views/HomeView/HomeViewModel.swift"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/TheSamePage-djfbdcroxihobkcljvgzuakwnjcq/SourcePackages/checkouts/GeoHasher/Sources/GeoHasher/Base32Utils.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "performShowsGeoQuery()"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "valueToBase32Character(value:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "10D07C6F-C918-4194-BDD7-FD5D68DC8E0E"
+            uuid = "E53375E7-076F-4434-B937-D5133829F28E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Views/HomeView/HomeViewModel.swift"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/TheSamePage-djfbdcroxihobkcljvgzuakwnjcq/SourcePackages/checkouts/GeoHasher/Sources/GeoHasher/GeoHashQuery.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "performShowsGeoQuery()"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "geoHashQuery(withGeoHash:bits:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D0ACB6FA-25E9-4D94-9E7E-34F94AAE97F6"
+            uuid = "D71AF3DE-2FAE-45CD-96AF-80C24542962E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/TheSamePage-djfbdcroxihobkcljvgzuakwnjcq/SourcePackages/checkouts/GeoHasher/Sources/GeoHasher/GeoHashQuery.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "geoHashQuery(withGeoHash:bits:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B03A2372-0350-49FB-A0BF-67768F0B07D3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/TheSamePage-djfbdcroxihobkcljvgzuakwnjcq/SourcePackages/checkouts/GeoHasher/Sources/GeoHasher/GeoHashQuery.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "geoHashQuery(withGeoHash:bits:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8F84BFF4-EC66-4795-9683-7D6EF9DF6782"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/TheSamePage-djfbdcroxihobkcljvgzuakwnjcq/SourcePackages/checkouts/GeoHasher/Sources/GeoHasher/GeoHashQuery.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "geoHashQuery(withGeoHash:bits:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7609C8FD-D04E-42C2-9773-E8A5BAF7A01C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/TheSamePage-djfbdcroxihobkcljvgzuakwnjcq/SourcePackages/checkouts/GeoHasher/Sources/GeoHasher/Base32Utils.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "valueToBase32Character(value:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6ED6D9D1-7ED9-440B-8AFE-1F7D573CFD8C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Library/Developer/Xcode/DerivedData/TheSamePage-djfbdcroxihobkcljvgzuakwnjcq/SourcePackages/checkouts/GeoHasher/Sources/GeoHasher/Base32Utils.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "valueToBase32Character(value:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AFBADFB1-37F2-4FDA-A1F0-F2E540EE269A"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TheSamePage/Views/HomeView/HomeViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "fetchNearbyShows()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F4F9604E-26E0-4D1E-B5CD-FEC08D48D747"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/ShowDetailsView/ShowBackline/ShowBacklineTabViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "getBacklineItems(forShow:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "355B402E-BB0C-426A-AA63-0DA4F497966A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/ShowDetailsView/ShowBackline/ShowBacklineTabViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "39"
             endingLineNumber = "39"
-            landmarkName = "performShowsGeoQuery()"
+            landmarkName = "getBacklineItems(forShow:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "355B402E-BB0C-426A-AA63-0DA4F497966A - 1b180e46d388a599"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRQuerySnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in TheSamePage.ShowBacklineTabViewModel.getBacklineItems(forShow: TheSamePage.Show) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ShowDetailsView/ShowBackline/ShowBacklineTabViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "816">
+               </Location>
+               <Location
+                  uuid = "355B402E-BB0C-426A-AA63-0DA4F497966A - 22064aeeb9667cf5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (__C.FIRQueryDocumentSnapshot) -&gt; Swift.Optional&lt;TheSamePage.BacklineItem&gt; in closure #1 (Swift.Optional&lt;__C.FIRQuerySnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in TheSamePage.ShowBacklineTabViewModel.getBacklineItems(forShow: TheSamePage.Show) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ShowDetailsView/ShowBackline/ShowBacklineTabViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "48">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "685E784B-9E81-4312-8171-8437D265DD49"
+            uuid = "0CE33358-9B0D-4ABC-8C9E-0FEEFDE093CD"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Views/HomeView/HomeViewModel.swift"
+            filePath = "TheSamePage/Views/ShowDetailsView/ShowBackline/ShowBacklineTabViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
-            landmarkName = "performShowsGeoQuery()"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "getBacklineItems(forShow:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2AE6E427-3C34-4755-A582-294D5291F8E6"
+            uuid = "566D5732-CC96-4F5E-983E-73DA755B27EC"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Views/HomeView/HomeViewModel.swift"
+            filePath = "TheSamePage/Views/ShowDetailsView/ShowBackline/ShowBacklineTabViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "getBacklineItems(forShow:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "566D5732-CC96-4F5E-983E-73DA755B27EC - 1b180e46d388a4a3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRQuerySnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in TheSamePage.ShowBacklineTabViewModel.getBacklineItems(forShow: TheSamePage.Show) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ShowDetailsView/ShowBackline/ShowBacklineTabViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "632">
+               </Location>
+               <Location
+                  uuid = "566D5732-CC96-4F5E-983E-73DA755B27EC - 57608ff84872f9b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.FIRQueryDocumentSnapshot) -&gt; Swift.Optional&lt;TheSamePage.DrumKitBacklineItem&gt; in closure #1 (Swift.Optional&lt;__C.FIRQuerySnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in TheSamePage.ShowBacklineTabViewModel.getBacklineItems(forShow: TheSamePage.Show) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ShowDetailsView/ShowBackline/ShowBacklineTabViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "52">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8224CA5B-8065-44E8-A0B8-70CB79CA1295"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/ShowDetailsView/ShowBackline/ShowBacklineTabViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "getBacklineItems(forShow:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "35EC63E9-E2CE-4B64-BBA8-94ED065BB89F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/ShowDetailsView/ShowBackline/ShowBacklineTabViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "getBacklineItems(forShow:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8B1E7B4B-3C4B-402C-850A-1A611CC4CDDF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/ShowDetailsView/ShowBackline/ShowBacklineTabViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "getBacklineItems(forShow:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D0976749-0CC7-4560-BD28-272EC02F7F59"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/ShowDetailsView/ShowBackline/ShowBacklineTabViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "getBacklineItems(forShow:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5E7AAAD7-5289-48AC-8976-5B9B8F9C35DA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/ShowDetailsView/ShowBackline/ShowBacklineTabViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "getBacklineItems(forShow:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "48BB69E4-72F3-4D3E-93DA-BEB8FDA42A5A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/ShowDetailsView/ShowBackline/ShowBacklineTabViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "getBacklineItems(forShow:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CB9F06DC-E0D8-4E1B-852A-D6E151394F66"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/ShowDetailsView/ShowBackline/ShowBacklineTabViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "53"
             endingLineNumber = "53"
-            landmarkName = "performShowsGeoQuery()"
+            landmarkName = "getBacklineItems(forShow:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "2AE6E427-3C34-4755-A582-294D5291F8E6 - 7e8544e57c1cf5cc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for TheSamePage.HomeViewModel.performShowsGeoQuery() async -&gt; ()"
-                  moduleName = "TheSamePage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/HomeView/HomeViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "53"
-                  endingLineNumber = "53"
-                  offsetFromSymbolStart = "760">
-               </Location>
-               <Location
-                  uuid = "2AE6E427-3C34-4755-A582-294D5291F8E6 - 7d44f9f1db9e3515"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for TheSamePage.HomeViewModel.performShowsGeoQuery() async -&gt; ()"
-                  moduleName = "TheSamePage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/HomeView/HomeViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "53"
-                  endingLineNumber = "53"
-                  offsetFromSymbolStart = "56">
-               </Location>
-               <Location
-                  uuid = "2AE6E427-3C34-4755-A582-294D5291F8E6 - addd874c7f8e7622"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for TheSamePage.HomeViewModel.performShowsGeoQuery() async -&gt; ()"
-                  moduleName = "TheSamePage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/HomeView/HomeViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "53"
-                  endingLineNumber = "53"
-                  offsetFromSymbolStart = "212">
-               </Location>
-               <Location
-                  uuid = "2AE6E427-3C34-4755-A582-294D5291F8E6 - 4248261ff9f8b833"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for TheSamePage.HomeViewModel.performShowsGeoQuery() async -&gt; ()"
-                  moduleName = "TheSamePage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/HomeView/HomeViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "53"
-                  endingLineNumber = "53"
-                  offsetFromSymbolStart = "120">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
