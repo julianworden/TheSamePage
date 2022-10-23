@@ -9,7 +9,9 @@ import SwiftUI
 
 struct ShowDetailsView: View {
     @StateObject var viewModel: ShowDetailsViewModel
-        
+    
+    @State private var addEditShowViewIsShowing = false
+    
     init(show: Show) {
         _viewModel = StateObject(wrappedValue: ShowDetailsViewModel(show: show))
     }
@@ -61,7 +63,23 @@ struct ShowDetailsView: View {
         }
         .navigationTitle("Show Details")
         .navigationBarTitleDisplayMode(.inline)
-        
+        .toolbar {
+            ToolbarItem {
+                if viewModel.show.loggedInUserIsShowHost {
+                    Button("Edit") {
+                        addEditShowViewIsShowing = true
+                    }
+                }
+            }
+        }
+        .sheet(isPresented: $addEditShowViewIsShowing) {
+            NavigationView {
+                AddEditShowView(viewTitleText: "Edit Show", showToEdit: viewModel.show)
+            }
+        }
+        .onDisappear {
+            viewModel.removeShowListener()
+        }
     }
 }
 

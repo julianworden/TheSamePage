@@ -5,32 +5,36 @@
 //  Created by Julian Worden on 9/19/22.
 //
 
+import FirebaseFirestore
 import Foundation
 import MapKit
 
 class ShowDetailsViewModel: ObservableObject {
-    let show: Show
-    let showName: String
-    let showDescription: String?
-    let showDate: String
-    let showGenre: String
-    let showHost: String
-    let showTicketPrice: Double?
-    let showTicketSalesAreRequired: Bool
-    let showMinimumRequiredTicketsSold: Int?
-    let showVenue: String
-    let showImageUrl: String?
-    let showHasFood: Bool
-    let showHasBar: Bool
-    let showIs21Plus: Bool
-    let showMaxNumberOfBands: Int
-    let showFormattedTicketPrice: String?
-    let showState: String
-    let showCity: String
+    @Published var show: Show
+    @Published var showName: String
+    @Published var showDescription: String?
+    @Published var showDate: String
+    @Published var showGenre: String
+    @Published var showHost: String
+    @Published var showTicketPrice: Double?
+    @Published var showTicketSalesAreRequired: Bool
+    @Published var showMinimumRequiredTicketsSold: Int?
+    @Published var showVenue: String
+    @Published var showImageUrl: String?
+    @Published var showHasFood: Bool
+    @Published var showHasBar: Bool
+    @Published var showIs21Plus: Bool
+    @Published var showMaxNumberOfBands: Int
+    @Published var showFormattedTicketPrice: String?
+    @Published var showState: String
+    @Published var showCity: String
     @Published var showLineup = [ShowParticipant]()
     @Published var selectedTab = SelectedShowDetailsTab.details
     
     @Published var state = ViewState.dataLoading
+    
+    let db = Firestore.firestore()
+    var showListener: ListenerRegistration?
     
     var showSlotsRemainingMessage: String {
         let slotsRemainingCount = showMaxNumberOfBands - showLineup.count
@@ -62,7 +66,6 @@ class ShowDetailsViewModel: ObservableObject {
         self.showState = show.state
         self.showCity = show.city
         
-        // TODO: Get the show lineup in a dedicated ShowLineup viewmodel
         Task {
             do {
                 try await getShowLineup()
@@ -72,10 +75,43 @@ class ShowDetailsViewModel: ObservableObject {
         }
         
         state = .dataLoaded
+        
+        addShowListener()
+    }
+    
+    func addShowListener() {
+        showListener = db.collection("shows").document(show.id).addSnapshotListener { snapshot, error in
+            if snapshot != nil && error == nil {
+                if let editedShow = try? snapshot!.data(as: Show.self) {
+                    self.show = editedShow
+                    self.showName = editedShow.name
+                    self.showDescription = editedShow.description
+                    self.showDate = editedShow.formattedDate
+                    self.showGenre = editedShow.genre
+                    self.showHost = editedShow.host
+                    self.showTicketPrice = editedShow.ticketPrice
+                    self.showTicketSalesAreRequired = editedShow.ticketSalesAreRequired
+                    self.showMinimumRequiredTicketsSold = editedShow.minimumRequiredTicketsSold
+                    self.showVenue = editedShow.venue
+                    self.showImageUrl = editedShow.imageUrl
+                    self.showHasFood = editedShow.hasFood
+                    self.showHasBar = editedShow.hasBar
+                    self.showIs21Plus = editedShow.is21Plus
+                    self.showFormattedTicketPrice = editedShow.formattedTicketPrice
+                    self.showMaxNumberOfBands = editedShow.maxNumberOfBands
+                    self.showState = editedShow.state
+                    self.showCity = editedShow.city
+                }
+            }
+        }
     }
     
     @MainActor
     func getShowLineup() async throws {
         showLineup = try await DatabaseService.shared.getShowLineup(forShow: show)
+    }
+    
+    func removeShowListener() {
+        showListener?.remove()
     }
 }

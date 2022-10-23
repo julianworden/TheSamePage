@@ -200,6 +200,14 @@ class DatabaseService {
         }
     }
     
+    func updateShow(show: Show) async throws {
+        do {
+            try db.collection("shows").document(show.id).setData(from: show, merge: true)
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to add show to database in DatabaseService.createShow(show:)")
+        }
+    }
+    
     /// Creates a band in the Firestore bands collection.
     /// - Parameter band: The band to be added to Firestore.
     func createBand(band: Band) async throws -> String {

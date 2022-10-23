@@ -95,7 +95,11 @@ struct AddEditShowView: View {
                     Task {
                         do {
                             createShowButtonIsDisabled = true
-                            try await viewModel.createShow(withImage: showImage)
+                            if viewModel.showToEdit == nil {
+                                try await viewModel.createShow(withImage: showImage)
+                            } else {
+                                try await viewModel.updateShow()
+                            }
                             dismiss()
                         } catch {
                             createShowButtonIsDisabled = false
@@ -103,7 +107,7 @@ struct AddEditShowView: View {
                         }
                     }
                 } label: {
-                    AsyncButtonLabel(buttonIsDisabled: $createShowButtonIsDisabled, title: "Create Show")
+                    AsyncButtonLabel(buttonIsDisabled: $createShowButtonIsDisabled, title: "\(viewModel.showToEdit != nil ? "Update Show" : "Create Show")")
                 }
                 .disabled(createShowButtonIsDisabled)
             }

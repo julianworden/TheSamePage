@@ -7,7 +7,6 @@
 
 import Contacts
 import FirebaseFirestore
-//import GeoFireUtils
 import MapKit
 import UIKit.UIImage
 
@@ -50,7 +49,28 @@ class AddEditShowViewModel: ObservableObject {
     }
     
     init(viewTitleText: String, showToEdit: Show?) {
-        self.showToEdit = showToEdit
+        if let showToEdit {
+            self.showToEdit = showToEdit
+            self.showName = showToEdit.name
+            self.showDescription = showToEdit.description ?? ""
+            self.showVenue = showToEdit.venue
+            self.showHostName = showToEdit.host
+            self.showGenre = Genre(rawValue: showToEdit.genre) ?? Genre.rock
+            self.showMaxNumberOfBands = showToEdit.maxNumberOfBands
+            self.showDate = Date(timeIntervalSince1970: showToEdit.date)
+            self.showAddress = showToEdit.address
+            self.showCity = showToEdit.city
+            self.showState = showToEdit.state
+            self.showLatitude = showToEdit.latitude
+            self.showLongitude = showToEdit.longitude
+            self.showTypesenseCoordinates = showToEdit.typesenseCoordinates
+            self.ticketPrice = String(showToEdit.ticketPrice ?? 0)
+            self.ticketSalesAreRequired = showToEdit.ticketSalesAreRequired
+            self.minimumRequiredTicketsSold = String(showToEdit.minimumRequiredTicketsSold ?? 0)
+            self.showIs21Plus = showToEdit.is21Plus
+            self.showHasBar = showToEdit.hasBar
+            self.showHasFood = showToEdit.hasFood
+        }
         self.viewTitleText = viewTitleText
     }
     
@@ -160,5 +180,34 @@ class AddEditShowViewModel: ObservableObject {
         }
         
         try await DatabaseService.shared.createShow(show: newShow)
+    }
+    
+    func updateShow() async throws {
+        // Force unwraps are safe for showToEdit because this method is only called when showToEdit != nil
+        let updatedShow = Show(
+            id: showToEdit!.id,
+            name: showName,
+            description: showDescription,
+            host: showHostName,
+            hostUid: AuthController.getLoggedInUid(),
+            venue: showVenue,
+            date: showDate.timeIntervalSince1970,
+            ticketPrice: Double(ticketPrice),
+            ticketSalesAreRequired: ticketSalesAreRequired,
+            minimumRequiredTicketsSold: Int(minimumRequiredTicketsSold),
+            addressIsPrivate: addressIsPubliclyVisible,
+            address: showAddress ?? "Unknown Address",
+            city: showCity ?? "Unknown City",
+            state: showState ?? "Unknown State",
+            latitude: showLatitude,
+            longitude: showLongitude,
+            typesenseCoordinates: showTypesenseCoordinates,
+            hasFood: showHasFood,
+            hasBar: showHasBar,
+            is21Plus: showIs21Plus,
+            genre: showGenre.rawValue,
+            maxNumberOfBands: showMaxNumberOfBands
+        )
+        try await DatabaseService.shared.updateShow(show: updatedShow)
     }
 }
