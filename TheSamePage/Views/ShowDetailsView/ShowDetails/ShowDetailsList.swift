@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ShowDetailsList: View {
-    @ObservedObject var viewModel: ShowDetailsViewModel
+    @ObservedObject var viewModel: ShowDetailsTabViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -42,6 +42,6 @@ struct ShowDetailsList: View {
 
 struct ShowDetailsList_Previews: PreviewProvider {
     static var previews: some View {
-        ShowDetailsList(viewModel: ShowDetailsViewModel(show: Show.example))
+        ShowDetailsList(viewModel: ShowDetailsTabViewModel(show: Show.example))
     }
 }

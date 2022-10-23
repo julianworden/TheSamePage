@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct ShowDetailsTab: View {
-    @ObservedObject var viewModel: ShowDetailsViewModel
+    @StateObject var viewModel: ShowDetailsTabViewModel
+    
+    init(show: Show) {
+        _viewModel = StateObject(wrappedValue: ShowDetailsTabViewModel(show: show))
+    }
     
     var body: some View {
         VStack(spacing: 8) {
@@ -25,6 +29,9 @@ struct ShowDetailsTab: View {
             ShowDetailsList(viewModel: viewModel)
         }
         .padding(.top, 2)
+        .onDisappear {
+            viewModel.removeShowListener()
+        }
     }
 }
 
@@ -34,7 +41,7 @@ struct ShowDetailsTab_Previews: PreviewProvider {
             Color(uiColor: .systemGroupedBackground)
                 .ignoresSafeArea()
             
-            ShowDetailsTab(viewModel: ShowDetailsViewModel(show: Show.example))
+            ShowDetailsTab(show: Show.example)
         }
     }
 }
