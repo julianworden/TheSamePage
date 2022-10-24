@@ -451,4 +451,22 @@ class DatabaseService {
             throw DatabaseServiceError.firebaseStorage(message: "Error setting profile picture")
         }
     }
+    
+    func updateShowImage(image: UIImage, show: Show) async throws {
+        let imageData = image.jpegData(compressionQuality: 0.8)
+        
+        guard imageData != nil else {
+            throw DatabaseServiceError.unexpectedNilValue(value: "imageData")
+        }
+        
+        // Delete old image if it exists
+        if let oldImageUrl = show.imageUrl {
+            let oldImageRef = Storage.storage().reference(forURL: oldImageUrl)
+            try await oldImageRef.delete()
+        }
+        
+        if let newImageUrl = try await uploadImage(image: image) {
+            try await db.collection("shows").document(show.id).updateData(["imageUrl": newImageUrl])
+        }
+    }
 }

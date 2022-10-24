@@ -25,7 +25,7 @@ struct OtherUserProfileView: View {
                 
                 ScrollView {
                     VStack {
-                        ProfileAsyncImage(url: URL(string: viewModel.profileImageUrl ?? ""))
+                        ProfileAsyncImage(url: URL(string: viewModel.profileImageUrl ?? ""), loadedImage: .constant(nil))
                         
                         HStack {
                             Button {

@@ -67,6 +67,8 @@
 		AB399ADB28D4C548009B39F7 /* LoggedInUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB399ADA28D4C548009B39F7 /* LoggedInUserController.swift */; };
 		AB3C73D528DC0A1D0038085A /* BandSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3C73D428DC0A1D0038085A /* BandSearchView.swift */; };
 		AB3C73D728DC0A240038085A /* BandSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3C73D628DC0A240038085A /* BandSearchViewModel.swift */; };
+		AB3D2C3629060CC500412A7E /* EditImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3D2C3529060CC500412A7E /* EditImageView.swift */; };
+		AB3D2C3829060CCE00412A7E /* EditImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3D2C3729060CCE00412A7E /* EditImageViewModel.swift */; };
 		AB3E11E828D656FF000F147B /* UserProfileBandCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3E11E728D656FF000F147B /* UserProfileBandCard.swift */; };
 		AB3E11EA28D65E94000F147B /* UserProfileBandCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3E11E928D65E94000F147B /* UserProfileBandCardViewModel.swift */; };
 		AB4750192900B55C0000DB13 /* AddPercussionBacklineF.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4750182900B55C0000DB13 /* AddPercussionBacklineF.swift */; };
@@ -215,6 +217,8 @@
 		AB399ADA28D4C548009B39F7 /* LoggedInUserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserController.swift; sourceTree = "<group>"; };
 		AB3C73D428DC0A1D0038085A /* BandSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSearchView.swift; sourceTree = "<group>"; };
 		AB3C73D628DC0A240038085A /* BandSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSearchViewModel.swift; sourceTree = "<group>"; };
+		AB3D2C3529060CC500412A7E /* EditImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageView.swift; sourceTree = "<group>"; };
+		AB3D2C3729060CCE00412A7E /* EditImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageViewModel.swift; sourceTree = "<group>"; };
 		AB3E11E728D656FF000F147B /* UserProfileBandCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileBandCard.swift; sourceTree = "<group>"; };
 		AB3E11E928D65E94000F147B /* UserProfileBandCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileBandCardViewModel.swift; sourceTree = "<group>"; };
 		AB4750182900B55C0000DB13 /* AddPercussionBacklineF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPercussionBacklineF.swift; sourceTree = "<group>"; };
@@ -461,6 +465,7 @@
 		AB36FF7928D35B9500AAC00C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AB3D2C3429060CBD00412A7E /* EditImageView */,
 				ABEACE7628DBBB2900BB1D67 /* Onboarding */,
 				AB36FF7A28D35B9A00AAC00C /* RootView */,
 				AB36FF7B28D35B9D00AAC00C /* HomeView */,
@@ -619,6 +624,15 @@
 				AB3C73D628DC0A240038085A /* BandSearchViewModel.swift */,
 			);
 			path = BandSearchView;
+			sourceTree = "<group>";
+		};
+		AB3D2C3429060CBD00412A7E /* EditImageView */ = {
+			isa = PBXGroup;
+			children = (
+				AB3D2C3529060CC500412A7E /* EditImageView.swift */,
+				AB3D2C3729060CCE00412A7E /* EditImageViewModel.swift */,
+			);
+			path = EditImageView;
 			sourceTree = "<group>";
 		};
 		AB5054A528DC91B400321380 /* MemberSearchView */ = {
@@ -1080,6 +1094,7 @@
 				ABA1020D28DDFD6900A4E818 /* BandMember.swift in Sources */,
 				AB36FF9F28D36D0300AAC00C /* HomeShowCardViewModel.swift in Sources */,
 				AB07296528F468820069B268 /* ShowBacklineTab.swift in Sources */,
+				AB3D2C3629060CC500412A7E /* EditImageView.swift in Sources */,
 				ABD18AAF28EE14C9002286C3 /* SendShowInviteViewModel.swift in Sources */,
 				ABD18AB128EE2FAB002286C3 /* ShowInvite.swift in Sources */,
 				AB55E7752901FBB8009F039B /* Backline.swift in Sources */,
@@ -1111,6 +1126,7 @@
 				AB2B867E28D9F884004601B6 /* ImagePicker.swift in Sources */,
 				AB582B7E28FA3B3D00D357F3 /* LocationController.swift in Sources */,
 				AB36FF9428D361A100AAC00C /* DatabaseService.swift in Sources */,
+				AB3D2C3829060CCE00412A7E /* EditImageViewModel.swift in Sources */,
 				ABE3EFA828D919A2002EEF23 /* SignUpViewModel.swift in Sources */,
 				ABD323EF28E1180C00540B93 /* SendBandInviteView.swift in Sources */,
 				ABD18AAD28EE14C1002286C3 /* SendShowInviteView.swift in Sources */,

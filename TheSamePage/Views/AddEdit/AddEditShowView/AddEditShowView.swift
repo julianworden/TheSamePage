@@ -25,7 +25,9 @@ struct AddEditShowView: View {
     
     var body: some View {
         Form {
-            ImageSelectionButton(imagePickerIsShowing: $imagePickerIsShowing, selectedImage: $showImage)
+            if viewModel.showToEdit == nil {
+                ImageSelectionButton(imagePickerIsShowing: $imagePickerIsShowing, selectedImage: $showImage)
+            }
             
             Section {
                 TextField("Name", text: $viewModel.showName)

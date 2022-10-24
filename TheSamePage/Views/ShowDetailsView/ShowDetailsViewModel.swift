@@ -76,7 +76,9 @@ class ShowDetailsViewModel: ObservableObject {
         
         state = .dataLoaded
         
-        addShowListener()
+        if showListener == nil {
+            addShowListener()
+        }
     }
     
     func addShowListener() {

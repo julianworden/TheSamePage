@@ -20,7 +20,7 @@ struct LoggedInUserProfileView: View {
             if loggedInUserController.loggedInUser != nil {
                 ScrollView {
                     VStack {
-                        ProfileAsyncImage(url: URL(string: loggedInUserController.profileImageUrl ?? ""))
+                        ProfileAsyncImage(url: URL(string: loggedInUserController.profileImageUrl ?? ""), loadedImage: .constant(nil))
                         
                         HStack {
                             SectionTitle(title: "Member of")

@@ -11,10 +11,19 @@ struct ShowDetailsHeader: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
     
     @State private var showImage: Image?
-        
+    @State private var updatedImage: UIImage?
+    
     var body: some View {
         VStack {
-            ProfileAsyncImage(url: URL(string: viewModel.showImageUrl ?? ""))
+            if viewModel.show.loggedInUserIsShowHost {
+                NavigationLink {
+                    EditImageView(show: viewModel.show, image: showImage, updatedImage: $updatedImage)
+                } label: {
+                    ProfileAsyncImage(url: URL(string: viewModel.showImageUrl ?? ""), loadedImage: $showImage)
+                }
+            } else {
+                ProfileAsyncImage(url: URL(string: viewModel.showImageUrl ?? ""), loadedImage: $showImage)
+            }
             
             VStack(spacing: 2) {
                 Text(viewModel.showName)
@@ -36,7 +45,18 @@ struct ShowDetailsHeader: View {
                 }
             }
             .multilineTextAlignment(.center)
-            
+            .padding(.horizontal)
+        }
+        // Forces the EditImageView sheet to load the showImage properly
+        .onChange(of: showImage) { _ in }
+        
+        // Triggered when the image is updated in the EditImageView sheet
+        .onChange(of: updatedImage) { updatedImage in
+            if let updatedImage {
+                self.showImage = Image(uiImage: updatedImage)
+                // This call is necessary so that the image gets updated visually when it's changed
+                viewModel.addShowListener()
+            }
         }
     }
 }
