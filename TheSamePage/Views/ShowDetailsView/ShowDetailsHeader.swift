@@ -19,10 +19,30 @@ struct ShowDetailsHeader: View {
                 NavigationLink {
                     EditImageView(show: viewModel.show, image: showImage, updatedImage: $updatedImage)
                 } label: {
-                    ProfileAsyncImage(url: URL(string: viewModel.showImageUrl ?? ""), loadedImage: $showImage)
+                    if updatedImage == nil {
+                        ProfileAsyncImage(url: URL(string: viewModel.showImageUrl ?? ""), loadedImage: $showImage)
+                    } else {
+                        // Helps avoid delay from showing updated image
+                        Image(uiImage: updatedImage!)
+                            .resizable()
+                            .scaledToFit()
+                            .border(.white, width: 3)
+                            .frame(height: 200)
+                            .padding(.horizontal)
+                    }
                 }
             } else {
-                ProfileAsyncImage(url: URL(string: viewModel.showImageUrl ?? ""), loadedImage: $showImage)
+                if updatedImage == nil {
+                    ProfileAsyncImage(url: URL(string: viewModel.showImageUrl ?? ""), loadedImage: $showImage)
+                } else {
+                    // Helps avoid delay from showing updated image
+                    Image(uiImage: updatedImage!)
+                        .resizable()
+                        .scaledToFit()
+                        .border(.white, width: 3)
+                        .frame(height: 200)
+                        .padding(.horizontal)
+                }
             }
             
             VStack(spacing: 2) {

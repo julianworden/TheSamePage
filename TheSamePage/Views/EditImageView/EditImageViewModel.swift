@@ -9,6 +9,8 @@ import Foundation
 import UIKit.UIImage
 
 class EditImageViewModel: ObservableObject {
+    @Published var state = ViewState.dataLoaded
+    
     let show: Show
     let imageUrl: String?
     

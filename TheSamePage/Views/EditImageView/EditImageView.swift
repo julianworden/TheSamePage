@@ -16,6 +16,7 @@ struct EditImageView: View {
     @Binding var updatedImage: UIImage?
     
     @State private var imagePickerIsShowing = false
+    @State private var editButtonIsDisabled = false
     
     let image: Image?
     
@@ -26,24 +27,37 @@ struct EditImageView: View {
     }
     
     var body: some View {
-        VStack {
-            if let updatedImage {
-                Image(uiImage: updatedImage)
-                    .resizable()
-                    .scaledToFit()
-            } else if let image {
-                image
-                    .resizable()
-                    .scaledToFit()
-            } else {
-                NoImageView()
+        Group {
+            switch viewModel.state {
+            case .dataLoaded:
+                VStack {
+                    if let updatedImage {
+                        Image(uiImage: updatedImage)
+                            .resizable()
+                            .scaledToFit()
+                    } else if let image {
+                        image
+                            .resizable()
+                            .scaledToFit()
+                    } else {
+                        NoImageView()
+                    }
+                }
+            case .dataLoading:
+                ProgressView()
+            case .error(message: let message):
+                ErrorMessage(message: "Something went wrong while editing this image. Please check your internet connection and relaunch the app.", errorText: "Error: \(message)")
+            default:
+                EmptyView()
             }
         }
+        .navigationBarBackButtonHidden(viewModel.state == .dataLoading ? true : false)
         .toolbar {
             ToolbarItem {
                 Button("Edit") {
                     imagePickerIsShowing = true
                 }
+                .disabled(editButtonIsDisabled)
             }
         }
         .sheet(
@@ -56,9 +70,14 @@ struct EditImageView: View {
         .onChange(of: updatedImage) { updatedImage in
             Task {
                 do {
+                    viewModel.state = .dataLoading
+                    editButtonIsDisabled = true
                     try await viewModel.updateShowImage(show: viewModel.show, withImage: updatedImage!)
+                    viewModel.state = .dataLoaded
+                    editButtonIsDisabled = false
                 } catch {
-                    print(error)
+                    viewModel.state = .error(message: error.localizedDescription)
+                    editButtonIsDisabled = false
                 }
             }
         }
