@@ -20,35 +20,40 @@ struct EditImageView: View {
     
     let image: Image?
     
-    init(show: Show, image: Image?, updatedImage: Binding<UIImage?>) {
-        _viewModel = StateObject(wrappedValue: EditImageViewModel(show: show))
-        self.image = image
+    init(show: Show? = nil, user: User? = nil, band: Band? = nil, image: Image?, updatedImage: Binding<UIImage?>) {
+        _viewModel = StateObject(wrappedValue: EditImageViewModel(show: show, user: user, band: band))
         _updatedImage = Binding(projectedValue: updatedImage)
+        self.image = image
     }
     
     var body: some View {
-        Group {
-            switch viewModel.state {
-            case .dataLoaded:
-                VStack {
-                    if let updatedImage {
-                        Image(uiImage: updatedImage)
-                            .resizable()
-                            .scaledToFit()
-                    } else if let image {
-                        image
-                            .resizable()
-                            .scaledToFit()
-                    } else {
-                        NoImageView()
+        ZStack {
+            Color(uiColor: .secondarySystemBackground)
+                .ignoresSafeArea()
+            
+            Group {
+                switch viewModel.state {
+                case .dataLoaded:
+                    VStack {
+                        if let updatedImage {
+                            Image(uiImage: updatedImage)
+                                .resizable()
+                                .scaledToFit()
+                        } else if let image {
+                            image
+                                .resizable()
+                                .scaledToFit()
+                        } else {
+                            NoImageView()
+                        }
                     }
+                case .dataLoading:
+                    ProgressView()
+                case .error(message: let message):
+                    ErrorMessage(message: "Something went wrong while editing this image. Please check your internet connection and relaunch the app.", errorText: "Error: \(message)")
+                default:
+                    EmptyView()
                 }
-            case .dataLoading:
-                ProgressView()
-            case .error(message: let message):
-                ErrorMessage(message: "Something went wrong while editing this image. Please check your internet connection and relaunch the app.", errorText: "Error: \(message)")
-            default:
-                EmptyView()
             }
         }
         .navigationBarBackButtonHidden(viewModel.state == .dataLoading ? true : false)
@@ -72,9 +77,10 @@ struct EditImageView: View {
                 do {
                     viewModel.state = .dataLoading
                     editButtonIsDisabled = true
-                    try await viewModel.updateShowImage(show: viewModel.show, withImage: updatedImage!)
-                    viewModel.state = .dataLoaded
-                    editButtonIsDisabled = false
+                    try await viewModel.updateImage(withImage: updatedImage!)
+                    dismiss()
+//                    viewModel.state = .dataLoaded
+//                    editButtonIsDisabled = false
                 } catch {
                     viewModel.state = .error(message: error.localizedDescription)
                     editButtonIsDisabled = false

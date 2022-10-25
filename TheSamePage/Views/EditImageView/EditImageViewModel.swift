@@ -11,15 +11,45 @@ import UIKit.UIImage
 class EditImageViewModel: ObservableObject {
     @Published var state = ViewState.dataLoaded
     
-    let show: Show
-    let imageUrl: String?
+    var show: Show?
+    var user: User?
+    var band: Band?
+    var imageUrl: String?
     
-    init(show: Show) {
-        self.show = show
-        self.imageUrl = show.imageUrl
+    init(show: Show? = nil, user: User? = nil, band: Band? = nil) {
+        if let show {
+            self.show = show
+            self.imageUrl = show.imageUrl
+            return
+        }
+        
+        if let user {
+            self.user = user
+            self.imageUrl = user.profileImageUrl
+            return
+        }
+        
+        if let band {
+            self.band = band
+            self.imageUrl = band.profileImageUrl
+            return
+        }
     }
     
-    func updateShowImage(show: Show, withImage image: UIImage) async throws {
-        try await DatabaseService.shared.updateShowImage(image: image, show: show)
+    func updateImage(withImage image: UIImage) async throws {
+        if let show {
+            try await DatabaseService.shared.updateShowImage(image: image, show: show)
+            return
+        }
+        
+        if let user {
+            try await DatabaseService.shared.updateUserProfileImage(image: image, user: user)
+            return
+        }
+        
+        if let band {
+            try await DatabaseService.shared.updateBandProfileImage(image: image, band: band)
+            return
+        }
     }
 }

@@ -12,15 +12,33 @@ struct LoggedInUserProfileView: View {
     
     @Binding var userIsLoggedOut: Bool
     
+    /// The image loaded from the ProfileAsyncImage
+    @State private var userImage: Image?
+    /// A new image set within EditImageView
+    @State private var updatedImage: UIImage?
+    
     var body: some View {
         ZStack {
             Color(uiColor: .systemGroupedBackground)
                 .ignoresSafeArea()
             
-            if loggedInUserController.loggedInUser != nil {
+            if let loggedInUser = loggedInUserController.loggedInUser {
                 ScrollView {
                     VStack {
-                        ProfileAsyncImage(url: URL(string: loggedInUserController.profileImageUrl ?? ""), loadedImage: .constant(nil))
+                        NavigationLink {
+                            EditImageView(user: loggedInUser, image: userImage, updatedImage: $updatedImage)
+                        } label: {
+                            if updatedImage == nil {
+                                ProfileAsyncImage(url: URL(string: loggedInUserController.profileImageUrl ?? ""), loadedImage: $userImage)
+                            } else {
+                                Image(uiImage: updatedImage!)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .border(.white, width: 3)
+                                    .frame(height: 200)
+                                    .padding(.horizontal)
+                            }
+                        }
                         
                         HStack {
                             SectionTitle(title: "Member of")
@@ -52,6 +70,17 @@ struct LoggedInUserProfileView: View {
                     message: "Failed to fetch logged in user. Please check your internet connection and restart the app."
                 )
             }
+        }
+        .onChange(of: userImage) { _ in }
+        
+        .onChange(of: updatedImage) { updatedImage in
+            if let updatedImage {
+                self.userImage = Image(uiImage: updatedImage)
+                loggedInUserController.addUserListener()
+            }
+        }
+        .onDisappear {
+            loggedInUserController.removeUserListener()
         }
     }
 }

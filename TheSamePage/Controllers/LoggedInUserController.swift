@@ -25,6 +25,9 @@ class LoggedInUserController: ObservableObject {
     
     var uid: String?
     
+    let db = Firestore.firestore()
+    var userListener: ListenerRegistration?
+    
     init() {
         Task {
             do {
@@ -67,5 +70,24 @@ class LoggedInUserController: ObservableObject {
         } catch {
             throw UserControllerError.firebaseAuth(message: "Failed to log out")
         }
+    }
+    
+    func addUserListener() {
+        userListener = db.collection("users").document(AuthController.getLoggedInUid()).addSnapshotListener { snapshot, error in
+            if snapshot != nil && error == nil {
+                if let updatedUser = try? snapshot?.data(as: User.self) {
+                    // loggedInUser must also be updated because the loggedInUserProfile references it
+                    self.loggedInUser = updatedUser
+                    self.firstName = updatedUser.firstName
+                    self.lastName = updatedUser.lastName
+                    self.emailAddress = updatedUser.emailAddress
+                    self.profileImageUrl = updatedUser.profileImageUrl
+                }
+            }
+        }
+    }
+    
+    func removeUserListener() {
+        userListener?.remove()
     }
 }

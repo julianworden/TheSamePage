@@ -10,7 +10,9 @@ import SwiftUI
 struct ShowDetailsHeader: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
     
+    /// The image loaded from the ProfileAsyncImage
     @State private var showImage: Image?
+    /// A new image set within EditImageView
     @State private var updatedImage: UIImage?
     
     var body: some View {
@@ -67,7 +69,7 @@ struct ShowDetailsHeader: View {
             .multilineTextAlignment(.center)
             .padding(.horizontal)
         }
-        // Forces the EditImageView sheet to load the showImage properly
+        // Forces the EditImageView to load the showImage properly
         .onChange(of: showImage) { _ in }
         
         // Triggered when the image is updated in the EditImageView sheet

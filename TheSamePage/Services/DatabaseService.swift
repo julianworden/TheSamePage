@@ -453,12 +453,6 @@ class DatabaseService {
     }
     
     func updateShowImage(image: UIImage, show: Show) async throws {
-        let imageData = image.jpegData(compressionQuality: 0.8)
-        
-        guard imageData != nil else {
-            throw DatabaseServiceError.unexpectedNilValue(value: "imageData")
-        }
-        
         // Delete old image if it exists
         if let oldImageUrl = show.imageUrl {
             let oldImageRef = Storage.storage().reference(forURL: oldImageUrl)
@@ -467,6 +461,28 @@ class DatabaseService {
         
         if let newImageUrl = try await uploadImage(image: image) {
             try await db.collection("shows").document(show.id).updateData(["imageUrl": newImageUrl])
+        }
+    }
+    
+    func updateUserProfileImage(image: UIImage, user: User) async throws {
+        if let oldImageUrl = user.profileImageUrl {
+            let oldImageRef = Storage.storage().reference(forURL: oldImageUrl)
+            try await oldImageRef.delete()
+        }
+        
+        if let newImageUrl = try await uploadImage(image: image) {
+            try await db.collection("users").document(user.id).updateData(["profileImageUrl": newImageUrl])
+        }
+    }
+    
+    func updateBandProfileImage(image: UIImage, band: Band) async throws {
+        if let oldImageUrl = band.profileImageUrl {
+            let oldImageRef = Storage.storage().reference(forURL: oldImageUrl)
+            try await oldImageRef.delete()
+        }
+        
+        if let newImageUrl = try await uploadImage(image: image) {
+            try await db.collection("bands").document(band.id).updateData(["profileImageUrl": newImageUrl])
         }
     }
 }

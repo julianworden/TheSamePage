@@ -14,8 +14,8 @@
             filePath = "TheSamePage/Services/DatabaseService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "464"
-            endingLineNumber = "464"
+            startingLineNumber = "458"
+            endingLineNumber = "458"
             landmarkName = "updateShowImage(image:show:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,13 +30,13 @@
             filePath = "TheSamePage/Services/DatabaseService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "465"
-            endingLineNumber = "465"
+            startingLineNumber = "459"
+            endingLineNumber = "459"
             landmarkName = "updateShowImage(image:show:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "D19ABD60-C07C-4C59-BCD8-E10720D57772 - be6ef566cdf7c497"
+                  uuid = "D19ABD60-C07C-4C59-BCD8-E10720D57772 - be6ef566cdf7c451"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -46,12 +46,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "465"
-                  endingLineNumber = "465"
-                  offsetFromSymbolStart = "1028">
+                  startingLineNumber = "459"
+                  endingLineNumber = "459"
+                  offsetFromSymbolStart = "456">
                </Location>
                <Location
-                  uuid = "D19ABD60-C07C-4C59-BCD8-E10720D57772 - f2509d425edfc6db"
+                  uuid = "D19ABD60-C07C-4C59-BCD8-E10720D57772 - f2509d425edfc61d"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -61,12 +61,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "465"
-                  endingLineNumber = "465"
+                  startingLineNumber = "459"
+                  endingLineNumber = "459"
                   offsetFromSymbolStart = "40">
                </Location>
                <Location
-                  uuid = "D19ABD60-C07C-4C59-BCD8-E10720D57772 - 91475aa107a50099"
+                  uuid = "D19ABD60-C07C-4C59-BCD8-E10720D57772 - 91475aa107a5005f"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -76,12 +76,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "465"
-                  endingLineNumber = "465"
-                  offsetFromSymbolStart = "72">
+                  startingLineNumber = "459"
+                  endingLineNumber = "459"
+                  offsetFromSymbolStart = "64">
                </Location>
                <Location
-                  uuid = "D19ABD60-C07C-4C59-BCD8-E10720D57772 - 575f56fcc950569e"
+                  uuid = "D19ABD60-C07C-4C59-BCD8-E10720D57772 - 575f56fcc9505658"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -91,9 +91,9 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "465"
-                  endingLineNumber = "465"
-                  offsetFromSymbolStart = "68">
+                  startingLineNumber = "459"
+                  endingLineNumber = "459"
+                  offsetFromSymbolStart = "60">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -108,13 +108,13 @@
             filePath = "TheSamePage/Services/DatabaseService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "469"
-            endingLineNumber = "469"
+            startingLineNumber = "463"
+            endingLineNumber = "463"
             landmarkName = "updateShowImage(image:show:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "995864DD-AE8F-4997-8CC1-C2130F65401B - 899d3fe3b99a53e7"
+                  uuid = "995864DD-AE8F-4997-8CC1-C2130F65401B - 899d3fe3b99a4cd9"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -124,12 +124,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "469"
-                  endingLineNumber = "469"
-                  offsetFromSymbolStart = "200">
+                  startingLineNumber = "463"
+                  endingLineNumber = "463"
+                  offsetFromSymbolStart = "188">
                </Location>
                <Location
-                  uuid = "995864DD-AE8F-4997-8CC1-C2130F65401B - baabcad6ad6e51a3"
+                  uuid = "995864DD-AE8F-4997-8CC1-C2130F65401B - baabcad6ad6e4e9d"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -139,12 +139,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "469"
-                  endingLineNumber = "469"
+                  startingLineNumber = "463"
+                  endingLineNumber = "463"
                   offsetFromSymbolStart = "52">
                </Location>
                <Location
-                  uuid = "995864DD-AE8F-4997-8CC1-C2130F65401B - 60eba35df24b97e1"
+                  uuid = "995864DD-AE8F-4997-8CC1-C2130F65401B - 60eba35df24b88df"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -154,24 +154,24 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "469"
-                  endingLineNumber = "469"
-                  offsetFromSymbolStart = "60">
+                  startingLineNumber = "463"
+                  endingLineNumber = "463"
+                  offsetFromSymbolStart = "52">
                </Location>
                <Location
-                  uuid = "995864DD-AE8F-4997-8CC1-C2130F65401B - 3ea6190027d957ad"
+                  uuid = "995864DD-AE8F-4997-8CC1-C2130F65401B - 5bc0089c2438f4dd"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(10) suspend resume partial function for TheSamePage.DatabaseService.updateShowImage(image: __C.UIImage, show: TheSamePage.Show) async throws -&gt; ()"
+                  symbolName = "(9) suspend resume partial function for TheSamePage.DatabaseService.updateShowImage(image: __C.UIImage, show: TheSamePage.Show) async throws -&gt; ()"
                   moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "469"
-                  endingLineNumber = "469"
-                  offsetFromSymbolStart = "64">
+                  startingLineNumber = "463"
+                  endingLineNumber = "463"
+                  offsetFromSymbolStart = "56">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -186,70 +186,70 @@
             filePath = "TheSamePage/Views/EditImageView/EditImageViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "updateShowImage(show:withImage:)"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "updateImage(withImage:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "C99853E2-2679-43BD-9E95-F87B376A9306 - 972bd6fd7cdf2319"
+                  uuid = "C99853E2-2679-43BD-9E95-F87B376A9306 - 1a4c0815e2a746eb"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for TheSamePage.EditImageViewModel.updateShowImage(show: TheSamePage.Show, withImage: __C.UIImage) async throws -&gt; ()"
+                  symbolName = "(1) suspend resume partial function for TheSamePage.EditImageViewModel.updateImage(withImage: __C.UIImage) async throws -&gt; ()"
                   moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/EditImageView/EditImageViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
-                  offsetFromSymbolStart = "64">
+                  startingLineNumber = "41"
+                  endingLineNumber = "41"
+                  offsetFromSymbolStart = "204">
                </Location>
                <Location
-                  uuid = "C99853E2-2679-43BD-9E95-F87B376A9306 - 70532b73cf088243"
+                  uuid = "C99853E2-2679-43BD-9E95-F87B376A9306 - bc9c38cf0f684ff8"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for TheSamePage.EditImageViewModel.updateShowImage(show: TheSamePage.Show, withImage: __C.UIImage) async throws -&gt; ()"
+                  symbolName = "(2) await resume partial function for TheSamePage.EditImageViewModel.updateImage(withImage: __C.UIImage) async throws -&gt; ()"
                   moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/EditImageView/EditImageViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
+                  startingLineNumber = "41"
+                  endingLineNumber = "41"
                   offsetFromSymbolStart = "40">
                </Location>
                <Location
-                  uuid = "C99853E2-2679-43BD-9E95-F87B376A9306 - 2629289a1a8667e7"
+                  uuid = "C99853E2-2679-43BD-9E95-F87B376A9306 - 89dbd5ba4d4e82e9"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for TheSamePage.EditImageViewModel.updateShowImage(show: TheSamePage.Show, withImage: __C.UIImage) async throws -&gt; ()"
+                  symbolName = "(3) suspend resume partial function for TheSamePage.EditImageViewModel.updateImage(withImage: __C.UIImage) async throws -&gt; ()"
                   moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/EditImageView/EditImageViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
+                  startingLineNumber = "41"
+                  endingLineNumber = "41"
                   offsetFromSymbolStart = "44">
                </Location>
                <Location
-                  uuid = "C99853E2-2679-43BD-9E95-F87B376A9306 - f197c764499105e6"
+                  uuid = "C99853E2-2679-43BD-9E95-F87B376A9306 - 6bc64d14e2fb4ec"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for TheSamePage.EditImageViewModel.updateShowImage(show: TheSamePage.Show, withImage: __C.UIImage) async throws -&gt; ()"
+                  symbolName = "(8) suspend resume partial function for TheSamePage.EditImageViewModel.updateImage(withImage: __C.UIImage) async throws -&gt; ()"
                   moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/EditImageView/EditImageViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "21"
-                  endingLineNumber = "21"
-                  offsetFromSymbolStart = "48">
+                  startingLineNumber = "41"
+                  endingLineNumber = "41"
+                  offsetFromSymbolStart = "44">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -282,7 +282,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "455"
                   endingLineNumber = "455"
-                  offsetFromSymbolStart = "140">
+                  offsetFromSymbolStart = "132">
                </Location>
                <Location
                   uuid = "7439C766-4673-4C30-8A26-815D61A325F9 - be6ef566cdf7c5dd"
@@ -297,71 +297,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "455"
                   endingLineNumber = "455"
-                  offsetFromSymbolStart = "108">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6692C850-856E-4820-8C35-55A9017CC0E1"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Services/DatabaseService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "459"
-            endingLineNumber = "459"
-            landmarkName = "updateShowImage(image:show:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3662778F-90DE-4247-9DD0-35EE9D53DEC2"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Services/DatabaseService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "456"
-            endingLineNumber = "456"
-            landmarkName = "updateShowImage(image:show:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "3662778F-90DE-4247-9DD0-35EE9D53DEC2 - be6ef566cdf7c5be"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for TheSamePage.DatabaseService.updateShowImage(image: __C.UIImage, show: TheSamePage.Show) async throws -&gt; ()"
-                  moduleName = "TheSamePage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "456"
-                  endingLineNumber = "456"
-                  offsetFromSymbolStart = "144">
-               </Location>
-               <Location
-                  uuid = "3662778F-90DE-4247-9DD0-35EE9D53DEC2 - be6ef566cdf7c5be"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for TheSamePage.DatabaseService.updateShowImage(image: __C.UIImage, show: TheSamePage.Show) async throws -&gt; ()"
-                  moduleName = "TheSamePage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "456"
-                  endingLineNumber = "456"
-                  offsetFromSymbolStart = "184">
+                  offsetFromSymbolStart = "80">
                </Location>
             </Locations>
          </BreakpointContent>
