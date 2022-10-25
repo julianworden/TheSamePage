@@ -10,6 +10,7 @@ import Foundation
 import MapKit
 
 class ShowDetailsViewModel: ObservableObject {
+    // TODO: Make all properties optional to make the initializer cleaner and make it so that addShowListener is the only thing initializing these properties
     @Published var show: Show
     @Published var showName: String
     @Published var showDescription: String?

@@ -776,7 +776,6 @@
 		ABCAA9FD28E9E56C00685F91 /* BandProfileHeader */ = {
 			isa = PBXGroup;
 			children = (
-				ABCAA9FE28E9E56C00685F91 /* BandProfileHeader.swift */,
 				ABCAAA0628E9F13B00685F91 /* BandProfileHeaderViewModel.swift */,
 			);
 			path = BandProfileHeader;
@@ -919,6 +918,7 @@
 				ABF5563428DF93DD0059E2DF /* BandProfileRootView.swift */,
 				AB35A8D528E9DC73009FB203 /* BandProfileAdminView.swift */,
 				AB35A8D928E9DC93009FB203 /* BandProfileOtherUserView.swift */,
+				ABCAA9FE28E9E56C00685F91 /* BandProfileHeader.swift */,
 				ABF5563628DF93E40059E2DF /* BandProfileViewModel.swift */,
 				ABD18AAB28EE14B1002286C3 /* SendShowInviteView */,
 				ABCAA9FD28E9E56C00685F91 /* BandProfileHeader */,

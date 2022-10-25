@@ -19,7 +19,7 @@ struct BandProfileOtherUserView: View {
     var body: some View {
         if viewModel.band != nil {
             VStack(spacing: 15) {
-                BandProfileHeader(band: viewModel.band!)
+                BandProfileHeader(viewModel: viewModel)
                 
                 if !viewModel.band!.loggedInUserIsBandAdmin {
                     NavigationLink {

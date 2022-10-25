@@ -34,17 +34,8 @@ struct ShowDetailsHeader: View {
                     }
                 }
             } else {
-                if updatedImage == nil {
-                    ProfileAsyncImage(url: URL(string: viewModel.showImageUrl ?? ""), loadedImage: $showImage)
-                } else {
-                    // Helps avoid delay from showing updated image
-                    Image(uiImage: updatedImage!)
-                        .resizable()
-                        .scaledToFit()
-                        .border(.white, width: 3)
-                        .frame(height: 200)
-                        .padding(.horizontal)
-                }
+                // Logged in user is not show host
+                ProfileAsyncImage(url: URL(string: viewModel.showImageUrl ?? ""), loadedImage: .constant(nil))
             }
             
             VStack(spacing: 2) {

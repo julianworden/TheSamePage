@@ -5,9 +5,7 @@
 //  Created by Julian Worden on 9/15/22.
 //
 
-//import Atlantis
 import FirebaseCore
-//import Geohash
 import SwiftUI
 
 @main
@@ -27,7 +25,6 @@ struct SO62626652_AppDelegateAdaptorApp: App {
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
-//        Atlantis.start()
         UITabBar.appearance().backgroundColor = .systemGroupedBackground
         return true
     }

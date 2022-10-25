@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// TODO: Allow for the band admin to add band to any of their hosted shows
+// TODO: Allow for the band admin to add their own bands to any of their hosted shows
 
 struct BandProfileAdminView: View {
     @ObservedObject var viewModel: BandProfileViewModel
@@ -20,15 +20,15 @@ struct BandProfileAdminView: View {
     }
     
     var body: some View {
-        if viewModel.band != nil {
+        if let band = viewModel.band {
             VStack(spacing: 15) {
-                BandProfileHeader(band: viewModel.band!)
+                BandProfileHeader(viewModel: viewModel)
                 
                 HStack {
                     SectionTitle(title: "Members")
                     
                     NavigationLink {
-                        MemberSearchView(userIsOnboarding: .constant(false), band: viewModel.band)
+                        MemberSearchView(userIsOnboarding: .constant(false), band: band)
                             .navigationTitle("Search for User Profile")
                             .navigationBarTitleDisplayMode(.inline)
                     } label: {
@@ -39,14 +39,14 @@ struct BandProfileAdminView: View {
                 }
                 
                 if !viewModel.bandMembers.isEmpty {
-                    BandMemberList(bandMembers: viewModel.bandMembers, band: viewModel.band!)
+                    BandMemberList(bandMembers: viewModel.bandMembers, band: band)
                 } else {
                     VStack {
                         Text("This band doesn't have any members.")
                             .italic()
                         
                         NavigationLink {
-                            MemberSearchView(userIsOnboarding: .constant(false), band: viewModel.band)
+                            MemberSearchView(userIsOnboarding: .constant(false), band: band)
                                 .navigationTitle("Search for User Profile")
                                 .navigationBarTitleDisplayMode(.inline)
                         } label: {
