@@ -130,7 +130,7 @@ class AddEditShowViewModel: ObservableObject {
             newShow = Show(
                 id: "",
                 name: showName,
-                description: showDescription,
+                description: showDescription.trimmingCharacters(in: .whitespacesAndNewlines) == "" ? nil : showDescription,
                 host: showHostName,
                 hostUid: AuthController.getLoggedInUid(),
                 venue: showVenue,
@@ -156,7 +156,7 @@ class AddEditShowViewModel: ObservableObject {
             newShow = Show(
                 id: "",
                 name: showName,
-                description: showDescription,
+                description: showDescription.trimmingCharacters(in: .whitespacesAndNewlines) == "" ? nil : showDescription,
                 host: showHostName,
                 hostUid: AuthController.getLoggedInUid(),
                 venue: showVenue,
@@ -187,7 +187,7 @@ class AddEditShowViewModel: ObservableObject {
         let updatedShow = Show(
             id: showToEdit!.id,
             name: showName,
-            description: showDescription,
+            description: showDescription.trimmingCharacters(in: .whitespacesAndNewlines) == "" ? nil : showDescription,
             host: showHostName,
             hostUid: AuthController.getLoggedInUid(),
             venue: showVenue,

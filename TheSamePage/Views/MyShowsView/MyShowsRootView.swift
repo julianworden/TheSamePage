@@ -26,8 +26,7 @@ struct MyShowsRootView: View {
                     .padding(.horizontal)
                     
                     if viewModel.selectedShowType == .hosting {
-                        MyHostedShowsView( viewModel: viewModel
-                        )
+                        MyHostedShowsView(viewModel: viewModel)
                     }
                     
                     if viewModel.selectedShowType == .playing {

@@ -134,6 +134,10 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         return loggedInUserIsInvolvedInShow || !addressIsPrivate
     }
     
+    var shouldDisplayIcons: Bool {
+        return hasFood || hasBar || is21Plus
+    }
+    
     var distanceFromUser: String? {
         if let userLocation = LocationController.shared.userLocation {
             let distanceInMeters = location.distance(from: userLocation)

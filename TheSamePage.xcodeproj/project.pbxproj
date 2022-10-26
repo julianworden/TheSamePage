@@ -56,6 +56,8 @@
 		AB36FF8F28D35E8C00AAC00C /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF8E28D35E8C00AAC00C /* Genre.swift */; };
 		AB36FF9428D361A100AAC00C /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF9328D361A100AAC00C /* DatabaseService.swift */; };
 		AB36FF9828D36A6600AAC00C /* SectionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF9728D36A6600AAC00C /* SectionTitle.swift */; };
+		AB37EBB2290966C90029588C /* HomeShowRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB37EBB1290966C90029588C /* HomeShowRow.swift */; };
+		AB37EBB6290967750029588C /* HomeShowRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB37EBB5290967750029588C /* HomeShowRowViewModel.swift */; };
 		AB38E1B128FB21CB006D1788 /* AddEditShowAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38E1B028FB21CB006D1788 /* AddEditShowAddressView.swift */; };
 		AB38E1B328FB2422006D1788 /* CLPlacemark+formattedAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38E1B228FB2422006D1788 /* CLPlacemark+formattedAddress.swift */; };
 		AB399AD228D4AF3E009B39F7 /* MyShowsShowCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB399AD128D4AF3E009B39F7 /* MyShowsShowCard.swift */; };
@@ -202,6 +204,8 @@
 		AB36FF8E28D35E8C00AAC00C /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		AB36FF9328D361A100AAC00C /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		AB36FF9728D36A6600AAC00C /* SectionTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTitle.swift; sourceTree = "<group>"; };
+		AB37EBB1290966C90029588C /* HomeShowRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShowRow.swift; sourceTree = "<group>"; };
+		AB37EBB5290967750029588C /* HomeShowRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShowRowViewModel.swift; sourceTree = "<group>"; };
 		AB38E1B028FB21CB006D1788 /* AddEditShowAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowAddressView.swift; sourceTree = "<group>"; };
 		AB38E1B228FB2422006D1788 /* CLPlacemark+formattedAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLPlacemark+formattedAddress.swift"; sourceTree = "<group>"; };
 		AB399AD128D4AF3E009B39F7 /* MyShowsShowCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowsShowCard.swift; sourceTree = "<group>"; };
@@ -483,6 +487,8 @@
 			children = (
 				AB36FF7328D358FA00AAC00C /* HomeView.swift */,
 				AB5E48F4290029B20076EABE /* HomeViewShowsList.swift */,
+				AB37EBB1290966C90029588C /* HomeShowRow.swift */,
+				AB37EBB5290967750029588C /* HomeShowRowViewModel.swift */,
 				ABB71C4928FE08D500D3126D /* HomeViewModel.swift */,
 			);
 			path = HomeView;
@@ -1063,6 +1069,7 @@
 				AB36FF6828D356FD00AAC00C /* RootView.swift in Sources */,
 				AB7F380F28EF1AA9007741C7 /* ShowInvitesList.swift in Sources */,
 				AB4750192900B55C0000DB13 /* AddPercussionBacklineF.swift in Sources */,
+				AB37EBB6290967750029588C /* HomeShowRowViewModel.swift in Sources */,
 				AB3E11EA28D65E94000F147B /* UserProfileBandCardViewModel.swift in Sources */,
 				ABEC487C28F1DD23005C9A99 /* SmallListRow.swift in Sources */,
 				AB24E3A828D7C9C4002B4F2C /* LoginViewModel.swift in Sources */,
@@ -1107,6 +1114,7 @@
 				ABE3EFA828D919A2002EEF23 /* SignUpViewModel.swift in Sources */,
 				ABD323EF28E1180C00540B93 /* SendBandInviteView.swift in Sources */,
 				ABD18AAD28EE14C1002286C3 /* SendShowInviteView.swift in Sources */,
+				AB37EBB2290966C90029588C /* HomeShowRow.swift in Sources */,
 				ABD1D16F28F30CE500791969 /* MyPlayingShowsView.swift in Sources */,
 				AB36FF8328D35C0600AAC00C /* Show.swift in Sources */,
 				ABA1020B28DDF3E200A4E818 /* NotificationRowViewModel.swift in Sources */,

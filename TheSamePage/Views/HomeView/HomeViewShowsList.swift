@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Typesense
 
 struct HomeViewShowsList: View {
     @ObservedObject var viewModel: HomeViewModel
@@ -21,7 +22,7 @@ struct HomeViewShowsList: View {
                     NavigationLink {
                         ShowDetailsView(show: show)
                     } label: {
-                        MyShowRow(index: 0, viewModel: MyShowsViewModel())
+                        HomeShowRow(show: show)
                     }
                 }
             }

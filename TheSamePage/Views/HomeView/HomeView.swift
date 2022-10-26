@@ -23,7 +23,6 @@ struct HomeView: View {
                     ProgressView()
                     
                 case .dataLoaded:
-                    EmptyView()
                     HomeViewShowsList(
                         viewModel: viewModel,
                         filterConfirmationDialogIsShowing: $filterConfirmationDialogIsShowing

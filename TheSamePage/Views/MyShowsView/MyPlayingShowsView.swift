@@ -42,13 +42,11 @@ struct MyPlayingShowsView: View {
             }
         }
         .task {
-//            if viewModel.playingShows.isEmpty {
-                do {
-                    try await viewModel.getPlayingShows()
-                } catch {
-                    viewModel.myPlayingShowsViewState = .error(message: error.localizedDescription)
-                }
-//            }
+            do {
+                try await viewModel.getPlayingShows()
+            } catch {
+                viewModel.myPlayingShowsViewState = .error(message: error.localizedDescription)
+            }
         }
         .onDisappear {
             viewModel.removePlayingShowsListener()

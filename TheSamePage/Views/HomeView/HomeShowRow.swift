@@ -1,28 +1,25 @@
 //
-//  LargeListRow.swift
+//  HomeShowRow.swift
 //  TheSamePage
 //
-//  Created by Julian Worden on 10/8/22.
+//  Created by Julian Worden on 10/26/22.
 //
 
 import SwiftUI
 
-struct MyShowRow: View {
-    @ObservedObject var viewModel: MyShowsViewModel
+struct HomeShowRow: View {
+    @StateObject var viewModel: HomeShowRowViewModel
     
-    let index: Int
-    
-    init(index: Int, viewModel: MyShowsViewModel) {
-        _viewModel = ObservedObject(initialValue: viewModel)
-        self.index = index
+    init(show: Show) {
+        _viewModel = StateObject(wrappedValue: HomeShowRowViewModel(show: show))
     }
     
     var body: some View {
-        let show = viewModel.hostedShows[index]
+        let show = viewModel.show
         
         VStack(spacing: 0) {
             HStack {
-                VStack(alignment: .leading, spacing: 0) {
+                VStack(alignment: .leading, spacing: 2) {
                     Text(show.name)
                         .font(.title3.bold())
                     
@@ -61,8 +58,8 @@ struct MyShowRow: View {
     }
 }
 
-struct LargeListRow_Previews: PreviewProvider {
+struct HomeShowRow_Previews: PreviewProvider {
     static var previews: some View {
-        MyShowRow(index: 1, viewModel: MyShowsViewModel())
+        HomeShowRow(show: Show.example)
     }
 }
