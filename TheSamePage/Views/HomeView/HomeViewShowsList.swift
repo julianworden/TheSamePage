@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NearbyShowsList: View {
+struct HomeViewShowsList: View {
     @ObservedObject var viewModel: HomeViewModel
     
     @Binding var filterConfirmationDialogIsShowing: Bool
@@ -21,7 +21,7 @@ struct NearbyShowsList: View {
                     NavigationLink {
                         ShowDetailsView(show: show)
                     } label: {
-                        LargeListRow(show: show, joinedShow: nil)
+                        MyShowRow(index: 0, viewModel: MyShowsViewModel())
                     }
                 }
             }
@@ -34,12 +34,11 @@ struct NearbyShowsList: View {
                 print(error)
             }
         }
-//        .animation(.default, value: viewModel.nearbyShows)
     }
 }
 
 struct NearbyShowsList_Previews: PreviewProvider {
     static var previews: some View {
-        NearbyShowsList(viewModel: HomeViewModel(), filterConfirmationDialogIsShowing: .constant(false))
+        HomeViewShowsList(viewModel: HomeViewModel(), filterConfirmationDialogIsShowing: .constant(false))
     }
 }

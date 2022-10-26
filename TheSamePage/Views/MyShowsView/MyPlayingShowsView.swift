@@ -22,7 +22,8 @@ struct MyPlayingShowsView: View {
                             NavigationLink {
                                 ShowDetailsView(show: show)
                             } label: {
-                                LargeListRow(show: show, joinedShow: nil)
+                                // TODO: FIX INDEX
+                                MyShowRow(index: 1, viewModel: viewModel)
                             }
                             .foregroundColor(.black)
                         }
@@ -41,13 +42,13 @@ struct MyPlayingShowsView: View {
             }
         }
         .task {
-            if viewModel.playingShows.isEmpty {
+//            if viewModel.playingShows.isEmpty {
                 do {
                     try await viewModel.getPlayingShows()
                 } catch {
                     viewModel.myPlayingShowsViewState = .error(message: error.localizedDescription)
                 }
-            }
+//            }
         }
         .onDisappear {
             viewModel.removePlayingShowsListener()

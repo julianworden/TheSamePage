@@ -18,11 +18,11 @@ struct MyHostedShowsView: View {
             case .dataLoaded:
                 List {
                     Section("You're hosting...") {
-                        ForEach(viewModel.hostedShows) { show in
+                        ForEach(Array(viewModel.hostedShows.enumerated()), id: \.element) { index, show in
                             NavigationLink {
                                 ShowDetailsView(show: show)
                             } label: {
-                                LargeListRow(show: show, joinedShow: nil)
+                                MyShowRow(index: index, viewModel: viewModel)
                             }
                             .foregroundColor(.black)
                         }
@@ -50,13 +50,13 @@ struct MyHostedShowsView: View {
             }
         }
         .task {
-            if viewModel.hostedShows.isEmpty {
+//            if viewModel.hostedShows.isEmpty {
                 do {
                     try await viewModel.getHostedShows()
                 } catch {
                     viewModel.myHostedShowsViewState = .error(message: error.localizedDescription)
                 }
-            }
+//            }
         }
         .onDisappear {
             viewModel.removeHostedShowsListener()

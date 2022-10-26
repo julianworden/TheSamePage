@@ -28,6 +28,7 @@ struct RootView: View {
             if !userIsLoggedOut {
                 TabView(selection: $selectedTab) {
                     HomeView()
+                        .environmentObject(MyShowsViewModel())
                         .tabItem {
                             Label("Home", systemImage: "house")
                         }

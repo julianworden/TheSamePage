@@ -7,38 +7,43 @@
 
 import SwiftUI
 
-struct LargeListRow: View {
-    @StateObject var viewModel: LargeListRowViewModel
+struct MyShowRow: View {
+    @ObservedObject var providedViewModel: MyShowsViewModel
     
-    init(show: Show?, joinedShow: JoinedShow?) {
-        _viewModel = StateObject(wrappedValue: LargeListRowViewModel(show: show, joinedShow: joinedShow))
+    let index: Int
+    
+    init(index: Int, viewModel: MyShowsViewModel) {
+        _providedViewModel = ObservedObject(initialValue: viewModel)
+        self.index = index
     }
     
     var body: some View {
+        let show = providedViewModel.hostedShows[index]
+        
         VStack(spacing: 0) {
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(viewModel.showName)
+                    Text(show.name)
                         .font(.title3.bold())
                     
-                    Text(viewModel.showVenue)
+                    Text(show.venue)
                     
-                    Text(viewModel.showDate)
+                    Text(show.formattedDate)
                     
-                    Text(viewModel.showDescription)
+                    Text(show.description ?? "")
                         .lineLimit(2)
                         .font(.caption)
                     
                     HStack {
-                        if viewModel.showHasBar {
+                        if show.hasBar {
                             Image(systemName: "wineglass")
                         }
                         
-                        if viewModel.showHasFood {
+                        if show.hasFood {
                             Image(systemName: "fork.knife")
                         }
                         
-                        if viewModel.showIs21Plus {
+                        if show.is21Plus {
                             Image(systemName: "21.circle")
                         }
                     }
@@ -48,13 +53,12 @@ struct LargeListRow: View {
                 
                 Spacer()
             }
-//            .padding()
         }
     }
 }
 
-struct ShowCard_Previews: PreviewProvider {
+struct LargeListRow_Previews: PreviewProvider {
     static var previews: some View {
-        LargeListRow(show: Show.example, joinedShow: nil)
+        MyShowRow(index: 1, viewModel: MyShowsViewModel())
     }
 }
