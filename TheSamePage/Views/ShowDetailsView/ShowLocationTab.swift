@@ -9,20 +9,21 @@ import MapKit
 import SwiftUI
 
 struct ShowLocationTab: View {
-    @StateObject var viewModel: ShowLocationTabViewModel
+    @ObservedObject var viewModel: ShowDetailsViewModel
     
     // This is here instead of in viewModel to avoid "Publishing changes within view updates" runtime error
     @State private var showRegion: MKCoordinateRegion
     
-    init(show: Show) {
+    init(show: Show, viewModel: ShowDetailsViewModel) {
+        _viewModel = ObservedObject(initialValue: viewModel)
         self.showRegion = show.region
-        
-        _viewModel = StateObject(wrappedValue: ShowLocationTabViewModel(show: show))
     }
     
     var body: some View {
+        let show = viewModel.show
+        
         VStack {
-            if viewModel.addressIsVisibleToUser {
+            if show.addressIsVisibleToUser {
                 VStack {
                     Map(coordinateRegion: $showRegion, annotationItems: viewModel.mapAnnotations) {
                         MapMarker(coordinate: $0.coordinate)
@@ -32,8 +33,8 @@ struct ShowLocationTab: View {
             }
             
             HStack {
-                if viewModel.addressIsVisibleToUser {
-                    Text(viewModel.showAddress)
+                if show.addressIsVisibleToUser {
+                    Text(show.address)
                 } else {
                     Text("This show is taking place at a private address.")
                         .italic()
@@ -42,7 +43,7 @@ struct ShowLocationTab: View {
                 Spacer()
                 
                 VStack {
-                    if viewModel.addressIsVisibleToUser {
+                    if show.addressIsVisibleToUser {
                         Button {
                             viewModel.showDirectionsInMaps()
                         } label: {
@@ -51,7 +52,7 @@ struct ShowLocationTab: View {
                         .buttonStyle(.bordered)
                     }
                     
-                    if let showDistanceFromUser = viewModel.showDistanceFromUser {
+                    if let showDistanceFromUser = show.distanceFromUser {
                         Text("~\(showDistanceFromUser) away")
                     }
                 }
@@ -63,6 +64,6 @@ struct ShowLocationTab: View {
 
 struct ShowLocationTab_Previews: PreviewProvider {
     static var previews: some View {
-        ShowLocationTab(show: Show.example)
+        ShowLocationTab(show: Show.example, viewModel: ShowDetailsViewModel(show: Show.example))
     }
 }

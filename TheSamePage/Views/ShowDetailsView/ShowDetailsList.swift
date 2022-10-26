@@ -11,30 +11,66 @@ struct ShowDetailsList: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
     
     var body: some View {
-        VStack(spacing: 0) {
+        // The first 3 rows are laid out like this because they do not iterate through an array, so they
+        // harder to put into a reusable view
+        
+        VStack(spacing: 10) {
             let show = viewModel.show
-            // TODO: Make this row a NavigationLink?
-            SmallListRow(title: "Hosted by \(show.host)", subtitle: nil, iconName: "user", displayChevron: false)
+            
+            HStack(spacing: 10) {
+                Image("user")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 30, height: 30)
+                
+                Text("Hosted by \(show.host)")
+                
+                Spacer()
+            }
             
             if let showFormattedTicketPrice = show.formattedTicketPrice {
-                SmallListRow(title: "Tickets are \(showFormattedTicketPrice) each", subtitle: nil, iconName: "money", displayChevron: false)
+                HStack(spacing: 10) {
+                    Image("money")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 30, height: 30)
+                    
+                    Text("Tickets are \(showFormattedTicketPrice) each")
+                    
+                    Spacer()
+                }
             }
             
             if let showMinimumRequiredTicketsSold = show.minimumRequiredTicketsSold,
                show.ticketSalesAreRequired {
-                SmallListRow(title: "Ticket sales are required", subtitle: "You must sell at least \(showMinimumRequiredTicketsSold) tickets.", iconName: "ticket", displayChevron: false)
+                HStack(spacing: 10) {
+                    Image("ticket")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 30, height: 30)
+                    
+                    VStack(alignment: .leading) {
+                        Text("Ticket sales are required")
+                        
+                        Text("You must sell at least \(showMinimumRequiredTicketsSold) tickets")
+                            .font(.caption)
+                    }
+                    .multilineTextAlignment(.leading)
+                    
+                    Spacer()
+                }
             }
             
             if show.hasBar {
-                SmallListRow(title: "Drinks will be served", subtitle: nil, iconName: "alcohol", displayChevron: false)
+                ShowDetailsStaticRow(title: "Drinks will be served", subtitle: nil, iconName: "alcohol")
             }
             
             if show.hasFood {
-                SmallListRow(title: "Food will be served", subtitle: nil, iconName: "forkAndKnife", displayChevron: false)
+                ShowDetailsStaticRow(title: "Food will be served", subtitle: nil, iconName: "forkAndKnife")
             }
             
             if show.is21Plus {
-                SmallListRow(title: "21+ only", subtitle: "Don't forget your ID!", iconName: "id", displayChevron: false)
+                ShowDetailsStaticRow(title: "21+ only", subtitle: "Don't forget your ID!", iconName: "id")
             }
         }
         .padding(.horizontal)

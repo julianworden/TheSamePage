@@ -10,7 +10,6 @@ import Foundation
 import MapKit
 
 class ShowDetailsViewModel: ObservableObject {
-    // TODO: Make all properties optional to make the initializer cleaner and make it so that addShowListener is the only thing initializing these properties
     @Published var show: Show
     @Published var showLineup = [ShowParticipant]()
     @Published var selectedTab = SelectedShowDetailsTab.details
@@ -27,6 +26,11 @@ class ShowDetailsViewModel: ObservableObject {
         } else {
             return "\(slotsRemainingCount) slots remaining"
         }
+    }
+    
+    var mapAnnotations: [CustomMapAnnotation] {
+        let venue = CustomMapAnnotation(coordinates: show.coordinates)
+        return [venue]
     }
     
     init(show: Show) {
@@ -60,6 +64,14 @@ class ShowDetailsViewModel: ObservableObject {
     @MainActor
     func getShowLineup() async throws {
         showLineup = try await DatabaseService.shared.getShowLineup(forShow: show)
+    }
+    
+    func showDirectionsInMaps() {
+        let showPlacemark = MKPlacemark(coordinate: show.coordinates)
+        let showMapItem = MKMapItem(placemark: showPlacemark)
+        showMapItem.name = show.venue
+        
+        showMapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDefault])
     }
     
     func removeShowListener() {

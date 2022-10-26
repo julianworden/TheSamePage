@@ -9,9 +9,7 @@ import SwiftUI
 
 struct SmallListRow: View {
     @StateObject var viewModel: SmallListRowViewModel
-    
-    // TODO: Put these properties back into the viewmodel if it's not causing the update issue
-    
+
     init(
         title: String,
         subtitle: String?,
@@ -57,7 +55,6 @@ struct SmallListRow: View {
                 }
             }
             .padding(6)
-//            .frame(height: 50)
             .background(Color(uiColor: .secondarySystemGroupedBackground))
             
             Divider()

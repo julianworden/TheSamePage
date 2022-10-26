@@ -14,7 +14,14 @@ struct ShowDetailsTab: View {
         let show = viewModel.show
         
         VStack(spacing: 8) {
-            HStack {
+            ShowDetailsList(viewModel: viewModel)
+            
+            HStack(alignment: .top, spacing: 10) {
+                Image("notepad")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 30, height: 30)
+                
                 if let showDescription = show.description {
                     Text(showDescription)
                         .padding(.bottom, 5)
@@ -23,8 +30,6 @@ struct ShowDetailsTab: View {
                 Spacer()
             }
             .padding(.horizontal)
-            
-            ShowDetailsList(viewModel: viewModel)
         }
         .padding(.top, 2)
         .onDisappear {

@@ -58,6 +58,7 @@
 		AB36FF9828D36A6600AAC00C /* SectionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF9728D36A6600AAC00C /* SectionTitle.swift */; };
 		AB37EBB2290966C90029588C /* HomeShowRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB37EBB1290966C90029588C /* HomeShowRow.swift */; };
 		AB37EBB6290967750029588C /* HomeShowRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB37EBB5290967750029588C /* HomeShowRowViewModel.swift */; };
+		AB37EBB8290971390029588C /* ShowDetailsStaticRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB37EBB7290971390029588C /* ShowDetailsStaticRow.swift */; };
 		AB38E1B128FB21CB006D1788 /* AddEditShowAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38E1B028FB21CB006D1788 /* AddEditShowAddressView.swift */; };
 		AB38E1B328FB2422006D1788 /* CLPlacemark+formattedAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38E1B228FB2422006D1788 /* CLPlacemark+formattedAddress.swift */; };
 		AB399AD228D4AF3E009B39F7 /* MyShowsShowCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB399AD128D4AF3E009B39F7 /* MyShowsShowCard.swift */; };
@@ -153,7 +154,6 @@
 		ABF1C40C28ECF0A50004A3C1 /* ShowSearchResultsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF1C40B28ECF0A50004A3C1 /* ShowSearchResultsList.swift */; };
 		ABF5563528DF93DD0059E2DF /* BandProfileRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF5563428DF93DD0059E2DF /* BandProfileRootView.swift */; };
 		ABF5563728DF93E40059E2DF /* BandProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF5563628DF93E40059E2DF /* BandProfileViewModel.swift */; };
-		ABF8B81728FC3E4F00608657 /* ShowLocationTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF8B81628FC3E4F00608657 /* ShowLocationTabViewModel.swift */; };
 		ABF8B81928FC43C400608657 /* CustomMapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF8B81828FC43C400608657 /* CustomMapAnnotation.swift */; };
 		ABF8B81B28FC786900608657 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF8B81A28FC786900608657 /* ErrorMessage.swift */; };
 /* End PBXBuildFile section */
@@ -206,6 +206,7 @@
 		AB36FF9728D36A6600AAC00C /* SectionTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTitle.swift; sourceTree = "<group>"; };
 		AB37EBB1290966C90029588C /* HomeShowRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShowRow.swift; sourceTree = "<group>"; };
 		AB37EBB5290967750029588C /* HomeShowRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShowRowViewModel.swift; sourceTree = "<group>"; };
+		AB37EBB7290971390029588C /* ShowDetailsStaticRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsStaticRow.swift; sourceTree = "<group>"; };
 		AB38E1B028FB21CB006D1788 /* AddEditShowAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowAddressView.swift; sourceTree = "<group>"; };
 		AB38E1B228FB2422006D1788 /* CLPlacemark+formattedAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLPlacemark+formattedAddress.swift"; sourceTree = "<group>"; };
 		AB399AD128D4AF3E009B39F7 /* MyShowsShowCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowsShowCard.swift; sourceTree = "<group>"; };
@@ -302,7 +303,6 @@
 		ABF1C40B28ECF0A50004A3C1 /* ShowSearchResultsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSearchResultsList.swift; sourceTree = "<group>"; };
 		ABF5563428DF93DD0059E2DF /* BandProfileRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileRootView.swift; sourceTree = "<group>"; };
 		ABF5563628DF93E40059E2DF /* BandProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileViewModel.swift; sourceTree = "<group>"; };
-		ABF8B81628FC3E4F00608657 /* ShowLocationTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLocationTabViewModel.swift; sourceTree = "<group>"; };
 		ABF8B81828FC43C400608657 /* CustomMapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMapAnnotation.swift; sourceTree = "<group>"; };
 		ABF8B81A28FC786900608657 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -350,15 +350,6 @@
 				AB5E490929003FA00076EABE /* AddBackline */,
 			);
 			path = ShowBackline;
-			sourceTree = "<group>";
-		};
-		AB07295D28F466220069B268 /* ShowLocation */ = {
-			isa = PBXGroup;
-			children = (
-				AB07296228F468530069B268 /* ShowLocationTab.swift */,
-				ABF8B81628FC3E4F00608657 /* ShowLocationTabViewModel.swift */,
-			);
-			path = ShowLocation;
 			sourceTree = "<group>";
 		};
 		AB24E3A428D7C9A8002B4F2C /* LoginView */ = {
@@ -748,13 +739,14 @@
 				ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */,
 				AB66B9B728F0D2EF00E7F0E0 /* ShowDetailsHeader.swift */,
 				AB07296028F467010069B268 /* ShowDetailsTab.swift */,
+				AB07296228F468530069B268 /* ShowLocationTab.swift */,
 				AB07295528F454EE0069B268 /* ShowDetailsList.swift */,
+				AB37EBB7290971390029588C /* ShowDetailsStaticRow.swift */,
 				ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */,
 				AB285AF828F6F71D00EB5F2B /* ShowTime */,
 				AB07295C28F4661D0069B268 /* ShowBackline */,
 				AB07295B28F4661B0069B268 /* ShowDetails */,
 				AB07295928F4660B0069B268 /* ShowLineup */,
-				AB07295D28F466220069B268 /* ShowLocation */,
 			);
 			path = ShowDetailsView;
 			sourceTree = "<group>";
@@ -1012,6 +1004,7 @@
 				AB5054A928DC91D700321380 /* MemberSearchViewModel.swift in Sources */,
 				AB36FF7428D358FB00AAC00C /* HomeView.swift in Sources */,
 				ABBADD7928DFE5FA00720C64 /* BandState.swift in Sources */,
+				AB37EBB8290971390029588C /* ShowDetailsStaticRow.swift in Sources */,
 				ABD1D17128F30D3200791969 /* ShowType.swift in Sources */,
 				AB2B867A28D9EE43004601B6 /* MyShowsViewModel.swift in Sources */,
 				AB38E1B128FB21CB006D1788 /* AddEditShowAddressView.swift in Sources */,
@@ -1029,7 +1022,6 @@
 				AB66B9B828F0D2EF00E7F0E0 /* ShowDetailsHeader.swift in Sources */,
 				AB36FF8028D35BFA00AAC00C /* User.swift in Sources */,
 				AB6514DD28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift in Sources */,
-				ABF8B81728FC3E4F00608657 /* ShowLocationTabViewModel.swift in Sources */,
 				AB5E490629003F870076EABE /* AddBacklineView.swift in Sources */,
 				ABD029B628E897A400BDF73C /* BandMemberListViewModel.swift in Sources */,
 				AB36FF9828D36A6600AAC00C /* SectionTitle.swift in Sources */,
