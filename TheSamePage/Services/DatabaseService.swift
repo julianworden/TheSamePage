@@ -452,6 +452,11 @@ class DatabaseService {
         }
     }
     
+    /// Updates the imageUrl associated with a show, uploads the new image to Firebase Storage,
+    /// and deletes the old image from Firebase Storage, if it existed.
+    /// - Parameters:
+    ///   - image: The new image to be uploaded to Firebase Storage.
+    ///   - show: The show that will be having its imageUrl property updated.
     func updateShowImage(image: UIImage, show: Show) async throws {
         // Delete old image if it exists
         if let oldImageUrl = show.imageUrl {
@@ -464,6 +469,11 @@ class DatabaseService {
         }
     }
     
+    /// Updates the profileImageUrl associated with a user, uploads the new image to Firebase Storage,
+    /// and deletes the old image from Firebase Storage, if it existed.
+    /// - Parameters:
+    ///   - image: The new image to be uploaded to Firebase Storage.
+    ///   - user: The user that will be having its profileImageUrl property updated.
     func updateUserProfileImage(image: UIImage, user: User) async throws {
         if let oldImageUrl = user.profileImageUrl {
             let oldImageRef = Storage.storage().reference(forURL: oldImageUrl)
@@ -475,6 +485,11 @@ class DatabaseService {
         }
     }
     
+    /// Updates the profileImageUrl associated with a band, uploads the new image to Firebase Storage,
+    /// and deletes the old image from Firebase Storage, if it existed.
+    /// - Parameters:
+    ///   - image: The new image to be uploaded to Firebase Storage.
+    ///   - band: The band that will be having its profileImageUrl property updated.
     func updateBandProfileImage(image: UIImage, band: Band) async throws {
         if let oldImageUrl = band.profileImageUrl {
             let oldImageRef = Storage.storage().reference(forURL: oldImageUrl)

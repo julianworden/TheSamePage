@@ -8,16 +8,14 @@
 import SwiftUI
 
 struct ShowDetailsTab: View {
-    @StateObject var viewModel: ShowDetailsTabViewModel
-    
-    init(show: Show) {
-        _viewModel = StateObject(wrappedValue: ShowDetailsTabViewModel(show: show))
-    }
+    @ObservedObject var viewModel: ShowDetailsViewModel
     
     var body: some View {
+        let show = viewModel.show
+        
         VStack(spacing: 8) {
             HStack {
-                if let showDescription = viewModel.showDescription {
+                if let showDescription = show.description {
                     Text(showDescription)
                         .padding(.bottom, 5)
                 }
@@ -41,7 +39,7 @@ struct ShowDetailsTab_Previews: PreviewProvider {
             Color(uiColor: .systemGroupedBackground)
                 .ignoresSafeArea()
             
-            ShowDetailsTab(show: Show.example)
+            ShowDetailsTab(viewModel: ShowDetailsViewModel(show: Show.example))
         }
     }
 }

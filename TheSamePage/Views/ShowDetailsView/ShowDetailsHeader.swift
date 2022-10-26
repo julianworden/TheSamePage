@@ -16,13 +16,15 @@ struct ShowDetailsHeader: View {
     @State private var updatedImage: UIImage?
     
     var body: some View {
+        let show = viewModel.show
+        
         VStack {
-            if viewModel.show.loggedInUserIsShowHost {
+            if show.loggedInUserIsShowHost {
                 NavigationLink {
-                    EditImageView(show: viewModel.show, image: showImage, updatedImage: $updatedImage)
+                    EditImageView(show: show, image: showImage, updatedImage: $updatedImage)
                 } label: {
                     if updatedImage == nil {
-                        ProfileAsyncImage(url: URL(string: viewModel.showImageUrl ?? ""), loadedImage: $showImage)
+                        ProfileAsyncImage(url: URL(string: show.imageUrl ?? ""), loadedImage: $showImage)
                     } else {
                         // Helps avoid delay from showing updated image
                         Image(uiImage: updatedImage!)
@@ -35,19 +37,19 @@ struct ShowDetailsHeader: View {
                 }
             } else {
                 // Logged in user is not show host
-                ProfileAsyncImage(url: URL(string: viewModel.showImageUrl ?? ""), loadedImage: .constant(nil))
+                ProfileAsyncImage(url: URL(string: show.imageUrl ?? ""), loadedImage: .constant(nil))
             }
             
             VStack(spacing: 2) {
-                Text(viewModel.showName)
+                Text(show.name)
                     .font(.title.bold())
                     .multilineTextAlignment(.center)
                 
-                Text("At \(viewModel.showVenue) in \(viewModel.showCity), \(viewModel.showState) on \(viewModel.showDate)")
+                Text("At \(show.venue) in \(show.city), \(show.state) on \(show.formattedDate)")
                     .font(.title2)
                 
                 // TODO: Make this a sheet instead
-                if viewModel.show.loggedInUserIsNotInvolvedInShow {
+                if show.loggedInUserIsNotInvolvedInShow {
                     NavigationLink {
                         EmptyView()
                     } label: {

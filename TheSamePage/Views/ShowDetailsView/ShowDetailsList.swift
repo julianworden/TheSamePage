@@ -8,31 +8,32 @@
 import SwiftUI
 
 struct ShowDetailsList: View {
-    @ObservedObject var viewModel: ShowDetailsTabViewModel
+    @ObservedObject var viewModel: ShowDetailsViewModel
     
     var body: some View {
         VStack(spacing: 0) {
-            // TODO: Make this row a NavigationLink
-            SmallListRow(title: "Hosted by \(viewModel.showHost)", subtitle: nil, iconName: "user", displayChevron: false)
+            let show = viewModel.show
+            // TODO: Make this row a NavigationLink?
+            SmallListRow(title: "Hosted by \(show.host)", subtitle: nil, iconName: "user", displayChevron: false)
             
-            if let showFormattedTicketPrice = viewModel.showFormattedTicketPrice {
+            if let showFormattedTicketPrice = show.formattedTicketPrice {
                 SmallListRow(title: "Tickets are \(showFormattedTicketPrice) each", subtitle: nil, iconName: "money", displayChevron: false)
             }
             
-            if let showMinimumRequiredTicketsSold = viewModel.showMinimumRequiredTicketsSold,
-                   viewModel.showTicketSalesAreRequired {
+            if let showMinimumRequiredTicketsSold = show.minimumRequiredTicketsSold,
+               show.ticketSalesAreRequired {
                 SmallListRow(title: "Ticket sales are required", subtitle: "You must sell at least \(showMinimumRequiredTicketsSold) tickets.", iconName: "ticket", displayChevron: false)
             }
             
-            if viewModel.showHasBar {
+            if show.hasBar {
                 SmallListRow(title: "Drinks will be served", subtitle: nil, iconName: "alcohol", displayChevron: false)
             }
             
-            if viewModel.showHasFood {
+            if show.hasFood {
                 SmallListRow(title: "Food will be served", subtitle: nil, iconName: "forkAndKnife", displayChevron: false)
             }
             
-            if viewModel.showIs21Plus {
+            if show.is21Plus {
                 SmallListRow(title: "21+ only", subtitle: "Don't forget your ID!", iconName: "id", displayChevron: false)
             }
         }
@@ -42,6 +43,6 @@ struct ShowDetailsList: View {
 
 struct ShowDetailsList_Previews: PreviewProvider {
     static var previews: some View {
-        ShowDetailsList(viewModel: ShowDetailsTabViewModel(show: Show.example))
+        ShowDetailsList(viewModel: ShowDetailsViewModel(show: Show.example))
     }
 }

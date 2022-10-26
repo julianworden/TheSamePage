@@ -24,7 +24,7 @@ class AddEditShowViewModel: ObservableObject {
     
     @Published var queryText = ""
     @Published var addressSearchResults = [CLPlacemark]()
-    @Published var addressIsPubliclyVisible = true
+    @Published var addressIsPrivate = false
     var showAddress: String?
     var showCity: String?
     var showState: String?
@@ -41,7 +41,7 @@ class AddEditShowViewModel: ObservableObject {
     @Published var showHasFood = false
     
     var publiclyVisibleAddressExplanation: String {
-        if addressIsPubliclyVisible {
+        if addressIsPrivate {
             return "Anybody can see this show's address"
         } else {
             return "Anybody can see this show's city and state, but only this show's participants can see the full address"
@@ -138,7 +138,7 @@ class AddEditShowViewModel: ObservableObject {
                 ticketPrice: Double(ticketPrice),
                 ticketSalesAreRequired: ticketSalesAreRequired,
                 minimumRequiredTicketsSold: Int(minimumRequiredTicketsSold),
-                addressIsPrivate: addressIsPubliclyVisible,
+                addressIsPrivate: addressIsPrivate,
                 address: showAddress ?? "Unknown Address",
                 city: showCity ?? "Unknown City",
                 state: showState ?? "Unknown State",
@@ -164,7 +164,7 @@ class AddEditShowViewModel: ObservableObject {
                 ticketPrice: Double(ticketPrice),
                 ticketSalesAreRequired: ticketSalesAreRequired,
                 minimumRequiredTicketsSold: Int(minimumRequiredTicketsSold),
-                addressIsPrivate: addressIsPubliclyVisible,
+                addressIsPrivate: addressIsPrivate,
                 address: showAddress ?? "Unknown Address",
                 city: showCity ?? "Unknown City",
                 state: showState ?? "Unknown State",
@@ -195,7 +195,7 @@ class AddEditShowViewModel: ObservableObject {
             ticketPrice: Double(ticketPrice),
             ticketSalesAreRequired: ticketSalesAreRequired,
             minimumRequiredTicketsSold: Int(minimumRequiredTicketsSold),
-            addressIsPrivate: addressIsPubliclyVisible,
+            addressIsPrivate: addressIsPrivate,
             address: showAddress ?? "Unknown Address",
             city: showCity ?? "Unknown City",
             state: showState ?? "Unknown State",
@@ -211,3 +211,4 @@ class AddEditShowViewModel: ObservableObject {
         try await DatabaseService.shared.updateShow(show: updatedShow)
     }
 }
+	

@@ -17,6 +17,8 @@ struct ShowDetailsView: View {
     }
     
     var body: some View {
+        let show = viewModel.show
+        
         ZStack {
             Color(uiColor: .systemGroupedBackground)
                 .ignoresSafeArea()
@@ -40,13 +42,13 @@ struct ShowDetailsView: View {
                     case .lineup:
                         ShowLineupTab(viewModel: viewModel)
                     case .backline:
-                        ShowBacklineTab(show: viewModel.show)
+                        ShowBacklineTab(show: show)
                     case .times:
-                        ShowTimeTab(show: viewModel.show)
+                        ShowTimeTab(show: show)
                     case .location:
-                        ShowLocationTab(show: viewModel.show)
+                        ShowLocationTab(show: show)
                     case .details:
-                        ShowDetailsTab(show: viewModel.show)
+                        ShowDetailsTab(viewModel: viewModel)
                     }
                 }
             case .dataNotFound:
@@ -72,16 +74,23 @@ struct ShowDetailsView: View {
                 }
             }
         }
-        .sheet(isPresented: $addEditShowViewIsShowing) {
-            NavigationView {
-                AddEditShowView(viewTitleText: "Edit Show", showToEdit: viewModel.show)
+        .sheet(
+            isPresented: $addEditShowViewIsShowing,
+            onDismiss: {
+                    viewModel.addShowListener()
+            },
+            content: {
+                NavigationView {
+                    AddEditShowView(viewTitleText: "Edit Show", showToEdit: viewModel.show)
+                }
             }
-        }
+        )
         .onDisappear {
             viewModel.removeShowListener()
         }
     }
 }
+
 
 // TODO: Figure out why this preview crashes
 struct ShowDetailsRootView_Previews: PreviewProvider {

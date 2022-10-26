@@ -11,6 +11,8 @@ struct ShowLineupTab: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
     
     var body: some View {
+        let show = viewModel.show
+        
         VStack {
             HStack {
                 Text(viewModel.showSlotsRemainingMessage)
@@ -19,7 +21,7 @@ struct ShowLineupTab: View {
                 
                 Spacer()
                 
-                if viewModel.show.loggedInUserIsShowHost {
+                if show.loggedInUserIsShowHost {
                     NavigationLink {
                         BandSearchView()
                     } label: {
@@ -31,12 +33,12 @@ struct ShowLineupTab: View {
             
             if !viewModel.showLineup.isEmpty {
                 ShowLineupList(viewModel: viewModel)
-            } else if viewModel.show.loggedInUserIsShowHost {
-                Text("No bands are playing this show yet. Click the plus button to invite bands to play!")
+            } else if show.loggedInUserIsShowHost {
+                    Text("No bands are playing this show yet. Click the plus button to invite bands to play!")
                     .italic()
                     .multilineTextAlignment(.center)
                     .padding()
-            } else if viewModel.show.loggedInUserIsNotInvolvedInShow {
+            } else if show.loggedInUserIsNotInvolvedInShow || show.loggedInUserIsShowParticipant {
                 Text("No bands are playing this show yet. Only the show's host can invite bands to play.")
                     .italic()
                     .multilineTextAlignment(.center)

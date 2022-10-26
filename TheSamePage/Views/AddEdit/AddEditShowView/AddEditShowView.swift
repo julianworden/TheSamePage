@@ -69,7 +69,7 @@ struct AddEditShowView: View {
                     Text("Select Address")
                 }
                 
-                Toggle("Publicly display show address", isOn: $viewModel.addressIsPubliclyVisible)
+                Toggle("Publicly display show address", isOn: $viewModel.addressIsPrivate)
             } header: {
                 Text("Address")
             } footer: {

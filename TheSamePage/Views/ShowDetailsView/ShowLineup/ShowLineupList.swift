@@ -10,10 +10,6 @@ import SwiftUI
 struct ShowLineupList: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
     
-    init(viewModel: ShowDetailsViewModel) {
-        _viewModel = ObservedObject(wrappedValue: viewModel)
-    }
-    
     var body: some View {
         VStack(spacing: 0) {
             ForEach(viewModel.showLineup) { showParticipant in
