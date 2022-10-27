@@ -22,7 +22,7 @@ struct MyHostedShowsView: View {
                             NavigationLink {
                                 ShowDetailsView(show: show)
                             } label: {
-                                MyShowRow(index: index, viewModel: viewModel)
+                                HostedShowRow(index: index, viewModel: viewModel)
                             }
                             .foregroundColor(.black)
                         }

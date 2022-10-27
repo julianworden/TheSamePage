@@ -18,12 +18,12 @@ struct MyPlayingShowsView: View {
             case .dataLoaded:
                 List {
                     Section("You're playing...") {
-                        ForEach(viewModel.playingShows) { show in
+                        ForEach(Array(viewModel.playingShows.enumerated()), id: \.element) { index, show in
                             NavigationLink {
                                 ShowDetailsView(show: show)
                             } label: {
                                 // TODO: FIX INDEX
-                                MyShowRow(index: 1, viewModel: viewModel)
+                                PlayingShowRow(index: index, viewModel: viewModel)
                             }
                             .foregroundColor(.black)
                         }

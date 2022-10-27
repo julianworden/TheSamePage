@@ -11,7 +11,7 @@ import Foundation
 /// A helper type that allows for the storage of only the most essential information
 /// in a Show's participants collection. This data is used for displaying lineup info
 /// in ShowDetailsView.
-struct ShowParticipant: Codable, Identifiable {
+struct ShowParticipant: Codable, Hashable, Identifiable {
     @DocumentID var id: String?
     let name: String
     let bandId: String

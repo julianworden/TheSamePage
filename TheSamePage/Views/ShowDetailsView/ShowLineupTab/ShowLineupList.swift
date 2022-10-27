@@ -11,13 +11,12 @@ struct ShowLineupList: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
     
     var body: some View {
-        VStack(spacing: 0) {
-            ForEach(viewModel.showLineup) { showParticipant in
+        VStack(spacing: 12) {
+            ForEach(Array(viewModel.showLineup.enumerated()), id: \.element) { index, showParticipant in
                 NavigationLink {
                     BandProfileRootView(band: nil, showParticipant: showParticipant)
                 } label: {                        
-                    SmallListRow(title: showParticipant.name, subtitle: nil, iconName: "band", displayChevron: true)
-                        .padding(.horizontal)
+                    ShowLineupRow(viewModel: viewModel, index: index)
                 }
                 .tint(.black)
             }

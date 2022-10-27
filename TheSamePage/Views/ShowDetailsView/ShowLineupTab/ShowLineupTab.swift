@@ -17,7 +17,6 @@ struct ShowLineupTab: View {
             HStack {
                 Text(viewModel.showSlotsRemainingMessage)
                     .font(.title3.bold())
-                    .padding()
                 
                 Spacer()
                 
@@ -27,7 +26,6 @@ struct ShowLineupTab: View {
                     } label: {
                         Image(systemName: "plus")
                     }
-                    .padding(.trailing)
                 }
             }
             
@@ -45,6 +43,7 @@ struct ShowLineupTab: View {
                     .padding()
             }
         }
+        .padding(.horizontal)
     }
 }
 

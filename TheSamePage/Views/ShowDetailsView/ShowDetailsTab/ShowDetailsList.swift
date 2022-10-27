@@ -13,8 +13,7 @@ struct ShowDetailsList: View {
     var body: some View {
         // The first 3 rows are laid out like this because they do not iterate through an array, so they
         // harder to put into a reusable view
-        
-        VStack(spacing: 10) {
+        VStack(spacing: 12) {
             let show = viewModel.show
             
             HStack(spacing: 10) {

@@ -107,7 +107,8 @@
 		ABA1020D28DDFD6900A4E818 /* BandMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020C28DDFD6900A4E818 /* BandMember.swift */; };
 		ABA1DDCC28F9A35700E7A72E /* AddShowTimeButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1DDCB28F9A35700E7A72E /* AddShowTimeButtons.swift */; };
 		ABA1DDCE28F9B2AC00E7A72E /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1DDCD28F9B2AC00E7A72E /* ViewState.swift */; };
-		ABAB45F928F24C2400FA8F70 /* MyShowRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAB45F828F24C2400FA8F70 /* MyShowRow.swift */; };
+		ABA784EA290A3CFF0081CBF4 /* PlayingShowRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA784E9290A3CFF0081CBF4 /* PlayingShowRow.swift */; };
+		ABAB45F928F24C2400FA8F70 /* HostedShowRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAB45F828F24C2400FA8F70 /* HostedShowRow.swift */; };
 		ABB71C4A28FE08D500D3126D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB71C4928FE08D500D3126D /* HomeViewModel.swift */; };
 		ABB93F3828F0732D0055659B /* AsyncButtonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB93F3728F0732D0055659B /* AsyncButtonLabel.swift */; };
 		ABBADD7928DFE5FA00720C64 /* BandState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBADD7828DFE5FA00720C64 /* BandState.swift */; };
@@ -156,6 +157,7 @@
 		ABF5563728DF93E40059E2DF /* BandProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF5563628DF93E40059E2DF /* BandProfileViewModel.swift */; };
 		ABF8B81928FC43C400608657 /* CustomMapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF8B81828FC43C400608657 /* CustomMapAnnotation.swift */; };
 		ABF8B81B28FC786900608657 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF8B81A28FC786900608657 /* ErrorMessage.swift */; };
+		ABFB2D482909E33B009A6F65 /* ShowLineupRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFB2D472909E33B009A6F65 /* ShowLineupRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -255,7 +257,8 @@
 		ABA1020C28DDFD6900A4E818 /* BandMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMember.swift; sourceTree = "<group>"; };
 		ABA1DDCB28F9A35700E7A72E /* AddShowTimeButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShowTimeButtons.swift; sourceTree = "<group>"; };
 		ABA1DDCD28F9B2AC00E7A72E /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
-		ABAB45F828F24C2400FA8F70 /* MyShowRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowRow.swift; sourceTree = "<group>"; };
+		ABA784E9290A3CFF0081CBF4 /* PlayingShowRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingShowRow.swift; sourceTree = "<group>"; };
+		ABAB45F828F24C2400FA8F70 /* HostedShowRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostedShowRow.swift; sourceTree = "<group>"; };
 		ABB71C4928FE08D500D3126D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		ABB93F3728F0732D0055659B /* AsyncButtonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncButtonLabel.swift; sourceTree = "<group>"; };
 		ABBADD7828DFE5FA00720C64 /* BandState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandState.swift; sourceTree = "<group>"; };
@@ -305,6 +308,7 @@
 		ABF5563628DF93E40059E2DF /* BandProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileViewModel.swift; sourceTree = "<group>"; };
 		ABF8B81828FC43C400608657 /* CustomMapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMapAnnotation.swift; sourceTree = "<group>"; };
 		ABF8B81A28FC786900608657 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
+		ABFB2D472909E33B009A6F65 /* ShowLineupRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLineupRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -326,17 +330,8 @@
 		AB07295928F4660B0069B268 /* ShowLineup */ = {
 			isa = PBXGroup;
 			children = (
-				AB07295E28F466510069B268 /* ShowLineupTab.swift */,
-				AB0DD4D128F0D82E00CEA1BD /* ShowLineupList.swift */,
 			);
 			path = ShowLineup;
-			sourceTree = "<group>";
-		};
-		AB07295B28F4661B0069B268 /* ShowDetails */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ShowDetails;
 			sourceTree = "<group>";
 		};
 		AB07295C28F4661D0069B268 /* ShowBackline */ = {
@@ -491,7 +486,8 @@
 				AB36FF7528D3598900AAC00C /* MyShowsRootView.swift */,
 				ABD1D16C28F30CDF00791969 /* MyHostedShowsView.swift */,
 				ABD1D16E28F30CE500791969 /* MyPlayingShowsView.swift */,
-				ABAB45F828F24C2400FA8F70 /* MyShowRow.swift */,
+				ABAB45F828F24C2400FA8F70 /* HostedShowRow.swift */,
+				ABA784E9290A3CFF0081CBF4 /* PlayingShowRow.swift */,
 				AB2B867928D9EE43004601B6 /* MyShowsViewModel.swift */,
 				ABCAAA0828E9F66000685F91 /* MyShowsShowCard */,
 			);
@@ -736,16 +732,15 @@
 		ABBE94C028D8AD9E00790A04 /* ShowDetailsView */ = {
 			isa = PBXGroup;
 			children = (
+				ABFB2D442909E26B009A6F65 /* Tabs */,
 				ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */,
 				AB66B9B728F0D2EF00E7F0E0 /* ShowDetailsHeader.swift */,
-				AB07296028F467010069B268 /* ShowDetailsTab.swift */,
+				ABFB2D452909E2B4009A6F65 /* ShowDetailsTab */,
+				ABFB2D462909E2C5009A6F65 /* ShowLineupTab */,
 				AB07296228F468530069B268 /* ShowLocationTab.swift */,
-				AB07295528F454EE0069B268 /* ShowDetailsList.swift */,
-				AB37EBB7290971390029588C /* ShowDetailsStaticRow.swift */,
 				ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */,
 				AB285AF828F6F71D00EB5F2B /* ShowTime */,
 				AB07295C28F4661D0069B268 /* ShowBackline */,
-				AB07295B28F4661B0069B268 /* ShowDetails */,
 				AB07295928F4660B0069B268 /* ShowLineup */,
 			);
 			path = ShowDetailsView;
@@ -908,6 +903,33 @@
 			path = BandProfileView;
 			sourceTree = "<group>";
 		};
+		ABFB2D442909E26B009A6F65 /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tabs;
+			sourceTree = "<group>";
+		};
+		ABFB2D452909E2B4009A6F65 /* ShowDetailsTab */ = {
+			isa = PBXGroup;
+			children = (
+				AB07296028F467010069B268 /* ShowDetailsTab.swift */,
+				AB07295528F454EE0069B268 /* ShowDetailsList.swift */,
+				AB37EBB7290971390029588C /* ShowDetailsStaticRow.swift */,
+			);
+			path = ShowDetailsTab;
+			sourceTree = "<group>";
+		};
+		ABFB2D462909E2C5009A6F65 /* ShowLineupTab */ = {
+			isa = PBXGroup;
+			children = (
+				AB07295E28F466510069B268 /* ShowLineupTab.swift */,
+				AB0DD4D128F0D82E00CEA1BD /* ShowLineupList.swift */,
+				ABFB2D472909E33B009A6F65 /* ShowLineupRow.swift */,
+			);
+			path = ShowLineupTab;
+			sourceTree = "<group>";
+		};
 		FF4320B392FCA7A1D9B09394 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1030,6 +1052,7 @@
 				AB35A8DD28E9DE1B009FB203 /* UserBandListViewModel.swift in Sources */,
 				ABA1020728DDE5BE00A4E818 /* NotificationsViewModel.swift in Sources */,
 				ABD323F128E1181F00540B93 /* SendBandInviteViewModel.swift in Sources */,
+				ABA784EA290A3CFF0081CBF4 /* PlayingShowRow.swift in Sources */,
 				AB794E2D28E25A77000ABB37 /* SearchView.swift in Sources */,
 				ABF1C40628ECE83F0004A3C1 /* TypesenseController.swift in Sources */,
 				ABA1DDCC28F9A35700E7A72E /* AddShowTimeButtons.swift in Sources */,
@@ -1077,9 +1100,10 @@
 				AB55E7752901FBB8009F039B /* Backline.swift in Sources */,
 				AB24E3A628D7C9B0002B4F2C /* LoginView.swift in Sources */,
 				AB36FF8728D35C2000AAC00C /* Band.swift in Sources */,
-				ABAB45F928F24C2400FA8F70 /* MyShowRow.swift in Sources */,
+				ABAB45F928F24C2400FA8F70 /* HostedShowRow.swift in Sources */,
 				AB6514DF28F911EB008DFDD0 /* ShowTimeRow.swift in Sources */,
 				AB3C73D528DC0A1D0038085A /* BandSearchView.swift in Sources */,
+				ABFB2D482909E33B009A6F65 /* ShowLineupRow.swift in Sources */,
 				ABD18AAA28EE13B9002286C3 /* JoinedShow.swift in Sources */,
 				ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */,
 				ABA1DDCE28F9B2AC00E7A72E /* ViewState.swift in Sources */,

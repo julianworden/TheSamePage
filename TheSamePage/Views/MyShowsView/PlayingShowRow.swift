@@ -1,13 +1,13 @@
 //
-//  LargeListRow.swift
+//  PlayingShowRow.swift
 //  TheSamePage
 //
-//  Created by Julian Worden on 10/8/22.
+//  Created by Julian Worden on 10/26/22.
 //
 
 import SwiftUI
 
-struct MyShowRow: View {
+struct PlayingShowRow: View {
     @ObservedObject var viewModel: MyShowsViewModel
     
     let index: Int
@@ -18,7 +18,7 @@ struct MyShowRow: View {
     }
     
     var body: some View {
-        let show = viewModel.hostedShows[index]
+        let show = viewModel.playingShows[index]
         
         VStack(spacing: 0) {
             HStack {
@@ -61,8 +61,8 @@ struct MyShowRow: View {
     }
 }
 
-struct LargeListRow_Previews: PreviewProvider {
+struct PlayingShowRow_Previews: PreviewProvider {
     static var previews: some View {
-        MyShowRow(index: 1, viewModel: MyShowsViewModel())
+        PlayingShowRow(index: 0, viewModel: MyShowsViewModel())
     }
 }
