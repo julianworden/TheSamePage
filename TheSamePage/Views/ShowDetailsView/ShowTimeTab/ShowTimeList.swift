@@ -9,23 +9,25 @@ import SwiftUI
 
 @MainActor
 struct ShowTimeList: View {
-    @ObservedObject var viewModel: ShowTimeTabViewModel
+    @ObservedObject var viewModel: ShowDetailsViewModel
     
     var body: some View {
-        VStack(spacing: 0) {
-            if viewModel.showLoadInTime != nil {
+        let show = viewModel.show
+        
+        VStack(spacing: 12) {
+            if show.loadInTime != nil {
                 ShowTimeRow(viewModel: viewModel, showTimeType: .loadIn)
             }
                 
-            if viewModel.showDoorsTime != nil {
+            if show.doorsTime != nil {
                 ShowTimeRow(viewModel: viewModel, showTimeType: .doors)
             }
             
-            if viewModel.showMusicStartTime != nil {
+            if show.musicStartTime != nil {
                 ShowTimeRow(viewModel: viewModel, showTimeType: .musicStart)
             }
             
-            if viewModel.showEndTime != nil {
+            if show.endTime != nil {
                 ShowTimeRow(viewModel: viewModel, showTimeType: .end)
             }
         }
@@ -35,6 +37,6 @@ struct ShowTimeList: View {
     
 struct ShowTimeList_Previews: PreviewProvider {
     static var previews: some View {
-        ShowTimeList(viewModel: ShowTimeTabViewModel(show: Show.example))
+        ShowTimeList(viewModel: ShowDetailsViewModel(show: Show.example))
     }
 }

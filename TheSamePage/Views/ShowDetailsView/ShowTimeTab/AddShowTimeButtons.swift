@@ -8,33 +8,35 @@
 import SwiftUI
 
 struct AddShowTimeButtons: View {
-    @ObservedObject var viewModel: ShowTimeTabViewModel
+    @ObservedObject var viewModel: ShowDetailsViewModel
     
     @Binding var selectedShowTimeType: ShowTimeType?
     
     var body: some View {
+        let show = viewModel.show
+        
         HStack {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    if viewModel.showDoorsTime == nil {
+                    if show.doorsTime == nil {
                         Button("Add Doors Time") {
                             selectedShowTimeType = .doors
                         }
                     }
                     
-                    if viewModel.showEndTime == nil {
+                    if show.endTime == nil {
                         Button("Add End Time") {
                             selectedShowTimeType = .end
                         }
                     }
                     
-                    if viewModel.showLoadInTime == nil {
+                    if show.loadInTime == nil {
                         Button("Add Load In Time") {
                             selectedShowTimeType = .loadIn
                         }
                     }
                     
-                    if viewModel.showMusicStartTime == nil {
+                    if show.musicStartTime == nil {
                         Button("Add Music Start Time") {
                             selectedShowTimeType = .musicStart
                         }
@@ -50,6 +52,6 @@ struct AddShowTimeButtons: View {
 
 struct AddShowTimeButtons_Previews: PreviewProvider {
     static var previews: some View {
-        AddShowTimeButtons(viewModel: ShowTimeTabViewModel(show: Show.example), selectedShowTimeType: .constant(.musicStart))
+        AddShowTimeButtons(viewModel: ShowDetailsViewModel(show: Show.example), selectedShowTimeType: .constant(.musicStart))
     }
 }

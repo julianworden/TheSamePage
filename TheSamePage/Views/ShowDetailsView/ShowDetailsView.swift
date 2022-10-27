@@ -44,7 +44,7 @@ struct ShowDetailsView: View {
                     case .backline:
                         ShowBacklineTab(show: show)
                     case .times:
-                        ShowTimeTab(show: show)
+                        ShowTimeTab(viewModel: viewModel)
                     case .location:
                         ShowLocationTab(show: show, viewModel: viewModel)
                     case .details:
@@ -75,16 +75,13 @@ struct ShowDetailsView: View {
             }
         }
         .sheet(
-            isPresented: $addEditShowViewIsShowing,
-            onDismiss: {
-                    viewModel.addShowListener()
-            },
-            content: {
+            isPresented: $addEditShowViewIsShowing) {
                 NavigationView {
                     AddEditShowView(viewTitleText: "Edit Show", showToEdit: viewModel.show)
                 }
             }
-        )
+            
+        
         .onDisappear {
             viewModel.removeShowListener()
         }

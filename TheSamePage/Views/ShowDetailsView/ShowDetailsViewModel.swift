@@ -28,6 +28,21 @@ class ShowDetailsViewModel: ObservableObject {
         }
     }
     
+    var noShowTimesMessage: String {
+        if show.loggedInUserIsShowHost {
+            return "No times have been added to this show. Choose from the buttons above to add show times."
+        } else {
+            return "No times have been added to this show. Only the show's host can add times."
+        }
+    }
+    
+    var showHasTimes: Bool {
+        show.doorsTime != nil ||
+        show.musicStartTime != nil ||
+        show.loadInTime != nil ||
+        show.endTime != nil
+    }
+    
     var mapAnnotations: [CustomMapAnnotation] {
         let venue = CustomMapAnnotation(coordinates: show.coordinates)
         return [venue]
@@ -36,9 +51,9 @@ class ShowDetailsViewModel: ObservableObject {
     init(show: Show) {
         self.show = show
         
-        Task {
+        Task { @MainActor in
             do {
-                try await getShowLineup()
+                showLineup = try await DatabaseService.shared.getShowLineup(forShow: show)
             } catch {
                 state = .error(message: error.localizedDescription)
             }
@@ -46,24 +61,67 @@ class ShowDetailsViewModel: ObservableObject {
         
         state = .dataLoaded
         
-        if showListener == nil {
-            addShowListener()
+        addShowListener()
+    }
+    
+    func removeShowTimeFromShow(showTimeType: ShowTimeType) {
+        Task { @MainActor in
+            do {
+                try await DatabaseService.shared.deleteTimeFromShow(delete: showTimeType, fromShow: show)
+                
+                switch showTimeType {
+                case .loadIn:
+                    show.loadInTime = nil
+                case .musicStart:
+                    show.musicStartTime = nil
+                case .end:
+                    show.endTime = nil
+                case .doors:
+                    show.doorsTime = nil
+                }
+            } catch {
+                print(error)
+            }
         }
+    }
+    
+    func getShowTimeRowText(forShowTimeType showTimeType: ShowTimeType) -> String {
+        switch showTimeType {
+        case .loadIn:
+            if let showLoadInTime = show.loadInTime {
+                return "\(showTimeType.rowTitleText) \(Date(timeIntervalSince1970: showLoadInTime).timeShortened)"
+            }
+        case .musicStart:
+            if let showMusicStartTime = show.musicStartTime {
+                return "\(showTimeType.rowTitleText) \(Date(timeIntervalSince1970: showMusicStartTime).timeShortened)"
+            }
+        case .end:
+            if let showEndTime = show.endTime {
+                return "\(showTimeType.rowTitleText) \(Date(timeIntervalSince1970: showEndTime).timeShortened)"
+            }
+        case .doors:
+            if let showDoorsTime = show.doorsTime {
+                return "\(showTimeType.rowTitleText) \(Date(timeIntervalSince1970: showDoorsTime).timeShortened)"
+            }
+        }
+        
+        return ""
     }
     
     func addShowListener() {
         showListener = db.collection("shows").document(show.id).addSnapshotListener { snapshot, error in
             if snapshot != nil && error == nil {
                 if let editedShow = try? snapshot!.data(as: Show.self) {
-                    self.show = editedShow
+                    Task { @MainActor in
+                        self.show = editedShow
+                    }
                 }
             }
         }
     }
     
-    @MainActor
-    func getShowLineup() async throws {
-        showLineup = try await DatabaseService.shared.getShowLineup(forShow: show)
+    func removeShowListener() {
+        showListener?.remove()
     }
     
     func showDirectionsInMaps() {
@@ -72,9 +130,5 @@ class ShowDetailsViewModel: ObservableObject {
         showMapItem.name = show.venue
         
         showMapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDefault])
-    }
-    
-    func removeShowListener() {
-        showListener?.remove()
     }
 }

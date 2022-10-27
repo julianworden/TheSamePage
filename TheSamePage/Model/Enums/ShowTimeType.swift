@@ -22,9 +22,9 @@ enum ShowTimeType: String, CaseIterable, Identifiable {
         case .musicStart:
             return "Music Start:"
         case .end:
-            return "End"
+            return "End:"
         case .doors:
-            return "Doors"
+            return "Doors:"
         }
     }
     

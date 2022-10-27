@@ -29,7 +29,6 @@
 		AB285AFC28F6F7EE00EB5F2B /* ShowTimeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285AFB28F6F7EE00EB5F2B /* ShowTimeList.swift */; };
 		AB285B0228F6FE8A00EB5F2B /* ShowTimeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285B0128F6FE8A00EB5F2B /* ShowTimeType.swift */; };
 		AB285B0428F6FF6600EB5F2B /* AddShowTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285B0328F6FF6600EB5F2B /* AddShowTimeView.swift */; };
-		AB285B0628F701A400EB5F2B /* ShowTimeTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285B0528F701A400EB5F2B /* ShowTimeTabViewModel.swift */; };
 		AB285B0828F7086D00EB5F2B /* AddShowTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285B0728F7086D00EB5F2B /* AddShowTimeViewModel.swift */; };
 		AB2B867A28D9EE43004601B6 /* MyShowsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867928D9EE43004601B6 /* MyShowsViewModel.swift */; };
 		AB2B867C28D9F444004601B6 /* NoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867B28D9F444004601B6 /* NoImageView.swift */; };
@@ -178,7 +177,6 @@
 		AB285AFB28F6F7EE00EB5F2B /* ShowTimeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimeList.swift; sourceTree = "<group>"; };
 		AB285B0128F6FE8A00EB5F2B /* ShowTimeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimeType.swift; sourceTree = "<group>"; };
 		AB285B0328F6FF6600EB5F2B /* AddShowTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShowTimeView.swift; sourceTree = "<group>"; };
-		AB285B0528F701A400EB5F2B /* ShowTimeTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimeTabViewModel.swift; sourceTree = "<group>"; };
 		AB285B0728F7086D00EB5F2B /* AddShowTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShowTimeViewModel.swift; sourceTree = "<group>"; };
 		AB2B867928D9EE43004601B6 /* MyShowsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowsViewModel.swift; sourceTree = "<group>"; };
 		AB2B867B28D9F444004601B6 /* NoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoImageView.swift; sourceTree = "<group>"; };
@@ -327,13 +325,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AB07295928F4660B0069B268 /* ShowLineup */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ShowLineup;
-			sourceTree = "<group>";
-		};
 		AB07295C28F4661D0069B268 /* ShowBackline */ = {
 			isa = PBXGroup;
 			children = (
@@ -356,17 +347,16 @@
 			path = LoginView;
 			sourceTree = "<group>";
 		};
-		AB285AF828F6F71D00EB5F2B /* ShowTime */ = {
+		AB285AF828F6F71D00EB5F2B /* ShowTimeTab */ = {
 			isa = PBXGroup;
 			children = (
 				AB285AF928F6F76200EB5F2B /* ShowTimeTab.swift */,
 				AB285AFB28F6F7EE00EB5F2B /* ShowTimeList.swift */,
 				AB6514DE28F911EB008DFDD0 /* ShowTimeRow.swift */,
 				ABA1DDCB28F9A35700E7A72E /* AddShowTimeButtons.swift */,
-				AB285B0528F701A400EB5F2B /* ShowTimeTabViewModel.swift */,
-				AB6514E328F91250008DFDD0 /* AddShowTime */,
+				AB6514E328F91250008DFDD0 /* AddShowTimeView */,
 			);
-			path = ShowTime;
+			path = ShowTimeTab;
 			sourceTree = "<group>";
 		};
 		AB35A8D328E9D044009FB203 /* ProfileViews */ = {
@@ -682,13 +672,13 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		AB6514E328F91250008DFDD0 /* AddShowTime */ = {
+		AB6514E328F91250008DFDD0 /* AddShowTimeView */ = {
 			isa = PBXGroup;
 			children = (
 				AB285B0328F6FF6600EB5F2B /* AddShowTimeView.swift */,
 				AB285B0728F7086D00EB5F2B /* AddShowTimeViewModel.swift */,
 			);
-			path = AddShowTime;
+			path = AddShowTimeView;
 			sourceTree = "<group>";
 		};
 		AB6A6AF628EA498600996557 /* NotificationRow */ = {
@@ -732,16 +722,14 @@
 		ABBE94C028D8AD9E00790A04 /* ShowDetailsView */ = {
 			isa = PBXGroup;
 			children = (
-				ABFB2D442909E26B009A6F65 /* Tabs */,
 				ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */,
 				AB66B9B728F0D2EF00E7F0E0 /* ShowDetailsHeader.swift */,
-				ABFB2D452909E2B4009A6F65 /* ShowDetailsTab */,
-				ABFB2D462909E2C5009A6F65 /* ShowLineupTab */,
 				AB07296228F468530069B268 /* ShowLocationTab.swift */,
 				ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */,
-				AB285AF828F6F71D00EB5F2B /* ShowTime */,
+				ABFB2D452909E2B4009A6F65 /* ShowDetailsTab */,
+				ABFB2D462909E2C5009A6F65 /* ShowLineupTab */,
+				AB285AF828F6F71D00EB5F2B /* ShowTimeTab */,
 				AB07295C28F4661D0069B268 /* ShowBackline */,
-				AB07295928F4660B0069B268 /* ShowLineup */,
 			);
 			path = ShowDetailsView;
 			sourceTree = "<group>";
@@ -901,13 +889,6 @@
 				ABEF10E328E64CCB00A1DBAC /* AddEditLinkView */,
 			);
 			path = BandProfileView;
-			sourceTree = "<group>";
-		};
-		ABFB2D442909E26B009A6F65 /* Tabs */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Tabs;
 			sourceTree = "<group>";
 		};
 		ABFB2D452909E2B4009A6F65 /* ShowDetailsTab */ = {
@@ -1108,7 +1089,6 @@
 				ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */,
 				ABA1DDCE28F9B2AC00E7A72E /* ViewState.swift in Sources */,
 				AB7F381528EF20EA007741C7 /* ShowParticipant.swift in Sources */,
-				AB285B0628F701A400EB5F2B /* ShowTimeTabViewModel.swift in Sources */,
 				AB5E490429003D980076EABE /* ShowBacklineTabViewModel.swift in Sources */,
 				AB07295828F4631D0069B268 /* SelectedShowDetailsTab.swift in Sources */,
 				ABDDAD4528DB3ED200F1CF9B /* ProfileAsyncImage.swift in Sources */,

@@ -21,10 +21,10 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     var participantUids: [String]
     let venue: String
     let date: Double
-    let loadInTime: Double?
-    let doorsTime: Double?
-    let musicStartTime: Double?
-    let endTime: Double?
+    var loadInTime: Double?
+    var doorsTime: Double?
+    var musicStartTime: Double?
+    var endTime: Double?
     let ticketPrice: Double?
     let ticketSalesAreRequired: Bool
     let minimumRequiredTicketsSold: Int?

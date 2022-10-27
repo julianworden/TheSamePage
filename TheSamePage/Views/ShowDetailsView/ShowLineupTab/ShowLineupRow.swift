@@ -15,7 +15,7 @@ struct ShowLineupRow: View {
     var body: some View {
         let showParticipant = viewModel.showLineup[index]
         
-        VStack(spacing: 10) {
+        VStack {
             HStack {
                 Image("band")
                     .resizable()
@@ -27,7 +27,6 @@ struct ShowLineupRow: View {
                 Spacer()
                 
                 Image(systemName: "chevron.right")
-//                    .padding(.trailing, 7)
             }
             
             Divider()
