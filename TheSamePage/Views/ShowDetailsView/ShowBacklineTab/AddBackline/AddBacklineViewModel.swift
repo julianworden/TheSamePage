@@ -62,7 +62,7 @@ class AddBacklineViewModel: ObservableObject {
             } else {
                 backlineItem = BacklineItem(
                     type: selectedGearType.rawValue,
-                    name: selectedGuitarGear.rawValue,
+                    name: selectedAuxillaryPercussion.rawValue,
                     notes: backlineGearNotes
                 )
             }

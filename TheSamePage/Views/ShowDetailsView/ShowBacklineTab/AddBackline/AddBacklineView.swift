@@ -19,7 +19,6 @@ struct AddBacklineView: View {
     }
     
     var body: some View {
-        // TODO: Won't compile if switch is used inside list. Use separate lists for each instrument type instead.
         Form {
             Section("What would you like to backline?") {
                 Picker("Gear type", selection: $viewModel.selectedGearType) {

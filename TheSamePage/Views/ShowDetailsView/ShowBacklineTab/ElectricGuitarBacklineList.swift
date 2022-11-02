@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct ElectricGuitarBacklineList: View {
-    @ObservedObject var viewModel: ShowBacklineTabViewModel
+    @ObservedObject var viewModel: ShowDetailsViewModel
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 12) {
             ForEach(viewModel.electricGuitarBacklineItems) { electricGuitarBacklineItem in
-                SmallListRow(title: electricGuitarBacklineItem.name, subtitle: electricGuitarBacklineItem.notes, iconName: "guitar", displayChevron: false)
+                ShowBacklineRow(title: electricGuitarBacklineItem.name, subtitle: electricGuitarBacklineItem.notes, iconName: "guitar")
             }
         }
         .padding(.horizontal)
@@ -22,6 +22,6 @@ struct ElectricGuitarBacklineList: View {
 
 struct ElectricGuitarBacklineList_Previews: PreviewProvider {
     static var previews: some View {
-        ElectricGuitarBacklineList(viewModel: ShowBacklineTabViewModel(show: Show.example))
+        ElectricGuitarBacklineList(viewModel: ShowDetailsViewModel(show: Show.example))
     }
 }

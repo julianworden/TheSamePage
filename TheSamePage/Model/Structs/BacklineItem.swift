@@ -8,7 +8,6 @@
 import FirebaseFirestoreSwift
 import Foundation
 
-// TODO: Create separate DrumKitBacklineItem type for when a drum kit is backlined to account for extra complexity. Regular BacklineItem will be for everything else.
 struct BacklineItem: Codable, Equatable, Hashable, Identifiable {
     @DocumentID var id: String?
     let type: String

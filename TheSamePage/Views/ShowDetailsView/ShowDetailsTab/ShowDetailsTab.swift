@@ -10,9 +10,7 @@ import SwiftUI
 struct ShowDetailsTab: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
     
-    var body: some View {
-        let show = viewModel.show
-        
+    var body: some View {        
         VStack(spacing: 8) {
             ShowDetailsList(viewModel: viewModel)
         }

@@ -42,7 +42,7 @@ struct ShowDetailsView: View {
                     case .lineup:
                         ShowLineupTab(viewModel: viewModel)
                     case .backline:
-                        ShowBacklineTab(show: show)
+                        ShowBacklineTab(viewModel: viewModel)
                     case .times:
                         ShowTimeTab(viewModel: viewModel)
                     case .location:

@@ -15,8 +15,14 @@ class ShowDetailsViewModel: ObservableObject {
     @Published var selectedTab = SelectedShowDetailsTab.details
     @Published var state = ViewState.dataLoading
     
+    @Published var drumKitBacklineItems = [DrumKitBacklineItem]()
+    @Published var percussionBacklineItems = [BacklineItem]()
+    @Published var bassGuitarBacklineItems = [BacklineItem]()
+    @Published var electricGuitarBacklineItems = [BacklineItem]()
+    
     let db = Firestore.firestore()
     var showListener: ListenerRegistration?
+    var showBacklineListener: ListenerRegistration?
     
     var showSlotsRemainingMessage: String {
         let slotsRemainingCount = show.maxNumberOfBands - showLineup.count
@@ -120,8 +126,58 @@ class ShowDetailsViewModel: ObservableObject {
         }
     }
     
+    func getBacklineItems(forShow show: Show) async {
+        showBacklineListener = db.collection("shows").document(show.id).collection("backlineItems").addSnapshotListener { snapshot, error in
+            if snapshot != nil && error == nil {
+                let documents = snapshot!.documents
+                
+                guard !documents.isEmpty else { return }
+                
+                let drumKitBacklineItems = documents.compactMap { try? $0.data(as: DrumKitBacklineItem.self) }
+                
+                if !drumKitBacklineItems.isEmpty {
+                    Task { @MainActor in
+                        self.drumKitBacklineItems = drumKitBacklineItems
+                    }
+                }
+                
+                let fetchedBacklineItems = documents.compactMap { try? $0.data(as: BacklineItem.self) }
+                
+                for backlineItem in fetchedBacklineItems {
+                    switch backlineItem.type {
+                    case BacklineItemType.percussion.rawValue:
+                        if backlineItem.name != PercussionGearType.fullKit.rawValue {
+                            Task { @MainActor in
+                                self.percussionBacklineItems.append(backlineItem)
+                            }
+                        }
+                    case BacklineItemType.electricGuitar.rawValue:
+                        if !self.electricGuitarBacklineItems.contains(backlineItem) {
+                            Task { @MainActor in
+                                self.electricGuitarBacklineItems.append(backlineItem)
+                            }
+                        }
+                    case BacklineItemType.bassGuitar.rawValue:
+                        if !self.bassGuitarBacklineItems.contains(backlineItem) {
+                            Task { @MainActor in
+                                self.bassGuitarBacklineItems.append(backlineItem)
+                            }
+                        }
+                    default:
+                        // TODO: Change and add error state
+                        break
+                    }
+                }
+            }
+        }
+    }
+    
     func removeShowListener() {
         showListener?.remove()
+    }
+    
+    func removeShowBacklineListener() {
+        showBacklineListener?.remove()
     }
     
     func showDirectionsInMaps() {

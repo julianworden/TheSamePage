@@ -8,16 +8,12 @@
 import SwiftUI
 
 struct ShowBacklineTab: View {
-    @StateObject var viewModel: ShowBacklineTabViewModel
+    @ObservedObject var viewModel: ShowDetailsViewModel
     
     @State private var addBacklineSheetIsShowing = false
     
-    init(show: Show) {
-        _viewModel = StateObject(wrappedValue: ShowBacklineTabViewModel(show: show))
-    }
-    
     var body: some View {
-        VStack {
+        VStack(spacing: 15) {
             if viewModel.show.loggedInUserIsInvolvedInShow {
                 HStack {
                     Text("Percussion")
@@ -30,22 +26,22 @@ struct ShowBacklineTab: View {
                         Image(systemName: "plus")
                     }
                 }
-                .padding([.horizontal, .bottom])
+                .padding(.horizontal)
                 
-                if !viewModel.drumKitBacklineItems.isEmpty {
+                if !viewModel.drumKitBacklineItems.isEmpty || !viewModel.percussionBacklineItems.isEmpty {
                     PercussionBacklineList(viewModel: viewModel)
                 } else {
                     Text("No percussion gear is backlined for this show. You can use the plus button to add some!")
                         .italic()
                         .multilineTextAlignment(.center)
-                        .padding([.horizontal, .bottom])
+                        .padding(.horizontal)
                 }
             }
             
             HStack {
                 Text("Electric Guitar")
                     .font(.title3.bold())
-                    .padding()
+                    .padding(.horizontal)
                 
                 Spacer()
             }
@@ -56,13 +52,13 @@ struct ShowBacklineTab: View {
                 Text("No electric guitar gear is backlined for this show. You can use the plus button to add some!")
                     .italic()
                     .multilineTextAlignment(.center)
-                    .padding([.horizontal, .bottom])
+                    .padding(.horizontal)
             }
             
             HStack {
                 Text("Bass Guitar")
                     .font(.title3.bold())
-                    .padding()
+                    .padding(.horizontal)
                 
                 Spacer()
             }
@@ -73,7 +69,7 @@ struct ShowBacklineTab: View {
                 Text("No bass guitar gear is backlined for this show. You can use the plus button to add some!")
                     .italic()
                     .multilineTextAlignment(.center)
-                    .padding([.horizontal, .bottom])
+                    .padding(.horizontal)
             }
         }
         .sheet(isPresented: $addBacklineSheetIsShowing) {
@@ -92,6 +88,6 @@ struct ShowBacklineTab: View {
 
 struct ShowBacklineTab_Previews: PreviewProvider {
     static var previews: some View {
-        ShowBacklineTab(show: Show.example)
+        ShowBacklineTab(viewModel: ShowDetailsViewModel(show: Show.example))
     }
 }

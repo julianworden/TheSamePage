@@ -85,7 +85,6 @@
 		AB5E48FC29003B950076EABE /* PercussionGearType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E48FB29003B950076EABE /* PercussionGearType.swift */; };
 		AB5E48FE29003CA80076EABE /* VocalGear.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E48FD29003CA80076EABE /* VocalGear.swift */; };
 		AB5E490029003CF10076EABE /* BacklineItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E48FF29003CF10076EABE /* BacklineItemType.swift */; };
-		AB5E490429003D980076EABE /* ShowBacklineTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E490329003D980076EABE /* ShowBacklineTabViewModel.swift */; };
 		AB5E490629003F870076EABE /* AddBacklineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E490529003F870076EABE /* AddBacklineView.swift */; };
 		AB5E490829003F8D0076EABE /* AddBacklineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E490729003F8D0076EABE /* AddBacklineViewModel.swift */; };
 		AB6514DD28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6514DC28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift */; };
@@ -100,6 +99,7 @@
 		AB7F381328EF1B56007741C7 /* NotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7F381228EF1B56007741C7 /* NotificationType.swift */; };
 		AB7F381528EF20EA007741C7 /* ShowParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7F381428EF20EA007741C7 /* ShowParticipant.swift */; };
 		AB8326B429129CE200208414 /* NoDataFoundMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8326B329129CE200208414 /* NoDataFoundMessage.swift */; };
+		AB8326B62912A89800208414 /* ShowBacklineRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8326B52912A89800208414 /* ShowBacklineRow.swift */; };
 		AB9D086128FDA24B0098A244 /* UserSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9D086028FDA24B0098A244 /* UserSettingsView.swift */; };
 		ABA1020728DDE5BE00A4E818 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020628DDE5BE00A4E818 /* NotificationsViewModel.swift */; };
 		ABA1020928DDF3C000A4E818 /* NotificationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020828DDF3C000A4E818 /* NotificationRow.swift */; };
@@ -235,7 +235,6 @@
 		AB5E48FB29003B950076EABE /* PercussionGearType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercussionGearType.swift; sourceTree = "<group>"; };
 		AB5E48FD29003CA80076EABE /* VocalGear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocalGear.swift; sourceTree = "<group>"; };
 		AB5E48FF29003CF10076EABE /* BacklineItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BacklineItemType.swift; sourceTree = "<group>"; };
-		AB5E490329003D980076EABE /* ShowBacklineTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowBacklineTabViewModel.swift; sourceTree = "<group>"; };
 		AB5E490529003F870076EABE /* AddBacklineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBacklineView.swift; sourceTree = "<group>"; };
 		AB5E490729003F8D0076EABE /* AddBacklineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBacklineViewModel.swift; sourceTree = "<group>"; };
 		AB6514DC28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+CustomTimeFormat.swift"; sourceTree = "<group>"; };
@@ -250,6 +249,7 @@
 		AB7F381228EF1B56007741C7 /* NotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationType.swift; sourceTree = "<group>"; };
 		AB7F381428EF20EA007741C7 /* ShowParticipant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowParticipant.swift; sourceTree = "<group>"; };
 		AB8326B329129CE200208414 /* NoDataFoundMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataFoundMessage.swift; sourceTree = "<group>"; };
+		AB8326B52912A89800208414 /* ShowBacklineRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowBacklineRow.swift; sourceTree = "<group>"; };
 		AB9D086028FDA24B0098A244 /* UserSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsView.swift; sourceTree = "<group>"; };
 		ABA1020628DDE5BE00A4E818 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
 		ABA1020828DDF3C000A4E818 /* NotificationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRow.swift; sourceTree = "<group>"; };
@@ -327,17 +327,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AB07295C28F4661D0069B268 /* ShowBackline */ = {
+		AB07295C28F4661D0069B268 /* ShowBacklineTab */ = {
 			isa = PBXGroup;
 			children = (
 				AB07296428F468820069B268 /* ShowBacklineTab.swift */,
 				AB07AC362904738B00E378C6 /* PercussionBacklineList.swift */,
 				AB07AC3829047F1800E378C6 /* ElectricGuitarBacklineList.swift */,
 				AB07AC3A290486F200E378C6 /* BassGuitarBacklineList.swift */,
-				AB5E490329003D980076EABE /* ShowBacklineTabViewModel.swift */,
+				AB8326B52912A89800208414 /* ShowBacklineRow.swift */,
 				AB5E490929003FA00076EABE /* AddBackline */,
 			);
-			path = ShowBackline;
+			path = ShowBacklineTab;
 			sourceTree = "<group>";
 		};
 		AB24E3A428D7C9A8002B4F2C /* LoginView */ = {
@@ -732,7 +732,7 @@
 				ABFB2D452909E2B4009A6F65 /* ShowDetailsTab */,
 				ABFB2D462909E2C5009A6F65 /* ShowLineupTab */,
 				AB285AF828F6F71D00EB5F2B /* ShowTimeTab */,
-				AB07295C28F4661D0069B268 /* ShowBackline */,
+				AB07295C28F4661D0069B268 /* ShowBacklineTab */,
 			);
 			path = ShowDetailsView;
 			sourceTree = "<group>";
@@ -1093,7 +1093,6 @@
 				ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */,
 				ABA1DDCE28F9B2AC00E7A72E /* ViewState.swift in Sources */,
 				AB7F381528EF20EA007741C7 /* ShowParticipant.swift in Sources */,
-				AB5E490429003D980076EABE /* ShowBacklineTabViewModel.swift in Sources */,
 				AB07295828F4631D0069B268 /* SelectedShowDetailsTab.swift in Sources */,
 				ABDDAD4528DB3ED200F1CF9B /* ProfileAsyncImage.swift in Sources */,
 				AB5B77C728E72B9600B32537 /* BandLinkCardViewModel.swift in Sources */,
@@ -1121,6 +1120,7 @@
 				AB36FF8F28D35E8C00AAC00C /* Genre.swift in Sources */,
 				AB36FF6628D356FD00AAC00C /* TheSamePageApp.swift in Sources */,
 				ABEACE7D28DBBB6F00BB1D67 /* InABandViewModel.swift in Sources */,
+				AB8326B62912A89800208414 /* ShowBacklineRow.swift in Sources */,
 				ABDDAD4C28DB49DF00F1CF9B /* AddEditBandViewModel.swift in Sources */,
 				AB5054B328DCA04900321380 /* BandInvite.swift in Sources */,
 				AB3C73D728DC0A240038085A /* BandSearchViewModel.swift in Sources */,
