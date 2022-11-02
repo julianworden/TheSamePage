@@ -146,7 +146,8 @@ class ShowDetailsViewModel: ObservableObject {
                 for backlineItem in fetchedBacklineItems {
                     switch backlineItem.type {
                     case BacklineItemType.percussion.rawValue:
-                        if backlineItem.name != PercussionGearType.fullKit.rawValue {
+                        if backlineItem.name != PercussionGearType.fullKit.rawValue &&
+                           !self.percussionBacklineItems.contains(backlineItem) {
                             Task { @MainActor in
                                 self.percussionBacklineItems.append(backlineItem)
                             }

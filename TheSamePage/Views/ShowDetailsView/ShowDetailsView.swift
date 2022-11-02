@@ -75,13 +75,16 @@ struct ShowDetailsView: View {
             }
         }
         .sheet(
-            isPresented: $addEditShowViewIsShowing) {
+            isPresented: $addEditShowViewIsShowing,
+            // onDismiss is necessary because sometimes the show's info
+            // isn't updated in this view without it.
+            onDismiss: { viewModel.addShowListener() },
+            content: {
                 NavigationView {
                     AddEditShowView(viewTitleText: "Edit Show", showToEdit: viewModel.show)
                 }
             }
-            
-        
+        )
         .onDisappear {
             viewModel.removeShowListener()
         }
