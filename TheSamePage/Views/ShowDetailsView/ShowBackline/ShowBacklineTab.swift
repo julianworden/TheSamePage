@@ -30,7 +30,7 @@ struct ShowBacklineTab: View {
                         Image(systemName: "plus")
                     }
                 }
-                .padding()
+                .padding([.horizontal, .bottom])
                 
                 if !viewModel.drumKitBacklineItems.isEmpty {
                     PercussionBacklineList(viewModel: viewModel)

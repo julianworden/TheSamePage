@@ -26,12 +26,22 @@ struct NotificationsView: View {
                     .padding(.horizontal)
                     
                     if viewModel.selectedNotificationType == .bandInvite {
-                        BandInvitesList(viewModel: viewModel)
+                        if !viewModel.fetchedBandInvites.isEmpty {
+                            BandInvitesList(viewModel: viewModel)
+                        } else {
+                            NoDataFoundMessage(message: "You do not have any pending band invites.")
+                        }
                     }
                     
                     if viewModel.selectedNotificationType == .showInvite {
-                        ShowInvitesList(viewModel: viewModel)
+                        if !viewModel.fetchedShowInvites.isEmpty {
+                            ShowInvitesList(viewModel: viewModel)
+                        } else {
+                            NoDataFoundMessage(message: "You do not have any pending show invites.")
+                        }
                     }
+                    
+                    Spacer()
                 }
             }
             .navigationTitle("Notifications")

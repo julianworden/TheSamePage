@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// A row for the ShowDetailsTab that is used for boolean show information,
+/// such as whether or not a show has a bar or is 21+.
 struct ShowDetailsStaticRow: View {
     let title: String
     let subtitle: String?

@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct ErrorMessage: View {
+    /// The color of the text that
     let color: Color
+    /// The message written by me that gives the user instructions for resolving an error.
     let message: String
+    /// The localized description of the error that's shown to the user. Not written by me.
     let errorText: String?
     
     init(color: Color = .primary, message: String, errorText: String? = nil) {
@@ -22,14 +25,13 @@ struct ErrorMessage: View {
         VStack {
             Text(message)
                 .italic()
-                .foregroundColor(color)
             
             if let errorText {
                 Text("Error: \(errorText)")
                     .italic()
-                    .foregroundColor(color)
             }
         }
+        .foregroundColor(color)
         .multilineTextAlignment(.center)
     }
 }

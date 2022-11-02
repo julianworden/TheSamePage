@@ -15,26 +15,9 @@ struct ShowDetailsTab: View {
         
         VStack(spacing: 8) {
             ShowDetailsList(viewModel: viewModel)
-            
-            HStack(alignment: .top, spacing: 10) {
-                Image("notepad")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 30, height: 30)
-                
-                if let showDescription = show.description {
-                    Text(showDescription)
-                        .padding(.bottom, 5)
-                }
-                
-                Spacer()
-            }
-            .padding(.horizontal)
         }
         .padding(.top, 2)
-        .onDisappear {
-            viewModel.removeShowListener()
-        }
+        .onDisappear { viewModel.removeShowListener() }
     }
 }
 

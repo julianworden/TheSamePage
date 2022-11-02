@@ -16,6 +16,21 @@ struct ShowDetailsList: View {
         VStack(spacing: 12) {
             let show = viewModel.show
             
+            if let showDescription = show.description {
+                HStack(alignment: .top, spacing: 10) {
+                    Image("notepad")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 30, height: 30)
+                    
+                    
+                    Text(showDescription)
+                        .padding(.bottom, 5)
+                    
+                    Spacer()
+                }
+            }
+            
             HStack(spacing: 10) {
                 Image("user")
                     .resizable()
