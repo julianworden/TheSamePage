@@ -12,24 +12,65 @@ struct ConversationView: View {
     
     @StateObject var viewModel: ConversationViewModel
     
+    @State private var sendButtonIsDisabled = true
+    
     init(show: Show? = nil, userId: String? = nil) {
         _viewModel = StateObject(wrappedValue: ConversationViewModel(show: show, userId: userId))
     }
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-            .navigationTitle("Chat")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Back") {
-                        dismiss()
+        ZStack {
+            Color(uiColor: .systemGroupedBackground)
+                .ignoresSafeArea()
+            
+            VStack {
+                List(viewModel.messages) { message in
+                    VStack {
+                        Text(message.text)
+                        Text(message.senderFullName)
                     }
                 }
+                .listStyle(.plain)
+                
+                Spacer()
+                
+                HStack {
+                    TextField("Message", text: $viewModel.messageText)
+                        .textFieldStyle(.roundedBorder)
+                    
+                    Button {
+                        Task {
+                            await viewModel.sendChatMessage()
+                            viewModel.messageText = ""
+                        }
+                    } label: {
+                        Image(systemName: "arrow.up")
+                    }
+                    .disabled(sendButtonIsDisabled)
+                }
             }
-            .task {
-                await viewModel.configureChat()
+            .padding(.horizontal)
+        }
+        .navigationTitle("Chat")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Back") {
+                    dismiss()
+                }
             }
+        }
+        .task {
+            await viewModel.configureChat()
+            viewModel.addChatListener()
+        }
+        .onChange(of: viewModel.messageText) { messageText in
+            if !messageText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                sendButtonIsDisabled = false
+            } else {
+                sendButtonIsDisabled = true
+            }
+        }
     }
 }
 

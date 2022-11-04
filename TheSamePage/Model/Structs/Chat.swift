@@ -8,7 +8,7 @@
 import Foundation
 
 struct Chat: Codable, Identifiable {
-    let id: String
+    var id: String
     /// The ID of the show that the chat belongs to. This is optional because it will
     /// make it easier to add chatting for all users at a later time.
     let showId: String?
