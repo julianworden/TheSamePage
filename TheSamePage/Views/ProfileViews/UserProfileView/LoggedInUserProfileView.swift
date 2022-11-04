@@ -56,19 +56,19 @@ struct LoggedInUserProfileView: View {
                 }
                 .navigationTitle("\(loggedInUserController.firstName ?? "You") \(loggedInUserController.lastName ?? "")")
                 .navigationBarTitleDisplayMode(.large)
-                .toolbar {
-                    ToolbarItem {
-                        NavigationLink {
-                            UserSettingsView(userIsLoggedOut: $userIsLoggedOut)
-                        } label: {
-                            Label("Settings", systemImage: "gear")
-                        }
-                    }
-                }
             } else {
                 ErrorMessage(
                     message: "Failed to fetch logged in user. Please check your internet connection and restart the app."
                 )
+            }
+        }
+        .toolbar {
+            ToolbarItem {
+                NavigationLink {
+                    UserSettingsView(userIsLoggedOut: $userIsLoggedOut)
+                } label: {
+                    Label("Settings", systemImage: "gear")
+                }
             }
         }
         .onChange(of: userImage) { _ in }

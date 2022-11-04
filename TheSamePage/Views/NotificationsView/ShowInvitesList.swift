@@ -17,17 +17,7 @@ struct ShowInvitesList: View {
                     .padding(.top, 5)
             }
         }
-        .onDisappear {
-            viewModel.removeListeners()
-        }
         .animation(.easeInOut, value: viewModel.fetchedShowInvites)
-        .task {
-            do {
-                try viewModel.getShowInvites()
-            } catch {
-                print(error)
-            }
-        }
     }
 }
 

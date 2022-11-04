@@ -10,17 +10,7 @@ import SwiftUI
 struct RootView: View {
     @EnvironmentObject var loggedInUserController: LoggedInUserController
     
-    @State private var userIsLoggedOut = AuthController.userIsLoggedOut() {
-        didSet {
-            if userIsLoggedOut {
-                do {
-                    try loggedInUserController.logOut()
-                } catch {
-                    print(error)
-                }
-            }
-        }
-    }
+    @State private var userIsLoggedOut = AuthController.userIsLoggedOut()
     @State private var selectedTab = 0
     
     var body: some View {
@@ -69,9 +59,17 @@ struct RootView: View {
                 }
             }
         }
-        .fullScreenCover(isPresented: $userIsLoggedOut) {
-            LoginView(userIsOnboarding: $userIsLoggedOut)
-        }
+        .fullScreenCover(
+            isPresented: $userIsLoggedOut,
+            onDismiss: {
+                if loggedInUserController.loggedInUser == nil {
+                    Task {
+                        try await loggedInUserController.getLoggedInUserInfo()
+                    }
+                }
+            },
+            content: { LoginView(userIsOnboarding: $userIsLoggedOut) }
+        )
     }
 }
 

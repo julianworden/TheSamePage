@@ -16,6 +16,11 @@ struct UserSettingsView: View {
         List {
             Button("Log Out", role: .destructive) {
                 userIsLoggedOut = true
+                do {
+                    try loggedInUserController.logOut()
+                } catch {
+                    print(error)
+                }
             }
         }
         .navigationTitle("Settings")

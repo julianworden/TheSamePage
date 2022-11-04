@@ -14,6 +14,7 @@ struct ShowDetailsHeader: View {
     @State private var showImage: Image?
     /// A new image set within EditImageView
     @State private var updatedImage: UIImage?
+    @State private var chatSheetIsShowing = false
     
     var body: some View {
         let show = viewModel.show
@@ -40,6 +41,15 @@ struct ShowDetailsHeader: View {
                 ProfileAsyncImage(url: URL(string: show.imageUrl ?? ""), loadedImage: .constant(nil))
             }
             
+            if show.loggedInUserIsInvolvedInShow {
+                Button {
+                    chatSheetIsShowing = true
+                } label: {
+                    Label("Chat", systemImage: "bubble.right")
+                }
+                .buttonStyle(.bordered)
+            }
+            
             VStack(spacing: 2) {
                 Text(show.name)
                     .font(.title.bold())
@@ -61,6 +71,11 @@ struct ShowDetailsHeader: View {
             }
             .multilineTextAlignment(.center)
             .padding(.horizontal)
+        }
+        .fullScreenCover(isPresented: $chatSheetIsShowing) {
+            NavigationView {
+                ConversationView(show: show)
+            }
         }
         // Forces the EditImageView to load the showImage properly
         .onChange(of: showImage) { _ in }

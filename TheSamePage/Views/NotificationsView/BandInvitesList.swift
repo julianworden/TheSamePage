@@ -17,16 +17,6 @@ struct BandInvitesList: View {
                     .padding(.top, 5)
             }
         }
-        .task {
-            do {
-                try viewModel.getBandInvites()
-            } catch {
-                print(error)
-            }
-        }
-        .onDisappear {
-            viewModel.removeListeners()
-        }
         .animation(.easeInOut, value: viewModel.fetchedBandInvites)
     }
 }

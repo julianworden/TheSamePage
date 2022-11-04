@@ -235,7 +235,6 @@ class DatabaseService {
     }
     
     // TODO: Make this method check if the invited member is already a member of the band
-    
     /// Adds a user as a BandMember to a band's members collection. This is called when a BandInvite is accepted, and when a user indicates
     /// that they are a member of the band they are creating in AddEditBandView. If a BandInvite is being accepted, this method also calls
     /// a subsequent DatabaseService method that deletes the BandInvite from the user's bandInvites collection.
@@ -276,10 +275,10 @@ class DatabaseService {
     /// band admin in case they don't play in the band), adds user to show's participants collection. Also deletes the
     /// ShowInvite in the user's showInvites collection.
     /// - Parameter showParticipant: The showParticipant to be added to the Show's participants collection.
-    /// - Parameter showInvite: The ShowInvite that was arunccepted in order for the band to get added to the show.
+    /// - Parameter showInvite: The ShowInvite that was accepted in order for the band to get added to the show.
     func addBandToShow(add showParticipant: ShowParticipant, withShowInvite showInvite: ShowInvite) async throws {
         do {
-            // Add showParticipant to the show's showParticipants collection
+            // Add showParticipant to the show's participants collection
             _ = try db.collection("shows").document(showInvite.showId).collection("participants").addDocument(from: showParticipant)
             
             // Add the band's ID to the show's bandIds property
@@ -290,11 +289,13 @@ class DatabaseService {
             
             if !band.memberUids.isEmpty {
                 try await db.collection("shows").document(showInvite.showId).updateData(["participantUids": FieldValue.arrayUnion(band.memberUids)])
+                try await addBandToChat(band: band, showId: showInvite.showId)
             }
             
             // Check to see if the band admin is already in the memberUids array. If it isn't, add it to the show's participantUids property.
             if !band.memberUids.contains(showInvite.recipientUid) {
                 try await db.collection("shows").document(showInvite.showId).updateData(["participantUids": FieldValue.arrayUnion([showInvite.recipientUid])])
+                try await addUserToChat(uid: showInvite.recipientUid, showId: showInvite.showId)
             }
             
             do {
@@ -305,7 +306,44 @@ class DatabaseService {
         } catch {
             throw DatabaseServiceError.firestore(message: "Failed to add band to show in DatabaseService.addBandToShow(add:to:with:)")
         }
-        
+    }
+    
+    /// Called when a band admin accepts a show invite for their band. This allows the band to gain access to the show's chat.
+    /// - Parameters:
+    ///   - band: The band that will be joining the chat.
+    ///   - showId: The ID of the show that the chat belongs to. Also the value of the show's chat's showId property.
+    func addBandToChat(band: Band, showId: String) async throws {
+        do {
+            let chatQuery = try await db.collection("chats").whereField("showId", isEqualTo: showId).getDocuments()
+            
+            guard !chatQuery.documents.isEmpty && chatQuery.documents.count == 1 else { return }
+            
+            do {
+                let chat = try chatQuery.documents[0].data(as: Chat.self)
+                try await db.collection("chats").document(chat.id).updateData(["participantUids": FieldValue.arrayUnion(band.memberUids)])
+            } catch {
+                throw DatabaseServiceError.decode(message: "Failed to decode Chat in DatabaseService.addBandToChat(withShowInvite:)")
+            }
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to fetch Chat in DatabaseService.addBandToChat(withShowInvite:)")
+        }
+    }
+    
+    func addUserToChat(uid: String, showId: String) async throws {
+        do {
+            let chatQuery = try await db.collection("chats").whereField("showId", isEqualTo: showId).getDocuments()
+            
+            guard !chatQuery.documents.isEmpty && chatQuery.documents.count == 1 else { return }
+            
+            do {
+                let chat = try chatQuery.documents[0].data(as: Chat.self)
+                try await db.collection("chats").document(chat.id).updateData(["participantUids": FieldValue.arrayUnion([uid])])
+            } catch {
+                throw DatabaseServiceError.decode(message: "Failed to decode Chat in DatabaseService.addUserToChat(uid:showId)")
+            }
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to fetch Chat in DatabaseService.addUserToChat(uid:showId)")
+        }
     }
     
     func addTimeToShow(addTime time: Date, ofType showTimeType: ShowTimeType, forShow show: Show) async throws {
@@ -498,6 +536,39 @@ class DatabaseService {
         
         if let newImageUrl = try await uploadImage(image: image) {
             try await db.collection("bands").document(band.id).updateData(["profileImageUrl": newImageUrl])
+        }
+    }
+    
+    func getChat(withShowId showId: String) async throws -> Chat? {
+        let chat = try await db.collection("chats").whereField("showId", isEqualTo: showId).getDocuments()
+        
+        // Each show should only have 1 chat
+        guard !chat.documents.isEmpty && chat.documents[0].exists && chat.documents.count == 1 else { return nil }
+        
+        do {
+            let fetchedChat = try chat.documents[0].data(as: Chat.self)
+            return fetchedChat
+        } catch {
+            throw DatabaseServiceError.decode(message: "Failed to decode Chat in DatabaseService.getChat(withShowId:)")
+        }
+    }
+    
+    func createChat(chat: Chat) async throws {
+        do {
+            let chatReference = try db.collection("chats").addDocument(from: chat)
+            try await chatReference.updateData(["id": chatReference.documentID])
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to create new chat in DatabaseService.createChat(chat:)")
+        }
+    }
+    
+    func getMessagesForChat(chat: Chat) async throws -> [ChatMessage] {
+        do {
+            let chatMessageDocuments = try await db.collection("chats").document(chat.id).collection("messages").getDocuments()
+            let fetchedChatMessages = try chatMessageDocuments.documents.map { try $0.data(as: ChatMessage.self) }
+            return fetchedChatMessages
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to fetch chat messages in DatabaseService.getMessagesForChat(chat:)")
         }
     }
 }

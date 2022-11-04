@@ -111,7 +111,6 @@ class AddEditShowViewModel: ObservableObject {
     func setShowLocationInfo(withPlacemark placemark: CLPlacemark) {
         if let showLatitude = placemark.location?.coordinate.latitude,
            let showLongitude = placemark.location?.coordinate.longitude {
-//                let showCoordinates = CLLocationCoordinate2D(latitude: showLatitude, longitude: showLongitude)
                 self.showLatitude = showLatitude
                 self.showLongitude = showLongitude
                 self.showTypesenseCoordinates = [showLatitude, showLongitude]

@@ -45,6 +45,17 @@ struct NotificationsView: View {
                 }
             }
             .navigationTitle("Notifications")
+            .task {
+                do {
+                    try viewModel.getShowInvites()
+                    try viewModel.getBandInvites()
+                } catch {
+                    print(error)
+                }
+            }
+            .onDisappear {
+                viewModel.removeListeners()
+            }
         }
     }
 }
