@@ -159,6 +159,9 @@
 		ABF8B81928FC43C400608657 /* CustomMapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF8B81828FC43C400608657 /* CustomMapAnnotation.swift */; };
 		ABF8B81B28FC786900608657 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF8B81A28FC786900608657 /* ErrorMessage.swift */; };
 		ABFB2D482909E33B009A6F65 /* ShowLineupRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFB2D472909E33B009A6F65 /* ShowLineupRow.swift */; };
+		ABFBA72129154F97006B1751 /* View+cornerRadius().swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFBA72029154F97006B1751 /* View+cornerRadius().swift */; };
+		ABFBA72329154FCD006B1751 /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFBA72229154FCD006B1751 /* ChatBubble.swift */; };
+		ABFBA7252915546A006B1751 /* ChatBubbleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFBA7242915546A006B1751 /* ChatBubbleViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -311,6 +314,9 @@
 		ABF8B81828FC43C400608657 /* CustomMapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMapAnnotation.swift; sourceTree = "<group>"; };
 		ABF8B81A28FC786900608657 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 		ABFB2D472909E33B009A6F65 /* ShowLineupRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLineupRow.swift; sourceTree = "<group>"; };
+		ABFBA72029154F97006B1751 /* View+cornerRadius().swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+cornerRadius().swift"; sourceTree = "<group>"; };
+		ABFBA72229154FCD006B1751 /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
+		ABFBA7242915546A006B1751 /* ChatBubbleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -663,6 +669,7 @@
 		AB6514DA28F90EED008DFDD0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				ABFBA72029154F97006B1751 /* View+cornerRadius().swift */,
 				AB38E1B228FB2422006D1788 /* CLPlacemark+formattedAddress.swift */,
 				AB6514DC28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift */,
 			);
@@ -762,6 +769,8 @@
 			children = (
 				ABCF232729131E4E003DB6BB /* ConversationView.swift */,
 				AB5D08AA2913F5C20073F8EE /* ConversationViewModel.swift */,
+				ABFBA72229154FCD006B1751 /* ChatBubble.swift */,
+				ABFBA7242915546A006B1751 /* ChatBubbleViewModel.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -1058,6 +1067,7 @@
 				ABDC0D7228D74BFF0054269E /* UserProfileRootViewModel.swift in Sources */,
 				AB399AD228D4AF3E009B39F7 /* MyShowsShowCard.swift in Sources */,
 				AB5D08AB2913F5C20073F8EE /* ConversationViewModel.swift in Sources */,
+				ABFBA72329154FCD006B1751 /* ChatBubble.swift in Sources */,
 				AB07AC3B290486F200E378C6 /* BassGuitarBacklineList.swift in Sources */,
 				AB5E48F5290029B20076EABE /* HomeViewShowsList.swift in Sources */,
 				AB794E2F28E25A81000ABB37 /* SearchViewModel.swift in Sources */,
@@ -1067,6 +1077,7 @@
 				AB2B867C28D9F444004601B6 /* NoImageView.swift in Sources */,
 				ABDDAD4A28DB46B500F1CF9B /* ImageSelectionButton.swift in Sources */,
 				AB36FF7828D359E700AAC00C /* OtherUserProfileView.swift in Sources */,
+				ABFBA72129154F97006B1751 /* View+cornerRadius().swift in Sources */,
 				ABCAAA0428E9ED7500685F91 /* BandLinkListViewModel.swift in Sources */,
 				AB8326B429129CE200208414 /* NoDataFoundMessage.swift in Sources */,
 				AB36FF6828D356FD00AAC00C /* RootView.swift in Sources */,
@@ -1147,6 +1158,7 @@
 				ABDC0D7928D76FC60054269E /* AddEditShowViewModel.swift in Sources */,
 				ABF1C40428ECD0FD0004A3C1 /* SearchResultRowViewModel.swift in Sources */,
 				AB36FF8928D35C2800AAC00C /* PlatformLink.swift in Sources */,
+				ABFBA7252915546A006B1751 /* ChatBubbleViewModel.swift in Sources */,
 				ABEF10EA28E6506000A1DBAC /* LinkPlatform.swift in Sources */,
 				AB07AC372904738B00E378C6 /* PercussionBacklineList.swift in Sources */,
 				AB35A8DF28E9DE29009FB203 /* UserBandList.swift in Sources */,

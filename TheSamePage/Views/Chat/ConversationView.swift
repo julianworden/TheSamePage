@@ -24,13 +24,15 @@ struct ConversationView: View {
                 .ignoresSafeArea()
             
             VStack {
-                List(viewModel.messages) { message in
+                ScrollView {
                     VStack {
-                        Text(message.text)
-                        Text(message.senderFullName)
+                        ForEach(viewModel.messages) { message in
+                            ChatBubble(chatMessage: message)
+                        }
                     }
                 }
-                .listStyle(.plain)
+                // Needed to prevent ScrollView from going behind the navigation bar. I don't know why
+                .padding(.top, 0.5)
                 
                 Spacer()
                 
@@ -48,6 +50,7 @@ struct ConversationView: View {
                     }
                     .disabled(sendButtonIsDisabled)
                 }
+                .padding(.bottom)
             }
             .padding(.horizontal)
         }

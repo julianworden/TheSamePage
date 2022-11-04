@@ -33,7 +33,10 @@ class ConversationViewModel: ObservableObject {
                 let chatMessageDocuments = snapshot.documents
                 if let chatMessages = try? chatMessageDocuments.map({ try $0.data(as: ChatMessage.self) }) {
                     Task { @MainActor in
-                        self.messages = chatMessages
+                        let sortedChatMessages = chatMessages.sorted { lhs, rhs in
+                            lhs.sentTimestampAsDate < rhs.sentTimestampAsDate
+                        }
+                        self.messages = sortedChatMessages
                     }
                 } else {
                     // TODO: Change state

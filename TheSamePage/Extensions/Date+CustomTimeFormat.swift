@@ -11,4 +11,8 @@ extension Date {
     var timeShortened: String {
         self.formatted(date: .omitted, time: .shortened)
     }
+    
+    var timeAndDate: String {
+        self.formatted(date: .numeric, time: .shortened)
+    }
 }
