@@ -45,7 +45,6 @@ struct ChatBubble: View {
                     Text(chatMessage.text)
                         
                     Text(chatMessage.sentTimestampAsDate.timeAndDate)
-                        .foregroundColor(.white)
                         .font(.caption2)
                 }
                 .foregroundColor(.white)

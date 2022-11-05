@@ -24,7 +24,7 @@ struct MyHostedShowsView: View {
                             } label: {
                                 HostedShowRow(index: index, viewModel: viewModel)
                             }
-                            .foregroundColor(.black)
+                            .foregroundColor(.primary)
                         }
                     }
                 }

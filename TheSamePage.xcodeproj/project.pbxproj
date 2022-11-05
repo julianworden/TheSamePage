@@ -33,6 +33,7 @@
 		AB2B867A28D9EE43004601B6 /* MyShowsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867928D9EE43004601B6 /* MyShowsViewModel.swift */; };
 		AB2B867C28D9F444004601B6 /* NoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867B28D9F444004601B6 /* NoImageView.swift */; };
 		AB2B867E28D9F884004601B6 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867D28D9F884004601B6 /* ImagePicker.swift */; };
+		AB31440C291713B300E2D08B /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = AB31440B291713B300E2D08B /* FirebaseMessaging */; };
 		AB35A8CC28E9CFCF009FB203 /* LoggedInUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8CB28E9CFCF009FB203 /* LoggedInUserProfileView.swift */; };
 		AB35A8D628E9DC73009FB203 /* BandProfileAdminView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8D528E9DC73009FB203 /* BandProfileAdminView.swift */; };
 		AB35A8DA28E9DC93009FB203 /* BandProfileOtherUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8D928E9DC93009FB203 /* BandProfileOtherUserView.swift */; };
@@ -324,6 +325,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB31440C291713B300E2D08B /* FirebaseMessaging in Frameworks */,
 				AB07AC2C290452B900E378C6 /* FirebaseAuth in Frameworks */,
 				AB07AC32290452B900E378C6 /* FirebaseStorage in Frameworks */,
 				AB07AC2E290452B900E378C6 /* FirebaseFirestore in Frameworks */,
@@ -955,6 +957,7 @@
 				AB07AC2F290452B900E378C6 /* FirebaseFirestoreSwift */,
 				AB07AC31290452B900E378C6 /* FirebaseStorage */,
 				AB07AC342904534F00E378C6 /* Typesense */,
+				AB31440B291713B300E2D08B /* FirebaseMessaging */,
 			);
 			productName = TheSamePage;
 			productReference = AB36FF6228D356FD00AAC00C /* TheSamePage.app */;
@@ -1421,6 +1424,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AB07AC332904534F00E378C6 /* XCRemoteSwiftPackageReference "typesense-swift" */;
 			productName = Typesense;
+		};
+		AB31440B291713B300E2D08B /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AB07AC2A290452B900E378C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

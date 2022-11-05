@@ -25,7 +25,7 @@ struct MyPlayingShowsView: View {
                                 // TODO: FIX INDEX
                                 PlayingShowRow(index: index, viewModel: viewModel)
                             }
-                            .foregroundColor(.black)
+                            .foregroundColor(.primary)
                         }
                     }
                 }

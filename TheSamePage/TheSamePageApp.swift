@@ -6,6 +6,7 @@
 //
 
 import FirebaseCore
+import FirebaseMessaging
 import SwiftUI
 
 @main
@@ -26,6 +27,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
         UITabBar.appearance().backgroundColor = .systemGroupedBackground
+        
         return true
     }
 }
