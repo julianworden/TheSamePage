@@ -187,6 +187,7 @@
 		AB2B867928D9EE43004601B6 /* MyShowsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowsViewModel.swift; sourceTree = "<group>"; };
 		AB2B867B28D9F444004601B6 /* NoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoImageView.swift; sourceTree = "<group>"; };
 		AB2B867D28D9F884004601B6 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		AB31440D29171C5A00E2D08B /* TheSamePage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TheSamePage.entitlements; sourceTree = "<group>"; };
 		AB35A8CB28E9CFCF009FB203 /* LoggedInUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserProfileView.swift; sourceTree = "<group>"; };
 		AB35A8D528E9DC73009FB203 /* BandProfileAdminView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileAdminView.swift; sourceTree = "<group>"; };
 		AB35A8D928E9DC93009FB203 /* BandProfileOtherUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileOtherUserView.swift; sourceTree = "<group>"; };
@@ -418,6 +419,7 @@
 		AB36FF6428D356FD00AAC00C /* TheSamePage */ = {
 			isa = PBXGroup;
 			children = (
+				AB31440D29171C5A00E2D08B /* TheSamePage.entitlements */,
 				ABEF10E828E64F8800A1DBAC /* Info.plist */,
 				AB36FF6528D356FD00AAC00C /* TheSamePageApp.swift */,
 				AB399AD528D4BCD8009B39F7 /* Notes.rtf */,
@@ -1290,6 +1292,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TheSamePage/TheSamePage.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TheSamePage/Preview Content\"";
@@ -1326,6 +1329,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TheSamePage/TheSamePage.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TheSamePage/Preview Content\"";

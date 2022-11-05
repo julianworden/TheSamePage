@@ -17,6 +17,7 @@ struct User: Codable, Equatable, Hashable, Identifiable {
     let profileImageUrl: String?
     let phoneNumber: String?
     let emailAddress: String
+    let fcmToken: String?
     
     var profileBelongsToLoggedInUser: Bool {
         return id == AuthController.getLoggedInUid()
@@ -29,7 +30,8 @@ struct User: Codable, Equatable, Hashable, Identifiable {
         lastName: String,
         profileImageUrl: String? = nil,
         phoneNumber: String? = nil,
-        emailAddress: String
+        emailAddress: String,
+        fcmToken: String? = nil
     ) {
         self.id = id
         self.username = username
@@ -38,6 +40,7 @@ struct User: Codable, Equatable, Hashable, Identifiable {
         self.profileImageUrl = profileImageUrl
         self.phoneNumber = phoneNumber
         self.emailAddress = emailAddress
+        self.fcmToken = fcmToken
     }
     
     static let example = User(

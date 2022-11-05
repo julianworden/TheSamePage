@@ -8,6 +8,7 @@
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseStorage
+import FirebaseMessaging
 import Foundation
 import UIKit.UIImage
 
@@ -37,6 +38,8 @@ class SignUpViewModel: ObservableObject {
         do {
             let result = try await Auth.auth().createUser(withEmail: emailAddress, password: password)
             let uid = result.user.uid
+            let fcmToken = Messaging.messaging().fcmToken
+            
             let newUser: User
             
             if let profileImage {
@@ -48,7 +51,8 @@ class SignUpViewModel: ObservableObject {
                     lastName: lastName,
                     profileImageUrl: imageUrl,
                     phoneNumber: phoneNumber,
-                    emailAddress: emailAddress
+                    emailAddress: emailAddress,
+                    fcmToken: fcmToken
                 )
             } else {
                 newUser = User(
@@ -57,7 +61,8 @@ class SignUpViewModel: ObservableObject {
                     firstName: firstName,
                     lastName: lastName,
                     phoneNumber: phoneNumber,
-                    emailAddress: emailAddress
+                    emailAddress: emailAddress,
+                    fcmToken: fcmToken
                 )
             }
             

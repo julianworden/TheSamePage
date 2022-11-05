@@ -12,7 +12,7 @@ import FirebaseStorage
 import Foundation
 import UIKit.UIImage
 
-class DatabaseService {
+class DatabaseService: NSObject {
     enum DatabaseServiceError: Error {
         case firebaseAuth(message: String)
         case firebaseStorage(message: String)
