@@ -71,6 +71,7 @@
 		AB3E11E828D656FF000F147B /* UserProfileBandCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3E11E728D656FF000F147B /* UserProfileBandCard.swift */; };
 		AB3E11EA28D65E94000F147B /* UserProfileBandCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3E11E928D65E94000F147B /* UserProfileBandCardViewModel.swift */; };
 		AB4750192900B55C0000DB13 /* AddPercussionBacklineF.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4750182900B55C0000DB13 /* AddPercussionBacklineF.swift */; };
+		AB4A461C29172832007F1C8B /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = AB4A461B29172832007F1C8B /* FirebaseFunctions */; };
 		AB5054A728DC91CF00321380 /* MemberSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054A628DC91CF00321380 /* MemberSearchView.swift */; };
 		AB5054A928DC91D700321380 /* MemberSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054A828DC91D700321380 /* MemberSearchViewModel.swift */; };
 		AB5054B328DCA04900321380 /* BandInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054B228DCA04900321380 /* BandInvite.swift */; };
@@ -327,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB31440C291713B300E2D08B /* FirebaseMessaging in Frameworks */,
+				AB4A461C29172832007F1C8B /* FirebaseFunctions in Frameworks */,
 				AB07AC2C290452B900E378C6 /* FirebaseAuth in Frameworks */,
 				AB07AC32290452B900E378C6 /* FirebaseStorage in Frameworks */,
 				AB07AC2E290452B900E378C6 /* FirebaseFirestore in Frameworks */,
@@ -960,6 +962,7 @@
 				AB07AC31290452B900E378C6 /* FirebaseStorage */,
 				AB07AC342904534F00E378C6 /* Typesense */,
 				AB31440B291713B300E2D08B /* FirebaseMessaging */,
+				AB4A461B29172832007F1C8B /* FirebaseFunctions */,
 			);
 			productName = TheSamePage;
 			productReference = AB36FF6228D356FD00AAC00C /* TheSamePage.app */;
@@ -1433,6 +1436,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AB07AC2A290452B900E378C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		AB4A461B29172832007F1C8B /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AB07AC2A290452B900E378C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
