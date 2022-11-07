@@ -15,12 +15,23 @@ struct Chat: Codable, Identifiable {
     let userId: String?
     let name: String?
     let participantUids: [String]
+    let participantFcmTokens: [String]
     
-    init(id: String, showId: String? = nil, userId: String? = nil, name: String? = nil, participantUids: [String]) {
+    init(id: String, showId: String? = nil, userId: String? = nil, name: String? = nil, participantUids: [String], participantFcmTokens: [String]) {
         self.id = id
         self.showId = showId
         self.userId = userId
         self.name = name
         self.participantUids = participantUids
+        self.participantFcmTokens = participantFcmTokens
+    }
+    
+    /// A convenience property for filtering the logged in user's UID out of the
+    /// participantUids array. This will make it easier to refer to the chat's
+    /// participants without also referring to the logged in user.
+    var participantUidsWithoutSenderUid: [String] {
+        var filteredParticipantUids = [String]()
+        filteredParticipantUids = participantUids.filter { $0 != AuthController.getLoggedInUid() }
+        return filteredParticipantUids
     }
 }

@@ -26,6 +26,11 @@ final class AuthController: ObservableObject {
         return "\(user.firstName) \(user.lastName)"
     }
     
+    static func getLoggedInFcmToken() async throws -> String {
+        let user = try await DatabaseService.shared.getLoggedInUser()
+        return user.fcmToken ?? "Unknown FCM Token"
+    }
+    
     static func logOut() throws {
         try Auth.auth().signOut()
     }

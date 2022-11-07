@@ -14,8 +14,9 @@ struct ChatMessage: Codable, Identifiable {
     let senderUid: String
     let senderFullName: String
     let sentTimestamp: Double
+    let recipientFcmTokens: [String]
     
-    static let example = ChatMessage(text: "Hello, how is everyone?", senderUid: "a;weifawhj;lefahjwef", senderFullName: "Julian Worden", sentTimestamp: 3636363636)
+    static let example = ChatMessage(text: "Hello, how is everyone?", senderUid: "a;weifawhj;lefahjwef", senderFullName: "Julian Worden", sentTimestamp: 3636363636, recipientFcmTokens: ["a;slkdfja;sldf", "al;wifhwurte"])
     
     var senderIsLoggedInUser: Bool {
         return senderUid == AuthController.getLoggedInUid()

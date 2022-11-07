@@ -55,11 +55,12 @@ class ConversationViewModel: ObservableObject {
                     self.chat = fetchedChat
                     messages = try await DatabaseService.shared.getMessagesForChat(chat: fetchedChat)
                 } else {
-                    var chatParticipants = show.participantUids
+                    var chatParticipantUids = show.participantUids
                     if !show.participantUids.contains(show.hostUid) {
-                        chatParticipants.append(show.hostUid)
+                        chatParticipantUids.append(show.hostUid)
                     }
-                    var newChat = Chat(id: "", showId: show.id, name: show.name, participantUids: chatParticipants)
+                    let chatParticipantFcmTokens = try await DatabaseService.shared.getChatFcmTokens(withUids: chatParticipantUids)
+                    var newChat = Chat(id: "", showId: show.id, name: show.name, participantUids: chatParticipantUids, participantFcmTokens: chatParticipantFcmTokens)
                     let newChatId = try await DatabaseService.shared.createChat(chat: newChat)
                     newChat.id = newChatId
                     self.chat = newChat
@@ -74,10 +75,20 @@ class ConversationViewModel: ObservableObject {
         guard let chat, !messageText.isEmpty else { return }
         
         do {
+            // TODO: GET THE USER OBJECT
             let senderUid = AuthController.getLoggedInUid()
             let senderFullName = try await AuthController.getLoggedInFullName()
+            let senderFcmToken = try await AuthController.getLoggedInFcmToken()
             
-            let newChatMessage = ChatMessage(text: messageText, senderUid: senderUid, senderFullName: senderFullName, sentTimestamp: Date().timeIntervalSince1970)
+            let filteredFcmTokens = chat.participantFcmTokens.filter { $0 != senderFcmToken }
+            
+            let newChatMessage = ChatMessage(
+                text: messageText,
+                senderUid: senderUid,
+                senderFullName: senderFullName,
+                sentTimestamp: Date().timeIntervalSince1970,
+                recipientFcmTokens: filteredFcmTokens
+            )
             try DatabaseService.shared.sendChatMessage(chatMessage: newChatMessage, chat: chat)
         } catch {
             // TODO: Change state

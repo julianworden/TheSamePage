@@ -594,4 +594,21 @@ class DatabaseService: NSObject {
             throw DatabaseServiceError.firestore(message: "Failed to send mesage in DatabaseService.sendChatMessage(chatMessage:chat:)")
         }
     }
+    
+    func getChatFcmTokens(withUids uids: [String]) async throws -> [String] {
+        do {
+            var fetchedFcmTokens = [String]()
+            
+            for uid in uids {
+                let fetchedUser = try await db.collection("users").document(uid).getDocument(as: User.self)
+                if let fcmToken = fetchedUser.fcmToken {
+                    fetchedFcmTokens.append(fcmToken)
+                }
+            }
+            
+            return fetchedFcmTokens
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to fetch FCM Tokens from Firestore in DatabaseService.getFcmTokens(withUids:)")
+        }
+    }
 }
