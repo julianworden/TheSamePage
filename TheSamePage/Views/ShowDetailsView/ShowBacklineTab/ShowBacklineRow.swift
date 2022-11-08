@@ -13,26 +13,11 @@ struct ShowBacklineRow: View {
     let iconName: String
     
     var body: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 10) {
-                Image(iconName)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 30, height: 30)
-                
-                VStack(alignment: .leading) {
-                    Text(title)
-                    
-                    if let subtitle {
-                        Text(subtitle)
-                            .font(.caption)
-                    }
-                }
-                .multilineTextAlignment(.leading)
-                
-                Spacer()
-            }
-        }
+        ListRowElements(
+            title: title,
+            subtitle: subtitle,
+            iconName: iconName
+        )
     }
 }
 

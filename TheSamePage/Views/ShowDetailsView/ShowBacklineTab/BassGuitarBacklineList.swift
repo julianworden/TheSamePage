@@ -11,7 +11,7 @@ struct BassGuitarBacklineList: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
     
     var body: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(viewModel.bassGuitarBacklineItems) { bassGuitarBacklineItem in
                 ShowBacklineRow(title: bassGuitarBacklineItem.name, subtitle: bassGuitarBacklineItem.notes, iconName: "bass guitar")
             }

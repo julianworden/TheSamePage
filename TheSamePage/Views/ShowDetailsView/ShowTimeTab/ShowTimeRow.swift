@@ -15,14 +15,12 @@ struct ShowTimeRow: View {
     let showTimeType: ShowTimeType
     
     var body: some View {
-        VStack {
+        ZStack {
             HStack {
-                Image(showTimeType.rowIconName)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 30, height: 30)
-                
-                Text(viewModel.getShowTimeRowText(forShowTimeType: showTimeType))
+                ListRowElements(
+                    title: viewModel.getShowTimeRowText(forShowTimeType: showTimeType),
+                    iconName: showTimeType.rowIconName
+                )
                 
                 Spacer()
                 
@@ -35,8 +33,6 @@ struct ShowTimeRow: View {
                     .padding(.trailing)
                 }
             }
-            
-            Divider()
         }
     }
 }

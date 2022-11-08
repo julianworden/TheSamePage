@@ -11,7 +11,7 @@ struct ShowLineupList: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
     
     var body: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(Array(viewModel.showParticipants.enumerated()), id: \.element) { index, showParticipant in
                 NavigationLink {
                     BandProfileRootView(band: nil, showParticipant: showParticipant)

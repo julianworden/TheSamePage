@@ -12,22 +12,22 @@ struct BandSearchResultsList: View {
     @ObservedObject var viewModel: SearchViewModel
     
     var body: some View {
-        List {
-            Section("Search Results...") {
+        ScrollView {
+            VStack(spacing: UiConstants.listRowSpacing) {
                 ForEach(viewModel.fetchedBands, id: \.document) { result in
                     let band = result.document!
                     
                     NavigationLink {
                         BandProfileRootView(band: band, showParticipant: nil)
                     } label: {
-                        SearchResultRow(band: band, user: nil, show: nil)
+                        SearchResultRow(band: band)
                     }
+                    .tint(.primary)
                 }
+                .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
+                .autocorrectionDisabled(true)
             }
         }
-        .listStyle(.grouped)
-        .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
-        .autocorrectionDisabled(true)
         .onChange(of: viewModel.queryText) { query in
             if !query.isEmpty {
                 Task {

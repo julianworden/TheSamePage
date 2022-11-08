@@ -12,22 +12,22 @@ struct ShowSearchResultsList: View {
     @ObservedObject var viewModel: SearchViewModel
     
     var body: some View {
-        List {
-            Section("Search Results...") {
+        ScrollView {
+            VStack(spacing: UiConstants.listRowSpacing) {
                 ForEach(viewModel.fetchedShows, id: \.document) { result in
                     let show = result.document!
                     
                     NavigationLink {
                         ShowDetailsView(show: show)
                     } label: {
-                        SearchResultRow(band: nil, user: nil, show: show)
+                        SearchResultRow(show: show)
                     }
+                    .tint(.primary)
                 }
+                .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
+                .autocorrectionDisabled(true)
             }
         }
-        .listStyle(.grouped)
-        .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
-        .autocorrectionDisabled(true)
         .onChange(of: viewModel.queryText) { query in
             Task {
                 do {

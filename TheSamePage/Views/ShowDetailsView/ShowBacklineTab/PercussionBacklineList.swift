@@ -11,7 +11,7 @@ struct PercussionBacklineList: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
     
     var body: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(viewModel.drumKitBacklineItems) { drumKitBacklineItem in
                 ShowBacklineRow(title: "Drum Kit", subtitle: "\(drumKitBacklineItem.details). \(drumKitBacklineItem.notes ?? "")", iconName: "drums")
             }

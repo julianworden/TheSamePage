@@ -14,7 +14,7 @@ struct ShowTimeList: View {
     var body: some View {
         let show = viewModel.show
         
-        VStack(spacing: 12) {
+        VStack(spacing: UiConstants.listRowSpacing) {
             if show.loadInTime != nil {
                 ShowTimeRow(viewModel: viewModel, showTimeType: .loadIn)
             }

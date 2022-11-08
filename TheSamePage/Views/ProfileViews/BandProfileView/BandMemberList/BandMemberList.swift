@@ -16,26 +16,28 @@ struct BandMemberList: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            ForEach(viewModel.bandMembers) { bandMember in
+            ForEach(Array(viewModel.bandMembers.enumerated()), id: \.element) { index, bandMember in
                 if !bandMember.bandMemberIsLoggedInUser {
                     NavigationLink {
                         OtherUserProfileView(user: nil, bandMember: bandMember)
                     } label: {
-                        SmallListRow(
+                        BandMemberListRow(
                             title: bandMember.fullName,
                             subtitle: bandMember.role,
                             iconName: bandMember.listRowIconName,
-                            displayChevron: true
+                            displayChevron: true,
+                            index: index
                         )
                         .padding(.horizontal)
                     }
                     .tint(.black)
                 } else {
-                    SmallListRow(
+                    BandMemberListRow(
                         title: "You",
                         subtitle: bandMember.role,
                         iconName: bandMember.listRowIconName,
-                        displayChevron: false
+                        displayChevron: false,
+                        index: index
                     )
                     .padding(.horizontal)
                 }

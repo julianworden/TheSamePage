@@ -23,7 +23,6 @@ struct SearchView: View {
                         }
                     }
                     .pickerStyle(.segmented)
-                    .padding(.horizontal)
                     
                     if viewModel.searchType == .user {
                         UserSearchResultsList(viewModel: viewModel)
@@ -36,7 +35,10 @@ struct SearchView: View {
                     if viewModel.searchType == .show {
                         ShowSearchResultsList(viewModel: viewModel)
                     }
+                    
+                    Spacer()
                 }
+                .padding(.horizontal)
                 .navigationTitle("Search")
             }
         }

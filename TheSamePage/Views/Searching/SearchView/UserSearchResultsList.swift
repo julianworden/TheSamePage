@@ -12,26 +12,26 @@ struct UserSearchResultsList: View {
     @ObservedObject var viewModel: SearchViewModel
     
     var body: some View {
-        List {
-            Section("Search Results...") {
+        ScrollView {
+            VStack(spacing: UiConstants.listRowSpacing) {
                 ForEach(viewModel.fetchedUsers, id: \.document) { result in
                     let user = result.document!
                     
                     if user.profileBelongsToLoggedInUser {
-                        SearchResultRow(band: nil, user: user, show: nil)
+                        SearchResultRow(user: user)
                     } else {
                         NavigationLink {
                             OtherUserProfileView(user: user, bandMember: nil)
                         } label: {
-                            SearchResultRow(band: nil, user: user, show: nil)
+                            SearchResultRow(user: user)
                         }
+                        .tint(.primary)
                     }
                 }
+                .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
+                .autocorrectionDisabled(true)
             }
         }
-        .listStyle(.grouped)
-        .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
-        .autocorrectionDisabled(true)
         .onChange(of: viewModel.queryText) { query in
             Task {
                 do {

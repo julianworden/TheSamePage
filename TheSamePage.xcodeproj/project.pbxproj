@@ -152,13 +152,16 @@
 		ABEF10E728E64CE100A1DBAC /* AddEditLinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEF10E628E64CE100A1DBAC /* AddEditLinkViewModel.swift */; };
 		ABEF10EA28E6506000A1DBAC /* LinkPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEF10E928E6506000A1DBAC /* LinkPlatform.swift */; };
 		ABF1C40228ECD0F60004A3C1 /* SearchResultRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF1C40128ECD0F60004A3C1 /* SearchResultRow.swift */; };
-		ABF1C40428ECD0FD0004A3C1 /* SearchResultRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF1C40328ECD0FD0004A3C1 /* SearchResultRowViewModel.swift */; };
 		ABF1C40628ECE83F0004A3C1 /* TypesenseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF1C40528ECE83F0004A3C1 /* TypesenseController.swift */; };
 		ABF1C40828ECF0950004A3C1 /* UserSearchResultsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF1C40728ECF0950004A3C1 /* UserSearchResultsList.swift */; };
 		ABF1C40A28ECF09F0004A3C1 /* BandSearchResultsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF1C40928ECF09F0004A3C1 /* BandSearchResultsList.swift */; };
 		ABF1C40C28ECF0A50004A3C1 /* ShowSearchResultsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF1C40B28ECF0A50004A3C1 /* ShowSearchResultsList.swift */; };
 		ABF5563528DF93DD0059E2DF /* BandProfileRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF5563428DF93DD0059E2DF /* BandProfileRootView.swift */; };
 		ABF5563728DF93E40059E2DF /* BandProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF5563628DF93E40059E2DF /* BandProfileViewModel.swift */; };
+		ABF83DCA291A957E006A06CC /* BandMemberListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF83DC9291A957E006A06CC /* BandMemberListRow.swift */; };
+		ABF83DCC291A965B006A06CC /* ListRowIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF83DCB291A965B006A06CC /* ListRowIcon.swift */; };
+		ABF83DD0291A98CB006A06CC /* ListRowElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF83DCF291A98CB006A06CC /* ListRowElements.swift */; };
+		ABF83DD2291A9F03006A06CC /* UiConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF83DD1291A9F03006A06CC /* UiConstants.swift */; };
 		ABF8B81928FC43C400608657 /* CustomMapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF8B81828FC43C400608657 /* CustomMapAnnotation.swift */; };
 		ABF8B81B28FC786900608657 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF8B81A28FC786900608657 /* ErrorMessage.swift */; };
 		ABFB2D482909E33B009A6F65 /* ShowLineupRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFB2D472909E33B009A6F65 /* ShowLineupRow.swift */; };
@@ -309,13 +312,16 @@
 		ABEF10E828E64F8800A1DBAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		ABEF10E928E6506000A1DBAC /* LinkPlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPlatform.swift; sourceTree = "<group>"; };
 		ABF1C40128ECD0F60004A3C1 /* SearchResultRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultRow.swift; sourceTree = "<group>"; };
-		ABF1C40328ECD0FD0004A3C1 /* SearchResultRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultRowViewModel.swift; sourceTree = "<group>"; };
 		ABF1C40528ECE83F0004A3C1 /* TypesenseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypesenseController.swift; sourceTree = "<group>"; };
 		ABF1C40728ECF0950004A3C1 /* UserSearchResultsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchResultsList.swift; sourceTree = "<group>"; };
 		ABF1C40928ECF09F0004A3C1 /* BandSearchResultsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSearchResultsList.swift; sourceTree = "<group>"; };
 		ABF1C40B28ECF0A50004A3C1 /* ShowSearchResultsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSearchResultsList.swift; sourceTree = "<group>"; };
 		ABF5563428DF93DD0059E2DF /* BandProfileRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileRootView.swift; sourceTree = "<group>"; };
 		ABF5563628DF93E40059E2DF /* BandProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileViewModel.swift; sourceTree = "<group>"; };
+		ABF83DC9291A957E006A06CC /* BandMemberListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMemberListRow.swift; sourceTree = "<group>"; };
+		ABF83DCB291A965B006A06CC /* ListRowIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowIcon.swift; sourceTree = "<group>"; };
+		ABF83DCF291A98CB006A06CC /* ListRowElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowElements.swift; sourceTree = "<group>"; };
+		ABF83DD1291A9F03006A06CC /* UiConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiConstants.swift; sourceTree = "<group>"; };
 		ABF8B81828FC43C400608657 /* CustomMapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMapAnnotation.swift; sourceTree = "<group>"; };
 		ABF8B81A28FC786900608657 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 		ABFB2D472909E33B009A6F65 /* ShowLineupRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLineupRow.swift; sourceTree = "<group>"; };
@@ -608,6 +614,8 @@
 				ABB93F3728F0732D0055659B /* AsyncButtonLabel.swift */,
 				ABF8B81A28FC786900608657 /* ErrorMessage.swift */,
 				AB8326B329129CE200208414 /* NoDataFoundMessage.swift */,
+				ABF83DCB291A965B006A06CC /* ListRowIcon.swift */,
+				ABF83DCF291A98CB006A06CC /* ListRowElements.swift */,
 				ABEC487A28F1DC7E005C9A99 /* SmallListRow */,
 			);
 			path = Miscellaneous;
@@ -628,6 +636,7 @@
 			isa = PBXGroup;
 			children = (
 				AB399AD828D4C1CE009B39F7 /* TextUtility.swift */,
+				ABF83DD1291A9F03006A06CC /* UiConstants.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -663,7 +672,6 @@
 			isa = PBXGroup;
 			children = (
 				AB794E2B28E25902000ABB37 /* SearchView */,
-				ABF1C40028ECD0E70004A3C1 /* SearchResultRow */,
 				AB3C73D328DC0A0C0038085A /* BandSearchView */,
 				AB5054A528DC91B400321380 /* MemberSearchView */,
 			);
@@ -735,6 +743,7 @@
 				ABF1C40728ECF0950004A3C1 /* UserSearchResultsList.swift */,
 				ABF1C40928ECF09F0004A3C1 /* BandSearchResultsList.swift */,
 				ABF1C40B28ECF0A50004A3C1 /* ShowSearchResultsList.swift */,
+				ABF1C40128ECD0F60004A3C1 /* SearchResultRow.swift */,
 				AB794E2E28E25A81000ABB37 /* SearchViewModel.swift */,
 			);
 			path = SearchView;
@@ -805,6 +814,7 @@
 			isa = PBXGroup;
 			children = (
 				ABD029B328E8978F00BDF73C /* BandMemberList.swift */,
+				ABF83DC9291A957E006A06CC /* BandMemberListRow.swift */,
 				ABD029B528E897A400BDF73C /* BandMemberListViewModel.swift */,
 			);
 			path = BandMemberList;
@@ -903,15 +913,6 @@
 				ABEF10E628E64CE100A1DBAC /* AddEditLinkViewModel.swift */,
 			);
 			path = AddEditLinkView;
-			sourceTree = "<group>";
-		};
-		ABF1C40028ECD0E70004A3C1 /* SearchResultRow */ = {
-			isa = PBXGroup;
-			children = (
-				ABF1C40128ECD0F60004A3C1 /* SearchResultRow.swift */,
-				ABF1C40328ECD0FD0004A3C1 /* SearchResultRowViewModel.swift */,
-			);
-			path = SearchResultRow;
 			sourceTree = "<group>";
 		};
 		ABF5563328DF93CF0059E2DF /* BandProfileView */ = {
@@ -1050,11 +1051,13 @@
 				AB36FF7428D358FB00AAC00C /* HomeView.swift in Sources */,
 				ABBADD7928DFE5FA00720C64 /* BandState.swift in Sources */,
 				AB37EBB8290971390029588C /* ShowDetailsStaticRow.swift in Sources */,
+				ABF83DCC291A965B006A06CC /* ListRowIcon.swift in Sources */,
 				ABD1D17128F30D3200791969 /* ShowType.swift in Sources */,
 				AB2B867A28D9EE43004601B6 /* MyShowsViewModel.swift in Sources */,
 				AB38E1B128FB21CB006D1788 /* AddEditShowAddressView.swift in Sources */,
 				ABF1C40A28ECF09F0004A3C1 /* BandSearchResultsList.swift in Sources */,
 				AB7F381128EF1AB4007741C7 /* BandInvitesList.swift in Sources */,
+				ABF83DD2291A9F03006A06CC /* UiConstants.swift in Sources */,
 				AB399ADB28D4C548009B39F7 /* LoggedInUserController.swift in Sources */,
 				ABCAAA0228E9ED6C00685F91 /* BandLinkList.swift in Sources */,
 				AB36FF7628D3598900AAC00C /* MyShowsRootView.swift in Sources */,
@@ -1158,6 +1161,7 @@
 				ABCF232829131E4E003DB6BB /* ConversationView.swift in Sources */,
 				AB37EBB2290966C90029588C /* HomeShowRow.swift in Sources */,
 				ABD1D16F28F30CE500791969 /* MyPlayingShowsView.swift in Sources */,
+				ABF83DCA291A957E006A06CC /* BandMemberListRow.swift in Sources */,
 				AB36FF8328D35C0600AAC00C /* Show.swift in Sources */,
 				ABA1020B28DDF3E200A4E818 /* NotificationRowViewModel.swift in Sources */,
 				AB36FF8F28D35E8C00AAC00C /* Genre.swift in Sources */,
@@ -1168,6 +1172,7 @@
 				AB8326BA2912BB3500208414 /* ChatMessage.swift in Sources */,
 				AB5054B328DCA04900321380 /* BandInvite.swift in Sources */,
 				AB3C73D728DC0A240038085A /* BandSearchViewModel.swift in Sources */,
+				ABF83DD0291A98CB006A06CC /* ListRowElements.swift in Sources */,
 				AB38E1B328FB2422006D1788 /* CLPlacemark+formattedAddress.swift in Sources */,
 				AB285B0828F7086D00EB5F2B /* AddShowTimeViewModel.swift in Sources */,
 				AB5E48F829003ACF0076EABE /* GuitarGear.swift in Sources */,
@@ -1184,7 +1189,6 @@
 				AB35A8D628E9DC73009FB203 /* BandProfileAdminView.swift in Sources */,
 				AB285AFC28F6F7EE00EB5F2B /* ShowTimeList.swift in Sources */,
 				ABDC0D7928D76FC60054269E /* AddEditShowViewModel.swift in Sources */,
-				ABF1C40428ECD0FD0004A3C1 /* SearchResultRowViewModel.swift in Sources */,
 				AB36FF8928D35C2800AAC00C /* PlatformLink.swift in Sources */,
 				ABFBA7252915546A006B1751 /* ChatBubbleViewModel.swift in Sources */,
 				ABEF10EA28E6506000A1DBAC /* LinkPlatform.swift in Sources */,

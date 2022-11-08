@@ -15,22 +15,10 @@ struct ShowLineupRow: View {
     var body: some View {
         let showParticipant = viewModel.showParticipants[index]
         
-        VStack {
-            HStack {
-                Image("band")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 30, height: 30)
-                
-                Text(showParticipant.name)
-                
-                Spacer()
-                
-                Image(systemName: "chevron.right")
-            }
-            
-            Divider()
-        }
+        ListRowElements(
+            title: showParticipant.name,
+            iconName: "band"
+        )
     }
 }
 

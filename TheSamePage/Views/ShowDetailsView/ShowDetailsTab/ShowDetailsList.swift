@@ -13,78 +13,57 @@ struct ShowDetailsList: View {
     var body: some View {
         // The first 3 rows are laid out like this because they do not iterate through an array, so they
         // harder to put into a reusable view
-        VStack(spacing: 12) {
+        VStack(spacing: UiConstants.listRowSpacing) {
             let show = viewModel.show
             
             if let showDescription = show.description {
-                HStack(alignment: .top, spacing: 10) {
-                    Image("notepad")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 30, height: 30)
-                    
-                    
-                    Text(showDescription)
-                        .padding(.bottom, 5)
-                    
-                    Spacer()
-                }
+                ListRowElements(
+                    title: showDescription,
+                    iconName: "notepad"
+                )
             }
             
-            HStack(spacing: 10) {
-                Image("user")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 30, height: 30)
-                
-                Text("Hosted by \(show.host)")
-                
-                Spacer()
-            }
+            ListRowElements(
+                title: "Hosted by \(show.host)",
+                iconName: "user"
+            )
             
             if let showFormattedTicketPrice = show.formattedTicketPrice {
-                HStack(spacing: 10) {
-                    Image("money")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 30, height: 30)
-                    
-                    Text("Tickets are \(showFormattedTicketPrice) each")
-                    
-                    Spacer()
-                }
+                ListRowElements(
+                    title: "Tickets are \(showFormattedTicketPrice) each",
+                    iconName: "money"
+                )
             }
             
             if let showMinimumRequiredTicketsSold = show.minimumRequiredTicketsSold,
                show.ticketSalesAreRequired {
-                HStack(spacing: 10) {
-                    Image("ticket")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 30, height: 30)
-                    
-                    VStack(alignment: .leading) {
-                        Text("Ticket sales are required")
-                        
-                        Text("You must sell at least \(showMinimumRequiredTicketsSold) tickets")
-                            .font(.caption)
-                    }
-                    .multilineTextAlignment(.leading)
-                    
-                    Spacer()
-                }
+                ListRowElements(
+                    title: "Ticket sales are required",
+                    subtitle: "You must sell at least \(showMinimumRequiredTicketsSold) tickets",
+                    iconName: "ticket"
+                )
             }
             
             if show.hasBar {
-                ShowDetailsStaticRow(title: "Drinks will be served", subtitle: nil, iconName: "alcohol")
+                ListRowElements(
+                    title: "Drinks will be served",
+                    iconName: "alcohol"
+                )
             }
             
             if show.hasFood {
-                ShowDetailsStaticRow(title: "Food will be served", subtitle: nil, iconName: "forkAndKnife")
+                ListRowElements(
+                    title: "Food will be served",
+                    iconName: "forkAndKnife"
+                )
             }
             
             if show.is21Plus {
-                ShowDetailsStaticRow(title: "21+ only", subtitle: "Don't forget your ID!", iconName: "id")
+                ListRowElements(
+                    title: "21+ only",
+                    subtitle: "Don't forget your ID!",
+                    iconName: "id"
+                )
             }
         }
         .padding(.horizontal)
