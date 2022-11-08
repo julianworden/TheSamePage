@@ -29,7 +29,7 @@ class BandProfileViewModel: ObservableObject {
     let db = Firestore.firestore()
     var bandListener: ListenerRegistration?
     
-    init(band: Band?, showParticipant: ShowParticipant?) {
+    init(band: Band? = nil, showParticipant: ShowParticipant? = nil) {
         Task {
             if let band {
                 self.band = band

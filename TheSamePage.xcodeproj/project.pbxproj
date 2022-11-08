@@ -37,8 +37,7 @@
 		AB2BF26F2919C3D500C65DD8 /* ChatInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2BF26E2919C3D500C65DD8 /* ChatInfoViewModel.swift */; };
 		AB31440C291713B300E2D08B /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = AB31440B291713B300E2D08B /* FirebaseMessaging */; };
 		AB35A8CC28E9CFCF009FB203 /* LoggedInUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8CB28E9CFCF009FB203 /* LoggedInUserProfileView.swift */; };
-		AB35A8D628E9DC73009FB203 /* BandProfileAdminView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8D528E9DC73009FB203 /* BandProfileAdminView.swift */; };
-		AB35A8DA28E9DC93009FB203 /* BandProfileOtherUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8D928E9DC93009FB203 /* BandProfileOtherUserView.swift */; };
+		AB35A8D628E9DC73009FB203 /* BandProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8D528E9DC73009FB203 /* BandProfileView.swift */; };
 		AB35A8DD28E9DE1B009FB203 /* UserBandListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8DC28E9DE1B009FB203 /* UserBandListViewModel.swift */; };
 		AB35A8DF28E9DE29009FB203 /* UserBandList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8DE28E9DE29009FB203 /* UserBandList.swift */; };
 		AB36FF6628D356FD00AAC00C /* TheSamePageApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF6528D356FD00AAC00C /* TheSamePageApp.swift */; };
@@ -80,7 +79,6 @@
 		AB55E7722901F651009F039B /* DrumKitBacklineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB55E7712901F651009F039B /* DrumKitBacklineItem.swift */; };
 		AB582B7E28FA3B3D00D357F3 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB582B7D28FA3B3D00D357F3 /* LocationController.swift */; };
 		AB5B77C528E72B8E00B32537 /* BandLinkCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5B77C428E72B8E00B32537 /* BandLinkCard.swift */; };
-		AB5B77C728E72B9600B32537 /* BandLinkCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5B77C628E72B9600B32537 /* BandLinkCardViewModel.swift */; };
 		AB5D08AB2913F5C20073F8EE /* ConversationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5D08AA2913F5C20073F8EE /* ConversationViewModel.swift */; };
 		AB5E48F5290029B20076EABE /* HomeViewShowsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E48F4290029B20076EABE /* HomeViewShowsList.swift */; };
 		AB5E48F829003ACF0076EABE /* GuitarGear.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E48F729003ACF0076EABE /* GuitarGear.swift */; };
@@ -120,10 +118,8 @@
 		ABBE94C428D8AE7500790A04 /* ShowDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */; };
 		ABCAA9FF28E9E56C00685F91 /* BandProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAA9FE28E9E56C00685F91 /* BandProfileHeader.swift */; };
 		ABCAAA0228E9ED6C00685F91 /* BandLinkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAAA0128E9ED6C00685F91 /* BandLinkList.swift */; };
-		ABCAAA0428E9ED7500685F91 /* BandLinkListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAAA0328E9ED7500685F91 /* BandLinkListViewModel.swift */; };
 		ABCF232829131E4E003DB6BB /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCF232729131E4E003DB6BB /* ConversationView.swift */; };
 		ABD029B428E8978F00BDF73C /* BandMemberList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD029B328E8978F00BDF73C /* BandMemberList.swift */; };
-		ABD029B628E897A400BDF73C /* BandMemberListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD029B528E897A400BDF73C /* BandMemberListViewModel.swift */; };
 		ABD18AAA28EE13B9002286C3 /* JoinedShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD18AA928EE13B9002286C3 /* JoinedShow.swift */; };
 		ABD18AAD28EE14C1002286C3 /* SendShowInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD18AAC28EE14C1002286C3 /* SendShowInviteView.swift */; };
 		ABD18AAF28EE14C9002286C3 /* SendShowInviteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD18AAE28EE14C9002286C3 /* SendShowInviteViewModel.swift */; };
@@ -156,7 +152,6 @@
 		ABF1C40828ECF0950004A3C1 /* UserSearchResultsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF1C40728ECF0950004A3C1 /* UserSearchResultsList.swift */; };
 		ABF1C40A28ECF09F0004A3C1 /* BandSearchResultsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF1C40928ECF09F0004A3C1 /* BandSearchResultsList.swift */; };
 		ABF1C40C28ECF0A50004A3C1 /* ShowSearchResultsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF1C40B28ECF0A50004A3C1 /* ShowSearchResultsList.swift */; };
-		ABF5563528DF93DD0059E2DF /* BandProfileRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF5563428DF93DD0059E2DF /* BandProfileRootView.swift */; };
 		ABF5563728DF93E40059E2DF /* BandProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF5563628DF93E40059E2DF /* BandProfileViewModel.swift */; };
 		ABF83DCA291A957E006A06CC /* BandMemberListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF83DC9291A957E006A06CC /* BandMemberListRow.swift */; };
 		ABF83DCC291A965B006A06CC /* ListRowIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF83DCB291A965B006A06CC /* ListRowIcon.swift */; };
@@ -196,8 +191,7 @@
 		AB2BF26E2919C3D500C65DD8 /* ChatInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoViewModel.swift; sourceTree = "<group>"; };
 		AB31440D29171C5A00E2D08B /* TheSamePage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TheSamePage.entitlements; sourceTree = "<group>"; };
 		AB35A8CB28E9CFCF009FB203 /* LoggedInUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserProfileView.swift; sourceTree = "<group>"; };
-		AB35A8D528E9DC73009FB203 /* BandProfileAdminView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileAdminView.swift; sourceTree = "<group>"; };
-		AB35A8D928E9DC93009FB203 /* BandProfileOtherUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileOtherUserView.swift; sourceTree = "<group>"; };
+		AB35A8D528E9DC73009FB203 /* BandProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileView.swift; sourceTree = "<group>"; };
 		AB35A8DC28E9DE1B009FB203 /* UserBandListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBandListViewModel.swift; sourceTree = "<group>"; };
 		AB35A8DE28E9DE29009FB203 /* UserBandList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBandList.swift; sourceTree = "<group>"; };
 		AB36FF6228D356FD00AAC00C /* TheSamePage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheSamePage.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -239,7 +233,6 @@
 		AB55E7712901F651009F039B /* DrumKitBacklineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrumKitBacklineItem.swift; sourceTree = "<group>"; };
 		AB582B7D28FA3B3D00D357F3 /* LocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
 		AB5B77C428E72B8E00B32537 /* BandLinkCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLinkCard.swift; sourceTree = "<group>"; };
-		AB5B77C628E72B9600B32537 /* BandLinkCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLinkCardViewModel.swift; sourceTree = "<group>"; };
 		AB5D08AA2913F5C20073F8EE /* ConversationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewModel.swift; sourceTree = "<group>"; };
 		AB5E48F4290029B20076EABE /* HomeViewShowsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewShowsList.swift; sourceTree = "<group>"; };
 		AB5E48F729003ACF0076EABE /* GuitarGear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarGear.swift; sourceTree = "<group>"; };
@@ -279,10 +272,8 @@
 		ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsViewModel.swift; sourceTree = "<group>"; };
 		ABCAA9FE28E9E56C00685F91 /* BandProfileHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BandProfileHeader.swift; sourceTree = "<group>"; };
 		ABCAAA0128E9ED6C00685F91 /* BandLinkList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLinkList.swift; sourceTree = "<group>"; };
-		ABCAAA0328E9ED7500685F91 /* BandLinkListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLinkListViewModel.swift; sourceTree = "<group>"; };
 		ABCF232729131E4E003DB6BB /* ConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationView.swift; sourceTree = "<group>"; };
 		ABD029B328E8978F00BDF73C /* BandMemberList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMemberList.swift; sourceTree = "<group>"; };
-		ABD029B528E897A400BDF73C /* BandMemberListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMemberListViewModel.swift; sourceTree = "<group>"; };
 		ABD18AA928EE13B9002286C3 /* JoinedShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinedShow.swift; sourceTree = "<group>"; };
 		ABD18AAC28EE14C1002286C3 /* SendShowInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendShowInviteView.swift; sourceTree = "<group>"; };
 		ABD18AAE28EE14C9002286C3 /* SendShowInviteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendShowInviteViewModel.swift; sourceTree = "<group>"; };
@@ -316,7 +307,6 @@
 		ABF1C40728ECF0950004A3C1 /* UserSearchResultsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchResultsList.swift; sourceTree = "<group>"; };
 		ABF1C40928ECF09F0004A3C1 /* BandSearchResultsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSearchResultsList.swift; sourceTree = "<group>"; };
 		ABF1C40B28ECF0A50004A3C1 /* ShowSearchResultsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSearchResultsList.swift; sourceTree = "<group>"; };
-		ABF5563428DF93DD0059E2DF /* BandProfileRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileRootView.swift; sourceTree = "<group>"; };
 		ABF5563628DF93E40059E2DF /* BandProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileViewModel.swift; sourceTree = "<group>"; };
 		ABF83DC9291A957E006A06CC /* BandMemberListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMemberListRow.swift; sourceTree = "<group>"; };
 		ABF83DCB291A965B006A06CC /* ListRowIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowIcon.swift; sourceTree = "<group>"; };
@@ -678,15 +668,6 @@
 			path = Searching;
 			sourceTree = "<group>";
 		};
-		AB5B77C328E72B7100B32537 /* BandLinkCard */ = {
-			isa = PBXGroup;
-			children = (
-				AB5B77C428E72B8E00B32537 /* BandLinkCard.swift */,
-				AB5B77C628E72B9600B32537 /* BandLinkCardViewModel.swift */,
-			);
-			path = BandLinkCard;
-			sourceTree = "<group>";
-		};
 		AB5E48F629003ABD0076EABE /* Backline */ = {
 			isa = PBXGroup;
 			children = (
@@ -782,15 +763,6 @@
 			path = ShowDetailsView;
 			sourceTree = "<group>";
 		};
-		ABCAAA0028E9ED4900685F91 /* BandLinkList */ = {
-			isa = PBXGroup;
-			children = (
-				ABCAAA0128E9ED6C00685F91 /* BandLinkList.swift */,
-				ABCAAA0328E9ED7500685F91 /* BandLinkListViewModel.swift */,
-			);
-			path = BandLinkList;
-			sourceTree = "<group>";
-		};
 		ABCAAA0828E9F66000685F91 /* MyShowsShowCard */ = {
 			isa = PBXGroup;
 			children = (
@@ -815,7 +787,6 @@
 			children = (
 				ABD029B328E8978F00BDF73C /* BandMemberList.swift */,
 				ABF83DC9291A957E006A06CC /* BandMemberListRow.swift */,
-				ABD029B528E897A400BDF73C /* BandMemberListViewModel.swift */,
 			);
 			path = BandMemberList;
 			sourceTree = "<group>";
@@ -918,18 +889,40 @@
 		ABF5563328DF93CF0059E2DF /* BandProfileView */ = {
 			isa = PBXGroup;
 			children = (
-				ABF5563428DF93DD0059E2DF /* BandProfileRootView.swift */,
-				AB35A8D528E9DC73009FB203 /* BandProfileAdminView.swift */,
-				AB35A8D928E9DC93009FB203 /* BandProfileOtherUserView.swift */,
+				AB35A8D528E9DC73009FB203 /* BandProfileView.swift */,
 				ABCAA9FE28E9E56C00685F91 /* BandProfileHeader.swift */,
 				ABF5563628DF93E40059E2DF /* BandProfileViewModel.swift */,
 				ABD18AAB28EE14B1002286C3 /* SendShowInviteView */,
-				ABD029B228E8978400BDF73C /* BandMemberList */,
-				ABCAAA0028E9ED4900685F91 /* BandLinkList */,
-				AB5B77C328E72B7100B32537 /* BandLinkCard */,
-				ABEF10E328E64CCB00A1DBAC /* AddEditLinkView */,
+				ABF83DD3291AB232006A06CC /* LinkTab */,
+				ABF83DD5291AB67C006A06CC /* MembersTab */,
 			);
 			path = BandProfileView;
+			sourceTree = "<group>";
+		};
+		ABF83DD3291AB232006A06CC /* LinkTab */ = {
+			isa = PBXGroup;
+			children = (
+				ABF83DD4291AB2DD006A06CC /* LinkList */,
+				ABEF10E328E64CCB00A1DBAC /* AddEditLinkView */,
+			);
+			path = LinkTab;
+			sourceTree = "<group>";
+		};
+		ABF83DD4291AB2DD006A06CC /* LinkList */ = {
+			isa = PBXGroup;
+			children = (
+				ABCAAA0128E9ED6C00685F91 /* BandLinkList.swift */,
+				AB5B77C428E72B8E00B32537 /* BandLinkCard.swift */,
+			);
+			path = LinkList;
+			sourceTree = "<group>";
+		};
+		ABF83DD5291AB67C006A06CC /* MembersTab */ = {
+			isa = PBXGroup;
+			children = (
+				ABD029B228E8978400BDF73C /* BandMemberList */,
+			);
+			path = MembersTab;
 			sourceTree = "<group>";
 		};
 		ABFB2D452909E2B4009A6F65 /* ShowDetailsTab */ = {
@@ -1063,13 +1056,11 @@
 				AB36FF7628D3598900AAC00C /* MyShowsRootView.swift in Sources */,
 				ABEF10E728E64CE100A1DBAC /* AddEditLinkViewModel.swift in Sources */,
 				ABDC0D7428D75CC80054269E /* AuthController.swift in Sources */,
-				ABF5563528DF93DD0059E2DF /* BandProfileRootView.swift in Sources */,
 				AB399AD928D4C1CE009B39F7 /* TextUtility.swift in Sources */,
 				AB66B9B828F0D2EF00E7F0E0 /* ShowDetailsHeader.swift in Sources */,
 				AB36FF8028D35BFA00AAC00C /* User.swift in Sources */,
 				AB6514DD28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift in Sources */,
 				AB5E490629003F870076EABE /* AddBacklineView.swift in Sources */,
-				ABD029B628E897A400BDF73C /* BandMemberListViewModel.swift in Sources */,
 				AB36FF9828D36A6600AAC00C /* SectionTitle.swift in Sources */,
 				AB07295628F454EE0069B268 /* ShowDetailsList.swift in Sources */,
 				ABDC0D7B28D76FDE0054269E /* AddEditShowView.swift in Sources */,
@@ -1108,7 +1099,6 @@
 				ABDDAD4A28DB46B500F1CF9B /* ImageSelectionButton.swift in Sources */,
 				AB36FF7828D359E700AAC00C /* OtherUserProfileView.swift in Sources */,
 				ABFBA72129154F97006B1751 /* View+cornerRadius().swift in Sources */,
-				ABCAAA0428E9ED7500685F91 /* BandLinkListViewModel.swift in Sources */,
 				AB8326B429129CE200208414 /* NoDataFoundMessage.swift in Sources */,
 				AB36FF6828D356FD00AAC00C /* RootView.swift in Sources */,
 				AB7F380F28EF1AA9007741C7 /* ShowInvitesList.swift in Sources */,
@@ -1139,7 +1129,6 @@
 				AB7F381528EF20EA007741C7 /* ShowParticipant.swift in Sources */,
 				AB07295828F4631D0069B268 /* SelectedShowDetailsTab.swift in Sources */,
 				ABDDAD4528DB3ED200F1CF9B /* ProfileAsyncImage.swift in Sources */,
-				AB5B77C728E72B9600B32537 /* BandLinkCardViewModel.swift in Sources */,
 				AB0DD4D228F0D82E00CEA1BD /* ShowLineupList.swift in Sources */,
 				ABF8B81B28FC786900608657 /* ErrorMessage.swift in Sources */,
 				AB35A8CC28E9CFCF009FB203 /* LoggedInUserProfileView.swift in Sources */,
@@ -1183,10 +1172,9 @@
 				AB07296128F467010069B268 /* ShowDetailsTab.swift in Sources */,
 				ABF1C40C28ECF0A50004A3C1 /* ShowSearchResultsList.swift in Sources */,
 				AB07295F28F466510069B268 /* ShowLineupTab.swift in Sources */,
-				AB35A8DA28E9DC93009FB203 /* BandProfileOtherUserView.swift in Sources */,
 				AB794E3128E25B0F000ABB37 /* SearchType.swift in Sources */,
 				AB285B0228F6FE8A00EB5F2B /* ShowTimeType.swift in Sources */,
-				AB35A8D628E9DC73009FB203 /* BandProfileAdminView.swift in Sources */,
+				AB35A8D628E9DC73009FB203 /* BandProfileView.swift in Sources */,
 				AB285AFC28F6F7EE00EB5F2B /* ShowTimeList.swift in Sources */,
 				ABDC0D7928D76FC60054269E /* AddEditShowViewModel.swift in Sources */,
 				AB36FF8928D35C2800AAC00C /* PlatformLink.swift in Sources */,
@@ -1332,8 +1320,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1369,8 +1357,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

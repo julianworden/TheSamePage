@@ -8,24 +8,17 @@
 import SwiftUI
 
 struct BandMemberList: View {
-    @StateObject var viewModel: BandMemberListViewModel
-    
-    init(bandMembers: [BandMember], band: Band) {
-        _viewModel = StateObject(wrappedValue: BandMemberListViewModel(bandMembers: bandMembers, band: band))
-    }
+    @ObservedObject var viewModel: BandProfileViewModel
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(Array(viewModel.bandMembers.enumerated()), id: \.element) { index, bandMember in
                 if !bandMember.bandMemberIsLoggedInUser {
                     NavigationLink {
                         OtherUserProfileView(user: nil, bandMember: bandMember)
                     } label: {
                         BandMemberListRow(
-                            title: bandMember.fullName,
-                            subtitle: bandMember.role,
-                            iconName: bandMember.listRowIconName,
-                            displayChevron: true,
+                            viewModel: viewModel,
                             index: index
                         )
                         .padding(.horizontal)
@@ -33,10 +26,7 @@ struct BandMemberList: View {
                     .tint(.black)
                 } else {
                     BandMemberListRow(
-                        title: "You",
-                        subtitle: bandMember.role,
-                        iconName: bandMember.listRowIconName,
-                        displayChevron: false,
+                        viewModel: viewModel,
                         index: index
                     )
                     .padding(.horizontal)
@@ -48,6 +38,6 @@ struct BandMemberList: View {
 
 struct BandMemberList_Previews: PreviewProvider {
     static var previews: some View {
-        BandMemberList(bandMembers: [BandMember.example], band: Band.example)
+        BandMemberList(viewModel: BandProfileViewModel(band: Band.example, showParticipant: nil))
     }
 }

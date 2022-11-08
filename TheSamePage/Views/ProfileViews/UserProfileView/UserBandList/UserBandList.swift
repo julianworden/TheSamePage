@@ -20,7 +20,7 @@ struct UserBandList: View {
         LazyVGrid(columns: columns, spacing: 15) {
             ForEach(viewModel.bands) { band in
                 NavigationLink {
-                    BandProfileRootView(band: band, showParticipant: nil)
+                    BandProfileView(band: band)
                 } label: {
                     UserProfileBandCard(band: band)
                 }

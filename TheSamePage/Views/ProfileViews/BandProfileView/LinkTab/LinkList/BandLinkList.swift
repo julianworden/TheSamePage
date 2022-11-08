@@ -10,18 +10,16 @@ import SwiftUI
 struct BandLinkList: View {
     let columns = [GridItem(.fixed(149), spacing: 15), GridItem(.fixed(149), spacing: 15)]
     
-    @StateObject var viewModel: BandLinkListViewModel
-    
-    init(bandLinks: [PlatformLink]) {
-        _viewModel = StateObject(wrappedValue: BandLinkListViewModel(bandLinks: bandLinks))
-    }
+    @ObservedObject var viewModel: BandProfileViewModel
     
     var body: some View {
         VStack {
-            ForEach(viewModel.bandLinks) { link in
+            ForEach(Array(viewModel.bandLinks.enumerated()), id: \.element) { index, link in
                 Link(destination: URL(string: link.url)!) {
-                    BandLinkCard(link: link)
+                    BandLinkRow(viewModel: viewModel, index: index)
+                        .padding(.horizontal)
                 }
+                .tint(.primary)
             }
             .background(Color(uiColor: .secondarySystemBackground))
         }
@@ -30,6 +28,6 @@ struct BandLinkList: View {
     
     struct BandLinkList_Previews: PreviewProvider {
         static var previews: some View {
-            BandLinkList(bandLinks: [PlatformLink.example])
+            BandLinkList(viewModel: BandProfileViewModel(band: Band.example))
         }
     }
