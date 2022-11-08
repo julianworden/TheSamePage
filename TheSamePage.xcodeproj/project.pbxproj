@@ -33,6 +33,8 @@
 		AB2B867A28D9EE43004601B6 /* MyShowsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867928D9EE43004601B6 /* MyShowsViewModel.swift */; };
 		AB2B867C28D9F444004601B6 /* NoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867B28D9F444004601B6 /* NoImageView.swift */; };
 		AB2B867E28D9F884004601B6 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867D28D9F884004601B6 /* ImagePicker.swift */; };
+		AB2BF26D2919C3C200C65DD8 /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2BF26C2919C3C200C65DD8 /* ChatInfoView.swift */; };
+		AB2BF26F2919C3D500C65DD8 /* ChatInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2BF26E2919C3D500C65DD8 /* ChatInfoViewModel.swift */; };
 		AB31440C291713B300E2D08B /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = AB31440B291713B300E2D08B /* FirebaseMessaging */; };
 		AB35A8CC28E9CFCF009FB203 /* LoggedInUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8CB28E9CFCF009FB203 /* LoggedInUserProfileView.swift */; };
 		AB35A8D628E9DC73009FB203 /* BandProfileAdminView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8D528E9DC73009FB203 /* BandProfileAdminView.swift */; };
@@ -119,7 +121,6 @@
 		ABCAA9FF28E9E56C00685F91 /* BandProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAA9FE28E9E56C00685F91 /* BandProfileHeader.swift */; };
 		ABCAAA0228E9ED6C00685F91 /* BandLinkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAAA0128E9ED6C00685F91 /* BandLinkList.swift */; };
 		ABCAAA0428E9ED7500685F91 /* BandLinkListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAAA0328E9ED7500685F91 /* BandLinkListViewModel.swift */; };
-		ABCAAA0728E9F13B00685F91 /* BandProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAAA0628E9F13B00685F91 /* BandProfileHeaderViewModel.swift */; };
 		ABCF232829131E4E003DB6BB /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCF232729131E4E003DB6BB /* ConversationView.swift */; };
 		ABD029B428E8978F00BDF73C /* BandMemberList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD029B328E8978F00BDF73C /* BandMemberList.swift */; };
 		ABD029B628E897A400BDF73C /* BandMemberListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD029B528E897A400BDF73C /* BandMemberListViewModel.swift */; };
@@ -188,6 +189,8 @@
 		AB2B867928D9EE43004601B6 /* MyShowsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowsViewModel.swift; sourceTree = "<group>"; };
 		AB2B867B28D9F444004601B6 /* NoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoImageView.swift; sourceTree = "<group>"; };
 		AB2B867D28D9F884004601B6 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		AB2BF26C2919C3C200C65DD8 /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
+		AB2BF26E2919C3D500C65DD8 /* ChatInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoViewModel.swift; sourceTree = "<group>"; };
 		AB31440D29171C5A00E2D08B /* TheSamePage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TheSamePage.entitlements; sourceTree = "<group>"; };
 		AB35A8CB28E9CFCF009FB203 /* LoggedInUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserProfileView.swift; sourceTree = "<group>"; };
 		AB35A8D528E9DC73009FB203 /* BandProfileAdminView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileAdminView.swift; sourceTree = "<group>"; };
@@ -274,7 +277,6 @@
 		ABCAA9FE28E9E56C00685F91 /* BandProfileHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BandProfileHeader.swift; sourceTree = "<group>"; };
 		ABCAAA0128E9ED6C00685F91 /* BandLinkList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLinkList.swift; sourceTree = "<group>"; };
 		ABCAAA0328E9ED7500685F91 /* BandLinkListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLinkListViewModel.swift; sourceTree = "<group>"; };
-		ABCAAA0628E9F13B00685F91 /* BandProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		ABCF232729131E4E003DB6BB /* ConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationView.swift; sourceTree = "<group>"; };
 		ABD029B328E8978F00BDF73C /* BandMemberList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMemberList.swift; sourceTree = "<group>"; };
 		ABD029B528E897A400BDF73C /* BandMemberListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMemberListViewModel.swift; sourceTree = "<group>"; };
@@ -374,6 +376,33 @@
 			path = ShowTimeTab;
 			sourceTree = "<group>";
 		};
+		AB2BF26A2919C3A000C65DD8 /* ConversationView */ = {
+			isa = PBXGroup;
+			children = (
+				ABCF232729131E4E003DB6BB /* ConversationView.swift */,
+				AB5D08AA2913F5C20073F8EE /* ConversationViewModel.swift */,
+			);
+			path = ConversationView;
+			sourceTree = "<group>";
+		};
+		AB2BF26B2919C3B300C65DD8 /* ChatInfoView */ = {
+			isa = PBXGroup;
+			children = (
+				AB2BF26C2919C3C200C65DD8 /* ChatInfoView.swift */,
+				AB2BF26E2919C3D500C65DD8 /* ChatInfoViewModel.swift */,
+			);
+			path = ChatInfoView;
+			sourceTree = "<group>";
+		};
+		AB2BF2702919C46800C65DD8 /* ChatBubble */ = {
+			isa = PBXGroup;
+			children = (
+				ABFBA72229154FCD006B1751 /* ChatBubble.swift */,
+				ABFBA7242915546A006B1751 /* ChatBubbleViewModel.swift */,
+			);
+			path = ChatBubble;
+			sourceTree = "<group>";
+		};
 		AB35A8D328E9D044009FB203 /* ProfileViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -449,7 +478,6 @@
 		AB36FF7928D35B9500AAC00C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				ABCF232629131E46003DB6BB /* Chat */,
 				AB3D2C3429060CBD00412A7E /* EditImageView */,
 				ABEACE7628DBBB2900BB1D67 /* Onboarding */,
 				AB36FF7A28D35B9A00AAC00C /* RootView */,
@@ -740,16 +768,9 @@
 				ABFB2D462909E2C5009A6F65 /* ShowLineupTab */,
 				AB285AF828F6F71D00EB5F2B /* ShowTimeTab */,
 				AB07295C28F4661D0069B268 /* ShowBacklineTab */,
+				ABCF232629131E46003DB6BB /* Chat */,
 			);
 			path = ShowDetailsView;
-			sourceTree = "<group>";
-		};
-		ABCAA9FD28E9E56C00685F91 /* BandProfileHeader */ = {
-			isa = PBXGroup;
-			children = (
-				ABCAAA0628E9F13B00685F91 /* BandProfileHeaderViewModel.swift */,
-			);
-			path = BandProfileHeader;
 			sourceTree = "<group>";
 		};
 		ABCAAA0028E9ED4900685F91 /* BandLinkList */ = {
@@ -773,10 +794,9 @@
 		ABCF232629131E46003DB6BB /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				ABCF232729131E4E003DB6BB /* ConversationView.swift */,
-				AB5D08AA2913F5C20073F8EE /* ConversationViewModel.swift */,
-				ABFBA72229154FCD006B1751 /* ChatBubble.swift */,
-				ABFBA7242915546A006B1751 /* ChatBubbleViewModel.swift */,
+				AB2BF26A2919C3A000C65DD8 /* ConversationView */,
+				AB2BF2702919C46800C65DD8 /* ChatBubble */,
+				AB2BF26B2919C3B300C65DD8 /* ChatInfoView */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -903,7 +923,6 @@
 				ABCAA9FE28E9E56C00685F91 /* BandProfileHeader.swift */,
 				ABF5563628DF93E40059E2DF /* BandProfileViewModel.swift */,
 				ABD18AAB28EE14B1002286C3 /* SendShowInviteView */,
-				ABCAA9FD28E9E56C00685F91 /* BandProfileHeader */,
 				ABD029B228E8978400BDF73C /* BandMemberList */,
 				ABCAAA0028E9ED4900685F91 /* BandLinkList */,
 				AB5B77C328E72B7100B32537 /* BandLinkCard */,
@@ -1105,6 +1124,7 @@
 				ABD18AAF28EE14C9002286C3 /* SendShowInviteViewModel.swift in Sources */,
 				ABD18AB128EE2FAB002286C3 /* ShowInvite.swift in Sources */,
 				AB24E3A628D7C9B0002B4F2C /* LoginView.swift in Sources */,
+				AB2BF26D2919C3C200C65DD8 /* ChatInfoView.swift in Sources */,
 				AB36FF8728D35C2000AAC00C /* Band.swift in Sources */,
 				ABAB45F928F24C2400FA8F70 /* HostedShowRow.swift in Sources */,
 				AB6514DF28F911EB008DFDD0 /* ShowTimeRow.swift in Sources */,
@@ -1133,6 +1153,7 @@
 				AB3D2C3829060CCE00412A7E /* EditImageViewModel.swift in Sources */,
 				ABE3EFA828D919A2002EEF23 /* SignUpViewModel.swift in Sources */,
 				ABD323EF28E1180C00540B93 /* SendBandInviteView.swift in Sources */,
+				AB2BF26F2919C3D500C65DD8 /* ChatInfoViewModel.swift in Sources */,
 				ABD18AAD28EE14C1002286C3 /* SendShowInviteView.swift in Sources */,
 				ABCF232829131E4E003DB6BB /* ConversationView.swift in Sources */,
 				AB37EBB2290966C90029588C /* HomeShowRow.swift in Sources */,
@@ -1148,7 +1169,6 @@
 				AB5054B328DCA04900321380 /* BandInvite.swift in Sources */,
 				AB3C73D728DC0A240038085A /* BandSearchViewModel.swift in Sources */,
 				AB38E1B328FB2422006D1788 /* CLPlacemark+formattedAddress.swift in Sources */,
-				ABCAAA0728E9F13B00685F91 /* BandProfileHeaderViewModel.swift in Sources */,
 				AB285B0828F7086D00EB5F2B /* AddShowTimeViewModel.swift in Sources */,
 				AB5E48F829003ACF0076EABE /* GuitarGear.swift in Sources */,
 				AB07296328F468530069B268 /* ShowLocationTab.swift in Sources */,

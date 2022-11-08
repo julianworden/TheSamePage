@@ -74,7 +74,7 @@ struct ShowDetailsHeader: View {
         }
         .fullScreenCover(isPresented: $chatSheetIsShowing) {
             NavigationView {
-                ConversationView(show: show)
+                ConversationView(show: show, showParticipants: viewModel.showParticipants)
             }
         }
         // Forces the EditImageView to load the showImage properly

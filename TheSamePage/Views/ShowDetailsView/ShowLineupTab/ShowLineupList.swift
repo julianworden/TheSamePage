@@ -12,7 +12,7 @@ struct ShowLineupList: View {
     
     var body: some View {
         VStack(spacing: 12) {
-            ForEach(Array(viewModel.showLineup.enumerated()), id: \.element) { index, showParticipant in
+            ForEach(Array(viewModel.showParticipants.enumerated()), id: \.element) { index, showParticipant in
                 NavigationLink {
                     BandProfileRootView(band: nil, showParticipant: showParticipant)
                 } label: {                        

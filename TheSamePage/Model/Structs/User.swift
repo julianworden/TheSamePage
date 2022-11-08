@@ -23,6 +23,10 @@ struct User: Codable, Equatable, Hashable, Identifiable {
         return id == AuthController.getLoggedInUid()
     }
     
+    var fullName: String {
+        return "\(firstName) \(lastName)"
+    }
+    
     init(
         id: String,
         username: String,

@@ -13,7 +13,7 @@ struct ShowLineupRow: View {
     let index: Int
     
     var body: some View {
-        let showParticipant = viewModel.showLineup[index]
+        let showParticipant = viewModel.showParticipants[index]
         
         VStack {
             HStack {

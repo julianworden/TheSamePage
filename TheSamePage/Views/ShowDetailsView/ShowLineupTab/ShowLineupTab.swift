@@ -29,7 +29,7 @@ struct ShowLineupTab: View {
                 }
             }
             
-            if !viewModel.showLineup.isEmpty {
+            if !viewModel.showParticipants.isEmpty {
                 ShowLineupList(viewModel: viewModel)
             } else if show.loggedInUserIsShowHost {
                     Text("No bands are playing this show yet. Click the plus button to invite bands to play!")

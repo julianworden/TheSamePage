@@ -12,6 +12,7 @@ import Foundation
 class ConversationViewModel: ObservableObject {
     @Published var messageText = ""
     @Published var messages = [ChatMessage]()
+    @Published var showParticipants = [ShowParticipant]()
     
     let show: Show?
     let userId: String?
@@ -20,9 +21,10 @@ class ConversationViewModel: ObservableObject {
     var chatMessagesListener: ListenerRegistration?
     let db = Firestore.firestore()
     
-    init(show: Show? = nil, userId: String? = nil) {
+    init(show: Show? = nil, userId: String? = nil, showParticipants: [ShowParticipant]) {
         self.show = show
         self.userId = userId
+        self.showParticipants = showParticipants
     }
     
     func addChatListener() {
@@ -71,14 +73,16 @@ class ConversationViewModel: ObservableObject {
         }
     }
     
-    func sendChatMessage() async {
-        guard let chat, !messageText.isEmpty else { return }
+    func sendChatMessage(fromUser user: User?) async {
+        guard let chat,
+              let user,
+              !messageText.isEmpty else { return }
         
         do {
             // TODO: GET THE USER OBJECT
-            let senderUid = AuthController.getLoggedInUid()
-            let senderFullName = try await AuthController.getLoggedInFullName()
-            let senderFcmToken = try await AuthController.getLoggedInFcmToken()
+            let senderUid = user.id
+            let senderFullName = user.fullName
+            let senderFcmToken = user.fcmToken
             
             let filteredFcmTokens = chat.participantFcmTokens.filter { $0 != senderFcmToken }
             

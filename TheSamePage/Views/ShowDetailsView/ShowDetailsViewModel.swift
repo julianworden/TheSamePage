@@ -11,7 +11,7 @@ import MapKit
 
 class ShowDetailsViewModel: ObservableObject {
     @Published var show: Show
-    @Published var showLineup = [ShowParticipant]()
+    @Published var showParticipants = [ShowParticipant]()
     @Published var selectedTab = SelectedShowDetailsTab.details
     @Published var state = ViewState.dataLoading
     
@@ -25,7 +25,7 @@ class ShowDetailsViewModel: ObservableObject {
     var showBacklineListener: ListenerRegistration?
     
     var showSlotsRemainingMessage: String {
-        let slotsRemainingCount = show.maxNumberOfBands - showLineup.count
+        let slotsRemainingCount = show.maxNumberOfBands - showParticipants.count
         
         if slotsRemainingCount == 1 {
             return "\(slotsRemainingCount) slot remaining"
@@ -59,7 +59,7 @@ class ShowDetailsViewModel: ObservableObject {
         
         Task { @MainActor in
             do {
-                showLineup = try await DatabaseService.shared.getShowLineup(forShow: show)
+                showParticipants = try await DatabaseService.shared.getShowLineup(forShow: show)
             } catch {
                 state = .error(message: error.localizedDescription)
             }

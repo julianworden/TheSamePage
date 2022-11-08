@@ -10,12 +10,14 @@ import SwiftUI
 struct ConversationView: View {
     @Environment(\.dismiss) var dismiss
     
+    @EnvironmentObject var loggedInUserController: LoggedInUserController
+    
     @StateObject var viewModel: ConversationViewModel
     
     @State private var sendButtonIsDisabled = true
     
-    init(show: Show? = nil, userId: String? = nil) {
-        _viewModel = StateObject(wrappedValue: ConversationViewModel(show: show, userId: userId))
+    init(show: Show? = nil, userId: String? = nil, showParticipants: [ShowParticipant]) {
+        _viewModel = StateObject(wrappedValue: ConversationViewModel(show: show, userId: userId, showParticipants: showParticipants))
     }
     
     var body: some View {
@@ -42,7 +44,7 @@ struct ConversationView: View {
                     
                     Button {
                         Task {
-                            await viewModel.sendChatMessage()
+                            await viewModel.sendChatMessage(fromUser: loggedInUserController.loggedInUser)
                             viewModel.messageText = ""
                         }
                     } label: {
@@ -62,6 +64,14 @@ struct ConversationView: View {
                     dismiss()
                 }
             }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink {
+                    ChatInfoView(chatParticipants: viewModel.showParticipants)
+                } label: {
+                    Image(systemName: "info.circle")
+                }
+            }
         }
         .task {
             await viewModel.configureChat()
@@ -79,6 +89,6 @@ struct ConversationView: View {
 
 struct ConversationView_Previews: PreviewProvider {
     static var previews: some View {
-        ConversationView()
+        ConversationView(show: Show.example, showParticipants: [])
     }
 }
