@@ -24,7 +24,7 @@ struct BandLinkRow: View {
     }
 }
 
-struct BandLinkCard_Previews: PreviewProvider {
+struct BandLinkRow_Previews: PreviewProvider {
     static var previews: some View {
         BandLinkRow(viewModel: BandProfileViewModel(band: Band.example), index: 0)
     }

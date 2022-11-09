@@ -10,19 +10,12 @@ import Foundation
 
 @MainActor
 class BandProfileViewModel: ObservableObject {
-    // These properties are optional to simplify the initializer
-    @Published var bandName: String?
-    @Published var bandBio: String?
-    @Published var bandCity: String?
-    @Published var bandState: String?
-    @Published var bandProfileImageUrl: String?
-    @Published var bandGenre: String?
-    @Published var bandImageUrl: String?
+    @Published var band: Band?
     @Published var bandLinks = [PlatformLink]()
     @Published var bandMembers = [BandMember]()
-    @Published var loggedInUserIsBandAdmin: Bool?
-
-    var band: Band?
+    @Published var bandShows = [Show]()
+    @Published var selectedTab = SelectedBandProfileTab.members
+    
     /// Necessary for when this view is loaded from a ShowDetailsView
     var showParticipant: ShowParticipant?
     
@@ -56,16 +49,10 @@ class BandProfileViewModel: ObservableObject {
             if snapshot != nil && error == nil {
                 if let band = try? snapshot!.data(as: Band.self) {
                     self.band = band
-                    self.bandName = band.name
-                    self.bandBio = band.bio
-                    self.bandCity = band.city
-                    self.bandState = band.state
-                    self.bandGenre = band.genre
-                    self.bandProfileImageUrl = band.profileImageUrl
-                    self.loggedInUserIsBandAdmin = band.loggedInUserIsBandAdmin
                     Task {
                         self.bandMembers = try await DatabaseService.shared.getBandMembers(forBand: band)
                         self.bandLinks = try await DatabaseService.shared.getBandLinks(forBand: band)
+                        self.bandShows = try await DatabaseService.shared.getShowsForBand(band: band)
                     }
                 }
             }

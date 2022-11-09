@@ -14,7 +14,7 @@ struct BandProfileHeader: View {
     @State private var updatedImage: UIImage?
     
     var body: some View {
-        Group {
+        VStack(spacing: 10) {
             if let band = viewModel.band {
                 if band.loggedInUserIsBandAdmin {
                     NavigationLink {
@@ -41,9 +41,8 @@ struct BandProfileHeader: View {
                     
                     Text("\(band.genre) from \(band.city), \(band.state)")
                 }
-                .padding(.top, 2)
                 
-                if let bandBio = viewModel.bandBio {
+                if let bandBio = band.bio {
                     Text(bandBio)
                         .padding(.horizontal)
                 }

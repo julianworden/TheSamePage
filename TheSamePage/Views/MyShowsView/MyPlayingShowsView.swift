@@ -22,7 +22,6 @@ struct MyPlayingShowsView: View {
                             NavigationLink {
                                 ShowDetailsView(show: show)
                             } label: {
-                                // TODO: FIX INDEX
                                 PlayingShowRow(index: index, viewModel: viewModel)
                             }
                             .foregroundColor(.primary)

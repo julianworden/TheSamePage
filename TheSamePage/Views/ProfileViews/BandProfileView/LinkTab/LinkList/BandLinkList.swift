@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-struct BandLinkList: View {
-    let columns = [GridItem(.fixed(149), spacing: 15), GridItem(.fixed(149), spacing: 15)]
-    
+struct BandLinkList: View {    
     @ObservedObject var viewModel: BandProfileViewModel
     
     var body: some View {

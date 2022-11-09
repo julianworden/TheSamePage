@@ -103,6 +103,24 @@ class DatabaseService: NSObject {
         }
     }
     
+    /// Fetches all of the shows that a band is playing.
+    /// - Parameter band: The band for which the show search is taking place.
+    /// - Returns: The shows that the given band is playing.
+    func getShowsForBand(band: Band) async throws -> [Show] {
+        do {
+            let showsQuery = try await db.collection("shows").whereField("bandIds", arrayContains: band.id).getDocuments()
+            
+            do {
+                let fetchedShows = try showsQuery.documents.map { try $0.data(as: Show.self) }
+                return fetchedShows
+            } catch {
+                throw DatabaseServiceError.decode(message: "Failed to decode show in DabaseService.getShowsForBand(band:)")
+            }
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to fetch band's shows in DabaseService.getShowsForBand(band:)")
+        }
+    }
+    
     /// Fetches all the bands in the bands collection that include a given UID in their memberUids array.
     /// - Parameter uid: The UID for which the search is occuring in the bands' memberUids array.
     /// - Returns: The bands that include the provided UID in the memberUids array.
