@@ -10,9 +10,7 @@ import SwiftUI
 struct BandShowsTab: View {
     @ObservedObject var viewModel: BandProfileViewModel
     
-    var body: some View {
-        let band = viewModel.band
-        
+    var body: some View {        
         if !viewModel.bandShows.isEmpty {
             BandShowsList(viewModel: viewModel)
                 .padding(.top, 5)

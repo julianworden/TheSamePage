@@ -18,7 +18,6 @@ struct AddEditBandView: View {
     
     @State private var imagePickerIsShowing = false
     @State private var selectedImage: UIImage?
-    @State private var bandCreationWasSuccessful = false
     @State private var bandCreationButtonIsDisabled = false
     
     init(userIsOnboarding: Binding<Bool> = .constant(false), bandToEdit: Band? = nil) {
@@ -30,12 +29,14 @@ struct AddEditBandView: View {
         Form {
             Section("Info") {
                 ImageSelectionButton(imagePickerIsShowing: $imagePickerIsShowing, selectedImage: $selectedImage)
+                
                 TextField("Name", text: $viewModel.bandName)
                 Picker("Genre", selection: $viewModel.bandGenre) {
                     ForEach(Genre.allCases) { genre in
                         Text(genre.rawValue)
                     }
                 }
+                
                 Toggle("Do you play in this band?", isOn: $viewModel.userPlaysInBand)
                 
                 if viewModel.userPlaysInBand {
@@ -66,8 +67,11 @@ struct AddEditBandView: View {
                     Task {
                         do {
                             bandCreationButtonIsDisabled = true
-                            try await viewModel.createBand(withImage: selectedImage)
-                            bandCreationWasSuccessful = true
+                            if viewModel.bandToEdit == nil {
+                                try await viewModel.createBand(withImage: selectedImage)
+                            } else {
+                                await viewModel.updateBand()
+                            }
                             
                             if userIsOnboarding {
                                 userIsOnboarding = false
@@ -80,12 +84,12 @@ struct AddEditBandView: View {
                         }
                     }
                 } label: {
-                    AsyncButtonLabel(buttonIsDisabled: $bandCreationButtonIsDisabled, title: "Create Band")
+                    AsyncButtonLabel(buttonIsDisabled: $bandCreationButtonIsDisabled, title: viewModel.bandToEdit == nil ? "Create Band" : "Update Band Info")
                 }
                 .disabled(bandCreationButtonIsDisabled)
             }
         }
-        .navigationTitle("Create a band")
+        .navigationTitle(viewModel.bandToEdit == nil ? "Create a Band" : "Update Band Info")
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $imagePickerIsShowing) {
             ImagePicker(image: $selectedImage, pickerIsShowing: $imagePickerIsShowing)

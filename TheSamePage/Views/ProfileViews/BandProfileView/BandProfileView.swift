@@ -11,6 +11,8 @@ import SwiftUI
 
 struct BandProfileView: View {
     @StateObject var viewModel: BandProfileViewModel
+    
+    @State private var addEditBandSheetIsShowing = false
 
     init(band: Band? = nil, showParticipant: ShowParticipant? = nil) {
         _viewModel = StateObject(wrappedValue: BandProfileViewModel(band: band, showParticipant: showParticipant))
@@ -53,10 +55,22 @@ struct BandProfileView: View {
                     
                     Spacer()
                 }
+                .sheet(isPresented: $addEditBandSheetIsShowing) {
+                    NavigationView {
+                        AddEditBandView(bandToEdit: band)
+                    }
+                }
             }
         }
         .navigationTitle("Band Profile")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Edit") {
+                    addEditBandSheetIsShowing = true
+                }
+            }
+        }
     }
 }
 

@@ -222,7 +222,7 @@ class DatabaseService: NSObject {
         do {
             try db.collection("shows").document(show.id).setData(from: show, merge: true)
         } catch {
-            throw DatabaseServiceError.firestore(message: "Failed to add show to database in DatabaseService.createShow(show:)")
+            throw DatabaseServiceError.firestore(message: "Failed to update show in DatabaseService.updateShow(show:)")
         }
     }
     
@@ -235,6 +235,14 @@ class DatabaseService: NSObject {
             return bandReference.documentID
         } catch {
             throw DatabaseServiceError.firestore(message: "Failed to create band in DatabaseService.createBand(band:)")
+        }
+    }
+    
+    func updateBand(band: Band) async throws {
+        do {
+            try db.collection("bands").document(band.id).setData(from: band, merge: true)
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to update band in DatabaseService.updateBand(band:)")
         }
     }
     

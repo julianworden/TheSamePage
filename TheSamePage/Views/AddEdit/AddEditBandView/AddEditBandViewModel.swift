@@ -20,7 +20,19 @@ class AddEditBandViewModel: ObservableObject {
     var bandToEdit: Band?
     
     init(bandToEdit: Band?) {
-        self.bandToEdit = bandToEdit
+        if let bandToEdit {
+            self.bandToEdit = bandToEdit
+            self.bandName = bandToEdit.name
+            self.bandBio = bandToEdit.bio ?? ""
+            
+            self.bandCity = bandToEdit.city
+            
+            if let bandToEditGenre = Genre(rawValue: bandToEdit.genre),
+               let bandToEditState = BandState(rawValue: bandToEdit.state) {
+                self.bandGenre = bandToEditGenre
+                self.bandState = bandToEditState
+            }
+        }
     }
     
     /// Creates a band object and calls the DatabaseService method to add the band to the bands Firestore collection.
@@ -64,6 +76,30 @@ class AddEditBandViewModel: ObservableObject {
             let loggedInFullName = try await AuthController.getLoggedInFullName()
             let bandMember = BandMember(uid: AuthController.getLoggedInUid(), role: userRoleInBand.rawValue, username: loggedInUsername, fullName: loggedInFullName)
             try await DatabaseService.shared.addUserToBand(add: bandMember, toBandWithId: newBandId, withBandInvite: nil)
+        }
+    }
+    
+    func updateBand() async {
+        guard let bandToEdit else { return } // TODO: Change State
+        
+        let updatedBand = Band(
+            id: bandToEdit.id,
+            name: bandName,
+            bio: bandBio,
+            profileImageUrl: bandToEdit.profileImageUrl,
+            adminUid: bandToEdit.adminUid,
+            memberUids: bandToEdit.memberUids,
+            genre: bandGenre.rawValue,
+            city: bandCity,
+            state: bandState.rawValue
+        )
+        
+        guard bandToEdit != updatedBand else { return }
+        
+        do {
+            try await DatabaseService.shared.updateBand(band: updatedBand)
+        } catch {
+            // TODO: Change state
         }
     }
 }
