@@ -30,7 +30,7 @@ struct MemberSearchView: View {
                         SearchResultRow(band: nil, user: user, show: nil)
                     } else {
                         NavigationLink {
-                            OtherUserProfileView(user: user, bandMember: nil)
+                            OtherUserProfileView(user: user)
                         } label: {
                             SearchResultRow(band: nil, user: user, show: nil)
                         }

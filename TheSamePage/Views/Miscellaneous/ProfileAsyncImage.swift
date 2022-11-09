@@ -38,7 +38,7 @@ struct ProfileAsyncImage: View {
                 NoImageView()
             }
         }
-        .frame(width: 100, height: 100)
+        .frame(width: 135, height: 135)
         .clipShape(Circle())
         .overlay {
             Circle()

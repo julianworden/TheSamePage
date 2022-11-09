@@ -11,41 +11,39 @@ import SwiftUI
 struct OtherUserProfileView: View {
     @StateObject var viewModel: OtherUserProfileViewModel
     
-    @State private var addEditBandSheetIsShowing = false
-    
     init(user: User?, bandMember: BandMember? = nil) {
         _viewModel = StateObject(wrappedValue: OtherUserProfileViewModel(user: user, bandMember: bandMember))
     }
     
     var body: some View {
-        if let user = viewModel.user {
-            ZStack {
-                Color(uiColor: .systemGroupedBackground)
-                    .ignoresSafeArea()
-                
+        ZStack {
+            Color(uiColor: .systemGroupedBackground)
+                .ignoresSafeArea()
+            
+            if let user = viewModel.user {
                 ScrollView {
-                    VStack {
-                        OtherUserProfileHeader(viewModel: viewModel)
-                        
-                        if !viewModel.bands.isEmpty {
-                            HStack {
-                                SectionTitle(title: "Member of")
-                                
-                                NavigationLink {
-                                    AddEditBandView()
-                                } label: {
-                                    Image(systemName: "plus")
-                                }
-                                .padding(.trailing)
-                            }
+                    OtherUserProfileHeader(viewModel: viewModel)
+                    
+                    if !viewModel.bands.isEmpty {
+                        HStack {
+                            SectionTitle(title: "Member of")
                             
-                            OtherUserBandList(viewModel: viewModel)
+                            NavigationLink {
+                                AddEditBandView()
+                            } label: {
+                                Image(systemName: "plus")
+                            }
+                            .padding(.trailing)
                         }
+                        
+                        OtherUserBandList(viewModel: viewModel)
                     }
                 }
+                .navigationTitle(user.username)
+                .navigationBarTitleDisplayMode(.inline)
+            } else {
+                ErrorMessage(message: "Failed to fetch user. Please check your internet connection and restart the app.")
             }
-            .navigationTitle(user.username)
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

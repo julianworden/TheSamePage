@@ -16,35 +16,37 @@ struct BandProfileHeader: View {
     var body: some View {
         VStack(spacing: 10) {
             if let band = viewModel.band {
-                if band.loggedInUserIsBandAdmin {
-                    NavigationLink {
-                        EditImageView(band: band, image: bandImage, updatedImage: $updatedImage)
-                    } label: {
-                        if updatedImage == nil {
-                            ProfileAsyncImage(url: URL(string: band.profileImageUrl ?? ""), loadedImage: $bandImage)
-                        } else {
-                            Image(uiImage: updatedImage!)
-                                .resizable()
-                                .scaledToFit()
-                                .border(.white, width: 3)
-                                .frame(height: 200)
-                                .padding(.horizontal)
-                        }
-                    }
-                } else {
-                    ProfileAsyncImage(url: URL(string: band.profileImageUrl ?? ""), loadedImage: .constant(nil))
-                }
-                
                 VStack {
+                    if band.loggedInUserIsBandAdmin {
+                        NavigationLink {
+                            EditImageView(band: band, image: bandImage, updatedImage: $updatedImage)
+                        } label: {
+                            if updatedImage == nil {
+                                ProfileAsyncImage(url: URL(string: band.profileImageUrl ?? ""), loadedImage: $bandImage)
+                            } else {
+                                Image(uiImage: updatedImage!)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .border(.white, width: 3)
+                                    .frame(height: 200)
+                                    .padding(.horizontal)
+                            }
+                        }
+                    } else {
+                        ProfileAsyncImage(url: URL(string: band.profileImageUrl ?? ""), loadedImage: .constant(nil))
+                    }
+                    
                     Text(band.name)
                         .font(.title.bold())
                     
                     Text("\(band.genre) from \(band.city), \(band.state)")
-                }
-                
-                if let bandBio = band.bio {
-                    Text(bandBio)
-                        .padding(.horizontal)
+                        .font(.title2)
+                    
+                    if let bandBio = band.bio {
+                        Text(bandBio)
+                            .padding(.horizontal)
+                            .multilineTextAlignment(.leading)
+                    }
                 }
             }
         }

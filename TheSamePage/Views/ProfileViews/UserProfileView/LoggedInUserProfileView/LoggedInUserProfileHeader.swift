@@ -17,28 +17,24 @@ struct LoggedInUserProfileHeader: View {
     
     var body: some View {
         if let user = loggedInUserController.loggedInUser {
-            HStack {
-                VStack(alignment: .leading) {
-                    NavigationLink {
-                        EditImageView(user: user, image: userImage, updatedImage: $updatedImage)
-                    } label: {
-                        if updatedImage == nil {
-                            ProfileAsyncImage(url: URL(string: user.profileImageUrl ?? ""), loadedImage: $userImage)
-                        } else {
-                            Image(uiImage: updatedImage!)
-                                .resizable()
-                                .scaledToFit()
-                                .border(.white, width: 3)
-                                .frame(height: 200)
-                                .padding(.horizontal)
-                        }
+            VStack {
+                NavigationLink {
+                    EditImageView(user: user, image: userImage, updatedImage: $updatedImage)
+                } label: {
+                    if updatedImage == nil {
+                        ProfileAsyncImage(url: URL(string: user.profileImageUrl ?? ""), loadedImage: $userImage)
+                    } else {
+                        Image(uiImage: updatedImage!)
+                            .resizable()
+                            .scaledToFit()
+                            .border(.white, width: 3)
+                            .frame(height: 200)
+                            .padding(.horizontal)
                     }
-                    
-                    Text(user.fullName)
-                        .font(.title2.bold())
                 }
                 
-                Spacer()
+                Text(user.fullName)
+                    .font(.title.bold())
             }
             .padding()
             .onChange(of: userImage) { _ in }

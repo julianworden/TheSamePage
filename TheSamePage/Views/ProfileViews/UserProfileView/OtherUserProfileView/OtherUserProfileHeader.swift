@@ -14,22 +14,18 @@ struct OtherUserProfileHeader: View {
     
     var body: some View {
         if let user = viewModel.user {
-            HStack {
-                VStack(alignment: .leading) {
-                    ProfileAsyncImage(url: URL(string: user.profileImageUrl ?? ""), loadedImage: .constant(nil))
-                    
-                    Text(user.fullName)
-                        .font(.title2.bold())
-                    
-                    Button {
-                        sendBandInviteViewIsShowing = true
-                    } label: {
-                        Label("Invite to Band", systemImage: "envelope")
-                    }
-                    .buttonStyle(.bordered)
-                }
+            VStack {
+                ProfileAsyncImage(url: URL(string: user.profileImageUrl ?? ""), loadedImage: .constant(nil))
                 
-                Spacer()
+                Text(user.fullName)
+                    .font(.title.bold())
+                
+                Button {
+                    sendBandInviteViewIsShowing = true
+                } label: {
+                    Label("Invite to Band", systemImage: "envelope")
+                }
+                .buttonStyle(.bordered)
             }
             .padding()
             .sheet(isPresented: $sendBandInviteViewIsShowing) {

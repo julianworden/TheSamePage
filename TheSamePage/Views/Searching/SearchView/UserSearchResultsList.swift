@@ -21,7 +21,9 @@ struct UserSearchResultsList: View {
                         SearchResultRow(user: user)
                     } else {
                         NavigationLink {
-                            OtherUserProfileView(user: user, bandMember: nil)
+                            OtherUserProfileView(user: user)
+                                // Necessary because OtherUserProfileView assumes .navigationBarTitleDisplayMode(.large) otherwise
+                                .navigationBarTitleDisplayMode(.inline)
                         } label: {
                             SearchResultRow(user: user)
                         }
