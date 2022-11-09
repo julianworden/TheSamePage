@@ -29,7 +29,7 @@ class OtherUserProfileViewModel: ObservableObject {
         return AuthController.getLoggedInUid() == user?.id
     }
     
-    init(user: User?, bandMember: BandMember?) {
+    init(user: User?, bandMember: BandMember? = nil) {
         Task {
             if let user {
                 try await initializeUser(user: user)

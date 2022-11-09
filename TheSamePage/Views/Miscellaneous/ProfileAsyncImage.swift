@@ -26,8 +26,7 @@ struct ProfileAsyncImage: View {
             case .success(let image):
                 image
                     .resizable()
-                    .scaledToFit()
-                    .border(.white, width: 3)
+                    .scaledToFill()
                     .onAppear {
                         self.loadedImage = image
                     }
@@ -39,8 +38,12 @@ struct ProfileAsyncImage: View {
                 NoImageView()
             }
         }
-        .frame(height: 200)
-        .padding(.horizontal)
+        .frame(width: 100, height: 100)
+        .clipShape(Circle())
+        .overlay {
+            Circle()
+                .stroke(.white, lineWidth: 3)
+        }
     }
 }
 

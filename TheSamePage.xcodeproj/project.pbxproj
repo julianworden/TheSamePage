@@ -89,6 +89,8 @@
 		AB6514DF28F911EB008DFDD0 /* ShowTimeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6514DE28F911EB008DFDD0 /* ShowTimeRow.swift */; };
 		AB668EAD291BE647007899A9 /* LoggedInUserBandList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB668EAC291BE647007899A9 /* LoggedInUserBandList.swift */; };
 		AB668EAF291BE666007899A9 /* LoggedInUserBandRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB668EAE291BE666007899A9 /* LoggedInUserBandRow.swift */; };
+		AB668EB2291BF31D007899A9 /* OtherUserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB668EB1291BF31D007899A9 /* OtherUserProfileHeader.swift */; };
+		AB668EB4291BF4C3007899A9 /* LoggedInUserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB668EB3291BF4C2007899A9 /* LoggedInUserProfileHeader.swift */; };
 		AB66B9B828F0D2EF00E7F0E0 /* ShowDetailsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB66B9B728F0D2EF00E7F0E0 /* ShowDetailsHeader.swift */; };
 		AB6C09DF28D4C7F500990313 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB6C09DE28D4C7F500990313 /* GoogleService-Info.plist */; };
 		AB794E2D28E25A77000ABB37 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB794E2C28E25A77000ABB37 /* SearchView.swift */; };
@@ -249,6 +251,8 @@
 		AB6514DE28F911EB008DFDD0 /* ShowTimeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimeRow.swift; sourceTree = "<group>"; };
 		AB668EAC291BE647007899A9 /* LoggedInUserBandList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserBandList.swift; sourceTree = "<group>"; };
 		AB668EAE291BE666007899A9 /* LoggedInUserBandRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserBandRow.swift; sourceTree = "<group>"; };
+		AB668EB1291BF31D007899A9 /* OtherUserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserProfileHeader.swift; sourceTree = "<group>"; };
+		AB668EB3291BF4C2007899A9 /* LoggedInUserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserProfileHeader.swift; sourceTree = "<group>"; };
 		AB66B9B728F0D2EF00E7F0E0 /* ShowDetailsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsHeader.swift; sourceTree = "<group>"; };
 		AB6C09DE28D4C7F500990313 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AB794E2C28E25A77000ABB37 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
@@ -532,7 +536,6 @@
 			children = (
 				AB668EA8291BE54C007899A9 /* LoggedInUserProfileView */,
 				AB668EA9291BE58B007899A9 /* OtherUserProfileView */,
-				ABDC0D7128D74BFF0054269E /* OtherUserProfileViewModel.swift */,
 			);
 			path = UserProfileView;
 			sourceTree = "<group>";
@@ -713,8 +716,8 @@
 			isa = PBXGroup;
 			children = (
 				AB35A8CB28E9CFCF009FB203 /* LoggedInUserProfileView.swift */,
-				AB668EAC291BE647007899A9 /* LoggedInUserBandList.swift */,
-				AB668EAE291BE666007899A9 /* LoggedInUserBandRow.swift */,
+				AB668EB3291BF4C2007899A9 /* LoggedInUserProfileHeader.swift */,
+				AB668EB0291BE818007899A9 /* LoggedInUserBandList */,
 			);
 			path = LoggedInUserProfileView;
 			sourceTree = "<group>";
@@ -723,10 +726,21 @@
 			isa = PBXGroup;
 			children = (
 				AB36FF7728D359E700AAC00C /* OtherUserProfileView.swift */,
+				AB668EB1291BF31D007899A9 /* OtherUserProfileHeader.swift */,
+				ABDC0D7128D74BFF0054269E /* OtherUserProfileViewModel.swift */,
 				ABD323ED28E117F800540B93 /* SendBandInviteView */,
 				AB35A8DB28E9DDDB009FB203 /* OtherUserBandList */,
 			);
 			path = OtherUserProfileView;
+			sourceTree = "<group>";
+		};
+		AB668EB0291BE818007899A9 /* LoggedInUserBandList */ = {
+			isa = PBXGroup;
+			children = (
+				AB668EAC291BE647007899A9 /* LoggedInUserBandList.swift */,
+				AB668EAE291BE666007899A9 /* LoggedInUserBandRow.swift */,
+			);
+			path = LoggedInUserBandList;
 			sourceTree = "<group>";
 		};
 		AB6A6AF628EA498600996557 /* NotificationRow */ = {
@@ -1100,6 +1114,7 @@
 				AB07295628F454EE0069B268 /* ShowDetailsList.swift in Sources */,
 				ABDC0D7B28D76FDE0054269E /* AddEditShowView.swift in Sources */,
 				ABA1020728DDE5BE00A4E818 /* NotificationsViewModel.swift in Sources */,
+				AB668EB4291BF4C3007899A9 /* LoggedInUserProfileHeader.swift in Sources */,
 				ABD323F128E1181F00540B93 /* SendBandInviteViewModel.swift in Sources */,
 				ABA784EA290A3CFF0081CBF4 /* PlayingShowRow.swift in Sources */,
 				AB794E2D28E25A77000ABB37 /* SearchView.swift in Sources */,
@@ -1120,6 +1135,7 @@
 				ABB93F3828F0732D0055659B /* AsyncButtonLabel.swift in Sources */,
 				ABF8B81928FC43C400608657 /* CustomMapAnnotation.swift in Sources */,
 				ABE3EFA628D91960002EEF23 /* SignUpView.swift in Sources */,
+				AB668EB2291BF31D007899A9 /* OtherUserProfileHeader.swift in Sources */,
 				ABDC0D7228D74BFF0054269E /* OtherUserProfileViewModel.swift in Sources */,
 				AB399AD228D4AF3E009B39F7 /* MyShowsShowCard.swift in Sources */,
 				AB5D08AB2913F5C20073F8EE /* ConversationViewModel.swift in Sources */,
