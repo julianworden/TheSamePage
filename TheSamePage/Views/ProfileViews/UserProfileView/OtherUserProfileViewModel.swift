@@ -1,5 +1,5 @@
 //
-//  ProfileViewModel.swift
+//  OtherUserProfileViewModel.swift
 //  TheSamePage
 //
 //  Created by Julian Worden on 9/18/22.
@@ -9,7 +9,7 @@ import FirebaseAuth
 import Foundation
 
 @MainActor
-class UserProfileRootViewModel: ObservableObject {
+class OtherUserProfileViewModel: ObservableObject {
     enum UserProfileViewModelError: Error {
         case firebaseAuthError(message: String)
     }
@@ -23,7 +23,7 @@ class UserProfileRootViewModel: ObservableObject {
     @Published var lastName: String?
     @Published var emailAddress: String?
     @Published var profileImageUrl: String?
-    @Published var bands: [Band]?
+    @Published var bands = [Band]()
     
     var loggedInUserIsBandAdmin: Bool {
         return AuthController.getLoggedInUid() == user?.id

@@ -94,6 +94,7 @@ struct AddEditBandView: View {
         .sheet(isPresented: $imagePickerIsShowing) {
             ImagePicker(image: $selectedImage, pickerIsShowing: $imagePickerIsShowing)
         }
+        // TODO: Add a cancel toolbar item to dismiss this view if it's editing instead of creating
     }
 }
 

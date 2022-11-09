@@ -119,6 +119,7 @@ struct AddEditShowView: View {
         .sheet(isPresented: $imagePickerIsShowing) {
             ImagePicker(image: $showImage, pickerIsShowing: $imagePickerIsShowing)
         }
+        // TODO: Add a cancel toolbar item to dismiss this view if it's editing instead of creating
     }
 }
 

@@ -43,9 +43,7 @@ struct RootView: View {
                         .tag(3)
                     
                     NavigationView {
-                        LoggedInUserProfileView(
-                            userIsLoggedOut: $userIsLoggedOut
-                        )
+                        LoggedInUserProfileView(userIsLoggedOut: $userIsLoggedOut)
                     }
                     .tabItem {
                         Label("Profile", systemImage: "person")

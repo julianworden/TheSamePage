@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Displayed to the user when they're viewing their own profile.
 struct LoggedInUserProfileView: View {
     @EnvironmentObject var loggedInUserController: LoggedInUserController
     
@@ -51,7 +52,7 @@ struct LoggedInUserProfileView: View {
                             .padding(.trailing)
                         }
                         
-                        UserBandList(bands: loggedInUserController.bands)
+                        LoggedInUserBandList()
                     }
                 }
                 .navigationTitle("\(loggedInUserController.firstName ?? "You") \(loggedInUserController.lastName ?? "")")

@@ -7,14 +7,15 @@
 
 import SwiftUI
 
+/// Displayed when a user is viewing somebody else's profile.
 struct OtherUserProfileView: View {
-    @StateObject var viewModel: UserProfileRootViewModel
+    @StateObject var viewModel: OtherUserProfileViewModel
     
     @State private var addEditBandSheetIsShowing = false
     @State private var sendBandInviteViewIsShowing = false
     
     init(user: User?, bandMember: BandMember?) {
-        _viewModel = StateObject(wrappedValue: UserProfileRootViewModel(user: user, bandMember: bandMember))
+        _viewModel = StateObject(wrappedValue: OtherUserProfileViewModel(user: user, bandMember: bandMember))
     }
     
     var body: some View {
@@ -49,7 +50,7 @@ struct OtherUserProfileView: View {
                         .buttonStyle(.bordered)
                         
                         
-                        if let bands = viewModel.bands {
+                        if !viewModel.bands.isEmpty {
                             HStack {
                                 SectionTitle(title: "Member of")
                                 
@@ -61,7 +62,7 @@ struct OtherUserProfileView: View {
                                 .padding(.trailing)
                             }
                             
-                            UserBandList(bands: bands)
+                            OtherUserBandList(viewModel: viewModel)
                         }
                     }
                 }
