@@ -128,9 +128,15 @@ struct AddEditShowView: View {
         .sheet(isPresented: $imagePickerIsShowing) {
             ImagePicker(image: $showImage, pickerIsShowing: $imagePickerIsShowing)
         }
-        .alert("Please ensure that all required fields are filled.", isPresented: $missingFieldsAlertIsShowing) {
-            Button("OK") { }
-        }
+        .alert(
+            "Error",
+            isPresented: $missingFieldsAlertIsShowing,
+            actions: {
+                Button("OK") { }
+            }, message: {
+                Text("Please ensure that all required fields are filled.")
+            }
+        )
         // TODO: Add a cancel toolbar item to dismiss this view if it's editing instead of creating
     }
 }

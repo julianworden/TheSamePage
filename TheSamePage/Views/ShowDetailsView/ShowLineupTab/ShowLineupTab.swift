@@ -20,7 +20,7 @@ struct ShowLineupTab: View {
                 
                 Spacer()
                 
-                if show.loggedInUserIsShowHost {
+                if show.loggedInUserIsShowHost && !show.lineupIsFull {
                     NavigationLink {
                         BandSearchView()
                     } label: {

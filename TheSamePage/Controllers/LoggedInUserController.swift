@@ -87,6 +87,8 @@ class LoggedInUserController: ObservableObject {
         }
     }
     
+    // TODO: Add listener to user's bands
+    
     func removeUserListener() {
         userListener?.remove()
     }

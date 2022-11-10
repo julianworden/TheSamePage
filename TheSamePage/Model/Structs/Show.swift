@@ -168,6 +168,10 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         return MKCoordinateRegion(center: coordinates, latitudinalMeters: 500, longitudinalMeters: 500)
     }
     
+    var lineupIsFull: Bool {
+        return maxNumberOfBands == bandIds.count
+    }
+    
     static let example = Show(
         id: "lawuehfaklwue",
         name: "Dumpweed Extravaganza",

@@ -7,15 +7,17 @@
 
 import Foundation
 
+enum SendShowInviteViewModelError: Error {
+    case unexpectedNilValue(message: String)
+    case lineupIsFull
+    case bandIsAlreadyPlaying
+}
+
 final class SendShowInviteViewModel: ObservableObject {
-    enum SendShowInviteViewModelError: Error {
-        case unexpectedNilValue(message: String)
-    }
-    
     @Published var state = ViewState.dataLoading
     
     var userShows = [Show]()
-    var selectedShow: Show?
+    @Published var selectedShow: Show?
     
     /// The band that is being invited to join the show.
     let bandId: String
@@ -37,8 +39,7 @@ final class SendShowInviteViewModel: ObservableObject {
         }
     }
     
-    // TODO: Make DatabaseService Method for this
-    func sendShowInviteNotification() throws {
+    func sendShowInviteNotification() async throws {
         guard selectedShow != nil else {
             throw SendShowInviteViewModelError.unexpectedNilValue(message: "selectedShow in sendShowInviteNotification()")
         }
@@ -57,6 +58,9 @@ final class SendShowInviteViewModel: ObservableObject {
             is21Plus: selectedShow!.is21Plus
         )
         
+        guard !selectedShow!.bandIds.contains(showInvite.bandId) else { throw SendShowInviteViewModelError.bandIsAlreadyPlaying }
+        guard !selectedShow!.lineupIsFull else { throw SendShowInviteViewModelError.lineupIsFull }
+            
         try DatabaseService.shared.sendShowInvite(invite: showInvite)
     }
     

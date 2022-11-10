@@ -32,7 +32,6 @@ final class SendBandInviteViewModel: ObservableObject {
     @MainActor
     func getLoggedInUserBands() async throws {
         do {
-            // TODO: Should call a different, not made yet DatabaseService method that finds all of the bands that the logged in user is an admin of
             let fetchedBands = try await DatabaseService.shared.getBands(withUid: AuthController.getLoggedInUid())
             userBands = fetchedBands.filter { $0.adminUid == AuthController.getLoggedInUid() }
             

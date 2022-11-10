@@ -12,6 +12,10 @@ struct SendShowInviteView: View {
     
     @StateObject var viewModel: SendShowInviteViewModel
     
+    @State private var invalidInviteAlertIsShowing = false
+    
+    @State private var alertText = ""
+    
     init(band: Band) {
         _viewModel = StateObject(wrappedValue: SendShowInviteViewModel(band: band))
     }
@@ -33,11 +37,19 @@ struct SendShowInviteView: View {
                     }
                     
                     Button("Send invite") {
-                        do {
-                            try viewModel.sendShowInviteNotification()
-                            dismiss()
-                        } catch {
-                            print(error)
+                        Task {
+                            do {
+                                try await viewModel.sendShowInviteNotification()
+                                dismiss()
+                            } catch SendShowInviteViewModelError.bandIsAlreadyPlaying {
+                                alertText = "This band is already playing this show."
+                                invalidInviteAlertIsShowing = true
+                            } catch SendShowInviteViewModelError.lineupIsFull {
+                                alertText = "This show's lineup is full. To invite this band, either increase the show's max number of bands or remove a band from the show's lineup."
+                                invalidInviteAlertIsShowing = true
+                            } catch {
+                                print(error)
+                            }
                         }
                     }
                 }
@@ -55,6 +67,15 @@ struct SendShowInviteView: View {
         }
         .navigationTitle("Send Show Invite")
         .navigationBarTitleDisplayMode(.inline)
+        .alert(
+            "Error",
+            isPresented: $invalidInviteAlertIsShowing,
+            actions: {
+                Button("OK") { }
+            }, message: {
+                Text(alertText)
+            }
+        )
         .task {
             do {
                 try await viewModel.getHostedShows()

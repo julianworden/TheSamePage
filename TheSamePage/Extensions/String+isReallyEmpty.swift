@@ -1,5 +1,5 @@
 //
-//  String+trimmed.swift
+//  String+isReallyEmpty.swift
 //  TheSamePage
 //
 //  Created by Julian Worden on 11/10/22.

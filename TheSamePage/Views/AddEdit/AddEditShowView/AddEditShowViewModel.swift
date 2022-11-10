@@ -37,6 +37,7 @@ class AddEditShowViewModel: ObservableObject {
     var showTypesenseCoordinates = [Double]()
     var addressSearch: MKLocalSearch?
     
+    var bandIds = [String]()
     @Published var showIsFree = false
     @Published var ticketPrice = ""
     @Published var ticketSalesAreRequired = false
@@ -78,6 +79,7 @@ class AddEditShowViewModel: ObservableObject {
             self.showGenre = Genre(rawValue: showToEdit.genre) ?? Genre.rock
             self.showMaxNumberOfBands = showToEdit.maxNumberOfBands
             self.showDate = Date(timeIntervalSince1970: showToEdit.date)
+            self.bandIds = showToEdit.bandIds
             self.showIsFree = showToEdit.isFree
             self.showAddress = showToEdit.address
             self.showCity = showToEdit.city
@@ -216,6 +218,7 @@ class AddEditShowViewModel: ObservableObject {
             description: showDescription.trimmingCharacters(in: .whitespacesAndNewlines) == "" ? nil : showDescription,
             host: showHostName,
             hostUid: AuthController.getLoggedInUid(),
+            bandIds: bandIds,
             venue: showVenue,
             date: showDate.timeIntervalSince1970,
             isFree: showIsFree,
