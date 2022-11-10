@@ -17,11 +17,12 @@ struct BandShowRow: View {
         
         ListRowElements(
             title: show.name,
-            subtitle: show.venue,
+            subtitle: "At \(show.venue) on \(show.formattedDate)",
             iconName: "stage",
             displayChevron: true,
             displayDivider: true
         )
+        .foregroundColor(show.unixTimeAsDate < Date() ? .secondary : .primary)
     }
 }
 

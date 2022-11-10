@@ -114,6 +114,10 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         }
     }
     
+    var unixTimeAsDate: Date {
+        return Date(timeIntervalSince1970: date)
+    }
+    
     var loggedInUserIsShowHost: Bool {
         return hostUid == AuthController.getLoggedInUid()
     }

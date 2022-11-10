@@ -8,6 +8,7 @@
 import Foundation
 
 enum SelectedBandProfileTab: String, CaseIterable, Identifiable {
+    case about = "About"
     case members = "Members"
     case links = "Links"
     case shows = "Shows"

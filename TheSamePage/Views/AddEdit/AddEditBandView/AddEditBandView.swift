@@ -28,7 +28,9 @@ struct AddEditBandView: View {
     var body: some View {
         Form {
             Section("Info") {
-                ImageSelectionButton(imagePickerIsShowing: $imagePickerIsShowing, selectedImage: $selectedImage)
+                if viewModel.bandToEdit == nil {
+                    ImageSelectionButton(imagePickerIsShowing: $imagePickerIsShowing, selectedImage: $selectedImage)
+                }
                 
                 TextField("Name", text: $viewModel.bandName)
                 Picker("Genre", selection: $viewModel.bandGenre) {
@@ -37,16 +39,17 @@ struct AddEditBandView: View {
                     }
                 }
                 
-                Toggle("Do you play in this band?", isOn: $viewModel.userPlaysInBand)
-                
-                if viewModel.userPlaysInBand {
-                    Picker("What's your role in this band?", selection: $viewModel.userRoleInBand) {
-                        ForEach(Instrument.allCases) { instrument in
-                            Text(instrument.rawValue)
+                if viewModel.bandToEdit == nil {
+                    Toggle("Do you play in this band?", isOn: $viewModel.userPlaysInBand)
+                    
+                    if viewModel.userPlaysInBand {
+                        Picker("What's your role in this band?", selection: $viewModel.userRoleInBand) {
+                            ForEach(Instrument.allCases) { instrument in
+                                Text(instrument.rawValue)
+                            }
                         }
                     }
                 }
-                // TODO: Only display this option when a band is being created, not edited
             }
             
             Section("Bio") {

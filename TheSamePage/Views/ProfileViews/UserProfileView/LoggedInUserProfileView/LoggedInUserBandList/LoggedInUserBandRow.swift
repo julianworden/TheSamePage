@@ -13,15 +13,17 @@ struct LoggedInUserBandRow: View {
     let index: Int
     
     var body: some View {
-        let band = loggedInUserController.bands[index]
-        
-        ListRowElements(
-            title: band.name,
-            subtitle: "\(band.city), \(band.state)",
-            iconName: "band",
-            displayChevron: true,
-            displayDivider: true
-        )
+        if !loggedInUserController.bands.isEmpty {
+            let band = loggedInUserController.bands[index]
+            
+            ListRowElements(
+                title: band.name,
+                subtitle: "\(band.city), \(band.state)",
+                iconName: "band",
+                displayChevron: true,
+                displayDivider: true
+            )
+        }
     }
 }
 

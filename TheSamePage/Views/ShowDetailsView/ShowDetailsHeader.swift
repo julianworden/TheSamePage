@@ -30,10 +30,13 @@ struct ShowDetailsHeader: View {
                         // Helps avoid delay from showing updated image
                         Image(uiImage: updatedImage!)
                             .resizable()
-                            .scaledToFit()
-                            .border(.white, width: 3)
-                            .frame(height: 200)
-                            .padding(.horizontal)
+                            .scaledToFill()
+                            .frame(width: 135, height: 135)
+                            .clipShape(Circle())
+                            .overlay {
+                                Circle()
+                                    .stroke(.white, lineWidth: 3)
+                            }
                     }
                 }
             } else {

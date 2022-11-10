@@ -27,15 +27,6 @@ struct BandProfileView: View {
                 ScrollView {
                     BandProfileHeader(viewModel: viewModel)
                     
-                    if band.loggedInUserIsBandAdmin {
-                        NavigationLink {
-                            SendShowInviteView(band: band)
-                        } label: {
-                            Label("Invite to Show", systemImage: "envelope")
-                        }
-                        .buttonStyle(.bordered)
-                    }
-                    
                     Picker("Select a tab", selection: $viewModel.selectedTab) {
                         ForEach(SelectedBandProfileTab.allCases) { tab in
                             Text(tab.rawValue)
@@ -45,6 +36,8 @@ struct BandProfileView: View {
                     .padding(.horizontal)
                     
                     switch viewModel.selectedTab {
+                    case .about:
+                        BandAboutTab(viewModel: viewModel)
                     case .members:
                         BandMembersTab(viewModel: viewModel)
                     case .links:

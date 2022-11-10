@@ -12,6 +12,7 @@ struct BandProfileHeader: View {
     
     @State private var bandImage: Image?
     @State private var updatedImage: UIImage?
+    @State private var sendShowInviteViewIsShowing = false
     
     var body: some View {
         VStack(spacing: 10) {
@@ -26,10 +27,13 @@ struct BandProfileHeader: View {
                             } else {
                                 Image(uiImage: updatedImage!)
                                     .resizable()
-                                    .scaledToFit()
-                                    .border(.white, width: 3)
-                                    .frame(height: 200)
-                                    .padding(.horizontal)
+                                    .scaledToFill()
+                                    .frame(width: 135, height: 135)
+                                    .clipShape(Circle())
+                                    .overlay {
+                                        Circle()
+                                            .stroke(.white, lineWidth: 3)
+                                    }
                             }
                         }
                     } else {
@@ -42,11 +46,17 @@ struct BandProfileHeader: View {
                     Text("\(band.genre) from \(band.city), \(band.state)")
                         .font(.title2)
                     
-                    if let bandBio = band.bio {
-                        Text(bandBio)
-                            .padding(.horizontal)
-                            .multilineTextAlignment(.leading)
+                    if band.loggedInUserIsNotInvolvedWithBand {
+                        Button {
+                            sendShowInviteViewIsShowing = true
+                        } label: {
+                            Label("Invite to Show", systemImage: "envelope")
+                        }
+                        .buttonStyle(.bordered)
                     }
+                }
+                .sheet(isPresented: $sendShowInviteViewIsShowing) {
+                    SendShowInviteView(band: band)
                 }
             }
         }

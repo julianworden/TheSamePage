@@ -14,7 +14,7 @@ class BandProfileViewModel: ObservableObject {
     @Published var bandLinks = [PlatformLink]()
     @Published var bandMembers = [BandMember]()
     @Published var bandShows = [Show]()
-    @Published var selectedTab = SelectedBandProfileTab.members
+    @Published var selectedTab = SelectedBandProfileTab.about
     
     /// Necessary for when this view is loaded from a ShowDetailsView
     var showParticipant: ShowParticipant?
@@ -52,7 +52,11 @@ class BandProfileViewModel: ObservableObject {
                     Task {
                         self.bandMembers = try await DatabaseService.shared.getBandMembers(forBand: band)
                         self.bandLinks = try await DatabaseService.shared.getBandLinks(forBand: band)
-                        self.bandShows = try await DatabaseService.shared.getShowsForBand(band: band)
+                        let fetchedShows = try await DatabaseService.shared.getShowsForBand(band: band)
+                        let sortedShows = fetchedShows.sorted { lhs, rhs in
+                            lhs.unixTimeAsDate > rhs.unixTimeAsDate
+                        }
+                        self.bandShows = sortedShows
                     }
                 }
             }
