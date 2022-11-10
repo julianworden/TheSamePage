@@ -11,19 +11,28 @@ struct BandSearchView: View {
     @StateObject var viewModel = BandSearchViewModel()
     
     var body: some View {
-        List {
-            ForEach(viewModel.fetchedBands, id: \.document) { result in
-                let band = result.document!
-                
-                NavigationLink {
-                    BandProfileView(band: band)
-                } label: {
-                    SearchResultRow(band: band)
+        ZStack {
+            Color(uiColor: .systemGroupedBackground)
+                .ignoresSafeArea()
+            
+            ScrollView {
+                VStack(spacing: UiConstants.listRowSpacing) {
+                    ForEach(viewModel.fetchedBands, id: \.document) { result in
+                        let band = result.document!
+                        
+                        NavigationLink {
+                            BandProfileView(band: band)
+                        } label: {
+                            SearchResultRow(band: band)
+                        }
+                        .tint(.primary)
+                    }
+                    .searchable(text: $viewModel.queryText)
+                    .autocorrectionDisabled(true)
                 }
+                .padding(.horizontal)
             }
         }
-        .searchable(text: $viewModel.queryText)
-        .autocorrectionDisabled(true)
         .onChange(of: viewModel.queryText) { query in
             Task {
                 do {

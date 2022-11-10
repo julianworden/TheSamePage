@@ -49,6 +49,8 @@ struct LinkTab: View {
                 NavigationView {
                     AddEditLinkView(link: nil, band: viewModel.band!)
                 }
+                // Without this, the sheet looks strange when dismissed
+                .navigationViewStyle(.stack)
             }
         }
     }

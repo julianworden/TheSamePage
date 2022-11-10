@@ -125,6 +125,15 @@ struct AddEditShowView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(viewModel.viewTitleText)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                if viewModel.showToEdit != nil {
+                    Button("Cancel", role: .cancel) {
+                        dismiss()
+                    }
+                }
+            }
+        }
         .sheet(isPresented: $imagePickerIsShowing) {
             ImagePicker(image: $showImage, pickerIsShowing: $imagePickerIsShowing)
         }
@@ -137,7 +146,6 @@ struct AddEditShowView: View {
                 Text("Please ensure that all required fields are filled.")
             }
         )
-        // TODO: Add a cancel toolbar item to dismiss this view if it's editing instead of creating
     }
 }
 

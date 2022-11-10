@@ -28,6 +28,7 @@ class AddEditShowViewModel: ObservableObject {
     
     @Published var queryText = ""
     @Published var addressSearchResults = [CLPlacemark]()
+    // Make it so that shows are not private by default
     @Published var addressIsPrivate = false
     var showAddress: String?
     var showCity: String?
@@ -38,6 +39,8 @@ class AddEditShowViewModel: ObservableObject {
     var addressSearch: MKLocalSearch?
     
     var bandIds = [String]()
+    var participantUids = [String]()
+    
     @Published var showIsFree = false
     @Published var ticketPrice = ""
     @Published var ticketSalesAreRequired = false
@@ -80,6 +83,8 @@ class AddEditShowViewModel: ObservableObject {
             self.showMaxNumberOfBands = showToEdit.maxNumberOfBands
             self.showDate = Date(timeIntervalSince1970: showToEdit.date)
             self.bandIds = showToEdit.bandIds
+            self.participantUids = showToEdit.participantUids
+            self.addressIsPrivate = showToEdit.addressIsPrivate
             self.showIsFree = showToEdit.isFree
             self.showAddress = showToEdit.address
             self.showCity = showToEdit.city
@@ -219,6 +224,7 @@ class AddEditShowViewModel: ObservableObject {
             host: showHostName,
             hostUid: AuthController.getLoggedInUid(),
             bandIds: bandIds,
+            participantUids: participantUids,
             venue: showVenue,
             date: showDate.timeIntervalSince1970,
             isFree: showIsFree,

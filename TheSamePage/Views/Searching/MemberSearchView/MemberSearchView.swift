@@ -22,23 +22,27 @@ struct MemberSearchView: View {
             Color(uiColor: .systemGroupedBackground)
                 .ignoresSafeArea()
             
-            List {
-                ForEach(viewModel.fetchedResults, id: \.document) { result in
-                    let user = result.document!
-                    
-                    if user.profileBelongsToLoggedInUser {
-                        SearchResultRow(band: nil, user: user, show: nil)
-                    } else {
-                        NavigationLink {
-                            OtherUserProfileView(user: user)
-                        } label: {
+            ScrollView {
+                VStack(spacing: UiConstants.listRowSpacing) {
+                    ForEach(viewModel.fetchedResults, id: \.document) { result in
+                        let user = result.document!
+                        
+                        if user.profileBelongsToLoggedInUser {
                             SearchResultRow(band: nil, user: user, show: nil)
+                        } else {
+                            NavigationLink {
+                                OtherUserProfileView(user: user)
+                            } label: {
+                                SearchResultRow(band: nil, user: user, show: nil)
+                            }
+                            .tint(.primary)
                         }
                     }
+                    .searchable(text: $viewModel.queryText)
+                    .autocorrectionDisabled(true)
                 }
+                .padding(.horizontal)
             }
-            .searchable(text: $viewModel.queryText)
-            .autocorrectionDisabled(true)
             .onChange(of: viewModel.queryText) { query in
                 Task {
                     do {

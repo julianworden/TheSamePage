@@ -7,16 +7,10 @@
 
 import SwiftUI
 
-struct HomeShowRow: View {
-    @StateObject var viewModel: HomeShowRowViewModel
-    
-    init(show: Show) {
-        _viewModel = StateObject(wrappedValue: HomeShowRowViewModel(show: show))
-    }
+struct HomeShowRow: View {    
+    let show: Show
     
     var body: some View {
-        let show = viewModel.show
-        
         VStack(spacing: 0) {
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
@@ -53,6 +47,14 @@ struct HomeShowRow: View {
                 .multilineTextAlignment(.leading)
                 
                 Spacer()
+                
+                if show.loggedInUserIsShowHost {
+                    VStack {
+                        Spacer()
+                        
+                        Text("You're hosting")
+                    }
+                }
             }
         }
     }

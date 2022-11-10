@@ -55,7 +55,6 @@
 		AB36FF9428D361A100AAC00C /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF9328D361A100AAC00C /* DatabaseService.swift */; };
 		AB36FF9828D36A6600AAC00C /* SectionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF9728D36A6600AAC00C /* SectionTitle.swift */; };
 		AB37EBB2290966C90029588C /* HomeShowRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB37EBB1290966C90029588C /* HomeShowRow.swift */; };
-		AB37EBB6290967750029588C /* HomeShowRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB37EBB5290967750029588C /* HomeShowRowViewModel.swift */; };
 		AB37EBB8290971390029588C /* ShowDetailsStaticRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB37EBB7290971390029588C /* ShowDetailsStaticRow.swift */; };
 		AB38E1B128FB21CB006D1788 /* AddEditShowAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38E1B028FB21CB006D1788 /* AddEditShowAddressView.swift */; };
 		AB38E1B328FB2422006D1788 /* CLPlacemark+formattedAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38E1B228FB2422006D1788 /* CLPlacemark+formattedAddress.swift */; };
@@ -220,7 +219,6 @@
 		AB36FF9328D361A100AAC00C /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		AB36FF9728D36A6600AAC00C /* SectionTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTitle.swift; sourceTree = "<group>"; };
 		AB37EBB1290966C90029588C /* HomeShowRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShowRow.swift; sourceTree = "<group>"; };
-		AB37EBB5290967750029588C /* HomeShowRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShowRowViewModel.swift; sourceTree = "<group>"; };
 		AB37EBB7290971390029588C /* ShowDetailsStaticRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsStaticRow.swift; sourceTree = "<group>"; };
 		AB38E1B028FB21CB006D1788 /* AddEditShowAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowAddressView.swift; sourceTree = "<group>"; };
 		AB38E1B228FB2422006D1788 /* CLPlacemark+formattedAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLPlacemark+formattedAddress.swift"; sourceTree = "<group>"; };
@@ -516,7 +514,6 @@
 				AB36FF7328D358FA00AAC00C /* HomeView.swift */,
 				AB5E48F4290029B20076EABE /* HomeViewShowsList.swift */,
 				AB37EBB1290966C90029588C /* HomeShowRow.swift */,
-				AB37EBB5290967750029588C /* HomeShowRowViewModel.swift */,
 				ABB71C4928FE08D500D3126D /* HomeViewModel.swift */,
 			);
 			path = HomeView;
@@ -1163,7 +1160,6 @@
 				AB7F380F28EF1AA9007741C7 /* ShowInvitesList.swift in Sources */,
 				AB7B65A3291D38C50027FC6B /* String+isReallyEmpty.swift in Sources */,
 				AB4750192900B55C0000DB13 /* AddPercussionBacklineF.swift in Sources */,
-				AB37EBB6290967750029588C /* HomeShowRowViewModel.swift in Sources */,
 				ABEC487C28F1DD23005C9A99 /* SmallListRow.swift in Sources */,
 				AB24E3A828D7C9C4002B4F2C /* LoginViewModel.swift in Sources */,
 				AB07AC3929047F1800E378C6 /* ElectricGuitarBacklineList.swift in Sources */,
