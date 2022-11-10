@@ -10,6 +10,10 @@ import FirebaseFirestore
 import MapKit
 import UIKit.UIImage
 
+enum AddEditShowViewModelError: Error {
+    case incompleteForm
+}
+
 class AddEditShowViewModel: ObservableObject {
     var showToEdit: Show?
     let viewTitleText: String
@@ -33,6 +37,7 @@ class AddEditShowViewModel: ObservableObject {
     var showTypesenseCoordinates = [Double]()
     var addressSearch: MKLocalSearch?
     
+    @Published var showIsFree = false
     @Published var ticketPrice = ""
     @Published var ticketSalesAreRequired = false
     @Published var minimumRequiredTicketsSold = ""
@@ -48,6 +53,21 @@ class AddEditShowViewModel: ObservableObject {
         }
     }
     
+    var formIsComplete: Bool {
+        if showIsFree {
+            return !showName.isReallyEmpty &&
+            !showVenue.isReallyEmpty &&
+            !showHostName.isReallyEmpty &&
+            showAddress != nil
+        } else {
+            return !showName.isReallyEmpty &&
+            !showVenue.isReallyEmpty &&
+            !showHostName.isReallyEmpty &&
+            !ticketPrice.isReallyEmpty &&
+            showAddress != nil
+        }
+    }
+    
     init(viewTitleText: String, showToEdit: Show?) {
         if let showToEdit {
             self.showToEdit = showToEdit
@@ -58,6 +78,7 @@ class AddEditShowViewModel: ObservableObject {
             self.showGenre = Genre(rawValue: showToEdit.genre) ?? Genre.rock
             self.showMaxNumberOfBands = showToEdit.maxNumberOfBands
             self.showDate = Date(timeIntervalSince1970: showToEdit.date)
+            self.showIsFree = showToEdit.isFree
             self.showAddress = showToEdit.address
             self.showCity = showToEdit.city
             self.showState = showToEdit.state
@@ -122,6 +143,8 @@ class AddEditShowViewModel: ObservableObject {
     }
     
     func createShow(withImage image: UIImage?) async throws {
+        guard formIsComplete else { throw AddEditShowViewModelError.incompleteForm }
+        
         var newShow: Show
 
         if let image {
@@ -134,6 +157,7 @@ class AddEditShowViewModel: ObservableObject {
                 hostUid: AuthController.getLoggedInUid(),
                 venue: showVenue,
                 date: showDate.timeIntervalSince1970,
+                isFree: showIsFree,
                 ticketPrice: Double(ticketPrice),
                 ticketSalesAreRequired: ticketSalesAreRequired,
                 minimumRequiredTicketsSold: Int(minimumRequiredTicketsSold),
@@ -160,6 +184,7 @@ class AddEditShowViewModel: ObservableObject {
                 hostUid: AuthController.getLoggedInUid(),
                 venue: showVenue,
                 date: showDate.timeIntervalSince1970,
+                isFree: showIsFree,
                 ticketPrice: Double(ticketPrice),
                 ticketSalesAreRequired: ticketSalesAreRequired,
                 minimumRequiredTicketsSold: Int(minimumRequiredTicketsSold),
@@ -182,6 +207,8 @@ class AddEditShowViewModel: ObservableObject {
     }
     
     func updateShow() async throws {
+        guard formIsComplete else { throw AddEditShowViewModelError.incompleteForm }
+        
         // Force unwraps are safe for showToEdit because this method is only called when showToEdit != nil
         let updatedShow = Show(
             id: showToEdit!.id,
@@ -191,6 +218,7 @@ class AddEditShowViewModel: ObservableObject {
             hostUid: AuthController.getLoggedInUid(),
             venue: showVenue,
             date: showDate.timeIntervalSince1970,
+            isFree: showIsFree,
             ticketPrice: Double(ticketPrice),
             ticketSalesAreRequired: ticketSalesAreRequired,
             minimumRequiredTicketsSold: Int(minimumRequiredTicketsSold),
@@ -207,6 +235,7 @@ class AddEditShowViewModel: ObservableObject {
             genre: showGenre.rawValue,
             maxNumberOfBands: showMaxNumberOfBands
         )
+        
         try await DatabaseService.shared.updateShow(show: updatedShow)
     }
 }

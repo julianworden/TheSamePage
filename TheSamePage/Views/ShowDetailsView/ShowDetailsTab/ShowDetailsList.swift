@@ -28,15 +28,24 @@ struct ShowDetailsList: View {
                 iconName: "user"
             )
             
-            if let showFormattedTicketPrice = show.formattedTicketPrice {
+            if let showFormattedTicketPrice = show.formattedTicketPrice,
+               !show.isFree {
                 ListRowElements(
                     title: "Tickets are \(showFormattedTicketPrice) each",
                     iconName: "money"
                 )
             }
             
+            if show.isFree {
+                ListRowElements(
+                    title: "Admission is free",
+                    iconName: "money"
+                )
+            }
+            
             if let showMinimumRequiredTicketsSold = show.minimumRequiredTicketsSold,
-               show.ticketSalesAreRequired {
+               show.ticketSalesAreRequired,
+               !show.isFree {
                 ListRowElements(
                     title: "Ticket sales are required",
                     subtitle: "You must sell at least \(showMinimumRequiredTicketsSold) tickets",

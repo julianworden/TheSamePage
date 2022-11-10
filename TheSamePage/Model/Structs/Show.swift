@@ -25,6 +25,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     var doorsTime: Double?
     var musicStartTime: Double?
     var endTime: Double?
+    let isFree: Bool
     let ticketPrice: Double?
     let ticketSalesAreRequired: Bool
     let minimumRequiredTicketsSold: Int?
@@ -53,6 +54,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
          doorsTime: Double? = nil,
          musicStartTime: Double? = nil,
          endTime: Double? = nil,
+         isFree: Bool,
          ticketPrice: Double? = nil,
          ticketSalesAreRequired: Bool,
          minimumRequiredTicketsSold: Int? = nil,
@@ -83,6 +85,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         self.doorsTime = doorsTime
         self.musicStartTime = musicStartTime
         self.endTime = endTime
+        self.isFree = isFree
         self.ticketPrice = ticketPrice
         self.ticketSalesAreRequired = ticketSalesAreRequired
         self.minimumRequiredTicketsSold = minimumRequiredTicketsSold
@@ -173,6 +176,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         hostUid: "",
         venue: "Starland Ballroom",
         date: Date().timeIntervalSince1970,
+        isFree: false,
         ticketPrice: 100,
         ticketSalesAreRequired: true,
         minimumRequiredTicketsSold: 20,

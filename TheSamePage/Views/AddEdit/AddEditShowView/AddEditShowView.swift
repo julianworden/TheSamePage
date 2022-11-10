@@ -18,6 +18,7 @@ struct AddEditShowView: View {
     @State private var imagePickerIsShowing = false
     @State private var bandSearchSheetIsShowing = false
     @State private var createShowButtonIsDisabled = false
+    @State private var missingFieldsAlertIsShowing = false
     
     init(viewTitleText: String, showToEdit: Show?) {
         _viewModel = StateObject(wrappedValue: AddEditShowViewModel(viewTitleText: viewTitleText, showToEdit: showToEdit))
@@ -30,9 +31,9 @@ struct AddEditShowView: View {
             }
             
             Section {
-                TextField("Name", text: $viewModel.showName)
-                TextField("Venue", text: $viewModel.showVenue)
-                TextField("Host Name (Company or Person)", text: $viewModel.showHostName)
+                TextField("Name (required)", text: $viewModel.showName)
+                TextField("Venue (required)", text: $viewModel.showVenue)
+                TextField("Host Name (required)", text: $viewModel.showHostName)
                 Picker("Genre", selection: $viewModel.showGenre) {
                     ForEach(Genre.allCases) { genre in
                         Text(genre.rawValue)
@@ -59,14 +60,14 @@ struct AddEditShowView: View {
                 if let showAddress = viewModel.showAddress {
                     Text(showAddress)
                 } else {
-                    Text("No show address selected")
+                    Text("No address selected")
                         .italic()
                 }
                 
                 NavigationLink {
                     AddEditShowAddressView(viewModel: viewModel, showAddress: $showAddress)
                 } label: {
-                    Text("Select Address")
+                    Text("Select Address (required)")
                 }
                 
                 Toggle("Publicly display show address", isOn: $viewModel.addressIsPrivate)
@@ -77,12 +78,17 @@ struct AddEditShowView: View {
             }
             
             Section {
-                TextField("Ticket Price", text: $viewModel.ticketPrice)
-                    .keyboardType(.numberPad)
-                Toggle("Are ticket sales required?", isOn: $viewModel.ticketSalesAreRequired)
-                if viewModel.ticketSalesAreRequired {
-                    TextField("How many must be sold?", text: $viewModel.minimumRequiredTicketsSold)
+                Toggle("Show is free", isOn: $viewModel.showIsFree)
+                
+                if !viewModel.showIsFree {
+                    TextField("Ticket Price (required)", text: $viewModel.ticketPrice)
                         .keyboardType(.numberPad)
+                    Toggle("Are ticket sales required?", isOn: $viewModel.ticketSalesAreRequired)
+                    
+                    if viewModel.ticketSalesAreRequired {
+                        TextField("How many must be sold? (required)", text: $viewModel.minimumRequiredTicketsSold)
+                            .keyboardType(.numberPad)
+                    } 
                 }
             }
             
@@ -103,6 +109,9 @@ struct AddEditShowView: View {
                                 try await viewModel.updateShow()
                             }
                             dismiss()
+                        } catch AddEditShowViewModelError.incompleteForm {
+                            missingFieldsAlertIsShowing = true
+                            createShowButtonIsDisabled = false
                         } catch {
                             createShowButtonIsDisabled = false
                             print(error)
@@ -118,6 +127,9 @@ struct AddEditShowView: View {
         .navigationTitle(viewModel.viewTitleText)
         .sheet(isPresented: $imagePickerIsShowing) {
             ImagePicker(image: $showImage, pickerIsShowing: $imagePickerIsShowing)
+        }
+        .alert("Please ensure that all required fields are filled.", isPresented: $missingFieldsAlertIsShowing) {
+            Button("OK") { }
         }
         // TODO: Add a cancel toolbar item to dismiss this view if it's editing instead of creating
     }
