@@ -18,7 +18,7 @@ struct OtherUserBandList: View {
                 } label: {
                     OtherUserBandRow(viewModel: viewModel, index: index)
                 }
-                .tint(.black)
+                .tint(.primary)
                 .padding(.horizontal)
             }
             .animation(.easeInOut, value: viewModel.bands)

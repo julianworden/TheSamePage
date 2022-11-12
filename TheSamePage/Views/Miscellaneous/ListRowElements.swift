@@ -37,7 +37,8 @@ struct ListRowElements: View {
     var body: some View {
         VStack {
             HStack(spacing: 10) {
-                ListRowIcon(iconName: iconName)
+               Image(iconName)
+                    .listIconStyle()
                 
                 VStack(alignment: .leading) {
                     Text(title)

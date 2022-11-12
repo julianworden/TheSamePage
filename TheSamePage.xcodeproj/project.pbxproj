@@ -23,6 +23,9 @@
 		AB07AC3B290486F200E378C6 /* BassGuitarBacklineList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07AC3A290486F200E378C6 /* BassGuitarBacklineList.swift */; };
 		AB0DD4D228F0D82E00CEA1BD /* ShowLineupList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DD4D128F0D82E00CEA1BD /* ShowLineupList.swift */; };
 		AB1ACE2D28E08F9E00B46C90 /* Instrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1ACE2C28E08F9E00B46C90 /* Instrument.swift */; };
+		AB1B559629200CD100571316 /* ProfileImageStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1B559529200CD100571316 /* ProfileImageStyle.swift */; };
+		AB1B559829202E8300571316 /* SmallIconStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1B559729202E8300571316 /* SmallIconStyle.swift */; };
+		AB1B559A29202FB500571316 /* ListIconStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1B559929202FB500571316 /* ListIconStyle.swift */; };
 		AB24E3A628D7C9B0002B4F2C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24E3A528D7C9B0002B4F2C /* LoginView.swift */; };
 		AB24E3A828D7C9C4002B4F2C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24E3A728D7C9C4002B4F2C /* LoginViewModel.swift */; };
 		AB285AFA28F6F76200EB5F2B /* ShowTimeTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285AF928F6F76200EB5F2B /* ShowTimeTab.swift */; };
@@ -186,6 +189,9 @@
 		AB07AC3A290486F200E378C6 /* BassGuitarBacklineList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BassGuitarBacklineList.swift; sourceTree = "<group>"; };
 		AB0DD4D128F0D82E00CEA1BD /* ShowLineupList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLineupList.swift; sourceTree = "<group>"; };
 		AB1ACE2C28E08F9E00B46C90 /* Instrument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instrument.swift; sourceTree = "<group>"; };
+		AB1B559529200CD100571316 /* ProfileImageStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageStyle.swift; sourceTree = "<group>"; };
+		AB1B559729202E8300571316 /* SmallIconStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallIconStyle.swift; sourceTree = "<group>"; };
+		AB1B559929202FB500571316 /* ListIconStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListIconStyle.swift; sourceTree = "<group>"; };
 		AB24E3A528D7C9B0002B4F2C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		AB24E3A728D7C9C4002B4F2C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		AB285AF928F6F76200EB5F2B /* ShowTimeTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimeTab.swift; sourceTree = "<group>"; };
@@ -369,6 +375,16 @@
 			path = ShowBacklineTab;
 			sourceTree = "<group>";
 		};
+		AB1B559429200C8400571316 /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				AB1B559529200CD100571316 /* ProfileImageStyle.swift */,
+				AB1B559729202E8300571316 /* SmallIconStyle.swift */,
+				AB1B559929202FB500571316 /* ListIconStyle.swift */,
+			);
+			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
 		AB24E3A428D7C9A8002B4F2C /* LoginView */ = {
 			isa = PBXGroup;
 			children = (
@@ -465,6 +481,7 @@
 				AB36FF9228D3619000AAC00C /* Services */,
 				AB399AD728D4C1C3009B39F7 /* Utilities */,
 				AB6514DA28F90EED008DFDD0 /* Extensions */,
+				AB1B559429200C8400571316 /* ViewModifiers */,
 				AB36FF6928D356FE00AAC00C /* Assets.xcassets */,
 				AB6C09DE28D4C7F500990313 /* GoogleService-Info.plist */,
 				AB36FF6B28D356FE00AAC00C /* Preview Content */,
@@ -483,19 +500,19 @@
 		AB36FF7928D35B9500AAC00C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				ABB5804E28E47A8000F6C141 /* AddEdit */,
+				ABCF232629131E46003DB6BB /* Chat */,
 				AB3D2C3429060CBD00412A7E /* EditImageView */,
-				ABEACE7628DBBB2900BB1D67 /* Onboarding */,
-				AB36FF7A28D35B9A00AAC00C /* RootView */,
 				AB36FF7B28D35B9D00AAC00C /* HomeView */,
+				AB36FF9628D36A4F00AAC00C /* Miscellaneous */,
 				AB36FF7C28D35BA200AAC00C /* MyShowsView */,
 				ABDC0D6E28D748E50054269E /* NotificationsView */,
+				ABEACE7628DBBB2900BB1D67 /* Onboarding */,
 				AB35A8D328E9D044009FB203 /* ProfileViews */,
-				ABB5804E28E47A8000F6C141 /* AddEdit */,
-				ABBE94C028D8AD9E00790A04 /* ShowDetailsView */,
-				ABCF232629131E46003DB6BB /* Chat */,
+				AB36FF7A28D35B9A00AAC00C /* RootView */,
 				AB5054B128DC9BFF00321380 /* Searching */,
 				AB9D085F28FDA2300098A244 /* Settings */,
-				AB36FF9628D36A4F00AAC00C /* Miscellaneous */,
+				ABBE94C028D8AD9E00790A04 /* ShowDetailsView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1039,7 +1056,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1400;
+				LastSwiftUpdateCheck = 1410;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					AB36FF6128D356FD00AAC00C = {
@@ -1134,6 +1151,7 @@
 				ABEACE7B28DBBB6200BB1D67 /* InABandView.swift in Sources */,
 				ABF1C40228ECD0F60004A3C1 /* SearchResultRow.swift in Sources */,
 				AB7F381328EF1B56007741C7 /* NotificationType.swift in Sources */,
+				AB1B559829202E8300571316 /* SmallIconStyle.swift in Sources */,
 				ABD1D16D28F30CDF00791969 /* MyHostedShowsView.swift in Sources */,
 				AB5E490829003F8D0076EABE /* AddBacklineViewModel.swift in Sources */,
 				ABB93F3828F0732D0055659B /* AsyncButtonLabel.swift in Sources */,
@@ -1161,6 +1179,7 @@
 				AB7B65A3291D38C50027FC6B /* String+isReallyEmpty.swift in Sources */,
 				AB4750192900B55C0000DB13 /* AddPercussionBacklineF.swift in Sources */,
 				ABEC487C28F1DD23005C9A99 /* SmallListRow.swift in Sources */,
+				AB1B559A29202FB500571316 /* ListIconStyle.swift in Sources */,
 				AB24E3A828D7C9C4002B4F2C /* LoginViewModel.swift in Sources */,
 				AB07AC3929047F1800E378C6 /* ElectricGuitarBacklineList.swift in Sources */,
 				ABBE94C228D8ADBF00790A04 /* ShowDetailsView.swift in Sources */,
@@ -1189,6 +1208,7 @@
 				ABF8B81B28FC786900608657 /* ErrorMessage.swift in Sources */,
 				AB35A8CC28E9CFCF009FB203 /* LoggedInUserProfileView.swift in Sources */,
 				ABF1C40828ECF0950004A3C1 /* UserSearchResultsList.swift in Sources */,
+				AB1B559629200CD100571316 /* ProfileImageStyle.swift in Sources */,
 				AB1ACE2D28E08F9E00B46C90 /* Instrument.swift in Sources */,
 				ABEF10E528E64CD800A1DBAC /* AddEditLinkView.swift in Sources */,
 				AB285B0428F6FF6600EB5F2B /* AddShowTimeView.swift in Sources */,
@@ -1367,6 +1387,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = TheSamePage/TheSamePage.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1375,6 +1396,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheSamePage/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "The Same Page";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Atlantis would use Bonjour Service to discover Proxyman app from your local network";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to find shows near you";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -1404,6 +1426,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = TheSamePage/TheSamePage.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1412,6 +1435,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheSamePage/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "The Same Page";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Atlantis would use Bonjour Service to discover Proxyman app from your local network";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to find shows near you";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

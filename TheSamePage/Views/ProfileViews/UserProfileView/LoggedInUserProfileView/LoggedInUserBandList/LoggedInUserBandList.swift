@@ -18,7 +18,7 @@ struct LoggedInUserBandList: View {
                 } label: {
                     LoggedInUserBandRow(index: index)
                 }
-                .tint(.black)
+                .tint(.primary)
                 .padding(.horizontal)
             }
             .animation(.easeInOut, value: loggedInUserController.bands)

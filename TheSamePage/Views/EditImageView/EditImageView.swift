@@ -28,7 +28,7 @@ struct EditImageView: View {
     
     var body: some View {
         ZStack {
-            Color(uiColor: .secondarySystemBackground)
+            Color(uiColor: .systemGroupedBackground)
                 .ignoresSafeArea()
             
             Group {

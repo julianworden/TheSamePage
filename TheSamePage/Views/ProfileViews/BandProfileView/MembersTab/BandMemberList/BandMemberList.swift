@@ -21,9 +21,9 @@ struct BandMemberList: View {
                             viewModel: viewModel,
                             index: index
                         )
-                        .padding(.horizontal)
                     }
-                    .tint(.black)
+                    .padding(.horizontal)
+                    .tint(.primary)
                 } else {
                     BandMemberListRow(
                         viewModel: viewModel,

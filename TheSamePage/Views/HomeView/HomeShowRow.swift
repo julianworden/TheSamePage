@@ -30,18 +30,20 @@ struct HomeShowRow: View {
                     if show.shouldDisplayIcons {
                         HStack {
                             if show.hasBar {
-                                Image(systemName: "wineglass")
+                                Image("alcohol")
+                                    .smallIconStyle()
                             }
                             
                             if show.hasFood {
-                                Image(systemName: "fork.knife")
+                                Image("forkAndKnife")
+                                    .smallIconStyle()
                             }
                             
                             if show.is21Plus {
                                 Image(systemName: "21.circle")
+                                    .smallIconStyle()
                             }
                         }
-                        .imageScale(.small)
                     }
                 }
                 .multilineTextAlignment(.leading)

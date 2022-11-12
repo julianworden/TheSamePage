@@ -18,7 +18,7 @@ struct ShowLineupList: View {
                 } label: {                        
                     ShowLineupRow(viewModel: viewModel, index: index)
                 }
-                .tint(.black)
+                .tint(.primary)
             }
         }
     }

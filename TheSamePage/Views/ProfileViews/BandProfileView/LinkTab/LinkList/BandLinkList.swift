@@ -11,15 +11,14 @@ struct BandLinkList: View {
     @ObservedObject var viewModel: BandProfileViewModel
     
     var body: some View {
-        VStack {
+        VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(Array(viewModel.bandLinks.enumerated()), id: \.element) { index, link in
                 Link(destination: URL(string: link.url)!) {
                     BandLinkRow(viewModel: viewModel, index: index)
-                        .padding(.horizontal)
                 }
+                .padding(.horizontal)
                 .tint(.primary)
             }
-            .background(Color(uiColor: .secondarySystemBackground))
         }
     }
 }

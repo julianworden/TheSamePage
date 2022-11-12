@@ -486,7 +486,7 @@ func uploadImage(image: UIImage) async throws -> String? {
         imageUrl = fetchedImageUrl
         return imageUrl?.absoluteString
     } catch {
-        throw DatabaseServiceError.firebaseStorage(message: "Error setting profile picture")
+        throw DatabaseServiceError.firebaseStorage(message: "Error setting profile picture. Error: \(error)")
     }
 }
 

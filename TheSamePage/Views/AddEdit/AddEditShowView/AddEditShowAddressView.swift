@@ -31,7 +31,7 @@ struct AddEditShowAddressView: View {
                         Text(address)
                     }
                 }
-                .tint(.black)
+                .tint(.primary)
             }
         }
         .searchable(text: $viewModel.queryText, prompt: Text("Search for venue name or address"))

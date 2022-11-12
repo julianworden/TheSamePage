@@ -27,12 +27,7 @@ struct LoggedInUserProfileHeader: View {
                         Image(uiImage: updatedImage!)
                             .resizable()
                             .scaledToFill()
-                            .frame(width: 135, height: 135)
-                            .clipShape(Circle())
-                            .overlay {
-                                Circle()
-                                    .stroke(.white, lineWidth: 3)
-                            }
+                            .profileImageStyle()
                     }
                 }
                 
