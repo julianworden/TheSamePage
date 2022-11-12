@@ -85,6 +85,9 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print("App opened from notification")
+        let userInfo = response.notification.request.content.userInfo
+        print("Message sent by: \(userInfo["senderName"] ?? "Unknown User")")
         completionHandler()
     }
     

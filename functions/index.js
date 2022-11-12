@@ -17,6 +17,9 @@ exports.notifyNewMessage = functions.firestore
             notification: {
                 title: `${senderName} sent you a message.`,
                 body: messageText
+            },
+            data: {
+                senderName: senderName
             }
         };
 
