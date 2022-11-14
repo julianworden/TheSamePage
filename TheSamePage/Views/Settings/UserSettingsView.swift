@@ -13,7 +13,7 @@ struct UserSettingsView: View {
     @Binding var userIsLoggedOut: Bool
     
     var body: some View {
-        List {
+        Form {
             Button("Log Out", role: .destructive) {
                 userIsLoggedOut = true
                 do {

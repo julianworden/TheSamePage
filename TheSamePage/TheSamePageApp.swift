@@ -64,7 +64,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 extension AppDelegate: MessagingDelegate {
     /// The method that delivers the FCM token to the app. It also listens for changes to the
-    /// user's FCM token.
+    /// user's FCM token. This callback is fired at each app startup and whenever a new token is generated.
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print("Firebase registration token: \(String(describing: fcmToken))")
         
@@ -75,7 +75,6 @@ extension AppDelegate: MessagingDelegate {
             userInfo: dataDict
         )
         // TODO: If necessary send token to application server.
-        // Note: This callback is fired at each app startup and whenever a new token is generated.
     }
 }
 

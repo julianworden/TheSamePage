@@ -68,7 +68,7 @@ class SignUpViewModel: ObservableObject {
             
             try await DatabaseService.shared.createUserObject(user: newUser)
         } catch {
-            throw SignUpViewModelError.firebaseAuthError(message: "Failed to create user.")
+            throw SignUpViewModelError.firebaseAuthError(message: "Failed to create user. Error \(error)")
         }
     }
 }

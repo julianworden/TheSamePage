@@ -54,16 +54,17 @@ class NotificationsViewModel: ObservableObject {
     }
     
     func acceptBandInvite(bandInvite: BandInvite) async throws {
-        let username = try await AuthController.getLoggedInUsername()
-        let fullName = try await AuthController.getLoggedInFullName()
-        let bandMember = BandMember(uid: AuthController.getLoggedInUid(), role: bandInvite.recipientRole, username: username, fullName: fullName)
-        try await DatabaseService.shared.addUserToBand(add: bandMember, toBandWithId: bandInvite.bandId, withBandInvite: bandInvite)
+        let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
+        let band = try await DatabaseService.shared.getBand(with: bandInvite.bandId)
+        let bandMember = BandMember(uid: loggedInUser.id, role: bandInvite.recipientRole, username: loggedInUser.username, fullName: loggedInUser.fullName)
+        try await DatabaseService.shared.addUserToBand(add: loggedInUser, as: bandMember, to: band, withBandInvite: bandInvite)
     }
     
     func acceptShowInvite(showInvite: ShowInvite) async throws {
+        let band = try await DatabaseService.shared.getBand(with: showInvite.bandId)
         let showParticipant = ShowParticipant(name: showInvite.bandName, bandId: showInvite.bandId, showId: showInvite.showId)
         
-        try await DatabaseService.shared.addBandToShow(add: showParticipant, withShowInvite: showInvite)
+        try await DatabaseService.shared.addBandToShow(add: band, as: showParticipant, withShowInvite: showInvite)
     }
 
     func declineBandInvite(bandInvite: BandInvite) async throws {

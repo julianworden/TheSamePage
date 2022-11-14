@@ -42,20 +42,22 @@ final class SendBandInviteViewModel: ObservableObject {
     }
     
     func sendBandInviteNotification() throws {
-        let senderUsername = Auth.auth().currentUser!.email!
-        
-        // TODO: Handle error
-        if selectedBand != nil {
-            let invite = BandInvite(
-                notificationType: NotificationType.bandInvite.rawValue,
-                recipientUid: user.id,
-                recipientRole: recipientRole.rawValue,
-                bandId: selectedBand!.id,
-                senderUsername: senderUsername,
-                senderBand: selectedBand!.name,
-                message: "\(senderUsername) is inviting you to join \(selectedBand!.name)"
-            )
-            try DatabaseService.shared.sendBandInvite(invite: invite)
+        Task {
+            let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
+            
+            // TODO: Handle error
+            if let selectedBand {
+                let invite = BandInvite(
+                    notificationType: NotificationType.bandInvite.rawValue,
+                    recipientUid: user.id,
+                    recipientRole: recipientRole.rawValue,
+                    bandId: selectedBand.id,
+                    senderUsername: loggedInUser.username,
+                    senderBand: selectedBand.name,
+                    message: "\(loggedInUser.username) is inviting you to join \(selectedBand.name)"
+                )
+                try DatabaseService.shared.sendBandInvite(invite: invite)
+            }
         }
     }
 }

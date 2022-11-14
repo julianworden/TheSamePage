@@ -13,15 +13,17 @@ struct BandMemberListRow: View {
     let index: Int
     
     var body: some View {
-        let bandMember = viewModel.bandMembers[index]
-        
-        ListRowElements(
-            title: bandMember.bandMemberIsLoggedInUser ? "You" : bandMember.fullName,
-            subtitle: bandMember.role,
-            iconName: bandMember.listRowIconName,
-            displayChevron: !bandMember.bandMemberIsLoggedInUser,
-            displayDivider: true
-        )
+        if !viewModel.bandMembers.isEmpty {
+            let bandMember = viewModel.bandMembers[index]
+            
+            ListRowElements(
+                title: bandMember.bandMemberIsLoggedInUser ? "You" : bandMember.fullName,
+                subtitle: bandMember.role,
+                iconName: bandMember.listRowIconName,
+                displayChevron: !bandMember.bandMemberIsLoggedInUser,
+                displayDivider: true
+            )
+        }
     }
 }
 

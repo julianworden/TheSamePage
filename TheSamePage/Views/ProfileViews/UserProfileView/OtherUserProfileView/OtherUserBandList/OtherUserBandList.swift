@@ -15,6 +15,8 @@ struct OtherUserBandList: View {
             ForEach(Array(viewModel.bands.enumerated()), id: \.element) { index, band in
                 NavigationLink {
                     BandProfileView(band: band)
+                        // Necessary because the view will assume .large and then shift the view awkwardly otherwise
+                        .navigationBarTitleDisplayMode(.inline)
                 } label: {
                     OtherUserBandRow(viewModel: viewModel, index: index)
                 }

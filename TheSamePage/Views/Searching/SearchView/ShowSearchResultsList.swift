@@ -19,6 +19,8 @@ struct ShowSearchResultsList: View {
                     
                     NavigationLink {
                         ShowDetailsView(show: show)
+                            // Necessary because ShowDetailsView assumes .navigationBarTitleDisplayMode(.large) otherwise
+                            .navigationBarTitleDisplayMode(.inline)
                     } label: {
                         SearchResultRow(show: show)
                     }

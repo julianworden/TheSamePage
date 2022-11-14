@@ -124,6 +124,8 @@
 		ABBADD7928DFE5FA00720C64 /* BandState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBADD7828DFE5FA00720C64 /* BandState.swift */; };
 		ABBE94C228D8ADBF00790A04 /* ShowDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */; };
 		ABBE94C428D8AE7500790A04 /* ShowDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */; };
+		ABBEC0A62921D02800314BE5 /* BandSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBEC0A52921D02800314BE5 /* BandSettingsView.swift */; };
+		ABBEC0A82921D05600314BE5 /* BandSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBEC0A72921D05600314BE5 /* BandSettingsViewModel.swift */; };
 		ABCAA9FF28E9E56C00685F91 /* BandProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAA9FE28E9E56C00685F91 /* BandProfileHeader.swift */; };
 		ABCAAA0228E9ED6C00685F91 /* BandLinkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAAA0128E9ED6C00685F91 /* BandLinkList.swift */; };
 		ABCD5F62291B541F00E33934 /* BandShowsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCD5F61291B541F00E33934 /* BandShowsTab.swift */; };
@@ -292,6 +294,8 @@
 		ABBADD7828DFE5FA00720C64 /* BandState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandState.swift; sourceTree = "<group>"; };
 		ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsView.swift; sourceTree = "<group>"; };
 		ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsViewModel.swift; sourceTree = "<group>"; };
+		ABBEC0A52921D02800314BE5 /* BandSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSettingsView.swift; sourceTree = "<group>"; };
+		ABBEC0A72921D05600314BE5 /* BandSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSettingsViewModel.swift; sourceTree = "<group>"; };
 		ABCAA9FE28E9E56C00685F91 /* BandProfileHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BandProfileHeader.swift; sourceTree = "<group>"; };
 		ABCAAA0128E9ED6C00685F91 /* BandLinkList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLinkList.swift; sourceTree = "<group>"; };
 		ABCD5F61291B541F00E33934 /* BandShowsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandShowsTab.swift; sourceTree = "<group>"; };
@@ -576,20 +580,20 @@
 		AB36FF9028D35E8F00AAC00C /* Structs */ = {
 			isa = PBXGroup;
 			children = (
-				AB36FF7F28D35BFA00AAC00C /* User.swift */,
-				ABD18AA928EE13B9002286C3 /* JoinedShow.swift */,
-				AB36FF8228D35C0600AAC00C /* Show.swift */,
-				ABD18AB028EE2FAB002286C3 /* ShowInvite.swift */,
-				AB5054B228DCA04900321380 /* BandInvite.swift */,
-				AB7F381428EF20EA007741C7 /* ShowParticipant.swift */,
-				AB36FF8628D35C2000AAC00C /* Band.swift */,
-				ABA1020C28DDFD6900A4E818 /* BandMember.swift */,
-				AB36FF8828D35C2800AAC00C /* PlatformLink.swift */,
 				AB36FF8C28D35CDF00AAC00C /* BacklineItem.swift */,
-				AB55E7712901F651009F039B /* DrumKitBacklineItem.swift */,
-				ABF8B81828FC43C400608657 /* CustomMapAnnotation.swift */,
+				AB36FF8628D35C2000AAC00C /* Band.swift */,
+				AB5054B228DCA04900321380 /* BandInvite.swift */,
+				ABA1020C28DDFD6900A4E818 /* BandMember.swift */,
 				AB8326B72912BA2500208414 /* Chat.swift */,
 				AB8326B92912BB3500208414 /* ChatMessage.swift */,
+				ABF8B81828FC43C400608657 /* CustomMapAnnotation.swift */,
+				AB55E7712901F651009F039B /* DrumKitBacklineItem.swift */,
+				ABD18AA928EE13B9002286C3 /* JoinedShow.swift */,
+				AB36FF8828D35C2800AAC00C /* PlatformLink.swift */,
+				AB36FF8228D35C0600AAC00C /* Show.swift */,
+				ABD18AB028EE2FAB002286C3 /* ShowInvite.swift */,
+				AB7F381428EF20EA007741C7 /* ShowParticipant.swift */,
+				AB36FF7F28D35BFA00AAC00C /* User.swift */,
 				ABBEC0A42921B45500314BE5 /* Wrappers */,
 			);
 			path = Structs;
@@ -788,6 +792,7 @@
 			isa = PBXGroup;
 			children = (
 				AB9D086028FDA24B0098A244 /* UserSettingsView.swift */,
+				ABBEC0A92921D06100314BE5 /* BandSettings */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -830,6 +835,15 @@
 				ABB4C3FA29205D5700E2C153 /* AnyUserNotification.swift */,
 			);
 			path = Wrappers;
+			sourceTree = "<group>";
+		};
+		ABBEC0A92921D06100314BE5 /* BandSettings */ = {
+			isa = PBXGroup;
+			children = (
+				ABBEC0A52921D02800314BE5 /* BandSettingsView.swift */,
+				ABBEC0A72921D05600314BE5 /* BandSettingsViewModel.swift */,
+			);
+			path = BandSettings;
 			sourceTree = "<group>";
 		};
 		ABCAAA0828E9F66000685F91 /* MyShowsShowCard */ = {
@@ -1201,6 +1215,7 @@
 				ABB4C3FD2920618900E2C153 /* FbConstants.swift in Sources */,
 				ABDDAD4828DB45D100F1CF9B /* AddEditBandView.swift in Sources */,
 				ABA1020D28DDFD6900A4E818 /* BandMember.swift in Sources */,
+				ABBEC0A62921D02800314BE5 /* BandSettingsView.swift in Sources */,
 				ABF0DA90291B111400BD5DD7 /* SelectedBandProfileTab.swift in Sources */,
 				AB07296528F468820069B268 /* ShowBacklineTab.swift in Sources */,
 				AB3D2C3629060CC500412A7E /* EditImageView.swift in Sources */,
@@ -1238,6 +1253,7 @@
 				ABE3EFA828D919A2002EEF23 /* SignUpViewModel.swift in Sources */,
 				ABD323EF28E1180C00540B93 /* SendBandInviteView.swift in Sources */,
 				AB2BF26F2919C3D500C65DD8 /* ChatInfoViewModel.swift in Sources */,
+				ABBEC0A82921D05600314BE5 /* BandSettingsViewModel.swift in Sources */,
 				ABD18AAD28EE14C1002286C3 /* SendShowInviteView.swift in Sources */,
 				ABCF232829131E4E003DB6BB /* ConversationView.swift in Sources */,
 				AB37EBB2290966C90029588C /* HomeShowRow.swift in Sources */,

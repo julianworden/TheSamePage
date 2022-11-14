@@ -61,5 +61,7 @@ class BandProfileViewModel: ObservableObject {
                 }
             }
         }
+        
+        // TODO: Add band member listener to the band's members collection
     }
 }

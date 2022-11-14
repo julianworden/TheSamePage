@@ -19,6 +19,8 @@ struct BandSearchResultsList: View {
                     
                     NavigationLink {
                         BandProfileView(band: band)
+                            // Necessary because BandProfileView assumes .navigationBarTitleDisplayMode(.large) otherwise
+                            .navigationBarTitleDisplayMode(.inline)
                     } label: {
                         SearchResultRow(band: band)
                     }

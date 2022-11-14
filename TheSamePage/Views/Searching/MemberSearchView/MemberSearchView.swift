@@ -32,6 +32,8 @@ struct MemberSearchView: View {
                         } else {
                             NavigationLink {
                                 OtherUserProfileView(user: user)
+                                    // Necessary because OtherUserProfileView assumes .navigationBarTitleDisplayMode(.large) otherwise
+                                    .navigationBarTitleDisplayMode(.inline)
                             } label: {
                                 SearchResultRow(band: nil, user: user, show: nil)
                             }

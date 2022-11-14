@@ -54,14 +54,18 @@ struct BandProfileView: View {
                     }
                     .navigationViewStyle(.stack)
                 }
-            }
-        }
-        .navigationTitle("Band Profile")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Edit") {
-                    addEditBandSheetIsShowing = true
+                .navigationTitle("Band Profile")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        if band.loggedInUserIsInvolvedWithBand {
+                            NavigationLink {
+                                BandSettingsView(band: band)
+                            } label: {
+                                Label("Band settings", systemImage: "gear")
+                            }
+                        }
+                    }
                 }
             }
         }

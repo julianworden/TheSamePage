@@ -45,6 +45,8 @@ class AddEditBandViewModel: ObservableObject {
         var newBand: Band
         var newBandId: String
         var profileImageUrl: String?
+        let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
+        
         if let image {
             profileImageUrl = try await DatabaseService.shared.uploadImage(image: image)
             newBand = Band(
@@ -52,7 +54,8 @@ class AddEditBandViewModel: ObservableObject {
                 name: bandName,
                 bio: bandBio,
                 profileImageUrl: profileImageUrl,
-                adminUid: AuthController.getLoggedInUid(),
+                adminUid: loggedInUser.id,
+                memberFcmTokens: [loggedInUser.fcmToken ?? ""],
                 genre: bandGenre.rawValue,
                 city: bandCity,
                 state: bandState.rawValue
@@ -63,7 +66,8 @@ class AddEditBandViewModel: ObservableObject {
                 id: "",
                 name: bandName,
                 bio: bandBio,
-                adminUid: AuthController.getLoggedInUid(),
+                adminUid: loggedInUser.id,
+                memberFcmTokens: [loggedInUser.fcmToken ?? ""],
                 genre: bandGenre.rawValue,
                 city: bandCity,
                 state: bandState.rawValue
@@ -72,10 +76,10 @@ class AddEditBandViewModel: ObservableObject {
         }
         
         if userPlaysInBand {
-            let loggedInUsername = try await AuthController.getLoggedInUsername()
-            let loggedInFullName = try await AuthController.getLoggedInFullName()
-            let bandMember = BandMember(uid: AuthController.getLoggedInUid(), role: userRoleInBand.rawValue, username: loggedInUsername, fullName: loggedInFullName)
-            try await DatabaseService.shared.addUserToBand(add: bandMember, toBandWithId: newBandId, withBandInvite: nil)
+            let user = try await DatabaseService.shared.getLoggedInUser()
+            let band = try await DatabaseService.shared.getBand(with: newBandId)
+            let bandMember = BandMember(uid: user.id, role: userRoleInBand.rawValue, username: user.username, fullName: user.fullName)
+            try await DatabaseService.shared.addUserToBand(add: user, as: bandMember, to: band, withBandInvite: nil)
         }
     }
     
@@ -89,6 +93,7 @@ class AddEditBandViewModel: ObservableObject {
             profileImageUrl: bandToEdit.profileImageUrl,
             adminUid: bandToEdit.adminUid,
             memberUids: bandToEdit.memberUids,
+            memberFcmTokens: bandToEdit.memberFcmTokens,
             genre: bandGenre.rawValue,
             city: bandCity,
             state: bandState.rawValue

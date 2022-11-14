@@ -15,6 +15,8 @@ struct LoggedInUserBandList: View {
             ForEach(Array(loggedInUserController.bands.enumerated()), id: \.element) { index, band in
                 NavigationLink {
                     BandProfileView(band: band)
+                    // Necessary because the view will assume .large and then shift the view awkwardly otherwise
+                    .navigationBarTitleDisplayMode(.inline)
                 } label: {
                     LoggedInUserBandRow(index: index)
                 }
