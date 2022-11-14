@@ -33,6 +33,7 @@ struct OtherUserProfileHeader: View {
                 NavigationView {
                     SendBandInviteView(user: user)
                 }
+                .navigationViewStyle(.stack)
             }
         }
     }

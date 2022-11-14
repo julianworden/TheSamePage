@@ -27,7 +27,7 @@ class MemberSearchViewModel: ObservableObject {
     func fetchUsers(searchQuery: String) async throws {
         guard !queryText.isEmpty else { return }
         
-        let collectionParams = MultiSearchCollectionParameters(q: searchQuery, collection: "users")
+        let collectionParams = MultiSearchCollectionParameters(q: searchQuery, collection: FbConstants.users)
         let searchParams = MultiSearchParameters(queryBy: "username")
         
         do {

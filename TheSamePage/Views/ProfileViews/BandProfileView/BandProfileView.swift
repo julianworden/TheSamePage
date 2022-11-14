@@ -52,6 +52,7 @@ struct BandProfileView: View {
                     NavigationView {
                         AddEditBandView(bandToEdit: band)
                     }
+                    .navigationViewStyle(.stack)
                 }
             }
         }

@@ -7,9 +7,10 @@
 
 import Foundation
 
-enum NotificationType: String, CaseIterable, Identifiable {
-    case bandInvite = "Band Invites"
-    case showInvite = "Show Invites"
+enum NotificationType: String, CaseIterable, Codable, Identifiable {
+    case bandInvite = "Band Invite"
+    case showInvite = "Show Invite"
+    case showApplication = "Show Application"
     
     var id: Self { self }
 }

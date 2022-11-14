@@ -9,9 +9,10 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
 
-struct ShowInvite: Codable, Equatable, Identifiable {
+struct ShowInvite: Codable, Equatable, Identifiable, UserNotification {
     @DocumentID var id: String?
     @ServerTimestamp var dateSent: Timestamp?
+    let notificationType: String
     let recipientUid: String
     let bandName: String
     let bandId: String
@@ -24,12 +25,14 @@ struct ShowInvite: Codable, Equatable, Identifiable {
     let hasFood: Bool
     let hasBar: Bool
     let is21Plus: Bool
+    let message: String
     
     var inviteMessage: String {
         return "\(senderUsername) is inviting \(bandName) to play \(showName) at \(showVenue) on \(showDate)"
     }
     
     static let example = ShowInvite(
+        notificationType: NotificationType.showInvite.rawValue,
         recipientUid: ";askldjf;alskdjf",
         bandName: "Pathetic Fallacy",
         bandId: "a;lsdkjfa;lsdjf",
@@ -41,6 +44,7 @@ struct ShowInvite: Codable, Equatable, Identifiable {
         senderUsername: "ericpalermo",
         hasFood: true,
         hasBar: true,
-        is21Plus: true
+        is21Plus: true,
+        message: "ericpalermo is inviting Pathetic Fallacy to play Absolute Banger at Starland Ballroom on 10/11/22"
     )
 }

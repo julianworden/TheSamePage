@@ -9,24 +9,28 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
 
-struct BandInvite: Codable, Equatable, Hashable, Identifiable {
+struct BandInvite: Codable, Equatable, Hashable, Identifiable, UserNotification {
     @DocumentID var id: String?
     @ServerTimestamp var dateSent: Timestamp?
+    let notificationType: String
     let recipientUid: String
     let recipientRole: String
     let bandId: String
-    let senderName: String
+    let senderUsername: String
     let senderBand: String
+    let message: String
     
     var inviteMessage: String {
-        return "\(senderName) is inviting you to join \(senderBand)"
+        return "\(senderUsername) is inviting you to join \(senderBand)"
     }
     
     static var example = BandInvite(
+        notificationType: NotificationType.bandInvite.rawValue,
         recipientUid: "as;ldkfjapwoiefhaw;jgr",
         recipientRole: "Guitar",
         bandId: "aposiefjawpefhaw;jgn",
-        senderName: "ericpalermo",
-        senderBand: "Dumpweed"
+        senderUsername: "ericpalermo",
+        senderBand: "Dumpweed",
+        message: "ericpalermo is inviting you to join Dumpweed"
     )
 }

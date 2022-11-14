@@ -45,7 +45,7 @@ class BandProfileViewModel: ObservableObject {
     
     func addBandListener() {
         guard let band else { return }
-        bandListener = db.collection("bands").document(band.id).addSnapshotListener { snapshot, error in
+        bandListener = db.collection(FbConstants.bands).document(band.id).addSnapshotListener { snapshot, error in
             if snapshot != nil && error == nil {
                 if let band = try? snapshot!.data(as: Band.self) {
                     self.band = band

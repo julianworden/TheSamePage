@@ -40,7 +40,7 @@ class SearchViewModel: ObservableObject {
     func fetchUsers(searchQuery: String) async throws {
         guard !queryText.isEmpty else { return }
         
-        let collectionParams = MultiSearchCollectionParameters(q: searchQuery, collection: "users")
+        let collectionParams = MultiSearchCollectionParameters(q: searchQuery, collection: FbConstants.users)
         let searchParams = MultiSearchParameters(queryBy: "username")
         
         do {
@@ -54,7 +54,7 @@ class SearchViewModel: ObservableObject {
     func fetchBands(searchQuery: String) async throws {
         guard !queryText.isEmpty else { return }
         
-        let collectionParams = MultiSearchCollectionParameters(q: searchQuery, collection: "bands")
+        let collectionParams = MultiSearchCollectionParameters(q: searchQuery, collection: FbConstants.bands)
         let searchParams = MultiSearchParameters(queryBy: "name")
         
         do {
@@ -68,7 +68,7 @@ class SearchViewModel: ObservableObject {
     func fetchShows(searchQuery: String) async throws {
         guard !queryText.isEmpty else { return }
         
-        let collectionParams = MultiSearchCollectionParameters(q: searchQuery, collection: "shows")
+        let collectionParams = MultiSearchCollectionParameters(q: searchQuery, collection: FbConstants.shows)
         let searchParams = MultiSearchParameters(queryBy: "name")
         
         do {

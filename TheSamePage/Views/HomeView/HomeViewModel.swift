@@ -43,7 +43,7 @@ class HomeViewModel: ObservableObject {
         )
         
         do {
-            let (data, _) = try await TypesenseController.client.collection(name: "shows").documents().search(searchParameters, for: Show.self)
+            let (data, _) = try await TypesenseController.client.collection(name: FbConstants.shows).documents().search(searchParameters, for: Show.self)
             if let fetchedNearbyShows = data?.hits,
                !fetchedNearbyShows.isEmpty {
                 nearbyShows = fetchedNearbyShows

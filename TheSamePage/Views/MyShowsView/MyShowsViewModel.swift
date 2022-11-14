@@ -22,7 +22,7 @@ class MyShowsViewModel: ObservableObject {
     
     /// Fetches all shows that the user is hosting.
     func getHostedShows() async throws {        
-        hostedShowsListener = db.collection("shows").whereField(
+        hostedShowsListener = db.collection(FbConstants.shows).whereField(
             "hostUid",
             isEqualTo: AuthController.getLoggedInUid()
         ).addSnapshotListener { snapshot, error in
@@ -44,7 +44,7 @@ class MyShowsViewModel: ObservableObject {
     
     /// Fetches all shows that the user is playing.
     func getPlayingShows() async throws {
-        playingShowsListener = db.collection("shows").whereField(
+        playingShowsListener = db.collection(FbConstants.shows).whereField(
             "participantUids",
             arrayContains: AuthController.getLoggedInUid()
         ).addSnapshotListener { snapshot, error in

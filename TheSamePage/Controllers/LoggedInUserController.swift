@@ -73,7 +73,7 @@ class LoggedInUserController: ObservableObject {
     }
     
     func addUserListener() {
-        userListener = db.collection("users").document(AuthController.getLoggedInUid()).addSnapshotListener { snapshot, error in
+        userListener = db.collection(FbConstants.users).document(AuthController.getLoggedInUid()).addSnapshotListener { snapshot, error in
             if snapshot != nil && error == nil {
                 if let updatedUser = try? snapshot?.data(as: User.self) {
                     // loggedInUser must also be updated because the loggedInUserProfile references it

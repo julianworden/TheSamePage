@@ -45,6 +45,7 @@ final class SendShowInviteViewModel: ObservableObject {
         }
         
         let showInvite = ShowInvite(
+            notificationType: NotificationType.showInvite.rawValue,
             recipientUid: recipientUid,
             bandName: bandName,
             bandId: bandId,
@@ -55,7 +56,8 @@ final class SendShowInviteViewModel: ObservableObject {
             senderUsername: senderUsername ?? "A User",
             hasFood: selectedShow!.hasFood,
             hasBar: selectedShow!.hasBar,
-            is21Plus: selectedShow!.is21Plus
+            is21Plus: selectedShow!.is21Plus,
+            message: "\(senderUsername ?? "Someone") is inviting \(bandName) to play \(selectedShow!.name) at \(selectedShow!.venue) on \(selectedShow!.formattedDate)"
         )
         
         guard !selectedShow!.bandIds.contains(showInvite.bandId) else { throw SendShowInviteViewModelError.bandIsAlreadyPlaying }

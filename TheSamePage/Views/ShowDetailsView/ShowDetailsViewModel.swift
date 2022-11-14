@@ -115,7 +115,7 @@ class ShowDetailsViewModel: ObservableObject {
     }
     
     func addShowListener() {
-        showListener = db.collection("shows").document(show.id).addSnapshotListener { snapshot, error in
+        showListener = db.collection(FbConstants.shows).document(show.id).addSnapshotListener { snapshot, error in
             if snapshot != nil && error == nil {
                 if let editedShow = try? snapshot!.data(as: Show.self) {
                     Task { @MainActor in
@@ -127,7 +127,7 @@ class ShowDetailsViewModel: ObservableObject {
     }
     
     func getBacklineItems(forShow show: Show) async {
-        showBacklineListener = db.collection("shows").document(show.id).collection("backlineItems").addSnapshotListener { snapshot, error in
+        showBacklineListener = db.collection(FbConstants.shows).document(show.id).collection("backlineItems").addSnapshotListener { snapshot, error in
             if snapshot != nil && error == nil {
                 let documents = snapshot!.documents
                 

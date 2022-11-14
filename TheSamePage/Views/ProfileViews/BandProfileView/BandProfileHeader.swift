@@ -51,7 +51,10 @@ struct BandProfileHeader: View {
                     }
                 }
                 .sheet(isPresented: $sendShowInviteViewIsShowing) {
-                    SendShowInviteView(band: band)
+                    NavigationView {
+                        SendShowInviteView(band: band)
+                    }
+                    .navigationViewStyle(.stack)
                 }
             }
         }

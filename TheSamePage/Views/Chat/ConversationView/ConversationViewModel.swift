@@ -30,23 +30,27 @@ class ConversationViewModel: ObservableObject {
     func addChatListener() {
         guard let chat else { return } // TODO: Change state in this guard's else block
         
-        chatMessagesListener = db.collection("chats").document(chat.id).collection("messages").addSnapshotListener { snapshot, error in
-            if let snapshot, error == nil, !snapshot.documents.isEmpty {
-                let chatMessageDocuments = snapshot.documents
-                if let chatMessages = try? chatMessageDocuments.map({ try $0.data(as: ChatMessage.self) }) {
-                    Task { @MainActor in
-                        let sortedChatMessages = chatMessages.sorted { lhs, rhs in
-                            lhs.sentTimestampAsDate < rhs.sentTimestampAsDate
+        chatMessagesListener = db
+            .collection(FbConstants.chats)
+            .document(chat.id)
+            .collection(FbConstants.messages)
+            .addSnapshotListener { snapshot, error in
+                if let snapshot, error == nil, !snapshot.documents.isEmpty {
+                    let chatMessageDocuments = snapshot.documents
+                    if let chatMessages = try? chatMessageDocuments.map({ try $0.data(as: ChatMessage.self) }) {
+                        Task { @MainActor in
+                            let sortedChatMessages = chatMessages.sorted { lhs, rhs in
+                                lhs.sentTimestampAsDate < rhs.sentTimestampAsDate
+                            }
+                            self.messages = sortedChatMessages
                         }
-                        self.messages = sortedChatMessages
+                    } else {
+                        // TODO: Change state
                     }
                 } else {
                     // TODO: Change state
                 }
-            } else {
-                // TODO: Change state
             }
-        }
     }
     
     @MainActor

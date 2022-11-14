@@ -20,7 +20,7 @@ class BandSearchViewModel: ObservableObject {
     func fetchBands(searchQuery: String) async throws {
         guard !queryText.isEmpty else { return }
         
-        let collectionParams = MultiSearchCollectionParameters(q: searchQuery, collection: "bands")
+        let collectionParams = MultiSearchCollectionParameters(q: searchQuery, collection: FbConstants.bands)
         let searchParams = MultiSearchParameters(queryBy: "name")
         
         do {
