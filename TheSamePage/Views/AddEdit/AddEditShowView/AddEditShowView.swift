@@ -20,8 +20,8 @@ struct AddEditShowView: View {
     @State private var createShowButtonIsDisabled = false
     @State private var missingFieldsAlertIsShowing = false
     
-    init(viewTitleText: String, showToEdit: Show?) {
-        _viewModel = StateObject(wrappedValue: AddEditShowViewModel(viewTitleText: viewTitleText, showToEdit: showToEdit))
+    init(showToEdit: Show?) {
+        _viewModel = StateObject(wrappedValue: AddEditShowViewModel(showToEdit: showToEdit))
     }
     
     var body: some View {
@@ -123,8 +123,8 @@ struct AddEditShowView: View {
                 .disabled(createShowButtonIsDisabled)
             }
         }
+        .navigationTitle(viewModel.showToEdit == nil ? "Create Show" : "Update Show")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(viewModel.viewTitleText)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 if viewModel.showToEdit != nil {
@@ -151,6 +151,6 @@ struct AddEditShowView: View {
 
 struct AddEditShowView_Previews: PreviewProvider {
     static var previews: some View {
-        AddEditShowView(viewTitleText: "Add Show", showToEdit: nil)
+        AddEditShowView(showToEdit: nil)
     }
 }

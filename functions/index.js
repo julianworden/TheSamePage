@@ -1,4 +1,5 @@
-const functions = require("firebase-functions");
+const functions = require('firebase-functions');
+const firebase_tools = require('firebase-tools');
 const admin = require('firebase-admin');
 
 admin.initializeApp();
@@ -25,3 +26,25 @@ exports.notifyNewMessage = functions.firestore
 
         return admin.messaging().sendToDevice(recipientFcmTokens, payload);
     })
+
+exports.recursiveDelete = functions
+    .runWith({
+        timeoutSeconds: 540,
+        memory: '2GB'
+    })
+    .https.onCall(async (data, context) => {
+        const path = data.path;
+        functions.logger.log('Starting delete at path', path)
+        
+        await firebase_tools.firestore
+            .delete(path, {
+                project: "the-same-page-9c69e",
+                recursive: true,
+                force: true,
+                token: functions.config().fb.token
+            });
+            
+        return {
+            path: path
+        };
+    });

@@ -56,6 +56,6 @@ struct AddEditShowAddressView: View {
 
 struct AddEditShowAddressView_Previews: PreviewProvider {
     static var previews: some View {
-        AddEditShowAddressView(viewModel: AddEditShowViewModel(viewTitleText: "Edit Show", showToEdit: nil), showAddress: .constant(""))
+        AddEditShowAddressView(viewModel: AddEditShowViewModel(showToEdit: nil), showAddress: .constant(""))
     }
 }

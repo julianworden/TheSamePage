@@ -26,15 +26,10 @@ class BandProfileViewModel: ObservableObject {
         Task {
             if let band {
                 self.band = band
-                addBandListener()
             }
             
             if let showParticipant {
                 self.band = try await convertShowParticipantToBand(showParticipant: showParticipant)
-                
-                if self.band != nil {
-                    addBandListener()
-                }
             }
         }
     }
@@ -45,6 +40,7 @@ class BandProfileViewModel: ObservableObject {
     
     func addBandListener() {
         guard let band else { return }
+        
         bandListener = db.collection(FbConstants.bands).document(band.id).addSnapshotListener { snapshot, error in
             if snapshot != nil && error == nil {
                 if let band = try? snapshot!.data(as: Band.self) {
@@ -61,7 +57,11 @@ class BandProfileViewModel: ObservableObject {
                 }
             }
         }
-        
-        // TODO: Add band member listener to the band's members collection
+    }
+    
+    // TODO: Add band member listener to the band's members collection
+    
+    func removeListeners() {
+        bandListener?.remove()
     }
 }

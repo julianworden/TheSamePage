@@ -67,6 +67,12 @@ struct BandProfileView: View {
                         }
                     }
                 }
+                .onAppear {
+                    viewModel.addBandListener()
+                }
+                .onDisappear {
+                    viewModel.removeListeners()
+                }
             }
         }
     }

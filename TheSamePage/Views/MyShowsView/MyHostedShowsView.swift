@@ -35,7 +35,7 @@ struct MyHostedShowsView: View {
                         .font(.body.italic())
                     
                     NavigationLink {
-                        AddEditShowView(viewTitleText: "Create Show", showToEdit: nil)
+                        AddEditShowView(showToEdit: nil)
                     } label: {
                         Text("Tap here to create a show.")
                             .italic()

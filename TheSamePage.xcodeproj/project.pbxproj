@@ -108,6 +108,8 @@
 		AB8326B82912BA2500208414 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8326B72912BA2500208414 /* Chat.swift */; };
 		AB8326BA2912BB3500208414 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8326B92912BB3500208414 /* ChatMessage.swift */; };
 		AB9D086128FDA24B0098A244 /* UserSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9D086028FDA24B0098A244 /* UserSettingsView.swift */; };
+		AB9DAB04292329AF009BE932 /* ShowSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9DAB03292329AF009BE932 /* ShowSettingsView.swift */; };
+		AB9DAB06292329BB009BE932 /* ShowSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9DAB05292329BB009BE932 /* ShowSettingsViewModel.swift */; };
 		ABA1020728DDE5BE00A4E818 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020628DDE5BE00A4E818 /* NotificationsViewModel.swift */; };
 		ABA1020928DDF3C000A4E818 /* NotificationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020828DDF3C000A4E818 /* NotificationRow.swift */; };
 		ABA1020D28DDFD6900A4E818 /* BandMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020C28DDFD6900A4E818 /* BandMember.swift */; };
@@ -278,6 +280,8 @@
 		AB8326B72912BA2500208414 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		AB8326B92912BB3500208414 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		AB9D086028FDA24B0098A244 /* UserSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsView.swift; sourceTree = "<group>"; };
+		AB9DAB03292329AF009BE932 /* ShowSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSettingsView.swift; sourceTree = "<group>"; };
+		AB9DAB05292329BB009BE932 /* ShowSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSettingsViewModel.swift; sourceTree = "<group>"; };
 		ABA1020628DDE5BE00A4E818 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
 		ABA1020828DDF3C000A4E818 /* NotificationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRow.swift; sourceTree = "<group>"; };
 		ABA1020C28DDFD6900A4E818 /* BandMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMember.swift; sourceTree = "<group>"; };
@@ -792,9 +796,19 @@
 			isa = PBXGroup;
 			children = (
 				AB9D086028FDA24B0098A244 /* UserSettingsView.swift */,
+				AB9DAB0229232962009BE932 /* ShowSettings */,
 				ABBEC0A92921D06100314BE5 /* BandSettings */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		AB9DAB0229232962009BE932 /* ShowSettings */ = {
+			isa = PBXGroup;
+			children = (
+				AB9DAB03292329AF009BE932 /* ShowSettingsView.swift */,
+				AB9DAB05292329BB009BE932 /* ShowSettingsViewModel.swift */,
+			);
+			path = ShowSettings;
 			sourceTree = "<group>";
 		};
 		ABB4C3F629205AB500E2C153 /* Protocols */ = {
@@ -1227,6 +1241,7 @@
 				ABAB45F928F24C2400FA8F70 /* HostedShowRow.swift in Sources */,
 				AB6514DF28F911EB008DFDD0 /* ShowTimeRow.swift in Sources */,
 				AB3C73D528DC0A1D0038085A /* BandSearchView.swift in Sources */,
+				AB9DAB06292329BB009BE932 /* ShowSettingsViewModel.swift in Sources */,
 				ABFB2D482909E33B009A6F65 /* ShowLineupRow.swift in Sources */,
 				ABD18AAA28EE13B9002286C3 /* JoinedShow.swift in Sources */,
 				ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */,
@@ -1287,6 +1302,7 @@
 				AB285B0228F6FE8A00EB5F2B /* ShowTimeType.swift in Sources */,
 				ABCD5F62291B541F00E33934 /* BandShowsTab.swift in Sources */,
 				AB35A8D628E9DC73009FB203 /* BandProfileView.swift in Sources */,
+				AB9DAB04292329AF009BE932 /* ShowSettingsView.swift in Sources */,
 				AB285AFC28F6F7EE00EB5F2B /* ShowTimeList.swift in Sources */,
 				ABDC0D7928D76FC60054269E /* AddEditShowViewModel.swift in Sources */,
 				AB36FF8928D35C2800AAC00C /* PlatformLink.swift in Sources */,

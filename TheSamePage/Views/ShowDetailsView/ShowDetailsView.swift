@@ -67,24 +67,18 @@ struct ShowDetailsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem {
-                if viewModel.show.loggedInUserIsShowHost {
-                    Button("Edit") {
-                        addEditShowViewIsShowing = true
+                if show.loggedInUserIsShowHost {
+                    NavigationLink {
+                        ShowSettingsView(show: show)
+                    } label: {
+                        Image(systemName: "gear")
                     }
                 }
             }
         }
-        .sheet(
-            isPresented: $addEditShowViewIsShowing,
-            // onDismiss is necessary because sometimes the show's info
-            // isn't updated in this view without it.
-            onDismiss: { viewModel.addShowListener() },
-            content: {
-                NavigationView {
-                    AddEditShowView(viewTitleText: "Edit Show", showToEdit: viewModel.show)
-                }
-            }
-        )
+        .onAppear {
+            viewModel.addShowListener()
+        }
         .onDisappear {
             viewModel.removeShowListener()
         }

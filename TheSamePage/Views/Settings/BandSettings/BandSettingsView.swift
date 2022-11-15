@@ -43,7 +43,9 @@ struct BandSettingsView: View {
         .navigationTitle("Band Settings")
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $editBandSheetIsShowing) {
-            AddEditBandView(bandToEdit: band)
+            NavigationView {
+                AddEditBandView(bandToEdit: band)
+            }
         }
         .alert(
             "Are you sure?",

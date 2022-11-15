@@ -40,7 +40,7 @@ struct MyShowsRootView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        AddEditShowView(viewTitleText: "Create Show", showToEdit: nil)
+                        AddEditShowView(showToEdit: nil)
                     } label: {
                         Image(systemName: "plus")
                             .imageScale(.large)

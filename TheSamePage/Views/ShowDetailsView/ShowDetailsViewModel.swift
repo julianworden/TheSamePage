@@ -66,8 +66,6 @@ class ShowDetailsViewModel: ObservableObject {
         }
         
         state = .dataLoaded
-        
-        addShowListener()
     }
     
     func removeShowTimeFromShow(showTimeType: ShowTimeType) {
@@ -123,6 +121,8 @@ class ShowDetailsViewModel: ObservableObject {
                     }
                 }
             }
+            
+            // TODO: Detect when the show is deleted and dismiss the view somehow
         }
     }
     

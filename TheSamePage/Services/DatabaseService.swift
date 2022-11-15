@@ -8,6 +8,7 @@
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseFunctions
 import FirebaseStorage
 import Foundation
 import UIKit.UIImage
@@ -493,6 +494,37 @@ class DatabaseService: NSObject {
             } catch {
                 throw DatabaseServiceError.firestore(message: "Failed to delete BandInvite in DatabaseService.deleteShowInvite(showInvite:) Error: \(error)")
             }
+        }
+    }
+    
+    func cancelShow(show: Show) async throws {
+        do {
+            _ = try await Functions.functions().httpsCallable("recursiveDelete").call(["path": "shows/\(show.id)"])
+            
+            try await deleteChat(for: show)
+            
+            
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to delete show in DatabaseService.cancelShow(show:) Error: \(error)")
+        }
+    }
+    
+    func deleteChat(for show: Show) async throws {
+        do {
+            let chatDocument = try await db
+                .collection(FbConstants.chats)
+                .whereField(FbConstants.showId, isEqualTo: show.id)
+                .getDocuments()
+                .documents
+            
+            guard !chatDocument.isEmpty else { return }
+            
+            let chat = try chatDocument[0].data(as: Chat.self)
+            
+            _ = try await Functions.functions().httpsCallable("recursiveDelete").call(["path": "chats/\(chat.id)"])
+            print("Delete successful")
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to delete chat in DatabaseService.deleteChat(for:) Error: \(error)")
         }
     }
     

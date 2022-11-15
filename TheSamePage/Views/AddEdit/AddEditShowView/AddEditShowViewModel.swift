@@ -16,7 +16,6 @@ enum AddEditShowViewModelError: Error {
 
 class AddEditShowViewModel: ObservableObject {
     var showToEdit: Show?
-    let viewTitleText: String
     
     @Published var showName = ""
     @Published var showDescription = ""
@@ -72,7 +71,7 @@ class AddEditShowViewModel: ObservableObject {
         }
     }
     
-    init(viewTitleText: String, showToEdit: Show?) {
+    init(showToEdit: Show?) {
         if let showToEdit {
             self.showToEdit = showToEdit
             self.showName = showToEdit.name
@@ -99,7 +98,6 @@ class AddEditShowViewModel: ObservableObject {
             self.showHasBar = showToEdit.hasBar
             self.showHasFood = showToEdit.hasFood
         }
-        self.viewTitleText = viewTitleText
     }
     
     func incrementMaxNumberOfBands() {
