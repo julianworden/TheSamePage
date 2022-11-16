@@ -11,7 +11,7 @@ struct ShowSettingsView: View {
     @StateObject var viewModel: ShowSettingsViewModel
     
     @State private var addEditShowSheetIsShowing = false
-    @State private var leaveShowAlertIsShowing = false
+    @State private var cancelShowAlertIsShowing = false
     
     init(show: Show) {
         _viewModel = StateObject(wrappedValue: ShowSettingsViewModel(show: show))
@@ -25,7 +25,7 @@ struct ShowSettingsView: View {
                 addEditShowSheetIsShowing = true
             }
             
-            Button("Cancel Show", role: .cancel) {
+            Button("Cancel Show", role: .destructive) {
                 viewModel.cancelShow()
             }
         }
@@ -35,6 +35,16 @@ struct ShowSettingsView: View {
                     .navigationViewStyle(.stack)
             }
         }
+        .alert(
+            "Are you sure?",
+            isPresented: $cancelShowAlertIsShowing,
+            actions: {
+                
+            },
+            message: {
+                Text("Cancelling this show will delete all of its data from The Same Page, including its chat.")
+            }
+        )
     }
 }
 

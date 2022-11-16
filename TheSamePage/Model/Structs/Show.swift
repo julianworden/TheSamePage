@@ -117,10 +117,49 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
         }
     }
     
-    var unixTimeAsDate: Date {
+    var unixDateAsDate: Date {
         return Date(timeIntervalSince1970: date)
     }
     
+    var unixLoadInTimeAsDate: Date? {
+        if let loadInTime {
+            return Date(timeIntervalSince1970: loadInTime)
+        } else {
+            return nil
+        }
+    }
+    
+    var unixDoorsTimeAsDate: Date? {
+        if let doorsTime {
+            return Date(timeIntervalSince1970: doorsTime)
+        } else {
+            return nil
+        }
+    }
+    
+    var unixMusicStartTimeAsDate: Date? {
+        if let musicStartTime {
+            return Date(timeIntervalSince1970: musicStartTime)
+        } else {
+            return nil
+        }
+    }
+    
+    var unixEndTimeAsDate: Date? {
+        if let endTime {
+            return Date(timeIntervalSince1970: endTime)
+        } else {
+            return nil
+        }
+    }
+    
+    var hasTime: Bool {
+        return loadInTime != nil ||
+               doorsTime != nil ||
+               musicStartTime != nil ||
+               endTime != nil
+    }
+        
     var loggedInUserIsShowHost: Bool {
         return hostUid == AuthController.getLoggedInUid()
     }

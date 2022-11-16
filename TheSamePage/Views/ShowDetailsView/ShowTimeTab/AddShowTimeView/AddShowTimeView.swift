@@ -12,6 +12,8 @@ struct AddShowTimeView: View {
     
     @StateObject var viewModel: AddShowTimeViewModel
     
+    
+    
     init(show: Show, showTimeType: ShowTimeType) {
         _viewModel = StateObject(wrappedValue: AddShowTimeViewModel(show: show, showTimeType: showTimeType))
     }
@@ -31,14 +33,8 @@ struct AddShowTimeView: View {
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Save") {
-                    Task {
-                        do {
-                            try await viewModel.addShowTime(ofType: viewModel.showTimeType)
-                            dismiss()
-                        } catch {
-                            print(error)
-                        }
-                    }
+                    viewModel.addShowTime(ofType: viewModel.showTimeType)
+                    dismiss()
                 }
             }
         }

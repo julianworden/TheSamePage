@@ -45,7 +45,9 @@ struct AddShowTimeButtons: View {
                 .buttonStyle(.borderedProminent)
             }
             
-            EditButton()
+            if show.hasTime {
+                EditButton()
+            }
         }
     }
 }

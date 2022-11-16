@@ -15,7 +15,7 @@ struct LoginView: View {
     
     @Binding var userIsOnboarding: Bool
     
-    @State private var loginButtonIsDisabled = false
+    
     
     var hideNavigationLink = true
     
@@ -27,19 +27,18 @@ struct LoginView: View {
                 Button {
                     Task {
                         do {
-                            loginButtonIsDisabled = true
-                            try await viewModel.logInButtonTapped()
-                            try await loggedInUserController.getLoggedInUserInfo()
+//                            viewModel.loginButtonIsDisabled = true
+                            try await viewModel.logInButtonTapped(emailAddress: viewModel.emailAddress, password: viewModel.password)
+                            //                    loggedInUserController.getLoggedInUserInfo()
                             userIsOnboarding = false
                         } catch {
-                            loginButtonIsDisabled = false
-                            print(error)
+                            print("Failed")
                         }
                     }
                 } label: {
-                    AsyncButtonLabel(buttonIsDisabled: $loginButtonIsDisabled, title: "Log In")
+                    AsyncButtonLabel(buttonIsDisabled: $viewModel.loginButtonIsDisabled, title: "Log In")
                 }
-                .disabled(loginButtonIsDisabled)
+                .disabled(viewModel.loginButtonIsDisabled)
                 
                 Text("Don't have an account?")
                 NavigationLink {
@@ -50,6 +49,16 @@ struct LoginView: View {
                 }
             }
             .navigationTitle("Log In")
+            .alert(
+                "Error",
+                isPresented: $viewModel.loginErrorShowing,
+                actions: {
+                    Button("OK") { }
+                },
+                message: {
+                    Text(viewModel.loginErrorMessage)
+                }
+            )
         }
     }
 }

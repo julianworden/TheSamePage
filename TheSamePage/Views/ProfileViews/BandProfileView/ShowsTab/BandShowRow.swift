@@ -22,7 +22,7 @@ struct BandShowRow: View {
             displayChevron: true,
             displayDivider: true
         )
-        .foregroundColor(show.unixTimeAsDate < Date() ? .secondary : .primary)
+        .foregroundColor(show.unixDateAsDate < Date() ? .secondary : .primary)
     }
 }
 

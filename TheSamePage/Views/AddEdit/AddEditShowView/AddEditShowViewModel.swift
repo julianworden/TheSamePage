@@ -71,7 +71,7 @@ class AddEditShowViewModel: ObservableObject {
         }
     }
     
-    init(showToEdit: Show?) {
+    init(showToEdit: Show? = nil) {
         if let showToEdit {
             self.showToEdit = showToEdit
             self.showName = showToEdit.name

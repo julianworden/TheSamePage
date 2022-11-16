@@ -42,13 +42,6 @@ class ShowDetailsViewModel: ObservableObject {
         }
     }
     
-    var showHasTimes: Bool {
-        show.doorsTime != nil ||
-        show.musicStartTime != nil ||
-        show.loadInTime != nil ||
-        show.endTime != nil
-    }
-    
     var mapAnnotations: [CustomMapAnnotation] {
         let venue = CustomMapAnnotation(coordinates: show.coordinates)
         return [venue]

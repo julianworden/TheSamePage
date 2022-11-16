@@ -509,6 +509,16 @@ class DatabaseService: NSObject {
         }
     }
     
+    func showExists(show: Show) async throws -> Bool {
+        do {
+            return try await db
+                .collection(FbConstants.shows)
+                .document(show.id)
+                .getDocument()
+                .exists
+        }
+    }
+    
     func deleteChat(for show: Show) async throws {
         do {
             let chatDocument = try await db

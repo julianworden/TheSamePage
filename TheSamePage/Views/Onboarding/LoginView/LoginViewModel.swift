@@ -17,11 +17,20 @@ class LoginViewModel: ObservableObject {
     @Published var emailAddress = ""
     @Published var password = ""
     
-    func logInButtonTapped() async throws {
+    @Published var loginErrorShowing = false
+    @Published var loginErrorMessage = ""
+    @Published var loginButtonIsDisabled = false
+    
+    @MainActor
+    func logInButtonTapped(emailAddress: String, password: String) async throws {
         do {
+            loginButtonIsDisabled = true
             try await Auth.auth().signIn(withEmail: emailAddress, password: password)
         } catch {
-            throw LoginViewModelError.authError(message: "Sign In Failed")
+            loginErrorShowing = true
+            loginErrorMessage = error.localizedDescription
+            loginButtonIsDisabled = false
+            throw error
         }
     }
 }

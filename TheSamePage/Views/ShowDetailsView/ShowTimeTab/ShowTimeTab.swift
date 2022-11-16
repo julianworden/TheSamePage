@@ -14,12 +14,14 @@ struct ShowTimeTab: View {
     @State private var showTimeToEdit: Date?
     
     var body: some View {
+        let show = viewModel.show
+        
         VStack {
-            if viewModel.show.loggedInUserIsShowHost {
+            if show.loggedInUserIsShowHost {
                 AddShowTimeButtons(viewModel: viewModel, selectedShowTimeType: $selectedShowTimeType)
             }
             
-            if viewModel.showHasTimes {
+            if show.hasTime {
                 ShowTimeList(viewModel: viewModel)
             } else {
                 Text(viewModel.noShowTimesMessage)
@@ -38,13 +40,13 @@ struct ShowTimeTab: View {
                 NavigationView {
                     switch showTimeType {
                     case .loadIn:
-                        AddShowTimeView(show: viewModel.show, showTimeType: showTimeType)
+                        AddShowTimeView(show: show, showTimeType: showTimeType)
                     case .musicStart:
-                        AddShowTimeView(show: viewModel.show, showTimeType: showTimeType)
+                        AddShowTimeView(show: show, showTimeType: showTimeType)
                     case .end:
-                        AddShowTimeView(show: viewModel.show, showTimeType: showTimeType)
+                        AddShowTimeView(show: show, showTimeType: showTimeType)
                     case .doors:
-                        AddShowTimeView(show: viewModel.show, showTimeType: showTimeType)
+                        AddShowTimeView(show: show, showTimeType: showTimeType)
                     }
                 }
             }
