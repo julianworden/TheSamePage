@@ -3,4 +3,102 @@
    uuid = "094B3A7A-1AFC-463F-88AB-EBA9854AADD0"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EE772E10-5325-4231-8CF9-A9623ABCA21F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/AddEdit/AddEditShowView/AddEditShowViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "updateShow()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0DE6FC73-BBD2-4CDA-868C-727770CD66F6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/AddEdit/AddEditShowView/AddEditShowViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
+            landmarkName = "updateShow()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0DE6FC73-BBD2-4CDA-868C-727770CD66F6 - 32695e576c8bf2ea"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TheSamePage.AddEditShowViewModel.updateShow() async throws -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/AddEdit/AddEditShowView/AddEditShowViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "182"
+                  endingLineNumber = "182"
+                  offsetFromSymbolStart = "196">
+               </Location>
+               <Location
+                  uuid = "0DE6FC73-BBD2-4CDA-868C-727770CD66F6 - 37b862b5ca78a171"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for TheSamePage.AddEditShowViewModel.updateShow() async throws -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/AddEdit/AddEditShowView/AddEditShowViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "182"
+                  endingLineNumber = "182"
+                  offsetFromSymbolStart = "140">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "74393037-E37D-4FEA-A37E-F94E6CD1D92D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/AddEdit/AddEditShowView/AddEditShowViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "updateShow()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "005F6036-E1AF-46EF-837C-E995B5935D3B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/AddEdit/AddEditShowView/AddEditShowViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
+            landmarkName = "updateShow()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

@@ -112,6 +112,7 @@ class AddEditShowViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     func search(withText text: String) async throws {
         let searchRequest = MKLocalSearch.Request()
         if let userRegion = LocationController.shared.userRegion {
@@ -125,10 +126,8 @@ class AddEditShowViewModel: ObservableObject {
         do {
             let response = try await addressSearch!.start()
             
-            Task { @MainActor in
-                addressSearchResults = response.mapItems.map { $0.placemark }
-                addressSearch?.cancel()
-            }
+            addressSearchResults = response.mapItems.map { $0.placemark }
+            addressSearch?.cancel()
         } catch {
             print("\(error) search failed")
         }
@@ -137,9 +136,9 @@ class AddEditShowViewModel: ObservableObject {
     func setShowLocationInfo(withPlacemark placemark: CLPlacemark) {
         if let showLatitude = placemark.location?.coordinate.latitude,
            let showLongitude = placemark.location?.coordinate.longitude {
-                self.showLatitude = showLatitude
-                self.showLongitude = showLongitude
-                self.showTypesenseCoordinates = [showLatitude, showLongitude]
+            self.showLatitude = showLatitude
+            self.showLongitude = showLongitude
+            self.showTypesenseCoordinates = [showLatitude, showLongitude]
         }
         
         showAddress = placemark.formattedAddress
@@ -147,68 +146,37 @@ class AddEditShowViewModel: ObservableObject {
         showState = placemark.postalAddress?.state
     }
     
-    func createShow(withImage image: UIImage?) async throws {
+    func createShow(withImage image: UIImage? = nil) async throws -> String {
         guard formIsComplete else { throw AddEditShowViewModelError.incompleteForm }
         
-        var newShow: Show
-
-        if let image {
-            let imageUrl = try await DatabaseService.shared.uploadImage(image: image)
-            newShow = Show(
-                id: "",
-                name: showName,
-                description: showDescription.trimmingCharacters(in: .whitespacesAndNewlines) == "" ? nil : showDescription,
-                host: showHostName,
-                hostUid: AuthController.getLoggedInUid(),
-                venue: showVenue,
-                date: showDate.timeIntervalSince1970,
-                isFree: showIsFree,
-                ticketPrice: Double(ticketPrice),
-                ticketSalesAreRequired: ticketSalesAreRequired,
-                minimumRequiredTicketsSold: Int(minimumRequiredTicketsSold),
-                addressIsPrivate: addressIsPrivate,
-                address: showAddress ?? "Unknown Address",
-                city: showCity ?? "Unknown City",
-                state: showState ?? "Unknown State",
-                latitude: showLatitude,
-                longitude: showLongitude,
-                typesenseCoordinates: showTypesenseCoordinates,
-                imageUrl: imageUrl,
-                hasFood: showHasFood,
-                hasBar: showHasBar,
-                is21Plus: showIs21Plus,
-                genre: showGenre.rawValue,
-                maxNumberOfBands: showMaxNumberOfBands
-            )
-        } else {
-            newShow = Show(
-                id: "",
-                name: showName,
-                description: showDescription.trimmingCharacters(in: .whitespacesAndNewlines) == "" ? nil : showDescription,
-                host: showHostName,
-                hostUid: AuthController.getLoggedInUid(),
-                venue: showVenue,
-                date: showDate.timeIntervalSince1970,
-                isFree: showIsFree,
-                ticketPrice: Double(ticketPrice),
-                ticketSalesAreRequired: ticketSalesAreRequired,
-                minimumRequiredTicketsSold: Int(minimumRequiredTicketsSold),
-                addressIsPrivate: addressIsPrivate,
-                address: showAddress ?? "Unknown Address",
-                city: showCity ?? "Unknown City",
-                state: showState ?? "Unknown State",
-                latitude: showLatitude,
-                longitude: showLongitude,
-                typesenseCoordinates: showTypesenseCoordinates,
-                hasFood: showHasFood,
-                hasBar: showHasBar,
-                is21Plus: showIs21Plus,
-                genre: showGenre.rawValue,
-                maxNumberOfBands: showMaxNumberOfBands
-            )
-        }
+        let newShow = Show(
+            id: "",
+            name: showName,
+            description: showDescription.trimmingCharacters(in: .whitespacesAndNewlines) == "" ? nil : showDescription,
+            host: showHostName,
+            hostUid: AuthController.getLoggedInUid(),
+            venue: showVenue,
+            date: showDate.timeIntervalSince1970,
+            isFree: showIsFree,
+            ticketPrice: Double(ticketPrice),
+            ticketSalesAreRequired: ticketSalesAreRequired,
+            minimumRequiredTicketsSold: Int(minimumRequiredTicketsSold),
+            addressIsPrivate: addressIsPrivate,
+            address: showAddress ?? "Unknown Address",
+            city: showCity ?? "Unknown City",
+            state: showState ?? "Unknown State",
+            latitude: showLatitude,
+            longitude: showLongitude,
+            typesenseCoordinates: showTypesenseCoordinates,
+            imageUrl: image == nil ? nil : try await DatabaseService.shared.uploadImage(image: image!),
+            hasFood: showHasFood,
+            hasBar: showHasBar,
+            is21Plus: showIs21Plus,
+            genre: showGenre.rawValue,
+            maxNumberOfBands: showMaxNumberOfBands
+        )
         
-        try await DatabaseService.shared.createShow(show: newShow)
+        return try await DatabaseService.shared.createShow(show: newShow)
     }
     
     func updateShow() async throws {
@@ -218,7 +186,7 @@ class AddEditShowViewModel: ObservableObject {
         let updatedShow = Show(
             id: showToEdit!.id,
             name: showName,
-            description: showDescription.trimmingCharacters(in: .whitespacesAndNewlines) == "" ? nil : showDescription,
+            description: showDescription.isReallyEmpty ? nil : showDescription,
             host: showHostName,
             hostUid: AuthController.getLoggedInUid(),
             bandIds: bandIds,
@@ -246,4 +214,4 @@ class AddEditShowViewModel: ObservableObject {
         try await DatabaseService.shared.updateShow(show: updatedShow)
     }
 }
-	
+

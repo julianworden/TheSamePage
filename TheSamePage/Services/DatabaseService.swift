@@ -26,7 +26,23 @@ class DatabaseService: NSObject {
     
     let db = Firestore.firestore()
     
-    // MARK: - Firestore Reads
+    
+    // MARK: - Users
+    
+    
+    /// Creates a user object in the Firestore users collection.
+    /// - Parameters:
+    ///   - user: The user being created in Firestore.
+    func createUserObject(user: User) async throws {
+        guard AuthController.userIsLoggedOut() == false else { throw DatabaseServiceError.firebaseAuth(message: "User not logged in") }
+        
+        do {
+            try db.collection(FbConstants.users).document(AuthController.getLoggedInUid()).setData(from: user)
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Error creating user object in DatabaseService.createUserObject(user:) Error: \(error)")
+        }
+        
+    }
     
     /// Fetches the logged in user's data from Firestore.
     /// - Returns: The logged in user.
@@ -39,18 +55,7 @@ class DatabaseService: NSObject {
             throw DatabaseServiceError.firestore(message: "Failed to fetch logged in user in DatabaseService.getLoggedInUser(). Error: \(error)")
         }
     }
-    
-    func getBand(with id: String) async throws -> Band {
-        do {
-            return try await db
-                .collection(FbConstants.bands)
-                .document(id)
-                .getDocument(as: Band.self)
-        } catch {
-            throw DatabaseServiceError.firestore(message: "Failed to fetch logged in user in DatabaseService.getBand(with:). Error: \(error)")
-        }
-    }
-    
+        
     /// Fetches all the shows of which the signed in user is the host.
     /// - Returns: An array of shows that the signed in user is hosting.
     func getHostedShows() async throws -> [Show] {
@@ -105,29 +110,145 @@ class DatabaseService: NSObject {
                 }
             }
         } catch {
-            throw DatabaseServiceError.firestore(message: "Failed to fetch band invites in DatabaseService.getBandInvites() Error: \(error)")
+            throw DatabaseServiceError.firestore(message: "Failed to fetch notifications in DatabaseService.getNotifications() Error: \(error)")
         }
         
         return anyUserNotifications
     }
     
-    /// Fetches the logged in user's showInvites from their showInvites collection.
-    /// - Returns: The logged in user's ShowInvites.
-    func getShowInvites() async throws -> [ShowInvite] {
+    /// Updates the profileImageUrl associated with a user, uploads the new image to Firebase Storage,
+    /// and deletes the old image from Firebase Storage, if it existed.
+    /// - Parameters:
+    ///   - image: The new image to be uploaded to Firebase Storage.
+    ///   - user: The user that will be having its profileImageUrl property updated.
+    func updateUserProfileImage(image: UIImage, user: User) async throws {
+        if let oldImageUrl = user.profileImageUrl {
+            let oldImageRef = Storage.storage().reference(forURL: oldImageUrl)
+            try await oldImageRef.delete()
+        }
+        
+        if let newImageUrl = try await uploadImage(image: image) {
+            try await db.collection(FbConstants.users)
+                .document(user.id)
+                .updateData(["profileImageUrl": newImageUrl])
+        }
+    }
+
+    /// Removes a user from a band's memberUids property.
+    /// - Parameters:
+    ///   - user: The user that is being removed from the band.
+    ///   - band: The band whose memberUids property is being altered.
+    func removeUserFromBand(user: User, band: Band) async throws {
         do {
-            let query = try await db
-                .collection(FbConstants.users)
-                .document(AuthController.getLoggedInUid())
-                .collection(FbConstants.notifications)
-                .getDocuments()
+            try await db
+                .collection(FbConstants.bands)
+                .document(band.id)
+                .updateData(
+                    [
+                        FbConstants.memberUids: FieldValue.arrayRemove([user.id]),
+                        FbConstants.memberFcmTokens: (user.fcmToken != nil ? FieldValue.arrayRemove([user.fcmToken!]): FieldValue.arrayRemove([]))
+                    ]
+                )
             
-            do {
-                return try query.documents.map { try $0.data(as: ShowInvite.self) }
-            } catch {
-                throw DatabaseServiceError.decode(message: "Failed to decode showInvite in DatabaseService.getShowinvites() Error: \(error)")
+            let bandMemberDocumentId = try await db
+                .collection(FbConstants.bands)
+                .document(band.id)
+                .collection(FbConstants.members)
+                .whereField(FbConstants.uid, isEqualTo: user.id)
+                .getDocuments()
+                .documents[0]
+                .documentID
+            
+            try await db
+                .collection(FbConstants.bands)
+                .document(band.id)
+                .collection(FbConstants.members)
+                .document(bandMemberDocumentId)
+                .delete()
+            
+            let userShows = try await getShowsForBand(band: band)
+            
+            if !userShows.isEmpty {
+                for show in userShows {
+                    try await removeUserFromShow(user: user, show: show)
+                    
+                    if let showChat = try await getChat(withShowId: show.id) {
+                        try await removeUserFromChat(user: user, chat: showChat)
+                    }
+                }
             }
         } catch {
-            throw DatabaseServiceError.firestore(message: "Failed to fetch show invites in DatabaseService.getShowinvites() Error: \(error)")
+            throw DatabaseServiceError.firestore(message: "Failed to remove user from band in DatabaseService.removeUserFromBand(user:band:). Error: \(error)")
+        }
+    }
+    
+    func removeUserFromChat(user: User, chat: Chat) async throws {
+        do {
+            try await db
+                .collection(FbConstants.chats)
+                .document(chat.id)
+                .updateData(
+                    [
+                        FbConstants.participantUids: FieldValue.arrayRemove([user.id]),
+                        FbConstants.participantFcmTokens: (user.fcmToken != nil ? FieldValue.arrayRemove([user.fcmToken!]) : FieldValue.arrayRemove([]))
+                    ]
+                )
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to remove user from chat in DatabaseService.removeUserFromChat(user:chat:). Error: \(error)")
+        }
+    }
+    
+    func removeUserFromShow(user: User, show: Show) async throws {
+        do {
+            try await db
+                .collection(FbConstants.shows)
+                .document(show.id)
+                .updateData([FbConstants.participantUids: FieldValue.arrayRemove([user.id])])
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to remove user from show in DatabaseService.removeUserFromShow(user:show:) Error: \(error)")
+        }
+    }
+    
+    /// Fetches all the bands in the bands collection that include a given UID in their memberUids array.
+    /// - Parameter uid: The UID for which the search is occuring in the bands' memberUids array.
+    /// - Returns: The bands that include the provided UID in the memberUids array.
+    func getBands(withUid uid: String) async throws -> [Band] {
+        do {
+            let query = try await db.collection(FbConstants.bands).whereField("memberUids", arrayContains: uid).getDocuments()
+            
+            do {
+                return try query.documents.map { try $0.data(as: Band.self) }
+            } catch {
+                throw DatabaseServiceError.decode(message: "Failed to decode band in DatabaseService.getBands(withUid:) Error: \(error)")
+            }
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to fetch bands in DatabaseService.getBands(withUid:) Error: \(error)")
+        }
+    }
+    
+    /// Queries Firestore to convert a BandMember object to a User object.
+    /// - Parameter bandMember: The BandMember object that will be converted into a User object.
+    /// - Returns: The user returned from Firestore that corresponds to the BandMember object passed into the bandMember parameter.
+    func convertBandMemberToUser(bandMember: BandMember) async throws -> User {
+        do {
+            return try await db.collection(FbConstants.users).document(bandMember.uid).getDocument(as: User.self)
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Unable to convert BandMember to user in DatabaseService.convertBandMemberToUser(bandMember:) Error: \(error)")
+        }
+    }
+    
+    
+    // MARK: - Bands
+    
+    
+    func getBand(with id: String) async throws -> Band {
+        do {
+            return try await db
+                .collection(FbConstants.bands)
+                .document(id)
+                .getDocument(as: Band.self)
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to fetch logged in user in DatabaseService.getBand(with:). Error: \(error)")
         }
     }
     
@@ -149,23 +270,6 @@ class DatabaseService: NSObject {
         }
     }
     
-    /// Fetches all the bands in the bands collection that include a given UID in their memberUids array.
-    /// - Parameter uid: The UID for which the search is occuring in the bands' memberUids array.
-    /// - Returns: The bands that include the provided UID in the memberUids array.
-    func getBands(withUid uid: String) async throws -> [Band] {
-        do {
-            let query = try await db.collection(FbConstants.bands).whereField("memberUids", arrayContains: uid).getDocuments()
-            
-            do {
-                return try query.documents.map { try $0.data(as: Band.self) }
-            } catch {
-                throw DatabaseServiceError.decode(message: "Failed to decode band in DatabaseService.getBands(withUid:) Error: \(error)")
-            }
-        } catch {
-            throw DatabaseServiceError.firestore(message: "Failed to fetch bands in DatabaseService.getBands(withUid:) Error: \(error)")
-        }
-    }
-    
     /// Fetches the BandMember objects in a specified band's members collection.
     /// - Parameter band: The band for which the search is occuring.
     /// - Returns: An array of the BandMember objects associated with the band passed into the band parameter.
@@ -180,77 +284,6 @@ class DatabaseService: NSObject {
             }
         } catch {
             throw DatabaseServiceError.firestore(message: "Failed to fetch BandMember documents in DatabaseService.getBandMembers(forBand:) Error: \(error)")
-        }
-    }
-    
-    /// Queries Firestore to convert a BandMember object to a User object.
-    /// - Parameter bandMember: The BandMember object that will be converted into a User object.
-    /// - Returns: The user returned from Firestore that corresponds to the BandMember object passed into the bandMember parameter.
-    func convertBandMemberToUser(bandMember: BandMember) async throws -> User {
-        do {
-            return try await db.collection(FbConstants.users).document(bandMember.uid).getDocument(as: User.self)
-        } catch {
-            throw DatabaseServiceError.firestore(message: "Unable to convert BandMember to user in DatabaseService.convertBandMemberToUser(bandMember:) Error: \(error)")
-        }
-    }
-    
-    /// Fetches a band's links from their links collection.
-    /// - Parameter band: The band whose links are to be fetched.
-    /// - Returns: An array of the links that the provided band has.
-    func getBandLinks(forBand band: Band) async throws -> [PlatformLink] {
-        do {
-            let query = try await db.collection(FbConstants.bands).document(band.id).collection("links").getDocuments()
-            
-            do {
-                return try query.documents.map { try $0.data(as: PlatformLink.self) }
-            } catch {
-                throw DatabaseServiceError.decode(message: "Failed to decode Link in DatabaseService.getBandLinks(forBand:) Error: \(error)")
-            }
-        } catch {
-            throw DatabaseServiceError.firestore(message: "Failed to fetch band links in DatabaseService.getBandLinks(forBand:) Error: \(error)")
-        }
-    }
-    
-    /// Converts a ShowParticipant object to a Band object.
-    /// - Parameter showParticipant: The ShowParticipant to be converted.
-    /// - Returns: The Band object that the showParticipant was converted into.
-    func convertShowParticipantToBand(showParticipant: ShowParticipant) async throws -> Band {
-        do {
-            return try await db.collection(FbConstants.bands).document(showParticipant.bandId).getDocument(as: Band.self)
-        } catch {
-            throw DatabaseServiceError.firestore(message: "Failed to convert showParticipant to Band in DatabaseService.convertShowParticipantToBand(showParticipant:) Error: \(error)")
-        }
-    }
-    
-    func getShowLineup(forShow show: Show) async throws -> [ShowParticipant] {
-        let query = try await db.collection(FbConstants.shows).document(show.id).collection("participants").getDocuments()
-        
-        do {
-            return try query.documents.map { try $0.data(as: ShowParticipant.self) }
-        } catch {
-            throw DatabaseServiceError.decode(message: "Failed to decode ShowParticipant in DatabaseService.getShowLineup(forShow:) Error: \(error)")
-        }
-    }
-    
-    // MARK: - Firestore Writes
-    
-    /// Creates a show in the Firestore shows collection and also adds the show's id
-    /// to the logged in user's hostedShows collection.
-    /// - Parameter show: The show to be added to Firestore.
-    func createShow(show: Show) async throws {
-        do {
-            let showReference = try db.collection(FbConstants.shows).addDocument(from: show)
-            try await showReference.updateData(["id": showReference.documentID])
-        } catch {
-            throw DatabaseServiceError.firestore(message: "Failed to add show to database in DatabaseService.createShow(show:) Error: \(error)")
-        }
-    }
-    
-    func updateShow(show: Show) async throws {
-        do {
-            try db.collection(FbConstants.shows).document(show.id).setData(from: show, merge: true)
-        } catch {
-            throw DatabaseServiceError.firestore(message: "Failed to update show in DatabaseService.updateShow(show:) Error: \(error)")
         }
     }
     
@@ -272,20 +305,6 @@ class DatabaseService: NSObject {
         } catch {
             throw DatabaseServiceError.firestore(message: "Failed to update band in DatabaseService.updateBand(band:) Error: \(error)")
         }
-    }
-    
-    /// Creates a user object in the Firestore users collection.
-    /// - Parameters:
-    ///   - user: The user being created in Firestore.
-    func createUserObject(user: User) async throws {
-        guard AuthController.userIsLoggedOut() == false else { throw DatabaseServiceError.firebaseAuth(message: "User not logged in") }
-        
-        do {
-            try db.collection(FbConstants.users).document(AuthController.getLoggedInUid()).setData(from: user)
-        } catch {
-            throw DatabaseServiceError.firestore(message: "Error creating user object in DatabaseService.createUserObject(user:) Error: \(error)")
-        }
-        
     }
     
     // TODO: Make this method check if the invited member is already a member of the band
@@ -334,6 +353,52 @@ class DatabaseService: NSObject {
         }
     }
     
+    /// Adds a social media link to a band's links collection.
+    /// - Parameters:
+    ///   - link: The link to be added to the band's links collection.
+    ///   - band: The band that the link belongs to.
+    func uploadBandLink(withLink link: PlatformLink, forBand band: Band) throws {
+        _ = try db
+            .collection(FbConstants.bands)
+            .document(band.id)
+            .collection("links")
+            .addDocument(from: link)
+    }
+    
+    /// Updates the profileImageUrl associated with a band, uploads the new image to Firebase Storage,
+    /// and deletes the old image from Firebase Storage, if it existed.
+    /// - Parameters:
+    ///   - image: The new image to be uploaded to Firebase Storage.
+    ///   - band: The band that will be having its profileImageUrl property updated.
+    func updateBandProfileImage(image: UIImage, band: Band) async throws {
+        if let oldImageUrl = band.profileImageUrl {
+            let oldImageRef = Storage.storage().reference(forURL: oldImageUrl)
+            try await oldImageRef.delete()
+        }
+        
+        if let newImageUrl = try await uploadImage(image: image) {
+            try await db
+                .collection(FbConstants.bands)
+                .document(band.id)
+                .updateData(["profileImageUrl": newImageUrl])
+        }
+    }
+    
+    /// Sends an invitation to a user to join a band. Uploads a BandInvite object to the specified user's bandInvites collection in
+    /// Firestore.
+    /// - Parameter invite: The BandInvite that is being sent.
+    func sendBandInvite(invite: BandInvite) throws {
+        do {
+            _ = try db
+                .collection(FbConstants.users)
+                .document(invite.recipientUid)
+                .collection(FbConstants.notifications)
+                .addDocument(from: invite)
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to send bandInvite.")
+        }
+    }
+    
     /// Deletes a band invite from the logged in user's bandInvites Firestore collection.
     /// - Parameter bandInvite: The band invite to be deleted.
     func deleteBandInvite(bandInvite: BandInvite) async throws {
@@ -348,6 +413,119 @@ class DatabaseService: NSObject {
             } catch {
                 throw DatabaseServiceError.firestore(message: "Failed to delete BandInvite in DatabaseService.deleteBandInvite(bandInvite:) Error: \(error)")
             }
+        }
+    }
+    
+    /// Fetches a band's links from their links collection.
+    /// - Parameter band: The band whose links are to be fetched.
+    /// - Returns: An array of the links that the provided band has.
+    func getBandLinks(forBand band: Band) async throws -> [PlatformLink] {
+        do {
+            let query = try await db.collection(FbConstants.bands).document(band.id).collection("links").getDocuments()
+            
+            do {
+                return try query.documents.map { try $0.data(as: PlatformLink.self) }
+            } catch {
+                throw DatabaseServiceError.decode(message: "Failed to decode Link in DatabaseService.getBandLinks(forBand:) Error: \(error)")
+            }
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to fetch band links in DatabaseService.getBandLinks(forBand:) Error: \(error)")
+        }
+    }
+    
+    /// Converts a ShowParticipant object to a Band object.
+    /// - Parameter showParticipant: The ShowParticipant to be converted.
+    /// - Returns: The Band object that the showParticipant was converted into.
+    func convertShowParticipantToBand(showParticipant: ShowParticipant) async throws -> Band {
+        do {
+            return try await db.collection(FbConstants.bands).document(showParticipant.bandId).getDocument(as: Band.self)
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to convert showParticipant to Band in DatabaseService.convertShowParticipantToBand(showParticipant:) Error: \(error)")
+        }
+    }
+        
+    
+    // MARK: - Shows
+    
+    
+    /// Creates a show in the Firestore shows collection and also adds the show's id
+    /// to the logged in user's hostedShows collection.
+    /// - Parameter show: The show to be added to Firestore.
+    func createShow(show: Show) async throws -> String {
+        do {
+            let showReference = try db.collection(FbConstants.shows).addDocument(from: show)
+            try await showReference.updateData(["id": showReference.documentID])
+            return showReference.documentID
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to add show to database in DatabaseService.createShow(show:) Error: \(error)")
+        }
+    }
+    
+    func getShowLineup(forShow show: Show) async throws -> [ShowParticipant] {
+        let query = try await db.collection(FbConstants.shows).document(show.id).collection("participants").getDocuments()
+        
+        do {
+            return try query.documents.map { try $0.data(as: ShowParticipant.self) }
+        } catch {
+            throw DatabaseServiceError.decode(message: "Failed to decode ShowParticipant in DatabaseService.getShowLineup(forShow:) Error: \(error)")
+        }
+    }
+    
+    func updateShow(show: Show) async throws {
+        do {
+            try db.collection(FbConstants.shows).document(show.id).setData(from: show, merge: true)
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to update show in DatabaseService.updateShow(show:) Error: \(error)")
+        }
+    }
+    
+    func showProfilePictureExists(showImageUrl: String?) async throws -> Bool {
+        guard let showImageUrl else { return false }
+        
+        let storageReference = Storage.storage().reference(forURL: showImageUrl)
+        
+        do {
+            let downloadUrl = try await storageReference.downloadURL().absoluteString
+            
+            if downloadUrl.isEmpty {
+                return false
+            } else {
+                return true
+            }
+        } catch {
+            return false
+        }
+    }
+    
+    /// Updates the imageUrl associated with a show, uploads the new image to Firebase Storage,
+    /// and deletes the old image from Firebase Storage, if it existed.
+    /// - Parameters:
+    ///   - image: The new image to be uploaded to Firebase Storage.
+    ///   - show: The show that will be having its imageUrl property updated.
+    func updateShowImage(image: UIImage, show: Show) async throws {
+        // Delete old image if it exists
+        if let oldImageUrl = show.imageUrl {
+            let oldImageRef = Storage.storage().reference(forURL: oldImageUrl)
+            try await oldImageRef.delete()
+        }
+        
+        if let newImageUrl = try await uploadImage(image: image) {
+            try await db.collection(FbConstants.shows).document(show.id).updateData(["imageUrl": newImageUrl])
+        }
+    }
+    
+    /// Sends an invitation to a band's admin to have their band join a show. Uploads a ShowInvite object
+    /// to the specified user's showInvites collection in Firestore.
+    /// - Parameter invite: The ShowInvite that is being sent.
+    func sendShowInvite(invite: ShowInvite) throws {
+        do {
+            _ = try db
+                .collection(FbConstants.users)
+                .document(invite.recipientUid)
+                .collection(FbConstants.notifications)
+                .addDocument(from: invite)
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to send showInvite.")
         }
     }
     
@@ -480,183 +658,6 @@ class DatabaseService: NSObject {
         }
     }
     
-    /// Deletes a show invite from the logged in user's showInvites collection.
-    /// - Parameter showInvite: The ShowInvite to be deleted.
-    func deleteShowInvite(showInvite: ShowInvite) async throws {
-        if let showInviteId = showInvite.id {
-            do {
-                try await db
-                    .collection(FbConstants.users)
-                    .document(AuthController.getLoggedInUid())
-                    .collection(FbConstants.notifications)
-                    .document(showInviteId)
-                    .delete()
-            } catch {
-                throw DatabaseServiceError.firestore(message: "Failed to delete BandInvite in DatabaseService.deleteShowInvite(showInvite:) Error: \(error)")
-            }
-        }
-    }
-    
-    func cancelShow(show: Show) async throws {
-        do {
-            _ = try await Functions.functions().httpsCallable("recursiveDelete").call(["path": "shows/\(show.id)"])
-            
-            try await deleteChat(for: show)
-            
-            
-        } catch {
-            throw DatabaseServiceError.firestore(message: "Failed to delete show in DatabaseService.cancelShow(show:) Error: \(error)")
-        }
-    }
-    
-    func showExists(show: Show) async throws -> Bool {
-        do {
-            return try await db
-                .collection(FbConstants.shows)
-                .document(show.id)
-                .getDocument()
-                .exists
-        }
-    }
-    
-    func deleteChat(for show: Show) async throws {
-        do {
-            let chatDocument = try await db
-                .collection(FbConstants.chats)
-                .whereField(FbConstants.showId, isEqualTo: show.id)
-                .getDocuments()
-                .documents
-            
-            guard !chatDocument.isEmpty else { return }
-            
-            let chat = try chatDocument[0].data(as: Chat.self)
-            
-            _ = try await Functions.functions().httpsCallable("recursiveDelete").call(["path": "chats/\(chat.id)"])
-            print("Delete successful")
-        } catch {
-            throw DatabaseServiceError.firestore(message: "Failed to delete chat in DatabaseService.deleteChat(for:) Error: \(error)")
-        }
-    }
-    
-    /// Adds a social media link to a band's links collection.
-    /// - Parameters:
-    ///   - link: The link to be added to the band's links collection.
-    ///   - band: The band that the link belongs to.
-    func uploadBandLink(withLink link: PlatformLink, forBand band: Band) throws {
-        _ = try db
-            .collection(FbConstants.bands)
-            .document(band.id)
-            .collection("links")
-            .addDocument(from: link)
-    }
-    
-    /// Removes a user from a band's memberUids property.
-    /// - Parameters:
-    ///   - user: The user that is being removed from the band.
-    ///   - band: The band whose memberUids property is being altered.
-    func removeUserFromBand(user: User, band: Band) async throws {
-        do {
-            try await db
-                .collection(FbConstants.bands)
-                .document(band.id)
-                .updateData(
-                    [
-                        FbConstants.memberUids: FieldValue.arrayRemove([user.id]),
-                        FbConstants.memberFcmTokens: (user.fcmToken != nil ? FieldValue.arrayRemove([user.fcmToken!]): FieldValue.arrayRemove([]))
-                    ]
-                )
-            
-            let bandMemberDocumentId = try await db
-                .collection(FbConstants.bands)
-                .document(band.id)
-                .collection(FbConstants.members)
-                .whereField(FbConstants.uid, isEqualTo: user.id)
-                .getDocuments()
-                .documents[0]
-                .documentID
-            
-            try await db
-                .collection(FbConstants.bands)
-                .document(band.id)
-                .collection(FbConstants.members)
-                .document(bandMemberDocumentId)
-                .delete()
-            
-            let userShows = try await getShowsForBand(band: band)
-            
-            if !userShows.isEmpty {
-                for show in userShows {
-                    try await removeUserFromShow(user: user, show: show)
-                    
-                    if let showChat = try await getChat(withShowId: show.id) {
-                        try await removeUserFromChat(user: user, chat: showChat)
-                    }
-                }
-            }
-        } catch {
-            throw DatabaseServiceError.firestore(message: "Failed to remove user from band in DatabaseService.removeUserFromBand(user:band:). Error: \(error)")
-        }
-    }
-    
-    func removeUserFromChat(user: User, chat: Chat) async throws {
-        do {
-            try await db
-                .collection(FbConstants.chats)
-                .document(chat.id)
-                .updateData(
-                    [
-                        FbConstants.participantUids: FieldValue.arrayRemove([user.id]),
-                        FbConstants.participantFcmTokens: (user.fcmToken != nil ? FieldValue.arrayRemove([user.fcmToken!]) : FieldValue.arrayRemove([]))
-                    ]
-                )
-        } catch {
-            throw DatabaseServiceError.firestore(message: "Failed to remove user from chat in DatabaseService.removeUserFromChat(user:chat:). Error: \(error)")
-        }
-    }
-    
-    func removeUserFromShow(user: User, show: Show) async throws {
-        do {
-            try await db
-                .collection(FbConstants.shows)
-                .document(show.id)
-                .updateData([FbConstants.participantUids: FieldValue.arrayRemove([user.id])])
-        } catch {
-            throw DatabaseServiceError.firestore(message: "Failed to remove user from show in DatabaseService.removeUserFromShow(user:show:) Error: \(error)")
-        }
-    }
-    
-    // MARK: - Notifications
-    
-    /// Sends an invitation to a user to join a band. Uploads a BandInvite object to the specified user's bandInvites collection in
-    /// Firestore.
-    /// - Parameter invite: The BandInvite that is being sent.
-    func sendBandInvite(invite: BandInvite) throws {
-        do {
-            _ = try db
-                .collection(FbConstants.users)
-                .document(invite.recipientUid)
-                .collection(FbConstants.notifications)
-                .addDocument(from: invite)
-        } catch {
-            throw DatabaseServiceError.firestore(message: "Failed to send bandInvite.")
-        }
-    }
-    
-    /// Sends an invitation to a band's admin to have their band join a show. Uploads a ShowInvite object
-    /// to the specified user's showInvites collection in Firestore.
-    /// - Parameter invite: The ShowInvite that is being sent.
-    func sendShowInvite(invite: ShowInvite) throws {
-        do {
-            _ = try db
-                .collection(FbConstants.users)
-                .document(invite.recipientUid)
-                .collection(FbConstants.notifications)
-                .addDocument(from: invite)
-        } catch {
-            throw DatabaseServiceError.firestore(message: "Failed to send showInvite.")
-        }
-    }
-    
     func addBacklineItemToShow(backlineItem: BacklineItem?, drumKitBacklineItem: DrumKitBacklineItem?, show: Show) throws {
         do {
             if let backlineItem {
@@ -703,88 +704,38 @@ class DatabaseService: NSObject {
         }
     }
     
-    // MARK: - Firebase Storage
-    
-    // TODO: Make this method delete the previous profile image if the user is replacing an existing image
-    /// Uploads the image selected by the user to Firebase Storage.
-    /// - Parameter image: The image selected by the user.
-    /// - Returns: The download URL of the image uploaded to Firebase Storage.
-    func uploadImage(image: UIImage) async throws -> String? {
-        let imageData = image.jpegData(compressionQuality: 0.8)
-        
-        guard imageData != nil else {
-            throw DatabaseServiceError.unexpectedNilValue(value: "imageData")
+    /// Deletes a show invite from the logged in user's showInvites collection.
+    /// - Parameter showInvite: The ShowInvite to be deleted.
+    func deleteShowInvite(showInvite: ShowInvite) async throws {
+        if let showInviteId = showInvite.id {
+            do {
+                try await db
+                    .collection(FbConstants.users)
+                    .document(AuthController.getLoggedInUid())
+                    .collection(FbConstants.notifications)
+                    .document(showInviteId)
+                    .delete()
+            } catch {
+                throw DatabaseServiceError.firestore(message: "Failed to delete BandInvite in DatabaseService.deleteShowInvite(showInvite:) Error: \(error)")
+            }
         }
-        
-        let storageRef = Storage.storage().reference()
-        let path = "images/\(UUID().uuidString).jpg"
-        let fileRef = storageRef.child(path)
-        var imageUrl: URL?
-        
+    }
+    
+    func cancelShow(show: Show?, showId: String? = nil) async throws {
         do {
-            _ = try await fileRef.putDataAsync(imageData!)
-            let fetchedImageUrl = try await fileRef.downloadURL()
-            imageUrl = fetchedImageUrl
-            return imageUrl?.absoluteString
+            if let show {
+                _ = try await Functions.functions().httpsCallable("recursiveDelete").call(["path": "shows/\(show.id)"])
+                try await deleteChat(for: show)
+            } else if let showId {
+                _ = try await Functions.functions().httpsCallable("recursiveDelete").call(["path": "shows/\(showId)"])
+            }
+            
         } catch {
-            throw DatabaseServiceError.firebaseStorage(message: "Error setting profile picture. Error: \(error)")
+            throw DatabaseServiceError.firestore(message: "Failed to delete show in DatabaseService.cancelShow(show:) Error: \(error)")
         }
     }
     
-    /// Updates the imageUrl associated with a show, uploads the new image to Firebase Storage,
-    /// and deletes the old image from Firebase Storage, if it existed.
-    /// - Parameters:
-    ///   - image: The new image to be uploaded to Firebase Storage.
-    ///   - show: The show that will be having its imageUrl property updated.
-    func updateShowImage(image: UIImage, show: Show) async throws {
-        // Delete old image if it exists
-        if let oldImageUrl = show.imageUrl {
-            let oldImageRef = Storage.storage().reference(forURL: oldImageUrl)
-            try await oldImageRef.delete()
-        }
-        
-        if let newImageUrl = try await uploadImage(image: image) {
-            try await db.collection(FbConstants.shows).document(show.id).updateData(["imageUrl": newImageUrl])
-        }
-    }
-    
-    /// Updates the profileImageUrl associated with a user, uploads the new image to Firebase Storage,
-    /// and deletes the old image from Firebase Storage, if it existed.
-    /// - Parameters:
-    ///   - image: The new image to be uploaded to Firebase Storage.
-    ///   - user: The user that will be having its profileImageUrl property updated.
-    func updateUserProfileImage(image: UIImage, user: User) async throws {
-        if let oldImageUrl = user.profileImageUrl {
-            let oldImageRef = Storage.storage().reference(forURL: oldImageUrl)
-            try await oldImageRef.delete()
-        }
-        
-        if let newImageUrl = try await uploadImage(image: image) {
-            try await db.collection(FbConstants.users)
-                .document(user.id)
-                .updateData(["profileImageUrl": newImageUrl])
-        }
-    }
-    
-    /// Updates the profileImageUrl associated with a band, uploads the new image to Firebase Storage,
-    /// and deletes the old image from Firebase Storage, if it existed.
-    /// - Parameters:
-    ///   - image: The new image to be uploaded to Firebase Storage.
-    ///   - band: The band that will be having its profileImageUrl property updated.
-    func updateBandProfileImage(image: UIImage, band: Band) async throws {
-        if let oldImageUrl = band.profileImageUrl {
-            let oldImageRef = Storage.storage().reference(forURL: oldImageUrl)
-            try await oldImageRef.delete()
-        }
-        
-        if let newImageUrl = try await uploadImage(image: image) {
-            try await db
-                .collection(FbConstants.bands)
-                .document(band.id)
-                .updateData(["profileImageUrl": newImageUrl])
-        }
-    }
-    
+    // MARK: - Chats
     /// Fetches the chat that belongs to a given show.
     /// - Parameter showId: The ID of the show that the fetched chat is associated with.
     /// - Returns: The fetched chat associated with the show passed into the showId property. Returns nil if no chat is found for a show.
@@ -817,7 +768,7 @@ class DatabaseService: NSObject {
             try await chatReference.updateData(["id": chatReference.documentID])
             return chatReference.documentID
         } catch {
-            throw DatabaseServiceError.firestore(message: "Failed to create new chat in DatabaseService.createChat(chat:) Error: \(error)")
+            throw DatabaseServiceError.firestore(message: "Failed to create new chat in DatabaseService.createChat(chat:) Error: \(error.localizedDescription)")
         }
     }
     
@@ -931,6 +882,63 @@ class DatabaseService: NSObject {
             return fetchedFcmTokens
         } catch {
             throw DatabaseServiceError.firestore(message: "Failed to fetch FCM Tokens from Firestore in DatabaseService.getFcmTokens(withUids:) Error: \(error)")
+        }
+    }
+    
+    func deleteChat(for show: Show) async throws {
+        do {
+            let chatDocument = try await db
+                .collection(FbConstants.chats)
+                .whereField(FbConstants.showId, isEqualTo: show.id)
+                .getDocuments()
+                .documents
+            
+            guard !chatDocument.isEmpty else { return }
+            
+            let chat = try chatDocument[0].data(as: Chat.self)
+            
+            _ = try await Functions.functions().httpsCallable("recursiveDelete").call(["path": "chats/\(chat.id)"])
+            print("Delete successful")
+        } catch {
+            throw DatabaseServiceError.firestore(message: "Failed to delete chat in DatabaseService.deleteChat(for:) Error: \(error)")
+        }
+    }
+    
+    
+    // MARK: - Firebase Storage
+    
+    
+    /// Uploads the image selected by the user to Firebase Storage.
+    /// - Parameter image: The image selected by the user.
+    /// - Returns: The download URL of the image uploaded to Firebase Storage.
+    func uploadImage(image: UIImage) async throws -> String? {
+        let imageData = image.jpegData(compressionQuality: 0.8)
+        
+        guard imageData != nil else {
+            throw DatabaseServiceError.unexpectedNilValue(value: "imageData")
+        }
+        
+        let storageRef = Storage.storage().reference()
+        let path = "images/\(UUID().uuidString).jpg"
+        let fileRef = storageRef.child(path)
+        var imageUrl: URL?
+        
+        do {
+            _ = try await fileRef.putDataAsync(imageData!)
+            let fetchedImageUrl = try await fileRef.downloadURL()
+            imageUrl = fetchedImageUrl
+            return imageUrl?.absoluteString
+        } catch {
+            throw DatabaseServiceError.firebaseStorage(message: "Error setting profile picture. Error: \(error)")
+        }
+    }
+    
+    func deleteImage(at url: String) async throws {
+        let storageReference = Storage.storage().reference(forURL: url)
+        do {
+            try await storageReference.delete()
+        } catch {
+            throw DatabaseServiceError.firebaseStorage(message: "Failed to delete image in DatabaseService.deleteImage(at:) Error \(error.localizedDescription)")
         }
     }
 }

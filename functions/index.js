@@ -2,7 +2,7 @@ const functions = require('firebase-functions');
 const firebase_tools = require('firebase-tools');
 const admin = require('firebase-admin');
 
-admin.initializeApp();
+admin.initializeApp()
 
 exports.notifyNewMessage = functions.firestore
     .document('chats/{chat}/messages/{message}')

@@ -100,11 +100,13 @@ struct AddEditShowView: View {
             
             Section {
                 Button {
+                    
+                    // TODO: PUT ALL THIS IN VIEWMODEL
                     Task {
                         do {
                             createShowButtonIsDisabled = true
                             if viewModel.showToEdit == nil {
-                                try await viewModel.createShow(withImage: showImage)
+                                _ = try await viewModel.createShow(withImage: showImage)
                             } else {
                                 try await viewModel.updateShow()
                             }

@@ -5,8 +5,8 @@
 //  Created by Julian Worden on 11/15/22.
 //
 
-import XCTest
 @testable import TheSamePage
+import XCTest
 
 final class LoginViewModelTests: XCTestCase {
     

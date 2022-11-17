@@ -12,7 +12,7 @@ import Foundation
 
 // TODO: Create individual properties for location
 struct Show: Codable, Equatable, Hashable, Identifiable {
-    let id: String
+    var id: String
     let name: String
     let description: String?
     let host: String

@@ -8,6 +8,7 @@
 import FirebaseAuth
 import FirebaseCore
 import FirebaseFirestore
+import FirebaseFunctions
 import FirebaseMessaging
 import FirebaseStorage
 import SwiftUI
@@ -40,9 +41,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             Firestore.firestore().settings = settings
             Firestore.firestore().useEmulator(withHost: "localhost", port: 8080)
             Auth.auth().useEmulator(withHost:"localhost", port: 9099)
-            Storage.storage().useEmulator(withHost:"localhost", port:9199)
+            Storage.storage().useEmulator(withHost:"localhost", port: 9199)
+            Functions.functions().useEmulator(withHost: "localhost", port: 5001)
        }
-
+        
         FirebaseConfiguration.shared.setLoggerLevel(.min)
         
         Messaging.messaging().delegate = self
