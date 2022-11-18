@@ -7,7 +7,8 @@
 
 import Foundation
 
-class ShowSettingsViewModel: ObservableObject {
+@MainActor
+final class ShowSettingsViewModel: ObservableObject {
     let show: Show
     
     init(show: Show) {

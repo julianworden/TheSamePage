@@ -9,7 +9,8 @@ import FirebaseFirestore
 import Foundation
 import MapKit
 
-class ShowDetailsViewModel: ObservableObject {
+@MainActor
+final class ShowDetailsViewModel: ObservableObject {
     @Published var show: Show
     @Published var showParticipants = [ShowParticipant]()
     @Published var selectedTab = SelectedShowDetailsTab.details
@@ -50,7 +51,7 @@ class ShowDetailsViewModel: ObservableObject {
     init(show: Show) {
         self.show = show
         
-        Task { @MainActor in
+        Task {
             do {
                 showParticipants = try await DatabaseService.shared.getShowLineup(forShow: show)
             } catch {
@@ -62,7 +63,7 @@ class ShowDetailsViewModel: ObservableObject {
     }
     
     func removeShowTimeFromShow(showTimeType: ShowTimeType) {
-        Task { @MainActor in
+        Task {
             do {
                 try await DatabaseService.shared.deleteTimeFromShow(delete: showTimeType, fromShow: show)
                 
@@ -109,9 +110,7 @@ class ShowDetailsViewModel: ObservableObject {
         showListener = db.collection(FbConstants.shows).document(show.id).addSnapshotListener { snapshot, error in
             if snapshot != nil && error == nil {
                 if let editedShow = try? snapshot!.data(as: Show.self) {
-                    Task { @MainActor in
-                        self.show = editedShow
-                    }
+                    self.show = editedShow
                 }
             }
             
@@ -129,9 +128,7 @@ class ShowDetailsViewModel: ObservableObject {
                 let drumKitBacklineItems = documents.compactMap { try? $0.data(as: DrumKitBacklineItem.self) }
                 
                 if !drumKitBacklineItems.isEmpty {
-                    Task { @MainActor in
-                        self.drumKitBacklineItems = drumKitBacklineItems
-                    }
+                    self.drumKitBacklineItems = drumKitBacklineItems
                 }
                 
                 let fetchedBacklineItems = documents.compactMap { try? $0.data(as: BacklineItem.self) }
@@ -141,21 +138,15 @@ class ShowDetailsViewModel: ObservableObject {
                     case BacklineItemType.percussion.rawValue:
                         if backlineItem.name != PercussionGearType.fullKit.rawValue &&
                            !self.percussionBacklineItems.contains(backlineItem) {
-                            Task { @MainActor in
-                                self.percussionBacklineItems.append(backlineItem)
-                            }
+                            self.percussionBacklineItems.append(backlineItem)
                         }
                     case BacklineItemType.electricGuitar.rawValue:
                         if !self.electricGuitarBacklineItems.contains(backlineItem) {
-                            Task { @MainActor in
-                                self.electricGuitarBacklineItems.append(backlineItem)
-                            }
+                            self.electricGuitarBacklineItems.append(backlineItem)
                         }
                     case BacklineItemType.bassGuitar.rawValue:
                         if !self.bassGuitarBacklineItems.contains(backlineItem) {
-                            Task { @MainActor in
-                                self.bassGuitarBacklineItems.append(backlineItem)
-                            }
+                            self.bassGuitarBacklineItems.append(backlineItem)
                         }
                     default:
                         // TODO: Change and add error state

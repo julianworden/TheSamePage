@@ -9,7 +9,7 @@ import Foundation
 import Typesense
 
 @MainActor
-class SearchViewModel: ObservableObject {
+final class SearchViewModel: ObservableObject {
     enum SearchViewModelError: Error {
         case searchFailed(message: String)
     }

@@ -29,11 +29,7 @@ struct HomeViewShowsList: View {
         }
         .listStyle(.grouped)
         .refreshable {
-            do {
-                try await viewModel.fetchNearbyShows()
-            } catch {
-                print(error)
-            }
+            viewModel.fetchNearbyShows()
         }
     }
 }

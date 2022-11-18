@@ -51,16 +51,13 @@ struct ShowDetailsView: View {
                         ShowDetailsTab(viewModel: viewModel)
                     }
                 }
-            case .dataNotFound:
-                ErrorMessage(
-                    message: "Failed to fetch details for this show.",
-                    errorText: "Please check your internet connection and restart the app."
-                )
             case .error(let message):
                 ErrorMessage(
                     message: "Failed to fetch details for this show.",
-                    errorText: message
+                    systemErrorText: message
                 )
+            default:
+                ErrorMessage(message: ErrorMessageConstants.unknownViewState)
             }
         }
         .navigationTitle("Show Details")

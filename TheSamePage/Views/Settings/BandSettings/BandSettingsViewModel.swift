@@ -7,7 +7,8 @@
 
 import Foundation
 
-class BandSettingsViewModel: ObservableObject {
+@MainActor
+final class BandSettingsViewModel: ObservableObject {
     let band: Band
     
     init(band: Band) {

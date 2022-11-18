@@ -9,6 +9,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
 
+@MainActor
 class ConversationViewModel: ObservableObject {
     @Published var messageText = ""
     @Published var messages = [ChatMessage]()
@@ -38,12 +39,10 @@ class ConversationViewModel: ObservableObject {
                 if let snapshot, error == nil, !snapshot.documents.isEmpty {
                     let chatMessageDocuments = snapshot.documents
                     if let chatMessages = try? chatMessageDocuments.map({ try $0.data(as: ChatMessage.self) }) {
-                        Task { @MainActor in
-                            let sortedChatMessages = chatMessages.sorted { lhs, rhs in
-                                lhs.sentTimestampAsDate < rhs.sentTimestampAsDate
-                            }
-                            self.messages = sortedChatMessages
+                        let sortedChatMessages = chatMessages.sorted { lhs, rhs in
+                            lhs.sentTimestampAsDate < rhs.sentTimestampAsDate
                         }
+                        self.messages = sortedChatMessages
                     } else {
                         // TODO: Change state
                     }
@@ -53,7 +52,6 @@ class ConversationViewModel: ObservableObject {
             }
     }
     
-    @MainActor
     func configureChat() async {
         if let show {
             do {

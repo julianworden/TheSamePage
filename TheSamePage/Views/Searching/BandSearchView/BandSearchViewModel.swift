@@ -9,7 +9,7 @@ import Foundation
 import Typesense
 
 @MainActor
-class BandSearchViewModel: ObservableObject {
+final class BandSearchViewModel: ObservableObject {
     enum BandSearchViewModelError: Error {
         case searchFailed(message: String)
     }

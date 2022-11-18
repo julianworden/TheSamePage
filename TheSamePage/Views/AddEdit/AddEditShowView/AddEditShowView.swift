@@ -13,12 +13,9 @@ struct AddEditShowView: View {
     @StateObject var viewModel: AddEditShowViewModel
     
     @State var showImage: UIImage?
-    @State private var showAddress: String?
     
     @State private var imagePickerIsShowing = false
     @State private var bandSearchSheetIsShowing = false
-    @State private var createShowButtonIsDisabled = false
-    @State private var missingFieldsAlertIsShowing = false
     
     init(showToEdit: Show?) {
         _viewModel = StateObject(wrappedValue: AddEditShowViewModel(showToEdit: showToEdit))
@@ -65,7 +62,7 @@ struct AddEditShowView: View {
                 }
                 
                 NavigationLink {
-                    AddEditShowAddressView(viewModel: viewModel, showAddress: $showAddress)
+                    AddEditShowAddressView(viewModel: viewModel)
                 } label: {
                     Text("Select Address (required)")
                 }
@@ -100,29 +97,13 @@ struct AddEditShowView: View {
             
             Section {
                 Button {
-                    
-                    // TODO: PUT ALL THIS IN VIEWMODEL
                     Task {
-                        do {
-                            createShowButtonIsDisabled = true
-                            if viewModel.showToEdit == nil {
-                                _ = try await viewModel.createShow(withImage: showImage)
-                            } else {
-                                try await viewModel.updateShow()
-                            }
-                            dismiss()
-                        } catch AddEditShowViewModelError.incompleteForm {
-                            missingFieldsAlertIsShowing = true
-                            createShowButtonIsDisabled = false
-                        } catch {
-                            createShowButtonIsDisabled = false
-                            print(error)
-                        }
+                        await viewModel.updateCreateShowButtonTapped(withImage: showImage)
                     }
                 } label: {
-                    AsyncButtonLabel(buttonIsDisabled: $createShowButtonIsDisabled, title: "\(viewModel.showToEdit != nil ? "Update Show" : "Create Show")")
+                    AsyncButtonLabel(buttonIsDisabled: $viewModel.createShowButtonIsDisabled, title: "\(viewModel.showToEdit != nil ? "Update Show" : "Create Show")")
                 }
-                .disabled(createShowButtonIsDisabled)
+                .disabled(viewModel.createShowButtonIsDisabled)
             }
         }
         .navigationTitle(viewModel.showToEdit == nil ? "Create Show" : "Update Show")
@@ -141,13 +122,16 @@ struct AddEditShowView: View {
         }
         .alert(
             "Error",
-            isPresented: $missingFieldsAlertIsShowing,
+            isPresented: $viewModel.errorAlertShowing,
             actions: {
                 Button("OK") { }
             }, message: {
-                Text("Please ensure that all required fields are filled.")
+                Text(viewModel.errorAlertText)
             }
         )
+        .onChange(of: viewModel.showCreatedSuccessfully) { _ in
+            dismiss()
+        }
     }
 }
 

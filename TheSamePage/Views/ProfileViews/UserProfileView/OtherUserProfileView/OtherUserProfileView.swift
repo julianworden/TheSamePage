@@ -42,7 +42,7 @@ struct OtherUserProfileView: View {
                 .navigationTitle(user.username)
                 .navigationBarTitleDisplayMode(.inline)
             } else {
-                ErrorMessage(message: "Failed to fetch user. Please check your internet connection and restart the app.")
+                ErrorMessage(message: ErrorMessageConstants.unknownViewState)
             }
         }
     }

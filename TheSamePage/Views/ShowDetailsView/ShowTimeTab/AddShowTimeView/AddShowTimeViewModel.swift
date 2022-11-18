@@ -7,7 +7,8 @@
 
 import Foundation
 
-class AddShowTimeViewModel: ObservableObject {
+@MainActor
+final class AddShowTimeViewModel: ObservableObject {
     @Published var showTime = Date()
     @Published var errorMessageIsShowing = false
     @Published var errorMessageText = ""
@@ -22,7 +23,6 @@ class AddShowTimeViewModel: ObservableObject {
     
     func addShowTime(ofType showTimeType: ShowTimeType) {
         Task {
-            
             let showDate = Date(timeIntervalSince1970: show.date)
             var dateComponents = DateComponents()
             dateComponents.year = Calendar.current.dateComponents([.year], from: showDate).year

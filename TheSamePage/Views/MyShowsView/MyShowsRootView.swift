@@ -36,6 +36,8 @@ struct MyShowsRootView: View {
                     Spacer()
                 }
             }
+            .navigationViewStyle(.stack)
+
             .navigationTitle("My Shows")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -48,8 +50,7 @@ struct MyShowsRootView: View {
                 }
             }
         }
-        // If this isn't set, dismissing the AddEditShowAddressView with @EnvironmentObject(\.dismiss)
-        // causes the UI to freeze. I have no idea why.
+        // If this isn't here, AddEditShowAddressView doesn't show the search bar
         .navigationViewStyle(.stack)
     }
 }

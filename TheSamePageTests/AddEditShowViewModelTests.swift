@@ -7,9 +7,11 @@
 
 @testable import TheSamePage
 import CoreLocation
+import MapKit
 import UIKit.UIImage
 import XCTest
 
+@MainActor
 final class AddEditShowViewModelTests: XCTestCase {
     var sut: AddEditShowViewModel!
     
@@ -103,8 +105,9 @@ final class AddEditShowViewModelTests: XCTestCase {
     func test_OnAddressSearch_ResultsAreReturned() async throws {
         sut = AddEditShowViewModel()
         
-        try await sut.search(withText: "Starland Ballroom")
-        try await Task.sleep(seconds: 3.0)
+        await sut.search(withText: "Starland Ballroom")
+        
+        print(sut.addressSearchResults)
         
         XCTAssertTrue(!sut.addressSearchResults.isEmpty)
     }
@@ -112,8 +115,7 @@ final class AddEditShowViewModelTests: XCTestCase {
     func test_OnEmptyAddressSearch_ResultsAreNotReturned() async throws {
         sut = AddEditShowViewModel()
         
-        try await sut.search(withText: "")
-        try await Task.sleep(seconds: 3.0)
+        await sut.search(withText: "")
         
         XCTAssertTrue(sut.addressSearchResults.isEmpty, "Results are \(sut.addressSearchResults)")
     }
@@ -121,13 +123,12 @@ final class AddEditShowViewModelTests: XCTestCase {
     func test_OnShowAddressSelection_LocationPropertiesAreSet() async throws {
         sut = AddEditShowViewModel()
         
-        try await sut.search(withText: "Starland Ballroom")
-        try await Task.sleep(seconds: 3.0)
+        await sut.search(withText: "Starland Ballroom")
         
         XCTAssertTrue(!sut.addressSearchResults.isEmpty)
         
         let addressSearchResult = sut.addressSearchResults[0]
-        sut.setShowLocationInfo(withPlacemark: addressSearchResult)
+        sut.setShowLocationInfo(with: addressSearchResult)
         
         XCTAssertEqual(sut.showLatitude, addressSearchResult.location?.coordinate.latitude)
         XCTAssertEqual(sut.showLongitude, addressSearchResult.location?.coordinate.longitude)
@@ -143,11 +144,12 @@ final class AddEditShowViewModelTests: XCTestCase {
         XCTAssertEqual(sut.showState, addressSearchResult.postalAddress?.state)
     }
     
+    // For an unknown reason, the app must be run on simulator before this test will pass.
     func test_CreateShowWithImage_SuccessfullyCreatesShowAndImage() async throws {
         let newShow = Show.example
         sut = AddEditShowViewModel(showToEdit: newShow)
         
-        let showImage = UIImage(systemName: "gear")
+        let showImage = TestingConstants.uiImageForTesting
         let createdShowId = try await sut.createShow(withImage: showImage)
         
         let showExists = try await TestingDatabaseService.shared.showExists(showId: createdShowId)
@@ -177,7 +179,7 @@ final class AddEditShowViewModelTests: XCTestCase {
 
         try await TestingDatabaseService.shared.deleteShowObject(showId: createdShowId)
     }
-    
+
     func test_AddressExplanationMessage_ReturnsCorrectStringWithPrivateAddress() throws {
         sut = AddEditShowViewModel()
         sut.addressIsPrivate = true
@@ -193,24 +195,19 @@ final class AddEditShowViewModelTests: XCTestCase {
     }
     
     func test_UpdateShow_SuccessfullyUpdatesShow() async throws {
-        var newShow = Show.example
-        sut = AddEditShowViewModel(showToEdit: newShow)
-        
-        let createdShowId = try await sut.createShow()
-        let showExists = try await TestingDatabaseService.shared.showExists(showId: createdShowId)
+        let showToEdit = TestingConstants.showForUpdateShowTests
+        sut = AddEditShowViewModel(showToEdit: showToEdit)
+        let showExists = try await TestingDatabaseService.shared.showExists(showId: TestingConstants.showForUpdateShowTests.id)
         
         XCTAssertTrue(showExists)
         
-        newShow.id = createdShowId
-        sut.showToEdit = newShow
         sut.showName = "Big Bonanza"
-        
         try await sut.updateShow()
-        let updatedShowName = try await TestingDatabaseService.shared.getShowName(showId: createdShowId)
+        let updatedShowName = try await TestingDatabaseService.shared.getShowName(showId: showToEdit.id)
         
         XCTAssertEqual("Big Bonanza", updatedShowName)
         
-        try await TestingDatabaseService.shared.deleteShowObject(showId: createdShowId)
+        try await TestingDatabaseService.shared.restoreShowForUpdateTesting(show: showToEdit)
     }
     
     func test_UpdateShowWithIncompleteForm_ThrowsError() async throws {
@@ -224,6 +221,50 @@ final class AddEditShowViewModelTests: XCTestCase {
         }
         
         wait(for: [expectation], timeout: 3)
+    }
+    
+    func test_UpdateCreateShowButtonTapped_CreatesShowAndSetsValuesWhenShowToEditIsNil() async throws {
+        let show = TestingConstants.showForUpdateShowTests
+        sut = AddEditShowViewModel(showToEdit: show)
+        sut.showToEdit = nil
+        
+        if let createdShowId = await sut.updateCreateShowButtonTapped() {
+            let showExists = try await TestingDatabaseService.shared.showExists(showId: createdShowId)
+            XCTAssertTrue(showExists)
+            XCTAssertEqual(sut.viewState, .workCompleted)
+            
+            try await TestingDatabaseService.shared.deleteShowObject(showId: createdShowId)
+        } else {
+            XCTFail("Failed to fetch document ID from created show")
+        }
+    }
+    
+    func test_UpdateCreateShowButtonTapped_UpdatesShowWehnShowToEditIsNotNil() async throws {
+        let showToEdit = TestingConstants.showForUpdateShowTests
+        sut = AddEditShowViewModel(showToEdit: showToEdit)
+        let showExists = try await TestingDatabaseService.shared.showExists(showId: TestingConstants.showForUpdateShowTests.id)
+        
+        XCTAssertTrue(showExists)
+        
+        sut.showName = "Big Bonanza"
+        try await sut.updateShow()
+        let updatedShowName = try await TestingDatabaseService.shared.getShowName(showId: showToEdit.id)
+        
+        // Sometimes this test fails when it shouldn't, this sleep helps values get set before the assert
+        try await Task.sleep(seconds: 1)
+        
+        XCTAssertEqual("Big Bonanza", updatedShowName)
+        
+        try await TestingDatabaseService.shared.restoreShowForUpdateTesting(show: showToEdit)
+    }
+    
+    func test_UpdateCreateShowButtonTapped_SetsErrorStateWhenFormIsIncomplete() async throws {
+        sut = AddEditShowViewModel()
+        
+        let returnValue = await sut.updateCreateShowButtonTapped()
+        
+        XCTAssertEqual(sut.viewState, .error(message: "Please ensure that all required fields are filled."))
+        XCTAssertNil(returnValue)
     }
     
     func test_IncrementMaxNumberOfBands_IncrementsMaxNumberOfBands() throws {
@@ -256,5 +297,39 @@ final class AddEditShowViewModelTests: XCTestCase {
         sut.incrementMaxNumberOfBands()
         
         XCTAssertEqual(200, sut.showMaxNumberOfBands)
+    }
+    
+    func test_IsSearchingChanged_AltersViewState() async throws {
+        sut = AddEditShowViewModel()
+        sut.queryText = "Starland Ballroom"
+        await sut.search(withText: sut.queryText)
+        
+        sut.isSearchingChanged(to: false)
+        
+        XCTAssertEqual(sut.queryText, "")
+        XCTAssertEqual(sut.addressSearchResults, [])
+    }
+    
+    func test_PerformingWorkViewState_SetsProperties() throws {
+        let sut = AddEditShowViewModel()
+        sut.viewState = .performingWork
+        
+        XCTAssertTrue(sut.createShowButtonIsDisabled)
+    }
+    
+    func test_WorkCompletedViewState_SetsProperties() throws {
+        let sut = AddEditShowViewModel()
+        sut.viewState = .workCompleted
+        
+        XCTAssertTrue(sut.showCreatedSuccessfully)
+    }
+    
+    func test_errorViewState_SetsProperties() throws {
+        let sut = AddEditShowViewModel()
+        sut.viewState = .error(message: "Test")
+        
+        XCTAssertEqual(sut.errorAlertText, "Test")
+        XCTAssertTrue(sut.errorAlertShowing)
+        XCTAssertFalse(sut.createShowButtonIsDisabled)
     }
 }

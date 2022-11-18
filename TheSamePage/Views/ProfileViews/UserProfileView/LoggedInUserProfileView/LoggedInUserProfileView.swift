@@ -41,7 +41,7 @@ struct LoggedInUserProfileView: View {
                 .navigationBarTitleDisplayMode(.large)
             } else {
                 ErrorMessage(
-                    message: "Failed to fetch logged in user. Please check your internet connection and restart the app."
+                    message: ErrorMessageConstants.somethingWentWrong
                 )
             }
         }

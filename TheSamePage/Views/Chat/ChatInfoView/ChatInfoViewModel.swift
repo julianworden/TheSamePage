@@ -7,7 +7,8 @@
 
 import Foundation
 
-class ChatInfoViewModel: ObservableObject {
+@MainActor
+final class ChatInfoViewModel: ObservableObject {
     @Published var chatParticipants = [ShowParticipant]()
     
     init(chatParticipants: [ShowParticipant]) {

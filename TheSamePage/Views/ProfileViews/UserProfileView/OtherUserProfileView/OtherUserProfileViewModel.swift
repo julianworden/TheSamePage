@@ -9,7 +9,7 @@ import FirebaseAuth
 import Foundation
 
 @MainActor
-class OtherUserProfileViewModel: ObservableObject {
+final class OtherUserProfileViewModel: ObservableObject {
     enum UserProfileViewModelError: Error {
         case firebaseAuthError(message: String)
     }

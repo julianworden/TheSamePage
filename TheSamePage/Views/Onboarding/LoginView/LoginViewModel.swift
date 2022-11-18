@@ -9,7 +9,8 @@ import FirebaseAuth
 import FirebaseFirestore
 import Foundation
 
-class LoginViewModel: ObservableObject {
+@MainActor
+final class LoginViewModel: ObservableObject {
     enum LoginViewModelError: Error {
         case authError(message: String)
     }
@@ -21,7 +22,6 @@ class LoginViewModel: ObservableObject {
     @Published var loginErrorMessage = ""
     @Published var loginButtonIsDisabled = false
     
-    @MainActor
     func logInButtonTapped(emailAddress: String, password: String) async throws {
         do {
             loginButtonIsDisabled = true

@@ -15,6 +15,7 @@ struct MyPlayingShowsView: View {
             switch viewModel.myPlayingShowsViewState {
             case .dataLoading:
                 ProgressView()
+                
             case .dataLoaded:
                 List {
                     Section("You're playing...") {
@@ -29,15 +30,20 @@ struct MyPlayingShowsView: View {
                     }
                 }
                 .listStyle(.grouped)
+                
             case .dataNotFound:
                 Text("You're not playing any shows.")
                     .font(.body.italic())
                     .padding(.vertical)
+                
             case .error(let error):
                 ErrorMessage(
-                    message: "Failed to fetch your shows. Please check your internet connection and relaunch the app.",
-                    errorText: error
+                    message: ErrorMessageConstants.somethingWentWrong,
+                    systemErrorText: error
                 )
+                
+            default:
+                ErrorMessage(message: "Unknown ViewState given in MyPlayingShowsView.")
             }
         }
         .task {

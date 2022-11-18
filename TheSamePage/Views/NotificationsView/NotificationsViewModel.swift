@@ -8,7 +8,8 @@
 import FirebaseFirestore
 import Foundation
 
-class NotificationsViewModel: ObservableObject {
+@MainActor
+final class NotificationsViewModel: ObservableObject {
 //    @Published var fetchedBandInvites = [BandInvite]()
 //    @Published var fetchedShowInvites = [ShowInvite]()
     @Published var fetchedNotifications = [AnyUserNotification]()
@@ -27,7 +28,7 @@ class NotificationsViewModel: ObservableObject {
                     // Do not check if snapshot.documents.isEmpty or else deleting the final notification
                     // in the array will not update the UI in realtime.
                     
-                    Task { @MainActor in
+                    Task {
                         self.fetchedNotifications = try await DatabaseService.shared.getNotifications()
                     }
                 }

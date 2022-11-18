@@ -9,7 +9,7 @@ import FirebaseFirestore
 import Foundation
 
 @MainActor
-class MyShowsViewModel: ObservableObject {
+final class MyShowsViewModel: ObservableObject {
     @Published var playingShows = [Show]()
     @Published var hostedShows = [Show]()
     @Published var selectedShowType = ShowType.hosting

@@ -14,7 +14,8 @@ enum AddEditShowViewModelError: Error {
     case incompleteForm
 }
 
-class AddEditShowViewModel: ObservableObject {
+@MainActor
+final class AddEditShowViewModel: ObservableObject {
     var showToEdit: Show?
     
     @Published var showName = ""
@@ -29,7 +30,7 @@ class AddEditShowViewModel: ObservableObject {
     @Published var addressSearchResults = [CLPlacemark]()
     // Make it so that shows are not private by default
     @Published var addressIsPrivate = false
-    var showAddress: String?
+    @Published var showAddress: String?
     var showCity: String?
     var showState: String?
     var showLatitude: Double = 0
@@ -47,6 +48,30 @@ class AddEditShowViewModel: ObservableObject {
     @Published var showIs21Plus = false
     @Published var showHasBar = false
     @Published var showHasFood = false
+    
+    @Published var createShowButtonIsDisabled = false
+    @Published var errorAlertShowing = false
+    @Published var showCreatedSuccessfully = false
+    @Published var showAddressSelected = false
+    @Published var isSearching = false
+    var errorAlertText = ""
+    
+    var viewState = ViewState.dataLoaded {
+        didSet {
+            switch viewState {
+            case .performingWork:
+                createShowButtonIsDisabled = true
+            case .workCompleted:
+                showCreatedSuccessfully = true
+            case .error(let message):
+                errorAlertText = message
+                errorAlertShowing = true
+                createShowButtonIsDisabled = false
+            default:
+                print("Unknown ViewState assigned to AddEditShowViewModel.")
+            }
+        }
+    }
     
     var publiclyVisibleAddressExplanation: String {
         if addressIsPrivate {
@@ -112,8 +137,7 @@ class AddEditShowViewModel: ObservableObject {
         }
     }
     
-    @MainActor
-    func search(withText text: String) async throws {
+    func search(withText text: String) async {
         let searchRequest = MKLocalSearch.Request()
         if let userRegion = LocationController.shared.userRegion {
             searchRequest.region = userRegion
@@ -126,14 +150,31 @@ class AddEditShowViewModel: ObservableObject {
         do {
             let response = try await addressSearch!.start()
             
+            if response.mapItems.isEmpty {
+                addressSearchResults = [CLPlacemark]()
+            }
+            
             addressSearchResults = response.mapItems.map { $0.placemark }
             addressSearch?.cancel()
         } catch {
-            print("\(error) search failed")
+            // This error doesn't prevent the search from working and it comes up often.
+            // ignoring to keep experience smooth for user, there are other MK errors
+            // that are still thrown if too many requests are submitted in 60 seconds.
+            // Those will be allowed.
+            if !error.localizedDescription.contains("MKErrorDomain error 4") && !error.localizedDescription.contains("MKErrorDomain error 3") {
+                viewState = .error(message: error.localizedDescription)
+            }
         }
     }
     
-    func setShowLocationInfo(withPlacemark placemark: CLPlacemark) {
+    func isSearchingChanged(to isSearching: Bool) {
+        if !isSearching {
+            queryText = ""
+            addressSearchResults = [CLPlacemark]()
+        }
+    }
+    
+    func setShowLocationInfo(with placemark: CLPlacemark) {
         if let showLatitude = placemark.location?.coordinate.latitude,
            let showLongitude = placemark.location?.coordinate.longitude {
             self.showLatitude = showLatitude
@@ -144,6 +185,26 @@ class AddEditShowViewModel: ObservableObject {
         showAddress = placemark.formattedAddress
         showCity = placemark.postalAddress?.city
         showState = placemark.postalAddress?.state
+        
+        showAddressSelected = true
+        queryText = ""
+    }
+    
+    func updateCreateShowButtonTapped(withImage image: UIImage? = nil) async -> String? {
+        var showId: String?
+        
+        do {
+            viewState = .performingWork
+            showToEdit == nil ? showId = try await createShow(withImage: image) : try await updateShow()
+            viewState = .workCompleted
+            return showId
+        } catch AddEditShowViewModelError.incompleteForm {
+            viewState = .error(message: "Please ensure that all required fields are filled.")
+            return nil
+        } catch {
+            viewState = .error(message: ErrorMessageConstants.somethingWentWrong)
+            return nil
+        }
     }
     
     func createShow(withImage image: UIImage? = nil) async throws -> String {

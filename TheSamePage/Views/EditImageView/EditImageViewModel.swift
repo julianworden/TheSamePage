@@ -8,7 +8,8 @@
 import Foundation
 import UIKit.UIImage
 
-class EditImageViewModel: ObservableObject {
+@MainActor
+final class EditImageViewModel: ObservableObject {
     @Published var state = ViewState.dataLoaded
     
     var show: Show?

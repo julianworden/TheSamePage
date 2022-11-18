@@ -7,7 +7,8 @@
 
 import Foundation
 
-class AddEditLinkViewModel: ObservableObject {
+@MainActor
+final class AddEditLinkViewModel: ObservableObject {
     @Published var linkPlatform = LinkPlatform.instagram
     @Published var enteredText = ""
     

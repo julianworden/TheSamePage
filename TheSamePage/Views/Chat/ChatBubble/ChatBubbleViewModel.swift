@@ -7,6 +7,7 @@
 
 import Foundation
 
+#warning("Get rid of this viewmodel")
 class ChatBubbleViewModel: ObservableObject {
     let chatMessage: ChatMessage
 

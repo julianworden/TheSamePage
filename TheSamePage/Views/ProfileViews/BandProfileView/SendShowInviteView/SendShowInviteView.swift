@@ -60,9 +60,11 @@ struct SendShowInviteView: View {
                     .padding(.horizontal)
             case .error(let message):
                 ErrorMessage(
-                    message: "Failed to fetch your hosted shows. Please check your internet connection and relaunch the app.",
-                    errorText: message
+                    message: ErrorMessageConstants.somethingWentWrong,
+                    systemErrorText: message
                 )
+            default:
+                ErrorMessage(message: "Unknown ViewState provided to SendShowInviteView.")
             }
         }
         .navigationTitle("Send Show Invite")

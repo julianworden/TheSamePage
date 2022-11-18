@@ -10,22 +10,20 @@ import SwiftUI
 struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
     
-    @State private var filterConfirmationDialogIsShowing = false
-    
     var body: some View {
         NavigationView {
             ZStack {
                 Color(uiColor: .systemGroupedBackground)
                     .ignoresSafeArea()
                 
-                switch viewModel.state {
+                switch viewModel.viewState {
                 case .dataLoading:
                     ProgressView()
                     
                 case .dataLoaded:
                     HomeViewShowsList(
                         viewModel: viewModel,
-                        filterConfirmationDialogIsShowing: $filterConfirmationDialogIsShowing
+                        filterConfirmationDialogIsShowing: $viewModel.filterConfirmationDialogIsShowing
                     )
                     
                 case .dataNotFound:
@@ -33,34 +31,33 @@ struct HomeView: View {
                     
                 case .error(let message):
                     ErrorMessage(
-                        message: "Failed to fetch shows near you. Please use Settings to ensure that location services are enabled for The Same Page, check your internet connection, and restart the app.",
-                        errorText: message)
+                        message: ErrorMessageConstants.somethingWentWrong,
+                        systemErrorText: message)
+                    
+                default:
+                    ErrorMessage(message: ErrorMessageConstants.unknownViewState)
                 }
             }
             .navigationTitle("Shows Near You")
             .toolbar {
                 ToolbarItem {
                     Button {
-                        filterConfirmationDialogIsShowing = true
+                        viewModel.filterConfirmationDialogIsShowing = true
                     } label: {
                         Label("Filter", systemImage: "line.horizontal.3.decrease.circle")
                     }
                 }
             }
-            .confirmationDialog("Select a search radius", isPresented: $filterConfirmationDialogIsShowing) {
+            .confirmationDialog("Select a search radius", isPresented: $viewModel.filterConfirmationDialogIsShowing) {
                 Button("10 Miles") { viewModel.changeSearchRadius(toValue: 10) }
                 Button("25 Miles (Default)") { viewModel.changeSearchRadius(toValue: 25) }
                 Button("50 Miles") { viewModel.changeSearchRadius(toValue: 50) }
                 Button("Cancel", role: .cancel) { }
             }
-            .task {
+            .onAppear {
                 if viewModel.nearbyShows.isEmpty {
-                    viewModel.state = .dataLoading
-                    do {
-                        try await viewModel.fetchNearbyShows()
-                    } catch {
-                        print(error)
-                    }
+                    viewModel.viewState = .dataLoading
+                    viewModel.fetchNearbyShows()
                 }
             }
         }

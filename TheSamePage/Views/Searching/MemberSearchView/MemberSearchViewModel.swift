@@ -8,7 +8,8 @@
 import Foundation
 import Typesense
 
-class MemberSearchViewModel: ObservableObject {
+@MainActor
+final class MemberSearchViewModel: ObservableObject {
     enum MemberSearchViewModelError: Error {
         case searchFailed(message: String)
     }
@@ -23,7 +24,6 @@ class MemberSearchViewModel: ObservableObject {
         self.band = band
     }
     
-    @MainActor
     func fetchUsers(searchQuery: String) async throws {
         guard !queryText.isEmpty else { return }
         

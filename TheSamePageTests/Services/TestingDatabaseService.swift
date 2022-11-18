@@ -70,4 +70,15 @@ class TestingDatabaseService {
             throw TestingDatabaseServiceError.firestore(message: "Failed to delete show in DatabaseService.deleteShowObject(showId:) Error \(error.localizedDescription)")
         }
     }
+    
+    func restoreShowForUpdateTesting(show: Show) async throws {
+        do {
+            try db
+                .collection(FbConstants.shows)
+                .document(show.id)
+                .setData(from: show)
+        } catch {
+            throw TestingDatabaseServiceError.firestore(message: "Failed to restore show for update testing in TestingDatabaseService.restoreShowForUpdateTesting(show:) Error \(error)")
+        }
+    }
 }

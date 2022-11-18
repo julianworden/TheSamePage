@@ -13,6 +13,7 @@ enum SendShowInviteViewModelError: Error {
     case bandIsAlreadyPlaying
 }
 
+@MainActor
 final class SendShowInviteViewModel: ObservableObject {
     @Published var state = ViewState.dataLoading
     
@@ -66,7 +67,6 @@ final class SendShowInviteViewModel: ObservableObject {
         try DatabaseService.shared.sendShowInvite(invite: showInvite)
     }
     
-    @MainActor
     func getHostedShows() async throws {
         state = .dataLoading
         

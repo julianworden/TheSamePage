@@ -50,9 +50,9 @@ struct EditImageView: View {
                 case .dataLoading:
                     ProgressView()
                 case .error(message: let message):
-                    ErrorMessage(message: "Something went wrong while editing this image. Please check your internet connection and relaunch the app.", errorText: "Error: \(message)")
+                    ErrorMessage(message: ErrorMessageConstants.somethingWentWrong, systemErrorText: "Error: \(message)")
                 default:
-                    EmptyView()
+                    ErrorMessage(message: ErrorMessageConstants.unknownViewState)
                 }
             }
         }

@@ -15,6 +15,7 @@ struct MyHostedShowsView: View {
             switch viewModel.myHostedShowsViewState {
             case .dataLoading:
                 ProgressView()
+                
             case .dataLoaded:
                 List {
                     Section("You're hosting...") {
@@ -29,6 +30,7 @@ struct MyHostedShowsView: View {
                     }
                 }
                 .listStyle(.grouped)
+                
             case .dataNotFound:
                 VStack {
                     Text("You're not hosting any shows.")
@@ -44,9 +46,11 @@ struct MyHostedShowsView: View {
                 .padding(.top)
             case .error(let message):
                 ErrorMessage(
-                    message: "Failed to fetch your hosted shows. Please check your internet connection and relaunch the app.",
-                    errorText: message
+                    message: ErrorMessageConstants.somethingWentWrong,
+                    systemErrorText: message
                 )
+            default:
+                ErrorMessage(message: ErrorMessageConstants.unknownViewState)
             }
         }
         .task {

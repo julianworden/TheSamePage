@@ -8,6 +8,7 @@
 import FirebaseAuth
 import Foundation
 
+@MainActor
 final class SendBandInviteViewModel: ObservableObject {
     var userBands = [Band]()
     /// The band that the user will be invited to join.
@@ -29,7 +30,6 @@ final class SendBandInviteViewModel: ObservableObject {
         }
     }
     
-    @MainActor
     func getLoggedInUserBands() async throws {
         do {
             let fetchedBands = try await DatabaseService.shared.getBands(withUid: AuthController.getLoggedInUid())

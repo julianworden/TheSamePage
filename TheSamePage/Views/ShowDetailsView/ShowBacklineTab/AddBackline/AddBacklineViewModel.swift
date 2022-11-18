@@ -8,7 +8,8 @@
 import Foundation
 import SwiftUI
 
-class AddBacklineViewModel: ObservableObject {
+@MainActor
+final class AddBacklineViewModel: ObservableObject {
     @Published var selectedGearType = BacklineItemType.electricGuitar
     @Published var selectedGuitarGear = GuitarGear.comboAmp
     @Published var selectedPercussionGearType = PercussionGearType.fullKit

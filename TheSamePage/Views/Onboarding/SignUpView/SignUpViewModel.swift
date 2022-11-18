@@ -12,7 +12,8 @@ import FirebaseMessaging
 import Foundation
 import UIKit.UIImage
 
-class SignUpViewModel: ObservableObject {
+@MainActor
+final class SignUpViewModel: ObservableObject {
     enum SignUpViewModelError: Error {
         case firebaseAuthError(message: String)
         case firestoreError(message: String)

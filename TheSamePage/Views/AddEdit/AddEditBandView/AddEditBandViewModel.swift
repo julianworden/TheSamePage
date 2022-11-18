@@ -8,7 +8,8 @@
 import Foundation
 import UIKit.UIImage
 
-class AddEditBandViewModel: ObservableObject {
+@MainActor
+final class AddEditBandViewModel: ObservableObject {
     @Published var bandName = ""
     @Published var bandBio = ""
     @Published var bandGenre: Genre = .alternative
