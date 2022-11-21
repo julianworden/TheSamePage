@@ -136,7 +136,7 @@
 		ABB4C3FF29207CE600E2C153 /* NotificationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB4C3FE29207CE600E2C153 /* NotificationAction.swift */; };
 		ABB57E9A29246CD100D4CB2D /* AddEditShowViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB57E9929246CD100D4CB2D /* AddEditShowViewModelTests.swift */; };
 		ABB71C4A28FE08D500D3126D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB71C4928FE08D500D3126D /* HomeViewModel.swift */; };
-		ABB93F3828F0732D0055659B /* AsyncButtonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB93F3728F0732D0055659B /* AsyncButtonLabel.swift */; };
+		ABB93F3828F0732D0055659B /* AsyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB93F3728F0732D0055659B /* AsyncButton.swift */; };
 		ABBADD7928DFE5FA00720C64 /* BandState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBADD7828DFE5FA00720C64 /* BandState.swift */; };
 		ABBE94C228D8ADBF00790A04 /* ShowDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */; };
 		ABBE94C428D8AE7500790A04 /* ShowDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */; };
@@ -326,7 +326,7 @@
 		ABB4C3FE29207CE600E2C153 /* NotificationAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAction.swift; sourceTree = "<group>"; };
 		ABB57E9929246CD100D4CB2D /* AddEditShowViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowViewModelTests.swift; sourceTree = "<group>"; };
 		ABB71C4928FE08D500D3126D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		ABB93F3728F0732D0055659B /* AsyncButtonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncButtonLabel.swift; sourceTree = "<group>"; };
+		ABB93F3728F0732D0055659B /* AsyncButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncButton.swift; sourceTree = "<group>"; };
 		ABBADD7828DFE5FA00720C64 /* BandState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandState.swift; sourceTree = "<group>"; };
 		ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsView.swift; sourceTree = "<group>"; };
 		ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsViewModel.swift; sourceTree = "<group>"; };
@@ -685,7 +685,7 @@
 				AB2B867B28D9F444004601B6 /* NoImageView.swift */,
 				AB2B867D28D9F884004601B6 /* ImagePicker.swift */,
 				ABDDAD4928DB46B500F1CF9B /* ImageSelectionButton.swift */,
-				ABB93F3728F0732D0055659B /* AsyncButtonLabel.swift */,
+				ABB93F3728F0732D0055659B /* AsyncButton.swift */,
 				ABF8B81A28FC786900608657 /* ErrorMessage.swift */,
 				AB8326B329129CE200208414 /* NoDataFoundMessage.swift */,
 				ABF83DCB291A965B006A06CC /* ListRowIcon.swift */,
@@ -1312,7 +1312,7 @@
 				AB1B559829202E8300571316 /* SmallIconStyle.swift in Sources */,
 				ABD1D16D28F30CDF00791969 /* MyHostedShowsView.swift in Sources */,
 				AB5E490829003F8D0076EABE /* AddBacklineViewModel.swift in Sources */,
-				ABB93F3828F0732D0055659B /* AsyncButtonLabel.swift in Sources */,
+				ABB93F3828F0732D0055659B /* AsyncButton.swift in Sources */,
 				ABF8B81928FC43C400608657 /* CustomMapAnnotation.swift in Sources */,
 				ABE3EFA628D91960002EEF23 /* SignUpView.swift in Sources */,
 				AB668EB2291BF31D007899A9 /* OtherUserProfileHeader.swift in Sources */,

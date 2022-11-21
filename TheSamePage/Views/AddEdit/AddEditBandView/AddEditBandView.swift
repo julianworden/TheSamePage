@@ -15,21 +15,24 @@ struct AddEditBandView: View {
     @StateObject var viewModel: AddEditBandViewModel
     
     @Binding var userIsOnboarding: Bool
-    
-    @State private var imagePickerIsShowing = false
-    @State private var selectedImage: UIImage?
-    @State private var bandCreationButtonIsDisabled = false
-    
+        
     init(userIsOnboarding: Binding<Bool> = .constant(false), bandToEdit: Band? = nil) {
         _userIsOnboarding = Binding(projectedValue: userIsOnboarding)
-        _viewModel = StateObject(wrappedValue: AddEditBandViewModel(bandToEdit: bandToEdit))
+        _viewModel = StateObject(
+            wrappedValue: AddEditBandViewModel(
+                bandToEdit: bandToEdit,
+                userIsOnboarding: userIsOnboarding.wrappedValue)
+        )
     }
     
     var body: some View {
         Form {
             Section("Info") {
                 if viewModel.bandToEdit == nil {
-                    ImageSelectionButton(imagePickerIsShowing: $imagePickerIsShowing, selectedImage: $selectedImage)
+                    ImageSelectionButton(
+                        imagePickerIsShowing: $viewModel.imagePickerIsShowing,
+                        selectedImage: $viewModel.selectedImage
+                    )
                 }
                 
                 TextField("Name", text: $viewModel.bandName)
@@ -66,30 +69,12 @@ struct AddEditBandView: View {
             }
             
             Section {
-                Button {
-                    Task {
-                        do {
-                            bandCreationButtonIsDisabled = true
-                            if viewModel.bandToEdit == nil {
-                                try await viewModel.createBand(withImage: selectedImage)
-                            } else {
-                                await viewModel.updateBand()
-                            }
-                            
-                            if userIsOnboarding {
-                                userIsOnboarding = false
-                            } else {
-                                dismiss()
-                            }
-                        } catch {
-                            bandCreationButtonIsDisabled = false
-                            print(error)
-                        }
-                    }
+                AsyncButton {
+                    await viewModel.createUpdateBandButtonTapped()
                 } label: {
-                    AsyncButtonLabel(buttonIsDisabled: $bandCreationButtonIsDisabled, title: viewModel.bandToEdit == nil ? "Create Band" : "Update Band Info")
+                    Text(viewModel.bandToEdit == nil ? "Create Band" : "Update Band Info")
                 }
-                .disabled(bandCreationButtonIsDisabled)
+                .disabled(viewModel.bandCreationButtonIsDisabled)
             }
         }
         .navigationTitle(viewModel.bandToEdit == nil ? "Create a Band" : "Update Band Info")
@@ -103,8 +88,18 @@ struct AddEditBandView: View {
                 }
             }
         }
-        .sheet(isPresented: $imagePickerIsShowing) {
-            ImagePicker(image: $selectedImage, pickerIsShowing: $imagePickerIsShowing)
+        .sheet(isPresented: $viewModel.imagePickerIsShowing) {
+            ImagePicker(image: $viewModel.selectedImage, pickerIsShowing: $viewModel.imagePickerIsShowing)
+        }
+        .onChange(of: viewModel.userIsOnboarding) { userIsOnboarding in
+            if !userIsOnboarding {
+                self.userIsOnboarding = userIsOnboarding
+            }
+        }
+        .onChange(of: viewModel.dismissView) { dismissView in
+            if dismissView {
+                dismiss()
+            }
         }
     }
 }

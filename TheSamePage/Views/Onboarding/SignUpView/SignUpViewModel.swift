@@ -30,6 +30,28 @@ final class SignUpViewModel: ObservableObject {
     @Published var phoneNumber: String?
     @Published var userIsInABand = false
     
+    @Published var imagePickerIsShowing = false
+    @Published var profileCreationWasSuccessful = false
+    @Published var signUpButtonIsDisabled = false
+    @Published var userIsOnboarding = true
+    
+    func signUpButtonTapped() async {
+        do {
+            signUpButtonIsDisabled = true
+            try await registerUser()
+            
+            if userIsInABand {
+                // Segues to InABandView
+                profileCreationWasSuccessful = true
+            } else {
+                userIsOnboarding = false
+            }
+        } catch {
+            signUpButtonIsDisabled = false
+            print(error)
+        }
+    }
+    
     /// Creates and registers a user in Firebase Auth with the email address and password entered by the user.
     ///
     /// Once the user is created in Firebase Auth, a new user object is created and passed to the DatabaseService,

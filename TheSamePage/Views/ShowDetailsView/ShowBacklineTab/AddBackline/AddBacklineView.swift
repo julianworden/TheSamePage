@@ -11,9 +11,7 @@ struct AddBacklineView: View {
     @Environment(\.dismiss) var dismiss
     
     @StateObject var viewModel: AddBacklineViewModel
-    
-    @State private var addGearButtonIsDisabled = false
-    
+
     init(show: Show) {
         _viewModel = StateObject(wrappedValue: AddBacklineViewModel(show: show))
     }
@@ -53,18 +51,11 @@ struct AddBacklineView: View {
 
             Section {
                 Button {
-                    do {
-                        addGearButtonIsDisabled = true
-                        try viewModel.addBacklineItemToShow()
-                        dismiss()
-                    } catch {
-                        addGearButtonIsDisabled = false
-                        print(error)
-                    }
+                    viewModel.addBacklineItemButtonTapped()
                 } label: {
-                    AsyncButtonLabel(buttonIsDisabled: $addGearButtonIsDisabled, title: "Add Gear to Backline")
+                    Text("Add Gear to Backline")
                 }
-                .disabled(addGearButtonIsDisabled)
+                .disabled(viewModel.addGearButtonIsDisabled)
             } footer: {
                 Text("Do not backline someone else's gear on their behalf without their permission!")
             }

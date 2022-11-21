@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct UserSettingsView: View {
+    @Environment(\.dismiss) var dismiss
+    
     @EnvironmentObject var loggedInUserController: LoggedInUserController
     
     @Binding var userIsLoggedOut: Bool
@@ -17,6 +19,7 @@ struct UserSettingsView: View {
             Button("Log Out", role: .destructive) {
                 userIsLoggedOut = true
                 loggedInUserController.logOut()
+                dismiss()
             }
         }
         .navigationTitle("Settings")

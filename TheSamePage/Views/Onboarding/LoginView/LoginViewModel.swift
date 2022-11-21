@@ -11,26 +11,24 @@ import Foundation
 
 @MainActor
 final class LoginViewModel: ObservableObject {
-    enum LoginViewModelError: Error {
-        case authError(message: String)
-    }
-    
     @Published var emailAddress = ""
     @Published var password = ""
     
     @Published var loginErrorShowing = false
     @Published var loginErrorMessage = ""
     @Published var loginButtonIsDisabled = false
+    @Published var userIsOnboarding = true
     
-    func logInButtonTapped(emailAddress: String, password: String) async throws {
+    func userIsOnboardingAfterLoginWith(emailAddress: String, password: String) async {
         do {
             loginButtonIsDisabled = true
             try await Auth.auth().signIn(withEmail: emailAddress, password: password)
+            userIsOnboarding = false
         } catch {
-            loginErrorShowing = true
             loginErrorMessage = error.localizedDescription
+            loginErrorShowing = true
             loginButtonIsDisabled = false
-            throw error
+            userIsOnboarding = true
         }
     }
 }

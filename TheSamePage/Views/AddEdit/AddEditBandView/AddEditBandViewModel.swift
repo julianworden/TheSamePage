@@ -18,9 +18,19 @@ final class AddEditBandViewModel: ObservableObject {
     @Published var userPlaysInBand = false
     @Published var userRoleInBand = Instrument.vocals
     
+    @Published var imagePickerIsShowing = false
+    @Published var bandCreationButtonIsDisabled = false
+    /// Modified when a band is created during onboarding.
+    @Published var userIsOnboarding = false
+    /// Modified when a band is created at any time other than during onboarding
+    @Published var dismissView = false
+    @Published var selectedImage: UIImage?
+    
     var bandToEdit: Band?
     
-    init(bandToEdit: Band?) {
+    init(bandToEdit: Band?, userIsOnboarding: Bool) {
+        self.userIsOnboarding = userIsOnboarding
+        
         if let bandToEdit {
             self.bandToEdit = bandToEdit
             self.bandName = bandToEdit.name
@@ -33,6 +43,26 @@ final class AddEditBandViewModel: ObservableObject {
                 self.bandGenre = bandToEditGenre
                 self.bandState = bandToEditState
             }
+        }
+    }
+    
+    func createUpdateBandButtonTapped() async {
+        do {
+            bandCreationButtonIsDisabled = true
+            if bandToEdit == nil {
+                try await createBand(withImage: selectedImage)
+            } else {
+                await updateBand()
+            }
+            
+            if userIsOnboarding {
+                userIsOnboarding = false
+            } else {
+                dismissView = true
+            }
+        } catch {
+            bandCreationButtonIsDisabled = false
+            print(error)
         }
     }
     

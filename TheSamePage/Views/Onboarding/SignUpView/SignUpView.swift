@@ -12,14 +12,13 @@ struct SignUpView: View {
     
     @Binding var userIsOnboarding: Bool
     
-    @State private var imagePickerIsShowing = false
-    @State private var profileCreationWasSuccessful = false
-    @State private var signUpButtonIsDisabled = false
-    
     var body: some View {
         Form {
             Section("Account Info") {
-                ImageSelectionButton(imagePickerIsShowing: $imagePickerIsShowing, selectedImage: $viewModel.profileImage)
+                ImageSelectionButton(
+                    imagePickerIsShowing: $viewModel.imagePickerIsShowing,
+                    selectedImage: $viewModel.profileImage
+                )
                 TextField("Username", text: $viewModel.username)
                     .textInputAutocapitalization(.never)
                 TextField("Email Address", text: $viewModel.emailAddress)
@@ -36,37 +35,32 @@ struct SignUpView: View {
             }
             
             Section {
-                Button {
-                    Task {
-                        do {
-                            signUpButtonIsDisabled = true
-                            try await viewModel.registerUser()
-                            
-                            if viewModel.userIsInABand {
-                                // Segue to InABandView
-                                profileCreationWasSuccessful = true
-                            } else {
-                                userIsOnboarding = false
-                            }
-                        } catch {
-                            signUpButtonIsDisabled = false
-                            print(error)
-                        }
-                    }
+                AsyncButton {
+                    await viewModel.signUpButtonTapped()
                 } label: {
-                    NavigationLink(destination: InABandView(userIsOnboarding: $userIsOnboarding), isActive: $profileCreationWasSuccessful) {
-                        AsyncButtonLabel(buttonIsDisabled: $signUpButtonIsDisabled, title: "Create Profile")
-                    }
+                    NavigationLink(
+                        destination: InABandView(userIsOnboarding: $userIsOnboarding),
+                        isActive: $viewModel.profileCreationWasSuccessful,
+                        label: {
+                            Text("Create Profile")
+                        }
+                    )
                 }
-                .disabled(signUpButtonIsDisabled)
+                .disabled(viewModel.signUpButtonIsDisabled)
             }
         }
         .navigationTitle("Sign Up")
         .navigationBarTitleDisplayMode(.inline)
         .animation(.easeInOut, value: viewModel.userIsInABand)
-        .sheet(isPresented: $imagePickerIsShowing) {
-            ImagePicker(image: $viewModel.profileImage, pickerIsShowing: $imagePickerIsShowing)
+        .sheet(isPresented: $viewModel.imagePickerIsShowing) {
+            ImagePicker(image: $viewModel.profileImage, pickerIsShowing: $viewModel.imagePickerIsShowing)
         }
+        .onChange(of: viewModel.userIsOnboarding) { userIsOnboarding in
+            if !userIsOnboarding {
+                self.userIsOnboarding = userIsOnboarding
+            }
+        }
+//        .onChange(of: viewModel.profileCreationWasSuccessful) { _ in }
     }
 }
 

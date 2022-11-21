@@ -14,29 +14,19 @@ struct LoginView: View {
     @StateObject var viewModel = LoginViewModel()
     
     @Binding var userIsOnboarding: Bool
-    
-    
-    
-    var hideNavigationLink = true
-    
+
     var body: some View {
         NavigationView {
             Form {
                 TextField("Email Address", text: $viewModel.emailAddress)
                 SecureField("Password", text: $viewModel.password)
-                Button {
-                    Task {
-                        do {
-//                            viewModel.loginButtonIsDisabled = true
-                            try await viewModel.logInButtonTapped(emailAddress: viewModel.emailAddress, password: viewModel.password)
-                            //                    loggedInUserController.getLoggedInUserInfo()
-                            userIsOnboarding = false
-                        } catch {
-                            print("Failed")
-                        }
-                    }
+                AsyncButton {
+                    await viewModel.userIsOnboardingAfterLoginWith(
+                        emailAddress: viewModel.emailAddress,
+                        password: viewModel.password
+                    )
                 } label: {
-                    AsyncButtonLabel(buttonIsDisabled: $viewModel.loginButtonIsDisabled, title: "Log In")
+                    Text("Log In")
                 }
                 .disabled(viewModel.loginButtonIsDisabled)
                 
@@ -59,6 +49,11 @@ struct LoginView: View {
                     Text(viewModel.loginErrorMessage)
                 }
             )
+            .onChange(of: viewModel.userIsOnboarding) { userIsOnboarding in
+                if !userIsOnboarding {
+                    self.userIsOnboarding = userIsOnboarding
+                }
+            }
         }
     }
 }

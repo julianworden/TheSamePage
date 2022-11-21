@@ -27,10 +27,24 @@ final class AddBacklineViewModel: ObservableObject {
     @Published var cymbalStandsIncluded = false
     @Published var numberOfCymbalStandsIncluded = 0
     
+    @Published var addGearButtonIsDisabled = false
+    @Published var gearAddedSuccessfully = false
+    
     let show: Show
     
     init(show: Show) {
         self.show = show
+    }
+    
+    func addBacklineItemButtonTapped() {
+        do {
+            addGearButtonIsDisabled = true
+            try addBacklineItemToShow()
+            gearAddedSuccessfully = true
+        } catch {
+            addGearButtonIsDisabled = false
+            print(error)
+        }
     }
     
     func addBacklineItemToShow() throws {
