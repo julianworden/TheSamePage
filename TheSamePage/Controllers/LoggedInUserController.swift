@@ -11,17 +11,15 @@ import Foundation
 
 @MainActor
 class LoggedInUserController: ObservableObject {
-    enum UserControllerError: Error {
-        case firebaseAuth(message: String)
-        case firestore(message: String)
-    }
-    
     @Published var loggedInUser: User?
     @Published var firstName: String?
     @Published var lastName: String?
     @Published var emailAddress: String?
     @Published var profileImageUrl: String?
     @Published var bands = [Band]()
+    
+    @Published var errorMessageShowing = false
+    @Published var errorMessageText = ""
     
     var uid: String?
     
@@ -30,34 +28,27 @@ class LoggedInUserController: ObservableObject {
     
     init() {
         Task {
-            do {
-                try await getLoggedInUserInfo()
-            } catch {
-                throw UserControllerError.firestore(message: "Failed to fetch logged in user")
-            }
+            await getLoggedInUserInfo()
         }
     }
     
-    func getLoggedInUserInfo() async throws {
-        guard !AuthController.userIsLoggedOut() else {
-            throw UserControllerError.firebaseAuth(message: "No logged in user found in UserController.getLoggedInUser")
+    func getLoggedInUserInfo() async {
+        do {
+            let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
+            self.loggedInUser = loggedInUser
+            self.profileImageUrl = loggedInUser.profileImageUrl
+            self.firstName = loggedInUser.firstName
+            self.lastName = loggedInUser.lastName
+            self.emailAddress = loggedInUser.emailAddress
+            self.uid = loggedInUser.id
+            self.bands = try await DatabaseService.shared.getBands(withUid: loggedInUser.id)
+        } catch {
+            errorMessageText = error.localizedDescription
+            errorMessageShowing = true
         }
-        
-        let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
-        self.loggedInUser = loggedInUser
-        self.profileImageUrl = loggedInUser.profileImageUrl
-        self.firstName = loggedInUser.firstName
-        self.lastName = loggedInUser.lastName
-        self.emailAddress = loggedInUser.emailAddress
-        self.uid = loggedInUser.id
-        self.bands = try await DatabaseService.shared.getBands(withUid: loggedInUser.id)
     }
     
-    func logOut() throws {
-        guard !AuthController.userIsLoggedOut() else {
-            throw UserControllerError.firebaseAuth(message: "User is already logged out. Thrown in LoggedInUserController.logOut()")
-        }
-        
+    func logOut() {
         self.loggedInUser = nil
         self.firstName = nil
         self.lastName = nil
@@ -68,7 +59,8 @@ class LoggedInUserController: ObservableObject {
         do {
             try AuthController.logOut()
         } catch {
-            throw UserControllerError.firebaseAuth(message: "Failed to log out")
+            errorMessageText = error.localizedDescription
+            errorMessageShowing = true
         }
     }
     
@@ -83,6 +75,9 @@ class LoggedInUserController: ObservableObject {
                     self.emailAddress = updatedUser.emailAddress
                     self.profileImageUrl = updatedUser.profileImageUrl
                 }
+            } else if error != nil {
+                self.errorMessageText = "Something went wrong, please log in again. System error: \(error!.localizedDescription)"
+                self.errorMessageShowing = true
             }
         }
     }

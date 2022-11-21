@@ -32,9 +32,21 @@ final class AuthController: ObservableObject {
     }
     
     static func logOut() throws {
-        try Auth.auth().signOut()
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            throw FirebaseError.auth(
+                message: "Failed to log out",
+                systemError: error.localizedDescription
+            )
+        }
     }
     
+    /// Detects whether or not Firebase Auth's currentUser object is nil.
+    ///
+    /// This method will falsely detect that the currentUser property is not nil
+    /// if a user's profile was deleted since the last time they opened the app.
+    /// - Returns: Whether or not there is a logged in user.
     static func userIsLoggedOut() -> Bool {
         return Auth.auth().currentUser == nil
     }

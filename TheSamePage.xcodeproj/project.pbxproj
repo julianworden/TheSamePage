@@ -80,6 +80,8 @@
 		AB55E7722901F651009F039B /* DrumKitBacklineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB55E7712901F651009F039B /* DrumKitBacklineItem.swift */; };
 		AB582B7E28FA3B3D00D357F3 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB582B7D28FA3B3D00D357F3 /* LocationController.swift */; };
 		AB5B77C528E72B8E00B32537 /* BandLinkRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5B77C428E72B8E00B32537 /* BandLinkRow.swift */; };
+		AB5C0D3B292B14DE0040CE97 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5C0D3A292B14DE0040CE97 /* FirebaseError.swift */; };
+		AB5C0D3D292B14F40040CE97 /* LogicError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5C0D3C292B14F40040CE97 /* LogicError.swift */; };
 		AB5D08AB2913F5C20073F8EE /* ConversationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5D08AA2913F5C20073F8EE /* ConversationViewModel.swift */; };
 		AB5E48F5290029B20076EABE /* HomeViewShowsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E48F4290029B20076EABE /* HomeViewShowsList.swift */; };
 		AB5E48F829003ACF0076EABE /* GuitarGear.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E48F729003ACF0076EABE /* GuitarGear.swift */; };
@@ -110,6 +112,7 @@
 		AB8326BA2912BB3500208414 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8326B92912BB3500208414 /* ChatMessage.swift */; };
 		AB8627BF2926751B001537D9 /* TestingDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8627BE2926751B001537D9 /* TestingDatabaseService.swift */; };
 		AB8627C1292687FC001537D9 /* ErrorMessageConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8627C0292687FC001537D9 /* ErrorMessageConstants.swift */; };
+		AB93A90D2929269C00C0EEE6 /* View+errorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB93A90C2929269C00C0EEE6 /* View+errorAlert.swift */; };
 		AB9D086128FDA24B0098A244 /* UserSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9D086028FDA24B0098A244 /* UserSettingsView.swift */; };
 		AB9DAB04292329AF009BE932 /* ShowSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9DAB03292329AF009BE932 /* ShowSettingsView.swift */; };
 		AB9DAB06292329BB009BE932 /* ShowSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9DAB05292329BB009BE932 /* ShowSettingsViewModel.swift */; };
@@ -273,6 +276,8 @@
 		AB55E7712901F651009F039B /* DrumKitBacklineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrumKitBacklineItem.swift; sourceTree = "<group>"; };
 		AB582B7D28FA3B3D00D357F3 /* LocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
 		AB5B77C428E72B8E00B32537 /* BandLinkRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLinkRow.swift; sourceTree = "<group>"; };
+		AB5C0D3A292B14DE0040CE97 /* FirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
+		AB5C0D3C292B14F40040CE97 /* LogicError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicError.swift; sourceTree = "<group>"; };
 		AB5D08AA2913F5C20073F8EE /* ConversationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewModel.swift; sourceTree = "<group>"; };
 		AB5E48F4290029B20076EABE /* HomeViewShowsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewShowsList.swift; sourceTree = "<group>"; };
 		AB5E48F729003ACF0076EABE /* GuitarGear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarGear.swift; sourceTree = "<group>"; };
@@ -303,6 +308,7 @@
 		AB8326B92912BB3500208414 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		AB8627BE2926751B001537D9 /* TestingDatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingDatabaseService.swift; sourceTree = "<group>"; };
 		AB8627C0292687FC001537D9 /* ErrorMessageConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessageConstants.swift; sourceTree = "<group>"; };
+		AB93A90C2929269C00C0EEE6 /* View+errorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+errorAlert.swift"; sourceTree = "<group>"; };
 		AB9D086028FDA24B0098A244 /* UserSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsView.swift; sourceTree = "<group>"; };
 		AB9DAB03292329AF009BE932 /* ShowSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSettingsView.swift; sourceTree = "<group>"; };
 		AB9DAB05292329BB009BE932 /* ShowSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSettingsViewModel.swift; sourceTree = "<group>"; };
@@ -536,6 +542,7 @@
 				AB1B559429200C8400571316 /* ViewModifiers */,
 				ABB4C3F629205AB500E2C153 /* Protocols */,
 				AB36FF6928D356FE00AAC00C /* Assets.xcassets */,
+				AB5C0D39292B0C9D0040CE97 /* Errors */,
 				AB6C09DE28D4C7F500990313 /* GoogleService-Info.plist */,
 				AB36FF6B28D356FE00AAC00C /* Preview Content */,
 			);
@@ -752,11 +759,17 @@
 				ABDBEC932927CF6A004AB2C1 /* Tests */,
 				ABDBEC952927CF73004AB2C1 /* Services */,
 				ABDBEC942927CF6D004AB2C1 /* Utilities */,
-				AB55184729245D1F0085D1B6 /* TheSamePageTests.swift */,
-				AB55184E29245D630085D1B6 /* LoginViewModelTests.swift */,
-				ABB57E9929246CD100D4CB2D /* AddEditShowViewModelTests.swift */,
 			);
 			path = TheSamePageTests;
+			sourceTree = "<group>";
+		};
+		AB5C0D39292B0C9D0040CE97 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				AB5C0D3A292B14DE0040CE97 /* FirebaseError.swift */,
+				AB5C0D3C292B14F40040CE97 /* LogicError.swift */,
+			);
+			path = Errors;
 			sourceTree = "<group>";
 		};
 		AB5E48F629003ABD0076EABE /* Backline */ = {
@@ -784,6 +797,7 @@
 			isa = PBXGroup;
 			children = (
 				ABFBA72029154F97006B1751 /* View+cornerRadius().swift */,
+				AB93A90C2929269C00C0EEE6 /* View+errorAlert.swift */,
 				AB38E1B228FB2422006D1788 /* CLPlacemark+formattedAddress.swift */,
 				AB6514DC28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift */,
 				AB7B65A2291D38C50027FC6B /* String+isReallyEmpty.swift */,
@@ -963,6 +977,9 @@
 		ABDBEC932927CF6A004AB2C1 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				AB55184729245D1F0085D1B6 /* TheSamePageTests.swift */,
+				AB55184E29245D630085D1B6 /* LoginViewModelTests.swift */,
+				ABB57E9929246CD100D4CB2D /* AddEditShowViewModelTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -1253,6 +1270,7 @@
 				ABBADD7928DFE5FA00720C64 /* BandState.swift in Sources */,
 				AB37EBB8290971390029588C /* ShowDetailsStaticRow.swift in Sources */,
 				ABF83DCC291A965B006A06CC /* ListRowIcon.swift in Sources */,
+				AB5C0D3D292B14F40040CE97 /* LogicError.swift in Sources */,
 				ABD1D17128F30D3200791969 /* ShowType.swift in Sources */,
 				AB2B867A28D9EE43004601B6 /* MyShowsViewModel.swift in Sources */,
 				AB38E1B128FB21CB006D1788 /* AddEditShowAddressView.swift in Sources */,
@@ -1368,6 +1386,7 @@
 				ABBEC0A82921D05600314BE5 /* BandSettingsViewModel.swift in Sources */,
 				ABD18AAD28EE14C1002286C3 /* SendShowInviteView.swift in Sources */,
 				ABCF232829131E4E003DB6BB /* ConversationView.swift in Sources */,
+				AB93A90D2929269C00C0EEE6 /* View+errorAlert.swift in Sources */,
 				AB37EBB2290966C90029588C /* HomeShowRow.swift in Sources */,
 				ABD1D16F28F30CE500791969 /* MyPlayingShowsView.swift in Sources */,
 				ABF83DCA291A957E006A06CC /* BandMemberListRow.swift in Sources */,
@@ -1402,6 +1421,7 @@
 				AB9DAB04292329AF009BE932 /* ShowSettingsView.swift in Sources */,
 				AB285AFC28F6F7EE00EB5F2B /* ShowTimeList.swift in Sources */,
 				ABDC0D7928D76FC60054269E /* AddEditShowViewModel.swift in Sources */,
+				AB5C0D3B292B14DE0040CE97 /* FirebaseError.swift in Sources */,
 				AB36FF8928D35C2800AAC00C /* PlatformLink.swift in Sources */,
 				ABFBA7252915546A006B1751 /* ChatBubbleViewModel.swift in Sources */,
 				ABEF10EA28E6506000A1DBAC /* LinkPlatform.swift in Sources */,

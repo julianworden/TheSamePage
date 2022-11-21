@@ -36,12 +36,6 @@ struct MyPlayingShowsView: View {
                     .font(.body.italic())
                     .padding(.vertical)
                 
-            case .error(let error):
-                ErrorMessage(
-                    message: ErrorMessageConstants.somethingWentWrong,
-                    systemErrorText: error
-                )
-                
             default:
                 ErrorMessage(message: "Unknown ViewState given in MyPlayingShowsView.")
             }

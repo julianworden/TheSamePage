@@ -58,9 +58,6 @@ final class OtherUserProfileViewModel: ObservableObject {
     
     // TODO: Incorporate a listener to this so the bands array is updated when the user joins a new band
     func getBands(forUser user: User) async throws -> [Band] {
-        guard !AuthController.userIsLoggedOut() else { throw UserProfileViewModelError.firebaseAuthError(message: "User not logged in") }
-        
         return try await DatabaseService.shared.getBands(withUid: user.id)
-        
     }
 }

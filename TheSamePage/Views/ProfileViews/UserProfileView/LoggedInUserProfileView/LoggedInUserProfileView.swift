@@ -39,10 +39,6 @@ struct LoggedInUserProfileView: View {
                 }
                 .navigationTitle("Your Profile")
                 .navigationBarTitleDisplayMode(.large)
-            } else {
-                ErrorMessage(
-                    message: ErrorMessageConstants.somethingWentWrong
-                )
             }
         }
         .toolbar {

@@ -9,9 +9,7 @@ import SwiftUI
 
 struct ShowDetailsView: View {
     @StateObject var viewModel: ShowDetailsViewModel
-    
-    @State private var addEditShowViewIsShowing = false
-    
+        
     init(show: Show) {
         _viewModel = StateObject(wrappedValue: ShowDetailsViewModel(show: show))
     }

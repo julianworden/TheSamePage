@@ -3,4 +3,54 @@
    uuid = "094B3A7A-1AFC-463F-88AB-EBA9854AADD0"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "376B7826-A3D7-45B7-A2C8-5ACD8E143F1D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/AddEdit/AddEditShowView/AddEditShowViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
+            landmarkName = "updateCreateShowButtonTapped(withImage:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "376B7826-A3D7-45B7-A2C8-5ACD8E143F1D - 9f0102ad13368eb7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) suspend resume partial function for TheSamePage.AddEditShowViewModel.updateCreateShowButtonTapped(withImage: Swift.Optional&lt;__C.UIImage&gt;) async -&gt; Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/AddEdit/AddEditShowView/AddEditShowViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "205"
+                  endingLineNumber = "205"
+                  offsetFromSymbolStart = "436">
+               </Location>
+               <Location
+                  uuid = "376B7826-A3D7-45B7-A2C8-5ACD8E143F1D - 98df7b1eb6122cb6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for TheSamePage.AddEditShowViewModel.updateCreateShowButtonTapped(withImage: Swift.Optional&lt;__C.UIImage&gt;) async -&gt; Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/AddEdit/AddEditShowView/AddEditShowViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "205"
+                  endingLineNumber = "205"
+                  offsetFromSymbolStart = "436">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

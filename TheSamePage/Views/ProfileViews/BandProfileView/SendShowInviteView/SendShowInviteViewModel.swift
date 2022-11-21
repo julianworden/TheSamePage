@@ -26,6 +26,11 @@ final class SendShowInviteViewModel: ObservableObject {
     var senderUsername: String?
     let recipientUid: String
     
+    @Published var invalidInviteAlertIsShowing = false
+    @Published var invalidInviteAlertText = ""
+    @Published var errorAlertIsShowing = false
+    @Published var errorAlertText = ""
+    
     init(band: Band) {
         self.bandId = band.id
         self.bandName = band.name
@@ -40,11 +45,7 @@ final class SendShowInviteViewModel: ObservableObject {
         }
     }
     
-    func sendShowInviteNotification() async throws {
-        guard selectedShow != nil else {
-            throw SendShowInviteViewModelError.unexpectedNilValue(message: "selectedShow in sendShowInviteNotification()")
-        }
-        
+    func sendShowInviteNotification() async {
         let showInvite = ShowInvite(
             notificationType: NotificationType.showInvite.rawValue,
             recipientUid: recipientUid,
@@ -61,13 +62,27 @@ final class SendShowInviteViewModel: ObservableObject {
             message: "\(senderUsername ?? "Someone") is inviting \(bandName) to play \(selectedShow!.name) at \(selectedShow!.venue) on \(selectedShow!.formattedDate)"
         )
         
-        guard !selectedShow!.bandIds.contains(showInvite.bandId) else { throw SendShowInviteViewModelError.bandIsAlreadyPlaying }
-        guard !selectedShow!.lineupIsFull else { throw SendShowInviteViewModelError.lineupIsFull }
+        guard !selectedShow!.bandIds.contains(showInvite.bandId) else {
+            invalidInviteAlertText = "This band is already playing this show."
+            invalidInviteAlertIsShowing = true
+            return
+        }
+        
+        guard !selectedShow!.lineupIsFull else {
+            invalidInviteAlertText = "This show's lineup is full. To invite this band, either increase the show's max number of bands or remove a band from the show's lineup."
+            invalidInviteAlertIsShowing = true
+            return
+        }
             
-        try DatabaseService.shared.sendShowInvite(invite: showInvite)
+        do {
+            try DatabaseService.shared.sendShowInvite(invite: showInvite)
+        } catch {
+            errorAlertText = error.localizedDescription
+            errorAlertIsShowing = true
+        }
     }
     
-    func getHostedShows() async throws {
+    func getHostedShows() async {
         state = .dataLoading
         
         do {
@@ -80,7 +95,8 @@ final class SendShowInviteViewModel: ObservableObject {
                 state = .dataNotFound
             }
         } catch {
-            throw error
+            errorAlertText = error.localizedDescription
+            errorAlertIsShowing = true
         }
     }
 }

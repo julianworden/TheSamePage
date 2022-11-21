@@ -71,6 +71,24 @@ class TestingDatabaseService {
         }
     }
     
+    func showProfilePictureExists(showImageUrl: String?) async throws -> Bool {
+        guard let showImageUrl else { return false }
+        
+        let storageReference = Storage.storage().reference(forURL: showImageUrl)
+        
+        do {
+            let downloadUrl = try await storageReference.downloadURL().absoluteString
+            
+            if downloadUrl.isEmpty {
+                return false
+            } else {
+                return true
+            }
+        } catch {
+            return false
+        }
+    }
+    
     func restoreShowForUpdateTesting(show: Show) async throws {
         do {
             try db

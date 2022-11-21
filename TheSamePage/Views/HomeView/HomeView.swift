@@ -28,12 +28,11 @@ struct HomeView: View {
                     
                 case .dataNotFound:
                     Text("We can't find any shows near you, try widening your search radius with the filter button!")
-                    
-                case .error(let message):
-                    ErrorMessage(
-                        message: ErrorMessageConstants.somethingWentWrong,
-                        systemErrorText: message)
-                    
+//
+//                case .error(let message):
+//                    ErrorMessage(
+//                        message: ErrorMessageConstants.somethingWentWrong
+//                        )
                 default:
                     ErrorMessage(message: ErrorMessageConstants.unknownViewState)
                 }
@@ -49,15 +48,32 @@ struct HomeView: View {
                 }
             }
             .confirmationDialog("Select a search radius", isPresented: $viewModel.filterConfirmationDialogIsShowing) {
-                Button("10 Miles") { viewModel.changeSearchRadius(toValue: 10) }
-                Button("25 Miles (Default)") { viewModel.changeSearchRadius(toValue: 25) }
-                Button("50 Miles") { viewModel.changeSearchRadius(toValue: 50) }
+                Button("10 Miles") {
+                    Task {
+                        await viewModel.changeSearchRadius(toValue: 10)
+                    }
+                }
+                Button("25 Miles (Default)") {
+                    Task {
+                        await viewModel.changeSearchRadius(toValue: 25)
+                    }
+                }
+                Button("50 Miles") {
+                    Task {
+                        await viewModel.changeSearchRadius(toValue: 50)
+                    }
+                }
                 Button("Cancel", role: .cancel) { }
             }
-            .onAppear {
+            .errorAlert(
+                isPresented: $viewModel.errorMessageIsShowing,
+                message: viewModel.errorMessageText,
+                tryAgainAction: viewModel.fetchNearbyShows
+            )
+            .task {
                 if viewModel.nearbyShows.isEmpty {
                     viewModel.viewState = .dataLoading
-                    viewModel.fetchNearbyShows()
+                    await viewModel.fetchNearbyShows()
                 }
             }
         }

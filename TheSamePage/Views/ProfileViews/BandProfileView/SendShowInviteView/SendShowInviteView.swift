@@ -12,8 +12,6 @@ struct SendShowInviteView: View {
     
     @StateObject var viewModel: SendShowInviteViewModel
     
-    @State private var invalidInviteAlertIsShowing = false
-    
     @State private var alertText = ""
     
     init(band: Band) {
@@ -38,18 +36,8 @@ struct SendShowInviteView: View {
                     
                     Button("Send invite") {
                         Task {
-                            do {
-                                try await viewModel.sendShowInviteNotification()
-                                dismiss()
-                            } catch SendShowInviteViewModelError.bandIsAlreadyPlaying {
-                                alertText = "This band is already playing this show."
-                                invalidInviteAlertIsShowing = true
-                            } catch SendShowInviteViewModelError.lineupIsFull {
-                                alertText = "This show's lineup is full. To invite this band, either increase the show's max number of bands or remove a band from the show's lineup."
-                                invalidInviteAlertIsShowing = true
-                            } catch {
-                                print(error)
-                            }
+                            await viewModel.sendShowInviteNotification()
+                            dismiss()
                         }
                     }
                 }
@@ -58,11 +46,6 @@ struct SendShowInviteView: View {
                     .italic()
                     .multilineTextAlignment(.center)
                     .padding(.horizontal)
-            case .error(let message):
-                ErrorMessage(
-                    message: ErrorMessageConstants.somethingWentWrong,
-                    systemErrorText: message
-                )
             default:
                 ErrorMessage(message: "Unknown ViewState provided to SendShowInviteView.")
             }
@@ -71,19 +54,20 @@ struct SendShowInviteView: View {
         .navigationBarTitleDisplayMode(.inline)
         .alert(
             "Error",
-            isPresented: $invalidInviteAlertIsShowing,
+            isPresented: $viewModel.invalidInviteAlertIsShowing,
             actions: {
                 Button("OK") { }
             }, message: {
                 Text(alertText)
             }
         )
+        .errorAlert(
+            isPresented: $viewModel.errorAlertIsShowing,
+            message: viewModel.errorAlertText,
+            tryAgainAction: { await viewModel.getHostedShows() }
+        )
         .task {
-            do {
-                try await viewModel.getHostedShows()
-            } catch {
-                viewModel.state = .error(message: error.localizedDescription)
-            }
+            await viewModel.getHostedShows()
         }
     }
 }

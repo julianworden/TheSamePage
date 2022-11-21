@@ -16,11 +16,7 @@ struct UserSettingsView: View {
         Form {
             Button("Log Out", role: .destructive) {
                 userIsLoggedOut = true
-                do {
-                    try loggedInUserController.logOut()
-                } catch {
-                    print(error)
-                }
+                loggedInUserController.logOut()
             }
         }
         .navigationTitle("Settings")

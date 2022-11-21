@@ -10,9 +10,6 @@ import SwiftUI
 struct ShowSettingsView: View {
     @StateObject var viewModel: ShowSettingsViewModel
     
-    @State private var addEditShowSheetIsShowing = false
-    @State private var cancelShowAlertIsShowing = false
-    
     init(show: Show) {
         _viewModel = StateObject(wrappedValue: ShowSettingsViewModel(show: show))
     }
@@ -22,14 +19,14 @@ struct ShowSettingsView: View {
         
         Form {
             Button("Edit Show") {
-                addEditShowSheetIsShowing = true
+                viewModel.addEditShowSheetIsShowing = true
             }
             
             Button("Cancel Show", role: .destructive) {
-                viewModel.cancelShow()
+                viewModel.cancelShowAlertIsShowing = true
             }
         }
-        .sheet(isPresented: $addEditShowSheetIsShowing) {
+        .sheet(isPresented: $viewModel.addEditShowSheetIsShowing) {
             NavigationView {
                 AddEditShowView(showToEdit: show)
                     .navigationViewStyle(.stack)
@@ -37,13 +34,23 @@ struct ShowSettingsView: View {
         }
         .alert(
             "Are you sure?",
-            isPresented: $cancelShowAlertIsShowing,
+            isPresented: $viewModel.cancelShowAlertIsShowing,
             actions: {
-                
+                Button("No", role: .cancel) { }
+                Button("Yes", role: .destructive) {
+                    Task {
+                        await viewModel.cancelShow()
+                    }
+                }
             },
             message: {
-                Text("Cancelling this show will delete all of its data from The Same Page, including its chat.")
+                Text("Cancelling this show will permanently delete all of its data from The Same Page, including its chat.")
             }
+        )
+        .errorAlert(
+            isPresented: $viewModel.errorAlertIsShowing,
+            message: viewModel.errorAlertMessage,
+            tryAgainAction: { await viewModel.cancelShow() }
         )
     }
 }

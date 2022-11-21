@@ -15,10 +15,6 @@ import XCTest
 final class AddEditShowViewModelTests: XCTestCase {
     var sut: AddEditShowViewModel!
     
-    override func setUpWithError() throws {
-        
-    }
-    
     override func tearDownWithError() throws {
         sut = nil
     }
@@ -155,7 +151,7 @@ final class AddEditShowViewModelTests: XCTestCase {
         let showExists = try await TestingDatabaseService.shared.showExists(showId: createdShowId)
         let showProfileImageUrl = try await TestingDatabaseService.shared.getImageUrl(showId: createdShowId)
 
-        let showProfilePictureExists = try await DatabaseService.shared.showProfilePictureExists(showImageUrl: showProfileImageUrl)
+        let showProfilePictureExists = try await TestingDatabaseService.shared.showProfilePictureExists(showImageUrl: showProfileImageUrl)
         
         XCTAssertTrue(showExists)
         XCTAssertTrue(showProfilePictureExists)

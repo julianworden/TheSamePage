@@ -120,14 +120,9 @@ struct AddEditShowView: View {
         .sheet(isPresented: $imagePickerIsShowing) {
             ImagePicker(image: $showImage, pickerIsShowing: $imagePickerIsShowing)
         }
-        .alert(
-            "Error",
+        .errorAlert(
             isPresented: $viewModel.errorAlertShowing,
-            actions: {
-                Button("OK") { }
-            }, message: {
-                Text(viewModel.errorAlertText)
-            }
+            message: viewModel.errorAlertText
         )
         .onChange(of: viewModel.showCreatedSuccessfully) { _ in
             dismiss()

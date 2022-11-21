@@ -86,20 +86,20 @@ final class ShowDetailsViewModel: ObservableObject {
     func getShowTimeRowText(forShowTimeType showTimeType: ShowTimeType) -> String {
         switch showTimeType {
         case .loadIn:
-            if let showLoadInTime = show.loadInTime {
-                return "\(showTimeType.rowTitleText) \(Date(timeIntervalSince1970: showLoadInTime).timeShortened)"
+            if let showLoadInTime = show.unixLoadInTimeAsDate {
+                return "\(showTimeType.rowTitleText) \(showLoadInTime.timeShortened)"
             }
         case .musicStart:
-            if let showMusicStartTime = show.musicStartTime {
-                return "\(showTimeType.rowTitleText) \(Date(timeIntervalSince1970: showMusicStartTime).timeShortened)"
+            if let showMusicStartTime = show.unixMusicStartTimeAsDate {
+                return "\(showTimeType.rowTitleText) \(showMusicStartTime.timeShortened)"
             }
         case .end:
-            if let showEndTime = show.endTime {
-                return "\(showTimeType.rowTitleText) \(Date(timeIntervalSince1970: showEndTime).timeShortened)"
+            if let showEndTime = show.unixEndTimeAsDate {
+                return "\(showTimeType.rowTitleText) \(showEndTime.timeShortened)"
             }
         case .doors:
-            if let showDoorsTime = show.doorsTime {
-                return "\(showTimeType.rowTitleText) \(Date(timeIntervalSince1970: showDoorsTime).timeShortened)"
+            if let showDoorsTime = show.unixDoorsTimeAsDate {
+                return "\(showTimeType.rowTitleText) \(showDoorsTime.timeShortened)"
             }
         }
         

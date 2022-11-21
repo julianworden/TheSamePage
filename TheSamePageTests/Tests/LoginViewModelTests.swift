@@ -8,6 +8,7 @@
 @testable import TheSamePage
 import XCTest
 
+@MainActor
 final class LoginViewModelTests: XCTestCase {
     
     override func setUpWithError() throws {

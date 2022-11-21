@@ -15,9 +15,6 @@ struct EditImageView: View {
     /// The image that is selected within the ImagePicker
     @Binding var updatedImage: UIImage?
     
-    @State private var imagePickerIsShowing = false
-    @State private var editButtonIsDisabled = false
-    
     let image: Image?
     
     init(show: Show? = nil, user: User? = nil, band: Band? = nil, image: Image?, updatedImage: Binding<UIImage?>) {
@@ -49,8 +46,6 @@ struct EditImageView: View {
                     }
                 case .dataLoading:
                     ProgressView()
-                case .error(message: let message):
-                    ErrorMessage(message: ErrorMessageConstants.somethingWentWrong, systemErrorText: "Error: \(message)")
                 default:
                     ErrorMessage(message: ErrorMessageConstants.unknownViewState)
                 }
@@ -60,31 +55,27 @@ struct EditImageView: View {
         .toolbar {
             ToolbarItem {
                 Button("Edit") {
-                    imagePickerIsShowing = true
+                    viewModel.imagePickerIsShowing = true
                 }
-                .disabled(editButtonIsDisabled)
+                .disabled(viewModel.editButtonIsDisabled)
             }
         }
         .sheet(
             // TODO: Call viewModel.updateShowImage here instead and lock up UI while function is running with .navigationBackBarDisabled?
-            isPresented: $imagePickerIsShowing,
+            isPresented: $viewModel.imagePickerIsShowing,
             content: {
-                ImagePicker(image: $updatedImage, pickerIsShowing: $imagePickerIsShowing)
+                ImagePicker(image: $updatedImage, pickerIsShowing: $viewModel.imagePickerIsShowing)
             }
         )
         .onChange(of: updatedImage) { updatedImage in
+            guard let updatedImage else { return }
             Task {
-                do {
-                    viewModel.state = .dataLoading
-                    editButtonIsDisabled = true
-                    try await viewModel.updateImage(withImage: updatedImage!)
-                    dismiss()
-//                    viewModel.state = .dataLoaded
-//                    editButtonIsDisabled = false
-                } catch {
-                    viewModel.state = .error(message: error.localizedDescription)
-                    editButtonIsDisabled = false
-                }
+                await viewModel.updateImage(withImage: updatedImage)
+            }
+        }
+        .onChange(of: viewModel.imageUpdateIsComplete) { imageUpdateIsComplete in
+            if imageUpdateIsComplete {
+                dismiss()
             }
         }
     }

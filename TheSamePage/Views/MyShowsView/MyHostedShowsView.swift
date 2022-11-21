@@ -15,7 +15,7 @@ struct MyHostedShowsView: View {
             switch viewModel.myHostedShowsViewState {
             case .dataLoading:
                 ProgressView()
-                
+
             case .dataLoaded:
                 List {
                     Section("You're hosting...") {
@@ -30,12 +30,12 @@ struct MyHostedShowsView: View {
                     }
                 }
                 .listStyle(.grouped)
-                
+
             case .dataNotFound:
                 VStack {
                     Text("You're not hosting any shows.")
                         .font(.body.italic())
-                    
+
                     NavigationLink {
                         AddEditShowView(showToEdit: nil)
                     } label: {
@@ -44,11 +44,6 @@ struct MyHostedShowsView: View {
                     }
                 }
                 .padding(.top)
-            case .error(let message):
-                ErrorMessage(
-                    message: ErrorMessageConstants.somethingWentWrong,
-                    systemErrorText: message
-                )
             default:
                 ErrorMessage(message: ErrorMessageConstants.unknownViewState)
             }

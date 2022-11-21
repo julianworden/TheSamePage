@@ -11,6 +11,12 @@ import UIKit.UIImage
 @MainActor
 final class EditImageViewModel: ObservableObject {
     @Published var state = ViewState.dataLoaded
+    @Published var imagePickerIsShowing = false
+    @Published var editButtonIsDisabled = false
+    @Published var imageUpdateIsComplete = false
+    
+    @Published var errorAlertIsShowing = false
+    @Published var errorAlertText = ""
     
     var show: Show?
     var user: User?
@@ -37,20 +43,28 @@ final class EditImageViewModel: ObservableObject {
         }
     }
     
-    func updateImage(withImage image: UIImage) async throws {
-        if let show {
-            try await DatabaseService.shared.updateShowImage(image: image, show: show)
-            return
-        }
-        
-        if let user {
-            try await DatabaseService.shared.updateUserProfileImage(image: image, user: user)
-            return
-        }
-        
-        if let band {
-            try await DatabaseService.shared.updateBandProfileImage(image: image, band: band)
-            return
+    func updateImage(withImage image: UIImage) async {
+        do {
+            state = .dataLoading
+            editButtonIsDisabled = true
+            
+            if let show {
+                try await DatabaseService.shared.updateShowImage(image: image, show: show)
+            }
+            
+            if let user {
+                try await DatabaseService.shared.updateUserProfileImage(image: image, user: user)
+            }
+            
+            if let band {
+                try await DatabaseService.shared.updateBandProfileImage(image: image, band: band)
+            }
+            
+            imageUpdateIsComplete = true
+        } catch {
+            editButtonIsDisabled = false
+            errorAlertText = error.localizedDescription
+            errorAlertIsShowing = true
         }
     }
 }

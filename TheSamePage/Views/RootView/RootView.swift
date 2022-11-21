@@ -57,12 +57,18 @@ struct RootView: View {
                 }
             }
         }
+        .errorAlert(
+            isPresented: $loggedInUserController.errorMessageShowing,
+            message: loggedInUserController.errorMessageText,
+            tryAgainAction: { userIsLoggedOut = true },
+            tryAgainButtonText: "Log In"
+        )
         .fullScreenCover(
             isPresented: $userIsLoggedOut,
             onDismiss: {
                 if loggedInUserController.loggedInUser == nil {
                     Task {
-                        try await loggedInUserController.getLoggedInUserInfo()
+                        await loggedInUserController.getLoggedInUserInfo()
                     }
                 }
             },

@@ -202,7 +202,7 @@ final class AddEditShowViewModel: ObservableObject {
             viewState = .error(message: "Please ensure that all required fields are filled.")
             return nil
         } catch {
-            viewState = .error(message: ErrorMessageConstants.somethingWentWrong)
+            viewState = .error(message: error.localizedDescription)
             return nil
         }
     }
