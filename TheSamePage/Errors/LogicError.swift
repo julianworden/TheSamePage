@@ -10,6 +10,7 @@ import Foundation
 enum LogicError: Error, LocalizedError {
     case decode(message: String, systemError: String?)
     case unexpectedNilValue(message: String, systemError: String?)
+    case incompleteForm
     
     var errorDescription: String? {
         switch self {
@@ -19,6 +20,8 @@ enum LogicError: Error, LocalizedError {
             } else {
                 return "\(message)."
             }
+        case .incompleteForm:
+            return ErrorMessageConstants.incompleteForm
         }
     }
 }

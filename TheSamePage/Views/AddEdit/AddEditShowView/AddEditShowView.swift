@@ -12,11 +12,6 @@ struct AddEditShowView: View {
     
     @StateObject var viewModel: AddEditShowViewModel
     
-    @State var showImage: UIImage?
-    
-    @State private var imagePickerIsShowing = false
-    @State private var bandSearchSheetIsShowing = false
-    
     init(showToEdit: Show?) {
         _viewModel = StateObject(wrappedValue: AddEditShowViewModel(showToEdit: showToEdit))
     }
@@ -24,7 +19,10 @@ struct AddEditShowView: View {
     var body: some View {
         Form {
             if viewModel.showToEdit == nil {
-                ImageSelectionButton(imagePickerIsShowing: $imagePickerIsShowing, selectedImage: $showImage)
+                ImageSelectionButton(
+                    imagePickerIsShowing: $viewModel.imagePickerIsShowing,
+                    selectedImage: $viewModel.showImage
+                )
             }
             
             Section {
@@ -62,7 +60,7 @@ struct AddEditShowView: View {
                 }
                 
                 NavigationLink {
-                    AddEditShowAddressView(viewModel: viewModel)
+                    AddEditShowAddressView(showToEdit: viewModel.showToEdit)
                 } label: {
                     Text("Select Address (required)")
                 }
@@ -97,7 +95,7 @@ struct AddEditShowView: View {
             
             Section {
                 AsyncButton {
-                    _ = await viewModel.updateCreateShowButtonTapped(withImage: showImage)
+                    _ = await viewModel.updateCreateShowButtonTapped(withImage: viewModel.showImage)
                 } label: {
                     Text("\(viewModel.showToEdit != nil ? "Update Show" : "Create Show")")
                 }
@@ -115,13 +113,16 @@ struct AddEditShowView: View {
                 }
             }
         }
-        .sheet(isPresented: $imagePickerIsShowing) {
-            ImagePicker(image: $showImage, pickerIsShowing: $imagePickerIsShowing)
+        .sheet(isPresented: $viewModel.imagePickerIsShowing) {
+            ImagePicker(image: $viewModel.showImage, pickerIsShowing: $viewModel.imagePickerIsShowing)
         }
         .errorAlert(
-            isPresented: $viewModel.errorAlertShowing,
+            isPresented: $viewModel.errorAlertIsShowing,
             message: viewModel.errorAlertText
         )
+        .onAppear {
+            viewModel.addShowAddressObserver()
+        }
         .onChange(of: viewModel.showCreatedSuccessfully) { _ in
             dismiss()
         }

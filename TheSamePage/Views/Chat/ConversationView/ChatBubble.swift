@@ -8,18 +8,15 @@
 import SwiftUI
 
 struct ChatBubble: View {
-    @StateObject var viewModel: ChatBubbleViewModel
-    
     let senderIsLoggedInUser: Bool
+    let chatMessage: ChatMessage
     
     init(chatMessage: ChatMessage) {
-        _viewModel = StateObject(wrappedValue: ChatBubbleViewModel(chatMessage: chatMessage))
+        self.chatMessage = chatMessage
         self.senderIsLoggedInUser = chatMessage.senderIsLoggedInUser
     }
     
     var body: some View {
-        let chatMessage = viewModel.chatMessage
-        
         HStack {
             if senderIsLoggedInUser {
                 Spacer()

@@ -11,25 +11,35 @@ import SwiftUI
 struct AddEditShowAddressView: View {
     @Environment(\.dismiss) var dismiss
     
-    @ObservedObject var viewModel: AddEditShowViewModel
+    @StateObject var viewModel: AddEditShowAddressViewModel
+    
+    init(showToEdit: Show?) {
+        _viewModel = StateObject(wrappedValue: AddEditShowAddressViewModel(showToEdit: showToEdit))
+    }
     
     var body: some View {
         ZStack {
             Color(uiColor: .systemGroupedBackground)
                 .ignoresSafeArea()
             
-            ShowAddressSearchResultsList(viewModel: viewModel)
-
+            ShowAddressSearchResults(viewModel: viewModel)
         }
         .navigationTitle("Venue Search")
         .navigationBarTitleDisplayMode(.inline)
         .searchable(text: $viewModel.queryText, prompt: Text("Search for venue name or address"))
         .autocorrectionDisabled(true)
+        .errorAlert(
+            isPresented: $viewModel.errorAlertIsShowing,
+            message: viewModel.errorAlertText,
+            tryAgainAction: {
+                await viewModel.search(withText: viewModel.queryText)
+            }
+        )
     }
 }
 
 struct AddEditShowAddressView_Previews: PreviewProvider {
     static var previews: some View {
-        AddEditShowAddressView(viewModel: AddEditShowViewModel(showToEdit: nil))
+        AddEditShowAddressView(showToEdit: Show.example)
     }
 }

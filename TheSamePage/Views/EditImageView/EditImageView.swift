@@ -29,8 +29,8 @@ struct EditImageView: View {
                 .ignoresSafeArea()
             
             Group {
-                switch viewModel.state {
-                case .dataLoaded:
+                switch viewModel.viewState {
+                case .displayingView:
                     VStack {
                         if let updatedImage {
                             Image(uiImage: updatedImage)
@@ -44,14 +44,14 @@ struct EditImageView: View {
                             NoImageView()
                         }
                     }
-                case .dataLoading:
+                case .performingWork:
                     ProgressView()
                 default:
                     ErrorMessage(message: ErrorMessageConstants.unknownViewState)
                 }
             }
         }
-        .navigationBarBackButtonHidden(viewModel.state == .dataLoading ? true : false)
+        .navigationBarBackButtonHidden(viewModel.viewState == .performingWork ? true : false)
         .toolbar {
             ToolbarItem {
                 Button("Edit") {
@@ -65,6 +65,14 @@ struct EditImageView: View {
             isPresented: $viewModel.imagePickerIsShowing,
             content: {
                 ImagePicker(image: $updatedImage, pickerIsShowing: $viewModel.imagePickerIsShowing)
+            }
+        )
+        .errorAlert(
+            isPresented: $viewModel.errorAlertIsShowing,
+            message: viewModel.errorAlertText,
+            tryAgainAction: {
+                guard let updatedImage else { return }
+                await viewModel.updateImage(withImage: updatedImage)
             }
         )
         .onChange(of: updatedImage) { updatedImage in

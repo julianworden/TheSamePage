@@ -9,13 +9,10 @@ import SwiftUI
 
 // https://www.swiftbysundell.com/articles/building-an-async-swiftui-button/
 struct AsyncButton<Label: View>: View {
-    /// True when the button that's using this label is disabled. When true,
-    /// the ProgressView is shown next to the title.
-    @State private var buttonIsDisabled = false
-    @State private var progressViewIsShown = false
-    
     var action: () async -> Void
     @ViewBuilder var label: () -> Label
+    
+    @State private var progressViewIsShown = false
     
     var body: some View {
         Button {
@@ -24,7 +21,6 @@ struct AsyncButton<Label: View>: View {
                 
                 await action()
                 
-                buttonIsDisabled = false
                 progressViewIsShown = false
             }
         } label: {
@@ -36,7 +32,6 @@ struct AsyncButton<Label: View>: View {
                 }
             }
         }
-        .disabled(buttonIsDisabled)
     }
 }
 

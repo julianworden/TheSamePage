@@ -26,8 +26,6 @@ final class AddEditShowViewModel: ObservableObject {
     @Published var showMaxNumberOfBands = 1
     @Published var showDate = Date()
     
-    @Published var queryText = ""
-    @Published var addressSearchResults = [CLPlacemark]()
     // Make it so that shows are not private by default
     @Published var addressIsPrivate = false
     @Published var showAddress: String?
@@ -49,11 +47,13 @@ final class AddEditShowViewModel: ObservableObject {
     @Published var showHasBar = false
     @Published var showHasFood = false
     
+    @Published var imagePickerIsShowing = false
+    @Published var bandSearchSheetIsShowing = false
+    @Published var showImage: UIImage?
     @Published var createShowButtonIsDisabled = false
-    @Published var errorAlertShowing = false
+    @Published var errorAlertIsShowing = false
     @Published var showCreatedSuccessfully = false
-    @Published var showAddressSelected = false
-    @Published var isSearching = false
+    
     var errorAlertText = ""
     
     var viewState = ViewState.dataLoaded {
@@ -65,7 +65,7 @@ final class AddEditShowViewModel: ObservableObject {
                 showCreatedSuccessfully = true
             case .error(let message):
                 errorAlertText = message
-                errorAlertShowing = true
+                errorAlertIsShowing = true
                 createShowButtonIsDisabled = false
             default:
                 print("Unknown ViewState assigned to AddEditShowViewModel.")
@@ -125,6 +125,30 @@ final class AddEditShowViewModel: ObservableObject {
         }
     }
     
+    func addShowAddressObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(showAddressSelectedNotificationReceived(notification:)),
+            name: .showAddressSelected,
+            object: nil
+        )
+    }
+    
+    @objc func showAddressSelectedNotificationReceived(notification: NSNotification) {
+        if let showPlacemark = notification.userInfo?[NotificationConstants.showPlacemark] as? CLPlacemark {
+            if let showLatitude = showPlacemark.location?.coordinate.latitude,
+               let showLongitude = showPlacemark.location?.coordinate.longitude {
+                self.showLatitude = showLatitude
+                self.showLongitude = showLongitude
+                self.showTypesenseCoordinates = [showLatitude, showLongitude]
+            }
+            
+            showAddress = showPlacemark.formattedAddress
+            showCity = showPlacemark.postalAddress?.city
+            showState = showPlacemark.postalAddress?.state
+        }
+    }
+    
     func incrementMaxNumberOfBands() {
         if showMaxNumberOfBands < 101 {
             showMaxNumberOfBands += 1
@@ -137,59 +161,6 @@ final class AddEditShowViewModel: ObservableObject {
         }
     }
     
-    func search(withText text: String) async {
-        let searchRequest = MKLocalSearch.Request()
-        if let userRegion = LocationController.shared.userRegion {
-            searchRequest.region = userRegion
-        }
-        
-        searchRequest.naturalLanguageQuery = text
-        
-        addressSearch = MKLocalSearch(request: searchRequest)
-        
-        do {
-            let response = try await addressSearch!.start()
-            
-            if response.mapItems.isEmpty {
-                addressSearchResults = [CLPlacemark]()
-            }
-            
-            addressSearchResults = response.mapItems.map { $0.placemark }
-            addressSearch?.cancel()
-        } catch {
-            // This error doesn't prevent the search from working and it comes up often.
-            // ignoring to keep experience smooth for user, there are other MK errors
-            // that are still thrown if too many requests are submitted in 60 seconds.
-            // Those will be allowed.
-            if !error.localizedDescription.contains("MKErrorDomain error 4") && !error.localizedDescription.contains("MKErrorDomain error 3") {
-                viewState = .error(message: error.localizedDescription)
-            }
-        }
-    }
-    
-    func isSearchingChanged(to isSearching: Bool) {
-        if !isSearching {
-            queryText = ""
-            addressSearchResults = [CLPlacemark]()
-        }
-    }
-    
-    func setShowLocationInfo(with placemark: CLPlacemark) {
-        if let showLatitude = placemark.location?.coordinate.latitude,
-           let showLongitude = placemark.location?.coordinate.longitude {
-            self.showLatitude = showLatitude
-            self.showLongitude = showLongitude
-            self.showTypesenseCoordinates = [showLatitude, showLongitude]
-        }
-        
-        showAddress = placemark.formattedAddress
-        showCity = placemark.postalAddress?.city
-        showState = placemark.postalAddress?.state
-        
-        showAddressSelected = true
-        queryText = ""
-    }
-    
     func updateCreateShowButtonTapped(withImage image: UIImage? = nil) async -> String? {
         var showId: String?
         
@@ -198,9 +169,6 @@ final class AddEditShowViewModel: ObservableObject {
             showToEdit == nil ? showId = try await createShow(withImage: image) : try await updateShow()
             viewState = .workCompleted
             return showId
-        } catch AddEditShowViewModelError.incompleteForm {
-            viewState = .error(message: "Please ensure that all required fields are filled.")
-            return nil
         } catch {
             viewState = .error(message: error.localizedDescription)
             return nil
@@ -208,7 +176,7 @@ final class AddEditShowViewModel: ObservableObject {
     }
     
     func createShow(withImage image: UIImage? = nil) async throws -> String {
-        guard formIsComplete else { throw AddEditShowViewModelError.incompleteForm }
+        guard formIsComplete else { throw LogicError.incompleteForm }
         
         let newShow = Show(
             id: "",

@@ -15,6 +15,22 @@ class ConversationViewModel: ObservableObject {
     @Published var messages = [ChatMessage]()
     @Published var showParticipants = [ShowParticipant]()
     
+    @Published var sendButtonIsDisabled = true
+    @Published var errorAlertIsShowing = false
+    @Published var errorAlertText = ""
+    
+    @Published var viewState = ViewState.dataLoaded {
+        didSet {
+            switch viewState {
+            case .error(let message):
+                errorAlertText = message
+                errorAlertIsShowing = true
+            default:
+                print("Unknown viewState set in ConversationViewModel")
+            }
+        }
+    }
+    
     let show: Show?
     let userId: String?
     var chat: Chat?
@@ -28,6 +44,11 @@ class ConversationViewModel: ObservableObject {
         self.showParticipants = showParticipants
     }
     
+    func callOnAppearMethods() async {
+        await configureChat()
+        addChatListener()
+    }
+    
     func addChatListener() {
         guard let chat else { return } // TODO: Change state in this guard's else block
         
@@ -36,18 +57,18 @@ class ConversationViewModel: ObservableObject {
             .document(chat.id)
             .collection(FbConstants.messages)
             .addSnapshotListener { snapshot, error in
-                if let snapshot, error == nil, !snapshot.documents.isEmpty {
+                if let snapshot, error == nil {
+                    guard !snapshot.documents.isEmpty else { return }
+                    
                     let chatMessageDocuments = snapshot.documents
+
                     if let chatMessages = try? chatMessageDocuments.map({ try $0.data(as: ChatMessage.self) }) {
-                        let sortedChatMessages = chatMessages.sorted { lhs, rhs in
-                            lhs.sentTimestampAsDate < rhs.sentTimestampAsDate
-                        }
+                        let sortedChatMessages = chatMessages.sorted { $0.sentTimestampAsDate < $1.sentTimestampAsDate }
                         self.messages = sortedChatMessages
-                    } else {
-                        // TODO: Change state
+                        
                     }
                 } else {
-                    // TODO: Change state
+                    self.viewState = .error(message: error!.localizedDescription)
                 }
             }
     }
@@ -70,9 +91,14 @@ class ConversationViewModel: ObservableObject {
                     self.chat = newChat
                 }
             } catch {
-                // TODO: Alter state
+                viewState = .error(message: error.localizedDescription)
             }
         }
+    }
+    
+    func sendMessageButtonTapped(by user: User?) async {
+        await sendChatMessage(fromUser: user)
+        messageText = ""
     }
     
     func sendChatMessage(fromUser user: User?) async {
@@ -81,7 +107,6 @@ class ConversationViewModel: ObservableObject {
               !messageText.isEmpty else { return }
         
         do {
-            // TODO: GET THE USER OBJECT
             let senderUid = user.id
             let senderFullName = user.fullName
             let senderFcmToken = user.fcmToken
@@ -97,7 +122,7 @@ class ConversationViewModel: ObservableObject {
             )
             try DatabaseService.shared.sendChatMessage(chatMessage: newChatMessage, chat: chat)
         } catch {
-            // TODO: Change state
+            viewState = .error(message: error.localizedDescription)
         }
     }
 }

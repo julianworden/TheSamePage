@@ -10,13 +10,29 @@ import UIKit.UIImage
 
 @MainActor
 final class EditImageViewModel: ObservableObject {
-    @Published var state = ViewState.dataLoaded
     @Published var imagePickerIsShowing = false
     @Published var editButtonIsDisabled = false
     @Published var imageUpdateIsComplete = false
     
     @Published var errorAlertIsShowing = false
     @Published var errorAlertText = ""
+    
+    @Published var viewState = ViewState.displayingView {
+        didSet {
+            switch viewState {
+            case .performingWork:
+                editButtonIsDisabled = true
+            case .workCompleted:
+                imageUpdateIsComplete = true
+            case .error(let message):
+                editButtonIsDisabled = false
+                errorAlertText = message
+                errorAlertIsShowing = true
+            default:
+                print("Unknown viewState set in EditImageViewModel")
+            }
+        }
+    }
     
     var show: Show?
     var user: User?
@@ -45,8 +61,7 @@ final class EditImageViewModel: ObservableObject {
     
     func updateImage(withImage image: UIImage) async {
         do {
-            state = .dataLoading
-            editButtonIsDisabled = true
+            viewState = .performingWork
             
             if let show {
                 try await DatabaseService.shared.updateShowImage(image: image, show: show)
@@ -60,11 +75,9 @@ final class EditImageViewModel: ObservableObject {
                 try await DatabaseService.shared.updateBandProfileImage(image: image, band: band)
             }
             
-            imageUpdateIsComplete = true
+            viewState = .workCompleted
         } catch {
-            editButtonIsDisabled = false
-            errorAlertText = error.localizedDescription
-            errorAlertIsShowing = true
+            viewState = .error(message: error.localizedDescription)
         }
     }
 }

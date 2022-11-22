@@ -14,8 +14,6 @@ struct ConversationView: View {
     
     @StateObject var viewModel: ConversationViewModel
     
-    @State private var sendButtonIsDisabled = true
-    
     init(show: Show? = nil, userId: String? = nil, showParticipants: [ShowParticipant]) {
         _viewModel = StateObject(wrappedValue: ConversationViewModel(show: show, userId: userId, showParticipants: showParticipants))
     }
@@ -42,15 +40,12 @@ struct ConversationView: View {
                     TextField("Message", text: $viewModel.messageText)
                         .textFieldStyle(.roundedBorder)
                     
-                    Button {
-                        Task {
-                            await viewModel.sendChatMessage(fromUser: loggedInUserController.loggedInUser)
-                            viewModel.messageText = ""
-                        }
+                    AsyncButton {
+                        await viewModel.sendMessageButtonTapped(by: loggedInUserController.loggedInUser)
                     } label: {
                         Image(systemName: "arrow.up")
                     }
-                    .disabled(sendButtonIsDisabled)
+                    .disabled(viewModel.sendButtonIsDisabled)
                 }
                 .padding(.bottom)
             }
@@ -73,15 +68,19 @@ struct ConversationView: View {
                 }
             }
         }
+        .errorAlert(
+            isPresented: $viewModel.errorAlertIsShowing,
+            message: viewModel.errorAlertText,
+            tryAgainAction: viewModel.callOnAppearMethods
+        )
         .task {
-            await viewModel.configureChat()
-            viewModel.addChatListener()
+            await viewModel.callOnAppearMethods()
         }
         .onChange(of: viewModel.messageText) { messageText in
             if !messageText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                sendButtonIsDisabled = false
+                viewModel.sendButtonIsDisabled = false
             } else {
-                sendButtonIsDisabled = true
+                viewModel.sendButtonIsDisabled = true
             }
         }
     }
