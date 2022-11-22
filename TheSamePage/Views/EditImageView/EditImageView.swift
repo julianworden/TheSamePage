@@ -61,7 +61,6 @@ struct EditImageView: View {
             }
         }
         .sheet(
-            // TODO: Call viewModel.updateShowImage here instead and lock up UI while function is running with .navigationBackBarDisabled?
             isPresented: $viewModel.imagePickerIsShowing,
             content: {
                 ImagePicker(image: $updatedImage, pickerIsShowing: $viewModel.imagePickerIsShowing)

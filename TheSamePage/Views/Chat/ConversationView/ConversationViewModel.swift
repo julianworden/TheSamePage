@@ -120,8 +120,10 @@ class ConversationViewModel: ObservableObject {
                 sentTimestamp: Date().timeIntervalSince1970,
                 recipientFcmTokens: filteredFcmTokens
             )
+            
             try DatabaseService.shared.sendChatMessage(chatMessage: newChatMessage, chat: chat)
         } catch {
+            // TODO: Figure out why this state isn't being changed when wifi is off
             viewState = .error(message: error.localizedDescription)
         }
     }

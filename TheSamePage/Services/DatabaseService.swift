@@ -540,6 +540,10 @@ class DatabaseService: NSObject {
     
     /// Creates a show in the Firestore shows collection and also adds the show's id
     /// to the logged in user's hostedShows collection.
+    ///
+    /// When offline, this method will store the show in the cache and run it next time the app is online, which in testing
+    /// seems to create the show, including the id property, successfully. it will not throw an error due to not being online. This is
+    /// because the Firestore updateData method waits for a response from the server before running any code that comes after it.
     /// - Parameter show: The show to be added to Firestore.
     func createShow(show: Show) async throws -> String {
         do {

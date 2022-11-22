@@ -5,8 +5,6 @@
 //  Created by Julian Worden on 9/21/22.
 //
 
-// TODO: Ask user if they play in this band.
-
 import SwiftUI
 
 struct AddEditBandView: View {
@@ -91,6 +89,10 @@ struct AddEditBandView: View {
         .sheet(isPresented: $viewModel.imagePickerIsShowing) {
             ImagePicker(image: $viewModel.selectedImage, pickerIsShowing: $viewModel.imagePickerIsShowing)
         }
+        .errorAlert(
+            isPresented: $viewModel.errorAlertIsShowing,
+            message: viewModel.errorAlertText
+        )
         .onChange(of: viewModel.userIsOnboarding) { userIsOnboarding in
             if !userIsOnboarding {
                 self.userIsOnboarding = userIsOnboarding

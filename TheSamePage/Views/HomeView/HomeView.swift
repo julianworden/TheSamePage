@@ -28,11 +28,9 @@ struct HomeView: View {
                     
                 case .dataNotFound:
                     Text("We can't find any shows near you, try widening your search radius with the filter button!")
-//
-//                case .error(let message):
-//                    ErrorMessage(
-//                        message: ErrorMessageConstants.somethingWentWrong
-//                        )
+
+                case .error:
+                    EmptyView()
                 default:
                     ErrorMessage(message: ErrorMessageConstants.unknownViewState)
                 }
