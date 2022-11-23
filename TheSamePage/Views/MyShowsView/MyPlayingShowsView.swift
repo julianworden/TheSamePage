@@ -36,10 +36,20 @@ struct MyPlayingShowsView: View {
                     .font(.body.italic())
                     .padding(.vertical)
                 
+            case .error:
+                EmptyView()
+                
             default:
                 ErrorMessage(message: "Unknown ViewState given in MyPlayingShowsView.")
             }
         }
+        .errorAlert(
+            isPresented: $viewModel.myPlayingShowsErrorAlertIsShowing,
+            message: viewModel.myPlayingShowsErrorAlertText,
+            tryAgainAction: {
+                await viewModel.getPlayingShows()
+            }
+        )
         .task {
             await viewModel.getPlayingShows()
         }

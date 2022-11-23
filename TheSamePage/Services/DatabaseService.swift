@@ -38,7 +38,19 @@ class DatabaseService: NSObject {
                 systemError: error.localizedDescription
             )
         }
-        
+    }
+    
+    func newUsernameIsValid(_ username: String) async throws -> Bool {
+        do {
+            let newUsernameIsValid = try await db
+                .collection(FbConstants.users)
+                .whereField(FbConstants.username, isEqualTo: username)
+                .getDocuments()
+                .documents
+                .isEmpty
+            
+            return newUsernameIsValid
+        }
     }
     
     /// Fetches the logged in user's data from Firestore.

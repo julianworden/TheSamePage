@@ -35,20 +35,60 @@ final class SignUpViewModel: ObservableObject {
     @Published var signUpButtonIsDisabled = false
     @Published var userIsOnboarding = true
     
-    func signUpButtonTapped() async {
-        do {
-            signUpButtonIsDisabled = true
-            try await registerUser()
-            
-            if userIsInABand {
-                // Segues to InABandView
-                profileCreationWasSuccessful = true
-            } else {
-                userIsOnboarding = false
+    @Published var errorAlertIsShowing = false
+    var errorAlertText = ""
+    
+    @Published var viewState = ViewState.displayingView {
+        didSet {
+            switch viewState {
+            case .performingWork:
+                signUpButtonIsDisabled = true
+            case .workCompleted:
+                if userIsInABand {
+                    // Segues to InABandView
+                    profileCreationWasSuccessful = true
+                } else {
+                    userIsOnboarding = false
+                }
+            case .error(let message):
+                errorAlertText = message
+                errorAlertIsShowing = true
+                signUpButtonIsDisabled = false
+            default:
+                print("Unknown viewState set in SignUpViewModel: \(viewState)")
             }
+        }
+    }
+    
+    var formIsComplete: Bool {
+        return !firstName.isReallyEmpty &&
+               !lastName.isReallyEmpty
+    }
+    
+    func signUpButtonTapped() async {
+        guard formIsComplete else {
+            viewState = .error(message: "Incomplete form. Please enter your first and last name.")
+            return
+        }
+        
+        do {
+            try await registerUser()
         } catch {
-            signUpButtonIsDisabled = false
-            print(error)
+            let error = AuthErrorCode(_nsError: error as NSError)
+            
+            switch error.code {
+            case .invalidEmail, .missingEmail:
+                viewState = .error(message: "Please enter a valid email address.")
+            case .emailAlreadyInUse:
+                viewState = .error(message: "An account with this email address already exists, please go back and sign in or reset your password, if necessary.")
+            case .networkError:
+                viewState = .error(message: "Login failed. \(ErrorMessageConstants.checkYourConnection). System error: \(error.localizedDescription)")
+            case .weakPassword:
+                viewState = .error(message: "Please enter a valid password, it must be 6 characters long or more.")
+            default:
+                viewState = .error(message: "An unknown error occurred, please try again. System error: \(error.localizedDescription)")
+                print(error)
+            }
         }
     }
     
@@ -58,40 +98,36 @@ final class SignUpViewModel: ObservableObject {
     /// which will add that new user object to the users collection in Firestore.
     /// - Parameter image: The profile image selected by the user.
     func registerUser() async throws {
-        do {
-            let result = try await Auth.auth().createUser(withEmail: emailAddress, password: password)
-            let uid = result.user.uid
-            let fcmToken = Messaging.messaging().fcmToken
-            
-            let newUser: User
-            
-            if let profileImage {
-                let imageUrl = try await DatabaseService.shared.uploadImage(image: profileImage)
-                newUser = User(
-                    id: uid,
-                    username: username,
-                    firstName: firstName,
-                    lastName: lastName,
-                    profileImageUrl: imageUrl,
-                    phoneNumber: phoneNumber,
-                    emailAddress: emailAddress,
-                    fcmToken: fcmToken
-                )
-            } else {
-                newUser = User(
-                    id: uid,
-                    username: username,
-                    firstName: firstName,
-                    lastName: lastName,
-                    phoneNumber: phoneNumber,
-                    emailAddress: emailAddress,
-                    fcmToken: fcmToken
-                )
-            }
-            
-            try await DatabaseService.shared.createUserObject(user: newUser)
-        } catch {
-            throw SignUpViewModelError.firebaseAuthError(message: "Failed to create user. Error \(error)")
+        let result = try await Auth.auth().createUser(withEmail: emailAddress, password: password)
+        let uid = result.user.uid
+        let fcmToken = Messaging.messaging().fcmToken
+        
+        let newUser: User
+        
+        if let profileImage {
+            let imageUrl = try await DatabaseService.shared.uploadImage(image: profileImage)
+            newUser = User(
+                id: uid,
+                username: username,
+                firstName: firstName,
+                lastName: lastName,
+                profileImageUrl: imageUrl,
+                phoneNumber: phoneNumber,
+                emailAddress: emailAddress,
+                fcmToken: fcmToken
+            )
+        } else {
+            newUser = User(
+                id: uid,
+                username: username,
+                firstName: firstName,
+                lastName: lastName,
+                phoneNumber: phoneNumber,
+                emailAddress: emailAddress,
+                fcmToken: fcmToken
+            )
         }
+        
+        try await DatabaseService.shared.createUserObject(user: newUser)
     }
 }

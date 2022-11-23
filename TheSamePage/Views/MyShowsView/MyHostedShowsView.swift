@@ -44,10 +44,21 @@ struct MyHostedShowsView: View {
                     }
                 }
                 .padding(.top)
+                
+            case .error:
+                EmptyView()
+                
             default:
                 ErrorMessage(message: ErrorMessageConstants.unknownViewState)
             }
         }
+        .errorAlert(
+            isPresented: $viewModel.myHostedShowsErrorAlertIsShowing,
+            message: viewModel.myHostedShowsErrorAlertText,
+            tryAgainAction: {
+                await viewModel.getHostedShows()
+            }
+        )
         .task {
             await viewModel.getHostedShows()
         }

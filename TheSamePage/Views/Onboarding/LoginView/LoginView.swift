@@ -39,15 +39,9 @@ struct LoginView: View {
                 }
             }
             .navigationTitle("Log In")
-            .alert(
-                "Error",
+            .errorAlert(
                 isPresented: $viewModel.loginErrorShowing,
-                actions: {
-                    Button("OK") { }
-                },
-                message: {
-                    Text(viewModel.loginErrorMessage)
-                }
+                message: viewModel.loginErrorMessage
             )
             .onChange(of: viewModel.userIsOnboarding) { userIsOnboarding in
                 if !userIsOnboarding {

@@ -17,22 +17,36 @@ struct NotificationsView: View {
                     .ignoresSafeArea()
                 
                 VStack {
-                    if !viewModel.fetchedNotifications.isEmpty {
+                    switch viewModel.viewState {
+                    case .dataLoading:
+                        ProgressView()
+                        
+                    case .dataLoaded:
                         NotificationsList(viewModel: viewModel)
-                    } else {
-                        NoDataFoundMessage(message: "You do not have any pending band invites.")
+                        
+                    case .dataNotFound:
+                        NoDataFoundMessage(message: "You do not have any pending notifications.")
+                        
+                    case .error:
+                        EmptyView()
+                        
+                    default:
+                        ErrorMessage(message: "Unknown viewState")
                     }
                     
                     Spacer()
                 }
             }
             .navigationTitle("Notifications")
-            .task {
-                do {
-                    try viewModel.getNotifications()
-                } catch {
-                    print(error)
+            .errorAlert(
+                isPresented: $viewModel.errorAlertIsShowing,
+                message: viewModel.errorAlertText,
+                tryAgainAction: {
+                    viewModel.getNotifications()
                 }
+            )
+            .task {
+                viewModel.getNotifications()
             }
             .onDisappear {
                 viewModel.removeListeners()

@@ -16,54 +16,31 @@ struct NotificationRow: View {
     var body: some View {
         VStack {
             ListRowElements(
-                title: notificationTitle,
+                title: anyUserNotification.notificationTitle,
                 subtitle: anyUserNotification.notification.message,
-                iconName: iconName,
+                iconName: anyUserNotification.iconName,
                 displayChevron: false,
                 displayDivider: false
             )
             
-            if notificationType == .bandInvite || notificationType == .showInvite {
+            if anyUserNotification.notificationType == .bandInvite || anyUserNotification.notificationType == .showInvite {
                 HStack {
-                    Button("Accept") {
-                        viewModel.handleNotification(anyUserNotification: anyUserNotification, withAction: .accept)
+                    AsyncButton {
+                        await viewModel.handleNotification(anyUserNotification: anyUserNotification, withAction: .accept)
+                    } label: {
+                        Text("Accept")
                     }
                     
-                    Button("Decline") {
-                        viewModel.handleNotification(anyUserNotification: anyUserNotification, withAction: .decline)
+                    AsyncButton {
+                        await viewModel.handleNotification(anyUserNotification: anyUserNotification, withAction: .decline)
+                    } label: {
+                        Text("Decline")
                     }
                 }
                 .buttonStyle(.bordered)
             }
             
             Divider()
-        }
-    }
-    
-    var notificationType: NotificationType {
-        let notificationTypeAsString = anyUserNotification.notification.notificationType
-        return NotificationType(rawValue: notificationTypeAsString)!
-    }
-    
-    var notificationTitle: String {
-        switch notificationType {
-        case .showInvite:
-            return "Show Invite"
-        case .bandInvite:
-            return "Band Invite"
-        case .showApplication:
-            return "Show Application"
-        }
-    }
-    
-    var iconName: String {
-        switch notificationType {
-        case .bandInvite:
-            return "band"
-        case .showInvite:
-            return "stage"
-        case .showApplication:
-            return "notepad"
         }
     }
 }

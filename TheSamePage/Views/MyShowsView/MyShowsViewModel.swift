@@ -13,22 +13,39 @@ final class MyShowsViewModel: ObservableObject {
     @Published var playingShows = [Show]()
     @Published var hostedShows = [Show]()
     @Published var selectedShowType = ShowType.hosting
-    @Published var myHostedShowsViewState = ViewState.dataLoading
-    @Published var myPlayingShowsViewState = ViewState.dataLoading
-    @Published var myShowsRootViewState = ViewState.displayingView {
+    @Published var myHostedShowsViewState = ViewState.dataLoading {
         didSet {
-            switch myShowsRootViewState {
+            switch myHostedShowsViewState {
             case .error(let message):
-                errorAlertIsShowing = true
-                errorAlertText = message
+                myHostedShowsErrorAlertIsShowing = true
+                myHostedShowsErrorAlertText = message
             default:
-                print("Unknown viewState provided in MyShowsViewModel's myShowsRootViewState property")
+                if myHostedShowsViewState != .dataNotFound && myHostedShowsViewState != .dataLoaded {
+                    print("Unknown viewState provided in MyShowsViewModel's myHostedShowsViewState property")
+                }
             }
         }
     }
+    @Published var myPlayingShowsViewState = ViewState.dataLoading {
+        didSet {
+            switch myPlayingShowsViewState {
+            case .error(let message):
+                myPlayingShowsErrorAlertIsShowing = true
+                myPlayingShowsErrorAlertText = message
+            default:
+                if myPlayingShowsViewState != .dataNotFound && myPlayingShowsViewState != .dataLoaded {
+                    print("Unknown viewState provided in MyShowsViewModel's myPlayingShowsViewState property")
+                }
+            }
+        }
+    }
+    @Published var myShowsRootViewState = ViewState.displayingView
     
-    @Published var errorAlertIsShowing = false
-    var errorAlertText = ""
+    @Published var myHostedShowsErrorAlertIsShowing = false
+    var myHostedShowsErrorAlertText = ""
+    
+    @Published var myPlayingShowsErrorAlertIsShowing = false
+    var myPlayingShowsErrorAlertText = ""
     
     let db = Firestore.firestore()
     var hostedShowsListener: ListenerRegistration?
@@ -51,7 +68,7 @@ final class MyShowsViewModel: ObservableObject {
                     self.myHostedShowsViewState = .dataLoaded
                 }
             } else if error != nil {
-                self.myShowsRootViewState = .error(message: error!.localizedDescription)
+                self.myHostedShowsViewState = .error(message: error!.localizedDescription)
             }
         }
     }
@@ -73,7 +90,7 @@ final class MyShowsViewModel: ObservableObject {
                     self.myPlayingShowsViewState = .dataLoaded
                 }
             } else if error != nil {
-                self.myShowsRootViewState = .error(message: "Failed to fetch shows. System error: \(error!.localizedDescription)")
+                self.myPlayingShowsViewState = .error(message: "Failed to fetch shows. System error: \(error!.localizedDescription)")
             }
         }
     }

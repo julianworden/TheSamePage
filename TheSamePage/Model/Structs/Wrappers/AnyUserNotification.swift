@@ -12,4 +12,31 @@ import Foundation
 struct AnyUserNotification: Identifiable {
     let id: String
     let notification: any UserNotification
+    
+    var notificationType: NotificationType {
+        let notificationTypeAsString = notification.notificationType
+        return NotificationType(rawValue: notificationTypeAsString)!
+    }
+    
+    var notificationTitle: String {
+        switch notificationType {
+        case .showInvite:
+            return "Show Invite"
+        case .bandInvite:
+            return "Band Invite"
+        case .showApplication:
+            return "Show Application"
+        }
+    }
+    
+    var iconName: String {
+        switch notificationType {
+        case .bandInvite:
+            return "band"
+        case .showInvite:
+            return "stage"
+        case .showApplication:
+            return "notepad"
+        }
+    }
 }

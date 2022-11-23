@@ -26,8 +26,8 @@ final class HomeViewModel: ObservableObject {
                 errorMessageText = message
                 errorMessageIsShowing = true
             default:
-                if viewState != .dataLoaded && viewState != .dataNotFound {
-                    print("Unknown viewState set in HomeViewModel")
+                if viewState != .dataLoaded && viewState != .dataNotFound && viewState != .dataLoading {
+                    print("Unknown viewState set in HomeViewModel: \(viewState)")
                 }
             }
         }

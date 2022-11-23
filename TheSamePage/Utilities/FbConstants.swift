@@ -23,6 +23,7 @@ struct FbConstants {
     static let bandIds = "bandIds"
     static let showId = "showId"
     static let uid = "uid"
+    static let username = "username"
     static let participantFcmTokens = "participantFcmTokens"
     static let memberFcmTokens = "memberFcmTokens"
 }

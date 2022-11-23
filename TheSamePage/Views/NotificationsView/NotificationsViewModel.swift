@@ -10,15 +10,30 @@ import Foundation
 
 @MainActor
 final class NotificationsViewModel: ObservableObject {
-//    @Published var fetchedBandInvites = [BandInvite]()
-//    @Published var fetchedShowInvites = [ShowInvite]()
     @Published var fetchedNotifications = [AnyUserNotification]()
     @Published var selectedNotificationType = NotificationType.bandInvite
+    
+    @Published var viewState = ViewState.dataLoading {
+        didSet {
+            switch viewState {
+            case .error(let message):
+                errorAlertText = message
+                errorAlertIsShowing = true
+            default:
+                if viewState != .dataLoaded && viewState != .dataNotFound {
+                    print("Unknown viewState provided in NotificationsViewModel")
+                }
+            }
+        }
+    }
+    
+    @Published var errorAlertIsShowing = false
+    var errorAlertText = ""
     
     let db = Firestore.firestore()
     var notificationsListener: ListenerRegistration?
     
-    func getNotifications() throws {
+    func getNotifications() {
         notificationsListener = db
             .collection(FbConstants.users)
             .document(AuthController.getLoggedInUid())
@@ -27,16 +42,24 @@ final class NotificationsViewModel: ObservableObject {
                 if snapshot != nil && error == nil {
                     // Do not check if snapshot.documents.isEmpty or else deleting the final notification
                     // in the array will not update the UI in realtime.
-                    
                     Task {
-                        self.fetchedNotifications = try await DatabaseService.shared.getNotifications()
+                        let fetchedNotifications = try await DatabaseService.shared.getNotifications()
+                        
+                        if !fetchedNotifications.isEmpty {
+                            self.fetchedNotifications = fetchedNotifications
+                            self.viewState = .dataLoaded
+                        } else {
+                            self.viewState = .dataNotFound
+                        }
                     }
+                } else if error != nil {
+                    self.viewState = .error(message: "Failed to fetch up-to-date notifications. System error: \(error!.localizedDescription)")
                 }
         }
     }
     
-    func handleNotification(anyUserNotification: AnyUserNotification, withAction action: NotificationAction) {
-        Task {
+    func handleNotification(anyUserNotification: AnyUserNotification, withAction action: NotificationAction) async {
+        do {
             if let bandInvite = anyUserNotification.notification as? BandInvite {
                 if action == .accept {
                     try await acceptBandInvite(bandInvite: bandInvite)
@@ -51,6 +74,8 @@ final class NotificationsViewModel: ObservableObject {
                     try await declineShowInvite(showInvite: showInvite)
                 }
             }
+        } catch {
+            viewState = .error(message: error.localizedDescription)
         }
     }
     

@@ -19,6 +19,7 @@ struct SignUpView: View {
                     imagePickerIsShowing: $viewModel.imagePickerIsShowing,
                     selectedImage: $viewModel.profileImage
                 )
+                // TODO: Move username field to another screen
                 TextField("Username", text: $viewModel.username)
                     .textInputAutocapitalization(.never)
                 TextField("Email Address", text: $viewModel.emailAddress)
@@ -55,12 +56,15 @@ struct SignUpView: View {
         .sheet(isPresented: $viewModel.imagePickerIsShowing) {
             ImagePicker(image: $viewModel.profileImage, pickerIsShowing: $viewModel.imagePickerIsShowing)
         }
+        .errorAlert(
+            isPresented: $viewModel.errorAlertIsShowing,
+            message: viewModel.errorAlertText
+        )
         .onChange(of: viewModel.userIsOnboarding) { userIsOnboarding in
             if !userIsOnboarding {
                 self.userIsOnboarding = userIsOnboarding
             }
         }
-//        .onChange(of: viewModel.profileCreationWasSuccessful) { _ in }
     }
 }
 
