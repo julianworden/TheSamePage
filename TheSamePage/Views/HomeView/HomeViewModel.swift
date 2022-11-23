@@ -12,18 +12,26 @@ import Typesense
 
 @MainActor
 final class HomeViewModel: ObservableObject {
-    enum HomeViewModelError: Error {
-        case locationController(message: String)
-        case searchFailed(message: String)
-    }
-    
     @Published var nearbyShows = [SearchResultHit<Show>]()
     @Published var searchRadiusInMiles: Double = 25
-    @Published var viewState = ViewState.dataLoading
     
     @Published var filterConfirmationDialogIsShowing = false
     @Published var errorMessageIsShowing = false
     @Published var errorMessageText = ""
+    
+    @Published var viewState = ViewState.dataLoading {
+        didSet {
+            switch viewState {
+            case .error(let message):
+                errorMessageText = message
+                errorMessageIsShowing = true
+            default:
+                if viewState != .dataLoaded && viewState != .dataNotFound {
+                    print("Unknown viewState set in HomeViewModel")
+                }
+            }
+        }
+    }
     
     let db = Firestore.firestore()
     var userCoordinates: CLLocationCoordinate2D?
@@ -57,8 +65,7 @@ final class HomeViewModel: ObservableObject {
                 viewState = .dataNotFound
             }
         } catch {
-            errorMessageText = "Failed to perform nearby shows search. \(ErrorMessageConstants.checkYourConnection)"
-            errorMessageIsShowing = true
+            viewState = .error(message: "Failed to perform nearby shows search. System error: \(error.localizedDescription)")
         }
     }
     

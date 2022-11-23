@@ -68,7 +68,7 @@ struct HomeView: View {
                 message: viewModel.errorMessageText,
                 tryAgainAction: viewModel.fetchNearbyShows
             )
-            .task {
+            .task {                
                 if viewModel.nearbyShows.isEmpty {
                     viewModel.viewState = .dataLoading
                     await viewModel.fetchNearbyShows()

@@ -18,11 +18,13 @@ struct TheSamePageApp: App {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     
     @StateObject var loggedInUserController = LoggedInUserController()
+    @StateObject var networkController = NetworkController()
     
     var body: some Scene {
         WindowGroup {
             RootView()
                 .environmentObject(loggedInUserController)
+                .environmentObject(networkController)
         }
     }
 }

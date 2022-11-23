@@ -49,11 +49,7 @@ struct MyHostedShowsView: View {
             }
         }
         .task {
-            do {
-                try await viewModel.getHostedShows()
-            } catch {
-                viewModel.myHostedShowsViewState = .error(message: error.localizedDescription)
-            }
+            await viewModel.getHostedShows()
         }
         .onDisappear {
             viewModel.removeHostedShowsListener()

@@ -41,11 +41,7 @@ struct MyPlayingShowsView: View {
             }
         }
         .task {
-            do {
-                try await viewModel.getPlayingShows()
-            } catch {
-                viewModel.myPlayingShowsViewState = .error(message: error.localizedDescription)
-            }
+            await viewModel.getPlayingShows()
         }
         .onDisappear {
             viewModel.removePlayingShowsListener()

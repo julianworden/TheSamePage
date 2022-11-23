@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RootView: View {
     @EnvironmentObject var loggedInUserController: LoggedInUserController
+    @EnvironmentObject var networkController: NetworkController
     
     @State private var userIsLoggedOut = AuthController.userIsLoggedOut()
     @State private var selectedTab = 0

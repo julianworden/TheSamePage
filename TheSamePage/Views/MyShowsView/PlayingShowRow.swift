@@ -18,44 +18,46 @@ struct PlayingShowRow: View {
     }
     
     var body: some View {
-        let show = viewModel.playingShows[index]
-        
-        VStack(spacing: 0) {
-            HStack {
-                VStack(alignment: .leading, spacing: 0) {
-                    Text(show.name)
-                        .font(.title3.bold())
-                    
-                    Text(show.venue)
-                    
-                    Text(show.formattedDate)
-                    
-                    if let showDescription = show.description {
-                        Text(showDescription)
-                            .lineLimit(2)
-                            .font(.caption)
-                    }
-                    
-                    if show.shouldDisplayIcons {
-                        HStack {
-                            if show.hasBar {
-                                Image(systemName: "wineglass")
-                            }
-                            
-                            if show.hasFood {
-                                Image(systemName: "fork.knife")
-                            }
-                            
-                            if show.is21Plus {
-                                Image(systemName: "21.circle")
-                            }
+        if !viewModel.playingShows.isEmpty {
+            let show = viewModel.playingShows[index]
+            
+            VStack(spacing: 0) {
+                HStack {
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text(show.name)
+                            .font(.title3.bold())
+                        
+                        Text(show.venue)
+                        
+                        Text(show.formattedDate)
+                        
+                        if let showDescription = show.description {
+                            Text(showDescription)
+                                .lineLimit(2)
+                                .font(.caption)
                         }
-                        .imageScale(.small)
+                        
+                        if show.shouldDisplayIcons {
+                            HStack {
+                                if show.hasBar {
+                                    Image(systemName: "wineglass")
+                                }
+                                
+                                if show.hasFood {
+                                    Image(systemName: "fork.knife")
+                                }
+                                
+                                if show.is21Plus {
+                                    Image(systemName: "21.circle")
+                                }
+                            }
+                            .imageScale(.small)
+                        }
                     }
+                    .multilineTextAlignment(.leading)
+                    
+                    Spacer()
                 }
-                .multilineTextAlignment(.leading)
-                
-                Spacer()
             }
         }
     }
