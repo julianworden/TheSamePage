@@ -13,6 +13,7 @@ extension View {
         isPresented: Binding<Bool>,
         message: String,
         buttonText: String = "OK",
+        okButtonAction: (() async -> Void)? = nil,
         tryAgainAction: (() async -> Void)? = nil,
         tryAgainButtonText: String = "Try Again"
     ) -> some View {
@@ -21,7 +22,13 @@ extension View {
             isPresented: isPresented,
             actions: {
                 if tryAgainAction == nil {
-                    Button(buttonText) { }
+                    Button(buttonText) {
+                        if let okButtonAction {
+                            Task {
+                                await okButtonAction()
+                            }
+                        }
+                    }
                 }
                 
                 if let tryAgainAction {

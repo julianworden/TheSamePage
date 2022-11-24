@@ -17,36 +17,58 @@ struct SendBandInviteView: View {
     }
     
     var body: some View {
-        if !viewModel.userBands.isEmpty {
-            Form {
-                Picker("Which band would you like to invite \(viewModel.user.firstName) to?", selection: $viewModel.selectedBand) {
-                    ForEach(viewModel.userBands) { band in
-                        Text(band.name).tag(band as Band?)
-                    }
-                }
-                .id(viewModel.selectedBand)
+        ZStack {
+            Color(uiColor: .systemGroupedBackground)
+                .ignoresSafeArea()
+            
+            switch viewModel.viewState {
+            case .dataLoading:
+                ProgressView()
                 
-                Picker("What role will \(viewModel.user.firstName) have?", selection: $viewModel.recipientRole) {
-                    ForEach(Instrument.allCases) { instrument in
-                        Text(instrument.rawValue)
+            case .dataLoaded:
+                Form {
+                    Picker("Which band would you like to invite \(viewModel.user.firstName) to?", selection: $viewModel.selectedBand) {
+                        ForEach(viewModel.userBands) { band in
+                            Text(band.name).tag(band as Band?)
+                        }
                     }
+                    .id(viewModel.selectedBand)
+                    
+                    Picker("What role will \(viewModel.user.firstName) have?", selection: $viewModel.recipientRole) {
+                        ForEach(Instrument.allCases) { instrument in
+                            Text(instrument.rawValue)
+                        }
+                    }
+                    
+                    AsyncButton {
+                        await viewModel.sendBandInviteNotification()
+                    } label: {
+                        Text("Send Invite")
+                    }
+                    .disabled(viewModel.sendBandInviteButtonIsDisabled)
                 }
-                
-                Button("Send invite") {
-                    do {
-                        try viewModel.sendBandInviteNotification()
+                .navigationTitle("Send Band Invite")
+                .navigationBarTitleDisplayMode(.inline)
+                .onChange(of: viewModel.bandInviteSentSuccessfully) { bandInviteSentSuccessfully in
+                    if bandInviteSentSuccessfully {
                         dismiss()
-                    } catch {
-                        print(error)
                     }
                 }
+                
+            case .dataNotFound:
+                NoDataFoundMessage(message: "You are not the admin for any bands. You can only invite others to join your band if you are the band admin.")
+                
+            case .error:
+                EmptyView()
+                
+            default:
+                ErrorMessage(message: "Unknown viewState set")
             }
-            .navigationTitle("Send Band Invite")
-            .navigationBarTitleDisplayMode(.inline)
-        } else {
-            Text("You are not the admin for any bands. You can only invite others to join your band if you are the band admin.")
-                .italic()
         }
+        .errorAlert(
+            isPresented: $viewModel.errorAlertIsShowing,
+            message: viewModel.errorAlertText
+        )
     }
 }
 

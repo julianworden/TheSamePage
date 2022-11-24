@@ -8,6 +8,8 @@
 import FirebaseAuth
 import FirebaseFirestore
 import Foundation
+import SwiftUI
+import UIKit.UIImage
 
 @MainActor
 class LoggedInUserController: ObservableObject {
@@ -18,8 +20,25 @@ class LoggedInUserController: ObservableObject {
     @Published var profileImageUrl: String?
     @Published var bands = [Band]()
     
+    /// The image loaded from the ProfileAsyncImage
+    @Published var userImage: Image?
+    /// A new image set within EditImageView
+    @Published var updatedImage: UIImage?
+    
     @Published var errorMessageShowing = false
     @Published var errorMessageText = ""
+    
+    @Published var loggedInUserProfileViewState = ViewState.displayingView {
+        didSet {
+            switch loggedInUserProfileViewState {
+            case .error(let message):
+                errorMessageText = message
+                errorMessageShowing = true
+            default:
+                print("Unknown viewState passed to LoggedInUserController: \(loggedInUserProfileViewState)")
+            }
+        }
+    }
     
     var uid: String?
     
@@ -43,8 +62,7 @@ class LoggedInUserController: ObservableObject {
             self.uid = loggedInUser.id
             self.bands = try await DatabaseService.shared.getBands(withUid: loggedInUser.id)
         } catch {
-            errorMessageText = error.localizedDescription
-            errorMessageShowing = true
+            loggedInUserProfileViewState = .error(message: error.localizedDescription)
         }
     }
     
@@ -59,25 +77,27 @@ class LoggedInUserController: ObservableObject {
         do {
             try AuthController.logOut()
         } catch {
-            errorMessageText = error.localizedDescription
-            errorMessageShowing = true
+            loggedInUserProfileViewState = .error(message: error.localizedDescription)
         }
     }
     
     func addUserListener() {
         userListener = db.collection(FbConstants.users).document(AuthController.getLoggedInUid()).addSnapshotListener { snapshot, error in
             if snapshot != nil && error == nil {
-                if let updatedUser = try? snapshot?.data(as: User.self) {
-                    // loggedInUser must also be updated because the loggedInUserProfile references it
-                    self.loggedInUser = updatedUser
-                    self.firstName = updatedUser.firstName
-                    self.lastName = updatedUser.lastName
-                    self.emailAddress = updatedUser.emailAddress
-                    self.profileImageUrl = updatedUser.profileImageUrl
+                do {
+                    if let updatedUser = try? snapshot?.data(as: User.self) {
+                        // loggedInUser must also be updated because the loggedInUserProfile references it
+                        self.loggedInUser = updatedUser
+                        self.firstName = updatedUser.firstName
+                        self.lastName = updatedUser.lastName
+                        self.emailAddress = updatedUser.emailAddress
+                        self.profileImageUrl = updatedUser.profileImageUrl
+                    } else {
+                        self.loggedInUserProfileViewState = .error(message: "Failed to fetch updated user info. Please relaunch The Same Page and try again.")
+                    }
                 }
             } else if error != nil {
-                self.errorMessageText = "Something went wrong, please log in again. System error: \(error!.localizedDescription)"
-                self.errorMessageShowing = true
+                self.loggedInUserProfileViewState = .error(message: error!.localizedDescription)
             }
         }
     }

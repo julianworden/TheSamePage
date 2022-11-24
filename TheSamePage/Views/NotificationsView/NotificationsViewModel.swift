@@ -43,13 +43,17 @@ final class NotificationsViewModel: ObservableObject {
                     // Do not check if snapshot.documents.isEmpty or else deleting the final notification
                     // in the array will not update the UI in realtime.
                     Task {
-                        let fetchedNotifications = try await DatabaseService.shared.getNotifications()
-                        
-                        if !fetchedNotifications.isEmpty {
-                            self.fetchedNotifications = fetchedNotifications
-                            self.viewState = .dataLoaded
-                        } else {
-                            self.viewState = .dataNotFound
+                        do {
+                            let fetchedNotifications = try await DatabaseService.shared.getNotifications()
+                            
+                            if !fetchedNotifications.isEmpty {
+                                self.fetchedNotifications = fetchedNotifications
+                                self.viewState = .dataLoaded
+                            } else {
+                                self.viewState = .dataNotFound
+                            }
+                        } catch {
+                            self.viewState = .error(message: error.localizedDescription)
                         }
                     }
                 } else if error != nil {

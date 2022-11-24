@@ -25,6 +25,23 @@ final class OtherUserProfileViewModel: ObservableObject {
     @Published var profileImageUrl: String?
     @Published var bands = [Band]()
     
+    @Published var errorAlertIsShowing = false
+    var errorAlertText = ""
+    
+    @Published var viewState = ViewState.dataLoading {
+        didSet {
+            switch viewState {
+            case .error(let message):
+                errorAlertText = message
+                errorAlertIsShowing = true
+            default:
+                if viewState != .dataLoaded && viewState != .dataLoading {
+                    print("Unknown viewState passed to OtherUserProfileViewModel: \(viewState)")
+                }
+            }
+        }
+    }
+    
     var loggedInUserIsBandAdmin: Bool {
         return AuthController.getLoggedInUid() == user?.id
     }
@@ -32,24 +49,30 @@ final class OtherUserProfileViewModel: ObservableObject {
     init(user: User?, bandMember: BandMember? = nil) {
         Task {
             if let user {
-                try await initializeUser(user: user)
+                await initializeUser(user: user)
             }
             
             if let bandMember {
                 let convertedUser = try await convertBandMemberToUser(bandMember: bandMember)
-                try await initializeUser(user: convertedUser)
+                await initializeUser(user: convertedUser)
             }
         }
     }
     
-    func initializeUser(user: User) async throws {
+    func initializeUser(user: User) async {
         // TODO: Add this line when user values are cleared on log out: guard firstName == nil && lastName == nil else { return }
-        self.user = user
-        self.firstName = user.firstName
-        self.lastName = user.lastName
-        self.emailAddress = user.emailAddress
-        self.profileImageUrl = user.profileImageUrl
-        self.bands = try await getBands(forUser: user)
+        do {
+            self.user = user
+            self.firstName = user.firstName
+            self.lastName = user.lastName
+            self.emailAddress = user.emailAddress
+            self.profileImageUrl = user.profileImageUrl
+            self.bands = try await getBands(forUser: user)
+            
+            viewState = .dataLoaded
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
     }
     
     func convertBandMemberToUser(bandMember: BandMember) async throws -> User {

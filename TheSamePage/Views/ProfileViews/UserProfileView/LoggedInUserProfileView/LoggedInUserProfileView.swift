@@ -50,6 +50,13 @@ struct LoggedInUserProfileView: View {
                 }
             }
         }
+        .errorAlert(
+            isPresented: $loggedInUserController.errorMessageShowing,
+            message: loggedInUserController.errorMessageText,
+            tryAgainAction: {
+                await loggedInUserController.getLoggedInUserInfo()
+            }
+        )
         .onDisappear {
             loggedInUserController.removeUserListener()
         }

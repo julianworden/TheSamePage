@@ -9,6 +9,8 @@ import SwiftUI
 
 /// Displayed when a user is viewing somebody else's profile.
 struct OtherUserProfileView: View {
+    @Environment(\.dismiss) var dismiss
+    
     @StateObject var viewModel: OtherUserProfileViewModel
     
     init(user: User?, bandMember: BandMember? = nil) {
@@ -20,31 +22,48 @@ struct OtherUserProfileView: View {
             Color(uiColor: .systemGroupedBackground)
                 .ignoresSafeArea()
             
-            if let user = viewModel.user {
-                ScrollView {
-                    OtherUserProfileHeader(viewModel: viewModel)
-                    
-                    if !viewModel.bands.isEmpty {
-                        HStack {
-                            SectionTitle(title: "Member of")
-                            
-                            NavigationLink {
-                                AddEditBandView()
-                            } label: {
-                                Image(systemName: "plus")
-                            }
-                            .padding(.trailing)
-                        }
+            switch viewModel.viewState {
+            case .dataLoading:
+                ProgressView()
+                
+            case .dataLoaded:
+                if let user = viewModel.user {
+                    ScrollView {
+                        OtherUserProfileHeader(viewModel: viewModel)
                         
-                        OtherUserBandList(viewModel: viewModel)
+                        if !viewModel.bands.isEmpty {
+                            HStack {
+                                SectionTitle(title: "Member of")
+                                
+                                NavigationLink {
+                                    AddEditBandView()
+                                } label: {
+                                    Image(systemName: "plus")
+                                }
+                                .padding(.trailing)
+                            }
+                            
+                            OtherUserBandList(viewModel: viewModel)
+                        }
                     }
+                    .navigationTitle(user.username)
+                    .navigationBarTitleDisplayMode(.inline)
                 }
-                .navigationTitle(user.username)
-                .navigationBarTitleDisplayMode(.inline)
-            } else {
-                ErrorMessage(message: ErrorMessageConstants.unknownViewState)
+                
+            case .error:
+                EmptyView()
+                
+            default:
+                ErrorMessage(message: "Invalid viewState")
             }
         }
+        .errorAlert(
+            isPresented: $viewModel.errorAlertIsShowing,
+            message: viewModel.errorAlertText,
+            okButtonAction: {
+                dismiss()
+            }
+        )
     }
 }
 

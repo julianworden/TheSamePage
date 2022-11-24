@@ -571,6 +571,7 @@
 				AB35A8D328E9D044009FB203 /* ProfileViews */,
 				AB36FF7A28D35B9A00AAC00C /* RootView */,
 				AB5054B128DC9BFF00321380 /* Searching */,
+				ABD18AAB28EE14B1002286C3 /* SendShowInviteView */,
 				AB9D085F28FDA2300098A244 /* Settings */,
 				ABBE94C028D8AD9E00790A04 /* ShowDetailsView */,
 			);
@@ -1090,7 +1091,6 @@
 				ABF83DD5291AB67C006A06CC /* MembersTab */,
 				ABF83DD3291AB232006A06CC /* LinkTab */,
 				ABCD5F60291B53EA00E33934 /* ShowsTab */,
-				ABD18AAB28EE14B1002286C3 /* SendShowInviteView */,
 			);
 			path = BandProfileView;
 			sourceTree = "<group>";

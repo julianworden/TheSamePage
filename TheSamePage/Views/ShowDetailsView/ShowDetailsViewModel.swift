@@ -111,10 +111,12 @@ final class ShowDetailsViewModel: ObservableObject {
             if snapshot != nil && error == nil {
                 if let editedShow = try? snapshot!.data(as: Show.self) {
                     self.show = editedShow
+                } else {
+                    print("edited show not found")
                 }
+            } else if error != nil {
+                print(error)
             }
-            
-            // TODO: Detect when the show is deleted and dismiss the view somehow
         }
     }
     

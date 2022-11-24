@@ -10,21 +10,16 @@ import SwiftUI
 struct LoggedInUserProfileHeader: View {
     @EnvironmentObject var loggedInUserController: LoggedInUserController
     
-    /// The image loaded from the ProfileAsyncImage
-    @State private var userImage: Image?
-    /// A new image set within EditImageView
-    @State private var updatedImage: UIImage?
-    
     var body: some View {
         if let user = loggedInUserController.loggedInUser {
             VStack {
                 NavigationLink {
-                    EditImageView(user: user, image: userImage, updatedImage: $updatedImage)
+                    EditImageView(user: user, image: loggedInUserController.userImage, updatedImage: $loggedInUserController.updatedImage)
                 } label: {
-                    if updatedImage == nil {
-                        ProfileAsyncImage(url: URL(string: user.profileImageUrl ?? ""), loadedImage: $userImage)
+                    if loggedInUserController.updatedImage == nil {
+                        ProfileAsyncImage(url: URL(string: user.profileImageUrl ?? ""), loadedImage: $loggedInUserController.userImage)
                     } else {
-                        Image(uiImage: updatedImage!)
+                        Image(uiImage: loggedInUserController.updatedImage!)
                             .resizable()
                             .scaledToFill()
                             .profileImageStyle()
@@ -35,10 +30,10 @@ struct LoggedInUserProfileHeader: View {
                     .font(.title.bold())
             }
             .padding()
-            .onChange(of: userImage) { _ in }
-            .onChange(of: updatedImage) { updatedImage in
+            .onChange(of: loggedInUserController.userImage) { _ in }
+            .onChange(of: loggedInUserController.updatedImage) { updatedImage in
                 if let updatedImage {
-                    self.userImage = Image(uiImage: updatedImage)
+                    loggedInUserController.userImage = Image(uiImage: updatedImage)
                     loggedInUserController.addUserListener()
                 }
             }

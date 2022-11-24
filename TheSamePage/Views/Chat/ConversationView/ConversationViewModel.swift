@@ -61,13 +61,14 @@ class ConversationViewModel: ObservableObject {
                     guard !snapshot.documents.isEmpty else { return }
                     
                     let chatMessageDocuments = snapshot.documents
-
+                    
                     if let chatMessages = try? chatMessageDocuments.map({ try $0.data(as: ChatMessage.self) }) {
                         let sortedChatMessages = chatMessages.sorted { $0.sentTimestampAsDate < $1.sentTimestampAsDate }
                         self.messages = sortedChatMessages
-                        
+                    } else {
+                        self.viewState = .error(message: "Failed to fetch up-to-date chat messages. Please relaunch The Same Page and try again.")
                     }
-                } else {
+                } else if error != nil {
                     self.viewState = .error(message: error!.localizedDescription)
                 }
             }

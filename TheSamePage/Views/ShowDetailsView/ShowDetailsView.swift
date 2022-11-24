@@ -24,6 +24,7 @@ struct ShowDetailsView: View {
             switch viewModel.state {
             case .dataLoading:
                 ProgressView()
+                
             case .dataLoaded:
                 ScrollView {
                     ShowDetailsHeader(viewModel: viewModel)
@@ -49,11 +50,13 @@ struct ShowDetailsView: View {
                         ShowDetailsTab(viewModel: viewModel)
                     }
                 }
+                
             case .error(let message):
                 ErrorMessage(
                     message: "Failed to fetch details for this show.",
                     systemErrorText: message
                 )
+                
             default:
                 ErrorMessage(message: ErrorMessageConstants.unknownViewState)
             }
