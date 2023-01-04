@@ -9,35 +9,46 @@ import SwiftUI
 import Typesense
 
 struct ShowSearchResultsList: View {
+    @Environment(\.isSearching) var isSearching
+    
     @ObservedObject var viewModel: SearchViewModel
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: UiConstants.listRowSpacing) {
-                ForEach(viewModel.fetchedShows, id: \.document) { result in
-                    let show = result.document!
-                    
-                    NavigationLink {
-                        ShowDetailsView(show: show)
-                            // Necessary because ShowDetailsView assumes .navigationBarTitleDisplayMode(.large) otherwise
-                            .navigationBarTitleDisplayMode(.inline)
-                    } label: {
-                        SearchResultRow(show: show)
+        Group {
+            switch viewModel.viewState {
+            case .dataLoaded:
+                ScrollView {
+                    VStack(spacing: UiConstants.listRowSpacing) {
+                        ForEach(viewModel.fetchedShows, id: \.document) { result in
+                            let show = result.document!
+                            
+                            NavigationLink {
+                                ShowDetailsView(show: show)
+                            } label: {
+                                SearchResultRow(show: show)
+                            }
+                            .tint(.primary)
+                        }
                     }
-                    .tint(.primary)
                 }
-                .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
-                .autocorrectionDisabled(true)
+                
+            case .dataNotFound:
+                NoDataFoundMessage(message: "No results.")
+                
+            case .error, .displayingView:
+                EmptyView()
+                
+            default:
+                ErrorMessage(message: "Invalid viewState")
             }
         }
         .onChange(of: viewModel.queryText) { query in
             Task {
-                do {
-                    try await viewModel.fetchShows(searchQuery: query)
-                } catch {
-                    print(error)
-                }
+                await viewModel.fetchShows(searchQuery: query)
             }
+        }
+        .onChange(of: isSearching) { _ in
+            viewModel.isSearching.toggle()
         }
     }
 }

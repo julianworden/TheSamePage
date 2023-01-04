@@ -9,39 +9,46 @@ import SwiftUI
 import Typesense
 
 struct BandSearchResultsList: View {
+    @Environment(\.isSearching) var isSearching
+    
     @ObservedObject var viewModel: SearchViewModel
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: UiConstants.listRowSpacing) {
-                ForEach(viewModel.fetchedBands, id: \.document) { result in
-                    let band = result.document!
-                    
-                    NavigationLink {
-                        BandProfileView(band: band)
-                            // Necessary because BandProfileView assumes .navigationBarTitleDisplayMode(.large) otherwise
-                            .navigationBarTitleDisplayMode(.inline)
-                    } label: {
-                        SearchResultRow(band: band)
+        Group {            
+            switch viewModel.viewState {
+            case .dataLoaded:
+                ScrollView {
+                    VStack(spacing: UiConstants.listRowSpacing) {
+                        ForEach(viewModel.fetchedBands, id: \.document) { result in
+                            let band = result.document!
+                            
+                            NavigationLink {
+                                BandProfileView(band: band)
+                            } label: {
+                                SearchResultRow(band: band)
+                            }
+                            .tint(.primary)
+                        }
                     }
-                    .tint(.primary)
                 }
-                .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
-                .autocorrectionDisabled(true)
+                
+            case .dataNotFound:
+                NoDataFoundMessage(message: "No results.")
+                
+            case .error, .displayingView:
+                EmptyView()
+                
+            default:
+                ErrorMessage(message: "Invalid viewState")
             }
         }
         .onChange(of: viewModel.queryText) { query in
-            if !query.isEmpty {
-                Task {
-                    do {
-                        try await viewModel.fetchBands(searchQuery: query)
-                    } catch {
-                        print(error)
-                    }
-                }
-            } else {
-                viewModel.fetchedBands = [SearchResultHit<Band>]()
+            Task {
+                await viewModel.fetchBands(searchQuery: query)
             }
+        }
+        .onChange(of: isSearching) { _ in
+            viewModel.isSearching.toggle()
         }
     }
 }

@@ -20,8 +20,7 @@ struct ConversationView: View {
     
     var body: some View {
         ZStack {
-            Color(uiColor: .systemGroupedBackground)
-                .ignoresSafeArea()
+            BackgroundColor()
             
             VStack {
                 ScrollView {

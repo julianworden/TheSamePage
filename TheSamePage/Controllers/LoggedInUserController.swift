@@ -45,12 +45,6 @@ class LoggedInUserController: ObservableObject {
     let db = Firestore.firestore()
     var userListener: ListenerRegistration?
     
-    init() {
-        Task {
-            await getLoggedInUserInfo()
-        }
-    }
-    
     func getLoggedInUserInfo() async {
         do {
             let loggedInUser = try await DatabaseService.shared.getLoggedInUser()

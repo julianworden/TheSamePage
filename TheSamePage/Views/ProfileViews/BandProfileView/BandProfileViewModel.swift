@@ -16,6 +16,23 @@ class BandProfileViewModel: ObservableObject {
     @Published var bandShows = [Show]()
     @Published var selectedTab = SelectedBandProfileTab.about
     
+    @Published var errorAlertIsShowing = false
+    var errorAlertText = ""
+    
+    @Published var viewState = ViewState.dataLoading {
+        didSet {
+            switch viewState {
+            case .error(let message):
+                errorAlertText = message
+                errorAlertIsShowing = true
+            default:
+                if viewState != .dataLoaded && viewState != .dataLoading {
+                    print("Unknown viewState passed to OtherUserProfileViewModel: \(viewState)")
+                }
+            }
+        }
+    }
+    
     /// Necessary for when this view is loaded from a ShowDetailsView
     var showParticipant: ShowParticipant?
     
@@ -28,14 +45,26 @@ class BandProfileViewModel: ObservableObject {
                 self.band = band
             }
             
-            if let showParticipant {
-                self.band = try await convertShowParticipantToBand(showParticipant: showParticipant)
+            if let showParticipant,
+               let convertedBand = await convertShowParticipantToBand(showParticipant: showParticipant) {
+                self.band = convertedBand
+            }
+            
+            if self.band != nil {
+                viewState = .dataLoaded
             }
         }
     }
     
-    func convertShowParticipantToBand(showParticipant: ShowParticipant) async throws -> Band {
-        return try await DatabaseService.shared.convertShowParticipantToBand(showParticipant: showParticipant)
+    func convertShowParticipantToBand(showParticipant: ShowParticipant) async -> Band? {
+        viewState = .dataLoading
+        
+        do {
+            return try await DatabaseService.shared.convertShowParticipantToBand(showParticipant: showParticipant)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+            return nil
+        }
     }
     
     func addBandListener() {
@@ -55,10 +84,12 @@ class BandProfileViewModel: ObservableObject {
                             }
                             self.bandShows = sortedShows
                         } catch {
-                            
+                            self.viewState = .error(message: error.localizedDescription)
                         }
                     }
                 }
+            } else if error != nil {
+                self.viewState = .error(message: "There was an error fetching this band's info. System error: \(error!.localizedDescription)")
             }
         }
     }

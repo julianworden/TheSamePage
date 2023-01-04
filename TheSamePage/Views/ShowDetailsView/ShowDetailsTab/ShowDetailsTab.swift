@@ -22,8 +22,7 @@ struct ShowDetailsTab: View {
 struct ShowDetailsTab_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            Color(uiColor: .systemGroupedBackground)
-                .ignoresSafeArea()
+            BackgroundColor()
             
             ShowDetailsTab(viewModel: ShowDetailsViewModel(show: Show.example))
         }

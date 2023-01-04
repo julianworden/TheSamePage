@@ -52,8 +52,8 @@ final class OtherUserProfileViewModel: ObservableObject {
                 await initializeUser(user: user)
             }
             
-            if let bandMember {
-                let convertedUser = try await convertBandMemberToUser(bandMember: bandMember)
+            if let bandMember,
+               let convertedUser = await convertBandMemberToUser(bandMember: bandMember) {
                 await initializeUser(user: convertedUser)
             }
         }
@@ -75,8 +75,13 @@ final class OtherUserProfileViewModel: ObservableObject {
         }
     }
     
-    func convertBandMemberToUser(bandMember: BandMember) async throws -> User {
-        return try await DatabaseService.shared.convertBandMemberToUser(bandMember: bandMember)
+    func convertBandMemberToUser(bandMember: BandMember) async -> User? {
+        do {
+            return try await DatabaseService.shared.convertBandMemberToUser(bandMember: bandMember)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+            return nil
+        }
     }
     
     // TODO: Incorporate a listener to this so the bands array is updated when the user joins a new band

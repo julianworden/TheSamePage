@@ -18,8 +18,7 @@ struct SendBandInviteView: View {
     
     var body: some View {
         ZStack {
-            Color(uiColor: .systemGroupedBackground)
-                .ignoresSafeArea()
+            BackgroundColor()
             
             switch viewModel.viewState {
             case .dataLoading:

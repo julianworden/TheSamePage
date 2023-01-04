@@ -114,6 +114,8 @@
 		AB8326BA2912BB3500208414 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8326B92912BB3500208414 /* ChatMessage.swift */; };
 		AB8627BF2926751B001537D9 /* TestingDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8627BE2926751B001537D9 /* TestingDatabaseService.swift */; };
 		AB8627C1292687FC001537D9 /* ErrorMessageConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8627C0292687FC001537D9 /* ErrorMessageConstants.swift */; };
+		AB8AB3F5292FC8A500B4B1B5 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8AB3F4292FC8A500B4B1B5 /* BackgroundColor.swift */; };
+		AB8AB3F7292FCC0D00B4B1B5 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8AB3F6292FCC0D00B4B1B5 /* RootViewModel.swift */; };
 		AB93A90D2929269C00C0EEE6 /* errorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB93A90C2929269C00C0EEE6 /* errorAlert.swift */; };
 		AB9D086128FDA24B0098A244 /* UserSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9D086028FDA24B0098A244 /* UserSettingsView.swift */; };
 		AB9DAB04292329AF009BE932 /* ShowSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9DAB03292329AF009BE932 /* ShowSettingsView.swift */; };
@@ -314,6 +316,8 @@
 		AB8326B92912BB3500208414 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		AB8627BE2926751B001537D9 /* TestingDatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingDatabaseService.swift; sourceTree = "<group>"; };
 		AB8627C0292687FC001537D9 /* ErrorMessageConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessageConstants.swift; sourceTree = "<group>"; };
+		AB8AB3F4292FC8A500B4B1B5 /* BackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColor.swift; sourceTree = "<group>"; };
+		AB8AB3F6292FCC0D00B4B1B5 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		AB93A90C2929269C00C0EEE6 /* errorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = errorAlert.swift; sourceTree = "<group>"; };
 		AB9D086028FDA24B0098A244 /* UserSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsView.swift; sourceTree = "<group>"; };
 		AB9DAB03292329AF009BE932 /* ShowSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSettingsView.swift; sourceTree = "<group>"; };
@@ -582,6 +586,7 @@
 			isa = PBXGroup;
 			children = (
 				AB36FF6728D356FD00AAC00C /* RootView.swift */,
+				AB8AB3F6292FCC0D00B4B1B5 /* RootViewModel.swift */,
 			);
 			path = RootView;
 			sourceTree = "<group>";
@@ -692,6 +697,7 @@
 				AB8326B329129CE200208414 /* NoDataFoundMessage.swift */,
 				ABF83DCB291A965B006A06CC /* ListRowIcon.swift */,
 				ABF83DCF291A98CB006A06CC /* ListRowElements.swift */,
+				AB8AB3F4292FC8A500B4B1B5 /* BackgroundColor.swift */,
 			);
 			path = Miscellaneous;
 			sourceTree = "<group>";
@@ -1299,6 +1305,7 @@
 				AB66B9B828F0D2EF00E7F0E0 /* ShowDetailsHeader.swift in Sources */,
 				AB36FF8028D35BFA00AAC00C /* User.swift in Sources */,
 				AB6514DD28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift in Sources */,
+				AB8AB3F7292FCC0D00B4B1B5 /* RootViewModel.swift in Sources */,
 				AB5E490629003F870076EABE /* AddBacklineView.swift in Sources */,
 				AB36FF9828D36A6600AAC00C /* SectionTitle.swift in Sources */,
 				AB07295628F454EE0069B268 /* ShowDetailsList.swift in Sources */,
@@ -1379,6 +1386,7 @@
 				AB7F381528EF20EA007741C7 /* ShowParticipant.swift in Sources */,
 				AB07295828F4631D0069B268 /* SelectedShowDetailsTab.swift in Sources */,
 				ABDDAD4528DB3ED200F1CF9B /* ProfileAsyncImage.swift in Sources */,
+				AB8AB3F5292FC8A500B4B1B5 /* BackgroundColor.swift in Sources */,
 				AB0DD4D228F0D82E00CEA1BD /* ShowLineupList.swift in Sources */,
 				ABF8B81B28FC786900608657 /* ErrorMessage.swift in Sources */,
 				AB35A8CC28E9CFCF009FB203 /* LoggedInUserProfileView.swift in Sources */,
@@ -1599,7 +1607,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "The Same Page";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Atlantis would use Bonjour Service to discover Proxyman app from your local network";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to find shows near you";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -1638,7 +1645,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "The Same Page";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Atlantis would use Bonjour Service to discover Proxyman app from your local network";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to find shows near you";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

@@ -20,8 +20,7 @@ struct SendShowInviteView: View {
     
     var body: some View {
         ZStack {
-            Color(uiColor: .systemGroupedBackground)
-                .ignoresSafeArea()
+            BackgroundColor()
             
             switch viewModel.state {
             case .dataLoading:

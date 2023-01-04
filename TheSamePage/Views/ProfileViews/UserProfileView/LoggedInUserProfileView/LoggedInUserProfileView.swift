@@ -10,56 +10,75 @@ import SwiftUI
 /// Displayed to the user when they're viewing their own profile.
 struct LoggedInUserProfileView: View {
     @EnvironmentObject var loggedInUserController: LoggedInUserController
-    
+
+    @State private var settingsSheetIsShowing = false
+
     @Binding var userIsLoggedOut: Bool
     
     var body: some View {
-        ZStack {
-            Color(uiColor: .systemGroupedBackground)
-                .ignoresSafeArea()
-            
-            if loggedInUserController.loggedInUser != nil {
-                ScrollView {
-                    VStack {
-                        LoggedInUserProfileHeader()
-                        
-                        HStack {
-                            SectionTitle(title: "Member of")
+        NavigationView {
+            ZStack {
+                BackgroundColor()
+                
+                if loggedInUserController.loggedInUser != nil {
+                    ScrollView {
+                        VStack {
+                            LoggedInUserProfileHeader()
                             
-                            NavigationLink {
-                                AddEditBandView(userIsOnboarding: .constant(false), bandToEdit: nil)
-                            } label: {
-                                Image(systemName: "plus")
+                            HStack {
+                                SectionTitle(title: "Member of")
+                                
+                                NavigationLink {
+                                    AddEditBandView(userIsOnboarding: .constant(false), bandToEdit: nil)
+                                } label: {
+                                    Image(systemName: "plus")
+                                }
+                                .padding(.trailing)
                             }
-                            .padding(.trailing)
+                            
+                            LoggedInUserBandList()
                         }
-                        
-                        LoggedInUserBandList()
                     }
                 }
-                .navigationTitle("Your Profile")
-                .navigationBarTitleDisplayMode(.large)
             }
-        }
-        .toolbar {
-            ToolbarItem {
-                NavigationLink {
-                    UserSettingsView(userIsLoggedOut: $userIsLoggedOut)
-                } label: {
-                    Label("Settings", systemImage: "gear")
+            .navigationTitle("Your Profile")
+            .navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItem {
+                    Button {
+                        settingsSheetIsShowing.toggle()
+                    } label: {
+                        Label("Settings", systemImage: "gear")
+                    }
                 }
             }
-        }
-        .errorAlert(
-            isPresented: $loggedInUserController.errorMessageShowing,
-            message: loggedInUserController.errorMessageText,
-            tryAgainAction: {
+            .fullScreenCover(
+                isPresented: $settingsSheetIsShowing,
+                onDismiss: {
+                    if loggedInUserController.loggedInUser == nil {
+                        userIsLoggedOut = true
+                    }
+                },
+                content: {
+                    UserSettingsView()
+                }
+            )
+            .errorAlert(
+                isPresented: $loggedInUserController.errorMessageShowing,
+                message: loggedInUserController.errorMessageText,
+                tryAgainAction: {
+                    await loggedInUserController.getLoggedInUserInfo()
+                }
+            )
+            .task {
                 await loggedInUserController.getLoggedInUserInfo()
             }
-        )
-        .onDisappear {
-            loggedInUserController.removeUserListener()
+            .onDisappear {
+                loggedInUserController.removeUserListener()
+            }
         }
+        // Without this, the search bar in MemberSearchView is not usable
+        .navigationViewStyle(.stack)
     }
 }
 

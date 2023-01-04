@@ -70,9 +70,12 @@ final class SignUpViewModel: ObservableObject {
             viewState = .error(message: "Incomplete form. Please enter your first and last name.")
             return
         }
+
+        viewState = .performingWork
         
         do {
             try await registerUser()
+            viewState = .workCompleted
         } catch {
             let error = AuthErrorCode(_nsError: error as NSError)
             

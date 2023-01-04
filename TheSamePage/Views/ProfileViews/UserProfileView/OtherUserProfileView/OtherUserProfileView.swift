@@ -19,8 +19,7 @@ struct OtherUserProfileView: View {
     
     var body: some View {
         ZStack {
-            Color(uiColor: .systemGroupedBackground)
-                .ignoresSafeArea()
+            BackgroundColor()
             
             switch viewModel.viewState {
             case .dataLoading:
@@ -57,6 +56,7 @@ struct OtherUserProfileView: View {
                 ErrorMessage(message: "Invalid viewState")
             }
         }
+        .navigationBarTitleDisplayMode(.inline)
         .errorAlert(
             isPresented: $viewModel.errorAlertIsShowing,
             message: viewModel.errorAlertText,

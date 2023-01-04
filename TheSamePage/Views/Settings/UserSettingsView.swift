@@ -11,24 +11,23 @@ struct UserSettingsView: View {
     @Environment(\.dismiss) var dismiss
     
     @EnvironmentObject var loggedInUserController: LoggedInUserController
-    
-    @Binding var userIsLoggedOut: Bool
-    
+        
     var body: some View {
-        Form {
-            Button("Log Out", role: .destructive) {
-                userIsLoggedOut = true
-                loggedInUserController.logOut()
-                dismiss()
+        NavigationView {
+            Form {
+                Button("Log Out", role: .destructive) {
+                    loggedInUserController.logOut()
+                    dismiss()
+                }
             }
+            .navigationTitle("Profile Settings")
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationTitle("Settings")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
     
     struct UserSettingsView_Previews: PreviewProvider {
         static var previews: some View {
-            UserSettingsView(userIsLoggedOut: .constant(false))
+            UserSettingsView()
         }
     }

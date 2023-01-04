@@ -13,8 +13,7 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(uiColor: .systemGroupedBackground)
-                    .ignoresSafeArea()
+                BackgroundColor()
                 
                 switch viewModel.viewState {
                 case .dataLoading:
@@ -75,6 +74,7 @@ struct HomeView: View {
                 }
             }
         }
+        .navigationViewStyle(.stack)
     }
 }
 

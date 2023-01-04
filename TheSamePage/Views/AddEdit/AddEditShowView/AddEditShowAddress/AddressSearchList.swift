@@ -36,8 +36,7 @@ struct AddressSearchList: View {
             }
         } else if isSearching && viewModel.addressSearchResults.isEmpty {
             ZStack {
-                Color(uiColor: .systemGroupedBackground)
-                    .ignoresSafeArea()
+                BackgroundColor()
                 
                 VStack {
                     Text("No results found.")

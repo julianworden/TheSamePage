@@ -18,8 +18,7 @@ struct ShowDetailsView: View {
         let show = viewModel.show
         
         ZStack {
-            Color(uiColor: .systemGroupedBackground)
-                .ignoresSafeArea()
+            BackgroundColor()
             
             switch viewModel.state {
             case .dataLoading:

@@ -10,20 +10,42 @@ import Typesense
 
 @MainActor
 final class SearchViewModel: ObservableObject {
-    enum SearchViewModelError: Error {
-        case searchFailed(message: String)
-    }
-
     @Published var fetchedUsers = [SearchResultHit<User>]()
     @Published var fetchedBands = [SearchResultHit<Band>]()
     @Published var fetchedShows = [SearchResultHit<Show>]()
+    @Published var isSearching = false {
+        didSet {
+            clearFetchedResultsArrays()
+        }
+    }
     @Published var queryText = ""
     @Published var searchType = SearchType.user {
         didSet {
-            fetchedUsers = [SearchResultHit<User>]()
-            fetchedBands = [SearchResultHit<Band>]()
-            fetchedShows = [SearchResultHit<Show>]()
+            clearFetchedResultsArrays()
         }
+    }
+    
+    @Published var errorAlertIsShowing = false
+    var errorAlertText = ""
+    
+    @Published var viewState = ViewState.displayingView {
+        didSet {
+            switch viewState {
+            case .error(let message):
+                errorAlertText = message
+                errorAlertIsShowing = true
+            default:
+                if viewState != .dataNotFound && viewState != .dataLoaded {
+                    print("Unknown viewState in SearchViewModel: \(viewState)")
+                }
+            }
+        }
+    }
+    
+    func clearFetchedResultsArrays() {
+        fetchedUsers = [SearchResultHit<User>]()
+        fetchedBands = [SearchResultHit<Band>]()
+        fetchedShows = [SearchResultHit<Show>]()
     }
 
     var searchBarPrompt: String {
@@ -37,7 +59,7 @@ final class SearchViewModel: ObservableObject {
         }
     }
 
-    func fetchUsers(searchQuery: String) async throws {
+    func fetchUsers(searchQuery: String) async {
         guard !queryText.isEmpty else { return }
         
         let collectionParams = MultiSearchCollectionParameters(q: searchQuery, collection: FbConstants.users)
@@ -45,13 +67,22 @@ final class SearchViewModel: ObservableObject {
         
         do {
             let (data, _) = try await TypesenseController.client.multiSearch().perform(searchRequests: [collectionParams], commonParameters: searchParams, for: User.self)
-            fetchedUsers = (data?.results[0].hits) ?? []
+            if let fetchedUsers = data?.results[0].hits {
+                if fetchedUsers.isEmpty {
+                    viewState = .dataNotFound
+                } else {
+                    self.fetchedUsers = fetchedUsers
+                    viewState = .dataLoaded
+                }
+            } else {
+                viewState = .error(message: "Failed to perform search, please try again.")
+            }
         } catch {
-            throw SearchViewModelError.searchFailed(message: "User search failed")
+            viewState = .error(message: "Failed to perform search, please try again. System error: \(error.localizedDescription)")
         }
     }
     
-    func fetchBands(searchQuery: String) async throws {
+    func fetchBands(searchQuery: String) async {
         guard !queryText.isEmpty else { return }
         
         let collectionParams = MultiSearchCollectionParameters(q: searchQuery, collection: FbConstants.bands)
@@ -59,13 +90,22 @@ final class SearchViewModel: ObservableObject {
         
         do {
             let (data, _) = try await TypesenseController.client.multiSearch().perform(searchRequests: [collectionParams], commonParameters: searchParams, for: Band.self)
-            fetchedBands = (data?.results[0].hits) ?? []
+            if let fetchedBands = data?.results[0].hits {
+                if fetchedBands.isEmpty {
+                    viewState = .dataNotFound
+                } else {
+                    self.fetchedBands = fetchedBands
+                    viewState = .dataLoaded
+                }
+            } else {
+                viewState = .error(message: "Failed to perform search, please try again.")
+            }
         } catch {
-            throw SearchViewModelError.searchFailed(message: "Band search failed")
+            viewState = .error(message: "Failed to perform search, please try again. System error: \(error.localizedDescription)")
         }
     }
     
-    func fetchShows(searchQuery: String) async throws {
+    func fetchShows(searchQuery: String) async {
         guard !queryText.isEmpty else { return }
         
         let collectionParams = MultiSearchCollectionParameters(q: searchQuery, collection: FbConstants.shows)
@@ -73,9 +113,18 @@ final class SearchViewModel: ObservableObject {
         
         do {
             let (data, _) = try await TypesenseController.client.multiSearch().perform(searchRequests: [collectionParams], commonParameters: searchParams, for: Show.self)
-            fetchedShows = (data?.results[0].hits) ?? []
+            if let fetchedShows = data?.results[0].hits {
+                if fetchedShows.isEmpty {
+                    viewState = .dataNotFound
+                } else {
+                    self.fetchedShows = fetchedShows
+                    viewState = .dataLoaded
+                }
+            } else {
+                viewState = .error(message: "Failed to perform search, please try again.")
+            }
         } catch {
-            throw SearchViewModelError.searchFailed(message: "Show search failed \(error)")
+            viewState = .error(message: "Failed to perform search, please try again. System error: \(error.localizedDescription)")
         }
     }
 }

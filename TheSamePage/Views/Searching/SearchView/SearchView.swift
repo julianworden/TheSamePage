@@ -12,9 +12,8 @@ struct SearchView: View {
     
     var body: some View {
         NavigationView {
-            ZStack {
-                Color(uiColor: .systemGroupedBackground)
-                    .ignoresSafeArea()
+            ZStack(alignment: .top) {
+                BackgroundColor()
                 
                 VStack {
                     Picker("", selection: $viewModel.searchType) {
@@ -24,24 +23,32 @@ struct SearchView: View {
                     }
                     .pickerStyle(.segmented)
                     
-                    if viewModel.searchType == .user {
+                    switch viewModel.searchType {
+                    case .user:
                         UserSearchResultsList(viewModel: viewModel)
-                    }
-                    
-                    if viewModel.searchType == .band {
+                            .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
+                            .autocorrectionDisabled(true)
+                        
+                    case .band:
                         BandSearchResultsList(viewModel: viewModel)
-                    }
-                    
-                    if viewModel.searchType == .show {
+                            .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
+                            .autocorrectionDisabled(true)
+                        
+                    case .show:
                         ShowSearchResultsList(viewModel: viewModel)
+                            .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
+                            .autocorrectionDisabled(true)
                     }
-                    
-                    Spacer()
                 }
                 .padding(.horizontal)
-                .navigationTitle("Search")
             }
+            .navigationTitle("Search")
+            .errorAlert(
+                isPresented: $viewModel.errorAlertIsShowing,
+                message: viewModel.errorAlertText
+            )
         }
+        .navigationViewStyle(.stack)
     }
 }
 

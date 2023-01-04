@@ -11,13 +11,14 @@ struct RootView: View {
     @EnvironmentObject var loggedInUserController: LoggedInUserController
     @EnvironmentObject var networkController: NetworkController
     
-    @State private var userIsLoggedOut = AuthController.userIsLoggedOut()
-    @State private var selectedTab = 0
+    @StateObject var viewModel = RootViewModel()
     
     var body: some View {
-        Group {
-            if !userIsLoggedOut {
-                TabView(selection: $selectedTab) {
+        ZStack {
+            BackgroundColor()
+            
+            if !viewModel.userIsLoggedOut {
+                TabView(selection: $viewModel.selectedTab) {
                     HomeView()
                         .environmentObject(MyShowsViewModel())
                         .tabItem {
@@ -43,17 +44,14 @@ struct RootView: View {
                         }
                         .tag(3)
                     
-                    NavigationView {
-                        LoggedInUserProfileView(userIsLoggedOut: $userIsLoggedOut)
-                    }
-                    .tabItem {
-                        Label("Profile", systemImage: "person")
-                    }
-                    .tag(4)
+                        LoggedInUserProfileView(userIsLoggedOut: $viewModel.userIsLoggedOut)
+                            .tabItem {
+                                Label("Profile", systemImage: "person")
+                            }
+                            .tag(4)
+                    
                 }
-                .navigationBarHidden(true)
                 .onAppear {
-                    selectedTab = 0
                     LocationController.shared.startLocationServices()
                 }
             }
@@ -61,19 +59,21 @@ struct RootView: View {
         .errorAlert(
             isPresented: $loggedInUserController.errorMessageShowing,
             message: loggedInUserController.errorMessageText,
-            tryAgainAction: { userIsLoggedOut = true },
+            tryAgainAction: { viewModel.userIsLoggedOut = true },
             tryAgainButtonText: "Log In"
         )
         .fullScreenCover(
-            isPresented: $userIsLoggedOut,
+            isPresented: $viewModel.userIsLoggedOut,
             onDismiss: {
+                viewModel.selectedTab = 0
+                
                 if loggedInUserController.loggedInUser == nil {
                     Task {
                         await loggedInUserController.getLoggedInUserInfo()
                     }
                 }
             },
-            content: { LoginView(userIsOnboarding: $userIsLoggedOut) }
+            content: { LoginView(userIsOnboarding: $viewModel.userIsLoggedOut) }
         )
     }
 }

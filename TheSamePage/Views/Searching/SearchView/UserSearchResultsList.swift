@@ -9,39 +9,50 @@ import SwiftUI
 import Typesense
 
 struct UserSearchResultsList: View {
+    @Environment(\.isSearching) var isSearching
+    
     @ObservedObject var viewModel: SearchViewModel
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: UiConstants.listRowSpacing) {
-                ForEach(viewModel.fetchedUsers, id: \.document) { result in
-                    let user = result.document!
-                    
-                    if user.profileBelongsToLoggedInUser {
-                        SearchResultRow(user: user)
-                    } else {
-                        NavigationLink {
-                            OtherUserProfileView(user: user)
-                                // Necessary because OtherUserProfileView assumes .navigationBarTitleDisplayMode(.large) otherwise
-                                .navigationBarTitleDisplayMode(.inline)
-                        } label: {
-                            SearchResultRow(user: user)
+        Group {
+            switch viewModel.viewState {
+            case .dataLoaded:
+                ScrollView {
+                    VStack(spacing: UiConstants.listRowSpacing) {
+                        ForEach(viewModel.fetchedUsers, id: \.document) { result in
+                            let user = result.document!
+                            
+                            if user.profileBelongsToLoggedInUser {
+                                SearchResultRow(user: user)
+                            } else {
+                                NavigationLink {
+                                    OtherUserProfileView(user: user)
+                                } label: {
+                                    SearchResultRow(user: user)
+                                }
+                                .tint(.primary)
+                            }
                         }
-                        .tint(.primary)
                     }
                 }
-                .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
-                .autocorrectionDisabled(true)
+                
+            case .dataNotFound:
+                NoDataFoundMessage(message: "No results.")
+                
+            case .error, .displayingView:
+                EmptyView()
+                
+            default:
+                ErrorMessage(message: "Invalid viewState")
             }
         }
         .onChange(of: viewModel.queryText) { query in
             Task {
-                do {
-                    try await viewModel.fetchUsers(searchQuery: query)
-                } catch {
-                    print(error)
-                }
+                await viewModel.fetchUsers(searchQuery: query)
             }
+        }
+        .onChange(of: isSearching) { _ in
+            viewModel.isSearching.toggle()
         }
     }
 }

@@ -13,8 +13,7 @@ struct NotificationsView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(uiColor: .systemGroupedBackground)
-                    .ignoresSafeArea()
+                BackgroundColor()
                 
                 VStack {
                     switch viewModel.viewState {
@@ -52,6 +51,7 @@ struct NotificationsView: View {
                 viewModel.removeListeners()
             }
         }
+        .navigationViewStyle(.stack)
     }
 }
 

@@ -10,6 +10,8 @@ import SwiftUI
 // TODO: Allow for the band admin to add their own bands to any of their hosted shows
 
 struct BandProfileView: View {
+    @Environment(\.dismiss) var dismiss
+    
     @StateObject var viewModel: BandProfileViewModel
     
     @State private var addEditBandSheetIsShowing = false
@@ -20,61 +22,77 @@ struct BandProfileView: View {
     
     var body: some View {
         ZStack {
-            Color(uiColor: .systemGroupedBackground)
-                .ignoresSafeArea()
+            BackgroundColor()
             
-            if let band = viewModel.band {
-                ScrollView {
-                    BandProfileHeader(viewModel: viewModel)
-                    
-                    Picker("Select a tab", selection: $viewModel.selectedTab) {
-                        ForEach(SelectedBandProfileTab.allCases) { tab in
-                            Text(tab.rawValue)
+            switch viewModel.viewState {
+            case .dataLoading:
+                ProgressView()
+                
+            case .dataLoaded:
+                if let band = viewModel.band {
+                    ScrollView {
+                        BandProfileHeader(viewModel: viewModel)
+                        
+                        Picker("Select a tab", selection: $viewModel.selectedTab) {
+                            ForEach(SelectedBandProfileTab.allCases) { tab in
+                                Text(tab.rawValue)
+                            }
                         }
+                        .pickerStyle(.segmented)
+                        .padding(.horizontal)
+                        
+                        switch viewModel.selectedTab {
+                        case .about:
+                            BandAboutTab(viewModel: viewModel)
+                        case .members:
+                            BandMembersTab(viewModel: viewModel)
+                        case .links:
+                            LinkTab(viewModel: viewModel)
+                        case .shows:
+                            BandShowsTab(viewModel: viewModel)
+                        }
+                        
+                        Spacer()
                     }
-                    .pickerStyle(.segmented)
-                    .padding(.horizontal)
-                    
-                    switch viewModel.selectedTab {
-                    case .about:
-                        BandAboutTab(viewModel: viewModel)
-                    case .members:
-                        BandMembersTab(viewModel: viewModel)
-                    case .links:
-                        LinkTab(viewModel: viewModel)
-                    case .shows:
-                        BandShowsTab(viewModel: viewModel)
+                    .sheet(isPresented: $addEditBandSheetIsShowing) {
+                        NavigationView {
+                            AddEditBandView(bandToEdit: band)
+                        }
+                        .navigationViewStyle(.stack)
                     }
-                    
-                    Spacer()
-                }
-                .sheet(isPresented: $addEditBandSheetIsShowing) {
-                    NavigationView {
-                        AddEditBandView(bandToEdit: band)
-                    }
-                    .navigationViewStyle(.stack)
-                }
-                .navigationTitle("Band Profile")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        if band.loggedInUserIsInvolvedWithBand {
-                            NavigationLink {
-                                BandSettingsView(band: band)
-                            } label: {
-                                Label("Band settings", systemImage: "gear")
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            if band.loggedInUserIsInvolvedWithBand {
+                                NavigationLink {
+                                    BandSettingsView(band: band)
+                                } label: {
+                                    Label("Band settings", systemImage: "gear")
+                                }
                             }
                         }
                     }
+                    .onAppear {
+                        viewModel.addBandListener()
+                    }
+                    .onDisappear {
+                        viewModel.removeListeners()
+                    }
                 }
-                .onAppear {
-                    viewModel.addBandListener()
-                }
-                .onDisappear {
-                    viewModel.removeListeners()
-                }
+                
+            case .error:
+                EmptyView()
+                
+            default:
+                ErrorMessage(message: "Unknown viewState provided")
             }
         }
+        .navigationTitle("Band Profile")
+        .navigationBarTitleDisplayMode(.inline)
+        .errorAlert(
+            isPresented: $viewModel.errorAlertIsShowing,
+            message: viewModel.errorAlertText,
+            okButtonAction: { dismiss() }
+        )
     }
 }
 

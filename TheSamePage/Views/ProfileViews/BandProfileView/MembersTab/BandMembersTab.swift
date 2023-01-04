@@ -17,9 +17,7 @@ struct BandMembersTab: View {
                 
                 if band.loggedInUserIsBandAdmin {
                     NavigationLink {
-                        MemberSearchView(userIsOnboarding: .constant(false), band: band)
-                            .navigationTitle("Search for User Profile")
-                            .navigationBarTitleDisplayMode(.inline)
+                        MemberSearchView()
                     } label: {
                         Image(systemName: "plus")
                     }

@@ -13,8 +13,7 @@ struct MyShowsRootView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(uiColor: .systemGroupedBackground)
-                    .ignoresSafeArea()
+                BackgroundColor()
                 
                 VStack {
                     Picker("Select Show Type", selection: $viewModel.selectedShowType) {

@@ -19,8 +19,7 @@ struct AddEditShowAddressView: View {
     
     var body: some View {
         ZStack {
-            Color(uiColor: .systemGroupedBackground)
-                .ignoresSafeArea()
+            BackgroundColor()
             
             ShowAddressSearchResults(viewModel: viewModel)
         }
