@@ -1056,8 +1056,7 @@ class DatabaseService: NSObject {
     
     
     // MARK: - Firebase Storage
-    
-    
+
     /// Uploads the image selected by the user to Firebase Storage.
     /// - Parameter image: The image selected by the user.
     /// - Returns: The download URL of the image uploaded to Firebase Storage.

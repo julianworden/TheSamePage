@@ -6,12 +6,34 @@
 //
 
 @testable import TheSamePage
+
 import UIKit.UIImage
 import Foundation
 
 struct TestingConstants {
     static let uiImageForTesting = UIImage(systemName: "gear")
-    static let showForUpdateShowTests = Show(
+    /// A user that should be imported into Firebase emulator when it starts
+    static let exampleUserInEmulator = User(
+        id: "qvJ5tmKpih3mFkUCet5CPREg3qjZ",
+        username: "julianworden",
+        firstName: "Julian",
+        lastName: "Worden",
+        profileImageUrl: "http://127.0.0.1:9199/v0/b/the-same-page-9c69e.appspot.com/o/JMTech%20Profile%20Pic.jpeg?alt=media&token=511ccc65-8205-4d13-9802-74af76e42098",
+        emailAddress: "julianworden@gmail.com"
+    )
+    /// A band that should be imported into Firebase emulator when it starts
+    static let exampleBandInEmulator = Band(
+        id: "C7ZbA7gaeQ7Lk1Kid9QC",
+        name: "Pathetic Fallacy",
+        bio: "We're a metal core band from central New Jersey!",
+        adminUid: "qvJ5tmKpih3mFkUCet5CPREg3qjZ",
+        memberUids: ["qvJ5tmKpih3mFkUCet5CPREg3qjZ"],
+        genre: "Metalcore",
+        city: "Neptune",
+        state: "NJ"
+    )
+    /// A show that should be imported into Firebase emulator when it starts
+    static let exampleShowInEmulator = Show(
         id: "Kk1NYjptTJITr0pjfVbe",
         name: "Dumpweed Extravaganza",
         description: "A dank banger! Hop on the bill I freakin’ swear you won’t regret it! Like, it's gonna be the show of the absolute century, bro!",

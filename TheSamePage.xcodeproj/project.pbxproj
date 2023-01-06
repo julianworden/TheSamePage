@@ -72,12 +72,12 @@
 		AB4750192900B55C0000DB13 /* AddPercussionBacklineF.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4750182900B55C0000DB13 /* AddPercussionBacklineF.swift */; };
 		AB4A461C29172832007F1C8B /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = AB4A461B29172832007F1C8B /* FirebaseFunctions */; };
 		AB4BD581292C388100E0360B /* AddressSearchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4BD580292C388100E0360B /* AddressSearchList.swift */; };
+		AB4BF6C02965B6AD0007A33B /* FirebaseEmulatorDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4BF6BF2965B6AD0007A33B /* FirebaseEmulatorDataTests.swift */; };
+		AB4BF6C32965BA730007A33B /* TestingDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8627BE2926751B001537D9 /* TestingDatabaseService.swift */; };
 		AB4D097C292725C500B5DB4D /* ShowAddressSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4D097B292725C500B5DB4D /* ShowAddressSearchResults.swift */; };
 		AB5054A728DC91CF00321380 /* MemberSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054A628DC91CF00321380 /* MemberSearchView.swift */; };
 		AB5054A928DC91D700321380 /* MemberSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054A828DC91D700321380 /* MemberSearchViewModel.swift */; };
 		AB5054B328DCA04900321380 /* BandInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054B228DCA04900321380 /* BandInvite.swift */; };
-		AB55184829245D1F0085D1B6 /* TheSamePageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB55184729245D1F0085D1B6 /* TheSamePageTests.swift */; };
-		AB55184F29245D630085D1B6 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB55184E29245D630085D1B6 /* LoginViewModelTests.swift */; };
 		AB55E7722901F651009F039B /* DrumKitBacklineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB55E7712901F651009F039B /* DrumKitBacklineItem.swift */; };
 		AB582B7E28FA3B3D00D357F3 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB582B7D28FA3B3D00D357F3 /* LocationController.swift */; };
 		AB5B77C528E72B8E00B32537 /* BandLinkRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5B77C428E72B8E00B32537 /* BandLinkRow.swift */; };
@@ -112,7 +112,6 @@
 		AB8326B62912A89800208414 /* ShowBacklineRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8326B52912A89800208414 /* ShowBacklineRow.swift */; };
 		AB8326B82912BA2500208414 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8326B72912BA2500208414 /* Chat.swift */; };
 		AB8326BA2912BB3500208414 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8326B92912BB3500208414 /* ChatMessage.swift */; };
-		AB8627BF2926751B001537D9 /* TestingDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8627BE2926751B001537D9 /* TestingDatabaseService.swift */; };
 		AB8627C1292687FC001537D9 /* ErrorMessageConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8627C0292687FC001537D9 /* ErrorMessageConstants.swift */; };
 		AB8AB3F5292FC8A500B4B1B5 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8AB3F4292FC8A500B4B1B5 /* BackgroundColor.swift */; };
 		AB8AB3F7292FCC0D00B4B1B5 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8AB3F6292FCC0D00B4B1B5 /* RootViewModel.swift */; };
@@ -141,7 +140,6 @@
 		ABB4C3FB29205D5700E2C153 /* AnyUserNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB4C3FA29205D5700E2C153 /* AnyUserNotification.swift */; };
 		ABB4C3FD2920618900E2C153 /* FbConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB4C3FC2920618900E2C153 /* FbConstants.swift */; };
 		ABB4C3FF29207CE600E2C153 /* NotificationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB4C3FE29207CE600E2C153 /* NotificationAction.swift */; };
-		ABB57E9A29246CD100D4CB2D /* AddEditShowViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB57E9929246CD100D4CB2D /* AddEditShowViewModelTests.swift */; };
 		ABB71C4A28FE08D500D3126D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB71C4928FE08D500D3126D /* HomeViewModel.swift */; };
 		ABB93F3828F0732D0055659B /* AsyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB93F3728F0732D0055659B /* AsyncButton.swift */; };
 		ABBADD7928DFE5FA00720C64 /* BandState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBADD7828DFE5FA00720C64 /* BandState.swift */; };
@@ -149,8 +147,10 @@
 		ABBE94C428D8AE7500790A04 /* ShowDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */; };
 		ABBEC0A62921D02800314BE5 /* BandSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBEC0A52921D02800314BE5 /* BandSettingsView.swift */; };
 		ABBEC0A82921D05600314BE5 /* BandSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBEC0A72921D05600314BE5 /* BandSettingsViewModel.swift */; };
+		ABC9932829665D0C00B553F4 /* SecurityRulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC9932729665D0C00B553F4 /* SecurityRulesTests.swift */; };
 		ABCAA9FF28E9E56C00685F91 /* BandProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAA9FE28E9E56C00685F91 /* BandProfileHeader.swift */; };
 		ABCAAA0228E9ED6C00685F91 /* BandLinkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAAA0128E9ED6C00685F91 /* BandLinkList.swift */; };
+		ABCC3D742965CC6E006CF074 /* TestingConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDBEC962927CF86004AB2C1 /* TestingConstants.swift */; };
 		ABCD5F62291B541F00E33934 /* BandShowsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCD5F61291B541F00E33934 /* BandShowsTab.swift */; };
 		ABCD5F64291B54D300E33934 /* BandShowsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCD5F63291B54D300E33934 /* BandShowsList.swift */; };
 		ABCD5F66291B551800E33934 /* BandShowRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCD5F65291B551800E33934 /* BandShowRow.swift */; };
@@ -165,7 +165,6 @@
 		ABD1D17128F30D3200791969 /* ShowType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1D17028F30D3200791969 /* ShowType.swift */; };
 		ABD323EF28E1180C00540B93 /* SendBandInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD323EE28E1180C00540B93 /* SendBandInviteView.swift */; };
 		ABD323F128E1181F00540B93 /* SendBandInviteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD323F028E1181F00540B93 /* SendBandInviteViewModel.swift */; };
-		ABDBEC972927CF86004AB2C1 /* TestingConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDBEC962927CF86004AB2C1 /* TestingConstants.swift */; };
 		ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D6F28D748FD0054269E /* NotificationsView.swift */; };
 		ABDC0D7228D74BFF0054269E /* OtherUserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D7128D74BFF0054269E /* OtherUserProfileViewModel.swift */; };
 		ABDC0D7428D75CC80054269E /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D7328D75CC80054269E /* AuthController.swift */; };
@@ -273,13 +272,12 @@
 		AB3E11E728D656FF000F147B /* OtherUserBandRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserBandRow.swift; sourceTree = "<group>"; };
 		AB4750182900B55C0000DB13 /* AddPercussionBacklineF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPercussionBacklineF.swift; sourceTree = "<group>"; };
 		AB4BD580292C388100E0360B /* AddressSearchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchList.swift; sourceTree = "<group>"; };
+		AB4BF6BF2965B6AD0007A33B /* FirebaseEmulatorDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEmulatorDataTests.swift; sourceTree = "<group>"; };
 		AB4D097B292725C500B5DB4D /* ShowAddressSearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAddressSearchResults.swift; sourceTree = "<group>"; };
 		AB5054A628DC91CF00321380 /* MemberSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSearchView.swift; sourceTree = "<group>"; };
 		AB5054A828DC91D700321380 /* MemberSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSearchViewModel.swift; sourceTree = "<group>"; };
 		AB5054B228DCA04900321380 /* BandInvite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandInvite.swift; sourceTree = "<group>"; };
 		AB55184529245D1F0085D1B6 /* TheSamePageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheSamePageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AB55184729245D1F0085D1B6 /* TheSamePageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheSamePageTests.swift; sourceTree = "<group>"; };
-		AB55184E29245D630085D1B6 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
 		AB55E7712901F651009F039B /* DrumKitBacklineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrumKitBacklineItem.swift; sourceTree = "<group>"; };
 		AB582B7D28FA3B3D00D357F3 /* LocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
 		AB5B77C428E72B8E00B32537 /* BandLinkRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLinkRow.swift; sourceTree = "<group>"; };
@@ -337,7 +335,6 @@
 		ABB4C3FA29205D5700E2C153 /* AnyUserNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyUserNotification.swift; sourceTree = "<group>"; };
 		ABB4C3FC2920618900E2C153 /* FbConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FbConstants.swift; sourceTree = "<group>"; };
 		ABB4C3FE29207CE600E2C153 /* NotificationAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAction.swift; sourceTree = "<group>"; };
-		ABB57E9929246CD100D4CB2D /* AddEditShowViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowViewModelTests.swift; sourceTree = "<group>"; };
 		ABB71C4928FE08D500D3126D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		ABB93F3728F0732D0055659B /* AsyncButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncButton.swift; sourceTree = "<group>"; };
 		ABBADD7828DFE5FA00720C64 /* BandState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandState.swift; sourceTree = "<group>"; };
@@ -345,6 +342,7 @@
 		ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsViewModel.swift; sourceTree = "<group>"; };
 		ABBEC0A52921D02800314BE5 /* BandSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSettingsView.swift; sourceTree = "<group>"; };
 		ABBEC0A72921D05600314BE5 /* BandSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSettingsViewModel.swift; sourceTree = "<group>"; };
+		ABC9932729665D0C00B553F4 /* SecurityRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityRulesTests.swift; sourceTree = "<group>"; };
 		ABCAA9FE28E9E56C00685F91 /* BandProfileHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BandProfileHeader.swift; sourceTree = "<group>"; };
 		ABCAAA0128E9ED6C00685F91 /* BandLinkList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLinkList.swift; sourceTree = "<group>"; };
 		ABCD5F61291B541F00E33934 /* BandShowsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandShowsTab.swift; sourceTree = "<group>"; };
@@ -535,8 +533,8 @@
 			children = (
 				AB31440D29171C5A00E2D08B /* TheSamePage.entitlements */,
 				ABEF10E828E64F8800A1DBAC /* Info.plist */,
-				AB36FF6528D356FD00AAC00C /* TheSamePageApp.swift */,
 				AB399AD528D4BCD8009B39F7 /* Notes.rtf */,
+				AB36FF6528D356FD00AAC00C /* TheSamePageApp.swift */,
 				AB36FF7E28D35BDC00AAC00C /* Model */,
 				AB36FF7928D35B9500AAC00C /* Views */,
 				AB36FFA028D372A100AAC00C /* Controllers */,
@@ -742,6 +740,15 @@
 				AB3D2C3729060CCE00412A7E /* EditImageViewModel.swift */,
 			);
 			path = EditImageView;
+			sourceTree = "<group>";
+		};
+		AB4BF6BE2965B65F0007A33B /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				ABC9932729665D0C00B553F4 /* SecurityRulesTests.swift */,
+				AB4BF6BF2965B6AD0007A33B /* FirebaseEmulatorDataTests.swift */,
+			);
+			path = Firebase;
 			sourceTree = "<group>";
 		};
 		AB5054A528DC91B400321380 /* MemberSearchView */ = {
@@ -997,9 +1004,7 @@
 		ABDBEC932927CF6A004AB2C1 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				AB55184729245D1F0085D1B6 /* TheSamePageTests.swift */,
-				AB55184E29245D630085D1B6 /* LoginViewModelTests.swift */,
-				ABB57E9929246CD100D4CB2D /* AddEditShowViewModelTests.swift */,
+				AB4BF6BE2965B65F0007A33B /* Firebase */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -1362,6 +1367,7 @@
 				AB07AC3929047F1800E378C6 /* ElectricGuitarBacklineList.swift in Sources */,
 				ABBE94C228D8ADBF00790A04 /* ShowDetailsView.swift in Sources */,
 				AB55E7722901F651009F039B /* DrumKitBacklineItem.swift in Sources */,
+				AB4BF6C32965BA730007A33B /* TestingDatabaseService.swift in Sources */,
 				ABB4C3FD2920618900E2C153 /* FbConstants.swift in Sources */,
 				ABDDAD4828DB45D100F1CF9B /* AddEditBandView.swift in Sources */,
 				AB4D097C292725C500B5DB4D /* ShowAddressSearchResults.swift in Sources */,
@@ -1420,7 +1426,6 @@
 				ABCD5F64291B54D300E33934 /* BandShowsList.swift in Sources */,
 				AB36FF8F28D35E8C00AAC00C /* Genre.swift in Sources */,
 				ABB4C3FF29207CE600E2C153 /* NotificationAction.swift in Sources */,
-				AB8627BF2926751B001537D9 /* TestingDatabaseService.swift in Sources */,
 				AB36FF6628D356FD00AAC00C /* TheSamePageApp.swift in Sources */,
 				ABEACE7D28DBBB6F00BB1D67 /* InABandViewModel.swift in Sources */,
 				AB8326B62912A89800208414 /* ShowBacklineRow.swift in Sources */,
@@ -1458,10 +1463,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABDBEC972927CF86004AB2C1 /* TestingConstants.swift in Sources */,
-				AB55184F29245D630085D1B6 /* LoginViewModelTests.swift in Sources */,
-				ABB57E9A29246CD100D4CB2D /* AddEditShowViewModelTests.swift in Sources */,
-				AB55184829245D1F0085D1B6 /* TheSamePageTests.swift in Sources */,
+				ABC9932829665D0C00B553F4 /* SecurityRulesTests.swift in Sources */,
+				ABCC3D742965CC6E006CF074 /* TestingConstants.swift in Sources */,
+				AB4BF6C02965B6AD0007A33B /* FirebaseEmulatorDataTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
