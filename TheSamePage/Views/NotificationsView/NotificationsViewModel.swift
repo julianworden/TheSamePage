@@ -86,7 +86,14 @@ final class NotificationsViewModel: ObservableObject {
     func acceptBandInvite(bandInvite: BandInvite) async throws {
         let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
         let band = try await DatabaseService.shared.getBand(with: bandInvite.bandId)
-        let bandMember = BandMember(uid: loggedInUser.id, role: bandInvite.recipientRole, username: loggedInUser.username, fullName: loggedInUser.fullName)
+        let bandMember = BandMember(
+            id: "",
+            dateJoined: Date.now.timeIntervalSince1970,
+            uid: loggedInUser.id,
+            role: bandInvite.recipientRole,
+            username: loggedInUser.username,
+            fullName: loggedInUser.fullName
+        )
         try await DatabaseService.shared.addUserToBand(add: loggedInUser, as: bandMember, to: band, withBandInvite: bandInvite)
     }
     

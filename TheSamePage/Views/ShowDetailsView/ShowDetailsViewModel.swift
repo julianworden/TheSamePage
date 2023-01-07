@@ -115,7 +115,7 @@ final class ShowDetailsViewModel: ObservableObject {
                     print("edited show not found")
                 }
             } else if error != nil {
-                print(error)
+                print(error!)
             }
         }
     }

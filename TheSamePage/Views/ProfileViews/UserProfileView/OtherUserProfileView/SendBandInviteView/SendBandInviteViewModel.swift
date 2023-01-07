@@ -75,6 +75,8 @@ final class SendBandInviteViewModel: ObservableObject {
             // TODO: Handle error
             if let selectedBand {
                 let invite = BandInvite(
+                    id: "",
+                    dateSent: Date.now.timeIntervalSince1970,
                     notificationType: NotificationType.bandInvite.rawValue,
                     recipientUid: user.id,
                     recipientRole: recipientRole.rawValue,
@@ -83,8 +85,8 @@ final class SendBandInviteViewModel: ObservableObject {
                     senderBand: selectedBand.name,
                     message: "\(loggedInUser.username) is inviting you to join \(selectedBand.name)"
                 )
-                try DatabaseService.shared.sendBandInvite(invite: invite)
-                
+                try await  DatabaseService.shared.sendBandInvite(invite: invite)
+
                 viewState = .workCompleted
             }
         } catch {

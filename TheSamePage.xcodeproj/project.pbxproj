@@ -22,10 +22,12 @@
 		AB07AC3929047F1800E378C6 /* ElectricGuitarBacklineList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07AC3829047F1800E378C6 /* ElectricGuitarBacklineList.swift */; };
 		AB07AC3B290486F200E378C6 /* BassGuitarBacklineList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07AC3A290486F200E378C6 /* BassGuitarBacklineList.swift */; };
 		AB0DD4D228F0D82E00CEA1BD /* ShowLineupList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DD4D128F0D82E00CEA1BD /* ShowLineupList.swift */; };
+		AB1A93832968DD0000A363B3 /* BandInviteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1A93822968DD0000A363B3 /* BandInviteTests.swift */; };
 		AB1ACE2D28E08F9E00B46C90 /* Instrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1ACE2C28E08F9E00B46C90 /* Instrument.swift */; };
 		AB1B559629200CD100571316 /* ProfileImageStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1B559529200CD100571316 /* ProfileImageStyle.swift */; };
 		AB1B559829202E8300571316 /* SmallIconStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1B559729202E8300571316 /* SmallIconStyle.swift */; };
 		AB1B559A29202FB500571316 /* ListIconStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1B559929202FB500571316 /* ListIconStyle.swift */; };
+		AB1CDD3E296A12BD008ACC48 /* ChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1CDD3D296A12BD008ACC48 /* ChatTests.swift */; };
 		AB24E3A628D7C9B0002B4F2C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24E3A528D7C9B0002B4F2C /* LoginView.swift */; };
 		AB24E3A828D7C9C4002B4F2C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24E3A728D7C9C4002B4F2C /* LoginViewModel.swift */; };
 		AB285AFA28F6F76200EB5F2B /* ShowTimeTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285AF928F6F76200EB5F2B /* ShowTimeTab.swift */; };
@@ -148,6 +150,7 @@
 		ABBEC0A62921D02800314BE5 /* BandSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBEC0A52921D02800314BE5 /* BandSettingsView.swift */; };
 		ABBEC0A82921D05600314BE5 /* BandSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBEC0A72921D05600314BE5 /* BandSettingsViewModel.swift */; };
 		ABC9932829665D0C00B553F4 /* SecurityRulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC9932729665D0C00B553F4 /* SecurityRulesTests.swift */; };
+		ABC9F412296919A6004DE24B /* BandMemberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC9F411296919A6004DE24B /* BandMemberTests.swift */; };
 		ABCAA9FF28E9E56C00685F91 /* BandProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAA9FE28E9E56C00685F91 /* BandProfileHeader.swift */; };
 		ABCAAA0228E9ED6C00685F91 /* BandLinkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAAA0128E9ED6C00685F91 /* BandLinkList.swift */; };
 		ABCC3D742965CC6E006CF074 /* TestingConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDBEC962927CF86004AB2C1 /* TestingConstants.swift */; };
@@ -165,6 +168,7 @@
 		ABD1D17128F30D3200791969 /* ShowType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1D17028F30D3200791969 /* ShowType.swift */; };
 		ABD323EF28E1180C00540B93 /* SendBandInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD323EE28E1180C00540B93 /* SendBandInviteView.swift */; };
 		ABD323F128E1181F00540B93 /* SendBandInviteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD323F028E1181F00540B93 /* SendBandInviteViewModel.swift */; };
+		ABD4BD1E2968695E00CCA88B /* BandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD4BD1D2968695E00CCA88B /* BandTests.swift */; };
 		ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D6F28D748FD0054269E /* NotificationsView.swift */; };
 		ABDC0D7228D74BFF0054269E /* OtherUserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D7128D74BFF0054269E /* OtherUserProfileViewModel.swift */; };
 		ABDC0D7428D75CC80054269E /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D7328D75CC80054269E /* AuthController.swift */; };
@@ -222,10 +226,12 @@
 		AB07AC3829047F1800E378C6 /* ElectricGuitarBacklineList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectricGuitarBacklineList.swift; sourceTree = "<group>"; };
 		AB07AC3A290486F200E378C6 /* BassGuitarBacklineList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BassGuitarBacklineList.swift; sourceTree = "<group>"; };
 		AB0DD4D128F0D82E00CEA1BD /* ShowLineupList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLineupList.swift; sourceTree = "<group>"; };
+		AB1A93822968DD0000A363B3 /* BandInviteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandInviteTests.swift; sourceTree = "<group>"; };
 		AB1ACE2C28E08F9E00B46C90 /* Instrument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instrument.swift; sourceTree = "<group>"; };
 		AB1B559529200CD100571316 /* ProfileImageStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageStyle.swift; sourceTree = "<group>"; };
 		AB1B559729202E8300571316 /* SmallIconStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallIconStyle.swift; sourceTree = "<group>"; };
 		AB1B559929202FB500571316 /* ListIconStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListIconStyle.swift; sourceTree = "<group>"; };
+		AB1CDD3D296A12BD008ACC48 /* ChatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTests.swift; sourceTree = "<group>"; };
 		AB24E3A528D7C9B0002B4F2C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		AB24E3A728D7C9C4002B4F2C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		AB285AF928F6F76200EB5F2B /* ShowTimeTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimeTab.swift; sourceTree = "<group>"; };
@@ -343,6 +349,7 @@
 		ABBEC0A52921D02800314BE5 /* BandSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSettingsView.swift; sourceTree = "<group>"; };
 		ABBEC0A72921D05600314BE5 /* BandSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSettingsViewModel.swift; sourceTree = "<group>"; };
 		ABC9932729665D0C00B553F4 /* SecurityRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityRulesTests.swift; sourceTree = "<group>"; };
+		ABC9F411296919A6004DE24B /* BandMemberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMemberTests.swift; sourceTree = "<group>"; };
 		ABCAA9FE28E9E56C00685F91 /* BandProfileHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BandProfileHeader.swift; sourceTree = "<group>"; };
 		ABCAAA0128E9ED6C00685F91 /* BandLinkList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLinkList.swift; sourceTree = "<group>"; };
 		ABCD5F61291B541F00E33934 /* BandShowsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandShowsTab.swift; sourceTree = "<group>"; };
@@ -359,6 +366,7 @@
 		ABD1D17028F30D3200791969 /* ShowType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowType.swift; sourceTree = "<group>"; };
 		ABD323EE28E1180C00540B93 /* SendBandInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendBandInviteView.swift; sourceTree = "<group>"; };
 		ABD323F028E1181F00540B93 /* SendBandInviteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendBandInviteViewModel.swift; sourceTree = "<group>"; };
+		ABD4BD1D2968695E00CCA88B /* BandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandTests.swift; sourceTree = "<group>"; };
 		ABDBEC962927CF86004AB2C1 /* TestingConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingConstants.swift; sourceTree = "<group>"; };
 		ABDC0D6F28D748FD0054269E /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		ABDC0D7128D74BFF0054269E /* OtherUserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserProfileViewModel.swift; sourceTree = "<group>"; };
@@ -1001,9 +1009,21 @@
 			path = SendBandInviteView;
 			sourceTree = "<group>";
 		};
+		ABD4BD1C2968690800CCA88B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				ABD4BD1D2968695E00CCA88B /* BandTests.swift */,
+				AB1A93822968DD0000A363B3 /* BandInviteTests.swift */,
+				ABC9F411296919A6004DE24B /* BandMemberTests.swift */,
+				AB1CDD3D296A12BD008ACC48 /* ChatTests.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		ABDBEC932927CF6A004AB2C1 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				ABD4BD1C2968690800CCA88B /* Model */,
 				AB4BF6BE2965B65F0007A33B /* Firebase */,
 			);
 			path = Tests;
@@ -1464,7 +1484,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABC9932829665D0C00B553F4 /* SecurityRulesTests.swift in Sources */,
+				AB1A93832968DD0000A363B3 /* BandInviteTests.swift in Sources */,
+				ABC9F412296919A6004DE24B /* BandMemberTests.swift in Sources */,
 				ABCC3D742965CC6E006CF074 /* TestingConstants.swift in Sources */,
+				ABD4BD1E2968695E00CCA88B /* BandTests.swift in Sources */,
+				AB1CDD3E296A12BD008ACC48 /* ChatTests.swift in Sources */,
 				AB4BF6C02965B6AD0007A33B /* FirebaseEmulatorDataTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

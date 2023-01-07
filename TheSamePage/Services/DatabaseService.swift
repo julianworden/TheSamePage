@@ -125,7 +125,7 @@ class DatabaseService: NSObject {
             
             for document in query.documents {
                 if let bandInvite = try? document.data(as: BandInvite.self) {
-                    let anyUserNotification = AnyUserNotification(id: bandInvite.id!, notification: bandInvite)
+                    let anyUserNotification = AnyUserNotification(id: bandInvite.id, notification: bandInvite)
                     anyUserNotifications.append(anyUserNotification)
                 } else if let showInvite = try? document.data(as: ShowInvite.self) {
                     let anyUserNotification = AnyUserNotification(id: showInvite.id!, notification: showInvite)
@@ -391,11 +391,12 @@ class DatabaseService: NSObject {
         withBandInvite bandInvite: BandInvite?
     ) async throws {
         do {
-            _ = try db
+            let bandMemberDocument = try db
                 .collection(FbConstants.bands)
                 .document(band.id)
                 .collection(FbConstants.members)
                 .addDocument(from: bandMember)
+            try await bandMemberDocument.updateData([FbConstants.id: bandMemberDocument.documentID])
             
             try await db
                 .collection(FbConstants.bands)
@@ -474,13 +475,14 @@ class DatabaseService: NSObject {
     /// Sends an invitation to a user to join a band. Uploads a BandInvite object to the specified user's bandInvites collection in
     /// Firestore.
     /// - Parameter invite: The BandInvite that is being sent.
-    func sendBandInvite(invite: BandInvite) throws {
+    func sendBandInvite(invite: BandInvite) async throws {
         do {
-            _ = try db
+            let bandInviteDocument = try db
                 .collection(FbConstants.users)
                 .document(invite.recipientUid)
                 .collection(FbConstants.notifications)
                 .addDocument(from: invite)
+            try await bandInviteDocument.updateData([FbConstants.id: bandInviteDocument.documentID])
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to send band invite",
@@ -492,20 +494,18 @@ class DatabaseService: NSObject {
     /// Deletes a band invite from the logged in user's bandInvites Firestore collection.
     /// - Parameter bandInvite: The band invite to be deleted.
     func deleteBandInvite(bandInvite: BandInvite) async throws {
-        if let bandInviteId = bandInvite.id {
-            do {
-                try await db
-                    .collection(FbConstants.users)
-                    .document(AuthController.getLoggedInUid())
-                    .collection(FbConstants.notifications)
-                    .document(bandInviteId)
-                    .delete()
-            } catch {
-                throw FirebaseError.connection(
-                    message: "Failed to delete band invite from notifications list",
-                    systemError: error.localizedDescription
-                )
-            }
+        do {
+            try await db
+                .collection(FbConstants.users)
+                .document(AuthController.getLoggedInUid())
+                .collection(FbConstants.notifications)
+                .document(bandInvite.id)
+                .delete()
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to delete band invite from notifications list",
+                systemError: error.localizedDescription
+            )
         }
     }
     

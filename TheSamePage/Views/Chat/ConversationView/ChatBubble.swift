@@ -41,7 +41,7 @@ struct ChatBubble: View {
                 VStack(alignment: senderIsLoggedInUser ? .trailing : .leading) {
                     Text(chatMessage.text)
                         
-                    Text(chatMessage.sentTimestampAsDate.timeAndDate)
+                    Text(chatMessage.sentUnixDateAsDate.timeAndDate)
                         .font(.caption2)
                 }
                 .foregroundColor(.white)

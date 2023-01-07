@@ -77,6 +77,31 @@ class TestingDatabaseService {
         }
     }
 
+    func getBandInvite(get bandInvite: BandInvite, for user: User) async throws -> BandInvite {
+        return try await db
+            .collection(FbConstants.users)
+            .document(user.id)
+            .collection(FbConstants.notifications)
+            .document(bandInvite.id)
+            .getDocument(as: BandInvite.self)
+    }
+
+    func getBandMember(get bandMember: BandMember, in band: Band) async throws -> BandMember {
+        return try await db
+            .collection(FbConstants.bands)
+            .document(band.id)
+            .collection(FbConstants.members)
+            .document(bandMember.id)
+            .getDocument(as: BandMember.self)
+    }
+
+    func getChat(_ chat: Chat) async throws -> Chat {
+        return try await db
+            .collection(FbConstants.chats)
+            .document(chat.id)
+            .getDocument(as: Chat.self)
+    }
+
     // MARK: - Firebase Storage
 
     func getDownloadLinkForUserProfileImage(_ user: User) async throws -> String {
@@ -119,9 +144,36 @@ class TestingDatabaseService {
 
     // MARK: - Firebase Auth
 
-    @discardableResult func logInToTestAccount() async throws -> FirebaseAuth.User? {
+    @discardableResult func logInToJulianAccount() async throws -> FirebaseAuth.User? {
         do {
             let result = try await Auth.auth().signIn(withEmail: "julianworden@gmail.com", password: "dynomite")
+            return result.user
+        } catch {
+            return nil
+        }
+    }
+
+    @discardableResult func logInToLouAccount() async throws -> FirebaseAuth.User? {
+        do {
+            let result = try await Auth.auth().signIn(withEmail: "lousabba@gmail.com", password: "dynomite")
+            return result.user
+        } catch {
+            return nil
+        }
+    }
+
+    @discardableResult func logInToEricAccount() async throws -> FirebaseAuth.User? {
+        do {
+            let result = try await Auth.auth().signIn(withEmail: "ericpalermo@gmail.com", password: "dynomite")
+            return result.user
+        } catch {
+            return nil
+        }
+    }
+
+    @discardableResult func logInToMikeAccount() async throws -> FirebaseAuth.User? {
+        do {
+            let result = try await Auth.auth().signIn(withEmail: "mikeflorentine@gmail.com", password: "dynomite")
             return result.user
         } catch {
             return nil
@@ -132,7 +184,7 @@ class TestingDatabaseService {
         return Auth.auth().currentUser
     }
 
-    func logOutOfTestAccount() throws {
+    func logOut() throws {
         try Auth.auth().signOut()
     }
 

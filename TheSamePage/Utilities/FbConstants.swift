@@ -9,6 +9,7 @@ import Foundation
 
 /// Names of various Firestore collections and fields.
 struct FbConstants {
+    static let id = "id"
     static let bands = "bands"
     static let shows = "shows"
     static let users = "users"

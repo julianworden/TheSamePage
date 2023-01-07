@@ -8,7 +8,6 @@
 @testable import TheSamePage
 
 import FirebaseFirestore
-import FirebaseStorage
 import XCTest
 
 final class SecurityRulesTests: XCTestCase {
@@ -24,8 +23,8 @@ final class SecurityRulesTests: XCTestCase {
 
     func test_WhenLoggedOut_ReadingFirestoreDataIsNotPossible() async throws {
         do {
-            XCTAssertNoThrow(try testingDatabaseService.logOutOfTestAccount(), "If this call throws, it'll skew the result of the test")
-            _ = try await testingDatabaseService.getShow(TestingConstants.exampleShowInEmulator)
+            XCTAssertNoThrow(try testingDatabaseService.logOut(), "If this call throws, it'll skew the result of the test")
+            _ = try await testingDatabaseService.getShow(TestingConstants.exampleShowDumpweedExtravaganza)
 
             XCTFail("The read should not have been successful because the user was logged out")
         } catch FirestoreErrorCode.permissionDenied {
@@ -37,8 +36,8 @@ final class SecurityRulesTests: XCTestCase {
 
     func test_WhenLoggedOut_ReadingFirebaseStorageDataIsNotPossible() async throws {
         do {
-            XCTAssertNoThrow(try testingDatabaseService.logOutOfTestAccount(), "If this call throws, it'll skew the result of the test")
-            _ = try await testingDatabaseService.getDownloadLinkForUserProfileImage(TestingConstants.exampleUserInEmulator)
+            XCTAssertNoThrow(try testingDatabaseService.logOut(), "If this call throws, it'll skew the result of the test")
+            _ = try await testingDatabaseService.getDownloadLinkForUserProfileImage(TestingConstants.exampleUserJulian)
 
             XCTFail("The read should've failed because the user was signed out")
         } catch {

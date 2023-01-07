@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Chat: Codable, Identifiable {
+struct Chat: Codable, Equatable, Identifiable {
     var id: String
     /// The ID of the show that the chat belongs to. This is optional because it will
     /// make it easier to add chatting for all users at a later time.
@@ -17,7 +17,14 @@ struct Chat: Codable, Identifiable {
     let participantUids: [String]
     let participantFcmTokens: [String]
     
-    init(id: String, showId: String? = nil, userId: String? = nil, name: String? = nil, participantUids: [String], participantFcmTokens: [String]) {
+    init(
+        id: String,
+        showId: String? = nil,
+        userId: String? = nil,
+        name: String? = nil,
+        participantUids: [String],
+        participantFcmTokens: [String] = []
+    ) {
         self.id = id
         self.showId = showId
         self.userId = userId
@@ -29,7 +36,7 @@ struct Chat: Codable, Identifiable {
     /// A convenience property for filtering the logged in user's UID out of the
     /// participantUids array. This will make it easier to refer to the chat's
     /// participants without also referring to the logged in user.
-    var participantUidsWithoutSenderUid: [String] {
+    var participantUidsWithoutLoggedInUser: [String] {
         var filteredParticipantUids = [String]()
         filteredParticipantUids = participantUids.filter { $0 != AuthController.getLoggedInUid() }
         return filteredParticipantUids

@@ -24,7 +24,7 @@ struct SendBandInviteView: View {
             case .dataLoading:
                 ProgressView()
                 
-            case .dataLoaded:
+            case .dataLoaded, .workCompleted, .performingWork:
                 Form {
                     Picker("Which band would you like to invite \(viewModel.user.firstName) to?", selection: $viewModel.selectedBand) {
                         ForEach(viewModel.userBands) { band in
@@ -46,13 +46,6 @@ struct SendBandInviteView: View {
                     }
                     .disabled(viewModel.sendBandInviteButtonIsDisabled)
                 }
-                .navigationTitle("Send Band Invite")
-                .navigationBarTitleDisplayMode(.inline)
-                .onChange(of: viewModel.bandInviteSentSuccessfully) { bandInviteSentSuccessfully in
-                    if bandInviteSentSuccessfully {
-                        dismiss()
-                    }
-                }
                 
             case .dataNotFound:
                 NoDataFoundMessage(message: "You are not the admin for any bands. You can only invite others to join your band if you are the band admin.")
@@ -61,13 +54,20 @@ struct SendBandInviteView: View {
                 EmptyView()
                 
             default:
-                ErrorMessage(message: "Unknown viewState set")
+                ErrorMessage(message: "Unknown viewState set: \(viewModel.viewState)")
             }
         }
+        .navigationTitle("Send Band Invite")
+        .navigationBarTitleDisplayMode(.inline)
         .errorAlert(
             isPresented: $viewModel.errorAlertIsShowing,
             message: viewModel.errorAlertText
         )
+        .onChange(of: viewModel.bandInviteSentSuccessfully) { bandInviteSentSuccessfully in
+            if bandInviteSentSuccessfully {
+                dismiss()
+            }
+        }
     }
 }
 

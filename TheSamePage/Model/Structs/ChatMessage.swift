@@ -16,13 +16,19 @@ struct ChatMessage: Codable, Identifiable {
     let sentTimestamp: Double
     let recipientFcmTokens: [String]
     
-    static let example = ChatMessage(text: "Hello, how is everyone?", senderUid: "a;weifawhj;lefahjwef", senderFullName: "Julian Worden", sentTimestamp: 3636363636, recipientFcmTokens: ["a;slkdfja;sldf", "al;wifhwurte"])
+    static let example = ChatMessage(
+        text: "Hello, how is everyone?",
+        senderUid: "a;weifawhj;lefahjwef",
+        senderFullName: "Julian Worden",
+        sentTimestamp: 3636363636,
+        recipientFcmTokens: ["a;slkdfja;sldf", "al;wifhwurte"]
+    )
     
     var senderIsLoggedInUser: Bool {
         return senderUid == AuthController.getLoggedInUid()
     }
     
-    var sentTimestampAsDate: Date {
+    var sentUnixDateAsDate: Date {
         return Date(timeIntervalSince1970: sentTimestamp)
     }
 }

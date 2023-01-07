@@ -53,7 +53,7 @@ struct OtherUserProfileView: View {
                 EmptyView()
                 
             default:
-                ErrorMessage(message: "Invalid viewState")
+                ErrorMessage(message: "Invalid viewState: \(viewModel.viewState)")
             }
         }
         .navigationBarTitleDisplayMode(.inline)
