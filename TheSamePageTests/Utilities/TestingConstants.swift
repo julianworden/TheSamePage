@@ -93,19 +93,19 @@ struct TestingConstants {
     static let exampleBandMemberJulian = BandMember(
         id: "JcNG3facFtTva2scVKDZ",
         dateJoined: 1673073450,
-        uid: "qvJ5tmKpih3mFkUCet5CPREg3qjZ",
+        uid: exampleUserJulian.id,
         role: "Vocals",
-        username: "julianworden",
-        fullName: "Julian Worden"
+        username: exampleUserJulian.username,
+        fullName: exampleUserJulian.fullName
     )
 
     static let exampleBandMemberLou = BandMember(
         id: "KgjxDt61nxsNMR4PSvdO",
         dateJoined: 1673073450,
-        uid: "CsXJnPfi5ZT9jr2uQUsO4jz040Et",
+        uid: exampleUserLou.id,
         role: "Guitar",
-        username: "lousabba",
-        fullName: "Lou Sabba"
+        username: exampleUserLou.username,
+        fullName: exampleUserLou.fullName
     )
 
     static let exampleBandMemberEric = BandMember(
@@ -125,9 +125,9 @@ struct TestingConstants {
         name: "Dumpweed Extravaganza",
         description: "A dank banger! Hop on the bill I freakin’ swear you won’t regret it! Like, it's gonna be the show of the absolute century, bro!",
         host: "DAA Entertainment",
-        hostUid: "qvJ5tmKpih3mFkUCet5CPREg3qjZ",
-        bandIds: [],
-        participantUids: [],
+        hostUid: exampleUserJulian.id,
+        bandIds: [exampleBandPatheticFallacy.id, exampleBandDumpweed.id],
+        participantUids: [exampleUserJulian.id, exampleUserLou.id, exampleUserEric.id],
         venue: "Starland Ballroom",
         date: 1668782049.620614,
         loadInTime: nil,
@@ -149,7 +149,7 @@ struct TestingConstants {
         hasFood: true,
         hasBar: true,
         is21Plus: true,
-        genre: "Rock",
+        genre: Genre.rock.rawValue,
         maxNumberOfBands: 2
     )
 
@@ -160,11 +160,11 @@ struct TestingConstants {
         id: "I8jPC6U14IolWMSc8Ivp",
         dateSent: 1673073450,
         notificationType: NotificationType.bandInvite.rawValue,
-        recipientUid: "FNl8cxPCoELjL8WsxRfliNP0Lmhq",
+        recipientUid: exampleUserTas.id,
         recipientRole: "Drums",
-        bandId: "C7ZbA7gaeQ7Lk1Kid9QC",
-        senderUsername: "julianworden",
-        senderBand: "Pathetic Fallacy",
+        bandId: exampleBandPatheticFallacy.id,
+        senderUsername: exampleUserJulian.username,
+        senderBand: exampleBandPatheticFallacy.name,
         message: "julianworden is inviting you to join Pathetic Fallacy"
     )
 
@@ -173,7 +173,25 @@ struct TestingConstants {
     static let exampleChatDumpweedExtravaganza = Chat(
         id: "cpS2HseZT6XIG1qMRAKL",
         showId: exampleShowDumpweedExtravaganza.id,
-        name: "Dumpweed Extravaganza",
+        name: exampleShowDumpweedExtravaganza.name,
         participantUids: [exampleUserJulian.id, exampleUserLou.id, exampleUserEric.id]
+    )
+
+    // MARK: - Example ChatMessages
+
+    static let exampleChatMessageJulian = ChatMessage(
+        id: "qlzBxkm79HpuzZfaRhEl",
+        text: "Hey, it's Julian!",
+        senderUid: exampleUserJulian.id,
+        senderFullName: exampleUserJulian.fullName,
+        sentTimestamp: 1673187671.7910519
+    )
+
+    static let exampleChatMessageEric = ChatMessage(
+        id: "5ZYl0FjPf6fEHIAtnLjX",
+        text: "Hey, it's Eric!",
+        senderUid: exampleUserEric.id,
+        senderFullName: exampleUserEric.fullName,
+        sentTimestamp: 1673187671.7910519
     )
 }

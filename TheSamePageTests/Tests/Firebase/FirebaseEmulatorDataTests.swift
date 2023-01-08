@@ -25,111 +25,117 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     // MARK: - Firestore Example Shows
 
     func test_OnInit_ExampleShowInFirestoreEmulatorHasExpectedValues() async throws {
-        let exampleShow = try await testingDatabaseService.getShow(TestingConstants.exampleShowDumpweedExtravaganza)
+        let exampleShowInEmulator = try await testingDatabaseService.getShow(TestingConstants.exampleShowDumpweedExtravaganza)
+        let exampleShowInTestingConstants = TestingConstants.exampleShowDumpweedExtravaganza
 
-        XCTAssertEqual(exampleShow.address, "570 Jernee Mill Rd, Sayreville, NJ 08872")
-        XCTAssertEqual(exampleShow.city, "Sayreville")
-        XCTAssertEqual(exampleShow.date, 1668782049.620614)
-        XCTAssertEqual(exampleShow.description, "A dank banger! Hop on the bill I freakin’ swear you won’t regret it! Like, it's gonna be the show of the absolute century, bro!")
-        XCTAssertEqual(exampleShow.genre, "Rock")
-        XCTAssertEqual(exampleShow.host, "DAA Entertainment")
-        XCTAssertEqual(exampleShow.hostUid, "qvJ5tmKpih3mFkUCet5CPREg3qjZ")
-        XCTAssertEqual(exampleShow.id, "Kk1NYjptTJITr0pjfVbe")
-        XCTAssertEqual(exampleShow.imageUrl, "http://localhost:9199/v0/b/the-same-page-9c69e.appspot.com/o/images%2F24088E5A-F780-49FF-A2B2-ED841D40AF1C.jpg?alt=media&token=2199fdad-0868-4f75-b005-794933e5b9c3")
-        XCTAssertEqual(exampleShow.latitude, 40.4404902)
-        XCTAssertEqual(exampleShow.longitude, -74.355283)
-        XCTAssertEqual(exampleShow.maxNumberOfBands, 2)
-        XCTAssertEqual(exampleShow.minimumRequiredTicketsSold, 20)
-        XCTAssertEqual(exampleShow.name, "Dumpweed Extravaganza")
-        XCTAssertEqual(exampleShow.state, "NJ")
-        XCTAssertEqual(exampleShow.ticketPrice, 100)
-        XCTAssertEqual(exampleShow.typesenseCoordinates, [exampleShow.latitude, exampleShow.longitude])
-        XCTAssertEqual(exampleShow.venue, "Starland Ballroom")
-        XCTAssertTrue(exampleShow.addressIsPrivate)
-        XCTAssertTrue(exampleShow.bandIds.isEmpty)
-        XCTAssertTrue(exampleShow.hasBar)
-        XCTAssertTrue(exampleShow.hasFood)
-        XCTAssertTrue(exampleShow.is21Plus)
-        XCTAssertFalse(exampleShow.isFree)
-        XCTAssertTrue(exampleShow.participantUids.isEmpty)
-        XCTAssertTrue(exampleShow.ticketSalesAreRequired)
-        XCTAssertNil(exampleShow.loadInTime)
-        XCTAssertNil(exampleShow.doorsTime)
-        XCTAssertNil(exampleShow.musicStartTime)
-        XCTAssertNil(exampleShow.endTime)
+        XCTAssertEqual(exampleShowInEmulator.address, exampleShowInTestingConstants.address)
+        XCTAssertEqual(exampleShowInEmulator.city, exampleShowInTestingConstants.city)
+        XCTAssertEqual(exampleShowInEmulator.date, exampleShowInTestingConstants.date)
+        XCTAssertEqual(exampleShowInEmulator.description, exampleShowInTestingConstants.description)
+        XCTAssertEqual(exampleShowInEmulator.genre, exampleShowInTestingConstants.genre)
+        XCTAssertEqual(exampleShowInEmulator.host, exampleShowInTestingConstants.host)
+        XCTAssertEqual(exampleShowInEmulator.hostUid, exampleShowInTestingConstants.hostUid)
+        XCTAssertEqual(exampleShowInEmulator.id, exampleShowInTestingConstants.id)
+        XCTAssertEqual(exampleShowInEmulator.imageUrl, exampleShowInTestingConstants.imageUrl)
+        XCTAssertEqual(exampleShowInEmulator.latitude, exampleShowInTestingConstants.latitude)
+        XCTAssertEqual(exampleShowInEmulator.longitude, exampleShowInTestingConstants.longitude)
+        XCTAssertEqual(exampleShowInEmulator.maxNumberOfBands, exampleShowInTestingConstants.maxNumberOfBands)
+        XCTAssertEqual(exampleShowInEmulator.minimumRequiredTicketsSold, exampleShowInTestingConstants.minimumRequiredTicketsSold)
+        XCTAssertEqual(exampleShowInEmulator.name, exampleShowInTestingConstants.name)
+        XCTAssertEqual(exampleShowInEmulator.state, exampleShowInTestingConstants.state)
+        XCTAssertEqual(exampleShowInEmulator.ticketPrice, exampleShowInTestingConstants.ticketPrice)
+        XCTAssertEqual(exampleShowInEmulator.typesenseCoordinates, exampleShowInTestingConstants.typesenseCoordinates)
+        XCTAssertEqual(exampleShowInEmulator.venue, exampleShowInTestingConstants.venue)
+        XCTAssertEqual(exampleShowInEmulator.addressIsPrivate, exampleShowInTestingConstants.addressIsPrivate)
+        XCTAssertEqual(exampleShowInEmulator.bandIds, exampleShowInTestingConstants.bandIds)
+        XCTAssertEqual(exampleShowInEmulator.hasBar, exampleShowInTestingConstants.hasBar)
+        XCTAssertEqual(exampleShowInEmulator.hasFood, exampleShowInTestingConstants.hasFood)
+        XCTAssertEqual(exampleShowInEmulator.is21Plus, exampleShowInTestingConstants.is21Plus)
+        XCTAssertEqual(exampleShowInEmulator.isFree, exampleShowInTestingConstants.isFree)
+        XCTAssertEqual(exampleShowInEmulator.participantUids, exampleShowInTestingConstants.participantUids)
+        XCTAssertEqual(exampleShowInEmulator.ticketSalesAreRequired, exampleShowInTestingConstants.ticketSalesAreRequired)
+        XCTAssertEqual(exampleShowInEmulator.loadInTime, exampleShowInTestingConstants.loadInTime)
+        XCTAssertEqual(exampleShowInEmulator.doorsTime, exampleShowInTestingConstants.doorsTime)
+        XCTAssertEqual(exampleShowInEmulator.musicStartTime, exampleShowInTestingConstants.musicStartTime)
+        XCTAssertEqual(exampleShowInEmulator.endTime, exampleShowInTestingConstants.endTime)
     }
     
     func test_OnInit_ExampleShowInFirestoreEmulatorMatchesExampleShowInTestingConstants() async throws {
         let exampleShow = try await testingDatabaseService.getShow(TestingConstants.exampleShowDumpweedExtravaganza)
 
-        XCTAssertEqual(exampleShow, TestingConstants.exampleShowDumpweedExtravaganza, "The example show should already exist in the emulator")
+        XCTAssertEqual(exampleShow, TestingConstants.exampleShowDumpweedExtravaganza)
     }
 
     // MARK: - Firestore Example Users
 
     func test_OnInit_ExampleUserJulianInFirestoreEmulatorHasExpectedValues() async throws {
-        let julian = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserJulian)
+        let julianInEmulator = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserJulian)
+        let julianInTestingConstants = TestingConstants.exampleUserJulian
 
-        XCTAssertEqual(julian.id, "qvJ5tmKpih3mFkUCet5CPREg3qjZ")
-        XCTAssertEqual(julian.firstName, "Julian")
-        XCTAssertEqual(julian.lastName, "Worden")
-        XCTAssertEqual(julian.profileImageUrl, "http://127.0.0.1:9199/v0/b/the-same-page-9c69e.appspot.com/o/JMTech%20Profile%20Pic.jpeg?alt=media&token=511ccc65-8205-4d13-9802-74af76e42098")
-        XCTAssertEqual(julian.username, "julianworden")
-        XCTAssertEqual(julian.emailAddress, "julianworden@gmail.com")
-        XCTAssertNil(julian.fcmToken)
-        XCTAssertNil(julian.phoneNumber)
+        XCTAssertEqual(julianInEmulator.id, julianInTestingConstants.id)
+        XCTAssertEqual(julianInEmulator.firstName, julianInTestingConstants.firstName)
+        XCTAssertEqual(julianInEmulator.lastName, julianInTestingConstants.lastName)
+        XCTAssertEqual(julianInEmulator.profileImageUrl, julianInTestingConstants.profileImageUrl)
+        XCTAssertEqual(julianInEmulator.username, julianInTestingConstants.username)
+        XCTAssertEqual(julianInEmulator.emailAddress, julianInTestingConstants.emailAddress)
+        XCTAssertEqual(julianInEmulator.fcmToken, julianInTestingConstants.fcmToken)
+        XCTAssertEqual(julianInEmulator.phoneNumber, julianInTestingConstants.phoneNumber)
     }
 
     func test_OnInit_ExampleUserLouInFirestoreEmulatorHasExpectedValues() async throws {
-        let lou = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserLou)
+        let louInEmulator = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserLou)
+        let louInTestingConstants = TestingConstants.exampleUserLou
 
-        XCTAssertEqual(lou.id, "CsXJnPfi5ZT9jr2uQUsO4jz040Et")
-        XCTAssertEqual(lou.firstName, "Lou")
-        XCTAssertEqual(lou.lastName, "Sabba")
-        XCTAssertNil(lou.profileImageUrl)
-        XCTAssertEqual(lou.username, "lousabba")
-        XCTAssertEqual(lou.emailAddress, "lousabba@gmail.com")
-        XCTAssertNil(lou.fcmToken)
-        XCTAssertNil(lou.phoneNumber)
+        XCTAssertEqual(louInEmulator.id, louInTestingConstants.id)
+        XCTAssertEqual(louInEmulator.firstName, louInTestingConstants.firstName)
+        XCTAssertEqual(louInEmulator.lastName, louInTestingConstants.lastName)
+        XCTAssertEqual(louInEmulator.profileImageUrl, louInTestingConstants.profileImageUrl)
+        XCTAssertEqual(louInEmulator.username, louInTestingConstants.username)
+        XCTAssertEqual(louInEmulator.emailAddress, louInTestingConstants.emailAddress)
+        XCTAssertEqual(louInEmulator.fcmToken, louInTestingConstants.fcmToken)
+        XCTAssertEqual(louInEmulator.phoneNumber, louInTestingConstants.phoneNumber)
     }
 
     func test_OnInit_ExampleUserTasInFirestoreEmulatorHasExpectedValues() async throws {
-        let tas = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserTas)
+        let tasInEmulator = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserTas)
+        let tasInTestingConstants = TestingConstants.exampleUserTas
 
-        XCTAssertEqual(tas.id, "FNl8cxPCoELjL8WsxRfliNP0Lmhq")
-        XCTAssertEqual(tas.firstName, "Tas")
-        XCTAssertEqual(tas.lastName, "Cioppa")
-        XCTAssertNil(tas.profileImageUrl)
-        XCTAssertEqual(tas.username, "tascioppa")
-        XCTAssertEqual(tas.emailAddress, "tascioppa@gmail.com")
-        XCTAssertNil(tas.fcmToken)
-        XCTAssertNil(tas.phoneNumber)
+        XCTAssertEqual(tasInEmulator.id, tasInTestingConstants.id)
+        XCTAssertEqual(tasInEmulator.firstName, tasInTestingConstants.firstName)
+        XCTAssertEqual(tasInEmulator.lastName, tasInTestingConstants.lastName)
+        XCTAssertEqual(tasInEmulator.profileImageUrl, tasInTestingConstants.profileImageUrl)
+        XCTAssertEqual(tasInEmulator.username, tasInTestingConstants.username)
+        XCTAssertEqual(tasInEmulator.emailAddress, tasInTestingConstants.emailAddress)
+        XCTAssertEqual(tasInEmulator.fcmToken, tasInTestingConstants.fcmToken)
+        XCTAssertEqual(tasInEmulator.phoneNumber, tasInTestingConstants.phoneNumber)
     }
 
     func test_OnInit_ExampleUserEricInFirestoreEmulatorHasExpectedValues() async throws {
-        let eric = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserEric)
+        let ericInEmulator = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserEric)
+        let ericInTestingConstants = TestingConstants.exampleUserEric
 
-        XCTAssertEqual(eric.id, "K4rrOL8effR2ULYb3dDN5eMlXvWn")
-        XCTAssertEqual(eric.firstName, "Eric")
-        XCTAssertEqual(eric.lastName, "Palermo")
-        XCTAssertNil(eric.profileImageUrl)
-        XCTAssertEqual(eric.username, "ericpalermo")
-        XCTAssertEqual(eric.emailAddress, "ericpalermo@gmail.com")
-        XCTAssertNil(eric.fcmToken)
-        XCTAssertNil(eric.phoneNumber)
+        XCTAssertEqual(ericInEmulator.id, ericInTestingConstants.id)
+        XCTAssertEqual(ericInEmulator.firstName, ericInTestingConstants.firstName)
+        XCTAssertEqual(ericInEmulator.lastName, ericInTestingConstants.lastName)
+        XCTAssertEqual(ericInEmulator.profileImageUrl, ericInTestingConstants.profileImageUrl)
+        XCTAssertEqual(ericInEmulator.username, ericInTestingConstants.username)
+        XCTAssertEqual(ericInEmulator.emailAddress, ericInTestingConstants.emailAddress)
+        XCTAssertEqual(ericInEmulator.fcmToken, ericInTestingConstants.fcmToken)
+        XCTAssertEqual(ericInEmulator.phoneNumber, ericInTestingConstants.phoneNumber)
     }
 
     func test_OnInit_ExampleUserMikeInFirestoreEmulatorHasExpectedValues() async throws {
-        let mike = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserMike)
+        let mikeInEmulator = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserMike)
+        let mikeInTestingConstants = TestingConstants.exampleUserMike
 
-        XCTAssertEqual(mike.id, "0b5ozNAbBQ1ObJXNRCHDB4OjGzwi")
-        XCTAssertEqual(mike.firstName, "Mike")
-        XCTAssertEqual(mike.lastName, "Florentine")
-        XCTAssertNil(mike.profileImageUrl)
-        XCTAssertEqual(mike.username, "mikeflorentine")
-        XCTAssertEqual(mike.emailAddress, "mikeflorentine@gmail.com")
-        XCTAssertNil(mike.fcmToken)
-        XCTAssertNil(mike.phoneNumber)
+        XCTAssertEqual(mikeInEmulator.id, mikeInTestingConstants.id)
+        XCTAssertEqual(mikeInEmulator.firstName, mikeInTestingConstants.firstName)
+        XCTAssertEqual(mikeInEmulator.lastName, mikeInTestingConstants.lastName)
+        XCTAssertEqual(mikeInEmulator.profileImageUrl, mikeInTestingConstants.profileImageUrl)
+        XCTAssertEqual(mikeInEmulator.username, mikeInTestingConstants.username)
+        XCTAssertEqual(mikeInEmulator.emailAddress, mikeInTestingConstants.emailAddress)
+        XCTAssertEqual(mikeInEmulator.fcmToken, mikeInTestingConstants.fcmToken)
+        XCTAssertEqual(mikeInEmulator.phoneNumber, mikeInTestingConstants.phoneNumber)
     }
 
     func test_OnInit_ExampleUsersInFirestoreEmulatorMatchTestingConstants() async throws {
@@ -139,69 +145,71 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         let tasInEmulator = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserTas)
         let mikeInEmulator = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserMike)
 
-        XCTAssertEqual(julianInEmulator, TestingConstants.exampleUserJulian, "The TestingConstants and Firestore Emulator do not match")
-        XCTAssertEqual(ericInEmulator, TestingConstants.exampleUserEric, "The TestingConstants and Firestore Emulator do not match")
-        XCTAssertEqual(louInEmulator, TestingConstants.exampleUserLou, "The TestingConstants and Firestore Emulator do not match")
-        XCTAssertEqual(tasInEmulator, TestingConstants.exampleUserTas, "The TestingConstants and Firestore Emulator do not match")
-        XCTAssertEqual(mikeInEmulator, TestingConstants.exampleUserMike, "The TestingConstants and Firestore Emulator do not match")
-    }
-
-    func test_OnInit_ExampleUserEricInFirestoreEmulatorMatchesTestingConstants() async throws {
-
+        XCTAssertEqual(julianInEmulator, TestingConstants.exampleUserJulian)
+        XCTAssertEqual(ericInEmulator, TestingConstants.exampleUserEric)
+        XCTAssertEqual(louInEmulator, TestingConstants.exampleUserLou)
+        XCTAssertEqual(tasInEmulator, TestingConstants.exampleUserTas)
+        XCTAssertEqual(mikeInEmulator, TestingConstants.exampleUserMike)
     }
 
     // MARK: - Firestore Example Bands
 
     func test_OnInit_ExampleBandPatheticFallacyInFirestoreEmulatorHasExpectedValues() async throws {
-        let patheticFallacy = try await testingDatabaseService.getBand(TestingConstants.exampleBandPatheticFallacy)
+        let patheticFallacyInEmulator = try await testingDatabaseService.getBand(TestingConstants.exampleBandPatheticFallacy)
+        let patheticFallacyInTestingConstants = TestingConstants.exampleBandPatheticFallacy
 
-        XCTAssertEqual(patheticFallacy.adminUid, TestingConstants.exampleUserJulian.id)
-        XCTAssertEqual(patheticFallacy.bio, "We're a metal core band from central New Jersey!")
-        XCTAssertEqual(patheticFallacy.city, "Neptune")
-        XCTAssertEqual(patheticFallacy.genre, Genre.metalcore.rawValue)
-        XCTAssertEqual(patheticFallacy.id, "C7ZbA7gaeQ7Lk1Kid9QC")
-        XCTAssertTrue(patheticFallacy.memberFcmTokens.isEmpty)
-        XCTAssertEqual(patheticFallacy.memberUids, [TestingConstants.exampleUserJulian.id, TestingConstants.exampleUserLou.id])
-        XCTAssertEqual(patheticFallacy.name, "Pathetic Fallacy")
-        XCTAssertEqual(patheticFallacy.state, BandState.NJ.rawValue)
+        XCTAssertEqual(patheticFallacyInEmulator.adminUid, TestingConstants.exampleUserJulian.id)
+        XCTAssertEqual(patheticFallacyInEmulator.bio, patheticFallacyInTestingConstants.bio)
+        XCTAssertEqual(patheticFallacyInEmulator.city, patheticFallacyInTestingConstants.city)
+        XCTAssertEqual(patheticFallacyInEmulator.genre, patheticFallacyInTestingConstants.genre)
+        XCTAssertEqual(patheticFallacyInEmulator.id, patheticFallacyInTestingConstants.id)
+        XCTAssertEqual(patheticFallacyInEmulator.memberFcmTokens, patheticFallacyInTestingConstants.memberFcmTokens)
+        XCTAssertEqual(patheticFallacyInEmulator.memberUids, patheticFallacyInTestingConstants.memberUids)
+        XCTAssertEqual(patheticFallacyInEmulator.name, patheticFallacyInTestingConstants.name)
+        XCTAssertEqual(patheticFallacyInEmulator.state, patheticFallacyInTestingConstants.state)
     }
 
     func test_OnInit_ExampleBandDumpweedInFirestoreEmulatorHasExpectedValues() async throws {
-        let dumpweed = try await testingDatabaseService.getBand(TestingConstants.exampleBandDumpweed)
+        let dumpweedInEmulator = try await testingDatabaseService.getBand(TestingConstants.exampleBandDumpweed)
+        let dumpweedInTestingConstants = TestingConstants.exampleBandDumpweed
 
-        XCTAssertEqual(dumpweed.adminUid, TestingConstants.exampleUserEric.id)
-        XCTAssertEqual(dumpweed.bio, "We are the biggest rockers in the whole wide world!")
-        XCTAssertEqual(dumpweed.city, "New Brunswick")
-        XCTAssertEqual(dumpweed.genre, Genre.metal.rawValue)
-        XCTAssertEqual(dumpweed.id, "utwW2iCnJ7MiGAdRfFYz")
-        XCTAssertTrue(dumpweed.memberFcmTokens.isEmpty)
-        XCTAssertEqual(dumpweed.memberUids, [TestingConstants.exampleUserEric.id])
-        XCTAssertEqual(dumpweed.name, "Dumpweed")
-        XCTAssertEqual(dumpweed.state, BandState.NJ.rawValue)
+        XCTAssertEqual(dumpweedInEmulator.adminUid, TestingConstants.exampleUserEric.id)
+        XCTAssertEqual(dumpweedInEmulator.bio, dumpweedInTestingConstants.bio)
+        XCTAssertEqual(dumpweedInEmulator.city, dumpweedInTestingConstants.city)
+        XCTAssertEqual(dumpweedInEmulator.genre, dumpweedInTestingConstants.genre)
+        XCTAssertEqual(dumpweedInEmulator.id, dumpweedInTestingConstants.id)
+        XCTAssertEqual(dumpweedInEmulator.memberFcmTokens, dumpweedInTestingConstants.memberFcmTokens)
+        XCTAssertEqual(dumpweedInEmulator.memberUids, dumpweedInTestingConstants.memberUids)
+        XCTAssertEqual(dumpweedInEmulator.name, dumpweedInTestingConstants.name)
+        XCTAssertEqual(dumpweedInEmulator.state, dumpweedInTestingConstants.state)
     }
 
-    func test_OnInit_ExampleBandsInFirestoreEmulatorMatchExampleBandsInTestingConstants() async throws {
+    func test_OnInit_ExampleBandsInFirestoreEmulatorMatchTestingConstants() async throws {
         let patheticFallacyInEmulator = try await testingDatabaseService.getBand(TestingConstants.exampleBandPatheticFallacy)
         let dumpweedInEmulator = try await testingDatabaseService.getBand(TestingConstants.exampleBandDumpweed)
 
-        XCTAssertEqual(patheticFallacyInEmulator, TestingConstants.exampleBandPatheticFallacy, "The example bands in emulator and in the project should match")
-        XCTAssertEqual(dumpweedInEmulator, TestingConstants.exampleBandDumpweed, "The example bands in emulator and in the project should match")
+        XCTAssertEqual(patheticFallacyInEmulator, TestingConstants.exampleBandPatheticFallacy)
+        XCTAssertEqual(dumpweedInEmulator, TestingConstants.exampleBandDumpweed)
     }
 
     // MARK: - Firestore Example BandInvites
 
     func test_OnInit_ExampleBandInviteInFirestoreEmulatorHasExpectedValues() async throws {
-        let bandInvite = try await testingDatabaseService.getBandInvite(get: TestingConstants.exampleBandInvite, for: TestingConstants.exampleUserTas)
+        let bandInviteInEmulator = try await testingDatabaseService.getBandInvite(get: TestingConstants.exampleBandInvite, for: TestingConstants.exampleUserTas)
+        let bandInviteInTestingConstants = TestingConstants.exampleBandInvite
 
-        XCTAssertEqual(bandInvite.id, "I8jPC6U14IolWMSc8Ivp")
-        XCTAssertEqual(bandInvite.dateSent, 1673073450)
-        XCTAssertEqual(bandInvite.notificationType, NotificationType.bandInvite.rawValue)
-        XCTAssertEqual(bandInvite.recipientUid, "FNl8cxPCoELjL8WsxRfliNP0Lmhq")
-        XCTAssertEqual(bandInvite.recipientRole, "Drums")
-        XCTAssertEqual(bandInvite.bandId, "C7ZbA7gaeQ7Lk1Kid9QC")
-        XCTAssertEqual(bandInvite.senderUsername, "julianworden")
-        XCTAssertEqual(bandInvite.senderBand, "Pathetic Fallacy")
-        XCTAssertEqual(bandInvite.message, "julianworden is inviting you to join Pathetic Fallacy")
+        XCTAssertEqual(bandInviteInEmulator.id, bandInviteInTestingConstants.id)
+        XCTAssertEqual(bandInviteInEmulator.dateSent, bandInviteInTestingConstants.dateSent)
+        XCTAssertEqual(bandInviteInEmulator.notificationType, bandInviteInTestingConstants.notificationType)
+        XCTAssertEqual(bandInviteInEmulator.recipientUid, TestingConstants.exampleUserTas.id)
+        XCTAssertEqual(bandInviteInEmulator.recipientRole, bandInviteInTestingConstants.recipientRole)
+        XCTAssertEqual(bandInviteInEmulator.bandId, TestingConstants.exampleBandPatheticFallacy.id)
+        XCTAssertEqual(bandInviteInEmulator.senderUsername, TestingConstants.exampleUserJulian.username)
+        XCTAssertEqual(bandInviteInEmulator.senderBand, TestingConstants.exampleBandPatheticFallacy.name)
+        XCTAssertEqual(
+            bandInviteInEmulator.message,
+            "\(TestingConstants.exampleUserJulian.username) is inviting you to join \(TestingConstants.exampleBandPatheticFallacy.name)"
+        )
     }
 
     func test_OnInit_ExampleBandInvitesInFirestoreEmulatorMatchTestingConstants() async throws {
@@ -213,65 +221,84 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     // MARK: - Firestore Example BandMembers
 
     func test_OnInit_ExampleBandMemberJulianInFirestoreEmulatorHasExpectedValues() async throws {
-        let julian = try await testingDatabaseService.getBandMember(
+        let bandMemberJulianInEmulator = try await testingDatabaseService.getBandMember(
             get: TestingConstants.exampleBandMemberJulian,
             in: TestingConstants.exampleBandPatheticFallacy
         )
+        let bandMemberJulianInTestingConstants = TestingConstants.exampleBandMemberJulian
 
-        XCTAssertEqual(julian.id, "JcNG3facFtTva2scVKDZ")
-        XCTAssertEqual(julian.dateJoined, 1673073450)
-        XCTAssertEqual(julian.uid, "qvJ5tmKpih3mFkUCet5CPREg3qjZ")
-        XCTAssertEqual(julian.role, "Vocals")
-        XCTAssertEqual(julian.username, "julianworden")
-        XCTAssertEqual(julian.fullName, "Julian Worden")
+        XCTAssertEqual(bandMemberJulianInEmulator.id, bandMemberJulianInTestingConstants.id)
+        XCTAssertEqual(bandMemberJulianInEmulator.dateJoined, bandMemberJulianInTestingConstants.dateJoined)
+        XCTAssertEqual(bandMemberJulianInEmulator.uid, TestingConstants.exampleUserJulian.id)
+        XCTAssertEqual(bandMemberJulianInEmulator.role, bandMemberJulianInTestingConstants.role)
+        XCTAssertEqual(bandMemberJulianInEmulator.username, TestingConstants.exampleUserJulian.username)
+        XCTAssertEqual(bandMemberJulianInEmulator.fullName, TestingConstants.exampleUserJulian.fullName)
     }
 
     func test_OnInit_ExampleBandMemberLouInFirestoreEmulatorHasExpectedValues() async throws {
-        let lou = try await testingDatabaseService.getBandMember(
+        let bandMemberLouInEmulator = try await testingDatabaseService.getBandMember(
             get: TestingConstants.exampleBandMemberLou,
             in: TestingConstants.exampleBandPatheticFallacy
         )
+        let bandMemberLouInTestingConstants = TestingConstants.exampleBandMemberLou
 
-        XCTAssertEqual(lou.id, "KgjxDt61nxsNMR4PSvdO")
-        XCTAssertEqual(lou.dateJoined, 1673073450)
-        XCTAssertEqual(lou.uid, "CsXJnPfi5ZT9jr2uQUsO4jz040Et")
-        XCTAssertEqual(lou.role, "Guitar")
-        XCTAssertEqual(lou.username, "lousabba")
-        XCTAssertEqual(lou.fullName, "Lou Sabba")
+        XCTAssertEqual(bandMemberLouInEmulator.id, bandMemberLouInTestingConstants.id)
+        XCTAssertEqual(bandMemberLouInEmulator.dateJoined, bandMemberLouInTestingConstants.dateJoined)
+        XCTAssertEqual(bandMemberLouInEmulator.uid, TestingConstants.exampleUserLou.id)
+        XCTAssertEqual(bandMemberLouInEmulator.role, bandMemberLouInTestingConstants.role)
+        XCTAssertEqual(bandMemberLouInEmulator.username, TestingConstants.exampleUserLou.username)
+        XCTAssertEqual(bandMemberLouInEmulator.fullName, TestingConstants.exampleUserLou.fullName)
     }
 
     func test_OnInit_ExampleBandMemberEricInFirestoreEmulatorHasExpectedValues() async throws {
-        let eric = try await testingDatabaseService.getBandMember(
+        let bandMemberEricInEmulator = try await testingDatabaseService.getBandMember(
             get: TestingConstants.exampleBandMemberEric,
             in: TestingConstants.exampleBandDumpweed
         )
+        let bandMemberEricInTestingConstants = TestingConstants.exampleBandMemberEric
 
-        XCTAssertEqual(eric.id, "d6Nvz616sgY7zPll0Wh8")
-        XCTAssertEqual(eric.dateJoined, 1673073450)
-        XCTAssertEqual(eric.uid, "K4rrOL8effR2ULYb3dDN5eMlXvWn")
-        XCTAssertEqual(eric.role, "Vocals")
-        XCTAssertEqual(eric.username, "ericpalermo")
-        XCTAssertEqual(eric.fullName, "Eric Palermo")
+        XCTAssertEqual(bandMemberEricInEmulator.id, bandMemberEricInTestingConstants.id)
+        XCTAssertEqual(bandMemberEricInEmulator.dateJoined, bandMemberEricInTestingConstants.dateJoined)
+        XCTAssertEqual(bandMemberEricInEmulator.uid, TestingConstants.exampleUserEric.id)
+        XCTAssertEqual(bandMemberEricInEmulator.role, bandMemberEricInTestingConstants.role)
+        XCTAssertEqual(bandMemberEricInEmulator.username, TestingConstants.exampleUserEric.username)
+        XCTAssertEqual(bandMemberEricInEmulator.fullName, TestingConstants.exampleUserEric.fullName)
+    }
+
+    func test_OnInit_ExampleBandMembersInFirestoreEmulatorMatchTestingConstants() async throws {
+        let bandMemberJulianInEmulator = try await testingDatabaseService.getBandMember(
+            get: TestingConstants.exampleBandMemberJulian,
+            in: TestingConstants.exampleBandPatheticFallacy
+        )
+        let bandMemberLouInEmulator = try await testingDatabaseService.getBandMember(
+            get: TestingConstants.exampleBandMemberLou,
+            in: TestingConstants.exampleBandPatheticFallacy
+        )
+        let bandMemberEricInEmulator = try await testingDatabaseService.getBandMember(
+            get: TestingConstants.exampleBandMemberEric,
+            in: TestingConstants.exampleBandDumpweed
+        )
+        let bandMemberJulianInTestingConstants = TestingConstants.exampleBandMemberJulian
+        let bandMemberLouInTestingConstants = TestingConstants.exampleBandMemberLou
+        let bandMemberEricInTestingConstants = TestingConstants.exampleBandMemberEric
+
+        XCTAssertEqual(bandMemberJulianInEmulator, bandMemberJulianInTestingConstants)
+        XCTAssertEqual(bandMemberLouInEmulator, bandMemberLouInTestingConstants)
+        XCTAssertEqual(bandMemberEricInEmulator, bandMemberEricInTestingConstants)
     }
 
     // MARK: - Firestore Example Chats
 
     func test_OnInit_ExampleChatDumpweedExtravaganzaInFirestoreEmulatorHasExpectedValues() async throws {
-        let chat = try await testingDatabaseService.getChat(TestingConstants.exampleChatDumpweedExtravaganza)
+        let chatInEmulator = try await testingDatabaseService.getChat(TestingConstants.exampleChatDumpweedExtravaganza)
+        let chatInTestingConstants = TestingConstants.exampleChatDumpweedExtravaganza
 
-        XCTAssertEqual(chat.id, "cpS2HseZT6XIG1qMRAKL")
-        XCTAssertEqual(chat.showId, TestingConstants.exampleShowDumpweedExtravaganza.id)
-        XCTAssertEqual(chat.name, TestingConstants.exampleShowDumpweedExtravaganza.name)
-        XCTAssertEqual(
-            chat.participantUids,
-            [
-                TestingConstants.exampleUserJulian.id,
-                TestingConstants.exampleUserLou.id,
-                TestingConstants.exampleUserEric.id
-            ]
-        )
-        XCTAssertTrue(chat.participantFcmTokens.isEmpty)
-        XCTAssertNil(chat.userId)
+        XCTAssertEqual(chatInEmulator.id, chatInTestingConstants.id)
+        XCTAssertEqual(chatInEmulator.showId, TestingConstants.exampleShowDumpweedExtravaganza.id)
+        XCTAssertEqual(chatInEmulator.name, TestingConstants.exampleShowDumpweedExtravaganza.name)
+        XCTAssertEqual(chatInEmulator.participantUids, chatInTestingConstants.participantUids)
+        XCTAssertEqual(chatInEmulator.participantFcmTokens, chatInTestingConstants.participantFcmTokens)
+        XCTAssertEqual(chatInEmulator.userId, chatInTestingConstants.userId)
     }
 
     func test_OnInit_ExampleChatsInFirestoreEmulatorMatchTestingConstants() async throws {
@@ -281,16 +308,54 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(dumpweedExtravaganzaChatInEmulator, dumpweedExtravaganzaChatInTestingConstants)
     }
 
+    // MARK: - Firestore Example ChatMessages
+
+    func test_OnInit_ExampleChatMessageJulianHasExpectedValues() async throws {
+        let julianMessageInEmulator = try await testingDatabaseService.getChatMessage(get: TestingConstants.exampleChatMessageJulian, in: TestingConstants.exampleChatDumpweedExtravaganza)
+        let julianMessageInTestingConstants = TestingConstants.exampleChatMessageJulian
+
+        XCTAssertEqual(julianMessageInEmulator.recipientFcmTokens, julianMessageInTestingConstants.recipientFcmTokens)
+        XCTAssertEqual(julianMessageInEmulator.text, julianMessageInTestingConstants.text)
+        XCTAssertEqual(julianMessageInEmulator.id, julianMessageInTestingConstants.id)
+        XCTAssertEqual(julianMessageInEmulator.senderUid, julianMessageInTestingConstants.senderUid)
+        XCTAssertEqual(julianMessageInEmulator.senderFullName, julianMessageInTestingConstants.senderFullName)
+        XCTAssertEqual(julianMessageInEmulator.sentTimestamp, julianMessageInTestingConstants.sentTimestamp)
+        XCTAssertEqual(julianMessageInEmulator.recipientFcmTokens, julianMessageInTestingConstants.recipientFcmTokens)
+    }
+
+    func test_OnInit_ExampleChatMessageEricHasExpectedValues() async throws {
+        let ericMessageInEmulator = try await testingDatabaseService.getChatMessage(get: TestingConstants.exampleChatMessageEric, in: TestingConstants.exampleChatDumpweedExtravaganza)
+        let ericMessageInTestingConstants = TestingConstants.exampleChatMessageEric
+
+        XCTAssertEqual(ericMessageInEmulator.recipientFcmTokens, ericMessageInTestingConstants.recipientFcmTokens)
+        XCTAssertEqual(ericMessageInEmulator.text, ericMessageInTestingConstants.text)
+        XCTAssertEqual(ericMessageInEmulator.id, ericMessageInTestingConstants.id)
+        XCTAssertEqual(ericMessageInEmulator.senderUid, ericMessageInTestingConstants.senderUid)
+        XCTAssertEqual(ericMessageInEmulator.senderFullName, ericMessageInTestingConstants.senderFullName)
+        XCTAssertEqual(ericMessageInEmulator.sentTimestamp, ericMessageInTestingConstants.sentTimestamp)
+        XCTAssertEqual(ericMessageInEmulator.recipientFcmTokens, ericMessageInTestingConstants.recipientFcmTokens)
+    }
+
+    func test_OnInit_ExampleChatMessagesInFirestoreEmulatorMatchTestingConstants() async throws {
+        let julianMessageInEmulator = try await testingDatabaseService.getChatMessage(get: TestingConstants.exampleChatMessageJulian, in: TestingConstants.exampleChatDumpweedExtravaganza)
+        let ericMessageInEmulator = try await testingDatabaseService.getChatMessage(get: TestingConstants.exampleChatMessageEric, in: TestingConstants.exampleChatDumpweedExtravaganza)
+        let julianMessageInTestingConstants = TestingConstants.exampleChatMessageJulian
+        let ericMessageInTestingConstants = TestingConstants.exampleChatMessageEric
+
+        XCTAssertEqual(julianMessageInEmulator, julianMessageInTestingConstants)
+        XCTAssertEqual(ericMessageInEmulator, ericMessageInTestingConstants)
+    }
+
     // MARK: - Firebase Auth
 
     func test_OnInit_FirebaseAuthEmulatorContainsTestAccount() async throws {
         guard let currentUser = try await testingDatabaseService.logInToJulianAccount() else {
-            XCTFail("The user should be signed in before this test is run")
+            XCTFail("The user should be signed in during setUp before this test is run")
             return
         }
 
-        XCTAssertEqual(currentUser.email, "julianworden@gmail.com", "The email address of the test user should be julianworden@gmail.com")
-        XCTAssertEqual(currentUser.uid, "qvJ5tmKpih3mFkUCet5CPREg3qjZ", "qvJ5tmKpih3mFkUCet5CPREg3qjZ should be the UID of the test user")
+        XCTAssertEqual(currentUser.email, TestingConstants.exampleUserJulian.emailAddress)
+        XCTAssertEqual(currentUser.uid, TestingConstants.exampleUserJulian.id)
     }
 
     func test_OnLogIn_CurrentUserExists() {

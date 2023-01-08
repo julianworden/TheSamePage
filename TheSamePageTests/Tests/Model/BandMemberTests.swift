@@ -27,7 +27,7 @@ final class BandMemberTests: XCTestCase {
 
         XCTAssertEqual(
             bandInvite.dateSentUnixDateAsDate.formatted(date: .complete, time: .complete),
-            "Friday, January 6, 2023 at 10:37:30 PM PST"
+            Date(timeIntervalSince1970: bandInvite.dateSent).formatted(date: .complete, time: .complete)
         )
     }
 

@@ -145,6 +145,7 @@
 		ABB71C4A28FE08D500D3126D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB71C4928FE08D500D3126D /* HomeViewModel.swift */; };
 		ABB93F3828F0732D0055659B /* AsyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB93F3728F0732D0055659B /* AsyncButton.swift */; };
 		ABBADD7928DFE5FA00720C64 /* BandState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBADD7828DFE5FA00720C64 /* BandState.swift */; };
+		ABBE3691296B06C30092F594 /* ChatMessageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE3690296B06C30092F594 /* ChatMessageTests.swift */; };
 		ABBE94C228D8ADBF00790A04 /* ShowDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */; };
 		ABBE94C428D8AE7500790A04 /* ShowDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */; };
 		ABBEC0A62921D02800314BE5 /* BandSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBEC0A52921D02800314BE5 /* BandSettingsView.swift */; };
@@ -344,6 +345,7 @@
 		ABB71C4928FE08D500D3126D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		ABB93F3728F0732D0055659B /* AsyncButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncButton.swift; sourceTree = "<group>"; };
 		ABBADD7828DFE5FA00720C64 /* BandState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandState.swift; sourceTree = "<group>"; };
+		ABBE3690296B06C30092F594 /* ChatMessageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageTests.swift; sourceTree = "<group>"; };
 		ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsView.swift; sourceTree = "<group>"; };
 		ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsViewModel.swift; sourceTree = "<group>"; };
 		ABBEC0A52921D02800314BE5 /* BandSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSettingsView.swift; sourceTree = "<group>"; };
@@ -1016,6 +1018,7 @@
 				AB1A93822968DD0000A363B3 /* BandInviteTests.swift */,
 				ABC9F411296919A6004DE24B /* BandMemberTests.swift */,
 				AB1CDD3D296A12BD008ACC48 /* ChatTests.swift */,
+				ABBE3690296B06C30092F594 /* ChatMessageTests.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1484,6 +1487,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABC9932829665D0C00B553F4 /* SecurityRulesTests.swift in Sources */,
+				ABBE3691296B06C30092F594 /* ChatMessageTests.swift in Sources */,
 				AB1A93832968DD0000A363B3 /* BandInviteTests.swift in Sources */,
 				ABC9F412296919A6004DE24B /* BandMemberTests.swift in Sources */,
 				ABCC3D742965CC6E006CF074 /* TestingConstants.swift in Sources */,

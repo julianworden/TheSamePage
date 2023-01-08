@@ -102,6 +102,15 @@ class TestingDatabaseService {
             .getDocument(as: Chat.self)
     }
 
+    func getChatMessage(get chatMessage: ChatMessage, in chat: Chat) async throws -> ChatMessage {
+        return try await db
+            .collection(FbConstants.chats)
+            .document(chat.id)
+            .collection(FbConstants.messages)
+            .document(chatMessage.id!)
+            .getDocument(as: ChatMessage.self)
+    }
+
     // MARK: - Firebase Storage
 
     func getDownloadLinkForUserProfileImage(_ user: User) async throws -> String {
