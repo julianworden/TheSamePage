@@ -149,6 +149,9 @@
 		ABBE3693296B25200092F594 /* PlatformLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE3692296B25200092F594 /* PlatformLinkTests.swift */; };
 		ABBE3695296B26970092F594 /* ShowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE3694296B26970092F594 /* ShowTests.swift */; };
 		ABBE369B296B39AC0092F594 /* MockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE369A296B39AC0092F594 /* MockController.swift */; };
+		ABBE369D296B53660092F594 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE369C296B53660092F594 /* UserTests.swift */; };
+		ABBE36A1296B555A0092F594 /* LinkPlatformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE36A0296B555A0092F594 /* LinkPlatformTests.swift */; };
+		ABBE36A3296B566C0092F594 /* SearchTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE36A2296B566C0092F594 /* SearchTypeTests.swift */; };
 		ABBE94C228D8ADBF00790A04 /* ShowDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */; };
 		ABBE94C428D8AE7500790A04 /* ShowDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */; };
 		ABBEC0A62921D02800314BE5 /* BandSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBEC0A52921D02800314BE5 /* BandSettingsView.swift */; };
@@ -351,6 +354,9 @@
 		ABBE3692296B25200092F594 /* PlatformLinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformLinkTests.swift; sourceTree = "<group>"; };
 		ABBE3694296B26970092F594 /* ShowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTests.swift; sourceTree = "<group>"; };
 		ABBE369A296B39AC0092F594 /* MockController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockController.swift; sourceTree = "<group>"; };
+		ABBE369C296B53660092F594 /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
+		ABBE36A0296B555A0092F594 /* LinkPlatformTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPlatformTests.swift; sourceTree = "<group>"; };
+		ABBE36A2296B566C0092F594 /* SearchTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTypeTests.swift; sourceTree = "<group>"; };
 		ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsView.swift; sourceTree = "<group>"; };
 		ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsViewModel.swift; sourceTree = "<group>"; };
 		ABBEC0A52921D02800314BE5 /* BandSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSettingsView.swift; sourceTree = "<group>"; };
@@ -945,6 +951,30 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		ABBE369E296B55350092F594 /* Structs */ = {
+			isa = PBXGroup;
+			children = (
+				ABBE369C296B53660092F594 /* UserTests.swift */,
+				ABD4BD1D2968695E00CCA88B /* BandTests.swift */,
+				ABBE3694296B26970092F594 /* ShowTests.swift */,
+				AB1A93822968DD0000A363B3 /* BandInviteTests.swift */,
+				ABC9F411296919A6004DE24B /* BandMemberTests.swift */,
+				AB1CDD3D296A12BD008ACC48 /* ChatTests.swift */,
+				ABBE3690296B06C30092F594 /* ChatMessageTests.swift */,
+				ABBE3692296B25200092F594 /* PlatformLinkTests.swift */,
+			);
+			path = Structs;
+			sourceTree = "<group>";
+		};
+		ABBE369F296B553C0092F594 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				ABBE36A0296B555A0092F594 /* LinkPlatformTests.swift */,
+				ABBE36A2296B566C0092F594 /* SearchTypeTests.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		ABBE94C028D8AD9E00790A04 /* ShowDetailsView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1026,13 +1056,8 @@
 		ABD4BD1C2968690800CCA88B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				ABD4BD1D2968695E00CCA88B /* BandTests.swift */,
-				ABBE3694296B26970092F594 /* ShowTests.swift */,
-				AB1A93822968DD0000A363B3 /* BandInviteTests.swift */,
-				ABC9F411296919A6004DE24B /* BandMemberTests.swift */,
-				AB1CDD3D296A12BD008ACC48 /* ChatTests.swift */,
-				ABBE3690296B06C30092F594 /* ChatMessageTests.swift */,
-				ABBE3692296B25200092F594 /* PlatformLinkTests.swift */,
+				ABBE369F296B553C0092F594 /* Enums */,
+				ABBE369E296B55350092F594 /* Structs */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1499,6 +1524,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABBE369D296B53660092F594 /* UserTests.swift in Sources */,
 				ABC9932829665D0C00B553F4 /* SecurityRulesTests.swift in Sources */,
 				ABBE3691296B06C30092F594 /* ChatMessageTests.swift in Sources */,
 				ABBE3693296B25200092F594 /* PlatformLinkTests.swift in Sources */,
@@ -1506,8 +1532,10 @@
 				ABC9F412296919A6004DE24B /* BandMemberTests.swift in Sources */,
 				ABBE369B296B39AC0092F594 /* MockController.swift in Sources */,
 				ABCC3D742965CC6E006CF074 /* TestingConstants.swift in Sources */,
+				ABBE36A1296B555A0092F594 /* LinkPlatformTests.swift in Sources */,
 				ABD4BD1E2968695E00CCA88B /* BandTests.swift in Sources */,
 				AB1CDD3E296A12BD008ACC48 /* ChatTests.swift in Sources */,
+				ABBE36A3296B566C0092F594 /* SearchTypeTests.swift in Sources */,
 				ABBE3695296B26970092F594 /* ShowTests.swift in Sources */,
 				AB4BF6C02965B6AD0007A33B /* FirebaseEmulatorDataTests.swift in Sources */,
 			);

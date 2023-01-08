@@ -27,8 +27,6 @@ final class ShowTests: XCTestCase {
     }
 
     func test_FormattedDate_ReturnsCorrectValue() {
-        let exampleShow = TestingConstants.exampleShowDumpweedExtravaganza
-
         XCTAssertEqual(
             exampleShow.formattedDate,
             Date(timeIntervalSince1970: exampleShow.date).formatted(date: .numeric, time: .omitted)
@@ -36,8 +34,6 @@ final class ShowTests: XCTestCase {
     }
 
     func test_FormattedTicketPrice_ReturnsCorrectValueWhenTicketPriceValueExists() {
-        let exampleShow = TestingConstants.exampleShowDumpweedExtravaganza
-
         XCTAssertNotNil(exampleShow.formattedTicketPrice)
         XCTAssertEqual(
             exampleShow.formattedTicketPrice,
@@ -46,15 +42,12 @@ final class ShowTests: XCTestCase {
     }
 
     func test_FormattedTicketPrice_ReturnsNilWhenTicketPriceValueDoesNotExist() {
-        var exampleShow = TestingConstants.exampleShowDumpweedExtravaganza
         exampleShow.ticketPrice = nil
 
         XCTAssertNil(exampleShow.formattedTicketPrice)
     }
 
     func test_UnixDateAsDate_ReturnsCorrectValue() {
-        let exampleShow = TestingConstants.exampleShowDumpweedExtravaganza
-
         XCTAssertEqual(
             exampleShow.unixDateAsDate.formatted(date: .complete, time: .complete),
             Date(timeIntervalSince1970: exampleShow.date).formatted(date: .complete, time: .complete)
@@ -62,8 +55,6 @@ final class ShowTests: XCTestCase {
     }
 
     func test_UnixLoadInTimeAsDate_ReturnsCorrectValueWhenLoadInTimeExists() {
-        let exampleShow = TestingConstants.exampleShowDumpweedExtravaganza
-
         XCTAssertNotNil(exampleShow.unixLoadInTimeAsDate)
         XCTAssertEqual(
             exampleShow.unixLoadInTimeAsDate!.formatted(date: .complete, time: .complete),
@@ -72,15 +63,12 @@ final class ShowTests: XCTestCase {
     }
 
     func test_UnixLoadInTimeAsDate_ReturnsNilWhenNoLoadInTimeExists() {
-        var exampleShow = TestingConstants.exampleShowDumpweedExtravaganza
         exampleShow.loadInTime = nil
 
         XCTAssertNil(exampleShow.unixLoadInTimeAsDate)
     }
 
     func test_UnixDoorsTimeAsDate_ReturnsCorrectValueWhenDoorsTimeExists() {
-        let exampleShow = TestingConstants.exampleShowDumpweedExtravaganza
-
         XCTAssertNotNil(exampleShow.unixDoorsTimeAsDate)
         XCTAssertEqual(
             exampleShow.unixDoorsTimeAsDate!.formatted(date: .complete, time: .complete),
@@ -89,15 +77,12 @@ final class ShowTests: XCTestCase {
     }
 
     func test_UnixDoorsTimeAsDate_ReturnsNilWhenNoDoorsTimeExists() {
-        var exampleShow = TestingConstants.exampleShowDumpweedExtravaganza
         exampleShow.doorsTime = nil
 
         XCTAssertNil(exampleShow.unixDoorsTimeAsDate)
     }
 
     func test_UnixMusicStartTimeAsDate_ReturnsCorrectValueWhenMusicStartTimeExists() {
-        let exampleShow = TestingConstants.exampleShowDumpweedExtravaganza
-
         XCTAssertNotNil(exampleShow.unixMusicStartTimeAsDate)
         XCTAssertEqual(
             exampleShow.unixMusicStartTimeAsDate!.formatted(date: .complete, time: .complete),
@@ -106,15 +91,12 @@ final class ShowTests: XCTestCase {
     }
 
     func test_UnixMusicStartTimeAsDate_ReturnsNilWhenNoMusicStartTimeExists() {
-        var exampleShow = TestingConstants.exampleShowDumpweedExtravaganza
         exampleShow.musicStartTime = nil
 
         XCTAssertNil(exampleShow.unixMusicStartTimeAsDate)
     }
 
     func test_UnixEndTimeAsDate_ReturnsCorrectValueWhenEndTimeExists() {
-        let exampleShow = TestingConstants.exampleShowDumpweedExtravaganza
-
         XCTAssertNotNil(exampleShow.unixEndTimeAsDate)
         XCTAssertEqual(
             exampleShow.unixEndTimeAsDate!.formatted(date: .complete, time: .complete),
@@ -123,7 +105,6 @@ final class ShowTests: XCTestCase {
     }
 
     func test_UnixEndTimeAsDate_ReturnsNilWhenNoEndTimeExists() {
-        var exampleShow = TestingConstants.exampleShowDumpweedExtravaganza
         exampleShow.endTime = nil
 
         XCTAssertNil(exampleShow.unixEndTimeAsDate)

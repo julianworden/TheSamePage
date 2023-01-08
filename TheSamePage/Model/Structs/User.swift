@@ -18,7 +18,8 @@ struct User: Codable, Equatable, Hashable, Identifiable {
     let phoneNumber: String?
     let emailAddress: String
     let fcmToken: String?
-    
+
+    /// A convenience method that makes it easier to determine if a user search result belongs to the logged in user
     var profileBelongsToLoggedInUser: Bool {
         return id == AuthController.getLoggedInUid()
     }
