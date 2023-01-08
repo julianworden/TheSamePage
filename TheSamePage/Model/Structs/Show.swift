@@ -26,10 +26,10 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     var musicStartTime: Double?
     var endTime: Double?
     let isFree: Bool
-    let ticketPrice: Double?
+    var ticketPrice: Double?
     let ticketSalesAreRequired: Bool
     let minimumRequiredTicketsSold: Int?
-    let addressIsPrivate: Bool
+    var addressIsPrivate: Bool
     let address: String
     let city: String
     let state: String
@@ -37,11 +37,11 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     let longitude: Double
     let typesenseCoordinates: [Double]
     let imageUrl: String?
-    let hasFood: Bool
-    let hasBar: Bool
-    let is21Plus: Bool
+    var hasFood: Bool
+    var hasBar: Bool
+    var is21Plus: Bool
     let genre: String
-    let maxNumberOfBands: Int
+    var maxNumberOfBands: Int
     
     init(id: String,
          name: String,
@@ -106,7 +106,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     
     // TODO: Use a custom Date .formatted() extension for this instead
     var formattedDate: String {
-        return TextUtility.formatDate(unixDate: date)
+        return Date(timeIntervalSince1970: date).formatted(date: .numeric, time: .omitted)
     }
     
     var formattedTicketPrice: String? {

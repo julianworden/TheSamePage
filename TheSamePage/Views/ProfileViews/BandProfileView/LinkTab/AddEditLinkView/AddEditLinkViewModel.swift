@@ -20,7 +20,7 @@ final class AddEditLinkViewModel: ObservableObject {
         self.band = band
         
         if let link {
-            self.linkPlatform = link.platformNameAsLinkPlatformObject
+            self.linkPlatform = link.platformNameAsPlatformLinkObject
             self.linkUrl = link.url
             self.link = link
         }

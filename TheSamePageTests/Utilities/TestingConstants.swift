@@ -130,10 +130,10 @@ struct TestingConstants {
         participantUids: [exampleUserJulian.id, exampleUserLou.id, exampleUserEric.id],
         venue: "Starland Ballroom",
         date: 1668782049.620614,
-        loadInTime: nil,
-        doorsTime: nil,
-        musicStartTime: nil,
-        endTime: nil,
+        loadInTime: 1668830410,
+        doorsTime: 1668832210,
+        musicStartTime: 1668834010,
+        endTime: 1668835810,
         isFree: false,
         ticketPrice: 100,
         ticketSalesAreRequired: true,
@@ -193,5 +193,35 @@ struct TestingConstants {
         senderUid: exampleUserEric.id,
         senderFullName: exampleUserEric.fullName,
         sentTimestamp: 1673187671.7910519
+    )
+
+    // MARK: - Example PlatformLinks
+
+    static let examplePlatformLinkPatheticFallacyInstagram = PlatformLink(
+        id: "44nlImc9WbuhR9MbRMYc",
+        platformName: LinkPlatform.instagram.rawValue,
+        url: "\(LinkPlatform.instagram.urlPrefix)pathfallacyband"
+    )
+
+    static let examplePlatformLinkPatheticFallacyFacebook = PlatformLink(
+        id: "1qsDTgUjO7sGbY18AzA7",
+        platformName: LinkPlatform.facebook.rawValue,
+        url: "\(LinkPlatform.facebook.urlPrefix)pathfallacyband/posts/?ref=page_internal"
+    )
+
+    // MARK: - Example ShowParticipants
+
+    static let exampleShowParticipantPatheticFallacyInDumpweedExtravaganza = ShowParticipant(
+        id: "KbfVkNKelH4JNBkO3CeW",
+        name: exampleBandPatheticFallacy.name,
+        bandId: exampleBandPatheticFallacy.id,
+        showId: exampleShowDumpweedExtravaganza.id
+    )
+
+    static let exampleShowParticipantDumpweedInDumpweedExtravaganza = ShowParticipant(
+        id: "7QUOjTRZVLdlJ4EzdaLr",
+        name: exampleBandDumpweed.name,
+        bandId: exampleBandDumpweed.id,
+        showId: exampleShowDumpweedExtravaganza.id
     )
 }

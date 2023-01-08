@@ -5,6 +5,7 @@
 //  Created by Julian Worden on 11/17/22.
 //
 
+import MapKit
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseStorage
@@ -109,6 +110,24 @@ class TestingDatabaseService {
             .collection(FbConstants.messages)
             .document(chatMessage.id!)
             .getDocument(as: ChatMessage.self)
+    }
+
+    func getPlatformLink(get platformLink: PlatformLink, for band: Band) async throws -> PlatformLink {
+        return try await db
+            .collection(FbConstants.bands)
+            .document(band.id)
+            .collection(FbConstants.links)
+            .document(platformLink.id!)
+            .getDocument(as: PlatformLink.self)
+    }
+
+    func getShowParticipant(_ showParticipant: ShowParticipant) async throws -> ShowParticipant {
+        return try await db
+            .collection(FbConstants.shows)
+            .document(showParticipant.showId)
+            .collection(FbConstants.participants)
+            .document(showParticipant.id!)
+            .getDocument(as: ShowParticipant.self)
     }
 
     // MARK: - Firebase Storage

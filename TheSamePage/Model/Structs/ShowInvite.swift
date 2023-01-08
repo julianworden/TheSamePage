@@ -27,10 +27,6 @@ struct ShowInvite: Codable, Equatable, Identifiable, UserNotification {
     let is21Plus: Bool
     let message: String
     
-    var inviteMessage: String {
-        return "\(senderUsername) is inviting \(bandName) to play \(showName) at \(showVenue) on \(showDate)"
-    }
-    
     static let example = ShowInvite(
         notificationType: NotificationType.showInvite.rawValue,
         recipientUid: ";askldjf;alskdjf",

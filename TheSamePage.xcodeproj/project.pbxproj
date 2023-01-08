@@ -146,6 +146,9 @@
 		ABB93F3828F0732D0055659B /* AsyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB93F3728F0732D0055659B /* AsyncButton.swift */; };
 		ABBADD7928DFE5FA00720C64 /* BandState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBADD7828DFE5FA00720C64 /* BandState.swift */; };
 		ABBE3691296B06C30092F594 /* ChatMessageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE3690296B06C30092F594 /* ChatMessageTests.swift */; };
+		ABBE3693296B25200092F594 /* PlatformLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE3692296B25200092F594 /* PlatformLinkTests.swift */; };
+		ABBE3695296B26970092F594 /* ShowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE3694296B26970092F594 /* ShowTests.swift */; };
+		ABBE369B296B39AC0092F594 /* MockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE369A296B39AC0092F594 /* MockController.swift */; };
 		ABBE94C228D8ADBF00790A04 /* ShowDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */; };
 		ABBE94C428D8AE7500790A04 /* ShowDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */; };
 		ABBEC0A62921D02800314BE5 /* BandSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBEC0A52921D02800314BE5 /* BandSettingsView.swift */; };
@@ -160,7 +163,6 @@
 		ABCD5F66291B551800E33934 /* BandShowRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCD5F65291B551800E33934 /* BandShowRow.swift */; };
 		ABCF232829131E4E003DB6BB /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCF232729131E4E003DB6BB /* ConversationView.swift */; };
 		ABD029B428E8978F00BDF73C /* BandMemberList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD029B328E8978F00BDF73C /* BandMemberList.swift */; };
-		ABD18AAA28EE13B9002286C3 /* JoinedShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD18AA928EE13B9002286C3 /* JoinedShow.swift */; };
 		ABD18AAD28EE14C1002286C3 /* SendShowInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD18AAC28EE14C1002286C3 /* SendShowInviteView.swift */; };
 		ABD18AAF28EE14C9002286C3 /* SendShowInviteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD18AAE28EE14C9002286C3 /* SendShowInviteViewModel.swift */; };
 		ABD18AB128EE2FAB002286C3 /* ShowInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD18AB028EE2FAB002286C3 /* ShowInvite.swift */; };
@@ -346,6 +348,9 @@
 		ABB93F3728F0732D0055659B /* AsyncButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncButton.swift; sourceTree = "<group>"; };
 		ABBADD7828DFE5FA00720C64 /* BandState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandState.swift; sourceTree = "<group>"; };
 		ABBE3690296B06C30092F594 /* ChatMessageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageTests.swift; sourceTree = "<group>"; };
+		ABBE3692296B25200092F594 /* PlatformLinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformLinkTests.swift; sourceTree = "<group>"; };
+		ABBE3694296B26970092F594 /* ShowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTests.swift; sourceTree = "<group>"; };
+		ABBE369A296B39AC0092F594 /* MockController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockController.swift; sourceTree = "<group>"; };
 		ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsView.swift; sourceTree = "<group>"; };
 		ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsViewModel.swift; sourceTree = "<group>"; };
 		ABBEC0A52921D02800314BE5 /* BandSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandSettingsView.swift; sourceTree = "<group>"; };
@@ -359,7 +364,6 @@
 		ABCD5F65291B551800E33934 /* BandShowRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandShowRow.swift; sourceTree = "<group>"; };
 		ABCF232729131E4E003DB6BB /* ConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationView.swift; sourceTree = "<group>"; };
 		ABD029B328E8978F00BDF73C /* BandMemberList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMemberList.swift; sourceTree = "<group>"; };
-		ABD18AA928EE13B9002286C3 /* JoinedShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinedShow.swift; sourceTree = "<group>"; };
 		ABD18AAC28EE14C1002286C3 /* SendShowInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendShowInviteView.swift; sourceTree = "<group>"; };
 		ABD18AAE28EE14C9002286C3 /* SendShowInviteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendShowInviteViewModel.swift; sourceTree = "<group>"; };
 		ABD18AB028EE2FAB002286C3 /* ShowInvite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowInvite.swift; sourceTree = "<group>"; };
@@ -652,7 +656,6 @@
 				AB8326B92912BB3500208414 /* ChatMessage.swift */,
 				ABF8B81828FC43C400608657 /* CustomMapAnnotation.swift */,
 				AB55E7712901F651009F039B /* DrumKitBacklineItem.swift */,
-				ABD18AA928EE13B9002286C3 /* JoinedShow.swift */,
 				AB36FF8828D35C2800AAC00C /* PlatformLink.swift */,
 				AB36FF8228D35C0600AAC00C /* Show.swift */,
 				ABD18AB028EE2FAB002286C3 /* ShowInvite.swift */,
@@ -785,6 +788,7 @@
 			children = (
 				ABDBEC932927CF6A004AB2C1 /* Tests */,
 				ABDBEC952927CF73004AB2C1 /* Services */,
+				ABBE3699296B398D0092F594 /* Controllers */,
 				ABDBEC942927CF6D004AB2C1 /* Utilities */,
 			);
 			path = TheSamePageTests;
@@ -933,6 +937,14 @@
 			path = AddEdit;
 			sourceTree = "<group>";
 		};
+		ABBE3699296B398D0092F594 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				ABBE369A296B39AC0092F594 /* MockController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		ABBE94C028D8AD9E00790A04 /* ShowDetailsView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1015,10 +1027,12 @@
 			isa = PBXGroup;
 			children = (
 				ABD4BD1D2968695E00CCA88B /* BandTests.swift */,
+				ABBE3694296B26970092F594 /* ShowTests.swift */,
 				AB1A93822968DD0000A363B3 /* BandInviteTests.swift */,
 				ABC9F411296919A6004DE24B /* BandMemberTests.swift */,
 				AB1CDD3D296A12BD008ACC48 /* ChatTests.swift */,
 				ABBE3690296B06C30092F594 /* ChatMessageTests.swift */,
+				ABBE3692296B25200092F594 /* PlatformLinkTests.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1409,7 +1423,6 @@
 				AB3C73D528DC0A1D0038085A /* BandSearchView.swift in Sources */,
 				AB9DAB06292329BB009BE932 /* ShowSettingsViewModel.swift in Sources */,
 				ABFB2D482909E33B009A6F65 /* ShowLineupRow.swift in Sources */,
-				ABD18AAA28EE13B9002286C3 /* JoinedShow.swift in Sources */,
 				ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */,
 				ABA1DDCE28F9B2AC00E7A72E /* ViewState.swift in Sources */,
 				AB7F381528EF20EA007741C7 /* ShowParticipant.swift in Sources */,
@@ -1488,11 +1501,14 @@
 			files = (
 				ABC9932829665D0C00B553F4 /* SecurityRulesTests.swift in Sources */,
 				ABBE3691296B06C30092F594 /* ChatMessageTests.swift in Sources */,
+				ABBE3693296B25200092F594 /* PlatformLinkTests.swift in Sources */,
 				AB1A93832968DD0000A363B3 /* BandInviteTests.swift in Sources */,
 				ABC9F412296919A6004DE24B /* BandMemberTests.swift in Sources */,
+				ABBE369B296B39AC0092F594 /* MockController.swift in Sources */,
 				ABCC3D742965CC6E006CF074 /* TestingConstants.swift in Sources */,
 				ABD4BD1E2968695E00CCA88B /* BandTests.swift in Sources */,
 				AB1CDD3E296A12BD008ACC48 /* ChatTests.swift in Sources */,
+				ABBE3695296B26970092F594 /* ShowTests.swift in Sources */,
 				AB4BF6C02965B6AD0007A33B /* FirebaseEmulatorDataTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

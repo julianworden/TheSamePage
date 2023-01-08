@@ -9,16 +9,11 @@ import FirebaseFirestoreSwift
 import Foundation
 
 struct PlatformLink: Codable, Equatable, Hashable, Identifiable {
-    enum LinkError: Error {
-        case invalidPlatformName(message: String)
-    }
-    
     @DocumentID var id: String?
     let platformName: String
     let url: String
-    // For satisfying exhaustive enum requirements
-    
-    var platformNameAsLinkPlatformObject: LinkPlatform {
+
+    var platformNameAsPlatformLinkObject: LinkPlatform {
         switch platformName {
         case "Spotify":
             return .spotify
