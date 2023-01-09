@@ -151,7 +151,9 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     // MARK: - Firestore Example Shows
 
     func test_OnInit_ExampleShowInFirestoreEmulatorHasExpectedValues() async throws {
-        let exampleShowInEmulator = try await testingDatabaseService.getShow(TestingConstants.exampleShowDumpweedExtravaganza)
+        let exampleShowInEmulator = try await testingDatabaseService.getShow(
+            with: TestingConstants.exampleShowDumpweedExtravaganza.id
+        )
         let exampleShowInTestingConstants = TestingConstants.exampleShowDumpweedExtravaganza
 
         XCTAssertEqual(exampleShowInEmulator.address, exampleShowInTestingConstants.address)
@@ -187,7 +189,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
     
     func test_OnInit_ExampleShowInFirestoreEmulatorMatchesExampleShowInTestingConstants() async throws {
-        let exampleShow = try await testingDatabaseService.getShow(TestingConstants.exampleShowDumpweedExtravaganza)
+        let exampleShow = try await testingDatabaseService.getShow(with: TestingConstants.exampleShowDumpweedExtravaganza.id)
 
         XCTAssertEqual(exampleShow, TestingConstants.exampleShowDumpweedExtravaganza)
     }
@@ -455,7 +457,9 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     // MARK: - Firebase Storage
 
     func test_OnInit_FirebaseStorageEmulatorContainsExampleUserProfileImage() async throws {
-        let profileImageUrl = try await testingDatabaseService.getDownloadLinkForUserProfileImage(TestingConstants.exampleUserJulian)
+        let profileImageUrl = try await testingDatabaseService.getDownloadLinkForImage(
+            at: TestingConstants.exampleUserJulian.profileImageUrl
+        )
 
         XCTAssertEqual(profileImageUrl, TestingConstants.exampleUserJulian.profileImageUrl)
     }

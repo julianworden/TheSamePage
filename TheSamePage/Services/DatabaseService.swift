@@ -585,7 +585,10 @@ class DatabaseService: NSObject {
     
     func updateShow(show: Show) async throws {
         do {
-            try db.collection(FbConstants.shows).document(show.id).setData(from: show, merge: true)
+            try db
+                .collection(FbConstants.shows)
+                .document(show.id)
+                .setData(from: show, merge: true)
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to update \(show.name)",

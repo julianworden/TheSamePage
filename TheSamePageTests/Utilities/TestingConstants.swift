@@ -153,6 +153,39 @@ struct TestingConstants {
         maxNumberOfBands: 2
     )
 
+    static let exampleShowForIntegrationTesting = Show(
+        id: "",
+        name: "Test Show Name",
+        description: "Test Show Description",
+        host: "Test Show Host",
+        hostUid: exampleUserEric.id,
+        bandIds: [exampleBandDumpweed.id],
+        participantUids: [exampleUserEric.id],
+        venue: "Test Venue",
+        date: 1660806000,
+        loadInTime: 1660870800,
+        doorsTime: 1660872600,
+        musicStartTime: 1660874400,
+        endTime: 1660876200,
+        isFree: false,
+        ticketPrice: 200,
+        ticketSalesAreRequired: true,
+        minimumRequiredTicketsSold: 50,
+        addressIsPrivate: true,
+        address: "151 3rd St, San Francisco, CA 94103",
+        city: "San Francisco",
+        state: BandState.CA.rawValue,
+        latitude: 37.764420,
+        longitude: -122.439890,
+        typesenseCoordinates: [37.764420, -122.439890],
+        imageUrl: nil,
+        hasFood: true,
+        hasBar: false,
+        is21Plus: false,
+        genre: Genre.pop.rawValue,
+        maxNumberOfBands: 5
+    )
+
     // MARK: - Example BandInvites
 
     /// An example band invite inviting exampleUserTas to join Pathetic Fallacy. Sent by exampleUserJulian.

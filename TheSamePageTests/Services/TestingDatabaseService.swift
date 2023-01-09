@@ -36,22 +36,22 @@ class TestingDatabaseService {
             .getDocument(as: User.self)
     }
 
-    func getShow(_ show: Show) async throws -> Show {
+    func getShow(with id: String) async throws -> Show {
         do {
             return try await db
                 .collection(FbConstants.shows)
-                .document(show.id)
+                .document(id)
                 .getDocument(as: Show.self)
         }
     }
 
-    func getBand(_ band: Band) async throws -> Band {
-        return try await db
-            .collection(FbConstants.bands)
-            .document(band.id)
-            .getDocument(as: Band.self)
+    func createShow(_ show: Show) throws -> String {
+        return try db
+            .collection(FbConstants.shows)
+            .addDocument(from: show)
+            .documentID
     }
-    
+
     func showExists(_ show: Show) async throws -> Bool {
         do {
             return try await db
@@ -63,15 +63,22 @@ class TestingDatabaseService {
             throw TestingDatabaseServiceError.firestore(message: "Failed to determine if show exists in DatabaseService.showExists(show:) Error: \(error.localizedDescription)")
         }
     }
-    
+
+    func getBand(_ band: Band) async throws -> Band {
+        return try await db
+            .collection(FbConstants.bands)
+            .document(band.id)
+            .getDocument(as: Band.self)
+    }
+
     /// A convenience method for testing that allows for a show document to be deleted. This method is for testing and
     /// should not be used in production, as it does not account for any subcollections a document may have.
     /// - Parameter showId: The document ID of the show to be deleted.
-    func deleteShow(_ show: Show) async throws {
+    func deleteShow(with id: String) async throws {
         do {
             try await db
                 .collection(FbConstants.shows)
-                .document(show.id)
+                .document(id)
                 .delete()
         } catch {
             throw TestingDatabaseServiceError.firestore(message: "Failed to delete show in DatabaseService.deleteShowObject(showId:) Error \(error.localizedDescription)")
@@ -132,31 +139,22 @@ class TestingDatabaseService {
 
     // MARK: - Firebase Storage
 
-    func getDownloadLinkForUserProfileImage(_ user: User) async throws -> String {
-        guard let imageUrl = user.profileImageUrl else {
+    func getDownloadLinkForImage(at url: String?) async throws -> String {
+        guard let url else {
             return ""
         }
 
-        let imageRef = Storage.storage().reference(forURL: imageUrl)
+        let imageRef = Storage.storage().reference(forURL: url)
         return try await imageRef.downloadURL().absoluteString
     }
     
-    func showProfilePictureExists(showImageUrl: String?) async throws -> Bool {
-        guard let showImageUrl else { return false }
+    func imageExists(at url: String?) async throws -> Bool {
+        guard let url else { return false }
         
-        let storageReference = Storage.storage().reference(forURL: showImageUrl)
-        
-        do {
-            let downloadUrl = try await storageReference.downloadURL().absoluteString
-            
-            if downloadUrl.isEmpty {
-                return false
-            } else {
-                return true
-            }
-        } catch {
-            return false
-        }
+        let storageReference = Storage.storage().reference(forURL: url)
+        let metadata = try await storageReference.getMetadata()
+
+        return metadata.isFile && metadata.size != 0
     }
     
     func restoreShowForUpdateTesting(show: Show) async throws {
@@ -168,6 +166,11 @@ class TestingDatabaseService {
         } catch {
             throw TestingDatabaseServiceError.firestore(message: "Failed to restore show for update testing in TestingDatabaseService.restoreShowForUpdateTesting(show:) Error \(error)")
         }
+    }
+
+    func deleteImage(at url: String) async throws {
+        let storageRef = Storage.storage().reference(forURL: url)
+        try await storageRef.delete()
     }
 
     // MARK: - Firebase Auth

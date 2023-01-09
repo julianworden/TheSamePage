@@ -24,7 +24,7 @@ final class SecurityRulesTests: XCTestCase {
     func test_WhenLoggedOut_ReadingFirestoreDataIsNotPossible() async throws {
         do {
             XCTAssertNoThrow(try testingDatabaseService.logOut(), "If this call throws, it'll skew the result of the test")
-            _ = try await testingDatabaseService.getShow(TestingConstants.exampleShowDumpweedExtravaganza)
+            _ = try await testingDatabaseService.getShow(with: TestingConstants.exampleShowDumpweedExtravaganza.id)
 
             XCTFail("The read should not have been successful because the user was logged out")
         } catch FirestoreErrorCode.permissionDenied {
@@ -37,7 +37,7 @@ final class SecurityRulesTests: XCTestCase {
     func test_WhenLoggedOut_ReadingFirebaseStorageDataIsNotPossible() async throws {
         do {
             XCTAssertNoThrow(try testingDatabaseService.logOut(), "If this call throws, it'll skew the result of the test")
-            _ = try await testingDatabaseService.getDownloadLinkForUserProfileImage(TestingConstants.exampleUserJulian)
+            _ = try await testingDatabaseService.getDownloadLinkForImage(at: TestingConstants.exampleUserJulian.profileImageUrl)
 
             XCTFail("The read should've failed because the user was signed out")
         } catch {

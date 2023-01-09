@@ -10,10 +10,6 @@ import FirebaseFirestore
 import MapKit
 import UIKit.UIImage
 
-enum AddEditShowViewModelError: Error {
-    case incompleteForm
-}
-
 @MainActor
 final class AddEditShowViewModel: ObservableObject {
     var showToEdit: Show?
@@ -24,7 +20,7 @@ final class AddEditShowViewModel: ObservableObject {
     @Published var showHostName = ""
     @Published var showGenre = Genre.rock
     @Published var showMaxNumberOfBands = 1
-    @Published var showDate = Date()
+    @Published var showDate = Date.now
     
     // Make it so that shows are not private by default
     @Published var addressIsPrivate = false
@@ -142,7 +138,7 @@ final class AddEditShowViewModel: ObservableObject {
                 self.showLongitude = showLongitude
                 self.showTypesenseCoordinates = [showLatitude, showLongitude]
             }
-            
+
             showAddress = showPlacemark.formattedAddress
             showCity = showPlacemark.postalAddress?.city
             showState = showPlacemark.postalAddress?.state
@@ -162,9 +158,8 @@ final class AddEditShowViewModel: ObservableObject {
     }
     
     func updateCreateShowButtonTapped(withImage image: UIImage? = nil) async -> String? {
-        var showId: String?
-        
         do {
+            var showId: String?
             viewState = .performingWork
             showToEdit == nil ? showId = try await createShow(withImage: image) : try await updateShow()
             viewState = .workCompleted
@@ -184,6 +179,8 @@ final class AddEditShowViewModel: ObservableObject {
             description: showDescription.trimmingCharacters(in: .whitespacesAndNewlines) == "" ? nil : showDescription,
             host: showHostName,
             hostUid: AuthController.getLoggedInUid(),
+            bandIds: bandIds,
+            participantUids: participantUids,
             venue: showVenue,
             date: showDate.timeIntervalSince1970,
             isFree: showIsFree,
@@ -209,7 +206,7 @@ final class AddEditShowViewModel: ObservableObject {
     }
     
     func updateShow() async throws {
-        guard formIsComplete else { throw AddEditShowViewModelError.incompleteForm }
+        guard formIsComplete else { throw LogicError.incompleteForm }
         
         // Force unwraps are safe for showToEdit because this method is only called when showToEdit != nil
         let updatedShow = Show(
