@@ -108,7 +108,7 @@ class ConversationViewModel: ObservableObject {
                 return newChatId
             }
         } catch {
-            viewState = .error(message: FirebaseError.connection(message: "Failed to configure chat", systemError: error.localizedDescription).localizedDescription)
+            viewState = .error(message: error.localizedDescription)
             return nil
         }
     }

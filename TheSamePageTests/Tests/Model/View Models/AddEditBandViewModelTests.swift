@@ -49,6 +49,7 @@ final class AddEditBandViewModelTests: XCTestCase {
 
         try testingDatabaseService.logOut()
         testingDatabaseService = nil
+        sut = nil
     }
 
     func test_OnInitWithNoBandToEditAndUserIsNotOnboarding_DefaultValuesAreCorrect() {

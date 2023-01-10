@@ -13,7 +13,7 @@ struct Band: Codable, Equatable, Hashable, Identifiable {
     var id: String
     let name: String
     let bio: String?
-    let profileImageUrl: String?
+    var profileImageUrl: String?
     let adminUid: String
     let memberUids: [String]
     let memberFcmTokens: [String]

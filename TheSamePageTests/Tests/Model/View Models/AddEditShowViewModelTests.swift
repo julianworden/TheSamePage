@@ -44,6 +44,7 @@ final class AddEditShowViewModelTests: XCTestCase {
 
         try testingDatabaseService.logOut()
         testingDatabaseService = nil
+        sut = nil
     }
 
     func test_OnInitWithNoShowToEdit_DefaultValuesAreCorrect() {

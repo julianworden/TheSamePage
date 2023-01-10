@@ -25,7 +25,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     // MARK: - Firestore Example Users
 
     func test_OnInit_ExampleUserJulianInFirestoreEmulatorHasExpectedValues() async throws {
-        let julianInEmulator = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserJulian)
+        let julianInEmulator = try await testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserJulian.id)
         let julianInTestingConstants = TestingConstants.exampleUserJulian
 
         XCTAssertEqual(julianInEmulator.id, julianInTestingConstants.id)
@@ -39,7 +39,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleUserLouInFirestoreEmulatorHasExpectedValues() async throws {
-        let louInEmulator = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserLou)
+        let louInEmulator = try await testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserLou.id)
         let louInTestingConstants = TestingConstants.exampleUserLou
 
         XCTAssertEqual(louInEmulator.id, louInTestingConstants.id)
@@ -53,7 +53,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleUserTasInFirestoreEmulatorHasExpectedValues() async throws {
-        let tasInEmulator = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserTas)
+        let tasInEmulator = try await testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserTas.id)
         let tasInTestingConstants = TestingConstants.exampleUserTas
 
         XCTAssertEqual(tasInEmulator.id, tasInTestingConstants.id)
@@ -67,7 +67,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleUserEricInFirestoreEmulatorHasExpectedValues() async throws {
-        let ericInEmulator = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserEric)
+        let ericInEmulator = try await testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserEric.id)
         let ericInTestingConstants = TestingConstants.exampleUserEric
 
         XCTAssertEqual(ericInEmulator.id, ericInTestingConstants.id)
@@ -81,7 +81,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleUserMikeInFirestoreEmulatorHasExpectedValues() async throws {
-        let mikeInEmulator = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserMike)
+        let mikeInEmulator = try await testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserMike.id)
         let mikeInTestingConstants = TestingConstants.exampleUserMike
 
         XCTAssertEqual(mikeInEmulator.id, mikeInTestingConstants.id)
@@ -95,11 +95,11 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleUsersInFirestoreEmulatorMatchTestingConstants() async throws {
-        let julianInEmulator = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserJulian)
-        let ericInEmulator = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserEric)
-        let louInEmulator = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserLou)
-        let tasInEmulator = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserTas)
-        let mikeInEmulator = try await testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserMike)
+        let julianInEmulator = try await testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserJulian.id)
+        let ericInEmulator = try await testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserEric.id)
+        let louInEmulator = try await testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserLou.id)
+        let tasInEmulator = try await testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserTas.id)
+        let mikeInEmulator = try await testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserMike.id)
 
         XCTAssertEqual(julianInEmulator, TestingConstants.exampleUserJulian)
         XCTAssertEqual(ericInEmulator, TestingConstants.exampleUserEric)

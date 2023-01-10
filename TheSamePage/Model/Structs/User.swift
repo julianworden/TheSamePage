@@ -10,11 +10,11 @@ import FirebaseFirestoreSwift
 import Foundation
 
 struct User: Codable, Equatable, Hashable, Identifiable {
-    let id: String
+    var id: String
     let username: String
     let firstName: String
     let lastName: String
-    let profileImageUrl: String?
+    var profileImageUrl: String?
     let phoneNumber: String?
     let emailAddress: String
     let fcmToken: String?

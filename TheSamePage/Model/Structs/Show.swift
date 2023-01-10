@@ -36,7 +36,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     let latitude: Double
     let longitude: Double
     let typesenseCoordinates: [Double]
-    let imageUrl: String?
+    var imageUrl: String?
     var hasFood: Bool
     var hasBar: Bool
     var is21Plus: Bool

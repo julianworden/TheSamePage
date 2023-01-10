@@ -147,7 +147,8 @@ class DatabaseService: NSObject {
     /// - Parameters:
     ///   - image: The new image to be uploaded to Firebase Storage.
     ///   - user: The user that will be having its profileImageUrl property updated.
-    func updateUserProfileImage(image: UIImage, user: User) async throws {
+    /// - Returns: The download URL for the user's new profile image.
+    func updateUserProfileImage(image: UIImage, user: User) async throws -> String? {
         do {
             if let oldImageUrl = user.profileImageUrl {
                 let oldImageRef = Storage.storage().reference(forURL: oldImageUrl)
@@ -158,7 +159,10 @@ class DatabaseService: NSObject {
                 try await db.collection(FbConstants.users)
                     .document(user.id)
                     .updateData(["profileImageUrl": newImageUrl])
+                return newImageUrl
             }
+
+            return nil
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to update your profile image",
@@ -451,7 +455,7 @@ class DatabaseService: NSObject {
     /// - Parameters:
     ///   - image: The new image to be uploaded to Firebase Storage.
     ///   - band: The band that will be having its profileImageUrl property updated.
-    func updateBandProfileImage(image: UIImage, band: Band) async throws {
+    func updateBandProfileImage(image: UIImage, band: Band) async throws -> String? {
         do {
             if let oldImageUrl = band.profileImageUrl {
                 let oldImageRef = Storage.storage().reference(forURL: oldImageUrl)
@@ -463,7 +467,10 @@ class DatabaseService: NSObject {
                     .collection(FbConstants.bands)
                     .document(band.id)
                     .updateData(["profileImageUrl": newImageUrl])
+                return newImageUrl
             }
+
+            return nil
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to update \(band.name)'s profile image",
@@ -602,7 +609,7 @@ class DatabaseService: NSObject {
     /// - Parameters:
     ///   - image: The new image to be uploaded to Firebase Storage.
     ///   - show: The show that will be having its imageUrl property updated.
-    func updateShowImage(image: UIImage, show: Show) async throws {
+    func updateShowImage(image: UIImage, show: Show) async throws -> String? {
         do {
             // Delete old image if it exists
             if let oldImageUrl = show.imageUrl {
@@ -611,8 +618,14 @@ class DatabaseService: NSObject {
             }
             
             if let newImageUrl = try await uploadImage(image: image) {
-                try await db.collection(FbConstants.shows).document(show.id).updateData(["imageUrl": newImageUrl])
+                try await db
+                    .collection(FbConstants.shows)
+                    .document(show.id)
+                    .updateData(["imageUrl": newImageUrl])
+                return newImageUrl
             }
+
+            return nil
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to update image for \(show.name)",

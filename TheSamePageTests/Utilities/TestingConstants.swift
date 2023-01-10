@@ -65,6 +65,14 @@ struct TestingConstants {
         emailAddress: "mikeflorentine@gmail.com"
     )
 
+    static let exampleUserForIntegrationTesting = User(
+        id: "",
+        username: "exampleuser",
+        firstName: "Example",
+        lastName: "User",
+        emailAddress: "exampleuser@gmail.com"
+    )
+
     // MARK: - Example Bands
 
     /// An example band that matches a band being stored in Firestore Emulator
@@ -85,7 +93,7 @@ struct TestingConstants {
         id: "utwW2iCnJ7MiGAdRfFYz",
         name: "Dumpweed",
         bio: "We are the biggest rockers in the whole wide world!",
-        profileImageUrl: "http://127.0.0.1:9199/v0/b/the-same-page-9c69e.appspot.com/o/Dumpweed%20Band%20Photo.jpg?alt=media&token=5df3df82-d573-4258-a999-fa083d0aa830",
+        profileImageUrl: "http://127.0.0.1:9199/v0/b/the-same-page-9c69e.appspot.com/o/Dumpweed%20Band%20Photo.jpg?alt=media&token=c80f3cd6-6aa0-4928-a7ae-bffeb0142636",
         adminUid: exampleUserEric.id,
         memberUids: [exampleUserEric.id],
         genre: Genre.metal.rawValue,

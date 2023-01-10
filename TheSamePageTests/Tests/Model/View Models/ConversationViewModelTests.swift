@@ -40,6 +40,7 @@ final class ConversationViewModelTests: XCTestCase {
 
         try testingDatabaseService.logOut()
         testingDatabaseService = nil
+        sut = nil
     }
 
     func test_OnInitWithShowWithMessagesAndOnAppearMethodsCalled_PropertiesAreAssigned() async throws {
@@ -100,7 +101,7 @@ final class ConversationViewModelTests: XCTestCase {
         await sut.callOnAppearMethods()
         sut.messageText = TestingConstants.testMessageText
 
-        await sut.sendMessageButtonTapped(by: try testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserEric))
+        await sut.sendMessageButtonTapped(by: try testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserEric.id))
         try await Task.sleep(seconds: 3)
 
         XCTAssertTrue(sut.messageText.isEmpty, "After sending a message, there should be no more message text")
@@ -114,7 +115,7 @@ final class ConversationViewModelTests: XCTestCase {
         _ = await sut.configureChat()
         sut.messageText = "  "
 
-        await sut.sendChatMessage(fromUser: try testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserEric))
+        await sut.sendChatMessage(fromUser: try testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserEric.id))
 
         XCTAssertEqual(sut.viewState, .error(message: LogicError.emptyChatMessage.localizedDescription))
         XCTAssertTrue(sut.errorAlertIsShowing, "The error alert should be showing since the message is empty")
@@ -124,7 +125,7 @@ final class ConversationViewModelTests: XCTestCase {
     func test_OnSendChatMessageWithoutConfiguringChat_ErrorViewStateIsSet() async throws {
         sut = ConversationViewModel()
 
-        await sut.sendChatMessage(fromUser: try testingDatabaseService.getUserFromFirestore(TestingConstants.exampleUserEric))
+        await sut.sendChatMessage(fromUser: try testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserEric.id))
 
         XCTAssertEqual(
             sut.viewState,

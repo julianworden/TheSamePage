@@ -59,25 +59,32 @@ final class EditImageViewModel: ObservableObject {
         }
     }
     
-    func updateImage(withImage image: UIImage) async {
+    func updateImage(withImage image: UIImage) async -> String? {
         do {
             viewState = .performingWork
             
             if let show {
-                try await DatabaseService.shared.updateShowImage(image: image, show: show)
+                let updatedImageUrl = try await DatabaseService.shared.updateShowImage(image: image, show: show)
+                viewState = .workCompleted
+                return updatedImageUrl
             }
             
             if let user {
-                try await DatabaseService.shared.updateUserProfileImage(image: image, user: user)
+                let updatedImageUrl = try await DatabaseService.shared.updateUserProfileImage(image: image, user: user)
+                viewState = .workCompleted
+                return updatedImageUrl
             }
             
             if let band {
-                try await DatabaseService.shared.updateBandProfileImage(image: image, band: band)
+                let updatedImageUrl = try await DatabaseService.shared.updateBandProfileImage(image: image, band: band)
+                viewState = .workCompleted
+                return updatedImageUrl
             }
-            
-            viewState = .workCompleted
+
+            return nil
         } catch {
             viewState = .error(message: error.localizedDescription)
+            return nil
         }
     }
 }

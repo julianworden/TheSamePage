@@ -29,11 +29,30 @@ class TestingDatabaseService {
 
     // MARK: - Firestore Users
 
-    func getUserFromFirestore(_ user: User) async throws -> User {
+    func getUserFromFirestore(withUid uid: String) async throws -> User {
         return try await db
             .collection(FbConstants.users)
-            .document(user.id)
+            .document(uid)
             .getDocument(as: User.self)
+    }
+
+    func createExampleUserWithProfileImageInFirestore(withUser user: User) async throws -> String {
+        let profileImageUrl = try await uploadImage(UIImage(systemName: "plus")!)
+        var userCopy = user
+        userCopy.profileImageUrl = profileImageUrl
+
+        let docRef = try db
+            .collection(FbConstants.users)
+            .addDocument(from: userCopy)
+
+        return docRef.documentID
+    }
+
+    func deleteUserFromFirestore(withUid uid: String) async throws {
+        try await db
+            .collection(FbConstants.users)
+            .document(uid)
+            .delete()
     }
 
     // MARK: - Firestore Shows
@@ -52,6 +71,18 @@ class TestingDatabaseService {
             .collection(FbConstants.shows)
             .addDocument(from: show)
             .documentID
+    }
+
+    func createShowWithImage(_ show: Show) async throws -> String {
+        let imageUrl = try await uploadImage(UIImage(systemName: "plus")!)
+        var showCopy = show
+        showCopy.imageUrl = imageUrl
+
+        let docRef = try db
+            .collection(FbConstants.shows)
+            .addDocument(from: showCopy)
+
+        return docRef.documentID
     }
 
     func showExists(_ show: Show) async throws -> Bool {
@@ -98,6 +129,18 @@ class TestingDatabaseService {
             .collection(FbConstants.bands)
             .addDocument(from: band)
             .documentID
+    }
+
+    func createBandWithProfileImage(_ band: Band) async throws -> String {
+        let profileImageUrl = try await uploadImage(UIImage(systemName: "plus")!)
+        var bandCopy = band
+        bandCopy.profileImageUrl = profileImageUrl
+
+        let docRef = try db
+            .collection(FbConstants.bands)
+            .addDocument(from: bandCopy)
+
+        return docRef.documentID
     }
 
     func getBand(with id: String) async throws -> Band {
@@ -230,6 +273,27 @@ class TestingDatabaseService {
 
     // MARK: - Firebase Storage
 
+    func uploadImage(_ image: UIImage) async throws -> String? {
+        let imageData = image.jpegData(compressionQuality: 0.8)
+
+        guard let imageData else {
+            throw LogicError.unexpectedNilValue(
+                message: "Failed to upload your image",
+                systemError: nil
+            )
+        }
+
+        let storageRef = Storage.storage().reference()
+        let path = "images/\(UUID().uuidString).jpg"
+        let fileRef = storageRef.child(path)
+        var imageUrl: URL?
+
+        _ = try await fileRef.putDataAsync(imageData)
+        let fetchedImageUrl = try await fileRef.downloadURL()
+        imageUrl = fetchedImageUrl
+        return imageUrl?.absoluteString
+    }
+
     func getDownloadLinkForImage(at url: String?) async throws -> String {
         guard let url else {
             return ""
@@ -296,6 +360,15 @@ class TestingDatabaseService {
     @discardableResult func logInToMikeAccount() async throws -> FirebaseAuth.User? {
         do {
             let result = try await Auth.auth().signIn(withEmail: "mikeflorentine@gmail.com", password: "dynomite")
+            return result.user
+        } catch {
+            return nil
+        }
+    }
+
+    @discardableResult func logInToExampleAccountForIntegrationTesting() async throws -> FirebaseAuth.User? {
+        do {
+            let result = try await Auth.auth().signIn(withEmail: "exampleuser@gmail.com", password: "dynomite")
             return result.user
         } catch {
             return nil
