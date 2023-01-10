@@ -116,6 +116,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
 
         XCTAssertEqual(patheticFallacyInEmulator.adminUid, TestingConstants.exampleUserJulian.id)
         XCTAssertEqual(patheticFallacyInEmulator.bio, patheticFallacyInTestingConstants.bio)
+        XCTAssertEqual(patheticFallacyInEmulator.profileImageUrl, patheticFallacyInTestingConstants.profileImageUrl)
         XCTAssertEqual(patheticFallacyInEmulator.city, patheticFallacyInTestingConstants.city)
         XCTAssertEqual(patheticFallacyInEmulator.genre, patheticFallacyInTestingConstants.genre)
         XCTAssertEqual(patheticFallacyInEmulator.id, patheticFallacyInTestingConstants.id)
@@ -131,6 +132,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
 
         XCTAssertEqual(dumpweedInEmulator.adminUid, TestingConstants.exampleUserEric.id)
         XCTAssertEqual(dumpweedInEmulator.bio, dumpweedInTestingConstants.bio)
+        XCTAssertEqual(dumpweedInEmulator.profileImageUrl, dumpweedInTestingConstants.profileImageUrl)
         XCTAssertEqual(dumpweedInEmulator.city, dumpweedInTestingConstants.city)
         XCTAssertEqual(dumpweedInEmulator.genre, dumpweedInTestingConstants.genre)
         XCTAssertEqual(dumpweedInEmulator.id, dumpweedInTestingConstants.id)
