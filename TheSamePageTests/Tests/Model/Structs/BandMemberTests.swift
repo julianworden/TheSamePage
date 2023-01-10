@@ -34,8 +34,8 @@ final class BandMemberTests: XCTestCase {
     func test_BandMemberIsLoggedInUser_BandMemberIsLoggedInUserReturnsTrue() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         let julian = try await testingDatabaseService.getBandMember(
-            get: TestingConstants.exampleBandMemberJulian,
-            in: TestingConstants.exampleBandPatheticFallacy
+            withFullName: TestingConstants.exampleBandMemberJulian.fullName,
+            inBandWithId: TestingConstants.exampleBandPatheticFallacy.id
         )
 
         XCTAssertTrue(julian.bandMemberIsLoggedInUser, "Julian is the fetched BandMember and the logged in user")
@@ -44,8 +44,8 @@ final class BandMemberTests: XCTestCase {
     func test_BandMemberIsNotLoggedInUser_BandMemberIsLoggedInUserReturnsFalse() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         let eric = try await testingDatabaseService.getBandMember(
-            get: TestingConstants.exampleBandMemberEric,
-            in: TestingConstants.exampleBandDumpweed
+            withFullName: TestingConstants.exampleBandMemberEric.fullName,
+            inBandWithId: TestingConstants.exampleBandDumpweed.id
         )
 
         XCTAssertFalse(eric.bandMemberIsLoggedInUser, "Eric is the fetched BandMember, but not the logged in user")

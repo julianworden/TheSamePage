@@ -7,12 +7,6 @@
 
 import Foundation
 
-enum SendShowInviteViewModelError: Error {
-    case unexpectedNilValue(message: String)
-    case lineupIsFull
-    case bandIsAlreadyPlaying
-}
-
 @MainActor
 final class SendShowInviteViewModel: ObservableObject {
     @Published var state = ViewState.dataLoading

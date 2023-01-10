@@ -162,6 +162,7 @@
 		ABCAA9FF28E9E56C00685F91 /* BandProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAA9FE28E9E56C00685F91 /* BandProfileHeader.swift */; };
 		ABCAAA0228E9ED6C00685F91 /* BandLinkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCAAA0128E9ED6C00685F91 /* BandLinkList.swift */; };
 		ABCC3D742965CC6E006CF074 /* TestingConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDBEC962927CF86004AB2C1 /* TestingConstants.swift */; };
+		ABCD20E1296C76A500258F6F /* AddEditBandViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCD20E0296C76A500258F6F /* AddEditBandViewModelTests.swift */; };
 		ABCD5F62291B541F00E33934 /* BandShowsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCD5F61291B541F00E33934 /* BandShowsTab.swift */; };
 		ABCD5F64291B54D300E33934 /* BandShowsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCD5F63291B54D300E33934 /* BandShowsList.swift */; };
 		ABCD5F66291B551800E33934 /* BandShowRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCD5F65291B551800E33934 /* BandShowRow.swift */; };
@@ -176,6 +177,7 @@
 		ABD323EF28E1180C00540B93 /* SendBandInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD323EE28E1180C00540B93 /* SendBandInviteView.swift */; };
 		ABD323F128E1181F00540B93 /* SendBandInviteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD323F028E1181F00540B93 /* SendBandInviteViewModel.swift */; };
 		ABD4BD1E2968695E00CCA88B /* BandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD4BD1D2968695E00CCA88B /* BandTests.swift */; };
+		ABD585BB296D041C007168D0 /* ConversationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD585BA296D041C007168D0 /* ConversationViewModelTests.swift */; };
 		ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D6F28D748FD0054269E /* NotificationsView.swift */; };
 		ABDC0D7228D74BFF0054269E /* OtherUserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D7128D74BFF0054269E /* OtherUserProfileViewModel.swift */; };
 		ABDC0D7428D75CC80054269E /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDC0D7328D75CC80054269E /* AuthController.swift */; };
@@ -367,6 +369,7 @@
 		ABC9F411296919A6004DE24B /* BandMemberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMemberTests.swift; sourceTree = "<group>"; };
 		ABCAA9FE28E9E56C00685F91 /* BandProfileHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BandProfileHeader.swift; sourceTree = "<group>"; };
 		ABCAAA0128E9ED6C00685F91 /* BandLinkList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLinkList.swift; sourceTree = "<group>"; };
+		ABCD20E0296C76A500258F6F /* AddEditBandViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditBandViewModelTests.swift; sourceTree = "<group>"; };
 		ABCD5F61291B541F00E33934 /* BandShowsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandShowsTab.swift; sourceTree = "<group>"; };
 		ABCD5F63291B54D300E33934 /* BandShowsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandShowsList.swift; sourceTree = "<group>"; };
 		ABCD5F65291B551800E33934 /* BandShowRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandShowRow.swift; sourceTree = "<group>"; };
@@ -381,6 +384,7 @@
 		ABD323EE28E1180C00540B93 /* SendBandInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendBandInviteView.swift; sourceTree = "<group>"; };
 		ABD323F028E1181F00540B93 /* SendBandInviteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendBandInviteViewModel.swift; sourceTree = "<group>"; };
 		ABD4BD1D2968695E00CCA88B /* BandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandTests.swift; sourceTree = "<group>"; };
+		ABD585BA296D041C007168D0 /* ConversationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewModelTests.swift; sourceTree = "<group>"; };
 		ABDBEC962927CF86004AB2C1 /* TestingConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingConstants.swift; sourceTree = "<group>"; };
 		ABDC0D6F28D748FD0054269E /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		ABDC0D7128D74BFF0054269E /* OtherUserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserProfileViewModel.swift; sourceTree = "<group>"; };
@@ -981,6 +985,8 @@
 			isa = PBXGroup;
 			children = (
 				ABBE36A5296B583B0092F594 /* AddEditShowViewModelTests.swift */,
+				ABCD20E0296C76A500258F6F /* AddEditBandViewModelTests.swift */,
+				ABD585BA296D041C007168D0 /* ConversationViewModelTests.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -1535,6 +1541,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABD585BB296D041C007168D0 /* ConversationViewModelTests.swift in Sources */,
 				ABBE369D296B53660092F594 /* UserTests.swift in Sources */,
 				ABC9932829665D0C00B553F4 /* SecurityRulesTests.swift in Sources */,
 				ABBE3691296B06C30092F594 /* ChatMessageTests.swift in Sources */,
@@ -1548,6 +1555,7 @@
 				ABD4BD1E2968695E00CCA88B /* BandTests.swift in Sources */,
 				AB1CDD3E296A12BD008ACC48 /* ChatTests.swift in Sources */,
 				ABBE36A3296B566C0092F594 /* SearchTypeTests.swift in Sources */,
+				ABCD20E1296C76A500258F6F /* AddEditBandViewModelTests.swift in Sources */,
 				ABBE3695296B26970092F594 /* ShowTests.swift in Sources */,
 				AB4BF6C02965B6AD0007A33B /* FirebaseEmulatorDataTests.swift in Sources */,
 			);

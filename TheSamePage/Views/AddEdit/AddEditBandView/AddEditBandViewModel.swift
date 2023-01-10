@@ -51,7 +51,7 @@ final class AddEditBandViewModel: ObservableObject {
     
     var bandToEdit: Band?
     
-    init(bandToEdit: Band?, userIsOnboarding: Bool) {
+    init(bandToEdit: Band? = nil, userIsOnboarding: Bool) {
         self.userIsOnboarding = userIsOnboarding
         
         if let bandToEdit {
@@ -69,19 +69,16 @@ final class AddEditBandViewModel: ObservableObject {
         }
     }
     
-    func createUpdateBandButtonTapped() async {
+    @discardableResult func createUpdateBandButtonTapped() async -> String? {
         do {
+            var newBandId: String?
             viewState = .performingWork
-            
-            if bandToEdit == nil {
-                try await createBand(withImage: selectedImage)
-            } else {
-                await updateBand()
-            }
-            
+            bandToEdit == nil ? newBandId = try await createBand(withImage: selectedImage) : await updateBand()
             viewState = .workCompleted
+            return newBandId
         } catch {
             viewState = .error(message: error.localizedDescription)
+            return nil
         }
     }
     
@@ -91,68 +88,65 @@ final class AddEditBandViewModel: ObservableObject {
     /// a subsequent DatabaseService method that will add the user as a BandMember to the band's members collection,
     /// and then add the user's UID to the band's memberUids array.
     /// - Parameter image: The band's profile image.
-    func createBand(withImage image: UIImage?) async throws {
-        do {
-            var newBand: Band
-            var newBandId: String
-            let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
-            
-            newBand = Band(
-                id: "",
-                name: bandName,
-                bio: bandBio,
-                profileImageUrl: image == nil ? nil : try await DatabaseService.shared.uploadImage(image: image!),
-                adminUid: loggedInUser.id,
-                memberFcmTokens: [loggedInUser.fcmToken ?? ""],
-                genre: bandGenre.rawValue,
-                city: bandCity,
-                state: bandState.rawValue
-            )
-            newBandId = try await DatabaseService.shared.createBand(band: newBand)
-        
+    func createBand(withImage image: UIImage?) async throws -> String {
+        var newBand: Band
+        var newBandId: String
+        let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
+
+        newBand = Band(
+            id: "",
+            name: bandName,
+            bio: bandBio,
+            profileImageUrl: image == nil ? nil : try await DatabaseService.shared.uploadImage(image: image!),
+            adminUid: loggedInUser.id,
+            memberFcmTokens: [loggedInUser.fcmToken ?? ""],
+            genre: bandGenre.rawValue,
+            city: bandCity,
+            state: bandState.rawValue
+        )
+        newBandId = try await DatabaseService.shared.createBand(band: newBand)
+
         if userPlaysInBand {
-            let user = try await DatabaseService.shared.getLoggedInUser()
             let band = try await DatabaseService.shared.getBand(with: newBandId)
             let bandMember = BandMember(
                 id: "",
                 dateJoined: Date.now.timeIntervalSince1970,
-                uid: user.id,
+                uid: loggedInUser.id,
                 role: userRoleInBand.rawValue,
-                username: user.username,
-                fullName: user.fullName
+                username: loggedInUser.username,
+                fullName: loggedInUser.fullName
             )
-            try await DatabaseService.shared.addUserToBand(add: user, as: bandMember, to: band, withBandInvite: nil)
+            try await DatabaseService.shared.addUserToBand(add: loggedInUser, as: bandMember, to: band, withBandInvite: nil)
         }
-    } catch {
-        viewState = .error(message: error.localizedDescription)
-    }
-}
 
-func updateBand() async {
-    guard let bandToEdit else {
-        viewState = .error(message: "Failed to update band, please try again.")
-        return
+        return newBandId
     }
-    
-    let updatedBand = Band(
-        id: bandToEdit.id,
-        name: bandName,
-        bio: bandBio,
-        profileImageUrl: bandToEdit.profileImageUrl,
-        adminUid: bandToEdit.adminUid,
-        memberUids: bandToEdit.memberUids,
-        memberFcmTokens: bandToEdit.memberFcmTokens,
-        genre: bandGenre.rawValue,
-        city: bandCity,
-        state: bandState.rawValue
-    )
-    
-    guard bandToEdit != updatedBand else { return }
-    
-    do {
-        try await DatabaseService.shared.updateBand(band: updatedBand)
-    } catch {
-        viewState = .error(message: error.localizedDescription)
+
+    func updateBand() async {
+        guard let bandToEdit else {
+            viewState = .error(message: "Failed to update band, please try again.")
+            return
+        }
+
+        let updatedBand = Band(
+            id: bandToEdit.id,
+            name: bandName,
+            bio: bandBio,
+            profileImageUrl: bandToEdit.profileImageUrl,
+            adminUid: bandToEdit.adminUid,
+            memberUids: bandToEdit.memberUids,
+            memberFcmTokens: bandToEdit.memberFcmTokens,
+            genre: bandGenre.rawValue,
+            city: bandCity,
+            state: bandState.rawValue
+        )
+
+        guard bandToEdit != updatedBand else { return }
+
+        do {
+            try await DatabaseService.shared.updateBand(band: updatedBand)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
     }
-}
 }

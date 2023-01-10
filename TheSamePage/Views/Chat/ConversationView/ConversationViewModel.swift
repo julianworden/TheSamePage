@@ -38,19 +38,23 @@ class ConversationViewModel: ObservableObject {
     var chatMessagesListener: ListenerRegistration?
     let db = Firestore.firestore()
     
-    init(show: Show? = nil, userId: String? = nil, showParticipants: [ShowParticipant]) {
+    init(show: Show? = nil, userId: String? = nil, showParticipants: [ShowParticipant] = []) {
         self.show = show
         self.userId = userId
         self.showParticipants = showParticipants
     }
     
     func callOnAppearMethods() async {
-        await configureChat()
+        _ = await configureChat()
         addChatListener()
     }
     
     func addChatListener() {
-        guard let chat else { return } // TODO: Change state in this guard's else block
+        guard let chat else {
+            viewState = .error(
+                message: LogicError.unexpectedNilValue(message: "Failed to get latest chat info. Please relaunch The Same Page").localizedDescription)
+            return
+        }
         
         chatMessagesListener = db
             .collection(FbConstants.chats)
@@ -74,26 +78,38 @@ class ConversationViewModel: ObservableObject {
             }
     }
     
-    func configureChat() async {
-        if let show {
-            do {
-                if let fetchedChat = try await DatabaseService.shared.getChat(withShowId: show.id) {
-                    self.chat = fetchedChat
-                    messages = try await DatabaseService.shared.getMessagesForChat(chat: fetchedChat)
-                } else {
-                    var chatParticipantUids = show.participantUids
-                    if !show.participantUids.contains(show.hostUid) {
-                        chatParticipantUids.append(show.hostUid)
-                    }
-                    let chatParticipantFcmTokens = try await DatabaseService.shared.getChatFcmTokens(withUids: chatParticipantUids)
-                    var newChat = Chat(id: "", showId: show.id, name: show.name, participantUids: chatParticipantUids, participantFcmTokens: chatParticipantFcmTokens)
-                    let newChatId = try await DatabaseService.shared.createChat(chat: newChat)
-                    newChat.id = newChatId
-                    self.chat = newChat
+    func configureChat() async -> String? {
+        guard let show else {
+            viewState = .error(message: LogicError.unexpectedNilValue(message: "Failed to configure chat. Please restart The Same Page and try again").localizedDescription)
+            return nil
+        }
+
+        do {
+            if let fetchedChat = try await DatabaseService.shared.getChat(withShowId: show.id) {
+                self.chat = fetchedChat
+                messages = try await DatabaseService.shared.getMessagesForChat(chat: fetchedChat)
+                return fetchedChat.id
+            } else {
+                var chatParticipantUids = show.participantUids
+                if !show.participantUids.contains(show.hostUid) {
+                    chatParticipantUids.append(show.hostUid)
                 }
-            } catch {
-                viewState = .error(message: error.localizedDescription)
+                let chatParticipantFcmTokens = try await DatabaseService.shared.getChatFcmTokens(withUids: chatParticipantUids)
+                var newChat = Chat(
+                    id: "",
+                    showId: show.id,
+                    name: show.name,
+                    participantUids: chatParticipantUids,
+                    participantFcmTokens: chatParticipantFcmTokens
+                )
+                let newChatId = try await DatabaseService.shared.createChat(chat: newChat)
+                newChat.id = newChatId
+                self.chat = newChat
+                return newChatId
             }
+        } catch {
+            viewState = .error(message: FirebaseError.connection(message: "Failed to configure chat", systemError: error.localizedDescription).localizedDescription)
+            return nil
         }
     }
     
@@ -104,8 +120,16 @@ class ConversationViewModel: ObservableObject {
     
     func sendChatMessage(fromUser user: User?) async {
         guard let chat,
-              let user,
-              !messageText.isEmpty else { return }
+              let user else {
+            viewState = .error(
+                message: LogicError.unexpectedNilValue(message: "Failed to send chat message. Please relaunch The Same Page and try again").localizedDescription)
+            return
+        }
+
+        guard !messageText.isReallyEmpty else {
+            viewState = .error(message: LogicError.emptyChatMessage.localizedDescription)
+            return
+        }
         
         do {
             let senderUid = user.id

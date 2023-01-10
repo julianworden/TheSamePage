@@ -27,7 +27,7 @@ class TestingDatabaseService {
     
     let db = Firestore.firestore()
 
-    // MARK: - Firestore
+    // MARK: - Firestore Users
 
     func getUserFromFirestore(_ user: User) async throws -> User {
         return try await db
@@ -35,6 +35,8 @@ class TestingDatabaseService {
             .document(user.id)
             .getDocument(as: User.self)
     }
+
+    // MARK: - Firestore Shows
 
     func getShow(with id: String) async throws -> Show {
         do {
@@ -64,13 +66,6 @@ class TestingDatabaseService {
         }
     }
 
-    func getBand(_ band: Band) async throws -> Band {
-        return try await db
-            .collection(FbConstants.bands)
-            .document(band.id)
-            .getDocument(as: Band.self)
-    }
-
     /// A convenience method for testing that allows for a show document to be deleted. This method is for testing and
     /// should not be used in production, as it does not account for any subcollections a document may have.
     /// - Parameter showId: The document ID of the show to be deleted.
@@ -85,6 +80,68 @@ class TestingDatabaseService {
         }
     }
 
+    // MARK: - Firestore ShowParticipants
+
+    func getShowParticipant(_ showParticipant: ShowParticipant) async throws -> ShowParticipant {
+        return try await db
+            .collection(FbConstants.shows)
+            .document(showParticipant.showId)
+            .collection(FbConstants.participants)
+            .document(showParticipant.id!)
+            .getDocument(as: ShowParticipant.self)
+    }
+
+    // MARK: - Firestore Bands
+
+    func createBand(_ band: Band) throws -> String {
+        return try db
+            .collection(FbConstants.bands)
+            .addDocument(from: band)
+            .documentID
+    }
+
+    func getBand(with id: String) async throws -> Band {
+        return try await db
+            .collection(FbConstants.bands)
+            .document(id)
+            .getDocument(as: Band.self)
+    }
+
+    func deleteBand(with id: String) async throws {
+        do {
+            try await db
+                .collection(FbConstants.bands)
+                .document(id)
+                .delete()
+        } catch {
+            throw TestingDatabaseServiceError.firestore(message: "Failed to delete show in DatabaseService.deleteShowObject(showId:) Error \(error.localizedDescription)")
+        }
+    }
+
+    // MARK: - Firestore BandMembers
+
+    func getBandMember(withFullName bandMemberFullName: String, inBandWithId bandId: String) async throws -> BandMember {
+        return try await db
+            .collection(FbConstants.bands)
+            .document(bandId)
+            .collection(FbConstants.members)
+            .whereField(FbConstants.fullName, isEqualTo: bandMemberFullName)
+            .getDocuments()
+            .documents[0]
+            .data(as: BandMember.self)
+    }
+
+    func deleteBandMember(in bandId: String, with memberId: String) async throws {
+        try await db
+            .collection(FbConstants.bands)
+            .document(bandId)
+            .collection(FbConstants.members)
+            .document(memberId)
+            .delete()
+    }
+
+    // MARK: - Firestore BandInvites
+
     func getBandInvite(get bandInvite: BandInvite, for user: User) async throws -> BandInvite {
         return try await db
             .collection(FbConstants.users)
@@ -94,20 +151,23 @@ class TestingDatabaseService {
             .getDocument(as: BandInvite.self)
     }
 
-    func getBandMember(get bandMember: BandMember, in band: Band) async throws -> BandMember {
-        return try await db
-            .collection(FbConstants.bands)
-            .document(band.id)
-            .collection(FbConstants.members)
-            .document(bandMember.id)
-            .getDocument(as: BandMember.self)
-    }
+    // MARK: - Firestore Chats and ChatMessages
 
-    func getChat(_ chat: Chat) async throws -> Chat {
+    func getChat(forShowWithId showId: String) async throws -> Chat {
         return try await db
             .collection(FbConstants.chats)
-            .document(chat.id)
-            .getDocument(as: Chat.self)
+            .whereField(FbConstants.showId, isEqualTo: showId)
+            .getDocuments()
+            .documents
+            .first!
+            .data(as: Chat.self)
+    }
+
+    func deleteChat(withId id: String) async throws {
+        try await db
+            .collection(FbConstants.chats)
+            .document(id)
+            .delete()
     }
 
     func getChatMessage(get chatMessage: ChatMessage, in chat: Chat) async throws -> ChatMessage {
@@ -119,6 +179,46 @@ class TestingDatabaseService {
             .getDocument(as: ChatMessage.self)
     }
 
+    func getAllChatMessages(in chat: Chat) async throws -> [ChatMessage] {
+        let chatMessageDocuments = try await db
+            .collection(FbConstants.chats)
+            .document(chat.id)
+            .collection(FbConstants.messages)
+            .getDocuments()
+            .documents
+
+        return try chatMessageDocuments.map { try $0.data(as: ChatMessage.self) }
+    }
+
+    func deleteChatMessage(inChatWithId chatId: String, withMessageText messageText: String) async throws {
+        let chatMessage = try await db
+            .collection(FbConstants.chats)
+            .document(chatId)
+            .collection(FbConstants.messages)
+            .whereField(FbConstants.text, isEqualTo: messageText)
+            .getDocuments()
+            .documents
+            .first!
+            .data(as: ChatMessage.self)
+
+        try await db
+            .collection(FbConstants.chats)
+            .document(chatId)
+            .collection(FbConstants.messages)
+            .document(chatMessage.id!)
+            .delete()
+    }
+
+    func getTotalChatCountInFirestore() async throws -> Int {
+        return try await db
+            .collection(FbConstants.chats)
+            .count
+            .getAggregation(source: .server)
+            .count as! Int
+    }
+
+    // MARK: - Firestore PlatformLinks
+
     func getPlatformLink(get platformLink: PlatformLink, for band: Band) async throws -> PlatformLink {
         return try await db
             .collection(FbConstants.bands)
@@ -126,15 +226,6 @@ class TestingDatabaseService {
             .collection(FbConstants.links)
             .document(platformLink.id!)
             .getDocument(as: PlatformLink.self)
-    }
-
-    func getShowParticipant(_ showParticipant: ShowParticipant) async throws -> ShowParticipant {
-        return try await db
-            .collection(FbConstants.shows)
-            .document(showParticipant.showId)
-            .collection(FbConstants.participants)
-            .document(showParticipant.id!)
-            .getDocument(as: ShowParticipant.self)
     }
 
     // MARK: - Firebase Storage
@@ -147,7 +238,7 @@ class TestingDatabaseService {
         let imageRef = Storage.storage().reference(forURL: url)
         return try await imageRef.downloadURL().absoluteString
     }
-    
+
     func imageExists(at url: String?) async throws -> Bool {
         guard let url else { return false }
         
@@ -156,7 +247,7 @@ class TestingDatabaseService {
 
         return metadata.isFile && metadata.size != 0
     }
-    
+
     func restoreShowForUpdateTesting(show: Show) async throws {
         do {
             try db

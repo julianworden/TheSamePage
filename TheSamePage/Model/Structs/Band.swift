@@ -10,7 +10,7 @@ import FirebaseFirestoreSwift
 import Foundation
 
 struct Band: Codable, Equatable, Hashable, Identifiable {
-    let id: String
+    var id: String
     let name: String
     let bio: String?
     let profileImageUrl: String?

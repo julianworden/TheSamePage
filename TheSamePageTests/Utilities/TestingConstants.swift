@@ -7,9 +7,12 @@
 
 @testable import TheSamePage
 
-import UIKit.UIImage
+import Contacts
+import CoreLocation
+import Intents
 import FirebaseFirestore
 import Foundation
+import UIKit.UIImage
 
 struct TestingConstants {
     static let uiImageForTesting = UIImage(systemName: "gear")
@@ -86,6 +89,17 @@ struct TestingConstants {
         genre: Genre.metal.rawValue,
         city: "New Brunswick",
         state: BandState.NJ.rawValue
+    )
+
+    static let exampleBandForIntegrationTesting = Band(
+        id: "",
+        name: "Test Band Name",
+        bio: "Test Band Bio",
+        adminUid: exampleUserEric.id,
+        memberUids: [exampleUserEric.id],
+        genre: Genre.pop.rawValue,
+        city: "Dallas",
+        state: BandState.TX.rawValue
     )
 
     // MARK: - Example BandMembers
@@ -217,7 +231,7 @@ struct TestingConstants {
         text: "Hey, it's Julian!",
         senderUid: exampleUserJulian.id,
         senderFullName: exampleUserJulian.fullName,
-        sentTimestamp: 1673187671.7910519
+        sentTimestamp: 1673217276
     )
 
     static let exampleChatMessageEric = ChatMessage(
@@ -257,4 +271,23 @@ struct TestingConstants {
         bandId: exampleBandDumpweed.id,
         showId: exampleShowDumpweedExtravaganza.id
     )
+
+    // MARK: - Example Location Data
+
+    static func getExampleShowDumpweedExtravaganzaPlacemark() -> CLPlacemark {
+        MockController.setMockLocationControllerValues()
+        let locationController = LocationController.shared
+        let address = CNMutablePostalAddress()
+        address.city = "Sayreville"
+        address.state = "NJ"
+        address.street = "Jernee Mill Rd."
+        address.country = "USA"
+        address.postalCode = "08872"
+
+        return CLPlacemark(location: locationController.userLocation!, name: nil, postalAddress: address)
+    }
+
+    // MARK: - Example ChatMessages
+
+    static let testMessageText = "Test Message"
 }

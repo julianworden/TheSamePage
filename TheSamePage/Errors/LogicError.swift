@@ -8,9 +8,10 @@
 import Foundation
 
 enum LogicError: Error, LocalizedError {
-    case decode(message: String, systemError: String?)
-    case unexpectedNilValue(message: String, systemError: String?)
+    case decode(message: String, systemError: String? = nil)
+    case unexpectedNilValue(message: String, systemError: String? = nil)
     case incompleteForm
+    case emptyChatMessage
     
     var errorDescription: String? {
         switch self {
@@ -22,6 +23,8 @@ enum LogicError: Error, LocalizedError {
             }
         case .incompleteForm:
             return ErrorMessageConstants.incompleteForm
+        case .emptyChatMessage:
+            return ErrorMessageConstants.emptyChatMessage
         }
     }
 }

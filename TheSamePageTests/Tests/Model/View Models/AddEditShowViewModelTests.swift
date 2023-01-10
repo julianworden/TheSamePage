@@ -15,9 +15,13 @@ import XCTest
 final class AddEditShowViewModelTests: XCTestCase {
     var sut: AddEditShowViewModel!
     var testingDatabaseService: TestingDatabaseService!
-    /// Makes it easier to delete an example show that's created for testing in tearDown method
+    /// Makes it easier to delete an example show that's created for testing in tearDown method. Any show
+    /// that's created in these tests should assign its id property to this property so that it can be deleted
+    /// during tearDown.
     var createdShowDocumentId: String?
-    /// Makes it easier to delete an example show image that's created for testing in tearDown method
+    /// Makes it easier to delete an example show image that's created for testing in tearDown method. Any show
+    /// image that's created in these tests should assign its download URL to this property so that it can be deleted
+    /// during tearDown.
     var createdShowImageDownloadUrl: String?
 
     override func setUp() async throws {
@@ -30,17 +34,19 @@ final class AddEditShowViewModelTests: XCTestCase {
         // Deletes example in the event that it was created by any test
         if let createdShowDocumentId {
             try await testingDatabaseService.deleteShow(with: createdShowDocumentId)
+            self.createdShowDocumentId = nil
         }
 
         if let createdShowImageDownloadUrl {
             try await testingDatabaseService.deleteImage(at: createdShowImageDownloadUrl)
+            self.createdShowImageDownloadUrl = nil
         }
 
         try testingDatabaseService.logOut()
         testingDatabaseService = nil
     }
 
-    func test_OnInit_DefaultValuesAreCorrectWithNoShowToEdit() {
+    func test_OnInitWithNoShowToEdit_DefaultValuesAreCorrect() {
         sut = AddEditShowViewModel()
 
         XCTAssertTrue(sut.showName.isEmpty)
@@ -79,7 +85,7 @@ final class AddEditShowViewModelTests: XCTestCase {
         XCTAssertTrue(sut.errorAlertText.isEmpty)
     }
 
-    func test_OnInit_DefaultValuesAreCorrectWithShowToEdit() {
+    func test_OnInitWithShowToEdit_DefaultValuesAreCorrect() {
         let showToEdit = TestingConstants.exampleShowForIntegrationTesting
         sut = AddEditShowViewModel(showToEdit: showToEdit)
 
@@ -216,7 +222,28 @@ final class AddEditShowViewModelTests: XCTestCase {
         XCTAssertTrue(sut.formIsComplete)
     }
 
-    // TODO: Add Functions for Notification Observer actions
+    func test_OnNotificationIsPostedForShowAddressObserver_ValuesAreAssigned() {
+        sut = AddEditShowViewModel()
+        sut.addShowAddressObserver()
+        let placemarkToBePosted = TestingConstants.getExampleShowDumpweedExtravaganzaPlacemark()
+        let placemarkToBePostedLatitude = placemarkToBePosted.location!.coordinate.latitude
+        let placemarkToBePostedLongitude = placemarkToBePosted.location!.coordinate.longitude
+        let expectation = XCTNSNotificationExpectation(name: .showAddressSelected)
+
+        NotificationCenter.default.post(
+            name: .showAddressSelected,
+            object: nil,
+            userInfo: [NotificationConstants.showPlacemark: placemarkToBePosted]
+        )
+
+        wait(for: [expectation], timeout: 2)
+        XCTAssertEqual(placemarkToBePosted.formattedAddress, sut.showAddress)
+        XCTAssertEqual(placemarkToBePostedLatitude, sut.showLatitude)
+        XCTAssertEqual(placemarkToBePostedLongitude, sut.showLongitude)
+        XCTAssertEqual([placemarkToBePostedLatitude, placemarkToBePostedLongitude], sut.showTypesenseCoordinates)
+        XCTAssertEqual(placemarkToBePosted.postalAddress!.city, sut.showCity)
+        XCTAssertEqual(placemarkToBePosted.postalAddress!.state, sut.showState)
+    }
 
     func test_OnIncrementMaxNumberOfBands_ValueIncrementsWhenMaxNumberOfBandsIsBelow101() {
         sut = AddEditShowViewModel()
@@ -335,34 +362,29 @@ final class AddEditShowViewModelTests: XCTestCase {
         XCTAssertFalse(sut.createShowButtonIsDisabled, "The button should be re-enabled so the user can try again")
     }
 
-    func test_OnNotificationIsPostedForShowAddressObserver_ValuesAreAssigned() {
+    func test_OnPerformingWorkViewState_ExpectedWorkIsPerformed() {
         sut = AddEditShowViewModel()
-        sut.addShowAddressObserver()
-        MockController.setMockLocationControllerValues()
-        let locationController = LocationController.shared
-        let address = CNMutablePostalAddress()
-        address.city = "Sayreville"
-        address.state = "NJ"
-        address.street = "Jernee Mill Rd."
-        address.country = "USA"
-        address.postalCode = "08872"
-        let placemarkToBePosted = CLPlacemark(location: locationController.userLocation!, name: nil, postalAddress: address)
-        let placemarkToBePostedLatitude = placemarkToBePosted.location!.coordinate.latitude
-        let placemarkToBePostedLongitude = placemarkToBePosted.location!.coordinate.longitude
-        let expectation = XCTNSNotificationExpectation(name: .showAddressSelected)
 
-        NotificationCenter.default.post(
-            name: .showAddressSelected,
-            object: nil,
-            userInfo: [NotificationConstants.showPlacemark: placemarkToBePosted]
-        )
+        sut.viewState = .performingWork
 
-        wait(for: [expectation], timeout: 2)
-        XCTAssertEqual(placemarkToBePosted.formattedAddress, sut.showAddress)
-        XCTAssertEqual(placemarkToBePostedLatitude, sut.showLatitude)
-        XCTAssertEqual(placemarkToBePostedLongitude, sut.showLongitude)
-        XCTAssertEqual([placemarkToBePostedLatitude, placemarkToBePostedLongitude], sut.showTypesenseCoordinates)
-        XCTAssertEqual(placemarkToBePosted.postalAddress!.city, sut.showCity)
-        XCTAssertEqual(placemarkToBePosted.postalAddress!.state, sut.showState)
+        XCTAssertTrue(sut.createShowButtonIsDisabled, "The button should be disabled while work is being performed")
+    }
+
+    func test_OnWorkCompletedViewState_ExpectedWorkIsPerformed() {
+        sut = AddEditShowViewModel()
+
+        sut.viewState = .workCompleted
+
+        XCTAssertTrue(sut.showCreatedSuccessfully, "If this view state is set, it means that the show was successfully altered or created")
+    }
+
+    func test_OnErrorViewState_ExpectedWorkIsPerformed() {
+        sut = AddEditShowViewModel()
+
+        sut.viewState = .error(message: "AN ERROR HAPPENED")
+
+        XCTAssertTrue(sut.errorAlertIsShowing, "An error alert should be presented")
+        XCTAssertEqual(sut.errorAlertText, "AN ERROR HAPPENED", "The error message should be assigned to the text property")
+        XCTAssertFalse(sut.createShowButtonIsDisabled, "The user should be able to retry after an error occurs")
     }
 }
