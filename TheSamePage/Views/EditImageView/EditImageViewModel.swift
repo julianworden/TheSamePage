@@ -37,24 +37,20 @@ final class EditImageViewModel: ObservableObject {
     var show: Show?
     var user: User?
     var band: Band?
-    var imageUrl: String?
-    
+
     init(show: Show? = nil, user: User? = nil, band: Band? = nil) {
         if let show {
             self.show = show
-            self.imageUrl = show.imageUrl
             return
         }
         
         if let user {
             self.user = user
-            self.imageUrl = user.profileImageUrl
             return
         }
         
         if let band {
             self.band = band
-            self.imageUrl = band.profileImageUrl
             return
         }
     }

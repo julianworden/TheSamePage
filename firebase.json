@@ -26,5 +26,10 @@
       "enabled": true
     },
     "singleProjectMode": true
+  },
+  "extensions": {
+    "firestore-typesense-search": "typesense/firestore-typesense-search@0.4.2",
+    "badssearch": "typesense/firestore-typesense-search@0.4.2",
+    "userssearch": "typesense/firestore-typesense-search@0.4.2"
   }
 }

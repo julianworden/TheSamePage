@@ -47,17 +47,17 @@ struct HomeView: View {
             .confirmationDialog("Select a search radius", isPresented: $viewModel.filterConfirmationDialogIsShowing) {
                 Button("10 Miles") {
                     Task {
-                        await viewModel.changeSearchRadius(toValue: 10)
+                        await viewModel.changeSearchRadius(toValueInMiles: 10)
                     }
                 }
                 Button("25 Miles (Default)") {
                     Task {
-                        await viewModel.changeSearchRadius(toValue: 25)
+                        await viewModel.changeSearchRadius(toValueInMiles: 25)
                     }
                 }
                 Button("50 Miles") {
                     Task {
-                        await viewModel.changeSearchRadius(toValue: 50)
+                        await viewModel.changeSearchRadius(toValueInMiles: 50)
                     }
                 }
                 Button("Cancel", role: .cancel) { }
@@ -68,10 +68,10 @@ struct HomeView: View {
                 tryAgainAction: viewModel.fetchNearbyShows
             )
             .task {                
-                if viewModel.nearbyShows.isEmpty {
+//                if viewModel.nearbyShows.isEmpty {
                     viewModel.viewState = .dataLoading
                     await viewModel.fetchNearbyShows()
-                }
+//                }
             }
         }
         .navigationViewStyle(.stack)

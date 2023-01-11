@@ -70,7 +70,7 @@ struct EditImageView: View {
             message: viewModel.errorAlertText,
             tryAgainAction: {
                 guard let updatedImage else { return }
-                await viewModel.updateImage(withImage: updatedImage)
+                _ = await viewModel.updateImage(withImage: updatedImage)
             }
         )
         .onChange(of: updatedImage) { updatedImage in

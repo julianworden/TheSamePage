@@ -35,7 +35,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-        if ProcessInfo.processInfo.environment["testing"] == "true" {
+//        if ProcessInfo.processInfo.environment["testing"] == "true" {
             let settings = Firestore.firestore().settings
             // Using 127.0.0.1 instead of localhost because localhost causes socket error in console
             settings.host = "127.0.0.1:8080"
@@ -45,7 +45,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             Auth.auth().useEmulator(withHost: "127.0.0.1", port: 9099)
             Storage.storage().useEmulator(withHost: "127.0.0.1", port: 9199)
             Functions.functions().useEmulator(withHost: "127.0.0.1", port: 5001)
-       }
+//       }
         
         FirebaseConfiguration.shared.setLoggerLevel(.min)
         

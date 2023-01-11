@@ -27,15 +27,15 @@ final class HomeViewModel: ObservableObject {
                 errorMessageIsShowing = true
             default:
                 if viewState != .dataLoaded && viewState != .dataNotFound && viewState != .dataLoading {
-                    print("Unknown viewState set in HomeViewModel: \(viewState)")
+                    errorMessageText = "Invalid View State"
+                    errorMessageIsShowing = true
                 }
             }
         }
     }
     
     let db = Firestore.firestore()
-    var userCoordinates: CLLocationCoordinate2D?
-    
+
     var nearbyShowsListHeaderText: String {
         return "Shows within \(searchRadiusInMiles.formatted()) miles..."
     }
@@ -69,7 +69,7 @@ final class HomeViewModel: ObservableObject {
         }
     }
     
-    func changeSearchRadius(toValue value: Double) async {
+    func changeSearchRadius(toValueInMiles value: Double) async {
         viewState = .dataLoading
         searchRadiusInMiles = value
         await fetchNearbyShows()

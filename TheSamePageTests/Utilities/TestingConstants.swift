@@ -285,7 +285,7 @@ struct TestingConstants {
     // MARK: - Example Location Data
 
     static func getExampleShowDumpweedExtravaganzaPlacemark() -> CLPlacemark {
-        MockController.setMockLocationControllerValues()
+        MockController.setSanFranciscoMockLocationControllerValues()
         let locationController = LocationController.shared
         let address = CNMutablePostalAddress()
         address.city = "Sayreville"
