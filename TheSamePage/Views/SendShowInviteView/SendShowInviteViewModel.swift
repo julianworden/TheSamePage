@@ -41,13 +41,15 @@ final class SendShowInviteViewModel: ObservableObject {
     
     func sendShowInviteNotification() async {
         let showInvite = ShowInvite(
+            id: "",
+            dateSent: Date.now.timeIntervalSince1970,
             notificationType: NotificationType.showInvite.rawValue,
             recipientUid: recipientUid,
             bandName: bandName,
             bandId: bandId,
             showId: selectedShow!.id,
             showName: selectedShow!.name,
-            showDate: selectedShow!.formattedDate,
+            showDate: selectedShow!.date,
             showVenue: selectedShow!.venue,
             senderUsername: senderUsername ?? "A User",
             hasFood: selectedShow!.hasFood,
@@ -69,7 +71,7 @@ final class SendShowInviteViewModel: ObservableObject {
         }
             
         do {
-            try DatabaseService.shared.sendShowInvite(invite: showInvite)
+            try await DatabaseService.shared.sendShowInvite(invite: showInvite)
         } catch {
             errorAlertText = error.localizedDescription
             errorAlertIsShowing = true

@@ -21,7 +21,8 @@ final class MyShowsViewModel: ObservableObject {
                 myHostedShowsErrorAlertText = message
             default:
                 if myHostedShowsViewState != .dataNotFound && myHostedShowsViewState != .dataLoaded {
-                    print("Unknown viewState provided in MyShowsViewModel's myHostedShowsViewState property")
+                    myHostedShowsErrorAlertIsShowing = true
+                    myHostedShowsErrorAlertText = "Invalid ViewState"
                 }
             }
         }
@@ -34,13 +35,13 @@ final class MyShowsViewModel: ObservableObject {
                 myPlayingShowsErrorAlertText = message
             default:
                 if myPlayingShowsViewState != .dataNotFound && myPlayingShowsViewState != .dataLoaded {
-                    print("Unknown viewState provided in MyShowsViewModel's myPlayingShowsViewState property")
+                    myPlayingShowsErrorAlertIsShowing = true
+                    myPlayingShowsErrorAlertText = "Invalid ViewState"
                 }
             }
         }
     }
-    @Published var myShowsRootViewState = ViewState.displayingView
-    
+
     @Published var myHostedShowsErrorAlertIsShowing = false
     var myHostedShowsErrorAlertText = ""
     

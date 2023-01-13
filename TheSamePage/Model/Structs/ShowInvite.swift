@@ -10,15 +10,15 @@ import FirebaseFirestoreSwift
 import Foundation
 
 struct ShowInvite: Codable, Equatable, Identifiable, UserNotification {
-    @DocumentID var id: String?
-    @ServerTimestamp var dateSent: Timestamp?
+    var id: String
+    var dateSent: Double
     let notificationType: String
     let recipientUid: String
     let bandName: String
-    let bandId: String
+    var bandId: String
     let showId: String
     let showName: String
-    let showDate: String
+    let showDate: Double
     let showVenue: String
     var showDescription: String?
     let senderUsername: String
@@ -28,13 +28,15 @@ struct ShowInvite: Codable, Equatable, Identifiable, UserNotification {
     let message: String
     
     static let example = ShowInvite(
+        id: "a;slkdfja;lsdjf",
+        dateSent: 123232,
         notificationType: NotificationType.showInvite.rawValue,
         recipientUid: ";askldjf;alskdjf",
         bandName: "Pathetic Fallacy",
         bandId: "a;lsdkjfa;lsdjf",
         showId: "asdkfa;wefj",
         showName: "Banger",
-        showDate: "03/22/22",
+        showDate: 223123,
         showVenue: "Starland Ballroom",
         showDescription: "This one is gonna be so sick!",
         senderUsername: "ericpalermo",

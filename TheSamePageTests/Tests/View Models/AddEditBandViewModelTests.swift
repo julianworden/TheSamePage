@@ -164,7 +164,7 @@ final class AddEditBandViewModelTests: XCTestCase {
     }
 
     func test_OnCreateUpdateBandButtonTappedWithBandToEdit_BandIsUpdated() async throws {
-        self.createdBandDocumentId = try testingDatabaseService.createBand(TestingConstants.exampleBandForIntegrationTesting)
+        self.createdBandDocumentId = try await testingDatabaseService.createBand(TestingConstants.exampleBandForIntegrationTesting)
         var bandToEdit = TestingConstants.exampleBandForIntegrationTesting
         bandToEdit.id = createdBandDocumentId!
         sut = AddEditBandViewModel(bandToEdit: bandToEdit, userIsOnboarding: false)

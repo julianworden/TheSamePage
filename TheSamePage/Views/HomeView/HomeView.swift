@@ -27,6 +27,8 @@ struct HomeView: View {
                     
                 case .dataNotFound:
                     Text("We can't find any shows near you, try widening your search radius with the filter button!")
+                        .italic()
+                        .multilineTextAlignment(.center)
 
                 case .error:
                     EmptyView()

@@ -128,7 +128,7 @@ class DatabaseService: NSObject {
                     let anyUserNotification = AnyUserNotification(id: bandInvite.id, notification: bandInvite)
                     anyUserNotifications.append(anyUserNotification)
                 } else if let showInvite = try? document.data(as: ShowInvite.self) {
-                    let anyUserNotification = AnyUserNotification(id: showInvite.id!, notification: showInvite)
+                    let anyUserNotification = AnyUserNotification(id: showInvite.id, notification: showInvite)
                     anyUserNotifications.append(anyUserNotification)
                 }
             }
@@ -637,13 +637,14 @@ class DatabaseService: NSObject {
     /// Sends an invitation to a band's admin to have their band join a show. Uploads a ShowInvite object
     /// to the specified user's showInvites collection in Firestore.
     /// - Parameter invite: The ShowInvite that is being sent.
-    func sendShowInvite(invite: ShowInvite) throws {
+    func sendShowInvite(invite: ShowInvite) async throws {
         do {
-            _ = try db
+            let showInviteDocument = try db
                 .collection(FbConstants.users)
                 .document(invite.recipientUid)
                 .collection(FbConstants.notifications)
                 .addDocument(from: invite)
+            try await showInviteDocument.updateData([FbConstants.id: showInviteDocument.documentID])
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to send show invite to \(invite.bandName)",
@@ -854,21 +855,19 @@ class DatabaseService: NSObject {
     /// Deletes a show invite from the logged in user's showInvites collection.
     /// - Parameter showInvite: The ShowInvite to be deleted.
     func deleteShowInvite(showInvite: ShowInvite) async throws {
-        if let showInviteId = showInvite.id {
-            do {
-                try await db
-                    .collection(FbConstants.users)
-                    .document(AuthController.getLoggedInUid())
-                    .collection(FbConstants.notifications)
-                    .document(showInviteId)
-                    .delete()
+        do {
+            try await db
+                .collection(FbConstants.users)
+                .document(AuthController.getLoggedInUid())
+                .collection(FbConstants.notifications)
+                .document(showInvite.id)
+                .delete()
 
-            } catch {
-                throw FirebaseError.connection(
-                    message: "Failed to elete show invite from notifications list",
-                    systemError: error.localizedDescription
-                )
-            }
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to elete show invite from notifications list",
+                systemError: error.localizedDescription
+            )
         }
     }
     

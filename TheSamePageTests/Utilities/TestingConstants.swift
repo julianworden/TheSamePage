@@ -73,6 +73,14 @@ struct TestingConstants {
         emailAddress: "exampleuser@gmail.com"
     )
 
+    static let exampleUserMattForIntegrationTesting = User(
+        id: "",
+        username: "mattdiguiseppe",
+        firstName: "Matt",
+        lastName: "Diguiseppe",
+        emailAddress: "mattdiguiseppe@gmail.com"
+    )
+
     // MARK: - Example Bands
 
     /// An example band that matches a band being stored in Firestore Emulator
@@ -213,7 +221,7 @@ struct TestingConstants {
     // MARK: - Example BandInvites
 
     /// An example band invite inviting exampleUserTas to join Pathetic Fallacy. Sent by exampleUserJulian.
-    static let exampleBandInvite = BandInvite(
+    static let exampleBandInviteForTas = BandInvite(
         id: "I8jPC6U14IolWMSc8Ivp",
         dateSent: 1673073450,
         notificationType: NotificationType.bandInvite.rawValue,
@@ -223,6 +231,39 @@ struct TestingConstants {
         senderUsername: exampleUserJulian.username,
         senderBand: exampleBandPatheticFallacy.name,
         message: "julianworden is inviting you to join Pathetic Fallacy"
+    )
+
+    static let exampleBandInviteForMatt = BandInvite(
+        id: "",
+        dateSent: 1673073450,
+        notificationType: NotificationType.bandInvite.rawValue,
+        recipientUid: exampleUserMattForIntegrationTesting.id,
+        recipientRole: "Bass Guitar",
+        bandId: exampleBandPatheticFallacy.id,
+        senderUsername: exampleUserJulian.username,
+        senderBand: exampleBandPatheticFallacy.name,
+        message: "julianworden is inviting you to join Pathetic Fallacy"
+    )
+
+    // MARK: - ExampleShowInvites
+
+    static let exampleShowInviteForGenerationUnderground = ShowInvite(
+        id: "",
+        dateSent: 1673565412,
+        notificationType: NotificationType.showInvite.rawValue,
+        recipientUid: exampleUserMike.id,
+        bandName: "Generation Underground",
+        bandId: "",
+        showId: exampleShowDumpweedExtravaganza.id,
+        showName: exampleShowDumpweedExtravaganza.name,
+        showDate: exampleShowDumpweedExtravaganza.date,
+        showVenue: exampleShowDumpweedExtravaganza.venue,
+        showDescription: exampleShowDumpweedExtravaganza.description,
+        senderUsername: exampleUserJulian.username,
+        hasFood: exampleShowDumpweedExtravaganza.hasFood,
+        hasBar: exampleShowDumpweedExtravaganza.hasBar,
+        is21Plus: exampleShowDumpweedExtravaganza.is21Plus,
+        message: "\(exampleUserJulian.username) is inviting Generation Underground to play \(exampleShowDumpweedExtravaganza.name) at \(exampleShowDumpweedExtravaganza.venue) on \(exampleShowDumpweedExtravaganza.formattedDate)"
     )
 
     // MARK: - Example Chats

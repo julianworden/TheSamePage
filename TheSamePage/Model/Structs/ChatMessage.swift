@@ -22,10 +22,6 @@ struct ChatMessage: Codable, Equatable, Identifiable {
     var senderIsLoggedInUser: Bool {
         return senderUid == AuthController.getLoggedInUid()
     }
-    
-    var sentUnixDateAsDate: Date {
-        return Date(timeIntervalSince1970: sentTimestamp)
-    }
 
     static let example = ChatMessage(
         text: "Hello, how is everyone?",

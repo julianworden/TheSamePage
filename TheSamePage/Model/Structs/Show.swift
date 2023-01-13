@@ -16,7 +16,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     let name: String
     let description: String?
     let host: String
-    let hostUid: String
+    var hostUid: String
     var bandIds: [String]
     var participantUids: [String]
     let venue: String
@@ -112,42 +112,6 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     var formattedTicketPrice: String? {
         if let ticketPrice {
             return ticketPrice.formatted(.currency(code: Locale.current.currencyCode ?? "USD"))
-        } else {
-            return nil
-        }
-    }
-    
-    var unixDateAsDate: Date {
-        return Date(timeIntervalSince1970: date)
-    }
-    
-    var unixLoadInTimeAsDate: Date? {
-        if let loadInTime {
-            return Date(timeIntervalSince1970: loadInTime)
-        } else {
-            return nil
-        }
-    }
-    
-    var unixDoorsTimeAsDate: Date? {
-        if let doorsTime {
-            return Date(timeIntervalSince1970: doorsTime)
-        } else {
-            return nil
-        }
-    }
-    
-    var unixMusicStartTimeAsDate: Date? {
-        if let musicStartTime {
-            return Date(timeIntervalSince1970: musicStartTime)
-        } else {
-            return nil
-        }
-    }
-    
-    var unixEndTimeAsDate: Date? {
-        if let endTime {
-            return Date(timeIntervalSince1970: endTime)
         } else {
             return nil
         }

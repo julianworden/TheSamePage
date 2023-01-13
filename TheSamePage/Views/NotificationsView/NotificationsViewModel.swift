@@ -21,7 +21,8 @@ final class NotificationsViewModel: ObservableObject {
                 errorAlertIsShowing = true
             default:
                 if viewState != .dataLoaded && viewState != .dataNotFound {
-                    print("Unknown viewState provided in NotificationsViewModel")
+                    errorAlertText = "Invalid ViewState"
+                    errorAlertIsShowing = true
                 }
             }
         }

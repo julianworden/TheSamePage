@@ -39,7 +39,7 @@ final class ChatMessageTests: XCTestCase {
         let chatMessage = TestingConstants.exampleChatMessageJulian
 
         XCTAssertEqual(
-            chatMessage.sentUnixDateAsDate.formatted(date: .complete, time: .complete),
+            chatMessage.sentTimestamp.unixDateAsDate.formatted(date: .complete, time: .complete),
             Date(timeIntervalSince1970: chatMessage.sentTimestamp).formatted(date: .complete, time: .complete)
         )
     }

@@ -23,10 +23,10 @@ final class BandMemberTests: XCTestCase {
     }
 
     func test_DateJoinedUnixDateAsDate_ReturnsCorrectValue() {
-        let bandInvite = TestingConstants.exampleBandInvite
+        let bandInvite = TestingConstants.exampleBandInviteForTas
 
         XCTAssertEqual(
-            bandInvite.dateSentUnixDateAsDate.formatted(date: .complete, time: .complete),
+            bandInvite.dateSent.unixDateAsDate.formatted(date: .complete, time: .complete),
             Date(timeIntervalSince1970: bandInvite.dateSent).formatted(date: .complete, time: .complete)
         )
     }

@@ -47,69 +47,6 @@ final class ShowTests: XCTestCase {
         XCTAssertNil(exampleShow.formattedTicketPrice)
     }
 
-    func test_UnixDateAsDate_ReturnsCorrectValue() {
-        XCTAssertEqual(
-            exampleShow.unixDateAsDate.formatted(date: .complete, time: .complete),
-            Date(timeIntervalSince1970: exampleShow.date).formatted(date: .complete, time: .complete)
-        )
-    }
-
-    func test_UnixLoadInTimeAsDate_ReturnsCorrectValueWhenLoadInTimeExists() {
-        XCTAssertNotNil(exampleShow.unixLoadInTimeAsDate)
-        XCTAssertEqual(
-            exampleShow.unixLoadInTimeAsDate!.formatted(date: .complete, time: .complete),
-            Date(timeIntervalSince1970: exampleShow.loadInTime!).formatted(date: .complete, time: .complete)
-        )
-    }
-
-    func test_UnixLoadInTimeAsDate_ReturnsNilWhenNoLoadInTimeExists() {
-        exampleShow.loadInTime = nil
-
-        XCTAssertNil(exampleShow.unixLoadInTimeAsDate)
-    }
-
-    func test_UnixDoorsTimeAsDate_ReturnsCorrectValueWhenDoorsTimeExists() {
-        XCTAssertNotNil(exampleShow.unixDoorsTimeAsDate)
-        XCTAssertEqual(
-            exampleShow.unixDoorsTimeAsDate!.formatted(date: .complete, time: .complete),
-            Date(timeIntervalSince1970: exampleShow.doorsTime!).formatted(date: .complete, time: .complete)
-        )
-    }
-
-    func test_UnixDoorsTimeAsDate_ReturnsNilWhenNoDoorsTimeExists() {
-        exampleShow.doorsTime = nil
-
-        XCTAssertNil(exampleShow.unixDoorsTimeAsDate)
-    }
-
-    func test_UnixMusicStartTimeAsDate_ReturnsCorrectValueWhenMusicStartTimeExists() {
-        XCTAssertNotNil(exampleShow.unixMusicStartTimeAsDate)
-        XCTAssertEqual(
-            exampleShow.unixMusicStartTimeAsDate!.formatted(date: .complete, time: .complete),
-            Date(timeIntervalSince1970: exampleShow.musicStartTime!).formatted(date: .complete, time: .complete)
-        )
-    }
-
-    func test_UnixMusicStartTimeAsDate_ReturnsNilWhenNoMusicStartTimeExists() {
-        exampleShow.musicStartTime = nil
-
-        XCTAssertNil(exampleShow.unixMusicStartTimeAsDate)
-    }
-
-    func test_UnixEndTimeAsDate_ReturnsCorrectValueWhenEndTimeExists() {
-        XCTAssertNotNil(exampleShow.unixEndTimeAsDate)
-        XCTAssertEqual(
-            exampleShow.unixEndTimeAsDate!.formatted(date: .complete, time: .complete),
-            Date(timeIntervalSince1970: exampleShow.endTime!).formatted(date: .complete, time: .complete)
-        )
-    }
-
-    func test_UnixEndTimeAsDate_ReturnsNilWhenNoEndTimeExists() {
-        exampleShow.endTime = nil
-
-        XCTAssertNil(exampleShow.unixEndTimeAsDate)
-    }
-
     func test_HasTime_ReturnsTrueWhenOnlyLoadInTimeExists() {
         exampleShow.doorsTime = nil
         exampleShow.musicStartTime = nil

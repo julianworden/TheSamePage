@@ -239,8 +239,11 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     // MARK: - Firestore Example BandInvites
 
     func test_OnInit_ExampleBandInviteInFirestoreEmulatorHasExpectedValues() async throws {
-        let bandInviteInEmulator = try await testingDatabaseService.getBandInvite(get: TestingConstants.exampleBandInvite, for: TestingConstants.exampleUserTas)
-        let bandInviteInTestingConstants = TestingConstants.exampleBandInvite
+        let bandInviteInEmulator = try await testingDatabaseService.getBandInvite(
+            getBandInviteWithId: TestingConstants.exampleBandInviteForTas.id,
+            forUserWithUid: TestingConstants.exampleUserTas.id
+        )
+        let bandInviteInTestingConstants = TestingConstants.exampleBandInviteForTas
 
         XCTAssertEqual(bandInviteInEmulator.id, bandInviteInTestingConstants.id)
         XCTAssertEqual(bandInviteInEmulator.dateSent, bandInviteInTestingConstants.dateSent)
@@ -257,9 +260,12 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleBandInvitesInFirestoreEmulatorMatchTestingConstants() async throws {
-        let bandInviteInEmulator = try await testingDatabaseService.getBandInvite(get: TestingConstants.exampleBandInvite, for: TestingConstants.exampleUserTas)
+        let bandInviteInEmulator = try await testingDatabaseService.getBandInvite(
+            getBandInviteWithId: TestingConstants.exampleBandInviteForTas.id,
+            forUserWithUid: TestingConstants.exampleUserTas.id
+        )
 
-        XCTAssertEqual(bandInviteInEmulator, TestingConstants.exampleBandInvite)
+        XCTAssertEqual(bandInviteInEmulator, TestingConstants.exampleBandInviteForTas)
     }
 
     // MARK: - Firestore Example BandMembers

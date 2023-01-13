@@ -80,7 +80,7 @@ class BandProfileViewModel: ObservableObject {
                             self.bandLinks = try await DatabaseService.shared.getBandLinks(forBand: band)
                             let fetchedShows = try await DatabaseService.shared.getShowsForBand(band: band)
                             let sortedShows = fetchedShows.sorted { lhs, rhs in
-                                lhs.unixDateAsDate > rhs.unixDateAsDate
+                                lhs.date.unixDateAsDate > rhs.date.unixDateAsDate
                             }
                             self.bandShows = sortedShows
                         } catch {
