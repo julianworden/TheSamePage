@@ -7,15 +7,10 @@
 
 import SwiftUI
 
-struct MemberSearchView: View {    
-//    @Binding var userIsOnboarding: Bool
-    
+struct MemberSearchView: View {
+    @Environment(\.dismiss) var dismiss
+
     @StateObject var viewModel = SearchViewModel()
-    
-//    init(userIsOnboarding: Binding<Bool>, band: Band?) {
-//        _viewModel = StateObject(wrappedValue: MemberSearchViewModel(band: band))
-//        _userIsOnboarding = Binding(projectedValue: userIsOnboarding)
-//    }
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -28,6 +23,13 @@ struct MemberSearchView: View {
         }
         .navigationTitle("Search for User")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Back") {
+                    dismiss()
+                }
+            }
+        }
     }
 }
 

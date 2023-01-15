@@ -33,7 +33,8 @@ final class SendBandInviteViewModel: ObservableObject {
                 errorAlertIsShowing = true
             default:
                 if viewState != .dataNotFound && viewState != .dataLoaded {
-                    print("Unknown viewState set in SendBandInviteViewModel: \(viewState)")
+                    errorAlertText = ErrorMessageConstants.invalidViewState
+                    errorAlertIsShowing = true
                 }
             }
         }
@@ -65,11 +66,11 @@ final class SendBandInviteViewModel: ObservableObject {
             viewState = .error(message: error.localizedDescription)
         }
     }
-    
-    func sendBandInviteNotification() async {
-        viewState = .performingWork
-        
+
+    // TODO: Make it so that this method throws an error if the user being invited is already in the band
+    func sendBandInvite() async -> String? {
         do {
+            viewState = .performingWork
             let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
             
             // TODO: Handle error
@@ -85,12 +86,15 @@ final class SendBandInviteViewModel: ObservableObject {
                     senderBand: selectedBand.name,
                     message: "\(loggedInUser.username) is inviting you to join \(selectedBand.name)"
                 )
-                try await  DatabaseService.shared.sendBandInvite(invite: invite)
-
+                let bandInviteId = try await DatabaseService.shared.sendBandInvite(invite: invite)
                 viewState = .workCompleted
+                return bandInviteId
             }
+
+            return nil
         } catch {
             viewState = .error(message: error.localizedDescription)
+            return nil
         }
     }
 }

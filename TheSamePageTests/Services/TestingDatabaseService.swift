@@ -8,6 +8,7 @@
 import MapKit
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseFunctions
 import FirebaseStorage
 import Foundation
 
@@ -56,10 +57,7 @@ class TestingDatabaseService {
     }
 
     func deleteUserFromFirestore(withUid uid: String) async throws {
-        try await db
-            .collection(FbConstants.users)
-            .document(uid)
-            .delete()
+        _ = try await Functions.functions().httpsCallable(FbConstants.recursiveDelete).call([FbConstants.path: "\(FbConstants.users)/\(uid)"])
 
         let userShows = try await getPlayingShows(forUserWithUid: uid)
         for show in userShows {
@@ -144,10 +142,7 @@ class TestingDatabaseService {
     /// - Parameter showId: The document ID of the show to be deleted.
     func deleteShow(with id: String) async throws {
         do {
-            try await db
-                .collection(FbConstants.shows)
-                .document(id)
-                .delete()
+            _ = try await Functions.functions().httpsCallable(FbConstants.recursiveDelete).call([FbConstants.path: "\(FbConstants.shows)/\(id)"])
         } catch {
             throw TestingDatabaseServiceError.firestore(message: "Failed to delete show in DatabaseService.deleteShowObject(showId:) Error \(error.localizedDescription)")
         }
@@ -218,7 +213,7 @@ class TestingDatabaseService {
         return docRef.documentID
     }
 
-    func getBand(with id: String) async throws -> Band {
+    func getBand(withId id: String) async throws -> Band {
         return try await db
             .collection(FbConstants.bands)
             .document(id)
@@ -235,8 +230,14 @@ class TestingDatabaseService {
         return try bandDocuments.map { try $0.data(as: Band.self) }
     }
 
+    func updateBandName(bandId: String, newName: String) async throws {
+        try await db
+            .collection(FbConstants.bands)
+            .document(bandId)
+            .updateData([FbConstants.name: newName])
+    }
+
     func deleteBand(with id: String) async throws {
-        let band = try await getBand(with: id)
         let bandMembers = try await getAllBandMembers(forBandWithId: id)
         let bandShows = try await getPlayingShows(forBandWithId: id)
 
@@ -251,14 +252,7 @@ class TestingDatabaseService {
             try await removeBandFromShow(bandId: id, showId: show.id)
         }
 
-        for member in bandMembers {
-            try await removeUserFromBand(uid: member.uid, bandId: band.id)
-        }
-
-        try await db
-            .collection(FbConstants.bands)
-            .document(id)
-            .delete()
+        _ = try await Functions.functions().httpsCallable(FbConstants.recursiveDelete).call([FbConstants.path: "\(FbConstants.bands)/\(id)"])
     }
 
     func addUserToBand(add user: User, to band: Band, forRole role: String) async throws -> String {
@@ -356,7 +350,7 @@ class TestingDatabaseService {
 
     // MARK: - Firestore BandInvites
 
-    func getBandInvite(getBandInviteWithId id: String, forUserWithUid uid: String) async throws -> BandInvite {
+    func getBandInvite(withId id: String, forUserWithUid uid: String) async throws -> BandInvite {
         return try await db
             .collection(FbConstants.users)
             .document(uid)

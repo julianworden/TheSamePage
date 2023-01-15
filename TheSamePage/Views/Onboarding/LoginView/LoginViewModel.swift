@@ -26,29 +26,37 @@ final class LoginViewModel: ObservableObject {
                 loginErrorMessage = message
                 loginErrorShowing = true
                 loginButtonIsDisabled = false
+            case .performingWork:
+                loginButtonIsDisabled = true
+            case .workCompleted:
+                userIsOnboarding = false
             default:
-                print("Unknown viewState assigned to LoginViewModel")
+                loginErrorMessage = ErrorMessageConstants.invalidViewState
+                loginErrorShowing = true
             }
         }
     }
     
-    func userIsOnboardingAfterLoginWith(emailAddress: String, password: String) async {
+    func logInUserWith(emailAddress: String, password: String) async {
         do {
-            loginButtonIsDisabled = true
+            viewState = .performingWork
             try await Auth.auth().signIn(withEmail: emailAddress, password: password)
-            userIsOnboarding = false
+            viewState = .workCompleted
         } catch {
             let error = AuthErrorCode(_nsError: error as NSError)
             
             switch error.code {
             case .invalidEmail:
-                viewState = .error(message: "Please enter a valid email address")
+                viewState = .error(message: ErrorMessageConstants.invalidEmailAddressOnSignIn)
             case .networkError:
-                viewState = .error(message: "Login failed. \(ErrorMessageConstants.checkYourConnection). System error: \(error.localizedDescription)")
+                viewState = .error(message: "\(ErrorMessageConstants.networkErrorOnSignIn). System error: \(error.localizedDescription)")
             case .wrongPassword:
-                viewState = .error(message: "Incorrect email or password. Please try again.")
+                viewState = .error(message: ErrorMessageConstants.wrongPasswordOnSignIn)
+            case .userNotFound:
+                // Password and email are valid, but no registered user has this info
+                viewState = .error(message: ErrorMessageConstants.userNotFoundOnSignIn)
             default:
-                viewState = .error(message: "An unknown error occurred, please try again. System error: \(error.localizedDescription)")
+                viewState = .error(message: "\(ErrorMessageConstants.unknownError). System error: \(error.localizedDescription)")
             }
             
         }

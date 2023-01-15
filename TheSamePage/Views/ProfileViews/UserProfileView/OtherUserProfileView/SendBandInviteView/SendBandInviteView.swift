@@ -40,7 +40,7 @@ struct SendBandInviteView: View {
                     }
                     
                     AsyncButton {
-                        await viewModel.sendBandInviteNotification()
+                        _ = await viewModel.sendBandInvite()
                     } label: {
                         Text("Send Invite")
                     }
@@ -63,6 +63,13 @@ struct SendBandInviteView: View {
             isPresented: $viewModel.errorAlertIsShowing,
             message: viewModel.errorAlertText
         )
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Back") {
+                    dismiss()
+                }
+            }
+        }
         .onChange(of: viewModel.bandInviteSentSuccessfully) { bandInviteSentSuccessfully in
             if bandInviteSentSuccessfully {
                 dismiss()

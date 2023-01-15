@@ -10,15 +10,7 @@ import Foundation
 
 @MainActor
 final class OtherUserProfileViewModel: ObservableObject {
-    enum UserProfileViewModelError: Error {
-        case firebaseAuthError(message: String)
-    }
-    
-    /// The user being displayed. When this value is nil, the logged in user is viewing their own profile
     @Published var user: User?
-    /// The bandMember for which the Profile is a representation. This is necessary for when a
-    /// user is selected from the BandProfile's Members section.
-    var bandMember: BandMember?
     @Published var firstName: String?
     @Published var lastName: String?
     @Published var emailAddress: String?
@@ -36,14 +28,11 @@ final class OtherUserProfileViewModel: ObservableObject {
                 errorAlertIsShowing = true
             default:
                 if viewState != .dataLoaded && viewState != .dataLoading {
-                    print("Unknown viewState passed to OtherUserProfileViewModel: \(viewState)")
+                    errorAlertText = ErrorMessageConstants.invalidViewState
+                    errorAlertIsShowing = true
                 }
             }
         }
-    }
-    
-    var loggedInUserIsBandAdmin: Bool {
-        return AuthController.getLoggedInUid() == user?.id
     }
     
     init(user: User?, bandMember: BandMember? = nil) {
@@ -51,7 +40,7 @@ final class OtherUserProfileViewModel: ObservableObject {
             if let user {
                 await initializeUser(user: user)
             }
-            
+
             if let bandMember,
                let convertedUser = await convertBandMemberToUser(bandMember: bandMember) {
                 await initializeUser(user: convertedUser)

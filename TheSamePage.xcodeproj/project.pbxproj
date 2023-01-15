@@ -96,6 +96,9 @@
 		AB5E8C89296DB4740073FDEB /* EditImageViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E8C88296DB4740073FDEB /* EditImageViewModelTests.swift */; };
 		AB6514DD28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6514DC28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift */; };
 		AB6514DF28F911EB008DFDD0 /* ShowTimeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6514DE28F911EB008DFDD0 /* ShowTimeRow.swift */; };
+		AB657D2329719D5A00696EF4 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB657D2229719D5A00696EF4 /* LoginViewModelTests.swift */; };
+		AB657D252971A74600696EF4 /* SignUpViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB657D242971A74600696EF4 /* SignUpViewModelTests.swift */; };
+		AB657D27297233B500696EF4 /* OtherUserProfileViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB657D26297233B500696EF4 /* OtherUserProfileViewModelTests.swift */; };
 		AB66474E292D990B000B817E /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB66474D292D990B000B817E /* NetworkController.swift */; };
 		AB668EAD291BE647007899A9 /* LoggedInUserBandList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB668EAC291BE647007899A9 /* LoggedInUserBandList.swift */; };
 		AB668EAF291BE666007899A9 /* LoggedInUserBandRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB668EAE291BE666007899A9 /* LoggedInUserBandRow.swift */; };
@@ -124,6 +127,7 @@
 		AB9D086128FDA24B0098A244 /* UserSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9D086028FDA24B0098A244 /* UserSettingsView.swift */; };
 		AB9DAB04292329AF009BE932 /* ShowSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9DAB03292329AF009BE932 /* ShowSettingsView.swift */; };
 		AB9DAB06292329BB009BE932 /* ShowSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9DAB05292329BB009BE932 /* ShowSettingsViewModel.swift */; };
+		ABA054912974547D006B5908 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA054902974547D006B5908 /* RootViewModel.swift */; };
 		ABA1020728DDE5BE00A4E818 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020628DDE5BE00A4E818 /* NotificationsViewModel.swift */; };
 		ABA1020928DDF3C000A4E818 /* NotificationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020828DDF3C000A4E818 /* NotificationRow.swift */; };
 		ABA1020D28DDFD6900A4E818 /* BandMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020C28DDFD6900A4E818 /* BandMember.swift */; };
@@ -191,6 +195,8 @@
 		ABDDAD4828DB45D100F1CF9B /* AddEditBandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDDAD4728DB45D000F1CF9B /* AddEditBandView.swift */; };
 		ABDDAD4A28DB46B500F1CF9B /* ImageSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDDAD4928DB46B500F1CF9B /* ImageSelectionButton.swift */; };
 		ABDDAD4C28DB49DF00F1CF9B /* AddEditBandViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDDAD4B28DB49DF00F1CF9B /* AddEditBandViewModel.swift */; };
+		ABE0251C29738CE70089E969 /* SendBandInviteViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE0251B29738CE70089E969 /* SendBandInviteViewModelTests.swift */; };
+		ABE0251E297393C50089E969 /* BandProfileViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE0251D297393C50089E969 /* BandProfileViewModelTests.swift */; };
 		ABE3EFA628D91960002EEF23 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3EFA528D91960002EEF23 /* SignUpView.swift */; };
 		ABE3EFA828D919A2002EEF23 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */; };
 		ABEACE7B28DBBB6200BB1D67 /* InABandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEACE7A28DBBB6200BB1D67 /* InABandView.swift */; };
@@ -313,6 +319,9 @@
 		AB5E8C88296DB4740073FDEB /* EditImageViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageViewModelTests.swift; sourceTree = "<group>"; };
 		AB6514DC28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+CustomTimeFormat.swift"; sourceTree = "<group>"; };
 		AB6514DE28F911EB008DFDD0 /* ShowTimeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimeRow.swift; sourceTree = "<group>"; };
+		AB657D2229719D5A00696EF4 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
+		AB657D242971A74600696EF4 /* SignUpViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModelTests.swift; sourceTree = "<group>"; };
+		AB657D26297233B500696EF4 /* OtherUserProfileViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserProfileViewModelTests.swift; sourceTree = "<group>"; };
 		AB66474D292D990B000B817E /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		AB668EAC291BE647007899A9 /* LoggedInUserBandList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserBandList.swift; sourceTree = "<group>"; };
 		AB668EAE291BE666007899A9 /* LoggedInUserBandRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserBandRow.swift; sourceTree = "<group>"; };
@@ -342,6 +351,7 @@
 		AB9D086028FDA24B0098A244 /* UserSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsView.swift; sourceTree = "<group>"; };
 		AB9DAB03292329AF009BE932 /* ShowSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSettingsView.swift; sourceTree = "<group>"; };
 		AB9DAB05292329BB009BE932 /* ShowSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSettingsViewModel.swift; sourceTree = "<group>"; };
+		ABA054902974547D006B5908 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		ABA1020628DDE5BE00A4E818 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
 		ABA1020828DDF3C000A4E818 /* NotificationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRow.swift; sourceTree = "<group>"; };
 		ABA1020C28DDFD6900A4E818 /* BandMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMember.swift; sourceTree = "<group>"; };
@@ -403,6 +413,8 @@
 		ABDDAD4728DB45D000F1CF9B /* AddEditBandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditBandView.swift; sourceTree = "<group>"; };
 		ABDDAD4928DB46B500F1CF9B /* ImageSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectionButton.swift; sourceTree = "<group>"; };
 		ABDDAD4B28DB49DF00F1CF9B /* AddEditBandViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditBandViewModel.swift; sourceTree = "<group>"; };
+		ABE0251B29738CE70089E969 /* SendBandInviteViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendBandInviteViewModelTests.swift; sourceTree = "<group>"; };
+		ABE0251D297393C50089E969 /* BandProfileViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileViewModelTests.swift; sourceTree = "<group>"; };
 		ABE3EFA528D91960002EEF23 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		ABEACE7A28DBBB6200BB1D67 /* InABandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InABandView.swift; sourceTree = "<group>"; };
@@ -999,6 +1011,12 @@
 				AB7F6FBF296F0E7F00612D3B /* HomeViewModelTests.swift */,
 				AB7F6FC1296F173400612D3B /* MyShowsViewModelTests.swift */,
 				ABA75755296F92A8001F6B70 /* NotificationsViewModelTests.swift */,
+				AB657D2229719D5A00696EF4 /* LoginViewModelTests.swift */,
+				AB657D242971A74600696EF4 /* SignUpViewModelTests.swift */,
+				AB657D26297233B500696EF4 /* OtherUserProfileViewModelTests.swift */,
+				ABE0251B29738CE70089E969 /* SendBandInviteViewModelTests.swift */,
+				ABE0251D297393C50089E969 /* BandProfileViewModelTests.swift */,
+				ABA054902974547D006B5908 /* RootViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -1554,21 +1572,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB657D252971A74600696EF4 /* SignUpViewModelTests.swift in Sources */,
 				ABD585BB296D041C007168D0 /* ConversationViewModelTests.swift in Sources */,
+				ABA054912974547D006B5908 /* RootViewModel.swift in Sources */,
 				ABBE369D296B53660092F594 /* UserTests.swift in Sources */,
 				ABC9932829665D0C00B553F4 /* SecurityRulesTests.swift in Sources */,
 				ABBE3691296B06C30092F594 /* ChatMessageTests.swift in Sources */,
+				AB657D27297233B500696EF4 /* OtherUserProfileViewModelTests.swift in Sources */,
 				AB5E8C89296DB4740073FDEB /* EditImageViewModelTests.swift in Sources */,
 				ABBE3693296B25200092F594 /* PlatformLinkTests.swift in Sources */,
 				ABC9F412296919A6004DE24B /* BandMemberTests.swift in Sources */,
 				ABBE369B296B39AC0092F594 /* MockController.swift in Sources */,
+				ABE0251E297393C50089E969 /* BandProfileViewModelTests.swift in Sources */,
 				ABCC3D742965CC6E006CF074 /* TestingConstants.swift in Sources */,
 				ABBE36A6296B583B0092F594 /* AddEditShowViewModelTests.swift in Sources */,
 				ABBE36A1296B555A0092F594 /* LinkPlatformTests.swift in Sources */,
 				AB7F6FC0296F0E7F00612D3B /* HomeViewModelTests.swift in Sources */,
+				AB657D2329719D5A00696EF4 /* LoginViewModelTests.swift in Sources */,
 				ABD4BD1E2968695E00CCA88B /* BandTests.swift in Sources */,
 				ABA75756296F92A8001F6B70 /* NotificationsViewModelTests.swift in Sources */,
 				AB1CDD3E296A12BD008ACC48 /* ChatTests.swift in Sources */,
+				ABE0251C29738CE70089E969 /* SendBandInviteViewModelTests.swift in Sources */,
 				ABBE36A3296B566C0092F594 /* SearchTypeTests.swift in Sources */,
 				ABCD20E1296C76A500258F6F /* AddEditBandViewModelTests.swift in Sources */,
 				ABBE3695296B26970092F594 /* ShowTests.swift in Sources */,

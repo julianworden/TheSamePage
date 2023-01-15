@@ -19,6 +19,7 @@ struct BandProfileHeader: View {
             if let band = viewModel.band {
                 VStack {
                     if band.loggedInUserIsBandAdmin {
+                        // TODO: Make this a fullscreen cover instead
                         NavigationLink {
                             EditImageView(band: band, image: bandImage, updatedImage: $updatedImage)
                         } label: {

@@ -9,6 +9,7 @@ import Foundation
 
 /// Names of various Firestore collections and fields.
 struct FbConstants {
+    // MARK: - Firestore collections and field names
     static let id = "id"
     static let bands = "bands"
     static let shows = "shows"
@@ -27,7 +28,12 @@ struct FbConstants {
     static let bandIds = "bandIds"
     static let showId = "showId"
     static let uid = "uid"
+    static let name = "name"
     static let username = "username"
     static let participantFcmTokens = "participantFcmTokens"
     static let memberFcmTokens = "memberFcmTokens"
+
+    // MARK: - Firebase Functions
+    static let recursiveDelete = "recursiveDelete"
+    static let path = "path"
 }

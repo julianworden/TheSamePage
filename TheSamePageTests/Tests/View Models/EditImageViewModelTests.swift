@@ -132,13 +132,13 @@ final class EditImageViewModelTests: XCTestCase {
         var exampleBand = TestingConstants.exampleBandForIntegrationTesting
         self.createdBandId = try await testingDatabaseService.createBandWithProfileImage(exampleBand)
         exampleBand.id = createdBandId!
-        let createdBandWithOldProfileImageUrl = try await testingDatabaseService.getBand(with: exampleBand.id)
+        let createdBandWithOldProfileImageUrl = try await testingDatabaseService.getBand(withId: exampleBand.id)
         exampleBand.profileImageUrl = createdBandWithOldProfileImageUrl.profileImageUrl
         sut = EditImageViewModel(band: exampleBand)
 
         let oldProfileImageUrl = exampleBand.profileImageUrl!
         let newProfileImageUrl = await sut.updateImage(withImage: TestingConstants.uiImageForTesting!)
-        let createdBandWithNewProfileImageUrl = try await testingDatabaseService.getBand(with: exampleBand.id)
+        let createdBandWithNewProfileImageUrl = try await testingDatabaseService.getBand(withId: exampleBand.id)
         self.createdImageUrl = newProfileImageUrl
 
         XCTAssertNotEqual(oldProfileImageUrl, newProfileImageUrl, "The band should now have a different profile image URL")

@@ -21,7 +21,7 @@ struct LoginView: View {
                 TextField("Email Address", text: $viewModel.emailAddress)
                 SecureField("Password", text: $viewModel.password)
                 AsyncButton {
-                    await viewModel.userIsOnboardingAfterLoginWith(
+                    await viewModel.logInUserWith(
                         emailAddress: viewModel.emailAddress,
                         password: viewModel.password
                     )

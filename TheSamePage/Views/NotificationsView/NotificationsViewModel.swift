@@ -21,7 +21,7 @@ final class NotificationsViewModel: ObservableObject {
                 errorAlertIsShowing = true
             default:
                 if viewState != .dataLoaded && viewState != .dataNotFound {
-                    errorAlertText = "Invalid ViewState"
+                    errorAlertText = ErrorMessageConstants.invalidViewState
                     errorAlertIsShowing = true
                 }
             }
@@ -33,7 +33,9 @@ final class NotificationsViewModel: ObservableObject {
     
     let db = Firestore.firestore()
     var notificationsListener: ListenerRegistration?
-    
+
+    // TODO: Add separate method for fetching notifications that already exist, also call the getNotifications
+
     func getNotifications() {
         notificationsListener = db
             .collection(FbConstants.users)
@@ -43,20 +45,35 @@ final class NotificationsViewModel: ObservableObject {
                 if snapshot != nil && error == nil {
                     // Do not check if snapshot.documents.isEmpty or else deleting the final notification
                     // in the array will not update the UI in realtime.
-                    Task {
-                        do {
-                            let fetchedNotifications = try await DatabaseService.shared.getNotifications()
-                            
-                            if !fetchedNotifications.isEmpty {
-                                self.fetchedNotifications = fetchedNotifications
-                                self.viewState = .dataLoaded
-                            } else {
-                                self.viewState = .dataNotFound
-                            }
-                        } catch {
-                            self.viewState = .error(message: error.localizedDescription)
+                    var notificationsAsAnyUserNotification = [AnyUserNotification]()
+
+                    for document in snapshot!.documents {
+                        if let bandInvite = try? document.data(as: BandInvite.self) {
+                            let bandInviteAsAnyUserNotification = AnyUserNotification(id: bandInvite.id, notification: bandInvite)
+                            notificationsAsAnyUserNotification.append(bandInviteAsAnyUserNotification)
+                        } else if let showInvite = try? document.data(as: ShowInvite.self) {
+                            let showInviteAsAnyUserNotification = AnyUserNotification(id: showInvite.id, notification: showInvite)
+                            notificationsAsAnyUserNotification.append(showInviteAsAnyUserNotification)
                         }
                     }
+
+                    self.fetchedNotifications = notificationsAsAnyUserNotification
+                    self.fetchedNotifications.isEmpty ? (self.viewState = .dataNotFound) : (self.viewState = .dataLoaded)
+
+//                    Task {
+//                        do {
+//                            let fetchedNotifications = try await DatabaseService.shared.getNotifications()
+//
+//                            if !fetchedNotifications.isEmpty {
+//                                self.fetchedNotifications = fetchedNotifications
+//                                self.viewState = .dataLoaded
+//                            } else {
+//                                self.viewState = .dataNotFound
+//                            }
+//                        } catch {
+//                            self.viewState = .error(message: error.localizedDescription)
+//                        }
+//                    }
                 } else if error != nil {
                     self.viewState = .error(message: "Failed to fetch up-to-date notifications. System error: \(error!.localizedDescription)")
                 }

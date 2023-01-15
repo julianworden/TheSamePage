@@ -29,6 +29,7 @@ struct BandProfileView: View {
                 ProgressView()
                 
             case .dataLoaded:
+                // TODO: Pass this band to each tab so they don't have to have their own if let band statements
                 if let band = viewModel.band {
                     ScrollView {
                         BandProfileHeader(viewModel: viewModel)
@@ -71,12 +72,6 @@ struct BandProfileView: View {
                             }
                         }
                     }
-                    .onAppear {
-                        viewModel.addBandListener()
-                    }
-                    .onDisappear {
-                        viewModel.removeListeners()
-                    }
                 }
                 
             case .error:
@@ -93,6 +88,12 @@ struct BandProfileView: View {
             message: viewModel.errorAlertText,
             okButtonAction: { dismiss() }
         )
+        .task {
+            await viewModel.callOnAppearMethods()
+        }
+        .onDisappear {
+            viewModel.removeListeners()
+        }
     }
 }
 

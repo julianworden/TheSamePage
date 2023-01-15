@@ -109,7 +109,7 @@ final class AddEditBandViewModelTests: XCTestCase {
             return
         }
         self.createdBandDocumentId = createdBandDocumentId
-        let createdBand = try await testingDatabaseService.getBand(with: createdBandDocumentId)
+        let createdBand = try await testingDatabaseService.getBand(withId: createdBandDocumentId)
 
         XCTAssertEqual(createdBand.id, createdBandDocumentId, "The document IDs should match")
         XCTAssertEqual(createdBand.name, TestingConstants.exampleBandForIntegrationTesting.name)
@@ -125,7 +125,7 @@ final class AddEditBandViewModelTests: XCTestCase {
             XCTFail("A document ID should've been created and fetched for the new band")
             return
         }
-        let createdBand = try await testingDatabaseService.getBand(with: createdBandDocumentId)
+        let createdBand = try await testingDatabaseService.getBand(withId: createdBandDocumentId)
         let bandImageExists = try await testingDatabaseService.imageExists(at: createdBand.profileImageUrl)
         self.createdBandDocumentId = createdBandDocumentId
         self.createdBandImageDownloadUrl = createdBand.profileImageUrl
@@ -146,7 +146,7 @@ final class AddEditBandViewModelTests: XCTestCase {
             XCTFail("A document ID should've been created and fetched for the new band")
             return
         }
-        let createdBand = try await testingDatabaseService.getBand(with: createdBandDocumentId)
+        let createdBand = try await testingDatabaseService.getBand(withId: createdBandDocumentId)
         let createdBandMember = try await testingDatabaseService.getBandMember(
             withFullName: TestingConstants.exampleUserEric.fullName,
             inBandWithId: createdBand.id
@@ -171,7 +171,7 @@ final class AddEditBandViewModelTests: XCTestCase {
 
         sut.bandName = "TEST BAND NAME UPDATED"
         await sut.createUpdateBandButtonTapped()
-        let updatedBand = try await testingDatabaseService.getBand(with: createdBandDocumentId!)
+        let updatedBand = try await testingDatabaseService.getBand(withId: createdBandDocumentId!)
 
         XCTAssertEqual(bandToEdit.id, updatedBand.id, "The document IDs should match")
         XCTAssertEqual(updatedBand.name, "TEST BAND NAME UPDATED", "The band's name should've been updated")

@@ -49,18 +49,18 @@ struct MyHostedShowsView: View {
                 EmptyView()
                 
             default:
-                ErrorMessage(message: ErrorMessageConstants.unknownViewState)
+                ErrorMessage(message: ErrorMessageConstants.invalidViewState)
             }
         }
         .errorAlert(
             isPresented: $viewModel.myHostedShowsErrorAlertIsShowing,
             message: viewModel.myHostedShowsErrorAlertText,
             tryAgainAction: {
-                await viewModel.getHostedShows()
+                viewModel.getHostedShows()
             }
         )
         .task {
-            await viewModel.getHostedShows()
+            viewModel.getHostedShows()
         }
         .onDisappear {
             viewModel.removeHostedShowsListener()

@@ -46,7 +46,7 @@ struct EditImageView: View {
                 case .performingWork:
                     ProgressView()
                 default:
-                    ErrorMessage(message: ErrorMessageConstants.unknownViewState)
+                    ErrorMessage(message: ErrorMessageConstants.invalidViewState)
                 }
             }
         }

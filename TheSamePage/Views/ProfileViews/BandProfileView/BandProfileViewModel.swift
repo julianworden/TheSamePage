@@ -15,7 +15,10 @@ class BandProfileViewModel: ObservableObject {
     @Published var bandMembers = [BandMember]()
     @Published var bandShows = [Show]()
     @Published var selectedTab = SelectedBandProfileTab.about
-    
+
+    @Published var addEditLinkSheetIsShowing = false
+    @Published var addBandMemberSheetIsShowing = false
+
     @Published var errorAlertIsShowing = false
     var errorAlertText = ""
     
@@ -27,30 +30,26 @@ class BandProfileViewModel: ObservableObject {
                 errorAlertIsShowing = true
             default:
                 if viewState != .dataLoaded && viewState != .dataLoading {
-                    print("Unknown viewState passed to OtherUserProfileViewModel: \(viewState)")
+                    errorAlertText = ErrorMessageConstants.invalidViewState
+                    errorAlertIsShowing = true
                 }
             }
         }
     }
     
-    /// Necessary for when this view is loaded from a ShowDetailsView
-    var showParticipant: ShowParticipant?
-    
     let db = Firestore.firestore()
     var bandListener: ListenerRegistration?
     
     init(band: Band? = nil, showParticipant: ShowParticipant? = nil) {
-        Task {
-            if let band {
-                self.band = band
-            }
-            
-            if let showParticipant,
-               let convertedBand = await convertShowParticipantToBand(showParticipant: showParticipant) {
-                self.band = convertedBand
-            }
-            
-            if self.band != nil {
+        if let band {
+            self.band = band
+            viewState = .dataLoaded
+            return
+        }
+
+        if let showParticipant {
+            Task {
+                self.band = await convertShowParticipantToBand(showParticipant: showParticipant)
                 viewState = .dataLoaded
             }
         }
@@ -66,36 +65,65 @@ class BandProfileViewModel: ObservableObject {
             return nil
         }
     }
+
+    func callOnAppearMethods() async {
+        addBandListener()
+        await getBandMembers()
+        await getBandLinks()
+        await getBandShows()
+    }
     
     func addBandListener() {
         guard let band else { return }
         
-        bandListener = db.collection(FbConstants.bands).document(band.id).addSnapshotListener { snapshot, error in
-            if snapshot != nil && error == nil {
-                if let band = try? snapshot!.data(as: Band.self) {
-                    self.band = band
-                    Task {
-                        do {
-                            self.bandMembers = try await DatabaseService.shared.getBandMembers(forBand: band)
-                            self.bandLinks = try await DatabaseService.shared.getBandLinks(forBand: band)
-                            let fetchedShows = try await DatabaseService.shared.getShowsForBand(band: band)
-                            let sortedShows = fetchedShows.sorted { lhs, rhs in
-                                lhs.date.unixDateAsDate > rhs.date.unixDateAsDate
-                            }
-                            self.bandShows = sortedShows
-                        } catch {
-                            self.viewState = .error(message: error.localizedDescription)
-                        }
+        bandListener = db
+            .collection(FbConstants.bands)
+            .document(band.id)
+            .addSnapshotListener { snapshot, error in
+                if snapshot != nil && error == nil {
+                    if let band = try? snapshot!.data(as: Band.self) {
+                        self.band = band
                     }
+                } else if error != nil {
+                    self.viewState = .error(message: "There was an error fetching this band's info. System error: \(error!.localizedDescription)")
                 }
-            } else if error != nil {
-                self.viewState = .error(message: "There was an error fetching this band's info. System error: \(error!.localizedDescription)")
             }
+    }
+
+    func getBandMembers() async {
+        guard let band else { return }
+
+        do {
+            self.bandMembers = try await DatabaseService.shared.getBandMembers(forBand: band)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
         }
     }
-    
-    // TODO: Add band member listener to the band's members collection
-    
+
+    func getBandLinks() async {
+        guard let band else { return }
+
+        do {
+            self.bandLinks = try await DatabaseService.shared.getBandLinks(forBand: band)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func getBandShows() async {
+        guard let band else { return }
+
+        do {
+            let fetchedShows = try await DatabaseService.shared.getShowsForBand(band: band)
+            let sortedShows = fetchedShows.sorted { lhs, rhs in
+                lhs.date.unixDateAsDate > rhs.date.unixDateAsDate
+            }
+            self.bandShows = sortedShows
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
     func removeListeners() {
         bandListener?.remove()
     }

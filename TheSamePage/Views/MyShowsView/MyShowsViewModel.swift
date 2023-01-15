@@ -22,7 +22,7 @@ final class MyShowsViewModel: ObservableObject {
             default:
                 if myHostedShowsViewState != .dataNotFound && myHostedShowsViewState != .dataLoaded {
                     myHostedShowsErrorAlertIsShowing = true
-                    myHostedShowsErrorAlertText = "Invalid ViewState"
+                    myHostedShowsErrorAlertText = ErrorMessageConstants.invalidViewState
                 }
             }
         }
@@ -36,7 +36,7 @@ final class MyShowsViewModel: ObservableObject {
             default:
                 if myPlayingShowsViewState != .dataNotFound && myPlayingShowsViewState != .dataLoaded {
                     myPlayingShowsErrorAlertIsShowing = true
-                    myPlayingShowsErrorAlertText = "Invalid ViewState"
+                    myPlayingShowsErrorAlertText = ErrorMessageConstants.invalidViewState
                 }
             }
         }
@@ -53,7 +53,7 @@ final class MyShowsViewModel: ObservableObject {
     var playingShowsListener: ListenerRegistration?
     
     /// Fetches all shows that the user is hosting.
-    func getHostedShows() async {
+    func getHostedShows() {
         hostedShowsListener = db.collection(FbConstants.shows).whereField(
             "hostUid",
             isEqualTo: AuthController.getLoggedInUid()
@@ -75,7 +75,7 @@ final class MyShowsViewModel: ObservableObject {
     }
     
     /// Fetches all shows that the user is playing.
-    func getPlayingShows() async {
+    func getPlayingShows() {
         playingShowsListener = db.collection(FbConstants.shows).whereField(
             "participantUids",
             arrayContains: AuthController.getLoggedInUid()

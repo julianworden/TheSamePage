@@ -14,13 +14,6 @@ import UIKit.UIImage
 
 @MainActor
 final class SignUpViewModel: ObservableObject {
-    enum SignUpViewModelError: Error {
-        case firebaseAuthError(message: String)
-        case firestoreError(message: String)
-        case firebaseStorageError(message: String)
-        case unexpectedNilValue(value: String)
-    }
-    
     @Published var username = ""
     @Published var emailAddress = ""
     @Published var profileImage: UIImage?
@@ -55,7 +48,8 @@ final class SignUpViewModel: ObservableObject {
                 errorAlertIsShowing = true
                 signUpButtonIsDisabled = false
             default:
-                print("Unknown viewState set in SignUpViewModel: \(viewState)")
+                errorAlertText = ErrorMessageConstants.invalidViewState
+                errorAlertIsShowing = true
             }
         }
     }
@@ -65,33 +59,34 @@ final class SignUpViewModel: ObservableObject {
                !lastName.isReallyEmpty
     }
     
-    func signUpButtonTapped() async {
+    @discardableResult func signUpButtonTapped() async -> String {
         guard formIsComplete else {
-            viewState = .error(message: "Incomplete form. Please enter your first and last name.")
-            return
+            viewState = .error(message: ErrorMessageConstants.incompleteFormOnSignUp)
+            return ""
         }
-
-        viewState = .performingWork
         
         do {
-            try await registerUser()
+            viewState = .performingWork
+            let newUserUid = try await registerUser()
             viewState = .workCompleted
+            return newUserUid
         } catch {
             let error = AuthErrorCode(_nsError: error as NSError)
             
             switch error.code {
             case .invalidEmail, .missingEmail:
-                viewState = .error(message: "Please enter a valid email address.")
+                viewState = .error(message: ErrorMessageConstants.invalidOrMissingEmailOnSignUp)
             case .emailAlreadyInUse:
-                viewState = .error(message: "An account with this email address already exists, please go back and sign in or reset your password, if necessary.")
+                viewState = .error(message: ErrorMessageConstants.emailAlreadyInUseOnSignUp)
             case .networkError:
-                viewState = .error(message: "Login failed. \(ErrorMessageConstants.checkYourConnection). System error: \(error.localizedDescription)")
+                viewState = .error(message: "\(ErrorMessageConstants.networkErrorOnSignUp). System error: \(error.localizedDescription)")
             case .weakPassword:
-                viewState = .error(message: "Please enter a valid password, it must be 6 characters long or more.")
+                viewState = .error(message: ErrorMessageConstants.weakPasswordOnSignUp)
             default:
-                viewState = .error(message: "An unknown error occurred, please try again. System error: \(error.localizedDescription)")
-                print(error)
+                viewState = .error(message: "\(ErrorMessageConstants.unknownError). System error: \(error.localizedDescription)")
             }
+
+            return ""
         }
     }
     
@@ -100,37 +95,25 @@ final class SignUpViewModel: ObservableObject {
     /// Once the user is created in Firebase Auth, a new user object is created and passed to the DatabaseService,
     /// which will add that new user object to the users collection in Firestore.
     /// - Parameter image: The profile image selected by the user.
-    func registerUser() async throws {
+    func registerUser() async throws -> String {
         let result = try await Auth.auth().createUser(withEmail: emailAddress, password: password)
         let uid = result.user.uid
         let fcmToken = Messaging.messaging().fcmToken
         
         let newUser: User
         
-        if let profileImage {
-            let imageUrl = try await DatabaseService.shared.uploadImage(image: profileImage)
-            newUser = User(
-                id: uid,
-                username: username,
-                firstName: firstName,
-                lastName: lastName,
-                profileImageUrl: imageUrl,
-                phoneNumber: phoneNumber,
-                emailAddress: emailAddress,
-                fcmToken: fcmToken
-            )
-        } else {
-            newUser = User(
-                id: uid,
-                username: username,
-                firstName: firstName,
-                lastName: lastName,
-                phoneNumber: phoneNumber,
-                emailAddress: emailAddress,
-                fcmToken: fcmToken
-            )
-        }
+        newUser = User(
+            id: uid,
+            username: username,
+            firstName: firstName,
+            lastName: lastName,
+            profileImageUrl: profileImage == nil ? nil : try await DatabaseService.shared.uploadImage(image: profileImage!),
+            phoneNumber: phoneNumber,
+            emailAddress: emailAddress,
+            fcmToken: fcmToken
+        )
         
         try await DatabaseService.shared.createUserObject(user: newUser)
+        return uid
     }
 }

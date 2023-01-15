@@ -482,7 +482,7 @@ class DatabaseService: NSObject {
     /// Sends an invitation to a user to join a band. Uploads a BandInvite object to the specified user's bandInvites collection in
     /// Firestore.
     /// - Parameter invite: The BandInvite that is being sent.
-    func sendBandInvite(invite: BandInvite) async throws {
+    func sendBandInvite(invite: BandInvite) async throws -> String {
         do {
             let bandInviteDocument = try db
                 .collection(FbConstants.users)
@@ -490,6 +490,7 @@ class DatabaseService: NSObject {
                 .collection(FbConstants.notifications)
                 .addDocument(from: invite)
             try await bandInviteDocument.updateData([FbConstants.id: bandInviteDocument.documentID])
+            return bandInviteDocument.documentID
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to send band invite",
@@ -504,7 +505,7 @@ class DatabaseService: NSObject {
         do {
             try await db
                 .collection(FbConstants.users)
-                .document(AuthController.getLoggedInUid())
+                .document(bandInvite.recipientUid)
                 .collection(FbConstants.notifications)
                 .document(bandInvite.id)
                 .delete()
@@ -873,7 +874,7 @@ class DatabaseService: NSObject {
     
     func cancelShow(show: Show) async throws {
         do {
-            _ = try await Functions.functions().httpsCallable("recursiveDelete").call(["path": "shows/\(show.id)"])
+            _ = try await Functions.functions().httpsCallable(FbConstants.recursiveDelete).call([FbConstants.path: "\(FbConstants.path)/\(show.id)"])
             try await deleteChat(for: show)
         } catch {
             throw FirebaseError.connection(
@@ -1059,7 +1060,7 @@ class DatabaseService: NSObject {
             
             let chat = try chatDocument[0].data(as: Chat.self)
             
-            _ = try await Functions.functions().httpsCallable("recursiveDelete").call(["path": "chats/\(chat.id)"])
+            _ = try await Functions.functions().httpsCallable(FbConstants.recursiveDelete).call([FbConstants.recursiveDelete: "\(FbConstants.chats)/\(chat.id)"])
             print("Delete successful")
         } catch {
             throw FirebaseError.connection(

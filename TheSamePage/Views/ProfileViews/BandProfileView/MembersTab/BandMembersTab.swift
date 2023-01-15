@@ -16,11 +16,19 @@ struct BandMembersTab: View {
                 Spacer()
                 
                 if band.loggedInUserIsBandAdmin {
-                    NavigationLink {
-                        MemberSearchView()
+                    Button {
+                        viewModel.addBandMemberSheetIsShowing.toggle()
                     } label: {
                         Image(systemName: "plus")
                     }
+                    .fullScreenCover(
+                        isPresented: $viewModel.addBandMemberSheetIsShowing,
+                        content: {
+                            NavigationView {
+                                MemberSearchView()
+                            }
+                        }
+                    )
                 }
             }
             .padding(.horizontal)

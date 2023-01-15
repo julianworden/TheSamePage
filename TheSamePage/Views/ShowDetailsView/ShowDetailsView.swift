@@ -57,7 +57,7 @@ struct ShowDetailsView: View {
                 )
                 
             default:
-                ErrorMessage(message: ErrorMessageConstants.unknownViewState)
+                ErrorMessage(message: ErrorMessageConstants.invalidViewState)
             }
         }
         .navigationTitle("Show Details")

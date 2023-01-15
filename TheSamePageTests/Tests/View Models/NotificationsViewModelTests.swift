@@ -13,8 +13,17 @@ import XCTest
 final class NotificationsViewModelTests: XCTestCase {
     var sut: NotificationsViewModel!
     var testingDatabaseService: TestingDatabaseService!
+    /// Makes it easier to delete an example user that's created for testing in tearDown method. Any user
+    /// that's created in these tests should assign its id property to this property so that it can be deleted
+    /// during tearDown.
     var createdUserUid: String?
+    /// Makes it easier to delete an example band that's created for testing in tearDown method. Any band
+    /// that's created in these tests should assign its id property to this property so that it can be deleted
+    /// during tearDown.
     var createdBandId: String?
+    /// Makes it easier to delete an example show invite that's created for testing in tearDown method. Any show invite
+    /// that's created in these tests should assign its id property to this property so that it can be deleted
+    /// during tearDown.
     var createdShowInviteId: String?
 
     override func setUpWithError() throws {
@@ -56,8 +65,9 @@ final class NotificationsViewModelTests: XCTestCase {
 
     func test_OnGetNotificationsWhenUserHasNotifications_NotificationsAreFetchedAndViewStateIsSet() async throws {
         try await testingDatabaseService.logInToTasAccount()
+
         sut.getNotifications()
-        try await Task.sleep(seconds: 2)
+        try await Task.sleep(seconds: 0.5)
 
         XCTAssertEqual(sut.fetchedNotifications.count, 1, "Tas has one notification")
         XCTAssertEqual(sut.viewState, .dataLoaded, "Data should've been found")
@@ -65,8 +75,9 @@ final class NotificationsViewModelTests: XCTestCase {
 
     func test_OnGetNotificationsWhenUserHasNoNotifications_NoNotificationsAreFetchedAndViewStateIsSet() async throws {
         try await testingDatabaseService.logInToJulianAccount()
+
         sut.getNotifications()
-        try await Task.sleep(seconds: 2)
+        try await Task.sleep(seconds: 0.5)
 
         XCTAssertTrue(sut.fetchedNotifications.isEmpty, "Julian has no notifications")
         XCTAssertEqual(sut.viewState, .dataNotFound, "No data should've been found")
@@ -77,7 +88,7 @@ final class NotificationsViewModelTests: XCTestCase {
         let showInvite = try await createGenerationUndergroundAndSendInviteToPlayDumpweedExtravaganza()
 
         sut.getNotifications()
-        try await Task.sleep(seconds: 2)
+        try await Task.sleep(seconds: 0.5)
 
         XCTAssertEqual(sut.fetchedNotifications.count, 1, "Mike should only have 1 notification at this point")
 
@@ -85,9 +96,9 @@ final class NotificationsViewModelTests: XCTestCase {
             send: showInvite,
             toBandWithAdminUid: TestingConstants.exampleUserMike.id
         )
-        try await Task.sleep(seconds: 2)
+        try await Task.sleep(seconds: 0.5)
 
-        XCTAssertEqual(sut.fetchedNotifications.count, 2, "Mike should now have 2 notifications")
+        XCTAssertEqual(sut.fetchedNotifications.count, 2, "Mike now has 2 notifications")
 
         // Cleans up the second sent notification
         try await testingDatabaseService.deleteShowInvite(
@@ -101,7 +112,7 @@ final class NotificationsViewModelTests: XCTestCase {
         let showInvite = try await createGenerationUndergroundAndSendInviteToPlayDumpweedExtravaganza()
 
         sut.getNotifications()
-        try await Task.sleep(seconds: 2)
+        try await Task.sleep(seconds: 0.5)
 
         XCTAssertEqual(sut.fetchedNotifications.count, 1, "Mike should only have 1 notification")
 
@@ -111,7 +122,7 @@ final class NotificationsViewModelTests: XCTestCase {
             send: showInvite,
             toBandWithAdminUid: TestingConstants.exampleUserMike.id
         )
-        try await Task.sleep(seconds: 2)
+        try await Task.sleep(seconds: 0.5)
 
         XCTAssertEqual(sut.fetchedNotifications.count, 1, "An additional notification shouldn't have been fetched because the listener was removed")
 
@@ -130,7 +141,7 @@ final class NotificationsViewModelTests: XCTestCase {
             anyUserNotification: bandInviteAsAnyUserNotification,
             withAction: .accept
         )
-        let patheticFallacy = try await testingDatabaseService.getBand(with: TestingConstants.exampleBandPatheticFallacy.id)
+        let patheticFallacy = try await testingDatabaseService.getBand(withId: TestingConstants.exampleBandPatheticFallacy.id)
         let userExistsInMembersCollection = try await testingDatabaseService.userExistsInMembersCollectionForBand(
             uid: createdUserUid!,
             bandId: patheticFallacy.id
@@ -167,7 +178,7 @@ final class NotificationsViewModelTests: XCTestCase {
         let bandInviteNotificationExists = try await testingDatabaseService.notificationExists(
             forUserWithUid: createdUserUid!, notificationId: bandInvite.id
         )
-        let patheticFallacy = try await testingDatabaseService.getBand(with: TestingConstants.exampleBandPatheticFallacy.id)
+        let patheticFallacy = try await testingDatabaseService.getBand(withId: TestingConstants.exampleBandPatheticFallacy.id)
         let userExistsInBandMembersCollection = try await testingDatabaseService.userExistsInMembersCollectionForBand(
             uid: createdUserUid!, bandId: patheticFallacy.id
         )
@@ -245,7 +256,7 @@ final class NotificationsViewModelTests: XCTestCase {
         sut.viewState = .displayingView
 
         XCTAssertTrue(sut.errorAlertIsShowing, "An alert should be shown when an invalid view state is set")
-        XCTAssertEqual(sut.errorAlertText, "Invalid ViewState", "The error message should show that an invalid ViewState was set")
+        XCTAssertEqual(sut.errorAlertText, ErrorMessageConstants.invalidViewState, "The error message should show that an invalid ViewState was set")
     }
 
     /// A helper method that creates a user, Matt, in Firestore and Firebase Auth, and then sends him an invite to join Pathetic Fallacy.
@@ -269,7 +280,7 @@ final class NotificationsViewModelTests: XCTestCase {
             toUserWithUid: createdUserUid!
         )
         var createdBandInvite = try await testingDatabaseService.getBandInvite(
-            getBandInviteWithId: createdBandInviteId,
+            withId: createdBandInviteId,
             forUserWithUid: createdUserUid!
         )
         createdBandInvite.id = createdBandInviteId
@@ -304,11 +315,11 @@ final class NotificationsViewModelTests: XCTestCase {
             to: generationUnderground,
             forRole: "Vocals"
         )
-        let showInviteId = try testingDatabaseService.sendShowInvite(send: mikeShowInvite, toBandWithAdminUid: mike.id)
+        createdShowInviteId = try testingDatabaseService.sendShowInvite(send: mikeShowInvite, toBandWithAdminUid: mike.id)
         var createdShowInvite = try await testingDatabaseService.getShowInvite(
-            getShowInviteWithId: showInviteId, forUserWithUid: mike.id
+            getShowInviteWithId: createdShowInviteId!, forUserWithUid: mike.id
         )
-        createdShowInvite.id = showInviteId
+        createdShowInvite.id = createdShowInviteId!
 
         return createdShowInvite
     }

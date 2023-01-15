@@ -111,7 +111,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     // MARK: - Firestore Example Bands
 
     func test_OnInit_ExampleBandPatheticFallacyInFirestoreEmulatorHasExpectedValues() async throws {
-        let patheticFallacyInEmulator = try await testingDatabaseService.getBand(with: TestingConstants.exampleBandPatheticFallacy.id)
+        let patheticFallacyInEmulator = try await testingDatabaseService.getBand(withId: TestingConstants.exampleBandPatheticFallacy.id)
         let patheticFallacyInTestingConstants = TestingConstants.exampleBandPatheticFallacy
 
         XCTAssertEqual(patheticFallacyInEmulator.adminUid, TestingConstants.exampleUserJulian.id)
@@ -127,7 +127,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleBandDumpweedInFirestoreEmulatorHasExpectedValues() async throws {
-        let dumpweedInEmulator = try await testingDatabaseService.getBand(with: TestingConstants.exampleBandDumpweed.id)
+        let dumpweedInEmulator = try await testingDatabaseService.getBand(withId: TestingConstants.exampleBandDumpweed.id)
         let dumpweedInTestingConstants = TestingConstants.exampleBandDumpweed
 
         XCTAssertEqual(dumpweedInEmulator.adminUid, TestingConstants.exampleUserEric.id)
@@ -143,8 +143,8 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleBandsInFirestoreEmulatorMatchTestingConstants() async throws {
-        let patheticFallacyInEmulator = try await testingDatabaseService.getBand(with: TestingConstants.exampleBandPatheticFallacy.id)
-        let dumpweedInEmulator = try await testingDatabaseService.getBand(with: TestingConstants.exampleBandDumpweed.id)
+        let patheticFallacyInEmulator = try await testingDatabaseService.getBand(withId: TestingConstants.exampleBandPatheticFallacy.id)
+        let dumpweedInEmulator = try await testingDatabaseService.getBand(withId: TestingConstants.exampleBandDumpweed.id)
 
         XCTAssertEqual(patheticFallacyInEmulator, TestingConstants.exampleBandPatheticFallacy)
         XCTAssertEqual(dumpweedInEmulator, TestingConstants.exampleBandDumpweed)
@@ -240,7 +240,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
 
     func test_OnInit_ExampleBandInviteInFirestoreEmulatorHasExpectedValues() async throws {
         let bandInviteInEmulator = try await testingDatabaseService.getBandInvite(
-            getBandInviteWithId: TestingConstants.exampleBandInviteForTas.id,
+            withId: TestingConstants.exampleBandInviteForTas.id,
             forUserWithUid: TestingConstants.exampleUserTas.id
         )
         let bandInviteInTestingConstants = TestingConstants.exampleBandInviteForTas
@@ -261,7 +261,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
 
     func test_OnInit_ExampleBandInvitesInFirestoreEmulatorMatchTestingConstants() async throws {
         let bandInviteInEmulator = try await testingDatabaseService.getBandInvite(
-            getBandInviteWithId: TestingConstants.exampleBandInviteForTas.id,
+            withId: TestingConstants.exampleBandInviteForTas.id,
             forUserWithUid: TestingConstants.exampleUserTas.id
         )
 

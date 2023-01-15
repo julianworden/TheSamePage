@@ -33,13 +33,7 @@ struct OtherUserProfileView: View {
                         if !viewModel.bands.isEmpty {
                             HStack {
                                 SectionTitle(title: "Member of")
-                                
-                                NavigationLink {
-                                    AddEditBandView()
-                                } label: {
-                                    Image(systemName: "plus")
-                                }
-                                .padding(.trailing)
+                                Spacer()
                             }
                             
                             OtherUserBandList(viewModel: viewModel)
@@ -64,6 +58,9 @@ struct OtherUserProfileView: View {
                 dismiss()
             }
         )
+        .task {
+
+        }
     }
 }
 

@@ -102,7 +102,7 @@ final class ConversationViewModelTests: XCTestCase {
         sut.messageText = TestingConstants.testMessageText
 
         await sut.sendMessageButtonTapped(by: try testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserEric.id))
-        try await Task.sleep(seconds: 3)
+        try await Task.sleep(seconds: 0.5)
 
         XCTAssertTrue(sut.messageText.isEmpty, "After sending a message, there should be no more message text")
         XCTAssertEqual(sut.messages.count, 3, "There should now be three messages in the chat")

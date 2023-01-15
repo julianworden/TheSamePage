@@ -81,6 +81,14 @@ struct TestingConstants {
         emailAddress: "mattdiguiseppe@gmail.com"
     )
 
+    static let exampleUserTimForIntegrationTesting = User(
+        id: "",
+        username: "timcook",
+        firstName: "Tim",
+        lastName: "Cook",
+        emailAddress: "timcook@gmail.com"
+    )
+
     // MARK: - Example Bands
 
     /// An example band that matches a band being stored in Firestore Emulator

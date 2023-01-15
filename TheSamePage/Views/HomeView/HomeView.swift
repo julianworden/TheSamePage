@@ -33,7 +33,7 @@ struct HomeView: View {
                 case .error:
                     EmptyView()
                 default:
-                    ErrorMessage(message: ErrorMessageConstants.unknownViewState)
+                    ErrorMessage(message: ErrorMessageConstants.invalidViewState)
                 }
             }
             .navigationTitle("Shows Near You")

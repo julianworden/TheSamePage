@@ -9,9 +9,7 @@ import SwiftUI
 
 struct LinkTab: View {
     @ObservedObject var viewModel: BandProfileViewModel
-    
-    @State private var linkCreationSheetIsShowing = false
-    
+
     var body: some View {
         if let band = viewModel.band {
             VStack {
@@ -20,10 +18,25 @@ struct LinkTab: View {
                     
                     if band.loggedInUserIsBandAdmin {
                         Button {
-                            linkCreationSheetIsShowing = true
+                            viewModel.addEditLinkSheetIsShowing.toggle()
                         } label: {
                             Image(systemName: "plus")
                         }
+                        .sheet(
+                            isPresented: $viewModel.addEditLinkSheetIsShowing,
+                            onDismiss: {
+                                Task {
+                                    await viewModel.getBandLinks()
+                                }
+                            },
+                            content: {
+                                NavigationView {
+                                    AddEditLinkView(link: nil, band: viewModel.band!)
+                                }
+                                // Without this, the sheet looks strange when dismissed
+                                .navigationViewStyle(.stack)
+                            }
+                        )
                     }
                 }
                 .padding(.horizontal)
@@ -44,13 +57,6 @@ struct LinkTab: View {
                     .padding(.horizontal)
                     .multilineTextAlignment(.center)
                 }
-            }
-            .sheet(isPresented: $linkCreationSheetIsShowing) {
-                NavigationView {
-                    AddEditLinkView(link: nil, band: viewModel.band!)
-                }
-                // Without this, the sheet looks strange when dismissed
-                .navigationViewStyle(.stack)
             }
         }
     }
