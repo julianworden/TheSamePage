@@ -13,11 +13,18 @@ struct ShowBacklineRow: View {
     let iconName: String
     
     var body: some View {
-        ListRowElements(
-            title: title,
-            subtitle: subtitle,
-            iconName: iconName
-        )
+        if let subtitle {
+            ListRowElements(
+                title: title,
+                subtitle: subtitle,
+                iconName: iconName
+            )
+        } else {
+            ListRowElements(
+                title: title,
+                iconName: iconName
+            )
+        }
     }
 }
 

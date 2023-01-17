@@ -114,6 +114,13 @@ class TestingDatabaseService {
         return showDocument.documentID
     }
 
+    func updateShowName(showId: String, newName: String) async throws {
+        try await db
+            .collection(FbConstants.shows)
+            .document(showId)
+            .updateData([FbConstants.name: newName])
+    }
+
     func addUserToShow(showId: String, uid: String) async throws {
         try await db
             .collection(FbConstants.shows)
@@ -184,6 +191,13 @@ class TestingDatabaseService {
             .collection(FbConstants.participants)
             .document(showParticipantDocument.documentID)
             .delete()
+    }
+
+    func restoreExampleShowData(withDataIn show: Show) throws {
+        try db
+            .collection(FbConstants.shows)
+            .document(show.id)
+            .setData(from: show)
     }
 
     // MARK: - Firestore ShowParticipants
@@ -577,6 +591,35 @@ class TestingDatabaseService {
             .collection(FbConstants.links)
             .document(platformLink.id!)
             .getDocument(as: PlatformLink.self)
+    }
+
+    // MARK: - Firestore Backline
+
+    func getBacklineItem(withId backlineItemId: String, inShowWithId showId: String) async throws -> BacklineItem {
+        return try await db
+            .collection(FbConstants.shows)
+            .document(showId)
+            .collection(FbConstants.backlineItems)
+            .document(backlineItemId)
+            .getDocument(as: BacklineItem.self)
+    }
+
+    func getDrumKitBacklineItem(withId backlineItemId: String, inShowWithId showId: String) async throws -> DrumKitBacklineItem {
+        return try await db
+            .collection(FbConstants.shows)
+            .document(showId)
+            .collection(FbConstants.backlineItems)
+            .document(backlineItemId)
+            .getDocument(as: DrumKitBacklineItem.self)
+    }
+
+    func deleteBacklineItem(withId backlineItemId: String, inShowWithId showId: String) async throws {
+        try await db
+            .collection(FbConstants.shows)
+            .document(showId)
+            .collection(FbConstants.backlineItems)
+            .document(backlineItemId)
+            .delete()
     }
 
     // MARK: - Firebase Storage

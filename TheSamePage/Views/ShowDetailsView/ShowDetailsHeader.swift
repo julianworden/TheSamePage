@@ -57,6 +57,11 @@ struct ShowDetailsHeader: View {
                             } label: {
                                 Label("Chat", systemImage: "bubble.right")
                             }
+                            .fullScreenCover(isPresented: $chatSheetIsShowing) {
+                                NavigationView {
+                                    ConversationView(show: viewModel.show, showParticipants: viewModel.showParticipants)
+                                }
+                            }
                         } else if viewModel.show.loggedInUserIsNotInvolvedInShow {
                             // TODO: Make this a sheet instead
                             NavigationLink {
@@ -69,11 +74,6 @@ struct ShowDetailsHeader: View {
             }
             .multilineTextAlignment(.center)
             .padding(.horizontal)
-        }
-        .fullScreenCover(isPresented: $chatSheetIsShowing) {
-            NavigationView {
-                ConversationView(show: viewModel.show, showParticipants: viewModel.showParticipants)
-            }
         }
         // Forces the EditImageView to load the showImage properly
         .onChange(of: showImage) { _ in }

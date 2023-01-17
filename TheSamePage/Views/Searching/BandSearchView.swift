@@ -11,6 +11,14 @@ import SwiftUI
 /// and show searching
 struct BandSearchView: View {
     @StateObject var viewModel = SearchViewModel()
+
+    @Environment(\.dismiss) var dismiss
+
+    let isPresentedModally: Bool
+
+    init(isPresentedModally: Bool = false) {
+        self.isPresentedModally = isPresentedModally
+    }
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -21,13 +29,22 @@ struct BandSearchView: View {
                 .autocorrectionDisabled(true)
                 .padding(.horizontal)
         }
+        .navigationTitle("Band Search")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Back", role: .cancel) {
+                    dismiss()
+                }
+            }
+        }
     }
 }
 
 struct BandSearchView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            BandSearchView(viewModel: SearchViewModel())
+            BandSearchView(isPresentedModally: true)
         }
     }
 }

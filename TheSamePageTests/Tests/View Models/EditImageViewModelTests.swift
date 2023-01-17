@@ -65,7 +65,7 @@ final class EditImageViewModelTests: XCTestCase {
         sut = EditImageViewModel()
 
         XCTAssertFalse(sut.imagePickerIsShowing)
-        XCTAssertFalse(sut.editButtonIsDisabled)
+        XCTAssertFalse(sut.toolbarButtonsDisabled)
         XCTAssertFalse(sut.imageUpdateIsComplete)
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
@@ -169,7 +169,7 @@ final class EditImageViewModelTests: XCTestCase {
 
         sut.viewState = .performingWork
 
-        XCTAssertTrue(sut.editButtonIsDisabled, "The edit button should be disabled while an image is being updated")
+        XCTAssertTrue(sut.toolbarButtonsDisabled, "The edit button should be disabled while an image is being updated")
     }
 
     func test_OnWorkCompletedViewState_PropertiesAreSet() {
@@ -185,7 +185,7 @@ final class EditImageViewModelTests: XCTestCase {
 
         sut.viewState = .error(message: "TEST ERROR MESSAGE")
 
-        XCTAssertFalse(sut.editButtonIsDisabled, "The user should be able to try again after they see an error")
+        XCTAssertFalse(sut.toolbarButtonsDisabled, "The user should be able to try again after they see an error")
         XCTAssertEqual(sut.errorAlertText, "TEST ERROR MESSAGE", "The user should see the error message in an alert")
         XCTAssertTrue(sut.errorAlertIsShowing, "The user should see an error alert")
     }

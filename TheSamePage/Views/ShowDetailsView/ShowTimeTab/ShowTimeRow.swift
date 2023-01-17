@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ShowTimeRow: View {
-    @Environment(\.editMode) var editMode
-    
     @ObservedObject var viewModel: ShowDetailsViewModel
+
+    @Binding var selectedShowTimeType: ShowTimeType?
     
     let showTimeType: ShowTimeType
     
@@ -24,8 +24,7 @@ struct ShowTimeRow: View {
                 
                 Spacer()
 
-                // TODO: Make the trash cans always visible for existing times. For non-existent times, show an Unknown title with a plus button that's always visible
-                if editMode?.wrappedValue == .active {
+                if viewModel.timeForShowExists(showTimeType: showTimeType) {
                     Button(role: .destructive) {
                         Task {
                             await viewModel.removeShowTimeFromShow(showTimeType: showTimeType)
@@ -33,7 +32,12 @@ struct ShowTimeRow: View {
                     } label: {
                         Image(systemName: "trash")
                     }
-                    .padding(.trailing)
+                } else {
+                    Button {
+                        selectedShowTimeType = showTimeType
+                    } label: {
+                        Image(systemName: "plus")
+                    }
                 }
             }
         }
@@ -42,6 +46,6 @@ struct ShowTimeRow: View {
 
 struct ShowTimeRow_Previews: PreviewProvider {
     static var previews: some View {
-        ShowTimeRow(viewModel: ShowDetailsViewModel(show: Show.example), showTimeType: .doors)
+        ShowTimeRow(viewModel: ShowDetailsViewModel(show: Show.example), selectedShowTimeType: .constant(nil), showTimeType: .doors)
     }
 }

@@ -11,7 +11,7 @@ import UIKit.UIImage
 @MainActor
 final class EditImageViewModel: ObservableObject {
     @Published var imagePickerIsShowing = false
-    @Published var editButtonIsDisabled = false
+    @Published var toolbarButtonsDisabled = false
     @Published var imageUpdateIsComplete = false
     
     @Published var errorAlertIsShowing = false
@@ -21,11 +21,11 @@ final class EditImageViewModel: ObservableObject {
         didSet {
             switch viewState {
             case .performingWork:
-                editButtonIsDisabled = true
+                toolbarButtonsDisabled = true
             case .workCompleted:
                 imageUpdateIsComplete = true
             case .error(let message):
-                editButtonIsDisabled = false
+                toolbarButtonsDisabled = false
                 errorAlertText = message
                 errorAlertIsShowing = true
             default:

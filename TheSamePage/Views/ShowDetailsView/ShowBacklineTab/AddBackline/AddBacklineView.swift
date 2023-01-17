@@ -51,7 +51,7 @@ struct AddBacklineView: View {
 
             Section {
                 AsyncButton {
-                    await viewModel.addBacklineItemButtonTapped()
+                    await viewModel.addBacklineItemToShow()
                 } label: {
                     Text("Add Gear to Backline")
                 }

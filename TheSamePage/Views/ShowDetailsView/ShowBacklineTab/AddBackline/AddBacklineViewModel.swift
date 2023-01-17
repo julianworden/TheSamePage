@@ -29,74 +29,104 @@ final class AddBacklineViewModel: ObservableObject {
     
     @Published var addGearButtonIsDisabled = false
     @Published var gearAddedSuccessfully = false
+
+    @Published var errorAlertIsShowing = false
+    var errorAlertText = ""
     
     let show: Show
 
-    // TODO: Add ViewState stuff
-    
+    @Published var viewState = ViewState.displayingView {
+        didSet {
+            switch viewState {
+            case .performingWork:
+                addGearButtonIsDisabled = true
+            case .workCompleted:
+                gearAddedSuccessfully = true
+                addGearButtonIsDisabled = false
+            case .error(let message):
+                errorAlertText = message
+                errorAlertIsShowing = true
+                addGearButtonIsDisabled = false
+            default:
+                errorAlertText = ErrorMessageConstants.invalidViewState
+                errorAlertIsShowing = true
+            }
+        }
+    }
+
     init(show: Show) {
         self.show = show
     }
     
-    func addBacklineItemButtonTapped() async {
+    @discardableResult func addBacklineItemToShow() async -> String {
         do {
-            addGearButtonIsDisabled = true
-            try await addBacklineItemToShow()
-            gearAddedSuccessfully = true
-        } catch {
-            addGearButtonIsDisabled = false
-            print(error)
-        }
-    }
-    
-    func addBacklineItemToShow() async throws {
-        let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
-        var backlineItem: BacklineItem?
-        var drumKitBacklineItem: DrumKitBacklineItem?
-        
-        switch selectedGearType {
-        case .electricGuitar, .bassGuitar:
-            backlineItem = BacklineItem(
-                backlinerUid: loggedInUser.id,
-                backlinerFullName: loggedInUser.fullName,
-                type: selectedGearType.rawValue,
-                name: selectedGuitarGear.rawValue,
-                notes: backlineGearNotes
-            )
-        case .percussion:
-            if selectedPercussionGearType == .fullKit {
-                drumKitBacklineItem = DrumKitBacklineItem(
-                    backlinerUid: loggedInUser.id,
-                    backlinerFullName: loggedInUser.fullName,
-                    type: selectedGearType.rawValue,
-                    name: selectedPercussionGearType.rawValue,
-                    notes: backlineGearNotes,
-                    kickIncluded: kickIncluded,
-                    snareIncluded: snareIncluded,
-                    tomsIncluded: tomsIncluded,
-                    numberOfTomsIncluded: numberOfTomsIncluded,
-                    hiHatIncluded: hiHatIncluded,
-                    cymbalsIncluded: cymbalsIncluded,
-                    numberOfCymbalsIncluded: numberOfCymbalsIncluded,
-                    cymbalStandsIncluded: cymbalStandsIncluded,
-                    numberOfCymbalStandsIncluded: numberOfCymbalStandsIncluded
-                )
-            } else {
+            viewState = .performingWork
+
+            let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
+            var backlineItem: BacklineItem?
+            var drumKitBacklineItem: DrumKitBacklineItem?
+
+            switch selectedGearType {
+            case .electricGuitar, .bassGuitar:
                 backlineItem = BacklineItem(
                     backlinerUid: loggedInUser.id,
                     backlinerFullName: loggedInUser.fullName,
                     type: selectedGearType.rawValue,
-                    name: selectedAuxillaryPercussion.rawValue,
-                    notes: backlineGearNotes
+                    name: selectedGuitarGear.rawValue,
+                    notes: backlineGearNotes.isReallyEmpty ? nil : backlineGearNotes
                 )
+
+            case .percussion:
+                switch selectedPercussionGearType {
+                case .fullKit:
+                    drumKitBacklineItem = DrumKitBacklineItem(
+                        backlinerUid: loggedInUser.id,
+                        backlinerFullName: loggedInUser.fullName,
+                        type: selectedGearType.rawValue,
+                        name: selectedPercussionGearType.rawValue,
+                        notes: backlineGearNotes.isReallyEmpty ? nil : backlineGearNotes,
+                        kickIncluded: kickIncluded,
+                        snareIncluded: snareIncluded,
+                        tomsIncluded: tomsIncluded,
+                        numberOfTomsIncluded: numberOfTomsIncluded,
+                        hiHatIncluded: hiHatIncluded,
+                        cymbalsIncluded: cymbalsIncluded,
+                        numberOfCymbalsIncluded: numberOfCymbalsIncluded,
+                        cymbalStandsIncluded: cymbalStandsIncluded,
+                        numberOfCymbalStandsIncluded: numberOfCymbalStandsIncluded
+                    )
+
+                case .kitPiece:
+                    backlineItem = BacklineItem(
+                        backlinerUid: loggedInUser.id,
+                        backlinerFullName: loggedInUser.fullName,
+                        type: selectedGearType.rawValue,
+                        name: selectedDrumKitPiece.rawValue,
+                        notes: backlineGearNotes.isReallyEmpty ? nil : backlineGearNotes
+                    )
+
+                case .auxillaryPercussion:
+                    backlineItem = BacklineItem(
+                        backlinerUid: loggedInUser.id,
+                        backlinerFullName: loggedInUser.fullName,
+                        type: selectedGearType.rawValue,
+                        name: selectedAuxillaryPercussion.rawValue,
+                        notes: backlineGearNotes.isReallyEmpty ? nil : backlineGearNotes
+                    )
+                }
             }
+
+            let backlineItemDocumentId = try DatabaseService.shared.addBacklineItemToShow(
+                backlineItem: backlineItem,
+                drumKitBacklineItem: drumKitBacklineItem,
+                show: show
+            )
+            viewState = .workCompleted
+            return backlineItemDocumentId
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+            return ""
         }
-        
-        try DatabaseService.shared.addBacklineItemToShow(
-            backlineItem: backlineItem,
-            drumKitBacklineItem: drumKitBacklineItem,
-            show: show
-        )
     }
     
     func incrementNumberOfTomsIncluded() {

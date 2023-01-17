@@ -35,7 +35,7 @@ final class SendShowInviteViewModel: ObservableObject {
                 errorAlertIsShowing = true
                 sendButtonIsDisabled = false
             default:
-                if viewState != .dataNotFound && viewState != .dataLoaded {
+                if viewState != .dataNotFound && viewState != .dataLoaded && viewState != .dataLoading {
                     errorAlertText = ErrorMessageConstants.invalidViewState
                     errorAlertIsShowing = true
                 }
@@ -89,8 +89,6 @@ final class SendShowInviteViewModel: ObservableObject {
     }
     
     func getHostedShows() async {
-        viewState = .dataLoading
-        
         do {
             userShows = try await DatabaseService.shared.getHostedShows()
             

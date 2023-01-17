@@ -71,7 +71,7 @@ struct ShowBacklineTab: View {
             isPresented: $viewModel.addBacklineSheetIsShowing,
             onDismiss: {
                 Task {
-                    await viewModel.getBacklineItems(forShow: viewModel.show)
+                    await viewModel.getBacklineItems()
                 }
             },
             content: {

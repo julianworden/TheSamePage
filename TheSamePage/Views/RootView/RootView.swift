@@ -75,6 +75,9 @@ struct RootView: View {
             },
             content: { LoginView(userIsOnboarding: $viewModel.userIsLoggedOut) }
         )
+        .task {
+            await loggedInUserController.getLoggedInUserInfo()
+        }
     }
 }
 

@@ -393,6 +393,61 @@ struct TestingConstants {
         showId: exampleShowDumpweedExtravaganza.id
     )
 
+    // MARK: - Example Backline
+
+    static let exampleElectricGuitarBacklineItemDumpweedExtravaganza = BacklineItem(
+        id: "uaiGeXYUKkGRAgf1U7DS",
+        backlinerUid: exampleUserJulian.id,
+        backlinerFullName: exampleUserJulian.fullName,
+        type: BacklineItemType.electricGuitar.rawValue,
+        name: GuitarGear.comboAmp.rawValue,
+        notes: "Marshall"
+    )
+
+    static let exampleBassGuitarBacklineItemDumpweedExtravaganza = BacklineItem(
+        id: "LVgcRJZ704y7g6ohpWVj",
+        backlinerUid: exampleUserJulian.id,
+        backlinerFullName: exampleUserJulian.fullName,
+        type: BacklineItemType.bassGuitar.rawValue,
+        name: GuitarGear.cab.rawValue,
+        notes: "Ampeg 8 X 12"
+    )
+
+    static let exampleDrumKitPieceBacklineItemDumpweedExtravaganza = BacklineItem(
+        id: "1ia024xU5y71R6vngnIe",
+        backlinerUid: exampleUserJulian.id,
+        backlinerFullName: exampleUserJulian.fullName,
+        type: BacklineItemType.percussion.rawValue,
+        name: DrumKitPiece.kick.rawValue,
+        notes: "DW Kick"
+    )
+
+    static let exampleAuxPercussionBacklineItemDumpweedExtravaganza = BacklineItem(
+        id: "8QZ2veMzoawxQaRcx1iE",
+        backlinerUid: exampleUserJulian.id,
+        backlinerFullName: exampleUserJulian.fullName,
+        type: BacklineItemType.percussion.rawValue,
+        name: AuxillaryPercussion.congas.rawValue
+    )
+
+    static let exampleDrumKitBacklineItemDumpweedExtravaganza = DrumKitBacklineItem(
+        id: "aG8zt3O28acN0f5uk2Oe",
+        backlinerUid: exampleUserJulian.id,
+        backlinerFullName: exampleUserJulian.fullName,
+        type: BacklineItemType.percussion.rawValue,
+        name: PercussionGearType.fullKit.rawValue,
+        notes: "Pearl kit with Ziljian Cymbals",
+        kickIncluded: true,
+        snareIncluded: true,
+        tomsIncluded: true,
+        numberOfTomsIncluded: 5,
+        hiHatIncluded: true,
+        cymbalsIncluded: true,
+        numberOfCymbalsIncluded: 5,
+        cymbalStandsIncluded: true,
+        numberOfCymbalStandsIncluded: 5
+    )
+
     // MARK: - Example Location Data
 
     static func getExampleShowDumpweedExtravaganzaPlacemark() -> CLPlacemark {

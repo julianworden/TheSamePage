@@ -10,17 +10,12 @@ import SwiftUI
 struct ShowTimeTab: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
     
-    @State private var selectedShowTimeType: ShowTimeType?
     @State private var showTimeToEdit: Date?
     
     var body: some View {
         let show = viewModel.show
         
         VStack {
-            if show.loggedInUserIsShowHost {
-                AddShowTimeButtons(viewModel: viewModel, selectedShowTimeType: $selectedShowTimeType)
-            }
-            
             if show.hasTime {
                 ShowTimeList(viewModel: viewModel)
             } else {
@@ -29,28 +24,6 @@ struct ShowTimeTab: View {
             }
         }
         .padding(.horizontal)
-        .sheet(
-            item: $selectedShowTimeType,
-            onDismiss: {
-                Task {
-                    await viewModel.getLatestShowData()
-                }
-            },
-            content: { showTimeType in
-                NavigationView {
-                    switch showTimeType {
-                    case .loadIn:
-                        AddShowTimeView(show: show, showTimeType: showTimeType)
-                    case .musicStart:
-                        AddShowTimeView(show: show, showTimeType: showTimeType)
-                    case .end:
-                        AddShowTimeView(show: show, showTimeType: showTimeType)
-                    case .doors:
-                        AddShowTimeView(show: show, showTimeType: showTimeType)
-                    }
-                }
-            }
-        )
     }
 }
 

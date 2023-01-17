@@ -491,7 +491,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(facebookLinkInEmulator.url, facebookLinkInTestingConstants.url)
     }
 
-    func test_OnInit_ExamplePlatformLinksInFirestoreEmulatorMatchTestingConstats() async throws {
+    func test_OnInit_ExamplePlatformLinksInFirestoreEmulatorMatchTestingConstants() async throws {
         let instagramLinkInEmulator = try await testingDatabaseService.getPlatformLink(
             get: TestingConstants.examplePlatformLinkPatheticFallacyInstagram,
             for: TestingConstants.exampleBandPatheticFallacy
@@ -505,6 +505,126 @@ final class FirebaseEmulatorDataTests: XCTestCase {
 
         XCTAssertEqual(instagramLinkInEmulator, instagramLinkInTestingConstants)
         XCTAssertEqual(facebookLinkInEmulator, facebookLinkInTestingConstants)
+    }
+
+    // MARK: - Firestore Example Backline
+
+    func test_OnInit_ExampleElectricGuitarBacklineItemDumpweedExtravaganzaHasExpectedValues() async throws {
+        let backlineItemInEmulator = try await testingDatabaseService.getBacklineItem(
+            withId: TestingConstants.exampleElectricGuitarBacklineItemDumpweedExtravaganza.id!,
+            inShowWithId: TestingConstants.exampleShowDumpweedExtravaganza.id
+        )
+        let backlineItemInTestingConstants = TestingConstants.exampleElectricGuitarBacklineItemDumpweedExtravaganza
+
+        XCTAssertEqual(backlineItemInEmulator.id, backlineItemInTestingConstants.id)
+        XCTAssertEqual(backlineItemInEmulator.backlinerUid, backlineItemInTestingConstants.backlinerUid)
+        XCTAssertEqual(backlineItemInEmulator.backlinerFullName, backlineItemInTestingConstants.backlinerFullName)
+        XCTAssertEqual(backlineItemInEmulator.type, backlineItemInTestingConstants.type)
+        XCTAssertEqual(backlineItemInEmulator.name, backlineItemInTestingConstants.name)
+        XCTAssertEqual(backlineItemInEmulator.notes, backlineItemInTestingConstants.notes)
+    }
+
+    func test_OnInit_ExampleBassGuitarBacklineItemDumpweedExtravaganzaHasExpectedValues() async throws {
+        let backlineItemInEmulator = try await testingDatabaseService.getBacklineItem(
+            withId: TestingConstants.exampleBassGuitarBacklineItemDumpweedExtravaganza.id!,
+            inShowWithId: TestingConstants.exampleShowDumpweedExtravaganza.id
+        )
+        let backlineItemInTestingConstants = TestingConstants.exampleBassGuitarBacklineItemDumpweedExtravaganza
+
+        XCTAssertEqual(backlineItemInEmulator.id, backlineItemInTestingConstants.id)
+        XCTAssertEqual(backlineItemInEmulator.backlinerUid, backlineItemInTestingConstants.backlinerUid)
+        XCTAssertEqual(backlineItemInEmulator.backlinerFullName, backlineItemInTestingConstants.backlinerFullName)
+        XCTAssertEqual(backlineItemInEmulator.type, backlineItemInTestingConstants.type)
+        XCTAssertEqual(backlineItemInEmulator.name, backlineItemInTestingConstants.name)
+        XCTAssertEqual(backlineItemInEmulator.notes, backlineItemInTestingConstants.notes)
+    }
+
+    func test_OnInit_ExampleAuxPercussionBacklineItemDumpweedExtravaganzaHasExpectedValues() async throws {
+        let backlineItemInEmulator = try await testingDatabaseService.getBacklineItem(
+            withId: TestingConstants.exampleAuxPercussionBacklineItemDumpweedExtravaganza.id!,
+            inShowWithId: TestingConstants.exampleShowDumpweedExtravaganza.id
+        )
+        let backlineItemInTestingConstants = TestingConstants.exampleAuxPercussionBacklineItemDumpweedExtravaganza
+
+        XCTAssertEqual(backlineItemInEmulator.id, backlineItemInTestingConstants.id)
+        XCTAssertEqual(backlineItemInEmulator.backlinerUid, backlineItemInTestingConstants.backlinerUid)
+        XCTAssertEqual(backlineItemInEmulator.backlinerFullName, backlineItemInTestingConstants.backlinerFullName)
+        XCTAssertEqual(backlineItemInEmulator.type, backlineItemInTestingConstants.type)
+        XCTAssertEqual(backlineItemInEmulator.name, backlineItemInTestingConstants.name)
+        XCTAssertEqual(backlineItemInEmulator.notes, backlineItemInTestingConstants.notes)
+    }
+
+    func test_OnInit_ExampleDrumKitPieceBacklineItemDumpweedExtravaganzaHasExpectedValues() async throws {
+        let backlineItemInEmulator = try await testingDatabaseService.getBacklineItem(
+            withId: TestingConstants.exampleDrumKitPieceBacklineItemDumpweedExtravaganza.id!,
+            inShowWithId: TestingConstants.exampleShowDumpweedExtravaganza.id
+        )
+        let backlineItemInTestingConstants = TestingConstants.exampleDrumKitPieceBacklineItemDumpweedExtravaganza
+
+        XCTAssertEqual(backlineItemInEmulator.id, backlineItemInTestingConstants.id)
+        XCTAssertEqual(backlineItemInEmulator.backlinerUid, backlineItemInTestingConstants.backlinerUid)
+        XCTAssertEqual(backlineItemInEmulator.backlinerFullName, backlineItemInTestingConstants.backlinerFullName)
+        XCTAssertEqual(backlineItemInEmulator.type, backlineItemInTestingConstants.type)
+        XCTAssertEqual(backlineItemInEmulator.name, backlineItemInTestingConstants.name)
+        XCTAssertEqual(backlineItemInEmulator.notes, backlineItemInTestingConstants.notes)
+    }
+
+    func test_OnInit_ExampleDrumKitBacklineItemDumpweedExtravaganzaHasExpectedValues() async throws {
+        let backlineItemInEmulator = try await testingDatabaseService.getDrumKitBacklineItem(
+            withId: TestingConstants.exampleDrumKitBacklineItemDumpweedExtravaganza.id!,
+            inShowWithId: TestingConstants.exampleShowDumpweedExtravaganza.id
+        )
+        let backlineItemInTestingConstants = TestingConstants.exampleDrumKitBacklineItemDumpweedExtravaganza
+
+        XCTAssertEqual(backlineItemInEmulator.id, backlineItemInTestingConstants.id)
+        XCTAssertEqual(backlineItemInEmulator.backlinerUid, backlineItemInTestingConstants.backlinerUid)
+        XCTAssertEqual(backlineItemInEmulator.backlinerFullName, backlineItemInTestingConstants.backlinerFullName)
+        XCTAssertEqual(backlineItemInEmulator.type, backlineItemInTestingConstants.type)
+        XCTAssertEqual(backlineItemInEmulator.name, backlineItemInTestingConstants.name)
+        XCTAssertEqual(backlineItemInEmulator.notes, backlineItemInTestingConstants.notes)
+        XCTAssertEqual(backlineItemInEmulator.kickIncluded, backlineItemInTestingConstants.kickIncluded)
+        XCTAssertEqual(backlineItemInEmulator.snareIncluded, backlineItemInTestingConstants.snareIncluded)
+        XCTAssertEqual(backlineItemInEmulator.tomsIncluded, backlineItemInTestingConstants.tomsIncluded)
+        XCTAssertEqual(backlineItemInEmulator.numberOfTomsIncluded, backlineItemInTestingConstants.numberOfTomsIncluded)
+        XCTAssertEqual(backlineItemInEmulator.hiHatIncluded, backlineItemInTestingConstants.hiHatIncluded)
+        XCTAssertEqual(backlineItemInEmulator.cymbalsIncluded, backlineItemInTestingConstants.cymbalsIncluded)
+        XCTAssertEqual(backlineItemInEmulator.numberOfCymbalsIncluded, backlineItemInTestingConstants.numberOfCymbalsIncluded)
+        XCTAssertEqual(backlineItemInEmulator.cymbalStandsIncluded, backlineItemInTestingConstants.cymbalStandsIncluded)
+        XCTAssertEqual(backlineItemInEmulator.numberOfCymbalStandsIncluded, backlineItemInTestingConstants.numberOfCymbalStandsIncluded)
+    }
+
+    func test_OnInit_ExampleBacklineInFirestoreEmulatorMatchTestingConstants() async throws {
+        let exampleElectricGuitarBacklineItemDumpweedExtravaganzaInEmulator = try await testingDatabaseService.getBacklineItem(
+            withId: TestingConstants.exampleElectricGuitarBacklineItemDumpweedExtravaganza.id!,
+            inShowWithId: TestingConstants.exampleShowDumpweedExtravaganza.id
+        )
+        let exampleBassGuitarBacklineItemDumpweedExtravaganzaInEmulator = try await testingDatabaseService.getBacklineItem(
+            withId: TestingConstants.exampleBassGuitarBacklineItemDumpweedExtravaganza.id!,
+            inShowWithId: TestingConstants.exampleShowDumpweedExtravaganza.id
+        )
+        let exampleDrumKitBacklineItemDumpweedExtravaganzaInEmulator = try await testingDatabaseService.getDrumKitBacklineItem(
+            withId: TestingConstants.exampleDrumKitBacklineItemDumpweedExtravaganza.id!,
+            inShowWithId: TestingConstants.exampleShowDumpweedExtravaganza.id
+        )
+        let exampleAuxPercussionBacklineItemDumpweedExtravaganzaInEmulator = try await testingDatabaseService.getBacklineItem(
+            withId: TestingConstants.exampleAuxPercussionBacklineItemDumpweedExtravaganza.id!,
+            inShowWithId: TestingConstants.exampleShowDumpweedExtravaganza.id
+        )
+        let exampleDrumKitPieceBacklineItemDumpweedExtravaganzaInEmulator = try await testingDatabaseService.getBacklineItem(
+            withId: TestingConstants.exampleDrumKitPieceBacklineItemDumpweedExtravaganza.id!,
+            inShowWithId: TestingConstants.exampleShowDumpweedExtravaganza.id
+        )
+        let exampleElectricGuitarBacklineItemDumpweedExtravaganzaInTestingConstants = TestingConstants.exampleElectricGuitarBacklineItemDumpweedExtravaganza
+        let exampleBassGuitarBacklineItemDumpweedExtravaganzaInTestingConstants = TestingConstants.exampleBassGuitarBacklineItemDumpweedExtravaganza
+        let exampleDrumKitBacklineItemDumpweedExtravaganzaInTestingConstants = TestingConstants.exampleDrumKitBacklineItemDumpweedExtravaganza
+        let exampleAuxPercussionBacklineItemDumpweedExtravaganzaInTestingConstants = TestingConstants.exampleAuxPercussionBacklineItemDumpweedExtravaganza
+        let exampleDrumKitPieceBacklineItemDumpweedExtravaganzaInTestingConstants = TestingConstants.exampleDrumKitPieceBacklineItemDumpweedExtravaganza
+
+        XCTAssertEqual(exampleElectricGuitarBacklineItemDumpweedExtravaganzaInEmulator, exampleElectricGuitarBacklineItemDumpweedExtravaganzaInTestingConstants)
+        XCTAssertEqual(exampleBassGuitarBacklineItemDumpweedExtravaganzaInEmulator, exampleBassGuitarBacklineItemDumpweedExtravaganzaInTestingConstants)
+        XCTAssertEqual(exampleDrumKitBacklineItemDumpweedExtravaganzaInEmulator, exampleDrumKitBacklineItemDumpweedExtravaganzaInTestingConstants)
+        XCTAssertEqual(exampleAuxPercussionBacklineItemDumpweedExtravaganzaInEmulator, exampleAuxPercussionBacklineItemDumpweedExtravaganzaInTestingConstants)
+        XCTAssertEqual(exampleDrumKitPieceBacklineItemDumpweedExtravaganzaInEmulator, exampleDrumKitPieceBacklineItemDumpweedExtravaganzaInTestingConstants)
     }
 
     // MARK: - Firebase Auth

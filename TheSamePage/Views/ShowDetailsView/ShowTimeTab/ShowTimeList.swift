@@ -10,27 +10,40 @@ import SwiftUI
 @MainActor
 struct ShowTimeList: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
+
+    @State private var selectedShowTimeType: ShowTimeType?
     
     var body: some View {
         let show = viewModel.show
         
         VStack(spacing: UiConstants.listRowSpacing) {
-            if show.loadInTime != nil {
-                ShowTimeRow(viewModel: viewModel, showTimeType: .loadIn)
-            }
-                
-            if show.doorsTime != nil {
-                ShowTimeRow(viewModel: viewModel, showTimeType: .doors)
-            }
-            
-            if show.musicStartTime != nil {
-                ShowTimeRow(viewModel: viewModel, showTimeType: .musicStart)
-            }
-            
-            if show.endTime != nil {
-                ShowTimeRow(viewModel: viewModel, showTimeType: .end)
-            }
+            ShowTimeRow(viewModel: viewModel, selectedShowTimeType: $selectedShowTimeType, showTimeType: .loadIn)
+            ShowTimeRow(viewModel: viewModel, selectedShowTimeType: $selectedShowTimeType, showTimeType: .doors)
+            ShowTimeRow(viewModel: viewModel, selectedShowTimeType: $selectedShowTimeType, showTimeType: .musicStart)
+            ShowTimeRow(viewModel: viewModel, selectedShowTimeType: $selectedShowTimeType, showTimeType: .end)
         }
+        .sheet(
+            item: $selectedShowTimeType,
+            onDismiss: {
+                Task {
+                    await viewModel.getLatestShowData()
+                }
+            },
+            content: { showTimeType in
+                NavigationView {
+                    switch showTimeType {
+                    case .loadIn:
+                        AddShowTimeView(show: show, showTimeType: showTimeType)
+                    case .musicStart:
+                        AddShowTimeView(show: show, showTimeType: showTimeType)
+                    case .end:
+                        AddShowTimeView(show: show, showTimeType: showTimeType)
+                    case .doors:
+                        AddShowTimeView(show: show, showTimeType: showTimeType)
+                    }
+                }
+            }
+        )
     }
 }
 

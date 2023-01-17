@@ -19,8 +19,9 @@ final class ShowDetailsViewModel: ObservableObject {
     @Published var percussionBacklineItems = [BacklineItem]()
     @Published var bassGuitarBacklineItems = [BacklineItem]()
     @Published var electricGuitarBacklineItems = [BacklineItem]()
-    // TODO: Add this property to test
+
     @Published var addBacklineSheetIsShowing = false
+    @Published var bandSearchViewIsShowing = false
     
     let db = Firestore.firestore()
 
@@ -87,8 +88,36 @@ final class ShowDetailsViewModel: ObservableObject {
     func callOnAppearMethods() async {
         await getLatestShowData()
         await getShowParticipants()
-        await getBacklineItems(forShow: show)
+        await getBacklineItems()
         viewState = .dataLoaded
+    }
+
+    func timeForShowExists(showTimeType: ShowTimeType) -> Bool {
+        switch showTimeType {
+        case .loadIn:
+            guard show.loadInTime != nil else {
+                return false
+            }
+            return true
+
+        case .musicStart:
+            guard show.musicStartTime != nil else {
+                return false
+            }
+            return true
+
+        case .end:
+            guard show.endTime != nil else {
+                return false
+            }
+            return true
+
+        case .doors:
+            guard show.doorsTime != nil else {
+                return false
+            }
+            return true
+        }
     }
     
     func getLatestShowData() async {
@@ -107,7 +136,7 @@ final class ShowDetailsViewModel: ObservableObject {
         }
     }
 
-    func getBacklineItems(forShow show: Show) async {
+    func getBacklineItems() async {
         do {
             let backlineItemDocuments = try await DatabaseService.shared.getBacklineItems(forShow: show).documents
 
@@ -172,22 +201,28 @@ final class ShowDetailsViewModel: ObservableObject {
         case .loadIn:
             if let showLoadInTime = show.loadInTime?.unixDateAsDate {
                 return "\(showTimeType.rowTitleText) \(showLoadInTime.timeShortened)"
+            } else {
+                return "Not Set"
             }
         case .musicStart:
             if let showMusicStartTime = show.musicStartTime?.unixDateAsDate {
                 return "\(showTimeType.rowTitleText) \(showMusicStartTime.timeShortened)"
+            } else {
+                return "Not Set"
             }
         case .end:
             if let showEndTime = show.endTime?.unixDateAsDate {
                 return "\(showTimeType.rowTitleText) \(showEndTime.timeShortened)"
+            } else {
+                return "Not Set"
             }
         case .doors:
             if let showDoorsTime = show.doorsTime?.unixDateAsDate {
                 return "\(showTimeType.rowTitleText) \(showDoorsTime.timeShortened)"
+            } else {
+                return "Not Set"
             }
         }
-
-        return ""
     }
 
     func clearAllBacklineItems() {

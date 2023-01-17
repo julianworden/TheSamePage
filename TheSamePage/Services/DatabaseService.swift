@@ -810,22 +810,26 @@ class DatabaseService: NSObject {
         }
     }
     
-    func addBacklineItemToShow(backlineItem: BacklineItem?, drumKitBacklineItem: DrumKitBacklineItem?, show: Show) throws {
+    func addBacklineItemToShow(backlineItem: BacklineItem?, drumKitBacklineItem: DrumKitBacklineItem?, show: Show) throws -> String {
         do {
             if let backlineItem {
-                _ = try db.collection(FbConstants.shows)
+                let backlineItemDocument = try db.collection(FbConstants.shows)
                     .document(show.id)
                     .collection("backlineItems")
                     .addDocument(from: backlineItem)
+                return backlineItemDocument.documentID
             }
             
             if let drumKitBacklineItem {
-                _ = try db
+                let drumKitBacklineItem = try db
                     .collection(FbConstants.shows)
                     .document(show.id)
                     .collection("backlineItems")
                     .addDocument(from: drumKitBacklineItem)
+                return drumKitBacklineItem.documentID
             }
+
+            throw LogicError.unexpectedNilValue(message: "Invalid Backline item assignment")
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to add backline item to \(show.name)",
@@ -1073,7 +1077,6 @@ class DatabaseService: NSObject {
             let chat = try chatDocument[0].data(as: Chat.self)
             
             _ = try await Functions.functions().httpsCallable(FbConstants.recursiveDelete).call([FbConstants.recursiveDelete: "\(FbConstants.chats)/\(chat.id)"])
-            print("Delete successful")
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to delete show chat",

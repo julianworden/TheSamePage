@@ -55,12 +55,14 @@ struct AddPercussionBacklineForm: View {
                         }
                     }
                 }
+
             case .kitPiece:
                 Picker("Select Kit Piece", selection: $viewModel.selectedDrumKitPiece) {
                     ForEach(DrumKitPiece.allCases) { drumKitPiece in
                         Text(drumKitPiece.rawValue)
                     }
                 }
+                
             case .auxillaryPercussion:
                 Picker("Select Instrument", selection: $viewModel.selectedAuxillaryPercussion) {
                     ForEach(AuxillaryPercussion.allCases) { auxillaryPercussion in

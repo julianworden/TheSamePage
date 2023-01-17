@@ -29,7 +29,7 @@ struct EditImageView: View {
             
             Group {
                 switch viewModel.viewState {
-                case .displayingView:
+                case .displayingView, .workCompleted:
                     VStack {
                         if let updatedImage {
                             Image(uiImage: updatedImage)
@@ -43,20 +43,33 @@ struct EditImageView: View {
                             NoImageView()
                         }
                     }
+
                 case .performingWork:
                     ProgressView()
+
+                case .error:
+                    EmptyView()
+
                 default:
                     ErrorMessage(message: ErrorMessageConstants.invalidViewState)
                 }
             }
         }
-        .navigationBarBackButtonHidden(viewModel.viewState == .performingWork ? true : false)
+        .navigationTitle("Edit Image")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Back") {
+                    dismiss()
+                }
+                .disabled(viewModel.toolbarButtonsDisabled)
+            }
+
+            ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Edit") {
                     viewModel.imagePickerIsShowing = true
                 }
-                .disabled(viewModel.editButtonIsDisabled)
+                .disabled(viewModel.toolbarButtonsDisabled)
             }
         }
         .sheet(

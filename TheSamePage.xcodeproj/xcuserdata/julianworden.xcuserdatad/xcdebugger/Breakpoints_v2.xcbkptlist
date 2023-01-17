@@ -80,6 +80,51 @@
                   endingLineNumber = "41"
                   offsetFromSymbolStart = "92">
                </Location>
+               <Location
+                  uuid = "A42D7A97-AA76-491B-A55F-2ADDB8C0C3AA - c205aa2a3f4ed245"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for TheSamePageTests.ShowSettingsViewModelTests.test_OnCancelShow_ShowIsCancelledSuccessfully() async throws -&gt; ()"
+                  moduleName = "TheSamePageTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Tests/View%20Models/ShowSettingsViewModelTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "296">
+               </Location>
+               <Location
+                  uuid = "A42D7A97-AA76-491B-A55F-2ADDB8C0C3AA - 182035c081dbe5ba"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) await resume partial function for TheSamePageTests.ShowSettingsViewModelTests.test_OnCancelShow_ShowIsCancelledSuccessfully() async throws -&gt; ()"
+                  moduleName = "TheSamePageTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Tests/View%20Models/ShowSettingsViewModelTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  uuid = "A42D7A97-AA76-491B-A55F-2ADDB8C0C3AA - 8d262c799aa79e47"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for TheSamePageTests.ShowSettingsViewModelTests.test_OnCancelShow_ShowIsCancelledSuccessfully() async throws -&gt; ()"
+                  moduleName = "TheSamePageTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Tests/View%20Models/ShowSettingsViewModelTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "92">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -97,6 +142,178 @@
             endingLineNumber = "22"
             landmarkName = "body"
             landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "05D11878-9745-41E2-B875-95E8A488E7AD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "getBacklineItems()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EFF9C7D2-27EA-47BB-AEC2-397C5ED685E5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
+            landmarkName = "getBacklineItems()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A02A100A-5B09-4082-AB7D-6ECFD4D7FB2A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/EditImageView/EditImageViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "updateImage(withImage:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A02A100A-5B09-4082-AB7D-6ECFD4D7FB2A - dd59313f0d273ced"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for TheSamePage.EditImageViewModel.updateImage(withImage: __C.UIImage) async -&gt; Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/EditImageView/EditImageViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "69"
+                  endingLineNumber = "69"
+                  offsetFromSymbolStart = "1960">
+               </Location>
+               <Location
+                  uuid = "A02A100A-5B09-4082-AB7D-6ECFD4D7FB2A - d8821eb36011589c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) await resume partial function for TheSamePage.EditImageViewModel.updateImage(withImage: __C.UIImage) async -&gt; Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/EditImageView/EditImageViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "69"
+                  endingLineNumber = "69"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "A02A100A-5B09-4082-AB7D-6ECFD4D7FB2A - 8221e5d2f9f1b4c6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for TheSamePage.EditImageViewModel.updateImage(withImage: __C.UIImage) async -&gt; Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/EditImageView/EditImageViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "68"
+                  endingLineNumber = "68"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  uuid = "A02A100A-5B09-4082-AB7D-6ECFD4D7FB2A - 8221e5d2f9f1b4e9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for TheSamePage.EditImageViewModel.updateImage(withImage: __C.UIImage) async -&gt; Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/EditImageView/EditImageViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "69"
+                  endingLineNumber = "69"
+                  offsetFromSymbolStart = "144">
+               </Location>
+               <Location
+                  uuid = "A02A100A-5B09-4082-AB7D-6ECFD4D7FB2A - 4b089866d6422cba"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(9) suspend resume partial function for TheSamePage.EditImageViewModel.updateImage(withImage: __C.UIImage) async -&gt; Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/EditImageView/EditImageViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "68"
+                  endingLineNumber = "68"
+                  offsetFromSymbolStart = "72">
+               </Location>
+               <Location
+                  uuid = "A02A100A-5B09-4082-AB7D-6ECFD4D7FB2A - 4b089866d6422c95"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(9) suspend resume partial function for TheSamePage.EditImageViewModel.updateImage(withImage: __C.UIImage) async -&gt; Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/EditImageView/EditImageViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "69"
+                  endingLineNumber = "69"
+                  offsetFromSymbolStart = "144">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9B0DBB10-D25E-40DE-B408-01B5ABD391EC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Controllers/LoggedInUserController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "getLoggedInUserInfo()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E1EB8558-DB21-475D-8767-063907E84039"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Controllers/LoggedInUserController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "getLoggedInUserInfo()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

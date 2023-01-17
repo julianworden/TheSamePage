@@ -25,12 +25,17 @@ struct ShowLineupTab: View {
                 ShowLineupList(viewModel: viewModel)
 
                 if show.loggedInUserIsShowHost && !show.lineupIsFull {
-                    NavigationLink {
-                        BandSearchView()
+                    Button {
+                        viewModel.bandSearchViewIsShowing.toggle()
                     } label: {
                         Label("Invite Band", systemImage: "plus")
                     }
                     .buttonStyle(.bordered)
+                    .fullScreenCover(isPresented: $viewModel.bandSearchViewIsShowing) {
+                        NavigationView {
+                            BandSearchView(isPresentedModally: true)
+                        }
+                    }
                 }
             } else if show.loggedInUserIsShowHost {
                 VStack(spacing: 7) {
