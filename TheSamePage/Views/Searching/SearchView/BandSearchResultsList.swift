@@ -42,9 +42,9 @@ struct BandSearchResultsList: View {
                 ErrorMessage(message: "Invalid viewState")
             }
         }
-        .onChange(of: viewModel.queryText) { query in
+        .onChange(of: viewModel.queryText) { _ in
             Task {
-                await viewModel.fetchBands(searchQuery: query)
+                await viewModel.fetchBands()
             }
         }
         .onChange(of: isSearching) { _ in

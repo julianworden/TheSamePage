@@ -14,33 +14,39 @@ struct ShowLineupTab: View {
         let show = viewModel.show
         
         VStack {
-            HStack {
-                Text(viewModel.showSlotsRemainingMessage)
-                    .font(.title3.bold())
-                
-                Spacer()
-                
+            if !viewModel.showParticipants.isEmpty {
+                HStack {
+                    Text(viewModel.showSlotsRemainingMessage)
+                        .font(.title3.bold())
+
+                    Spacer()
+                }
+
+                ShowLineupList(viewModel: viewModel)
+
                 if show.loggedInUserIsShowHost && !show.lineupIsFull {
                     NavigationLink {
                         BandSearchView()
                     } label: {
-                        Image(systemName: "plus")
+                        Label("Invite Band", systemImage: "plus")
                     }
+                    .buttonStyle(.bordered)
                 }
-            }
-            
-            if !viewModel.showParticipants.isEmpty {
-                ShowLineupList(viewModel: viewModel)
             } else if show.loggedInUserIsShowHost {
-                    Text("No bands are playing this show yet. Click the plus button to invite bands to play!")
-                    .italic()
-                    .multilineTextAlignment(.center)
-                    .padding()
+                VStack(spacing: 7) {
+                    Text("No bands are playing this show yet.")
+                        .multilineTextAlignment(.center)
+
+                    NavigationLink {
+                        BandSearchView()
+                    } label: {
+                        Label("Invite Band", systemImage: "plus")
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
             } else if show.loggedInUserIsNotInvolvedInShow || show.loggedInUserIsShowParticipant {
                 Text("No bands are playing this show yet. Only the show's host can invite bands to play.")
-                    .italic()
                     .multilineTextAlignment(.center)
-                    .padding()
             }
         }
         .padding(.horizontal)

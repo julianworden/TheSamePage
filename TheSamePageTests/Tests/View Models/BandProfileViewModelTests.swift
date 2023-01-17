@@ -84,7 +84,6 @@ final class BandProfileViewModelTests: XCTestCase {
         XCTAssertTrue(sut.errorAlertIsShowing)
     }
 
-
     func test_OnCallOnAppearMethods_AllBandDataIsFetched() async {
         sut = BandProfileViewModel(band: exampleBandPatheticFallacy)
 

@@ -16,7 +16,6 @@ struct BassGuitarBacklineList: View {
                 ShowBacklineRow(title: bassGuitarBacklineItem.name, subtitle: bassGuitarBacklineItem.notes, iconName: "bass guitar")
             }
         }
-        .padding(.horizontal)
     }
 }
 

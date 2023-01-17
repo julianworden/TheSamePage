@@ -7,49 +7,96 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FC67BBD1-4245-41D8-84BF-900A1506D293"
+            uuid = "B4B78B0A-3659-4017-8760-923C09AB8A7B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Views/ProfileViews/BandProfileView/BandProfileViewModel.swift"
+            filePath = "TheSamePageTests/Tests/View Models/ShowSettingsViewModelTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "addBandListener()"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "test_OnCancelShow_ShowIsCancelledSuccessfully()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2AF8275E-3A5D-458B-AE54-21C46DA44334"
+            uuid = "A42D7A97-AA76-491B-A55F-2ADDB8C0C3AA"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Views/ProfileViews/BandProfileView/BandProfileViewModel.swift"
+            filePath = "TheSamePageTests/Tests/View Models/ShowSettingsViewModelTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "addBandListener()"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "test_OnCancelShow_ShowIsCancelledSuccessfully()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A42D7A97-AA76-491B-A55F-2ADDB8C0C3AA - 11629f647335da80"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for TheSamePageTests.ShowSettingsViewModelTests.test_OnCancelShow_DefaultValuesAreCorrect() async throws -&gt; ()"
+                  moduleName = "TheSamePageTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Tests/View%20Models/ShowSettingsViewModelTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "41"
+                  endingLineNumber = "41"
+                  offsetFromSymbolStart = "296">
+               </Location>
+               <Location
+                  uuid = "A42D7A97-AA76-491B-A55F-2ADDB8C0C3AA - 4b3896d728a964e9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) await resume partial function for TheSamePageTests.ShowSettingsViewModelTests.test_OnCancelShow_DefaultValuesAreCorrect() async throws -&gt; ()"
+                  moduleName = "TheSamePageTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Tests/View%20Models/ShowSettingsViewModelTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "41"
+                  endingLineNumber = "41"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  uuid = "A42D7A97-AA76-491B-A55F-2ADDB8C0C3AA - f83470a7cee29e82"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for TheSamePageTests.ShowSettingsViewModelTests.test_OnCancelShow_DefaultValuesAreCorrect() async throws -&gt; ()"
+                  moduleName = "TheSamePageTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Tests/View%20Models/ShowSettingsViewModelTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "41"
+                  endingLineNumber = "41"
+                  offsetFromSymbolStart = "92">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9C4BE540-717C-498E-9366-E3BDE21360DB"
+            uuid = "FAD1724B-DD70-4F43-B967-486C5F9363AF"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Views/ProfileViews/BandProfileView/BandProfileViewModel.swift"
+            filePath = "TheSamePage/Views/MyShowsView/HostedShowRow.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "addBandListener()"
-            landmarkType = "7">
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

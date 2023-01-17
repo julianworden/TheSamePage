@@ -77,7 +77,7 @@ class TestingDatabaseService {
 
     // MARK: - Firestore Shows
 
-    func getShow(with id: String) async throws -> Show {
+    func getShow(withId id: String) async throws -> Show {
         do {
             return try await db
                 .collection(FbConstants.shows)
@@ -106,11 +106,19 @@ class TestingDatabaseService {
         return try showDocuments.map { try $0.data(as: Show.self) }
     }
 
-    func createShow(_ show: Show) throws -> String {
-        return try db
+    func createShow(_ show: Show) async throws -> String {
+        let showDocument = try db
             .collection(FbConstants.shows)
             .addDocument(from: show)
-            .documentID
+        try await showDocument.updateData([FbConstants.id: showDocument.documentID])
+        return showDocument.documentID
+    }
+
+    func addUserToShow(showId: String, uid: String) async throws {
+        try await db
+            .collection(FbConstants.shows)
+            .document(showId)
+            .updateData([FbConstants.participantUids: FieldValue.arrayUnion([uid])])
     }
 
     func createShowWithImage(_ show: Show) async throws -> String {
@@ -140,7 +148,7 @@ class TestingDatabaseService {
     /// A convenience method for testing that allows for a show document to be deleted. This method is for testing and
     /// should not be used in production, as it does not account for any subcollections a document may have.
     /// - Parameter showId: The document ID of the show to be deleted.
-    func deleteShow(with id: String) async throws {
+    func deleteShow(withId id: String) async throws {
         do {
             _ = try await Functions.functions().httpsCallable(FbConstants.recursiveDelete).call([FbConstants.path: "\(FbConstants.shows)/\(id)"])
         } catch {
@@ -269,16 +277,45 @@ class TestingDatabaseService {
             username: user.username,
             fullName: user.fullName
         )
+
         let bandMemberDocument = try db
             .collection(FbConstants.bands)
             .document(band.id)
             .collection(FbConstants.members)
             .addDocument(from: bandMember)
-
         try await bandMemberDocument
             .updateData([FbConstants.id: bandMemberDocument.documentID])
-
         return bandMemberDocument.documentID
+    }
+
+    /// Used for restoring Pathetic Fallacy's members back to their expected values after they've been manipulated during testing.
+    /// - Parameters:
+    ///   - band: exampleBandPatheticFallacy with its correct values that should be restored.
+    ///   - show: exampleShowDumpeedExtravaganza with its correct values that should be restored.
+    ///   - chat: exampleChatDumpweedExtravaganza with its correct values that should be restored.
+    ///   - bandMember: exampleBandMemberLou with his correct values that should be restored.
+    func restorePatheticFallacy(band: Band, show: Show, chat: Chat, bandMember: BandMember) async throws {
+        try await db
+            .collection(FbConstants.chats)
+            .document(chat.id)
+            .updateData([FbConstants.participantUids: chat.participantUids])
+
+        try await db
+            .collection(FbConstants.shows)
+            .document(show.id)
+            .updateData([FbConstants.participantUids: show.participantUids])
+
+        try await db
+            .collection(FbConstants.bands)
+            .document(band.id)
+            .updateData([FbConstants.memberUids: band.memberUids])
+
+        try db
+            .collection(FbConstants.bands)
+            .document(band.id)
+            .collection(FbConstants.members)
+            .document(bandMember.id)
+            .setData(from: bandMember)
     }
 
     func removeUserFromBand(uid: String, bandId: String) async throws {
@@ -379,7 +416,7 @@ class TestingDatabaseService {
 
     // MARK: - Firestore ShowInvites
 
-    func getShowInvite(getShowInviteWithId id: String, forUserWithUid uid: String) async throws -> ShowInvite {
+    func getShowInvite(withId id: String, forUserWithUid uid: String) async throws -> ShowInvite {
         return try await db
             .collection(FbConstants.users)
             .document(uid)
@@ -449,6 +486,13 @@ class TestingDatabaseService {
             .documents
 
         return try chatDocuments.map { try $0.data(as: Chat.self) }
+    }
+
+    func addUserToChat(chatId: String, uid: String) async throws {
+        try await db
+            .collection(FbConstants.chats)
+            .document(chatId)
+            .updateData([FbConstants.participantUids: FieldValue.arrayUnion([uid])])
     }
 
     func deleteChat(withId id: String) async throws {

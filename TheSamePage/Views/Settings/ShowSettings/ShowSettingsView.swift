@@ -15,8 +15,6 @@ struct ShowSettingsView: View {
     }
     
     var body: some View {
-        let show = viewModel.show
-        
         Form {
             Button("Edit Show") {
                 viewModel.addEditShowSheetIsShowing = true
@@ -25,31 +23,31 @@ struct ShowSettingsView: View {
             Button("Cancel Show", role: .destructive) {
                 viewModel.cancelShowAlertIsShowing = true
             }
+            .alert(
+                "Are you sure?",
+                isPresented: $viewModel.cancelShowAlertIsShowing,
+                actions: {
+                    Button("No", role: .cancel) { }
+                    Button("Yes", role: .destructive) {
+                        Task {
+                            await viewModel.cancelShow()
+                        }
+                    }
+                },
+                message: {
+                    Text("Cancelling this show will permanently delete all of its data from The Same Page, including its chat.")
+                }
+            )
         }
         .sheet(isPresented: $viewModel.addEditShowSheetIsShowing) {
             NavigationView {
-                AddEditShowView(showToEdit: show)
+                AddEditShowView(showToEdit: viewModel.show)
                     .navigationViewStyle(.stack)
             }
         }
-        .alert(
-            "Are you sure?",
-            isPresented: $viewModel.cancelShowAlertIsShowing,
-            actions: {
-                Button("No", role: .cancel) { }
-                Button("Yes", role: .destructive) {
-                    Task {
-                        await viewModel.cancelShow()
-                    }
-                }
-            },
-            message: {
-                Text("Cancelling this show will permanently delete all of its data from The Same Page, including its chat.")
-            }
-        )
         .errorAlert(
             isPresented: $viewModel.errorAlertIsShowing,
-            message: viewModel.errorAlertMessage,
+            message: viewModel.errorAlertText,
             tryAgainAction: { await viewModel.cancelShow() }
         )
     }

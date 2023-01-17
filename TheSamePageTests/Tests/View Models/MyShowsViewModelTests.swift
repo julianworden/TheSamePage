@@ -25,7 +25,7 @@ final class MyShowsViewModelTests: XCTestCase {
 
     override func tearDown() async throws {
         if let createdShowId {
-            try await testingDatabaseService.deleteShow(with: createdShowId)
+            try await testingDatabaseService.deleteShow(withId: createdShowId)
         }
 
         try testingDatabaseService.logOut()
@@ -43,15 +43,12 @@ final class MyShowsViewModelTests: XCTestCase {
         XCTAssertTrue(sut.myHostedShowsErrorAlertText.isEmpty)
         XCTAssertFalse(sut.myPlayingShowsErrorAlertIsShowing)
         XCTAssertTrue(sut.myPlayingShowsErrorAlertText.isEmpty)
-        XCTAssertNil(sut.hostedShowsListener)
-        XCTAssertNil(sut.playingShowsListener)
     }
 
     func test_OnGetHostedShowsWithLoggedInUserThatIsHostingShow_HostedShowIsFetchedAndViewStateIsSet() async throws {
         try await testingDatabaseService.logInToJulianAccount()
 
-        sut.getHostedShows()
-        try await Task.sleep(seconds: 0.5)
+        await sut.getHostedShows()
 
         XCTAssertEqual(sut.hostedShows.count, 1, "Julian is hosting 1 show")
         XCTAssertEqual(sut.myHostedShowsViewState, .dataLoaded, "Data should've been loaded")
@@ -60,60 +57,16 @@ final class MyShowsViewModelTests: XCTestCase {
     func test_OnGetHostedShowsWithLoggedInUserThatIsNotHostingShow_NoShowsAreFetchedAndViewStateIsSet() async throws {
         try await testingDatabaseService.logInToMikeAccount()
 
-        sut.getHostedShows()
-        try await Task.sleep(seconds: 0.5)
+        await sut.getHostedShows()
 
         XCTAssertTrue(sut.hostedShows.isEmpty, "Mike is not hosting any shows")
         XCTAssertEqual(sut.myHostedShowsViewState, .dataNotFound, "No data should've been found")
     }
 
-    func test_OnHostedShowCreated_HostedShowsArrayUpdates() async throws {
-        try await testingDatabaseService.logInToJulianAccount()
-
-        sut.getHostedShows()
-        try await Task.sleep(seconds: 0.5)
-
-        XCTAssertEqual(sut.hostedShows.count, 1, "Julian should only be hosting 1 show at this point")
-
-        var newShow = TestingConstants.exampleShowForIntegrationTesting
-        newShow.hostUid = TestingConstants.exampleUserJulian.id
-        self.createdShowId = try testingDatabaseService.createShow(newShow)
-        try await Task.sleep(seconds: 0.5)
-
-        XCTAssertEqual(sut.hostedShows.count, 2, "Julian is now hosting 2 shows")
-        XCTAssertEqual(sut.myHostedShowsViewState, .dataLoaded, "Data should've been loaded")
-    }
-
-    func test_OnGetHostedShows_HostedShowsListenerIsNotNil() async {
-        sut.getHostedShows()
-
-        XCTAssertNotNil(sut.hostedShowsListener, "The method should've assigned a value to this property")
-    }
-
-    func test_OnRemoveHostedShowsListener_ListenerIsRemoved() async throws {
-        try await testingDatabaseService.logInToJulianAccount()
-        sut.getHostedShows()
-        try await Task.sleep(seconds: 0.5)
-
-        XCTAssertEqual(sut.hostedShows.count, 1, "Julian should be hosting 1 show")
-
-        var newShow = TestingConstants.exampleShowForIntegrationTesting
-        newShow.hostUid = TestingConstants.exampleUserJulian.id
-
-        sut.removeHostedShowsListener()
-
-        self.createdShowId = try testingDatabaseService.createShow(newShow)
-        try await Task.sleep(seconds: 0.5)
-
-        XCTAssertEqual(sut.hostedShows.count, 1, "The second show shouldn't have been fetched because the listener was removed")
-        XCTAssertEqual(sut.myHostedShowsViewState, .dataLoaded, "The view state shouldn't have changed")
-    }
-
     func test_OnGetPlayingShowsWithLoggedInUserThatIsPlayingShow_PlayingShowIsFetchedAndViewStateIsSet() async throws {
         try await testingDatabaseService.logInToLouAccount()
 
-        sut.getPlayingShows()
-        try await Task.sleep(seconds: 0.5)
+        await sut.getPlayingShows()
 
         XCTAssertEqual(sut.playingShows.count, 1, "Lou is playing 1 show")
         XCTAssertEqual(sut.myPlayingShowsViewState, .dataLoaded, "Data should've been loaded")
@@ -122,58 +75,10 @@ final class MyShowsViewModelTests: XCTestCase {
     func test_OnGetPlayingShowsWithLoggedInUserThatIsNotPlayingShow_NoShowsAreFetchedAndViewStateIsSet() async throws {
         try await testingDatabaseService.logInToMikeAccount()
 
-        sut.getPlayingShows()
-        try await Task.sleep(seconds: 0.5)
+        await sut.getPlayingShows()
 
         XCTAssertTrue(sut.hostedShows.isEmpty, "Mike is not hosting any shows")
         XCTAssertEqual(sut.myPlayingShowsViewState, .dataNotFound, "No data should've been found")
-    }
-
-    func test_OnPlayingShowCreated_PlayingShowsArrayUpdates() async throws {
-        try await testingDatabaseService.logInToLouAccount()
-
-        sut.getPlayingShows()
-        try await Task.sleep(seconds: 0.5)
-
-        XCTAssertEqual(sut.playingShows.count, 1, "Lou should only be playing 1 show at this point")
-
-        var newShow = TestingConstants.exampleShowForIntegrationTesting
-        newShow.bandIds.append(TestingConstants.exampleBandPatheticFallacy.id)
-        newShow.participantUids.append(TestingConstants.exampleUserJulian.id)
-        newShow.participantUids.append(TestingConstants.exampleUserLou.id)
-        self.createdShowId = try testingDatabaseService.createShow(newShow)
-        try await Task.sleep(seconds: 0.5)
-
-        XCTAssertEqual(sut.playingShows.count, 2, "Lou is now playing 2 shows")
-        XCTAssertEqual(sut.myPlayingShowsViewState, .dataLoaded, "Data should've been loaded")
-    }
-
-    func test_OnGetPlayingShows_PlayingShowsListenerIsNotNil() async {
-        sut.getPlayingShows()
-
-        XCTAssertNotNil(sut.playingShowsListener, "The method should've assigned a value to this property")
-    }
-
-    func test_OnRemovePlayingShowsListener_ListenerIsRemoved() async throws {
-        try await testingDatabaseService.logInToLouAccount()
-
-        sut.getPlayingShows()
-        try await Task.sleep(seconds: 0.5)
-
-        XCTAssertEqual(sut.playingShows.count, 1, "Lou should only be playing 1 show")
-
-        var newShow = TestingConstants.exampleShowForIntegrationTesting
-        newShow.bandIds.append(TestingConstants.exampleBandPatheticFallacy.id)
-        newShow.participantUids.append(TestingConstants.exampleUserJulian.id)
-        newShow.participantUids.append(TestingConstants.exampleUserLou.id)
-
-        sut.removePlayingShowsListener()
-
-        self.createdShowId = try testingDatabaseService.createShow(newShow)
-        try await Task.sleep(seconds: 0.5)
-
-        XCTAssertEqual(sut.playingShows.count, 1, "The second show shouldn't have been fetched because the listener was removed")
-        XCTAssertEqual(sut.myPlayingShowsViewState, .dataLoaded, "The view state shouldn't have changed")
     }
 
     func test_OnMyHostedShowsErrorViewState_PropertiesAreSet() {

@@ -56,14 +56,11 @@ struct MyHostedShowsView: View {
             isPresented: $viewModel.myHostedShowsErrorAlertIsShowing,
             message: viewModel.myHostedShowsErrorAlertText,
             tryAgainAction: {
-                viewModel.getHostedShows()
+                await viewModel.getHostedShows()
             }
         )
         .task {
-            viewModel.getHostedShows()
-        }
-        .onDisappear {
-            viewModel.removeHostedShowsListener()
+            await viewModel.getHostedShows()
         }
     }
 }

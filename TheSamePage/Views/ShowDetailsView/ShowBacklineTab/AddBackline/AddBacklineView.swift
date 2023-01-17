@@ -50,8 +50,8 @@ struct AddBacklineView: View {
             }
 
             Section {
-                Button {
-                    viewModel.addBacklineItemButtonTapped()
+                AsyncButton {
+                    await viewModel.addBacklineItemButtonTapped()
                 } label: {
                     Text("Add Gear to Backline")
                 }
@@ -62,6 +62,18 @@ struct AddBacklineView: View {
         }
         .navigationTitle("Add Backline Gear")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Cancel", role: .cancel) {
+                    dismiss()
+                }
+            }
+        }
+        .onChange(of: viewModel.gearAddedSuccessfully) { gearAddedSuccessfully in
+            if gearAddedSuccessfully {
+                dismiss()
+            }
+        }
     }
 }
     

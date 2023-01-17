@@ -46,15 +46,10 @@ struct MyPlayingShowsView: View {
         .errorAlert(
             isPresented: $viewModel.myPlayingShowsErrorAlertIsShowing,
             message: viewModel.myPlayingShowsErrorAlertText,
-            tryAgainAction: {
-                viewModel.getPlayingShows()
-            }
+            tryAgainAction: { await viewModel.getPlayingShows() }
         )
         .task {
-            viewModel.getPlayingShows()
-        }
-        .onDisappear {
-            viewModel.removePlayingShowsListener()
+            await viewModel.getPlayingShows()
         }
     }
 }

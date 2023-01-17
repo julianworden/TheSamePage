@@ -31,15 +31,17 @@ final class AddBacklineViewModel: ObservableObject {
     @Published var gearAddedSuccessfully = false
     
     let show: Show
+
+    // TODO: Add ViewState stuff
     
     init(show: Show) {
         self.show = show
     }
     
-    func addBacklineItemButtonTapped() {
+    func addBacklineItemButtonTapped() async {
         do {
             addGearButtonIsDisabled = true
-            try addBacklineItemToShow()
+            try await addBacklineItemToShow()
             gearAddedSuccessfully = true
         } catch {
             addGearButtonIsDisabled = false
@@ -47,13 +49,16 @@ final class AddBacklineViewModel: ObservableObject {
         }
     }
     
-    func addBacklineItemToShow() throws {
+    func addBacklineItemToShow() async throws {
+        let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
         var backlineItem: BacklineItem?
         var drumKitBacklineItem: DrumKitBacklineItem?
         
         switch selectedGearType {
         case .electricGuitar, .bassGuitar:
             backlineItem = BacklineItem(
+                backlinerUid: loggedInUser.id,
+                backlinerFullName: loggedInUser.fullName,
                 type: selectedGearType.rawValue,
                 name: selectedGuitarGear.rawValue,
                 notes: backlineGearNotes
@@ -61,6 +66,8 @@ final class AddBacklineViewModel: ObservableObject {
         case .percussion:
             if selectedPercussionGearType == .fullKit {
                 drumKitBacklineItem = DrumKitBacklineItem(
+                    backlinerUid: loggedInUser.id,
+                    backlinerFullName: loggedInUser.fullName,
                     type: selectedGearType.rawValue,
                     name: selectedPercussionGearType.rawValue,
                     notes: backlineGearNotes,
@@ -76,6 +83,8 @@ final class AddBacklineViewModel: ObservableObject {
                 )
             } else {
                 backlineItem = BacklineItem(
+                    backlinerUid: loggedInUser.id,
+                    backlinerFullName: loggedInUser.fullName,
                     type: selectedGearType.rawValue,
                     name: selectedAuxillaryPercussion.rawValue,
                     notes: backlineGearNotes

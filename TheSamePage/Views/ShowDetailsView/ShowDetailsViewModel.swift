@@ -14,16 +14,33 @@ final class ShowDetailsViewModel: ObservableObject {
     @Published var show: Show
     @Published var showParticipants = [ShowParticipant]()
     @Published var selectedTab = SelectedShowDetailsTab.details
-    @Published var state = ViewState.dataLoading
     
     @Published var drumKitBacklineItems = [DrumKitBacklineItem]()
     @Published var percussionBacklineItems = [BacklineItem]()
     @Published var bassGuitarBacklineItems = [BacklineItem]()
     @Published var electricGuitarBacklineItems = [BacklineItem]()
+    // TODO: Add this property to test
+    @Published var addBacklineSheetIsShowing = false
     
     let db = Firestore.firestore()
-    var showListener: ListenerRegistration?
-    var showBacklineListener: ListenerRegistration?
+
+    @Published var errorAlertIsShowing = false
+    var errorAlertText = ""
+
+    @Published var viewState = ViewState.displayingView {
+        didSet {
+            switch viewState {
+            case .error(let message):
+                errorAlertText = message
+                errorAlertIsShowing = true
+            default:
+                if viewState != .dataNotFound && viewState != .dataLoaded {
+                    errorAlertText = ErrorMessageConstants.invalidViewState
+                    errorAlertIsShowing = true
+                }
+            }
+        }
+    }
     
     var showSlotsRemainingMessage: String {
         let slotsRemainingCount = show.maxNumberOfBands - showParticipants.count
@@ -37,7 +54,7 @@ final class ShowDetailsViewModel: ObservableObject {
     
     var noShowTimesMessage: String {
         if show.loggedInUserIsShowHost {
-            return "No times have been added to this show. Choose from the buttons above to add show times."
+            return "No times have been added to this show. Use the buttons above to add show times."
         } else {
             return "No times have been added to this show. Only the show's host can add times."
         }
@@ -47,42 +64,109 @@ final class ShowDetailsViewModel: ObservableObject {
         let venue = CustomMapAnnotation(coordinates: show.coordinates)
         return [venue]
     }
+
+    var showHasBackline: Bool {
+        return !percussionBacklineItems.isEmpty ||
+        !drumKitBacklineItems.isEmpty ||
+        !bassGuitarBacklineItems.isEmpty ||
+        !electricGuitarBacklineItems.isEmpty
+    }
+
+    var noBacklineMessageText: String {
+        if !show.loggedInUserIsInvolvedInShow {
+            return "This show has no backline. You must be participating in this show to add backline to it."
+        } else {
+            return "This show has no backline."
+        }
+    }
     
     init(show: Show) {
         self.show = show
-        
-        Task {
-            do {
-                showParticipants = try await DatabaseService.shared.getShowLineup(forShow: show)
-            } catch {
-                state = .error(message: error.localizedDescription)
-            }
-        }
-        
-        state = .dataLoaded
+    }
+
+    func callOnAppearMethods() async {
+        await getLatestShowData()
+        await getShowParticipants()
+        await getBacklineItems(forShow: show)
+        viewState = .dataLoaded
     }
     
-    func removeShowTimeFromShow(showTimeType: ShowTimeType) {
-        Task {
-            do {
-                try await DatabaseService.shared.deleteTimeFromShow(delete: showTimeType, fromShow: show)
-                
-                switch showTimeType {
-                case .loadIn:
-                    show.loadInTime = nil
-                case .musicStart:
-                    show.musicStartTime = nil
-                case .end:
-                    show.endTime = nil
-                case .doors:
-                    show.doorsTime = nil
+    func getLatestShowData() async {
+        do {
+            show = try await DatabaseService.shared.getLatestShowData(showId: show.id)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func getShowParticipants() async {
+        do {
+            showParticipants = try await DatabaseService.shared.getShowLineup(forShow: show)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func getBacklineItems(forShow show: Show) async {
+        do {
+            let backlineItemDocuments = try await DatabaseService.shared.getBacklineItems(forShow: show).documents
+
+            guard !backlineItemDocuments.isEmpty else {
+                clearAllBacklineItems()
+                return
+            }
+
+            let drumKitBacklineItems = backlineItemDocuments.compactMap { try? $0.data(as: DrumKitBacklineItem.self) }
+
+            if !drumKitBacklineItems.isEmpty {
+                self.drumKitBacklineItems = drumKitBacklineItems
+            }
+
+            let fetchedBacklineItems = backlineItemDocuments.compactMap { try? $0.data(as: BacklineItem.self) }
+
+            for backlineItem in fetchedBacklineItems {
+                switch backlineItem.type {
+                case BacklineItemType.percussion.rawValue:
+                    if backlineItem.name != PercussionGearType.fullKit.rawValue &&
+                        !self.percussionBacklineItems.contains(backlineItem) {
+                        self.percussionBacklineItems.append(backlineItem)
+                    }
+                case BacklineItemType.electricGuitar.rawValue:
+                    if !self.electricGuitarBacklineItems.contains(backlineItem) {
+                        self.electricGuitarBacklineItems.append(backlineItem)
+                    }
+                case BacklineItemType.bassGuitar.rawValue:
+                    if !self.bassGuitarBacklineItems.contains(backlineItem) {
+                        self.bassGuitarBacklineItems.append(backlineItem)
+                    }
+                default:
+                    viewState = .error(message: "Attempted to fetch invalid BacklineItemType. Please try again")
                 }
-            } catch {
-                print(error)
             }
+        } catch {
+            viewState = .error(message: error.localizedDescription)
         }
     }
-    
+
+    func removeShowTimeFromShow(showTimeType: ShowTimeType) async {
+        do {
+            try await DatabaseService.shared.deleteTimeFromShow(delete: showTimeType, fromShow: show)
+
+            switch showTimeType {
+            case .loadIn:
+                show.loadInTime = nil
+            case .musicStart:
+                show.musicStartTime = nil
+            case .end:
+                show.endTime = nil
+            case .doors:
+                show.doorsTime = nil
+            }
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
     func getShowTimeRowText(forShowTimeType showTimeType: ShowTimeType) -> String {
         switch showTimeType {
         case .loadIn:
@@ -102,69 +186,15 @@ final class ShowDetailsViewModel: ObservableObject {
                 return "\(showTimeType.rowTitleText) \(showDoorsTime.timeShortened)"
             }
         }
-        
+
         return ""
     }
-    
-    func addShowListener() {
-        showListener = db.collection(FbConstants.shows).document(show.id).addSnapshotListener { snapshot, error in
-            if snapshot != nil && error == nil {
-                if let editedShow = try? snapshot!.data(as: Show.self) {
-                    self.show = editedShow
-                } else {
-                    print("edited show not found")
-                }
-            } else if error != nil {
-                print(error!)
-            }
-        }
-    }
-    
-    func getBacklineItems(forShow show: Show) async {
-        showBacklineListener = db.collection(FbConstants.shows).document(show.id).collection("backlineItems").addSnapshotListener { snapshot, error in
-            if snapshot != nil && error == nil {
-                let documents = snapshot!.documents
-                
-                guard !documents.isEmpty else { return }
-                
-                let drumKitBacklineItems = documents.compactMap { try? $0.data(as: DrumKitBacklineItem.self) }
-                
-                if !drumKitBacklineItems.isEmpty {
-                    self.drumKitBacklineItems = drumKitBacklineItems
-                }
-                
-                let fetchedBacklineItems = documents.compactMap { try? $0.data(as: BacklineItem.self) }
-                
-                for backlineItem in fetchedBacklineItems {
-                    switch backlineItem.type {
-                    case BacklineItemType.percussion.rawValue:
-                        if backlineItem.name != PercussionGearType.fullKit.rawValue &&
-                           !self.percussionBacklineItems.contains(backlineItem) {
-                            self.percussionBacklineItems.append(backlineItem)
-                        }
-                    case BacklineItemType.electricGuitar.rawValue:
-                        if !self.electricGuitarBacklineItems.contains(backlineItem) {
-                            self.electricGuitarBacklineItems.append(backlineItem)
-                        }
-                    case BacklineItemType.bassGuitar.rawValue:
-                        if !self.bassGuitarBacklineItems.contains(backlineItem) {
-                            self.bassGuitarBacklineItems.append(backlineItem)
-                        }
-                    default:
-                        // TODO: Change and add error state
-                        break
-                    }
-                }
-            }
-        }
-    }
-    
-    func removeShowListener() {
-        showListener?.remove()
-    }
-    
-    func removeShowBacklineListener() {
-        showBacklineListener?.remove()
+
+    func clearAllBacklineItems() {
+        drumKitBacklineItems = []
+        percussionBacklineItems = []
+        bassGuitarBacklineItems = []
+        electricGuitarBacklineItems = []
     }
     
     func showDirectionsInMaps() {

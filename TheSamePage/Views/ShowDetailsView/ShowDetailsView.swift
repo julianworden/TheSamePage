@@ -15,41 +15,42 @@ struct ShowDetailsView: View {
     }
     
     var body: some View {
-        let show = viewModel.show
-        
         ZStack {
             BackgroundColor()
             
-            switch viewModel.state {
+            switch viewModel.viewState {
             case .dataLoading:
                 ProgressView()
                 
             case .dataLoaded:
                 ScrollView {
-                    ShowDetailsHeader(viewModel: viewModel)
-                    
-                    Picker("Select View", selection: $viewModel.selectedTab) {
-                        ForEach(SelectedShowDetailsTab.allCases) { tabName in
-                            Text(tabName.rawValue)
+                    VStack(spacing: 10) {
+                        ShowDetailsHeader(viewModel: viewModel)
+
+                        Picker("Select View", selection: $viewModel.selectedTab) {
+                            ForEach(SelectedShowDetailsTab.allCases) { tabName in
+                                Text(tabName.rawValue)
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                        .padding(.horizontal)
+
+                        switch viewModel.selectedTab {
+                        case .lineup:
+                            ShowLineupTab(viewModel: viewModel)
+                        case .backline:
+                            ShowBacklineTab(viewModel: viewModel)
+                        case .times:
+                            ShowTimeTab(viewModel: viewModel)
+                        case .location:
+                            ShowLocationTab(viewModel: viewModel)
+                        case .details:
+                            ShowDetailsTab(viewModel: viewModel)
                         }
                     }
-                    .pickerStyle(.segmented)
-                    .padding(.horizontal)
-                    
-                    switch viewModel.selectedTab {
-                    case .lineup:
-                        ShowLineupTab(viewModel: viewModel)
-                    case .backline:
-                        ShowBacklineTab(viewModel: viewModel)
-                    case .times:
-                        ShowTimeTab(viewModel: viewModel)
-                    case .location:
-                        ShowLocationTab(show: show, viewModel: viewModel)
-                    case .details:
-                        ShowDetailsTab(viewModel: viewModel)
-                    }
                 }
-                
+
+                // TODO: MAke this error handling more uniform with the rest of the app
             case .error(let message):
                 ErrorMessage(
                     message: "Failed to fetch details for this show.",
@@ -64,20 +65,20 @@ struct ShowDetailsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem {
-                if show.loggedInUserIsShowHost {
+                if viewModel.show.loggedInUserIsShowHost {
                     NavigationLink {
-                        ShowSettingsView(show: show)
+                        ShowSettingsView(show: viewModel.show)
                     } label: {
                         Image(systemName: "gear")
                     }
                 }
             }
         }
-        .onAppear {
-            viewModel.addShowListener()
+        .task {
+            await viewModel.callOnAppearMethods()
         }
-        .onDisappear {
-            viewModel.removeShowListener()
+        .refreshable {
+            await viewModel.callOnAppearMethods()
         }
     }
 }

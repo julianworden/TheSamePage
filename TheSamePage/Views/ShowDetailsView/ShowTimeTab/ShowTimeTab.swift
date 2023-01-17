@@ -25,17 +25,17 @@ struct ShowTimeTab: View {
                 ShowTimeList(viewModel: viewModel)
             } else {
                 Text(viewModel.noShowTimesMessage)
-                    .italic()
                     .multilineTextAlignment(.center)
-                    .padding(.top)
             }
         }
         .padding(.horizontal)
         .sheet(
             item: $selectedShowTimeType,
-            // This onDismiss is necessary for the show's updated times to get reflect on the UI.
-            // If it's not here, the show gets updated properly, but the UI doesn't reflect it.
-            onDismiss: { viewModel.addShowListener() },
+            onDismiss: {
+                Task {
+                    await viewModel.getLatestShowData()
+                }
+            },
             content: { showTimeType in
                 NavigationView {
                     switch showTimeType {

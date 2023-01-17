@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Used throughout The Same Page when only user searching is needed, as opposed to band
+/// and show searching
 struct MemberSearchView: View {
     @Environment(\.dismiss) var dismiss
 

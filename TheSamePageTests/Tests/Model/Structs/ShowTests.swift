@@ -206,13 +206,13 @@ final class ShowTests: XCTestCase {
     }
 
     func test_DistanceFromUser_ReturnsCorrectValue() {
-        MockController.setSanFranciscoMockLocationControllerValues()
+        MockController.setAlaskaMockLocationControllerValues()
 
-        XCTAssertEqual("2,541 miles", exampleShow.distanceFromUser)
+        XCTAssertEqual("3,374 miles", exampleShow.distanceFromUser)
     }
 
     func test_Location_ReturnsCorrectValue() {
-        MockController.setSanFranciscoMockLocationControllerValues()
+        MockController.setAlaskaMockLocationControllerValues()
         let mockShowLocation = CLLocation(latitude: exampleShow.latitude, longitude: exampleShow.longitude)
 
         // Comparing CLLocation values directly doesn't seem to be possible. This is acceptable even though it

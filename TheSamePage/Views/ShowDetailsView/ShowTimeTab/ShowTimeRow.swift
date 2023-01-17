@@ -23,10 +23,13 @@ struct ShowTimeRow: View {
                 )
                 
                 Spacer()
-                
+
+                // TODO: Make the trash cans always visible for existing times. For non-existent times, show an Unknown title with a plus button that's always visible
                 if editMode?.wrappedValue == .active {
                     Button(role: .destructive) {
-                        viewModel.removeShowTimeFromShow(showTimeType: showTimeType)
+                        Task {
+                            await viewModel.removeShowTimeFromShow(showTimeType: showTimeType)
+                        }
                     } label: {
                         Image(systemName: "trash")
                     }

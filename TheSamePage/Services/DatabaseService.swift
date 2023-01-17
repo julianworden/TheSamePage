@@ -556,7 +556,20 @@ class DatabaseService: NSObject {
     
     
     // MARK: - Shows
-    
+
+    func getLatestShowData(showId: String) async throws -> Show {
+        do {
+            return try await db
+                .collection(FbConstants.shows)
+                .document(showId)
+                .getDocument(as: Show.self)
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to fetch latest show data. Please check your internet connection and try again.",
+                systemError: error.localizedDescription
+            )
+        }
+    }
     
     /// Creates a show in the Firestore shows collection and also adds the show's id
     /// to the logged in user's hostedShows collection.
@@ -573,7 +586,7 @@ class DatabaseService: NSObject {
         } catch {
             throw FirebaseError.connection(
                 message: "Show creation failed. Please check your internet connection and try again.",
-                systemError: "No Connection"
+                systemError: error.localizedDescription
             )
         }
     }
@@ -638,7 +651,7 @@ class DatabaseService: NSObject {
     /// Sends an invitation to a band's admin to have their band join a show. Uploads a ShowInvite object
     /// to the specified user's showInvites collection in Firestore.
     /// - Parameter invite: The ShowInvite that is being sent.
-    func sendShowInvite(invite: ShowInvite) async throws {
+    func sendShowInvite(invite: ShowInvite) async throws -> String {
         do {
             let showInviteDocument = try db
                 .collection(FbConstants.users)
@@ -646,6 +659,7 @@ class DatabaseService: NSObject {
                 .collection(FbConstants.notifications)
                 .addDocument(from: invite)
             try await showInviteDocument.updateData([FbConstants.id: showInviteDocument.documentID])
+            return showInviteDocument.documentID
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to send show invite to \(invite.bandName)",
@@ -820,15 +834,13 @@ class DatabaseService: NSObject {
         }
     }
     
-    func getBacklineItems(forShow show: Show) async throws -> [BacklineItem] {
+    func getBacklineItems(forShow show: Show) async throws -> QuerySnapshot {
         do {
-            let query = try await db
+            return try await db
                 .collection(FbConstants.shows)
                 .document(show.id)
                 .collection("backlineItems")
                 .getDocuments()
-            
-            return try query.documents.map { try $0.data(as: BacklineItem.self) }
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to fetch backline items for \(show.name)",
@@ -874,7 +886,7 @@ class DatabaseService: NSObject {
     
     func cancelShow(show: Show) async throws {
         do {
-            _ = try await Functions.functions().httpsCallable(FbConstants.recursiveDelete).call([FbConstants.path: "\(FbConstants.path)/\(show.id)"])
+            _ = try await Functions.functions().httpsCallable(FbConstants.recursiveDelete).call([FbConstants.path: "\(FbConstants.shows)/\(show.id)"])
             try await deleteChat(for: show)
         } catch {
             throw FirebaseError.connection(

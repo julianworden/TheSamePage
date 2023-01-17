@@ -17,15 +17,13 @@ struct ShowDetailsHeader: View {
     @State private var chatSheetIsShowing = false
     
     var body: some View {
-        let show = viewModel.show
-        
         VStack {
-            if show.loggedInUserIsShowHost {
+            if viewModel.show.loggedInUserIsShowHost {
                 NavigationLink {
-                    EditImageView(show: show, image: showImage, updatedImage: $updatedImage)
+                    EditImageView(show: viewModel.show, image: showImage, updatedImage: $updatedImage)
                 } label: {
                     if updatedImage == nil {
-                        ProfileAsyncImage(url: URL(string: show.imageUrl ?? ""), loadedImage: $showImage)
+                        ProfileAsyncImage(url: URL(string: viewModel.show.imageUrl ?? ""), loadedImage: $showImage)
                     } else {
                         // Helps avoid delay from showing updated image
                         Image(uiImage: updatedImage!)
@@ -36,43 +34,45 @@ struct ShowDetailsHeader: View {
                 }
             } else {
                 // Logged in user is not show host
-                ProfileAsyncImage(url: URL(string: show.imageUrl ?? ""), loadedImage: .constant(nil))
+                ProfileAsyncImage(url: URL(string: viewModel.show.imageUrl ?? ""), loadedImage: .constant(nil))
             }
             
-            if show.loggedInUserIsInvolvedInShow {
-                Button {
-                    chatSheetIsShowing = true
-                } label: {
-                    Label("Chat", systemImage: "bubble.right")
-                }
-                .buttonStyle(.bordered)
-            }
-            
-            VStack(spacing: 2) {
-                Text(show.name)
+            VStack(spacing: 7) {
+                Text(viewModel.show.name)
                     .font(.title.bold())
                     .multilineTextAlignment(.center)
-                
-                Text("At \(show.venue) in \(show.city), \(show.state) on \(show.formattedDate)")
-                    .font(.title2)
-                
-                // TODO: Make this a sheet instead
-                if show.loggedInUserIsNotInvolvedInShow {
-                    NavigationLink {
-                        EmptyView()
-                    } label: {
-                        Text("Play this show")
+
+                HStack {
+                        Label(viewModel.show.venue, systemImage: "music.note.house")
+                        Spacer()
+                        Label("\(viewModel.show.city), \(viewModel.show.state)", systemImage: "mappin")
                     }
-                    .buttonStyle(.borderedProminent)
-                    .padding(.vertical)
-                }
+
+                    HStack {
+                        Label(viewModel.show.formattedDate, systemImage: "calendar")
+                        Spacer()
+                        if viewModel.show.loggedInUserIsInvolvedInShow {
+                            Button {
+                                chatSheetIsShowing = true
+                            } label: {
+                                Label("Chat", systemImage: "bubble.right")
+                            }
+                        } else if viewModel.show.loggedInUserIsNotInvolvedInShow {
+                            // TODO: Make this a sheet instead
+                            NavigationLink {
+                                EmptyView()
+                            } label: {
+                                Label("Play This Show", systemImage: "paperplane")
+                            }
+                        }
+                    }
             }
             .multilineTextAlignment(.center)
             .padding(.horizontal)
         }
         .fullScreenCover(isPresented: $chatSheetIsShowing) {
             NavigationView {
-                ConversationView(show: show, showParticipants: viewModel.showParticipants)
+                ConversationView(show: viewModel.show, showParticipants: viewModel.showParticipants)
             }
         }
         // Forces the EditImageView to load the showImage properly
@@ -80,10 +80,12 @@ struct ShowDetailsHeader: View {
         
         // Triggered when the image is updated in the EditImageView sheet
         .onChange(of: updatedImage) { updatedImage in
-            if let updatedImage {
-                self.showImage = Image(uiImage: updatedImage)
-                // This call is necessary so that the image gets updated visually when it's changed
-                viewModel.addShowListener()
+            Task {
+                if let updatedImage {
+                    self.showImage = Image(uiImage: updatedImage)
+                    // This call is necessary so that the image gets updated visually when it's changed
+                    await viewModel.getLatestShowData()
+                }
             }
         }
     }

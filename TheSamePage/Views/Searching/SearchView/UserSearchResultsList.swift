@@ -46,9 +46,9 @@ struct UserSearchResultsList: View {
                 ErrorMessage(message: "Invalid viewState")
             }
         }
-        .onChange(of: viewModel.queryText) { query in
+        .onChange(of: viewModel.queryText) { _ in
             Task {
-                await viewModel.fetchUsers(searchQuery: query)
+                await viewModel.fetchUsers()
             }
         }
         .onChange(of: isSearching) { _ in

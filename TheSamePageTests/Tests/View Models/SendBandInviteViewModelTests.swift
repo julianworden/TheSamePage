@@ -69,7 +69,6 @@ final class SendBandInviteViewModelTests: XCTestCase {
         sut.viewState = .workCompleted
 
         XCTAssertTrue(sut.bandInviteSentSuccessfully, "If this viewState is set, the invite was sent successfully")
-        XCTAssertFalse(sut.sendBandInviteButtonIsDisabled, "The button should no longer be disabled after work has completed")
     }
 
     func test_OnErrorViewState_PropertiesAreSet() {

@@ -36,7 +36,8 @@ final class SearchViewModel: ObservableObject {
                 errorAlertIsShowing = true
             default:
                 if viewState != .dataNotFound && viewState != .dataLoaded {
-                    print("Unknown viewState in SearchViewModel: \(viewState)")
+                    errorAlertText = ErrorMessageConstants.invalidViewState
+                    errorAlertIsShowing = true
                 }
             }
         }
@@ -59,10 +60,10 @@ final class SearchViewModel: ObservableObject {
         }
     }
 
-    func fetchUsers(searchQuery: String) async {
+    func fetchUsers() async {
         guard !queryText.isEmpty else { return }
         
-        let collectionParams = MultiSearchCollectionParameters(q: searchQuery, collection: FbConstants.users)
+        let collectionParams = MultiSearchCollectionParameters(q: queryText, collection: FbConstants.users)
         let searchParams = MultiSearchParameters(queryBy: "username")
         
         do {
@@ -82,10 +83,10 @@ final class SearchViewModel: ObservableObject {
         }
     }
     
-    func fetchBands(searchQuery: String) async {
+    func fetchBands() async {
         guard !queryText.isEmpty else { return }
         
-        let collectionParams = MultiSearchCollectionParameters(q: searchQuery, collection: FbConstants.bands)
+        let collectionParams = MultiSearchCollectionParameters(q: queryText, collection: FbConstants.bands)
         let searchParams = MultiSearchParameters(queryBy: "name")
         
         do {
@@ -105,10 +106,10 @@ final class SearchViewModel: ObservableObject {
         }
     }
     
-    func fetchShows(searchQuery: String) async {
+    func fetchShows() async {
         guard !queryText.isEmpty else { return }
         
-        let collectionParams = MultiSearchCollectionParameters(q: searchQuery, collection: FbConstants.shows)
+        let collectionParams = MultiSearchCollectionParameters(q: queryText, collection: FbConstants.shows)
         let searchParams = MultiSearchParameters(queryBy: "name")
         
         do {

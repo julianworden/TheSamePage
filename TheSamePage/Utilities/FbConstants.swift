@@ -32,6 +32,7 @@ struct FbConstants {
     static let username = "username"
     static let participantFcmTokens = "participantFcmTokens"
     static let memberFcmTokens = "memberFcmTokens"
+    static let backlineItems = "backlineItems"
 
     // MARK: - Firebase Functions
     static let recursiveDelete = "recursiveDelete"

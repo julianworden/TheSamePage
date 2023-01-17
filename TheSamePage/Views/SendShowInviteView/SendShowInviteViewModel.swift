@@ -9,90 +9,99 @@ import Foundation
 
 @MainActor
 final class SendShowInviteViewModel: ObservableObject {
-    @Published var state = ViewState.dataLoading
-    
     var userShows = [Show]()
     @Published var selectedShow: Show?
     
     /// The band that is being invited to join the show.
-    let bandId: String
-    let bandName: String
-    var senderUsername: String?
-    let recipientUid: String
-    
+    let band: Band
+
+    @Published var showInviteSentSuccessfully = false
+    @Published var sendButtonIsDisabled = false
+
     @Published var invalidInviteAlertIsShowing = false
     @Published var invalidInviteAlertText = ""
     @Published var errorAlertIsShowing = false
     @Published var errorAlertText = ""
-    
-    init(band: Band) {
-        self.bandId = band.id
-        self.bandName = band.name
-        self.recipientUid = band.adminUid
-        Task {
-            do {
-                let username = try await AuthController.getLoggedInUsername()
-                senderUsername = username
-            } catch {
-                print(error)
+
+    @Published var viewState = ViewState.dataLoading {
+        didSet {
+            switch viewState {
+            case .performingWork:
+                sendButtonIsDisabled = true
+            case .workCompleted:
+                showInviteSentSuccessfully = true
+            case .error(let message):
+                errorAlertText = message
+                errorAlertIsShowing = true
+                sendButtonIsDisabled = false
+            default:
+                if viewState != .dataNotFound && viewState != .dataLoaded {
+                    errorAlertText = ErrorMessageConstants.invalidViewState
+                    errorAlertIsShowing = true
+                }
             }
         }
     }
     
-    func sendShowInviteNotification() async {
-        let showInvite = ShowInvite(
-            id: "",
-            dateSent: Date.now.timeIntervalSince1970,
-            notificationType: NotificationType.showInvite.rawValue,
-            recipientUid: recipientUid,
-            bandName: bandName,
-            bandId: bandId,
-            showId: selectedShow!.id,
-            showName: selectedShow!.name,
-            showDate: selectedShow!.date,
-            showVenue: selectedShow!.venue,
-            senderUsername: senderUsername ?? "A User",
-            hasFood: selectedShow!.hasFood,
-            hasBar: selectedShow!.hasBar,
-            is21Plus: selectedShow!.is21Plus,
-            message: "\(senderUsername ?? "Someone") is inviting \(bandName) to play \(selectedShow!.name) at \(selectedShow!.venue) on \(selectedShow!.formattedDate)"
-        )
-        
-        guard !selectedShow!.bandIds.contains(showInvite.bandId) else {
-            invalidInviteAlertText = "This band is already playing this show."
+    init(band: Band) {
+        self.band = band
+    }
+
+    @discardableResult func sendShowInvite() async -> String? {
+        guard !selectedShow!.bandIds.contains(band.id) else {
+            invalidInviteAlertText = ErrorMessageConstants.bandIsAlreadyPlayingShow
             invalidInviteAlertIsShowing = true
-            return
+            return nil
         }
         
         guard !selectedShow!.lineupIsFull else {
-            invalidInviteAlertText = "This show's lineup is full. To invite this band, either increase the show's max number of bands or remove a band from the show's lineup."
+            invalidInviteAlertText = ErrorMessageConstants.showLineupIsFull
             invalidInviteAlertIsShowing = true
-            return
+            return nil
         }
             
         do {
-            try await DatabaseService.shared.sendShowInvite(invite: showInvite)
+            let senderUsername = try await AuthController.getLoggedInUsername()
+
+            let showInvite = ShowInvite(
+                id: "",
+                dateSent: Date.now.timeIntervalSince1970,
+                notificationType: NotificationType.showInvite.rawValue,
+                recipientUid: band.adminUid,
+                bandName: band.name,
+                bandId: band.id,
+                showId: selectedShow!.id,
+                showName: selectedShow!.name,
+                showDate: selectedShow!.date,
+                showVenue: selectedShow!.venue,
+                senderUsername: senderUsername,
+                hasFood: selectedShow!.hasFood,
+                hasBar: selectedShow!.hasBar,
+                is21Plus: selectedShow!.is21Plus,
+                message: "\(senderUsername) is inviting \(band.name) to play \(selectedShow!.name) at \(selectedShow!.venue) on \(selectedShow!.formattedDate)"
+            )
+
+            return try await DatabaseService.shared.sendShowInvite(invite: showInvite)
         } catch {
-            errorAlertText = error.localizedDescription
-            errorAlertIsShowing = true
+            viewState = .error(message: error.localizedDescription)
+            return nil
         }
     }
     
     func getHostedShows() async {
-        state = .dataLoading
+        viewState = .dataLoading
         
         do {
             userShows = try await DatabaseService.shared.getHostedShows()
             
             if !userShows.isEmpty {
-                state = .dataLoaded
+                viewState = .dataLoaded
                 selectedShow = userShows.first!
             } else {
-                state = .dataNotFound
+                viewState = .dataNotFound
             }
         } catch {
-            errorAlertText = error.localizedDescription
-            errorAlertIsShowing = true
+            viewState = .error(message: error.localizedDescription)
         }
     }
 }

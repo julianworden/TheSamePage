@@ -15,7 +15,6 @@ struct ShowDetailsTab: View {
             ShowDetailsList(viewModel: viewModel)
         }
         .padding(.top, 2)
-        .onDisappear { viewModel.removeShowListener() }
     }
 }
 

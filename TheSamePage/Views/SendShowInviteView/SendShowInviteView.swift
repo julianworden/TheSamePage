@@ -11,9 +11,7 @@ struct SendShowInviteView: View {
     @Environment(\.dismiss) var dismiss
     
     @StateObject var viewModel: SendShowInviteViewModel
-    
-    @State private var alertText = ""
-    
+
     init(band: Band) {
         _viewModel = StateObject(wrappedValue: SendShowInviteViewModel(band: band))
     }
@@ -22,29 +20,32 @@ struct SendShowInviteView: View {
         ZStack {
             BackgroundColor()
             
-            switch viewModel.state {
+            switch viewModel.viewState {
             case .dataLoading:
                 ProgressView()
+
             case .dataLoaded:
                 Form {
-                    Picker("Which show would you like to invite \(viewModel.bandName) to?", selection: $viewModel.selectedShow) {
+                    Picker("Which show would you like to invite \(viewModel.band.name) to?", selection: $viewModel.selectedShow) {
                         ForEach(viewModel.userShows) { show in
                             Text(show.name).tag(show as Show?)
                         }
                     }
-                    
-                    Button("Send invite") {
-                        Task {
-                            await viewModel.sendShowInviteNotification()
-                            dismiss()
-                        }
+
+                    AsyncButton {
+                        await viewModel.sendShowInvite()
+                    } label: {
+                        Text("Send Invite")
                     }
+                    .disabled(viewModel.sendButtonIsDisabled)
                 }
+
             case .dataNotFound:
-                Text("No hosted shows found. You either have no internet connection or you are not hosting any shows. You can create a show in the My Shows tab.")
+                Text("No hosted shows found, you are not hosting any shows. You can create a show in the My Shows tab.")
                     .italic()
                     .multilineTextAlignment(.center)
                     .padding(.horizontal)
+
             default:
                 ErrorMessage(message: "Unknown ViewState provided to SendShowInviteView.")
             }
@@ -57,7 +58,7 @@ struct SendShowInviteView: View {
             actions: {
                 Button("OK") { }
             }, message: {
-                Text(alertText)
+                Text(viewModel.invalidInviteAlertText)
             }
         )
         .errorAlert(
@@ -67,6 +68,11 @@ struct SendShowInviteView: View {
         )
         .task {
             await viewModel.getHostedShows()
+        }
+        .onChange(of: viewModel.showInviteSentSuccessfully) { showInviteSentSuccessfully in
+            if showInviteSentSuccessfully {
+                dismiss()
+            }
         }
     }
 }

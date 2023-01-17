@@ -34,7 +34,7 @@ final class ConversationViewModelTests: XCTestCase {
         }
 
         if let createdShowId {
-            try await testingDatabaseService.deleteShow(with: createdShowId)
+            try await testingDatabaseService.deleteShow(withId: createdShowId)
             self.createdShowId = nil
         }
 
@@ -70,7 +70,7 @@ final class ConversationViewModelTests: XCTestCase {
 
     func test_OnConfigureChatForShowWithNoExistingChat_ChatIsCreatedForShow() async throws {
         var show = TestingConstants.exampleShowForIntegrationTesting
-        show.id = try testingDatabaseService.createShow(show)
+        show.id = try await testingDatabaseService.createShow(show)
         self.createdShowId = show.id
         sut = ConversationViewModel(show: show)
 

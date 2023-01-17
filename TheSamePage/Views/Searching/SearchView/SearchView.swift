@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Shown when the Search button in the TabView is selected
 struct SearchView: View {
     @StateObject var viewModel = SearchViewModel()
     

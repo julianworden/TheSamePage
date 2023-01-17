@@ -20,7 +20,6 @@ struct PercussionBacklineList: View {
                 ShowBacklineRow(title: percussionBacklineItem.name, subtitle: percussionBacklineItem.notes, iconName: "drums")
             }
         }
-        .padding(.horizontal)
     }
 }
 

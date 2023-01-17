@@ -61,23 +61,23 @@ final class HomeViewModelTests: XCTestCase {
         XCTAssertEqual(sut.viewState, .dataLoaded, "Data should've been found")
     }
 
-    func test_OnFetchNearbyShowsWithLocationInCalifornia_NoShowsAreFetchedAndViewStateIsSet() async {
-        MockController.setSanFranciscoMockLocationControllerValues()
+    func test_OnFetchNearbyShowsWithLocationInAlaska_NoShowsAreFetchedAndViewStateIsSet() async {
+        MockController.setAlaskaMockLocationControllerValues()
         sut = HomeViewModel()
 
         await sut.fetchNearbyShows()
 
-        XCTAssertTrue(sut.nearbyShows.isEmpty, "There should be no shows within 25 miles of San Francisco")
+        XCTAssertTrue(sut.nearbyShows.isEmpty, "There should be no shows within 25 miles of Alaska")
         XCTAssertEqual(sut.viewState, .dataNotFound, "No data should've been found")
     }
 
     func test_OnChangeSearchRadius_SearchIsRetried() async {
         sut = HomeViewModel()
-        MockController.setSanFranciscoMockLocationControllerValues()
+        MockController.setAlaskaMockLocationControllerValues()
 
         await sut.fetchNearbyShows()
 
-        XCTAssertTrue(sut.nearbyShows.isEmpty, "There should be no shows within 25 miles of San Francisco")
+        XCTAssertTrue(sut.nearbyShows.isEmpty, "There should be no shows within 25 miles of Alaska")
         XCTAssertEqual(sut.viewState, .dataNotFound, "No data should've been found")
 
         MockController.setNewJerseyMockLocationControllerValues()

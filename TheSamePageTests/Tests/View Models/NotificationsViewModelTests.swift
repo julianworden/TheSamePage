@@ -195,7 +195,7 @@ final class NotificationsViewModelTests: XCTestCase {
         let showInviteAsAnyUserNotification = AnyUserNotification(id: showInvite.id, notification: showInvite)
 
         await sut.handleNotification(anyUserNotification: showInviteAsAnyUserNotification, withAction: .accept)
-        let dumpweedExtravaganza = try await testingDatabaseService.getShow(with: TestingConstants.exampleShowDumpweedExtravaganza.id)
+        let dumpweedExtravaganza = try await testingDatabaseService.getShow(withId: TestingConstants.exampleShowDumpweedExtravaganza.id)
         let bandExistsInParticipantsCollection = try await testingDatabaseService.bandExistsInParticipantsCollectionForShow(
             showId: dumpweedExtravaganza.id,
             bandId: createdBandId!
@@ -233,7 +233,7 @@ final class NotificationsViewModelTests: XCTestCase {
             forUserWithUid: mike.id,
             notificationId: showInvite.id
         )
-        let dumpweedExtravaganza = try await testingDatabaseService.getShow(with: showInvite.showId)
+        let dumpweedExtravaganza = try await testingDatabaseService.getShow(withId: showInvite.showId)
         let bandExistsInShowParticipantsCollection = try await testingDatabaseService.bandExistsInParticipantsCollectionForShow(
             showId: showInvite.bandId,
             bandId: createdBandId!
@@ -317,7 +317,7 @@ final class NotificationsViewModelTests: XCTestCase {
         )
         createdShowInviteId = try testingDatabaseService.sendShowInvite(send: mikeShowInvite, toBandWithAdminUid: mike.id)
         var createdShowInvite = try await testingDatabaseService.getShowInvite(
-            getShowInviteWithId: createdShowInviteId!, forUserWithUid: mike.id
+            withId: createdShowInviteId!, forUserWithUid: mike.id
         )
         createdShowInvite.id = createdShowInviteId!
 

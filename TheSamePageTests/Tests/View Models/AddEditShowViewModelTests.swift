@@ -33,7 +33,7 @@ final class AddEditShowViewModelTests: XCTestCase {
     override func tearDown() async throws {
         // Deletes example in the event that it was created by any test
         if let createdShowDocumentId {
-            try await testingDatabaseService.deleteShow(with: createdShowDocumentId)
+            try await testingDatabaseService.deleteShow(withId: createdShowDocumentId)
             self.createdShowDocumentId = nil
         }
 
@@ -292,7 +292,7 @@ final class AddEditShowViewModelTests: XCTestCase {
             return
         }
         self.createdShowDocumentId = createdShowDocumentId
-        let createdShow = try await testingDatabaseService.getShow(with: createdShowDocumentId)
+        let createdShow = try await testingDatabaseService.getShow(withId: createdShowDocumentId)
 
         XCTAssertEqual(createdShow.name, TestingConstants.exampleShowForIntegrationTesting.name)
         XCTAssertTrue(sut.formIsComplete, "The form should be complete since a show was passed in")
@@ -308,7 +308,7 @@ final class AddEditShowViewModelTests: XCTestCase {
             XCTFail("A document ID should've been returned by the method")
             return
         }
-        let createdShow = try await testingDatabaseService.getShow(with: createdShowDocumentId)
+        let createdShow = try await testingDatabaseService.getShow(withId: createdShowDocumentId)
         let showImageExists = try await testingDatabaseService.imageExists(at: createdShow.imageUrl)
         self.createdShowDocumentId = createdShowDocumentId
         self.createdShowImageDownloadUrl = createdShow.imageUrl
@@ -320,7 +320,7 @@ final class AddEditShowViewModelTests: XCTestCase {
     }
 
     func test_OnUpdateCreateShowButtonTappedWithShowToEdit_ShowIsUpdated() async throws {
-        self.createdShowDocumentId = try testingDatabaseService.createShow(TestingConstants.exampleShowForIntegrationTesting)
+        self.createdShowDocumentId = try await testingDatabaseService.createShow(TestingConstants.exampleShowForIntegrationTesting)
         var showToEdit = TestingConstants.exampleShowForIntegrationTesting
         // Necessary so that the edited show has the same id as the one that's in Firestore already
         showToEdit.id = createdShowDocumentId!
@@ -328,7 +328,7 @@ final class AddEditShowViewModelTests: XCTestCase {
 
         sut.showName = "UPDATED TEST SHOW"
         _ = await sut.updateCreateShowButtonTapped()
-        let updatedShow = try await testingDatabaseService.getShow(with: createdShowDocumentId!)
+        let updatedShow = try await testingDatabaseService.getShow(withId: createdShowDocumentId!)
 
         XCTAssertTrue(sut.formIsComplete, "The form should be complete since a show was passed in")
         XCTAssertEqual(updatedShow.name, "UPDATED TEST SHOW", "The show name was not updated")

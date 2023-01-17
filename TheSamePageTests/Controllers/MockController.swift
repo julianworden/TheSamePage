@@ -14,9 +14,9 @@ import Foundation
 
 struct MockController {
     /// Sets location data in LocationController.shared to the SF MOMA in San Francisco, CA for testing.
-    static func setSanFranciscoMockLocationControllerValues() {
+    static func setAlaskaMockLocationControllerValues() {
         let mockLocationController = LocationController.shared
-        mockLocationController.userLocation = CLLocation(latitude: 37.329130, longitude: -121.899020)
+        mockLocationController.userLocation = CLLocation(latitude: 61.218056, longitude: -149.900284)
         mockLocationController.userCoordinates = mockLocationController.userLocation!.coordinate
         mockLocationController.userRegion = MKCoordinateRegion(center: mockLocationController.userCoordinates!, latitudinalMeters: 0.5, longitudinalMeters: 0.5)
         mockLocationController.locationSet = true

@@ -14,9 +14,9 @@ struct ShowLocationTab: View {
     // This is here instead of in viewModel to avoid "Publishing changes within view updates" runtime error
     @State private var showRegion: MKCoordinateRegion
     
-    init(show: Show, viewModel: ShowDetailsViewModel) {
+    init(viewModel: ShowDetailsViewModel) {
         _viewModel = ObservedObject(initialValue: viewModel)
-        self.showRegion = show.region
+        self.showRegion = viewModel.show.region
     }
     
     var body: some View {
@@ -37,7 +37,6 @@ struct ShowLocationTab: View {
                     Text(show.address)
                 } else {
                     Text("This show is taking place at a private address.")
-                        .italic()
                 }
                 
                 Spacer()
@@ -64,6 +63,6 @@ struct ShowLocationTab: View {
 
 struct ShowLocationTab_Previews: PreviewProvider {
     static var previews: some View {
-        ShowLocationTab(show: Show.example, viewModel: ShowDetailsViewModel(show: Show.example))
+        ShowLocationTab(viewModel: ShowDetailsViewModel(show: Show.example))
     }
 }

@@ -47,7 +47,7 @@ final class EditImageViewModelTests: XCTestCase {
         }
 
         if let createdShowId {
-            try await testingDatabaseService.deleteShow(with: createdShowId)
+            try await testingDatabaseService.deleteShow(withId: createdShowId)
             self.createdShowId = nil
         }
 
@@ -150,13 +150,13 @@ final class EditImageViewModelTests: XCTestCase {
         var exampleShow = TestingConstants.exampleShowForIntegrationTesting
         self.createdShowId = try await testingDatabaseService.createShowWithImage(exampleShow)
         exampleShow.id = createdShowId!
-        let createdShowWithOldProfileImageUrl = try await testingDatabaseService.getShow(with: exampleShow.id)
+        let createdShowWithOldProfileImageUrl = try await testingDatabaseService.getShow(withId: exampleShow.id)
         exampleShow.imageUrl = createdShowWithOldProfileImageUrl.imageUrl
         sut = EditImageViewModel(show: exampleShow)
 
         let oldImageUrl = exampleShow.imageUrl!
         let newImageUrl = await sut.updateImage(withImage: TestingConstants.uiImageForTesting!)
-        let createdShowWithNewImageUrl = try await testingDatabaseService.getShow(with: exampleShow.id)
+        let createdShowWithNewImageUrl = try await testingDatabaseService.getShow(withId: exampleShow.id)
         self.createdImageUrl = newImageUrl
 
         XCTAssertNotEqual(oldImageUrl, newImageUrl, "The show should now have a different profile image URL")

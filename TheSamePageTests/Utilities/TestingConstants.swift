@@ -65,6 +65,14 @@ struct TestingConstants {
         emailAddress: "mikeflorentine@gmail.com"
     )
 
+    static let exampleUserCraig = User(
+        id: "pXKwVV75CSFjIlMOGU52oUVtELRt",
+        username: "craigfederighi",
+        firstName: "Craig",
+        lastName: "Federighi",
+        emailAddress: "craigfederighi@gmail.com"
+    )
+
     static let exampleUserForIntegrationTesting = User(
         id: "",
         username: "exampleuser",
@@ -117,6 +125,18 @@ struct TestingConstants {
         state: BandState.NJ.rawValue
     )
 
+    static let exampleBandTheApples = Band(
+        id: "lptDfAu3fCXIObXxLVbx",
+        name: "The Apples",
+        bio: "We will woo you with our design chops, but our music is pretty cool too",
+        profileImageUrl: "http://127.0.0.1:9199/v0/b/the-same-page-9c69e.appspot.com/o/Apple%20Logo.png?alt=media&token=0fc4c6d6-da4b-4b29-bfb4-57ef7c559b34",
+        adminUid: exampleUserCraig.id,
+        memberUids: [exampleUserCraig.id],
+        genre: Genre.pop.rawValue,
+        city: "Cupertino",
+        state: BandState.CA.rawValue
+    )
+
     static let exampleBandForIntegrationTesting = Band(
         id: "",
         name: "Test Band Name",
@@ -134,7 +154,7 @@ struct TestingConstants {
         id: "JcNG3facFtTva2scVKDZ",
         dateJoined: 1673073450,
         uid: exampleUserJulian.id,
-        role: "Vocals",
+        role: Instrument.vocals.rawValue,
         username: exampleUserJulian.username,
         fullName: exampleUserJulian.fullName
     )
@@ -143,7 +163,7 @@ struct TestingConstants {
         id: "KgjxDt61nxsNMR4PSvdO",
         dateJoined: 1673073450,
         uid: exampleUserLou.id,
-        role: "Guitar",
+        role: Instrument.guitar.rawValue,
         username: exampleUserLou.username,
         fullName: exampleUserLou.fullName
     )
@@ -151,10 +171,19 @@ struct TestingConstants {
     static let exampleBandMemberEric = BandMember(
         id: "d6Nvz616sgY7zPll0Wh8",
         dateJoined: 1673073450,
-        uid: "K4rrOL8effR2ULYb3dDN5eMlXvWn",
-        role: "Vocals",
-        username: "ericpalermo",
-        fullName: "Eric Palermo"
+        uid: exampleUserEric.id,
+        role: Instrument.vocals.rawValue,
+        username: exampleUserEric.username,
+        fullName: exampleUserEric.fullName
+    )
+
+    static let exampleBandMemberCraig = BandMember(
+        id: "d6Nvz616sgY7zPll0Wh8",
+        dateJoined: 1673073450,
+        uid: exampleUserCraig.id,
+        role: Instrument.guitar.rawValue,
+        username: exampleUserCraig.username,
+        fullName: exampleUserCraig.fullName
     )
 
     // MARK: - Example Shows
@@ -190,7 +219,40 @@ struct TestingConstants {
         hasBar: true,
         is21Plus: true,
         genre: Genre.rock.rawValue,
-        maxNumberOfBands: 2
+        maxNumberOfBands: 3
+    )
+
+    static let exampleShowAppleParkThrowdown = Show(
+        id: "ReofZkUwFhRoTyVNFvvT",
+        name: "Apple Park Throwdown",
+        description: "We will be designing stuff while we play music",
+        host: "Tim Cook Entertainment",
+        hostUid: exampleUserCraig.id,
+        bandIds: [exampleBandTheApples.id],
+        participantUids: [exampleUserCraig.id],
+        venue: "Apple Park",
+        date: 1675065600,
+        loadInTime: 1675134000,
+        doorsTime: 1675135800,
+        musicStartTime: 1675137600,
+        endTime: 1675139400,
+        isFree: false,
+        ticketPrice: 1000,
+        ticketSalesAreRequired: true,
+        minimumRequiredTicketsSold: 500,
+        addressIsPrivate: false,
+        address: "One Apple Park Way. Cupertino, CA 95014",
+        city: "Cupertino",
+        state: BandState.CA.rawValue,
+        latitude: 37.332279,
+        longitude: -122.010979,
+        typesenseCoordinates: [37.332279, -122.010979],
+        imageUrl: "http://127.0.0.1:9199/v0/b/the-same-page-9c69e.appspot.com/o/DumpweedExtravaganzaPhoto.jpeg?alt=media&token=6e635dc8-dc74-4e8e-829a-79fba6eba4de",
+        hasFood: true,
+        hasBar: false,
+        is21Plus: false,
+        genre: Genre.pop.rawValue,
+        maxNumberOfBands: 3
     )
 
     static let exampleShowForIntegrationTesting = Show(
@@ -334,7 +396,7 @@ struct TestingConstants {
     // MARK: - Example Location Data
 
     static func getExampleShowDumpweedExtravaganzaPlacemark() -> CLPlacemark {
-        MockController.setSanFranciscoMockLocationControllerValues()
+        MockController.setAlaskaMockLocationControllerValues()
         let locationController = LocationController.shared
         let address = CNMutablePostalAddress()
         address.city = "Sayreville"

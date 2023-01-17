@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Used throughout The Same Page when only band searching is needed, as opposed to user
+/// and show searching
 struct BandSearchView: View {
     @StateObject var viewModel = SearchViewModel()
     

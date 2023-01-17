@@ -27,7 +27,6 @@ final class SendBandInviteViewModel: ObservableObject {
                 sendBandInviteButtonIsDisabled = true
             case .workCompleted:
                 bandInviteSentSuccessfully = true
-                sendBandInviteButtonIsDisabled = false
             case .error(let message):
                 errorAlertText = message
                 errorAlertIsShowing = true

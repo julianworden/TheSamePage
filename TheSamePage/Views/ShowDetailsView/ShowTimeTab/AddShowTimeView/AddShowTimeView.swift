@@ -11,9 +11,7 @@ struct AddShowTimeView: View {
     @Environment(\.dismiss) var dismiss
     
     @StateObject var viewModel: AddShowTimeViewModel
-    
-    
-    
+
     init(show: Show, showTimeType: ShowTimeType) {
         _viewModel = StateObject(wrappedValue: AddShowTimeViewModel(show: show, showTimeType: showTimeType))
     }
