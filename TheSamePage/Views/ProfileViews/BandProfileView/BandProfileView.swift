@@ -29,7 +29,6 @@ struct BandProfileView: View {
                 ProgressView()
                 
             case .dataLoaded:
-                // TODO: Pass this band to each tab so they don't have to have their own if let band statements
                 if let band = viewModel.band {
                     ScrollView {
                         BandProfileHeader(viewModel: viewModel)
@@ -64,11 +63,24 @@ struct BandProfileView: View {
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             if band.loggedInUserIsInvolvedWithBand {
-                                NavigationLink {
-                                    BandSettingsView(band: band)
+                                Button {
+                                    viewModel.bandSettingsViewIsShowing.toggle()
                                 } label: {
                                     Label("Band settings", systemImage: "gear")
                                 }
+                                .fullScreenCover(
+                                    isPresented: $viewModel.bandSettingsViewIsShowing,
+                                    onDismiss: {
+                                        Task {
+                                            await viewModel.getLatestBandData()
+                                        }
+                                    },
+                                    content: {
+                                        NavigationView {
+                                            BandSettingsView(band: band)
+                                        }
+                                    }
+                                )
                             }
                         }
                     }

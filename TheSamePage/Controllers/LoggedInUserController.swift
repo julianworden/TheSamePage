@@ -14,13 +14,9 @@ import UIKit.UIImage
 @MainActor
 class LoggedInUserController: ObservableObject {
     @Published var loggedInUser: User?
-    @Published var firstName: String?
-    @Published var lastName: String?
-    @Published var emailAddress: String?
-    @Published var profileImageUrl: String?
     @Published var bands = [Band]()
     
-    /// The image loaded from the ProfileAsyncImage
+    /// The image loaded from the ProfileAsyncImage in LoggedInUserProfileView
     @Published var userImage: Image?
     /// A new image set within EditImageView
     @Published var updatedImage: UIImage?
@@ -40,21 +36,14 @@ class LoggedInUserController: ObservableObject {
         }
     }
     
-    var uid: String?
-    
     let db = Firestore.firestore()
-    var userListener: ListenerRegistration?
-    
+
     func getLoggedInUserInfo() async {
+        guard !AuthController.userIsLoggedOut() else { return }
+
         do {
-            let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
-            self.loggedInUser = loggedInUser
-            self.profileImageUrl = loggedInUser.profileImageUrl
-            self.firstName = loggedInUser.firstName
-            self.lastName = loggedInUser.lastName
-            self.emailAddress = loggedInUser.emailAddress
-            self.uid = loggedInUser.id
-            self.bands = try await DatabaseService.shared.getBands(withUid: loggedInUser.id)
+            self.loggedInUser = try await DatabaseService.shared.getLoggedInUser()
+            self.bands = try await DatabaseService.shared.getBands(withUid: loggedInUser!.id)
         } catch {
             loggedInUserProfileViewState = .error(message: error.localizedDescription)
         }
@@ -62,10 +51,6 @@ class LoggedInUserController: ObservableObject {
     
     func logOut() {
         self.loggedInUser = nil
-        self.firstName = nil
-        self.lastName = nil
-        self.emailAddress = nil
-        self.profileImageUrl = nil
         self.bands = []
 
         do {
@@ -73,32 +58,5 @@ class LoggedInUserController: ObservableObject {
         } catch {
             loggedInUserProfileViewState = .error(message: error.localizedDescription)
         }
-    }
-    
-    func addUserListener() {
-        userListener = db.collection(FbConstants.users).document(AuthController.getLoggedInUid()).addSnapshotListener { snapshot, error in
-            if snapshot != nil && error == nil {
-                do {
-                    if let updatedUser = try? snapshot?.data(as: User.self) {
-                        // loggedInUser must also be updated because the loggedInUserProfile references it
-                        self.loggedInUser = updatedUser
-                        self.firstName = updatedUser.firstName
-                        self.lastName = updatedUser.lastName
-                        self.emailAddress = updatedUser.emailAddress
-                        self.profileImageUrl = updatedUser.profileImageUrl
-                    } else {
-                        self.loggedInUserProfileViewState = .error(message: "Failed to fetch updated user info. Please relaunch The Same Page and try again.")
-                    }
-                }
-            } else if error != nil {
-                self.loggedInUserProfileViewState = .error(message: error!.localizedDescription)
-            }
-        }
-    }
-    
-    // TODO: Add listener to user's bands
-    
-    func removeUserListener() {
-        userListener?.remove()
     }
 }

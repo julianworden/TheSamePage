@@ -8,6 +8,8 @@
 import FirebaseFirestore
 import Foundation
 import MapKit
+import SwiftUI
+import UIKit.UIImage
 
 @MainActor
 final class ShowDetailsViewModel: ObservableObject {
@@ -22,6 +24,13 @@ final class ShowDetailsViewModel: ObservableObject {
 
     @Published var addBacklineSheetIsShowing = false
     @Published var bandSearchViewIsShowing = false
+    @Published var editImageViewIsShowing = false
+    @Published var showSettingsSheetIsShowing = false
+
+    /// The image loaded from the ProfileAsyncImage
+    @Published var showImage: Image?
+    /// A new image set within EditImageView
+    @Published var updatedImage: UIImage?
     
     let db = Firestore.firestore()
 

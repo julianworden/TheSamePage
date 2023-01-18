@@ -10,30 +10,53 @@ import SwiftUI
 struct BandProfileHeader: View {
     @ObservedObject var viewModel: BandProfileViewModel
     
-    @State private var bandImage: Image?
-    @State private var updatedImage: UIImage?
-    @State private var sendShowInviteViewIsShowing = false
-    
     var body: some View {
         VStack(spacing: 10) {
             if let band = viewModel.band {
                 VStack {
                     if band.loggedInUserIsBandAdmin {
-                        // TODO: Make this a fullscreen cover instead
-                        NavigationLink {
-                            EditImageView(band: band, image: bandImage, updatedImage: $updatedImage)
+                        // TODO: Make this a fullscreen cover instead and fix bug where no image results in infinite progressview
+                        Button {
+                            viewModel.editImageViewIsShowing.toggle()
                         } label: {
-                            if updatedImage == nil {
-                                ProfileAsyncImage(url: URL(string: band.profileImageUrl ?? ""), loadedImage: $bandImage)
+                            if viewModel.updatedImage == nil {
+                                if let bandImage = band.profileImageUrl {
+                                    ProfileAsyncImage(url: URL(string: bandImage), loadedImage: $viewModel.bandImage)
+                                } else {
+                                    NoImageView()
+                                        .profileImageStyle()
+                                }
                             } else {
-                                Image(uiImage: updatedImage!)
+                                Image(uiImage: viewModel.updatedImage!)
                                     .resizable()
                                     .scaledToFill()
                                     .profileImageStyle()
                             }
                         }
-                    } else {
-                        ProfileAsyncImage(url: URL(string: band.profileImageUrl ?? ""), loadedImage: .constant(nil))
+                        .fullScreenCover(
+                            isPresented: $viewModel.editImageViewIsShowing,
+                            onDismiss: {
+                                Task {
+                                    await viewModel.getLatestBandData()
+                                }
+                            },
+                            content: {
+                                NavigationView {
+                                    EditImageView(
+                                        band: band,
+                                        image: viewModel.bandImage,
+                                        updatedImage: $viewModel.updatedImage
+                                    )
+                                }
+                            }
+                        )
+                    } else if !band.loggedInUserIsBandAdmin {
+                        if let bandImage = band.profileImageUrl {
+                            ProfileAsyncImage(url: URL(string: bandImage), loadedImage: .constant(viewModel.bandImage))
+                        } else {
+                            NoImageView()
+                                .profileImageStyle()
+                        }
                     }
                     
                     Text(band.name)
@@ -44,14 +67,14 @@ struct BandProfileHeader: View {
                     
                     if band.loggedInUserIsNotInvolvedWithBand {
                         Button {
-                            sendShowInviteViewIsShowing = true
+                            viewModel.sendShowInviteViewIsShowing = true
                         } label: {
                             Label("Invite to Show", systemImage: "envelope")
                         }
                         .buttonStyle(.bordered)
                     }
                 }
-                .sheet(isPresented: $sendShowInviteViewIsShowing) {
+                .sheet(isPresented: $viewModel.sendShowInviteViewIsShowing) {
                     NavigationView {
                         SendShowInviteView(band: band)
                     }
@@ -59,11 +82,9 @@ struct BandProfileHeader: View {
                 }
             }
         }
-        .onChange(of: bandImage) { _ in }
-        .onChange(of: updatedImage) { updatedImage in
+        .onChange(of: viewModel.updatedImage) { updatedImage in
             if let updatedImage {
-                self.bandImage = Image(uiImage: updatedImage)
-                viewModel.addBandListener()
+                viewModel.bandImage = Image(uiImage: updatedImage)
             }
         }
     }

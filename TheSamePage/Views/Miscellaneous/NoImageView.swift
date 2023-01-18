@@ -12,13 +12,13 @@ struct NoImageView: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .foregroundColor(.gray)
+                .foregroundColor(Color(uiColor: .lightGray.withAlphaComponent(0.25)))
             
             Image(systemName: "camera")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 55, height: 55)
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
         }
         .frame(height: 200)
     }

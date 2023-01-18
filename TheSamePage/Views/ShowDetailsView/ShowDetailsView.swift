@@ -66,11 +66,24 @@ struct ShowDetailsView: View {
         .toolbar {
             ToolbarItem {
                 if viewModel.show.loggedInUserIsShowHost {
-                    NavigationLink {
-                        ShowSettingsView(show: viewModel.show)
+                    Button {
+                        viewModel.showSettingsSheetIsShowing.toggle()
                     } label: {
                         Image(systemName: "gear")
                     }
+                    .fullScreenCover(
+                        isPresented: $viewModel.showSettingsSheetIsShowing,
+                        onDismiss: {
+                            Task {
+                                await viewModel.getLatestShowData()
+                            }
+                        },
+                        content: {
+                            NavigationView {
+                                ShowSettingsView(show: viewModel.show)
+                            }
+                        }
+                    )
                 }
             }
         }

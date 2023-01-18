@@ -12,9 +12,10 @@ struct EditImageView: View {
     
     @StateObject var viewModel: EditImageViewModel
     
-    /// The image that is selected within the ImagePicker
+    /// The new, updated image that is selected within the ImagePicker
     @Binding var updatedImage: UIImage?
-    
+
+    /// The existing image before it has been updated
     let image: Image?
     
     init(show: Show? = nil, user: User? = nil, band: Band? = nil, image: Image?, updatedImage: Binding<UIImage?>) {

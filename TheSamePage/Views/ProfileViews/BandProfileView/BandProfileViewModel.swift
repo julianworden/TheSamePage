@@ -7,6 +7,8 @@
 
 import FirebaseFirestore
 import Foundation
+import SwiftUI
+import UIKit.UIImage
 
 @MainActor
 class BandProfileViewModel: ObservableObject {
@@ -18,6 +20,12 @@ class BandProfileViewModel: ObservableObject {
 
     @Published var addEditLinkSheetIsShowing = false
     @Published var addBandMemberSheetIsShowing = false
+    @Published var sendShowInviteViewIsShowing = false
+    @Published var editImageViewIsShowing = false
+    @Published var bandSettingsViewIsShowing = false
+
+    @Published var bandImage: Image?
+    @Published var updatedImage: UIImage?
 
     @Published var errorAlertIsShowing = false
     var errorAlertText = ""
@@ -67,28 +75,22 @@ class BandProfileViewModel: ObservableObject {
     }
 
     func callOnAppearMethods() async {
-        addBandListener()
+        await getLatestBandData()
         await getBandMembers()
         await getBandLinks()
         await getBandShows()
     }
-    
-    func addBandListener() {
+
+    func getLatestBandData() async {
         guard let band else { return }
-        
-        bandListener = db
-            .collection(FbConstants.bands)
-            .document(band.id)
-            .addSnapshotListener { snapshot, error in
-                if snapshot != nil && error == nil {
-                    if let band = try? snapshot!.data(as: Band.self) {
-                        self.band = band
-                    }
-                } else if error != nil {
-                    self.viewState = .error(message: "There was an error fetching this band's info. System error: \(error!.localizedDescription)")
-                }
-            }
+
+        do {
+            self.band = try await DatabaseService.shared.getBand(with: band.id)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
     }
+
 
     func getBandMembers() async {
         guard let band else { return }

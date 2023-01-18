@@ -19,7 +19,6 @@ struct BandSettingsView: View {
         _viewModel = StateObject(wrappedValue: BandSettingsViewModel(band: band))
     }
     
-    
     var body: some View {
         let band = viewModel.band
         
@@ -42,6 +41,13 @@ struct BandSettingsView: View {
         }
         .navigationTitle("Band Settings")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Back", role: .cancel) {
+                    dismiss()
+                }
+            }
+        }
         .sheet(isPresented: $editBandSheetIsShowing) {
             NavigationView {
                 AddEditBandView(bandToEdit: band)

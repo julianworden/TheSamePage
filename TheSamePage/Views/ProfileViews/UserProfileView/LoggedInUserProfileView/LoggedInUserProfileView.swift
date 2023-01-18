@@ -20,24 +20,22 @@ struct LoggedInUserProfileView: View {
             ZStack {
                 BackgroundColor()
                 
-                if loggedInUserController.loggedInUser != nil {
-                    ScrollView {
-                        VStack {
-                            LoggedInUserProfileHeader()
-                            
-                            HStack {
-                                SectionTitle(title: "Member of")
-                                
-                                NavigationLink {
-                                    AddEditBandView(userIsOnboarding: .constant(false), bandToEdit: nil)
-                                } label: {
-                                    Image(systemName: "plus")
-                                }
-                                .padding(.trailing)
+                ScrollView {
+                    VStack {
+                        LoggedInUserProfileHeader()
+
+                        HStack {
+                            SectionTitle(title: "Member of")
+
+                            NavigationLink {
+                                AddEditBandView(userIsOnboarding: .constant(false), bandToEdit: nil)
+                            } label: {
+                                Image(systemName: "plus")
                             }
-                            
-                            LoggedInUserBandList()
+                            .padding(.trailing)
                         }
+
+                        LoggedInUserBandList()
                     }
                 }
             }
@@ -50,19 +48,19 @@ struct LoggedInUserProfileView: View {
                     } label: {
                         Label("Settings", systemImage: "gear")
                     }
+                    .fullScreenCover(
+                        isPresented: $settingsSheetIsShowing,
+                        onDismiss: {
+                            if loggedInUserController.loggedInUser == nil {
+                                userIsLoggedOut = true
+                            }
+                        },
+                        content: {
+                            UserSettingsView()
+                        }
+                    )
                 }
             }
-            .fullScreenCover(
-                isPresented: $settingsSheetIsShowing,
-                onDismiss: {
-                    if loggedInUserController.loggedInUser == nil {
-                        userIsLoggedOut = true
-                    }
-                },
-                content: {
-                    UserSettingsView()
-                }
-            )
             .errorAlert(
                 isPresented: $loggedInUserController.errorMessageShowing,
                 message: loggedInUserController.errorMessageText,
@@ -72,9 +70,6 @@ struct LoggedInUserProfileView: View {
             )
             .task {
                 await loggedInUserController.getLoggedInUserInfo()
-            }
-            .onDisappear {
-                loggedInUserController.removeUserListener()
             }
         }
         // Without this, the search bar in MemberSearchView is not usable

@@ -9,32 +9,55 @@ import SwiftUI
 
 struct ShowDetailsHeader: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
-    
-    /// The image loaded from the ProfileAsyncImage
-    @State private var showImage: Image?
-    /// A new image set within EditImageView
-    @State private var updatedImage: UIImage?
+
     @State private var chatSheetIsShowing = false
     
     var body: some View {
         VStack {
             if viewModel.show.loggedInUserIsShowHost {
-                NavigationLink {
-                    EditImageView(show: viewModel.show, image: showImage, updatedImage: $updatedImage)
+                // TODO: Make this a fullscreencover and fix bug where no image results in infinite progressview
+                Button {
+                    viewModel.editImageViewIsShowing.toggle()
                 } label: {
-                    if updatedImage == nil {
-                        ProfileAsyncImage(url: URL(string: viewModel.show.imageUrl ?? ""), loadedImage: $showImage)
+                    if viewModel.updatedImage == nil {
+                        if let showImageUrl = viewModel.show.imageUrl {
+                            ProfileAsyncImage(url: URL(string: showImageUrl), loadedImage: $viewModel.showImage)
+                        } else {
+                            NoImageView()
+                                .profileImageStyle()
+                        }
                     } else {
-                        // Helps avoid delay from showing updated image
-                        Image(uiImage: updatedImage!)
+                        Image(uiImage: viewModel.updatedImage!)
                             .resizable()
                             .scaledToFill()
                             .profileImageStyle()
                     }
                 }
-            } else {
+                .fullScreenCover(
+                    isPresented: $viewModel.editImageViewIsShowing,
+                    onDismiss: {
+                        Task {
+                            await viewModel.getLatestShowData()
+                        }
+                    },
+                    content: {
+                        NavigationView {
+                            EditImageView(
+                                show: viewModel.show,
+                                image: viewModel.showImage,
+                                updatedImage: $viewModel.updatedImage
+                            )
+                        }
+                    }
+                )
+            } else if !viewModel.show.loggedInUserIsShowHost {
                 // Logged in user is not show host
-                ProfileAsyncImage(url: URL(string: viewModel.show.imageUrl ?? ""), loadedImage: .constant(nil))
+                if let showImageUrl = viewModel.show.imageUrl {
+                    ProfileAsyncImage(url: URL(string: showImageUrl), loadedImage: .constant(viewModel.showImage))
+                } else {
+                    NoImageView()
+                        .profileImageStyle()
+                }
             }
             
             VStack(spacing: 7) {
@@ -43,49 +66,42 @@ struct ShowDetailsHeader: View {
                     .multilineTextAlignment(.center)
 
                 HStack {
-                        Label(viewModel.show.venue, systemImage: "music.note.house")
-                        Spacer()
-                        Label("\(viewModel.show.city), \(viewModel.show.state)", systemImage: "mappin")
-                    }
+                    Label(viewModel.show.venue, systemImage: "music.note.house")
+                    Spacer()
+                    Label("\(viewModel.show.city), \(viewModel.show.state)", systemImage: "mappin")
+                }
 
-                    HStack {
-                        Label(viewModel.show.formattedDate, systemImage: "calendar")
-                        Spacer()
-                        if viewModel.show.loggedInUserIsInvolvedInShow {
-                            Button {
-                                chatSheetIsShowing = true
-                            } label: {
-                                Label("Chat", systemImage: "bubble.right")
-                            }
-                            .fullScreenCover(isPresented: $chatSheetIsShowing) {
-                                NavigationView {
-                                    ConversationView(show: viewModel.show, showParticipants: viewModel.showParticipants)
-                                }
-                            }
-                        } else if viewModel.show.loggedInUserIsNotInvolvedInShow {
-                            // TODO: Make this a sheet instead
-                            NavigationLink {
-                                EmptyView()
-                            } label: {
-                                Label("Play This Show", systemImage: "paperplane")
+                HStack {
+                    Label(viewModel.show.formattedDate, systemImage: "calendar")
+                    Spacer()
+                    if viewModel.show.loggedInUserIsInvolvedInShow {
+                        Button {
+                            chatSheetIsShowing = true
+                        } label: {
+                            Label("Chat", systemImage: "bubble.right")
+                        }
+                        .fullScreenCover(isPresented: $chatSheetIsShowing) {
+                            NavigationView {
+                                ConversationView(show: viewModel.show, showParticipants: viewModel.showParticipants)
                             }
                         }
+                    } else if viewModel.show.loggedInUserIsNotInvolvedInShow {
+                        // TODO: Make this a sheet instead
+                        NavigationLink {
+                            EmptyView()
+                        } label: {
+                            Label("Play This Show", systemImage: "paperplane")
+                        }
                     }
+                }
             }
             .multilineTextAlignment(.center)
             .padding(.horizontal)
         }
-        // Forces the EditImageView to load the showImage properly
-        .onChange(of: showImage) { _ in }
-        
         // Triggered when the image is updated in the EditImageView sheet
-        .onChange(of: updatedImage) { updatedImage in
-            Task {
-                if let updatedImage {
-                    self.showImage = Image(uiImage: updatedImage)
-                    // This call is necessary so that the image gets updated visually when it's changed
-                    await viewModel.getLatestShowData()
-                }
+        .onChange(of: viewModel.updatedImage) { updatedImage in
+            if let updatedImage {
+                viewModel.showImage = Image(uiImage: updatedImage)
             }
         }
     }

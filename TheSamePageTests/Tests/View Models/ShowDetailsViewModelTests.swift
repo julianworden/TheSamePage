@@ -200,8 +200,8 @@ final class ShowDetailsViewModelTests: XCTestCase {
     func test_OnGetLatestShowData_UpdatedShowDataIsFetched() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         sut = ShowDetailsViewModel(show: dumpweedExtravaganza)
-
         try await testingDatabaseService.updateShowName(showId: dumpweedExtravaganza.id, newName: "Heavy Banger")
+        
         await sut.getLatestShowData()
 
         XCTAssertEqual(sut.show.name, "Heavy Banger")

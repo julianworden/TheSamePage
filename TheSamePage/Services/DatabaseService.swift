@@ -12,6 +12,7 @@ import FirebaseFunctions
 import FirebaseStorage
 import Foundation
 import UIKit.UIImage
+import SwiftUI
 
 class DatabaseService: NSObject {
     
@@ -1084,7 +1085,6 @@ class DatabaseService: NSObject {
             )
         }
     }
-    
     
     // MARK: - Firebase Storage
 

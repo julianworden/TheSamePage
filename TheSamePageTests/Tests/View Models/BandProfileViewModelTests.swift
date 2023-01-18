@@ -99,17 +99,17 @@ final class BandProfileViewModelTests: XCTestCase {
         XCTAssertEqual(sut.bandShows.first!, TestingConstants.exampleShowDumpweedExtravaganza)
     }
 
-    func test_OnUpdateBandInfo_ListenerUpdatesBandInRealtime() async throws {
+    func test_OnGetLatestBandData_UpdatedBandIsFetched() async throws {
         sut = BandProfileViewModel(band: exampleBandPatheticFallacy)
-        sut.addBandListener()
-
         try await testingDatabaseService.updateBandName(bandId: exampleBandPatheticFallacy.id, newName: "Path Fall")
-        let updatedPatheticFallacy = try await testingDatabaseService.getBand(withId: exampleBandPatheticFallacy.id)
 
-        XCTAssertEqual(updatedPatheticFallacy.name, "Path Fall", "The name wasn't successfully updated")
-        XCTAssertEqual(sut.band!.name, "Path Fall", "The listener should've updated the band's name automatically")
-        XCTAssertEqual(updatedPatheticFallacy.name, sut.band!.name, "The listener should've updated the band's name automatically")
+        await sut.getLatestBandData()
 
-        try await testingDatabaseService.updateBandName(bandId: exampleBandPatheticFallacy.id, newName: "Pathetic Fallacy")
+        XCTAssertEqual(sut.band!.name, "Path Fall")
+
+        try await testingDatabaseService.updateBandName(
+            bandId: exampleBandPatheticFallacy.id,
+            newName: exampleBandPatheticFallacy.name
+        )
     }
 }

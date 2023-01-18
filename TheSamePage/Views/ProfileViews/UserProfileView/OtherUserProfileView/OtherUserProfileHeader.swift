@@ -15,7 +15,12 @@ struct OtherUserProfileHeader: View {
     var body: some View {
         if let user = viewModel.user {
             VStack {
-                ProfileAsyncImage(url: URL(string: user.profileImageUrl ?? ""), loadedImage: .constant(nil))
+                if let userProfileImageUrl = user.profileImageUrl {
+                    ProfileAsyncImage(url: URL(string: userProfileImageUrl), loadedImage: .constant(nil))
+                } else {
+                    NoImageView()
+                        .profileImageStyle()
+                }
                 
                 Text(user.fullName)
                     .font(.title.bold())

@@ -22,6 +22,13 @@ struct UserSettingsView: View {
             }
             .navigationTitle("Profile Settings")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Back", role: .cancel) {
+                        dismiss()
+                    }
+                }
+            }
         }
     }
 }

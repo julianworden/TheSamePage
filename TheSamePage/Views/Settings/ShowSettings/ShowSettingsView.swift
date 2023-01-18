@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ShowSettingsView: View {
+    @Environment(\.dismiss) var dismiss
+
     @StateObject var viewModel: ShowSettingsViewModel
     
     init(show: Show) {
@@ -38,6 +40,15 @@ struct ShowSettingsView: View {
                     Text("Cancelling this show will permanently delete all of its data from The Same Page, including its chat.")
                 }
             )
+        }
+        .navigationTitle("Show Settings")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Back", role: .cancel) {
+                    dismiss()
+                }
+            }
         }
         .sheet(isPresented: $viewModel.addEditShowSheetIsShowing) {
             NavigationView {

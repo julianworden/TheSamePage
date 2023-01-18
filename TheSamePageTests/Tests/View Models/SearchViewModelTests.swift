@@ -109,7 +109,7 @@ final class SearchViewModelTests: XCTestCase {
     }
 
     func test_OnFetchUsersWithNoResults_NoUsersAreFetchedAndViewStateIsSet() async {
-        sut.queryText = "asdf"
+        sut.queryText = "zzz"
 
         await sut.fetchUsers()
 
@@ -128,7 +128,7 @@ final class SearchViewModelTests: XCTestCase {
     }
 
     func test_OnFetchBandsWithNoResults_NoBandsAreFetchedAndViewStateIsSet() async {
-        sut.queryText = "asdf"
+        sut.queryText = "zzz"
 
         await sut.fetchBands()
 
@@ -147,7 +147,7 @@ final class SearchViewModelTests: XCTestCase {
     }
 
     func test_OnFetchShowsWithNoResults_NoShowsAreFetchedAndViewStateIsSet() async {
-        sut.queryText = "asdf"
+        sut.queryText = "zzzz"
 
         await sut.fetchShows()
 
