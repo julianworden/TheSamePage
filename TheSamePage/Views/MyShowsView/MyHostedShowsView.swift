@@ -33,17 +33,14 @@ struct MyHostedShowsView: View {
 
             case .dataNotFound:
                 VStack {
-                    Text("You're not hosting any shows.")
-                        .font(.body.italic())
-
-                    NavigationLink {
-                        AddEditShowView(showToEdit: nil)
-                    } label: {
-                        Text("Tap here to create a show.")
-                            .italic()
-                    }
+                    NoDataFoundMessageWithButtonView(
+                        isPresentingSheet: $viewModel.addEditShowSheetIsShowing,
+                        shouldDisplayButton: true,
+                        buttonText: "Create Show",
+                        buttonImageName: "plus",
+                        message: "You're not hosting any shows"
+                    )
                 }
-                .padding(.top)
                 
             case .error:
                 EmptyView()

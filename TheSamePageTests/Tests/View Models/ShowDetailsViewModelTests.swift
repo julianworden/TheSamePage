@@ -38,6 +38,8 @@ final class ShowDetailsViewModelTests: XCTestCase {
         XCTAssertTrue(sut.bassGuitarBacklineItems.isEmpty)
         XCTAssertTrue(sut.electricGuitarBacklineItems.isEmpty)
         XCTAssertFalse(sut.errorAlertIsShowing)
+        XCTAssertFalse(sut.showSettingsSheetIsShowing)
+        XCTAssertFalse(sut.editImageViewIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
         XCTAssertFalse(sut.addBacklineSheetIsShowing)
         XCTAssertFalse(sut.bandSearchViewIsShowing)
@@ -201,7 +203,7 @@ final class ShowDetailsViewModelTests: XCTestCase {
         try await testingDatabaseService.logInToJulianAccount()
         sut = ShowDetailsViewModel(show: dumpweedExtravaganza)
         try await testingDatabaseService.updateShowName(showId: dumpweedExtravaganza.id, newName: "Heavy Banger")
-        
+
         await sut.getLatestShowData()
 
         XCTAssertEqual(sut.show.name, "Heavy Banger")

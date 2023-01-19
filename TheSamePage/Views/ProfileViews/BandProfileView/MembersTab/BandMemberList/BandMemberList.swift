@@ -22,14 +22,12 @@ struct BandMemberList: View {
                             index: index
                         )
                     }
-                    .padding(.horizontal)
                     .tint(.primary)
                 } else {
                     BandMemberListRow(
                         viewModel: viewModel,
                         index: index
                     )
-                    .padding(.horizontal)
                 }
             }
         }

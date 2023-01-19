@@ -12,8 +12,8 @@ struct AddEditShowView: View {
     
     @StateObject var viewModel: AddEditShowViewModel
     
-    init(showToEdit: Show?) {
-        _viewModel = StateObject(wrappedValue: AddEditShowViewModel(showToEdit: showToEdit))
+    init(showToEdit: Show?, isPresentedModally: Bool = false) {
+        _viewModel = StateObject(wrappedValue: AddEditShowViewModel(showToEdit: showToEdit, isPresentedModally: isPresentedModally))
     }
     
     var body: some View {
@@ -97,17 +97,17 @@ struct AddEditShowView: View {
                 AsyncButton {
                     _ = await viewModel.updateCreateShowButtonTapped(withImage: viewModel.showImage)
                 } label: {
-                    Text("\(viewModel.showToEdit != nil ? "Update Show" : "Create Show")")
+                    Text("\(viewModel.showToEdit != nil ? "Update Show Info" : "Create Show")")
                 }
                 .disabled(viewModel.createShowButtonIsDisabled)
             }
         }
-        .navigationTitle(viewModel.showToEdit == nil ? "Create Show" : "Update Show")
+        .navigationTitle(viewModel.showToEdit == nil ? "Create Show" : "Update Show ifno")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                if viewModel.showToEdit != nil {
-                    Button("Cancel", role: .cancel) {
+                if viewModel.isPresentedModally {
+                    Button("Back", role: .cancel) {
                         dismiss()
                     }
                 }

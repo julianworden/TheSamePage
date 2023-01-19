@@ -23,6 +23,7 @@ class BandProfileViewModel: ObservableObject {
     @Published var sendShowInviteViewIsShowing = false
     @Published var editImageViewIsShowing = false
     @Published var bandSettingsViewIsShowing = false
+    @Published var addEditBandSheetIsShowing = false
 
     @Published var bandImage: Image?
     @Published var updatedImage: UIImage?

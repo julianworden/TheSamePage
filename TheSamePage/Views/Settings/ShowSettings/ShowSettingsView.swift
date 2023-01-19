@@ -18,8 +18,10 @@ struct ShowSettingsView: View {
     
     var body: some View {
         Form {
-            Button("Edit Show") {
-                viewModel.addEditShowSheetIsShowing = true
+            NavigationLink {
+                AddEditShowView(showToEdit: viewModel.show)
+            } label: {
+                Text("Edit Show Info")
             }
             
             Button("Cancel Show", role: .destructive) {
@@ -48,12 +50,6 @@ struct ShowSettingsView: View {
                 Button("Back", role: .cancel) {
                     dismiss()
                 }
-            }
-        }
-        .sheet(isPresented: $viewModel.addEditShowSheetIsShowing) {
-            NavigationView {
-                AddEditShowView(showToEdit: viewModel.show)
-                    .navigationViewStyle(.stack)
             }
         }
         .errorAlert(

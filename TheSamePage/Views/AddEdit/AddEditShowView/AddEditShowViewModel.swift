@@ -51,6 +51,8 @@ final class AddEditShowViewModel: ObservableObject {
     @Published var showCreatedSuccessfully = false
     
     var errorAlertText = ""
+
+    let isPresentedModally: Bool
     
     var viewState = ViewState.dataLoaded {
         didSet {
@@ -92,7 +94,9 @@ final class AddEditShowViewModel: ObservableObject {
         }
     }
     
-    init(showToEdit: Show? = nil) {
+    init(showToEdit: Show? = nil, isPresentedModally: Bool = false) {
+        self.isPresentedModally = isPresentedModally
+
         if let showToEdit {
             self.showToEdit = showToEdit
             self.showName = showToEdit.name

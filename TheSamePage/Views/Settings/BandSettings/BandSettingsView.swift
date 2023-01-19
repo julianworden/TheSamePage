@@ -24,8 +24,10 @@ struct BandSettingsView: View {
         
         Form {
             Section {
-                Button("Edit Band Info") {
-                    editBandSheetIsShowing = true
+                NavigationLink {
+                    AddEditBandView(bandToEdit: band)
+                } label: {
+                    Text("Edit Band Info")
                 }
                 
                 if !band.loggedInUserIsBandAdmin {
@@ -46,11 +48,6 @@ struct BandSettingsView: View {
                 Button("Back", role: .cancel) {
                     dismiss()
                 }
-            }
-        }
-        .sheet(isPresented: $editBandSheetIsShowing) {
-            NavigationView {
-                AddEditBandView(bandToEdit: band)
             }
         }
         .alert(

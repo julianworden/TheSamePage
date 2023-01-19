@@ -49,6 +49,7 @@ struct SendBandInviteView: View {
                 
             case .dataNotFound:
                 NoDataFoundMessage(message: "You are not the admin for any bands. You can only invite others to join your band if you are the band admin.")
+                    .padding(.horizontal)
                 
             case .error:
                 EmptyView()

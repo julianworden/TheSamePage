@@ -12,7 +12,7 @@ struct NoImageView: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .foregroundColor(Color(uiColor: .lightGray.withAlphaComponent(0.25)))
+                .foregroundColor(Color(uiColor: .systemGroupedBackground))
             
             Image(systemName: "camera")
                 .resizable()

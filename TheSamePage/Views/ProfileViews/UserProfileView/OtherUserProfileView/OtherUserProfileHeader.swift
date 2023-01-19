@@ -9,9 +9,7 @@ import SwiftUI
 
 struct OtherUserProfileHeader: View {
     @ObservedObject var viewModel: OtherUserProfileViewModel
-    
-    @State private var sendBandInviteViewIsShowing = false
-    
+        
     var body: some View {
         if let user = viewModel.user {
             VStack {
@@ -24,22 +22,8 @@ struct OtherUserProfileHeader: View {
                 
                 Text(user.fullName)
                     .font(.title.bold())
-                
-                Button {
-                    sendBandInviteViewIsShowing = true
-                } label: {
-                    Label("Invite to Band", systemImage: "envelope")
-                }
-                .buttonStyle(.bordered)
             }
             .padding()
-            .sheet(isPresented: $sendBandInviteViewIsShowing) {
-                // Force unwrap is safe because the button that shows this sheet is already checking if user is nil
-                NavigationView {
-                    SendBandInviteView(user: user)
-                }
-                .navigationViewStyle(.stack)
-            }
         }
     }
 }

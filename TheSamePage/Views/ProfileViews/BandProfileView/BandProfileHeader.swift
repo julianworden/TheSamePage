@@ -11,80 +11,80 @@ struct BandProfileHeader: View {
     @ObservedObject var viewModel: BandProfileViewModel
     
     var body: some View {
-        VStack(spacing: 10) {
-            if let band = viewModel.band {
-                VStack {
-                    if band.loggedInUserIsBandAdmin {
-                        // TODO: Make this a fullscreen cover instead and fix bug where no image results in infinite progressview
-                        Button {
-                            viewModel.editImageViewIsShowing.toggle()
-                        } label: {
-                            if viewModel.updatedImage == nil {
-                                if let bandImage = band.profileImageUrl {
-                                    ProfileAsyncImage(url: URL(string: bandImage), loadedImage: $viewModel.bandImage)
-                                } else {
-                                    NoImageView()
-                                        .profileImageStyle()
-                                }
+        if let band = viewModel.band {
+            VStack(spacing: UiConstants.profileHeaderVerticalSpacing) {
+                if band.loggedInUserIsBandAdmin {
+                    // TODO: Make this a fullscreen cover instead and fix bug where no image results in infinite progressview
+                    Button {
+                        viewModel.editImageViewIsShowing.toggle()
+                    } label: {
+                        if viewModel.updatedImage == nil {
+                            if let bandImage = band.profileImageUrl {
+                                ProfileAsyncImage(url: URL(string: bandImage), loadedImage: $viewModel.bandImage)
                             } else {
-                                Image(uiImage: viewModel.updatedImage!)
-                                    .resizable()
-                                    .scaledToFill()
+                                NoImageView()
                                     .profileImageStyle()
                             }
-                        }
-                        .fullScreenCover(
-                            isPresented: $viewModel.editImageViewIsShowing,
-                            onDismiss: {
-                                Task {
-                                    await viewModel.getLatestBandData()
-                                }
-                            },
-                            content: {
-                                NavigationView {
-                                    EditImageView(
-                                        band: band,
-                                        image: viewModel.bandImage,
-                                        updatedImage: $viewModel.updatedImage
-                                    )
-                                }
-                            }
-                        )
-                    } else if !band.loggedInUserIsBandAdmin {
-                        if let bandImage = band.profileImageUrl {
-                            ProfileAsyncImage(url: URL(string: bandImage), loadedImage: .constant(viewModel.bandImage))
                         } else {
-                            NoImageView()
+                            Image(uiImage: viewModel.updatedImage!)
+                                .resizable()
+                                .scaledToFill()
                                 .profileImageStyle()
                         }
                     }
-                    
-                    Text(band.name)
-                        .font(.title.bold())
-                    
-                    Text("\(band.genre) from \(band.city), \(band.state)")
-                        .font(.title2)
-                    
-                    if band.loggedInUserIsNotInvolvedWithBand {
-                        Button {
-                            viewModel.sendShowInviteViewIsShowing = true
-                        } label: {
-                            Label("Invite to Show", systemImage: "envelope")
+                    .fullScreenCover(
+                        isPresented: $viewModel.editImageViewIsShowing,
+                        onDismiss: {
+                            Task {
+                                await viewModel.getLatestBandData()
+                            }
+                        },
+                        content: {
+                            NavigationView {
+                                EditImageView(
+                                    band: band,
+                                    image: viewModel.bandImage,
+                                    updatedImage: $viewModel.updatedImage
+                                )
+                            }
                         }
-                        .buttonStyle(.bordered)
+                    )
+                } else if !band.loggedInUserIsBandAdmin {
+                    if let bandImage = band.profileImageUrl {
+                        ProfileAsyncImage(url: URL(string: bandImage), loadedImage: .constant(viewModel.bandImage))
+                    } else {
+                        NoImageView()
+                            .profileImageStyle()
                     }
                 }
-                .sheet(isPresented: $viewModel.sendShowInviteViewIsShowing) {
-                    NavigationView {
-                        SendShowInviteView(band: band)
-                    }
-                    .navigationViewStyle(.stack)
+
+                Text(band.name)
+                    .font(.title.bold())
+
+                HStack {
+                    Label(band.genre, systemImage: "music.quarternote.3")
+                    Spacer()
+                    Label("\(band.city), \(band.state)", systemImage: "mappin")
+                }
+
+                HStack {
+                    Label(
+                        "\(band.memberUids.count) \(band.memberUids.count == 1 ? "Member" : "Members")",
+                        systemImage: "person"
+                    )
+
+                    Spacer()
+
+                    Label (
+                        "\(viewModel.bandShows.count) \(viewModel.bandShows.count == 1 ? "Show" : "Shows")",
+                        systemImage: "music.note.house"
+                    )
                 }
             }
-        }
-        .onChange(of: viewModel.updatedImage) { updatedImage in
-            if let updatedImage {
-                viewModel.bandImage = Image(uiImage: updatedImage)
+            .onChange(of: viewModel.updatedImage) { updatedImage in
+                if let updatedImage {
+                    viewModel.bandImage = Image(uiImage: updatedImage)
+                }
             }
         }
     }

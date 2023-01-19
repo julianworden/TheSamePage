@@ -16,6 +16,8 @@ final class OtherUserProfileViewModel: ObservableObject {
     @Published var emailAddress: String?
     @Published var profileImageUrl: String?
     @Published var bands = [Band]()
+
+    @Published var sendBandInviteViewIsShowing = false
     
     @Published var errorAlertIsShowing = false
     var errorAlertText = ""

@@ -30,17 +30,35 @@ struct OtherUserProfileView: View {
                     ScrollView {
                         OtherUserProfileHeader(viewModel: viewModel)
                         
-                        if !viewModel.bands.isEmpty {
                             HStack {
                                 SectionTitle(title: "Member of")
-                                Spacer()
                             }
-                            
+
+                        if !viewModel.bands.isEmpty {
                             OtherUserBandList(viewModel: viewModel)
+                        } else {
+                            NoDataFoundMessage(message: "This user is not a member of any bands")
+                                .padding(.top)
                         }
                     }
                     .navigationTitle(user.username)
                     .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button {
+                                viewModel.sendBandInviteViewIsShowing = true
+                            } label: {
+                                Image(systemName: "envelope")
+                            }
+                            .sheet(isPresented: $viewModel.sendBandInviteViewIsShowing) {
+                                // Force unwrap is safe because the button that shows this sheet is already checking if user is nil
+                                NavigationView {
+                                    SendBandInviteView(user: user)
+                                }
+                                .navigationViewStyle(.stack)
+                            }
+                        }
+                    }
                 }
                 
             case .error:

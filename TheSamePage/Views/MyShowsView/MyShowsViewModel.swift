@@ -13,6 +13,7 @@ final class MyShowsViewModel: ObservableObject {
     @Published var playingShows = [Show]()
     @Published var hostedShows = [Show]()
     @Published var selectedShowType = ShowType.hosting
+    @Published var addEditShowSheetIsShowing = false
     @Published var myHostedShowsViewState = ViewState.dataLoading {
         didSet {
             switch myHostedShowsViewState {

@@ -26,6 +26,8 @@ final class ShowDetailsViewModel: ObservableObject {
     @Published var bandSearchViewIsShowing = false
     @Published var editImageViewIsShowing = false
     @Published var showSettingsSheetIsShowing = false
+    @Published var chatSheetIsShowing = false
+    @Published var showApplicationSheetIsShowing = false
 
     /// The image loaded from the ProfileAsyncImage
     @Published var showImage: Image?
@@ -80,6 +82,16 @@ final class ShowDetailsViewModel: ObservableObject {
         !drumKitBacklineItems.isEmpty ||
         !bassGuitarBacklineItems.isEmpty ||
         !electricGuitarBacklineItems.isEmpty
+    }
+
+    var noShowParticipantsText: String {
+        if show.loggedInUserIsShowHost {
+            return "No bands are playing this show."
+        } else if show.loggedInUserIsNotInvolvedInShow || show.loggedInUserIsShowParticipant {
+            return "No bands are playing this show yet. Only the show's host can invite bands to play."
+        } else {
+            return "No bands are playing this show."
+        }
     }
 
     var noBacklineMessageText: String {

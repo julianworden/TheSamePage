@@ -203,6 +203,7 @@
 		ABE3A2FD297775F100AA1548 /* LoggedInUserControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3A2FC297775F100AA1548 /* LoggedInUserControllerTests.swift */; };
 		ABE3EFA628D91960002EEF23 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3EFA528D91960002EEF23 /* SignUpView.swift */; };
 		ABE3EFA828D919A2002EEF23 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */; };
+		ABE7AB002978C14500534FC3 /* NoDataFoundMessageWithButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE7AAFF2978C14500534FC3 /* NoDataFoundMessageWithButtonView.swift */; };
 		ABEACE7B28DBBB6200BB1D67 /* InABandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEACE7A28DBBB6200BB1D67 /* InABandView.swift */; };
 		ABEACE7D28DBBB6F00BB1D67 /* InABandViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEACE7C28DBBB6F00BB1D67 /* InABandViewModel.swift */; };
 		ABEF10E528E64CD800A1DBAC /* AddEditLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEF10E428E64CD800A1DBAC /* AddEditLinkView.swift */; };
@@ -426,6 +427,7 @@
 		ABE3A2FC297775F100AA1548 /* LoggedInUserControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserControllerTests.swift; sourceTree = "<group>"; };
 		ABE3EFA528D91960002EEF23 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		ABE7AAFF2978C14500534FC3 /* NoDataFoundMessageWithButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataFoundMessageWithButtonView.swift; sourceTree = "<group>"; };
 		ABEACE7A28DBBB6200BB1D67 /* InABandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InABandView.swift; sourceTree = "<group>"; };
 		ABEACE7C28DBBB6F00BB1D67 /* InABandViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InABandViewModel.swift; sourceTree = "<group>"; };
 		ABEF10E428E64CD800A1DBAC /* AddEditLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditLinkView.swift; sourceTree = "<group>"; };
@@ -751,6 +753,7 @@
 				ABF83DCB291A965B006A06CC /* ListRowIcon.swift */,
 				ABF83DCF291A98CB006A06CC /* ListRowElements.swift */,
 				AB8AB3F4292FC8A500B4B1B5 /* BackgroundColor.swift */,
+				ABE7AAFF2978C14500534FC3 /* NoDataFoundMessageWithButtonView.swift */,
 			);
 			path = Miscellaneous;
 			sourceTree = "<group>";
@@ -1487,6 +1490,7 @@
 				ABDDAD4828DB45D100F1CF9B /* AddEditBandView.swift in Sources */,
 				AB4D097C292725C500B5DB4D /* ShowAddressSearchResults.swift in Sources */,
 				ABA1020D28DDFD6900A4E818 /* BandMember.swift in Sources */,
+				ABE7AB002978C14500534FC3 /* NoDataFoundMessageWithButtonView.swift in Sources */,
 				ABBEC0A62921D02800314BE5 /* BandSettingsView.swift in Sources */,
 				ABF0DA90291B111400BD5DD7 /* SelectedBandProfileTab.swift in Sources */,
 				AB07296528F468820069B268 /* ShowBacklineTab.swift in Sources */,

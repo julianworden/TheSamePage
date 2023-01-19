@@ -13,51 +13,40 @@ struct LinkTab: View {
     var body: some View {
         if let band = viewModel.band {
             VStack {
-                HStack {
-                    Spacer()
-                    
-                    if band.loggedInUserIsBandAdmin {
-                        Button {
-                            viewModel.addEditLinkSheetIsShowing.toggle()
-                        } label: {
-                            Image(systemName: "plus")
-                        }
-                        .sheet(
-                            isPresented: $viewModel.addEditLinkSheetIsShowing,
-                            onDismiss: {
-                                Task {
-                                    await viewModel.getBandLinks()
-                                }
-                            },
-                            content: {
-                                NavigationView {
-                                    AddEditLinkView(link: nil, band: viewModel.band!)
-                                }
-                                // Without this, the sheet looks strange when dismissed
-                                .navigationViewStyle(.stack)
-                            }
-                        )
-                    }
-                }
-                .padding(.horizontal)
-                .padding(.top, 5)
-                
                 if !viewModel.bandLinks.isEmpty {
                     BandLinkList(viewModel: viewModel)
-                } else {
-                    VStack(spacing: 3) {
-                        Text("This band doesn't have any links")
-                            .italic()
-                        
-                        if band.loggedInUserIsBandAdmin {
-                            Text("Tap the plus button to add links that will make your band easier to follow")
-                                .italic()
-                        }
+
+                    Button {
+                        viewModel.addEditLinkSheetIsShowing.toggle()
+                    } label: {
+                        Label("Add Link", systemImage: "plus")
                     }
-                    .padding(.horizontal)
-                    .multilineTextAlignment(.center)
+                    .buttonStyle(.bordered)
+                } else if viewModel.bandLinks.isEmpty {
+                    NoDataFoundMessageWithButtonView(
+                        isPresentingSheet: $viewModel.addEditLinkSheetIsShowing,
+                        shouldDisplayButton: band.loggedInUserIsInvolvedWithBand,
+                        buttonText: "Add Link",
+                        buttonImageName: "plus",
+                        message: "This band doesn't have any links"
+                    )
                 }
             }
+            .sheet(
+                isPresented: $viewModel.addEditLinkSheetIsShowing,
+                onDismiss: {
+                    Task {
+                        await viewModel.getBandLinks()
+                    }
+                },
+                content: {
+                    NavigationView {
+                        AddEditLinkView(link: nil, band: viewModel.band!)
+                    }
+                    // Without this, the sheet looks strange when dismissed
+                    .navigationViewStyle(.stack)
+                }
+            )
         }
     }
 }

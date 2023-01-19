@@ -28,6 +28,8 @@ final class AddEditBandViewModel: ObservableObject {
     
     @Published var errorAlertIsShowing = false
     var errorAlertText = ""
+
+    let isPresentedModally: Bool
     
     @Published var viewState = ViewState.dataLoaded {
         didSet {
@@ -51,8 +53,9 @@ final class AddEditBandViewModel: ObservableObject {
     
     var bandToEdit: Band?
     
-    init(bandToEdit: Band? = nil, userIsOnboarding: Bool) {
+    init(bandToEdit: Band? = nil, userIsOnboarding: Bool, isPresentedModally: Bool = false) {
         self.userIsOnboarding = userIsOnboarding
+        self.isPresentedModally = isPresentedModally
         
         if let bandToEdit {
             self.bandToEdit = bandToEdit

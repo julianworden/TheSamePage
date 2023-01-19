@@ -9,7 +9,6 @@ import Foundation
 
 @MainActor
 final class ShowSettingsViewModel: ObservableObject {
-    @Published var addEditShowSheetIsShowing = false
     @Published var cancelShowAlertIsShowing = false
     
     @Published var errorAlertIsShowing = false

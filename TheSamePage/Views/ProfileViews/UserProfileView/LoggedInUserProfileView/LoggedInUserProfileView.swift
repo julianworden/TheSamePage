@@ -12,6 +12,7 @@ struct LoggedInUserProfileView: View {
     @EnvironmentObject var loggedInUserController: LoggedInUserController
 
     @State private var settingsSheetIsShowing = false
+    @State private var createBandSheetIsShowing = false
 
     @Binding var userIsLoggedOut: Bool
     
@@ -26,16 +27,40 @@ struct LoggedInUserProfileView: View {
 
                         HStack {
                             SectionTitle(title: "Member of")
-
-                            NavigationLink {
-                                AddEditBandView(userIsOnboarding: .constant(false), bandToEdit: nil)
-                            } label: {
-                                Image(systemName: "plus")
-                            }
-                            .padding(.trailing)
                         }
 
-                        LoggedInUserBandList()
+                        if !loggedInUserController.bands.isEmpty {
+                            LoggedInUserBandList()
+
+                            Button {
+                                createBandSheetIsShowing.toggle()
+                            } label: {
+                                Label("Create Band", systemImage: "plus")
+                            }
+                            .buttonStyle(.bordered)
+                            .fullScreenCover(
+                                isPresented: $createBandSheetIsShowing,
+                                onDismiss: {
+                                    Task {
+                                        await loggedInUserController.getLoggedInUserBands()
+                                    }
+                                },
+                                content: {
+                                    NavigationView {
+                                        AddEditBandView(userIsOnboarding: .constant(false), bandToEdit: nil, isPresentedModally: true)
+                                    }
+                                }
+                            )
+                        } else if loggedInUserController.bands.isEmpty {
+                            NoDataFoundMessageWithButtonView(
+                                isPresentingSheet: $createBandSheetIsShowing,
+                                shouldDisplayButton: true,
+                                buttonText: "Create Band",
+                                buttonImageName: "plus",
+                                message: "You are not a member of any bands"
+                            )
+                            .padding(.top)
+                        }
                     }
                 }
             }
@@ -65,11 +90,11 @@ struct LoggedInUserProfileView: View {
                 isPresented: $loggedInUserController.errorMessageShowing,
                 message: loggedInUserController.errorMessageText,
                 tryAgainAction: {
-                    await loggedInUserController.getLoggedInUserInfo()
+                    await loggedInUserController.callOnAppLaunchMethods()
                 }
             )
             .task {
-                await loggedInUserController.getLoggedInUserInfo()
+                await loggedInUserController.callOnAppLaunchMethods()
             }
         }
         // Without this, the search bar in MemberSearchView is not usable

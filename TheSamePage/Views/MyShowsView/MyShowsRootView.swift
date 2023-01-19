@@ -36,18 +36,29 @@ struct MyShowsRootView: View {
                 }
             }
             .navigationViewStyle(.stack)
-
             .navigationTitle("My Shows")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        AddEditShowView(showToEdit: nil)
+                    Button {
+                        viewModel.addEditShowSheetIsShowing.toggle()
                     } label: {
                         Image(systemName: "plus")
-                            .imageScale(.large)
                     }
                 }
             }
+            .fullScreenCover(
+                isPresented: $viewModel.addEditShowSheetIsShowing,
+                onDismiss: {
+                    Task {
+                        await viewModel.getHostedShows()
+                    }
+                },
+                content: {
+                    NavigationView {
+                        AddEditShowView(showToEdit: nil, isPresentedModally: true)
+                    }
+                }
+            )
         }
         // If this isn't here, AddEditShowAddressView doesn't show the search bar
         .navigationViewStyle(.stack)

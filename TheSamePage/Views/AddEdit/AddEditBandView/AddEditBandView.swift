@@ -13,13 +13,15 @@ struct AddEditBandView: View {
     @StateObject var viewModel: AddEditBandViewModel
     
     @Binding var userIsOnboarding: Bool
-        
-    init(userIsOnboarding: Binding<Bool> = .constant(false), bandToEdit: Band? = nil) {
+
+    init(userIsOnboarding: Binding<Bool> = .constant(false), bandToEdit: Band? = nil, isPresentedModally: Bool = false) {
         _userIsOnboarding = Binding(projectedValue: userIsOnboarding)
         _viewModel = StateObject(
             wrappedValue: AddEditBandViewModel(
                 bandToEdit: bandToEdit,
-                userIsOnboarding: userIsOnboarding.wrappedValue)
+                userIsOnboarding: userIsOnboarding.wrappedValue,
+                isPresentedModally: isPresentedModally
+            )
         )
     }
     
@@ -79,8 +81,8 @@ struct AddEditBandView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                if viewModel.bandToEdit != nil {
-                    Button("Cancel", role: .cancel) {
+                if viewModel.isPresentedModally {
+                    Button("Back", role: .cancel) {
                         dismiss()
                     }
                 }

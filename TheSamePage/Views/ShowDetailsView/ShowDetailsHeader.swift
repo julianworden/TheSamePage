@@ -10,10 +10,9 @@ import SwiftUI
 struct ShowDetailsHeader: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
 
-    @State private var chatSheetIsShowing = false
     
     var body: some View {
-        VStack {
+        VStack(spacing: UiConstants.profileHeaderVerticalSpacing) {
             if viewModel.show.loggedInUserIsShowHost {
                 // TODO: Make this a fullscreencover and fix bug where no image results in infinite progressview
                 Button {
@@ -60,44 +59,23 @@ struct ShowDetailsHeader: View {
                 }
             }
             
-            VStack(spacing: 7) {
-                Text(viewModel.show.name)
-                    .font(.title.bold())
-                    .multilineTextAlignment(.center)
+            Text(viewModel.show.name)
+                .font(.title.bold())
+                .multilineTextAlignment(.center)
 
-                HStack {
-                    Label(viewModel.show.venue, systemImage: "music.note.house")
-                    Spacer()
-                    Label("\(viewModel.show.city), \(viewModel.show.state)", systemImage: "mappin")
-                }
-
-                HStack {
-                    Label(viewModel.show.formattedDate, systemImage: "calendar")
-                    Spacer()
-                    if viewModel.show.loggedInUserIsInvolvedInShow {
-                        Button {
-                            chatSheetIsShowing = true
-                        } label: {
-                            Label("Chat", systemImage: "bubble.right")
-                        }
-                        .fullScreenCover(isPresented: $chatSheetIsShowing) {
-                            NavigationView {
-                                ConversationView(show: viewModel.show, showParticipants: viewModel.showParticipants)
-                            }
-                        }
-                    } else if viewModel.show.loggedInUserIsNotInvolvedInShow {
-                        // TODO: Make this a sheet instead
-                        NavigationLink {
-                            EmptyView()
-                        } label: {
-                            Label("Play This Show", systemImage: "paperplane")
-                        }
-                    }
-                }
+            HStack {
+                Label(viewModel.show.venue, systemImage: "music.note.house")
+                Spacer()
+                Label("\(viewModel.show.city), \(viewModel.show.state)", systemImage: "mappin")
             }
-            .multilineTextAlignment(.center)
-            .padding(.horizontal)
+
+            HStack {
+                Label(viewModel.show.formattedDate, systemImage: "calendar")
+                Spacer()
+                Label(viewModel.show.host, systemImage: "person")
+            }
         }
+        .padding(.horizontal)
         // Triggered when the image is updated in the EditImageView sheet
         .onChange(of: viewModel.updatedImage) { updatedImage in
             if let updatedImage {

@@ -28,33 +28,27 @@ struct ShowLineupTab: View {
                     Button {
                         viewModel.bandSearchViewIsShowing.toggle()
                     } label: {
-                        Label("Invite Band", systemImage: "plus")
+                        Label("Invite Band", systemImage: "envelope")
                     }
                     .buttonStyle(.bordered)
-                    .fullScreenCover(isPresented: $viewModel.bandSearchViewIsShowing) {
-                        NavigationView {
-                            BandSearchView(isPresentedModally: true)
-                        }
-                    }
-                }
-            } else if show.loggedInUserIsShowHost {
-                VStack(spacing: 7) {
-                    Text("No bands are playing this show yet.")
-                        .multilineTextAlignment(.center)
 
-                    NavigationLink {
-                        BandSearchView()
-                    } label: {
-                        Label("Invite Band", systemImage: "plus")
-                    }
-                    .buttonStyle(.borderedProminent)
                 }
-            } else if show.loggedInUserIsNotInvolvedInShow || show.loggedInUserIsShowParticipant {
-                Text("No bands are playing this show yet. Only the show's host can invite bands to play.")
-                    .multilineTextAlignment(.center)
+            } else {
+                NoDataFoundMessageWithButtonView(
+                    isPresentingSheet: $viewModel.bandSearchViewIsShowing,
+                    shouldDisplayButton: show.loggedInUserIsShowHost,
+                    buttonText: "Invite Band",
+                    buttonImageName: "envelope",
+                    message: viewModel.noShowParticipantsText
+                )
             }
         }
         .padding(.horizontal)
+        .fullScreenCover(isPresented: $viewModel.bandSearchViewIsShowing) {
+            NavigationView {
+                BandSearchView(isPresentedModally: true)
+            }
+        }
     }
 }
 

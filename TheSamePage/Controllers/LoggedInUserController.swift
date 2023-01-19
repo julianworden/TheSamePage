@@ -38,19 +38,36 @@ class LoggedInUserController: ObservableObject {
     
     let db = Firestore.firestore()
 
+    func callOnAppLaunchMethods() async {
+        await getLoggedInUserInfo()
+        await getLoggedInUserBands()
+    }
+
     func getLoggedInUserInfo() async {
         guard !AuthController.userIsLoggedOut() else { return }
 
         do {
             self.loggedInUser = try await DatabaseService.shared.getLoggedInUser()
-            self.bands = try await DatabaseService.shared.getBands(withUid: loggedInUser!.id)
         } catch {
             loggedInUserProfileViewState = .error(message: error.localizedDescription)
         }
     }
+
+    func getLoggedInUserBands() async {
+        guard !AuthController.userIsLoggedOut() else { return }
+
+        do {
+            self.bands = try await DatabaseService.shared.getBands(withUid: loggedInUser!.id)
+        } catch {
+            loggedInUserProfileViewState = .error(message: error.localizedDescription)
+        }
+
+    }
     
     func logOut() {
         self.loggedInUser = nil
+        self.userImage = nil
+        self.updatedImage = nil
         self.bands = []
 
         do {

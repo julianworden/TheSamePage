@@ -18,7 +18,6 @@ struct BandShowsList: View {
                 } label: {
                     BandShowRow(viewModel: viewModel, index: index)
                 }
-                .padding(.horizontal)
             }
         }
     }

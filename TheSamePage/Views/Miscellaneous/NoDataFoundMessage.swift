@@ -14,8 +14,7 @@ struct NoDataFoundMessage: View {
     
     var body: some View {
         Text(message)
-            .italic()
-            .padding()
+            .multilineTextAlignment(.center)
     }
 }
 

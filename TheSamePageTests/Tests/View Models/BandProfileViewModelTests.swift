@@ -61,6 +61,8 @@ final class BandProfileViewModelTests: XCTestCase {
         XCTAssertFalse(sut.addEditLinkSheetIsShowing)
         XCTAssertFalse(sut.addBandMemberSheetIsShowing)
         XCTAssertFalse(sut.errorAlertIsShowing)
+        XCTAssertFalse(sut.bandSettingsViewIsShowing)
+        XCTAssertFalse(sut.editImageViewIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
         XCTAssertNil(sut.bandListener)
         XCTAssertEqual(sut.viewState, .dataLoaded)

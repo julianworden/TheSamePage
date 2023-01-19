@@ -23,11 +23,6 @@ struct ShowDetailsList: View {
                 )
             }
             
-            ListRowElements(
-                title: "Hosted by \(show.host)",
-                iconName: "user"
-            )
-            
             if let showFormattedTicketPrice = show.formattedTicketPrice,
                !show.isFree {
                 ListRowElements(

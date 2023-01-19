@@ -53,17 +53,13 @@ struct ShowBacklineTab: View {
                 .buttonStyle(.bordered)
 
             } else if !viewModel.showHasBackline {
-                VStack(spacing: 7) {
-                    Text(viewModel.noBacklineMessageText)
-                        .multilineTextAlignment(.center)
-
-                    if viewModel.show.loggedInUserIsInvolvedInShow {
-                        Button("Add Backline") {
-                            viewModel.addBacklineSheetIsShowing.toggle()
-                        }
-                        .buttonStyle(.borderedProminent)
-                    }
-                }
+                NoDataFoundMessageWithButtonView(
+                    isPresentingSheet: $viewModel.addBacklineSheetIsShowing,
+                    shouldDisplayButton: viewModel.show.loggedInUserIsInvolvedInShow,
+                    buttonText: "Add Backline",
+                    buttonImageName: "plus",
+                    message: viewModel.noBacklineMessageText
+                )
             }
         }
         .padding(.horizontal)

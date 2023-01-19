@@ -32,9 +32,7 @@ struct MyPlayingShowsView: View {
                 .listStyle(.grouped)
                 
             case .dataNotFound:
-                Text("You're not playing any shows.")
-                    .font(.body.italic())
-                    .padding(.vertical)
+                NoDataFoundMessage(message: "You're not playing any shows")
                 
             case .error:
                 EmptyView()

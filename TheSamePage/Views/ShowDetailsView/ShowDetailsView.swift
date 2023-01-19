@@ -64,7 +64,37 @@ struct ShowDetailsView: View {
         .navigationTitle("Show Details")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                if viewModel.show.loggedInUserIsInvolvedInShow {
+                    Button {
+                        viewModel.chatSheetIsShowing.toggle()
+                    } label: {
+                        Image(systemName: "bubble.right")
+                    }
+                    .fullScreenCover(isPresented: $viewModel.chatSheetIsShowing) {
+                        NavigationView {
+                            ConversationView(
+                                show: viewModel.show,
+                                showParticipants: viewModel.showParticipants
+                            )
+                        }
+                    }
+                } else if viewModel.show.loggedInUserIsNotInvolvedInShow {
+                    Button {
+                        viewModel.showApplicationSheetIsShowing.toggle()
+                    } label: {
+                        Label("Play This Show", systemImage: "pencil.and.ellipsis.rectangle")
+                    }
+                    .fullScreenCover(isPresented: $viewModel.showApplicationSheetIsShowing) {
+                        NavigationView {
+                            // TODO: Fill this in!
+                            EmptyView()
+                        }
+                    }
+                }
+            }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
                 if viewModel.show.loggedInUserIsShowHost {
                     Button {
                         viewModel.showSettingsSheetIsShowing.toggle()

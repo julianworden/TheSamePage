@@ -31,6 +31,7 @@ struct SearchResultRow: View {
             }
             
             if let user {
+                // TODO: Use the person SF Symbol instead to make the app more consistent with TabView and BandProfileView
                 ListRowElements(
                     title: user.profileBelongsToLoggedInUser ? "You" : user.username,
                     subtitle: user.fullName,
@@ -41,6 +42,7 @@ struct SearchResultRow: View {
             }
             
             if let show {
+                // TODO: Use the music.note.house SF Symbol isntead to make the app more consistent with BandProfileView
                 ListRowElements(
                     title: show.name,
                     subtitle: show.venue,

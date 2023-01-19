@@ -16,7 +16,6 @@ struct BandLinkList: View {
                 Link(destination: URL(string: link.url)!) {
                     BandLinkRow(viewModel: viewModel, index: index)
                 }
-                .padding(.horizontal)
                 .tint(.primary)
             }
         }

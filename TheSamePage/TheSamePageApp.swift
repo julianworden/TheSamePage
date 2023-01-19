@@ -68,8 +68,6 @@ extension AppDelegate: MessagingDelegate {
     /// The method that delivers the FCM token to the app. It also listens for changes to the
     /// user's FCM token. This callback is fired at each app startup and whenever a new token is generated.
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        print("Firebase registration token: \(String(describing: fcmToken))")
-        
         let dataDict: [String: String] = ["token": fcmToken ?? ""]
         NotificationCenter.default.post(
             name: Notification.Name("FCMToken"),
@@ -86,7 +84,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        print("App opened from notification")
         let userInfo = response.notification.request.content.userInfo
         print("Message sent by: \(userInfo["senderName"] ?? "Unknown User")")
         completionHandler()

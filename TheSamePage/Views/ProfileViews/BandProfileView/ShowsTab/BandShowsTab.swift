@@ -15,12 +15,7 @@ struct BandShowsTab: View {
             BandShowsList(viewModel: viewModel)
                 .padding(.top, 5)
         } else {
-            VStack {
-                Text("This band has never played any shows on The Same Page")
-                    .italic()
-            }
-            .padding([.horizontal, .top])
-            .multilineTextAlignment(.center)
+            NoDataFoundMessage(message: "This band hasn't played any shows on The Same Page")
         }
         
     }

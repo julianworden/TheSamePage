@@ -69,14 +69,14 @@ struct RootView: View {
                 
                 if loggedInUserController.loggedInUser == nil {
                     Task {
-                        await loggedInUserController.getLoggedInUserInfo()
+                        await loggedInUserController.callOnAppLaunchMethods()
                     }
                 }
             },
             content: { LoginView(userIsOnboarding: $viewModel.userIsLoggedOut) }
         )
         .task {
-            await loggedInUserController.getLoggedInUserInfo()
+            await loggedInUserController.callOnAppLaunchMethods()
         }
     }
 }

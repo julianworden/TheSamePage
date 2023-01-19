@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+// TODO: WRITE TESTS FOR THIS
 @MainActor
 final class AddEditLinkViewModel: ObservableObject {
     @Published var linkPlatform = LinkPlatform.instagram
@@ -41,8 +41,7 @@ final class AddEditLinkViewModel: ObservableObject {
     
     func uploadBandLink() throws {
         let newLink = PlatformLink(platformName: linkPlatform.rawValue, url: linkUrl)
-        print(newLink.url)
-        
+
         try DatabaseService.shared.uploadBandLink(withLink: newLink, forBand: band)
     }
 }

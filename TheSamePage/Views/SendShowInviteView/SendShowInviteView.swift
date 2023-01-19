@@ -52,6 +52,13 @@ struct SendShowInviteView: View {
         }
         .navigationTitle("Send Show Invite")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Back", role: .cancel) {
+                    dismiss()
+                }
+            }
+        }
         .alert(
             "Error",
             isPresented: $viewModel.invalidInviteAlertIsShowing,

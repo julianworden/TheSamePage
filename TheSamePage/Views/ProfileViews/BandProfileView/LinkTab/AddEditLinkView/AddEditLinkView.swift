@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// TODO: Refactor this whole view to be more consistent with the rest of the app
+
 struct AddEditLinkView: View {
     @Environment(\.dismiss) var dismiss
     
@@ -18,26 +20,19 @@ struct AddEditLinkView: View {
     
     var body: some View {
         Form {
-            Picker("Choose Platform", selection: $viewModel.linkPlatform) {
-                ForEach(LinkPlatform.allCases) { platform in
-                    if platform != LinkPlatform.none {
-                        Text(platform.rawValue)
+            Section {
+                Picker("Choose Platform", selection: $viewModel.linkPlatform) {
+                    ForEach(LinkPlatform.allCases) { platform in
+                        if platform != LinkPlatform.none {
+                            Text(platform.rawValue)
+                        }
                     }
                 }
+                TextField("URL", text: $viewModel.enteredText)
             }
-            TextField("URL", text: $viewModel.enteredText)
-        }
-        .navigationTitle(viewModel.linkUrl == "" ? "Add Link" : "Edit Link")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button("Cancel", role: .cancel) {
-                    dismiss()
-                }
-            }
-            
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Save") {
+
+            Section {
+                Button("Save Link") {
                     do {
                         viewModel.createLink()
                         try viewModel.uploadBandLink()
@@ -45,6 +40,15 @@ struct AddEditLinkView: View {
                     } catch {
                         print(error)
                     }
+                }
+            }
+        }
+        .navigationTitle(viewModel.linkUrl == "" ? "Add Link" : "Edit Link")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Cancel", role: .cancel) {
+                    dismiss()
                 }
             }
         }

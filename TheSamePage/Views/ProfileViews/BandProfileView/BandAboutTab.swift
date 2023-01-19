@@ -15,7 +15,6 @@ struct BandAboutTab: View {
            let bandBio = band.bio {
             HStack {
                 Text(bandBio)
-                    .padding(.horizontal)
                     .multilineTextAlignment(.leading)
                 
                 Spacer()
