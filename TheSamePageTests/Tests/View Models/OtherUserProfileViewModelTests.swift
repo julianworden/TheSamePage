@@ -43,6 +43,7 @@ final class OtherUserProfileViewModelTests: XCTestCase {
         XCTAssertEqual(sut.bands.count, 1, "Eric is only a member of one band, Dumpweed")
         XCTAssertEqual(sut.bands.first!, TestingConstants.exampleBandDumpweed, "Eric is a member of Dumpweed")
         XCTAssertEqual(sut.viewState, .dataLoaded)
+        XCTAssertFalse(sut.sendBandInviteViewIsShowing)
     }
 
     func test_OnInitWithBandMember_DefaultValuesAreAssigned() {
@@ -62,6 +63,7 @@ final class OtherUserProfileViewModelTests: XCTestCase {
         XCTAssertEqual(sut.bands.count, 1, "Eric is only a member of one band, Dumpweed")
         XCTAssertEqual(sut.bands.first!, TestingConstants.exampleBandDumpweed, "Eric is a member of Dumpweed")
         XCTAssertEqual(sut.viewState, .dataLoaded)
+        XCTAssertFalse(sut.sendBandInviteViewIsShowing)
     }
 
     func test_OnErrorViewState_PropertiesAreChanged() {

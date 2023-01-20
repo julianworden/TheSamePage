@@ -37,7 +37,6 @@ final class ShowSettingsViewModelTests: XCTestCase {
     func test_OnInit_DefaultValuesAreCorrect() {
         sut = ShowSettingsViewModel(show: dumpweedExtravaganza)
 
-        XCTAssertFalse(sut.addEditShowSheetIsShowing)
         XCTAssertFalse(sut.cancelShowAlertIsShowing)
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)

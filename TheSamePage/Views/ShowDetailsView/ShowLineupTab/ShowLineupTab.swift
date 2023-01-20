@@ -11,8 +11,6 @@ struct ShowLineupTab: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
     
     var body: some View {
-        let show = viewModel.show
-        
         VStack {
             if !viewModel.showParticipants.isEmpty {
                 HStack {
@@ -24,22 +22,63 @@ struct ShowLineupTab: View {
 
                 ShowLineupList(viewModel: viewModel)
 
-                if show.loggedInUserIsShowHost && !show.lineupIsFull {
-                    Button {
-                        viewModel.bandSearchViewIsShowing.toggle()
-                    } label: {
-                        Label("Invite Band", systemImage: "envelope")
+                if viewModel.show.loggedInUserIsShowHost && !viewModel.show.lineupIsFull {
+                    HStack {
+                        Button {
+                            viewModel.bandSearchViewIsShowing.toggle()
+                        } label: {
+                            Label("Invite Band", systemImage: "envelope")
+                        }
+
+                        Button {
+                            viewModel.addMyBandToShowSheetIsShowing.toggle()
+                        } label: {
+                            Label("Add My Band", systemImage: "plus")
+                        }
+                        .sheet(
+                            isPresented: $viewModel.addMyBandToShowSheetIsShowing,
+                            onDismiss: {
+                                Task {
+                                    await viewModel.getLatestShowData()
+                                    await viewModel.getShowParticipants()
+                                }
+                            },
+                            content: {
+                                NavigationView {
+                                    AddMyBandToShowView(show: viewModel.show)
+                                }
+                            }
+                        )
                     }
                     .buttonStyle(.bordered)
-
                 }
             } else {
                 NoDataFoundMessageWithButtonView(
                     isPresentingSheet: $viewModel.bandSearchViewIsShowing,
-                    shouldDisplayButton: show.loggedInUserIsShowHost,
+                    shouldDisplayButton: viewModel.show.loggedInUserIsShowHost,
                     buttonText: "Invite Band",
                     buttonImageName: "envelope",
                     message: viewModel.noShowParticipantsText
+                )
+                Button {
+                    viewModel.addMyBandToShowSheetIsShowing.toggle()
+                } label: {
+                    Label("Add My Band", systemImage: "plus")
+                }
+                .buttonStyle(.bordered)
+                .sheet(
+                    isPresented: $viewModel.addMyBandToShowSheetIsShowing,
+                    onDismiss: {
+                        Task {
+                            await viewModel.getLatestShowData()
+                            await viewModel.getShowParticipants()
+                        }
+                    },
+                    content: {
+                        NavigationView {
+                            AddMyBandToShowView(show: viewModel.show)
+                        }
+                    }
                 )
             }
         }

@@ -60,20 +60,6 @@ final class NotificationsViewModel: ObservableObject {
                     self.fetchedNotifications = notificationsAsAnyUserNotification
                     self.fetchedNotifications.isEmpty ? (self.viewState = .dataNotFound) : (self.viewState = .dataLoaded)
 
-//                    Task {
-//                        do {
-//                            let fetchedNotifications = try await DatabaseService.shared.getNotifications()
-//
-//                            if !fetchedNotifications.isEmpty {
-//                                self.fetchedNotifications = fetchedNotifications
-//                                self.viewState = .dataLoaded
-//                            } else {
-//                                self.viewState = .dataNotFound
-//                            }
-//                        } catch {
-//                            self.viewState = .error(message: error.localizedDescription)
-//                        }
-//                    }
                 } else if error != nil {
                     self.viewState = .error(message: "Failed to fetch up-to-date notifications. System error: \(error!.localizedDescription)")
                 }

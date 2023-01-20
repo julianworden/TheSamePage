@@ -23,7 +23,6 @@ final class SendBandInviteViewModelTests: XCTestCase {
 
     override func setUp() async throws {
         testingDatabaseService = TestingDatabaseService()
-        try await testingDatabaseService.logInToJulianAccount()
     }
 
     override func tearDown() async throws {
@@ -36,22 +35,16 @@ final class SendBandInviteViewModelTests: XCTestCase {
         testingDatabaseService = nil
     }
 
-    func test_OnInit_DefaultValuesAreCorrect() {
+    func test_OnInit_DefaultValuesAreCorrect() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         sut = SendBandInviteViewModel(user: eric)
-        let predicate = NSPredicate { _,_ in
-            !self.sut.userBands.isEmpty
-        }
-        let initializerExpectation = XCTNSPredicateExpectation(predicate: predicate, object: nil)
-        wait(for: [initializerExpectation], timeout: 2)
 
-        XCTAssertEqual(sut.userBands.count, 1, "Julian is a member of one band, Pathetic Fallacy")
-        XCTAssertEqual(sut.selectedBand, TestingConstants.exampleBandPatheticFallacy, "Pathetic Fallacy should be the default selected band because that's Julian's only band")
         XCTAssertEqual(sut.recipientRole, .vocals)
         XCTAssertFalse(sut.sendBandInviteButtonIsDisabled)
         XCTAssertFalse(sut.bandInviteSentSuccessfully)
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
-        XCTAssertEqual(sut.viewState, .dataLoaded, "The view state should've been set when Julian's band was found and assigned to userBands")
+        XCTAssertEqual(sut.viewState, .dataLoading, "The view state should've been set when Julian's band was found and assigned to userBands")
         XCTAssertEqual(sut.user, eric)
     }
 
@@ -89,8 +82,33 @@ final class SendBandInviteViewModelTests: XCTestCase {
         XCTAssertTrue(sut.errorAlertIsShowing)
     }
 
-    func test_OnSendBandInvite_BandInviteNotificationIsSentSuccessfully() async throws {
+    func test_OnGetLoggedInUserBands_DataIsFetchedWhenExpected() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         sut = SendBandInviteViewModel(user: eric)
+
+        await sut.getLoggedInUserBands()
+
+        XCTAssertEqual(sut.selectedBand, patheticFallacy, "Pathetic Fallacy should be the default selected band because that's Julian's only band")
+        XCTAssertEqual(sut.viewState, .dataLoaded)
+        XCTAssertEqual(sut.userBands.count, 1, "Julian is only the admin of 1 band")
+        XCTAssertEqual(sut.userBands.first!, patheticFallacy, "Julian is only the admin of Pathetic Fallacy")
+    }
+
+    func test_OnGetLoggedInUserBands_NoDataIsFetchedWhenExpected() async throws {
+        try await testingDatabaseService.logInToLouAccount()
+        sut = SendBandInviteViewModel(user: eric)
+
+        await sut.getLoggedInUserBands()
+
+        XCTAssertNil(sut.selectedBand, "Lou is not the admin of any bands")
+        XCTAssertEqual(sut.viewState, .dataNotFound, "No data should've been fetched")
+        XCTAssertTrue(sut.userBands.isEmpty, "Lou is not the admin of any bands")
+    }
+
+    func test_OnSendBandInvite_BandInviteNotificationIsSentSuccessfully() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
+        sut = SendBandInviteViewModel(user: eric)
+        await sut.getLoggedInUserBands()
         sut.recipientRole = .bassGuitar
 
         self.createdBandInviteId = await sut.sendBandInvite()

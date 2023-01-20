@@ -751,6 +751,15 @@ class TestingDatabaseService {
         }
     }
 
+    @discardableResult func logInToCraigAccount() async throws -> FirebaseAuth.User? {
+        do {
+            let result = try await Auth.auth().signIn(withEmail: "craigfederighi@gmail.com", password: "dynomite")
+            return result.user
+        } catch {
+            return nil
+        }
+    }
+
     @discardableResult func logInToExampleAccountForIntegrationTesting() async throws -> FirebaseAuth.User? {
         do {
             let result = try await Auth.auth().signIn(withEmail: "exampleuser@gmail.com", password: "dynomite")

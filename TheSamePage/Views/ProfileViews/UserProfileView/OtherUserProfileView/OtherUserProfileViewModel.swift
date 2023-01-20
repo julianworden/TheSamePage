@@ -51,7 +51,6 @@ final class OtherUserProfileViewModel: ObservableObject {
     }
     
     func initializeUser(user: User) async {
-        // TODO: Add this line when user values are cleared on log out: guard firstName == nil && lastName == nil else { return }
         do {
             self.user = user
             self.firstName = user.firstName

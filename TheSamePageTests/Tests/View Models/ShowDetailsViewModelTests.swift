@@ -150,6 +150,20 @@ final class ShowDetailsViewModelTests: XCTestCase {
         XCTAssertFalse(sut.showHasBackline)
     }
 
+    func test_NoShowParticipantsText_ReturnsCorrectValueWhenLoggedInUserIsShowHost() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
+        sut = ShowDetailsViewModel(show: dumpweedExtravaganza)
+
+        XCTAssertEqual(sut.noShowParticipantsText, "No bands are playing this show.")
+    }
+
+    func test_NoShowParticipantsText_ReturnsCorrectValueWhenLoggedInUserIsNotInvolvedWithShow() async throws {
+        try await testingDatabaseService.logInToMikeAccount()
+        sut = ShowDetailsViewModel(show: dumpweedExtravaganza)
+
+        XCTAssertEqual(sut.noShowParticipantsText, "No bands are playing this show yet. Only the show's host can invite bands to play.")
+    }
+
     func test_NoBacklineMessageText_ReturnsCorrectValueWhenLoggedInUserIsShowParticipant() async throws {
         try await testingDatabaseService.logInToLouAccount()
         sut = ShowDetailsViewModel(show: dumpweedExtravaganza)

@@ -28,6 +28,7 @@ final class ShowDetailsViewModel: ObservableObject {
     @Published var showSettingsSheetIsShowing = false
     @Published var chatSheetIsShowing = false
     @Published var showApplicationSheetIsShowing = false
+    @Published var addMyBandToShowSheetIsShowing = false
 
     /// The image loaded from the ProfileAsyncImage
     @Published var showImage: Image?
@@ -161,6 +162,7 @@ final class ShowDetailsViewModel: ObservableObject {
         do {
             let backlineItemDocuments = try await DatabaseService.shared.getBacklineItems(forShow: show).documents
 
+            // Necessary so that the UI is updated when all backline items are removed
             guard !backlineItemDocuments.isEmpty else {
                 clearAllBacklineItems()
                 return

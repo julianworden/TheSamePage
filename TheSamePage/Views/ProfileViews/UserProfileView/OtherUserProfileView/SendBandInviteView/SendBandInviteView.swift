@@ -48,7 +48,7 @@ struct SendBandInviteView: View {
                 }
                 
             case .dataNotFound:
-                NoDataFoundMessage(message: "You are not the admin for any bands. You can only invite others to join your band if you are the band admin.")
+                NoDataFoundMessage(message: "You are not the admin of any bands. You can only invite others to join your band if you are the band admin.")
                     .padding(.horizontal)
                 
             case .error:
@@ -60,16 +60,19 @@ struct SendBandInviteView: View {
         }
         .navigationTitle("Send Band Invite")
         .navigationBarTitleDisplayMode(.inline)
-        .errorAlert(
-            isPresented: $viewModel.errorAlertIsShowing,
-            message: viewModel.errorAlertText
-        )
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button("Back") {
                     dismiss()
                 }
             }
+        }
+        .errorAlert(
+            isPresented: $viewModel.errorAlertIsShowing,
+            message: viewModel.errorAlertText
+        )
+        .task {
+            await viewModel.getLoggedInUserBands()
         }
         .onChange(of: viewModel.bandInviteSentSuccessfully) { bandInviteSentSuccessfully in
             if bandInviteSentSuccessfully {

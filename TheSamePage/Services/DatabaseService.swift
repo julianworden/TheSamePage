@@ -669,11 +669,14 @@ class DatabaseService: NSObject {
         }
     }
     
-    /// Adds band to show's bands collection, adds show to every member of the band's joinedShows collection (including the
-    /// band admin in case they don't play in the band), adds user to show's participants collection. Also deletes the
-    /// ShowInvite in the user's showInvites collection.
+    /// Adds band to show's bands collection, adds band members to show's chat, and adds user to show's participants collection.
+    /// Also deletes the ShowInvite in the user's showInvites collection.
+    ///
+    /// This method should only be used when a band is being added to a show via a ShowInvite. Otherwise, use
+    /// addBandToShow(add:as:to:)
     /// - Parameter showParticipant: The showParticipant to be added to the Show's participants collection.
     /// - Parameter showInvite: The ShowInvite that was accepted in order for the band to get added to the show.
+    /// - Parameter band: The band to be added to the show.
     func addBandToShow(add band: Band, as showParticipant: ShowParticipant, withShowInvite showInvite: ShowInvite) async throws {
         do {
             // Add showParticipant to the show's participants collection
@@ -687,7 +690,7 @@ class DatabaseService: NSObject {
             try await db
                 .collection(FbConstants.shows)
                 .document(showInvite.showId)
-                .updateData([FbConstants.bandIds: FieldValue.arrayUnion([showInvite.bandId])])
+                .updateData([FbConstants.bandIds: FieldValue.arrayUnion([band.id])])
             
             if !band.memberUids.isEmpty {
                 try await db
@@ -702,12 +705,12 @@ class DatabaseService: NSObject {
             }
             
             // Check to see if the band admin is already in the memberUids array. If it isn't, add it to the show's participantUids property.
-            if !band.memberUids.contains(showInvite.recipientUid) {
+            if !band.memberUids.contains(band.adminUid) {
                 let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
                 try await db
                     .collection(FbConstants.shows)
                     .document(showInvite.showId)
-                    .updateData(["participantUids": FieldValue.arrayUnion([showInvite.recipientUid])])
+                    .updateData([FbConstants.participantUids: FieldValue.arrayUnion([band.adminUid])])
                 try await addUserToChat(user: loggedInUser, showId: showInvite.showId)
             }
             
@@ -716,6 +719,56 @@ class DatabaseService: NSObject {
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to add \(band.name) to \(showInvite.showName)",
+                systemError: error.localizedDescription
+            )
+        }
+    }
+
+    /// Adds band to show's bands collection, adds band members to show's chat, and adds user to show's participants
+    /// collection.
+    /// - Parameters:
+    ///   - band: The band to be added to the show.
+    ///   - showParticipant: The showParticipant to be added to the Show's participants collection.
+    ///   - show: The show that the given band will be joining.
+    func addBandToShow(add band: Band, as showParticipant: ShowParticipant, to show: Show) async throws {
+        do {
+            // Add showParticipant to the show's participants collection
+            _ = try db
+                .collection(FbConstants.shows)
+                .document(show.id)
+                .collection(FbConstants.participants)
+                .addDocument(from: showParticipant)
+
+            // Add the band's ID to the show's bandIds property
+            try await db
+                .collection(FbConstants.shows)
+                .document(show.id)
+                .updateData([FbConstants.bandIds: FieldValue.arrayUnion([band.id])])
+
+            if !band.memberUids.isEmpty {
+                try await db
+                    .collection(FbConstants.shows)
+                    .document(show.id)
+                    .updateData(
+                        [
+                            FbConstants.participantUids: FieldValue.arrayUnion(band.memberUids)
+                        ]
+                    )
+                try await addBandToChat(band: band, showId: show.id)
+            }
+
+            // Check to see if the band admin is already in the memberUids array. If it isn't, add it to the show's participantUids property.
+            if !band.memberUids.contains(band.adminUid) {
+                let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
+                try await db
+                    .collection(FbConstants.shows)
+                    .document(show.id)
+                    .updateData([FbConstants.participantUids: FieldValue.arrayUnion([band.adminUid])])
+                try await addUserToChat(user: loggedInUser, showId: show.id)
+            }
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to add \(band.name) to \(show.name)",
                 systemError: error.localizedDescription
             )
         }

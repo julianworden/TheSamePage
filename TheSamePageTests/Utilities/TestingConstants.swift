@@ -137,6 +137,17 @@ struct TestingConstants {
         state: BandState.CA.rawValue
     )
 
+    static let exampleBandCraigAndTheFettuccinis = Band(
+        id: "7ESwrNVI69a7MJFxrUTj",
+        name: "Craig and the Fettuccinis",
+        bio: "We make sick fettuccini while playing some tunes",
+        adminUid: exampleUserCraig.id,
+        memberUids: [exampleUserCraig.id],
+        genre: Genre.deathcore.rawValue,
+        city: "Cupertino",
+        state: BandState.CA.rawValue
+    )
+
     static let exampleBandForIntegrationTesting = Band(
         id: "",
         name: "Test Band Name",
@@ -177,9 +188,18 @@ struct TestingConstants {
         fullName: exampleUserEric.fullName
     )
 
-    static let exampleBandMemberCraig = BandMember(
+    static let exampleBandMemberCraigInTheApples = BandMember(
         id: "d6Nvz616sgY7zPll0Wh8",
         dateJoined: 1673073450,
+        uid: exampleUserCraig.id,
+        role: Instrument.guitar.rawValue,
+        username: exampleUserCraig.username,
+        fullName: exampleUserCraig.fullName
+    )
+
+    static let exampleBandMemberCraigInCraigAndTheFettuccinis = BandMember(
+        id: "ajMaVPA9s0JiqojFLfvQ",
+        dateJoined: 1674181413.480142,
         uid: exampleUserCraig.id,
         role: Instrument.guitar.rawValue,
         username: exampleUserCraig.username,
@@ -391,6 +411,13 @@ struct TestingConstants {
         name: exampleBandDumpweed.name,
         bandId: exampleBandDumpweed.id,
         showId: exampleShowDumpweedExtravaganza.id
+    )
+
+    static let exampleShowParticipantTheApplesInAppleParkThrowdown = ShowParticipant(
+        id: "6NoWme0DUx3y508uxjak",
+        name: exampleBandTheApples.name,
+        bandId: exampleBandTheApples.id,
+        showId: exampleShowAppleParkThrowdown.id
     )
 
     // MARK: - Example Backline
