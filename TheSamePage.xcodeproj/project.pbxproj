@@ -124,6 +124,9 @@
 		AB8AB3F5292FC8A500B4B1B5 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8AB3F4292FC8A500B4B1B5 /* BackgroundColor.swift */; };
 		AB8AB3F7292FCC0D00B4B1B5 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8AB3F6292FCC0D00B4B1B5 /* RootViewModel.swift */; };
 		AB93A90D2929269C00C0EEE6 /* errorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB93A90C2929269C00C0EEE6 /* errorAlert.swift */; };
+		AB9C238D297B59850012BE9F /* LoggedInUserProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9C238C297B59850012BE9F /* LoggedInUserProfileImage.swift */; };
+		AB9C238F297B5C6B0012BE9F /* BandProfileImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9C238E297B5C6B0012BE9F /* BandProfileImageButton.swift */; };
+		AB9C2391297B5F7D0012BE9F /* ShowImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9C2390297B5F7D0012BE9F /* ShowImageButton.swift */; };
 		AB9D086128FDA24B0098A244 /* UserSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9D086028FDA24B0098A244 /* UserSettingsView.swift */; };
 		AB9DAB04292329AF009BE932 /* ShowSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9DAB03292329AF009BE932 /* ShowSettingsView.swift */; };
 		AB9DAB06292329BB009BE932 /* ShowSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9DAB05292329BB009BE932 /* ShowSettingsViewModel.swift */; };
@@ -357,6 +360,9 @@
 		AB8AB3F4292FC8A500B4B1B5 /* BackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColor.swift; sourceTree = "<group>"; };
 		AB8AB3F6292FCC0D00B4B1B5 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		AB93A90C2929269C00C0EEE6 /* errorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = errorAlert.swift; sourceTree = "<group>"; };
+		AB9C238C297B59850012BE9F /* LoggedInUserProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserProfileImage.swift; sourceTree = "<group>"; };
+		AB9C238E297B5C6B0012BE9F /* BandProfileImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileImageButton.swift; sourceTree = "<group>"; };
+		AB9C2390297B5F7D0012BE9F /* ShowImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageButton.swift; sourceTree = "<group>"; };
 		AB9D086028FDA24B0098A244 /* UserSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsView.swift; sourceTree = "<group>"; };
 		AB9DAB03292329AF009BE932 /* ShowSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSettingsView.swift; sourceTree = "<group>"; };
 		AB9DAB05292329BB009BE932 /* ShowSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSettingsViewModel.swift; sourceTree = "<group>"; };
@@ -885,6 +891,7 @@
 			children = (
 				AB35A8CB28E9CFCF009FB203 /* LoggedInUserProfileView.swift */,
 				AB668EB3291BF4C2007899A9 /* LoggedInUserProfileHeader.swift */,
+				AB9C238C297B59850012BE9F /* LoggedInUserProfileImage.swift */,
 				AB668EB0291BE818007899A9 /* LoggedInUserBandList */,
 			);
 			path = LoggedInUserProfileView;
@@ -1034,6 +1041,7 @@
 			children = (
 				ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */,
 				AB66B9B728F0D2EF00E7F0E0 /* ShowDetailsHeader.swift */,
+				AB9C2390297B5F7D0012BE9F /* ShowImageButton.swift */,
 				AB07296228F468530069B268 /* ShowLocationTab.swift */,
 				ABBE94C328D8AE7500790A04 /* ShowDetailsViewModel.swift */,
 				ABFB2D452909E2B4009A6F65 /* ShowDetailsTab */,
@@ -1233,6 +1241,7 @@
 			children = (
 				AB35A8D528E9DC73009FB203 /* BandProfileView.swift */,
 				ABCAA9FE28E9E56C00685F91 /* BandProfileHeader.swift */,
+				AB9C238E297B5C6B0012BE9F /* BandProfileImageButton.swift */,
 				AB668EB6291C0180007899A9 /* BandAboutTab.swift */,
 				ABF5563628DF93E40059E2DF /* BandProfileViewModel.swift */,
 				ABF83DD5291AB67C006A06CC /* MembersTab */,
@@ -1437,6 +1446,7 @@
 				ABF83DD2291A9F03006A06CC /* UiConstants.swift in Sources */,
 				AB399ADB28D4C548009B39F7 /* LoggedInUserController.swift in Sources */,
 				ABCAAA0228E9ED6C00685F91 /* BandLinkList.swift in Sources */,
+				AB9C238F297B5C6B0012BE9F /* BandProfileImageButton.swift in Sources */,
 				AB36FF7628D3598900AAC00C /* MyShowsRootView.swift in Sources */,
 				ABEF10E728E64CE100A1DBAC /* AddEditLinkViewModel.swift in Sources */,
 				AB66474E292D990B000B817E /* NetworkController.swift in Sources */,
@@ -1531,6 +1541,7 @@
 				AB0DD4D228F0D82E00CEA1BD /* ShowLineupList.swift in Sources */,
 				ABF8B81B28FC786900608657 /* ErrorMessage.swift in Sources */,
 				AB35A8CC28E9CFCF009FB203 /* LoggedInUserProfileView.swift in Sources */,
+				AB9C2391297B5F7D0012BE9F /* ShowImageButton.swift in Sources */,
 				ABB4C3F829205AC400E2C153 /* UserNotification.swift in Sources */,
 				AB571CA929705961000629AA /* Double+UnixDateAsDate.swift in Sources */,
 				ABF1C40828ECF0950004A3C1 /* UserSearchResultsList.swift in Sources */,
@@ -1581,6 +1592,7 @@
 				AB07296128F467010069B268 /* ShowDetailsTab.swift in Sources */,
 				ABF1C40C28ECF0A50004A3C1 /* ShowSearchResultsList.swift in Sources */,
 				AB07295F28F466510069B268 /* ShowLineupTab.swift in Sources */,
+				AB9C238D297B59850012BE9F /* LoggedInUserProfileImage.swift in Sources */,
 				AB794E3128E25B0F000ABB37 /* SearchType.swift in Sources */,
 				AB285B0228F6FE8A00EB5F2B /* ShowTimeType.swift in Sources */,
 				ABCD5F62291B541F00E33934 /* BandShowsTab.swift in Sources */,

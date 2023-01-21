@@ -24,6 +24,8 @@ class BandProfileViewModel: ObservableObject {
     @Published var editImageViewIsShowing = false
     @Published var bandSettingsViewIsShowing = false
     @Published var addEditBandSheetIsShowing = false
+    @Published var editImageConfirmationDialogIsShowing = false
+    @Published var deleteImageConfirmationAlertIsShowing = false
 
     @Published var bandImage: Image?
     @Published var updatedImage: UIImage?
@@ -122,6 +124,18 @@ class BandProfileViewModel: ObservableObject {
                 lhs.date.unixDateAsDate > rhs.date.unixDateAsDate
             }
             self.bandShows = sortedShows
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func deleteBandImage() async {
+        guard let band else { return }
+
+        do {
+            try await DatabaseService.shared.deleteBandImage(forBand: band)
+            bandImage = nil
+            updatedImage = nil
         } catch {
             viewState = .error(message: error.localizedDescription)
         }

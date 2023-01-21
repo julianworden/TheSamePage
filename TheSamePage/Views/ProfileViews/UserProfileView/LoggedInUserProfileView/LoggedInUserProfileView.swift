@@ -11,6 +11,8 @@ import SwiftUI
 struct LoggedInUserProfileView: View {
     @EnvironmentObject var loggedInUserController: LoggedInUserController
 
+    @State private var errorAlertIsShowing = false
+    @State private var errorAlertText = ""
     @State private var settingsSheetIsShowing = false
     @State private var createBandSheetIsShowing = false
 

@@ -32,7 +32,6 @@ final class EditImageViewModelTests: XCTestCase {
 
     override func setUp() async throws {
         testingDatabaseService = TestingDatabaseService()
-        try await testingDatabaseService.logInToExampleAccountForIntegrationTesting()
     }
 
     override func tearDown() async throws {
@@ -108,7 +107,8 @@ final class EditImageViewModelTests: XCTestCase {
         XCTAssertEqual(sut.band, patheticFallacy)
     }
 
-    func test_OnEditUserProfileImage_ImageIsEditedAndOldImageIsDeleted() async throws  {
+    func test_OnEditUserProfileImage_ImageIsEditedAndOldImageIsDeleted() async throws {
+        try await testingDatabaseService.logInToExampleAccountForIntegrationTesting()
         var exampleUser = TestingConstants.exampleUserForIntegrationTesting
         self.createdUserUid = try await testingDatabaseService.createExampleUserWithProfileImageInFirestore(
             withUser: exampleUser
@@ -129,6 +129,7 @@ final class EditImageViewModelTests: XCTestCase {
     }
 
     func test_OnEditBandProfileImage_ImageIsEditedAndOldImageIsDeleted() async throws  {
+        try await testingDatabaseService.logInToEricAccount()
         var exampleBand = TestingConstants.exampleBandForIntegrationTesting
         self.createdBandId = try await testingDatabaseService.createBandWithProfileImage(exampleBand)
         exampleBand.id = createdBandId!
@@ -146,15 +147,16 @@ final class EditImageViewModelTests: XCTestCase {
         XCTAssertEqual(sut.viewState, .workCompleted)
     }
 
-    func test_OnEditShowImageImage_ImageIsEditedAndOldImageIsDeleted() async throws  {
+    func test_OnEditShowImage_ImageIsEditedAndOldImageIsDeleted() async throws {
+        try await testingDatabaseService.logInToEricAccount()
         var exampleShow = TestingConstants.exampleShowForIntegrationTesting
         self.createdShowId = try await testingDatabaseService.createShowWithImage(exampleShow)
         exampleShow.id = createdShowId!
         let createdShowWithOldProfileImageUrl = try await testingDatabaseService.getShow(withId: exampleShow.id)
         exampleShow.imageUrl = createdShowWithOldProfileImageUrl.imageUrl
         sut = EditImageViewModel(show: exampleShow)
-
         let oldImageUrl = exampleShow.imageUrl!
+
         let newImageUrl = await sut.updateImage(withImage: TestingConstants.uiImageForTesting!)
         let createdShowWithNewImageUrl = try await testingDatabaseService.getShow(withId: exampleShow.id)
         self.createdImageUrl = newImageUrl

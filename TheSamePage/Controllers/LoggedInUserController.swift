@@ -61,7 +61,18 @@ class LoggedInUserController: ObservableObject {
         } catch {
             loggedInUserProfileViewState = .error(message: error.localizedDescription)
         }
+    }
 
+    func deleteProfileImage() async {
+        guard let loggedInUser else { return }
+
+        do {
+            try await DatabaseService.shared.deleteUserProfileImage(forUser: loggedInUser)
+            userImage = nil
+            updatedImage = nil
+        } catch {
+            loggedInUserProfileViewState = .error(message: error.localizedDescription)
+        }
     }
     
     func logOut() {

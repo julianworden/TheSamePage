@@ -13,6 +13,7 @@ import XCTest
 final class ShowDetailsViewModelTests: XCTestCase {
     var sut: ShowDetailsViewModel!
     var testingDatabaseService: TestingDatabaseService!
+    var createdShowId: String?
     let dumpweedExtravaganza = TestingConstants.exampleShowDumpweedExtravaganza
     let showParticipantDumpweed = TestingConstants.exampleShowParticipantDumpweedInDumpweedExtravaganza
     let showParticipantPatheticFallacy = TestingConstants.exampleShowParticipantPatheticFallacyInDumpweedExtravaganza
@@ -247,6 +248,29 @@ final class ShowDetailsViewModelTests: XCTestCase {
         XCTAssertEqual(sut.bassGuitarBacklineItems.count, 1)
         XCTAssertEqual(sut.percussionBacklineItems.count, 2)
     }
+
+    func test_OnDeleteShowImage_ImageIsDeleted() async throws {
+        try await testingDatabaseService.logInToEricAccount()
+        var exampleShow = TestingConstants.exampleShowForIntegrationTesting
+        self.createdShowId = try await testingDatabaseService.createShowWithImage(exampleShow)
+        exampleShow.id = createdShowId!
+        let createdShowWithOldProfileImageUrl = try await testingDatabaseService.getShow(withId: exampleShow.id)
+        exampleShow.imageUrl = createdShowWithOldProfileImageUrl.imageUrl
+        sut = ShowDetailsViewModel(show: exampleShow)
+
+        await sut.deleteShowImage()
+        let createdShowWithNoProfileImage = try await testingDatabaseService.getShow(withId: exampleShow.id)
+
+        do {
+            _ = try await testingDatabaseService.imageExists(at: exampleShow.imageUrl!)
+            XCTFail("The image shouldn't exist, so this method should've thrown an error")
+        } catch {
+            XCTAssertNotNil(error, "An error should've been thrown")
+        }
+
+        XCTAssertNil(createdShowWithNoProfileImage.imageUrl, "The show should no longer have a imageUrl property")
+    }
+
 
     func test_OnRemoveShowTimeFromShow_ShowTimesAreRemovedFromShow() async throws {
         try await testingDatabaseService.logInToJulianAccount()

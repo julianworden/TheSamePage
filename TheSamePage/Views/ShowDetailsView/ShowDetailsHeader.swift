@@ -10,47 +10,11 @@ import SwiftUI
 struct ShowDetailsHeader: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
 
-    
     var body: some View {
         VStack(spacing: UiConstants.profileHeaderVerticalSpacing) {
             if viewModel.show.loggedInUserIsShowHost {
-                // TODO: Make this a fullscreencover and fix bug where no image results in infinite progressview
-                Button {
-                    viewModel.editImageViewIsShowing.toggle()
-                } label: {
-                    if viewModel.updatedImage == nil {
-                        if let showImageUrl = viewModel.show.imageUrl {
-                            ProfileAsyncImage(url: URL(string: showImageUrl), loadedImage: $viewModel.showImage)
-                        } else {
-                            NoImageView()
-                                .profileImageStyle()
-                        }
-                    } else {
-                        Image(uiImage: viewModel.updatedImage!)
-                            .resizable()
-                            .scaledToFill()
-                            .profileImageStyle()
-                    }
-                }
-                .fullScreenCover(
-                    isPresented: $viewModel.editImageViewIsShowing,
-                    onDismiss: {
-                        Task {
-                            await viewModel.getLatestShowData()
-                        }
-                    },
-                    content: {
-                        NavigationView {
-                            EditImageView(
-                                show: viewModel.show,
-                                image: viewModel.showImage,
-                                updatedImage: $viewModel.updatedImage
-                            )
-                        }
-                    }
-                )
+                ShowImageButton(viewModel: viewModel)
             } else if !viewModel.show.loggedInUserIsShowHost {
-                // Logged in user is not show host
                 if let showImageUrl = viewModel.show.imageUrl {
                     ProfileAsyncImage(url: URL(string: showImageUrl), loadedImage: .constant(viewModel.showImage))
                 } else {

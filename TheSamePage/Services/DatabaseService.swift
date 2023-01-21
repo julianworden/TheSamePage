@@ -292,6 +292,25 @@ class DatabaseService: NSObject {
             )
         }
     }
+
+    /// Deletes a user's profile image in Firebase Storage, and deletes the value in their profileImageUrl property.
+    /// - Parameter user: The user who will have their profile image deleted.
+    func deleteUserProfileImage(forUser user: User) async throws {
+        guard let profileImageUrl = user.profileImageUrl else {
+            throw LogicError.unexpectedNilValue(message: "Profile image delete failed, you don't have a profile image")
+        }
+
+        do {
+            try await deleteImage(at: profileImageUrl)
+
+            try await db
+                .collection(FbConstants.users)
+                .document(user.id)
+                .updateData([FbConstants.profileImageUrl: FieldValue.delete()])
+        } catch {
+            throw FirebaseError.connection(message: "Failed to delete image", systemError: error.localizedDescription)
+        }
+    }
     
     
     // MARK: - Bands
@@ -552,6 +571,25 @@ class DatabaseService: NSObject {
                 message: "Failed to fetch band profile",
                 systemError: error.localizedDescription
             )
+        }
+    }
+
+    /// Deletes a band's profile image in Firebase Storage, and deletes the value in their profileImageUrl property.
+    /// - Parameter band: The band that will have their profile image deleted.
+    func deleteBandImage(forBand band: Band) async throws {
+        guard let profileImageUrl = band.profileImageUrl else {
+            throw LogicError.unexpectedNilValue(message: "Image delete failed, this band doesn't have a profile image")
+        }
+
+        do {
+            try await deleteImage(at: profileImageUrl)
+
+            try await db
+                .collection(FbConstants.bands)
+                .document(band.id)
+                .updateData([FbConstants.profileImageUrl: FieldValue.delete()])
+        } catch {
+            throw FirebaseError.connection(message: "Failed to delete image", systemError: error.localizedDescription)
         }
     }
     
@@ -953,8 +991,28 @@ class DatabaseService: NSObject {
             )
         }
     }
+
+    /// Deletes a show's profile image in Firebase Storage, and deletes the value in their imageUrl property.
+    /// - Parameter show: The show that will have their profile image deleted.
+    func deleteShowImage(forShow show: Show) async throws {
+        guard let showImageUrl = show.imageUrl else {
+            throw LogicError.unexpectedNilValue(message: "Image delete failed, this show doesn't have an image")
+        }
+
+        do {
+            try await deleteImage(at: showImageUrl)
+
+            try await db
+                .collection(FbConstants.shows)
+                .document(show.id)
+                .updateData([FbConstants.imageUrl: FieldValue.delete()])
+        } catch {
+            throw FirebaseError.connection(message: "Failed to delete image", systemError: error.localizedDescription)
+        }
+    }
     
     // MARK: - Chats
+
     /// Fetches the chat that belongs to a given show.
     /// - Parameter showId: The ID of the show that the fetched chat is associated with.
     /// - Returns: The fetched chat associated with the show passed into the showId property. Returns nil if no chat is found for a show.
@@ -1171,11 +1229,16 @@ class DatabaseService: NSObject {
             )
         }
     }
-    
+
+    /// Deletes image from Firebase Storage.
+    ///
+    /// This method only deletes an image from Firebase Storage, it does not delete the value of an
+    /// object's image URL property.
+    /// - Parameter url: The URL of the image that is to be deleted.
     func deleteImage(at url: String) async throws {
         do {
             let storageReference = Storage.storage().reference(forURL: url)
-            
+
             try await storageReference.delete()
         } catch {
             throw FirebaseError.connection(

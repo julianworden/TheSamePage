@@ -29,6 +29,8 @@ final class ShowDetailsViewModel: ObservableObject {
     @Published var chatSheetIsShowing = false
     @Published var showApplicationSheetIsShowing = false
     @Published var addMyBandToShowSheetIsShowing = false
+    @Published var editImageConfirmationDialogIsShowing = false
+    @Published var deleteImageConfirmationAlertIsShowing = false
 
     /// The image loaded from the ProfileAsyncImage
     @Published var showImage: Image?
@@ -113,34 +115,6 @@ final class ShowDetailsViewModel: ObservableObject {
         await getBacklineItems()
         viewState = .dataLoaded
     }
-
-    func timeForShowExists(showTimeType: ShowTimeType) -> Bool {
-        switch showTimeType {
-        case .loadIn:
-            guard show.loadInTime != nil else {
-                return false
-            }
-            return true
-
-        case .musicStart:
-            guard show.musicStartTime != nil else {
-                return false
-            }
-            return true
-
-        case .end:
-            guard show.endTime != nil else {
-                return false
-            }
-            return true
-
-        case .doors:
-            guard show.doorsTime != nil else {
-                return false
-            }
-            return true
-        }
-    }
     
     func getLatestShowData() async {
         do {
@@ -197,6 +171,44 @@ final class ShowDetailsViewModel: ObservableObject {
             }
         } catch {
             viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func deleteShowImage() async {
+        do {
+            try await DatabaseService.shared.deleteShowImage(forShow: show)
+            showImage = nil
+            updatedImage = nil
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func timeForShowExists(showTimeType: ShowTimeType) -> Bool {
+        switch showTimeType {
+        case .loadIn:
+            guard show.loadInTime != nil else {
+                return false
+            }
+            return true
+
+        case .musicStart:
+            guard show.musicStartTime != nil else {
+                return false
+            }
+            return true
+
+        case .end:
+            guard show.endTime != nil else {
+                return false
+            }
+            return true
+
+        case .doors:
+            guard show.doorsTime != nil else {
+                return false
+            }
+            return true
         }
     }
 

@@ -14,41 +14,7 @@ struct BandProfileHeader: View {
         if let band = viewModel.band {
             VStack(spacing: UiConstants.profileHeaderVerticalSpacing) {
                 if band.loggedInUserIsBandAdmin {
-                    // TODO: Make this a fullscreen cover instead and fix bug where no image results in infinite progressview
-                    Button {
-                        viewModel.editImageViewIsShowing.toggle()
-                    } label: {
-                        if viewModel.updatedImage == nil {
-                            if let bandImage = band.profileImageUrl {
-                                ProfileAsyncImage(url: URL(string: bandImage), loadedImage: $viewModel.bandImage)
-                            } else {
-                                NoImageView()
-                                    .profileImageStyle()
-                            }
-                        } else {
-                            Image(uiImage: viewModel.updatedImage!)
-                                .resizable()
-                                .scaledToFill()
-                                .profileImageStyle()
-                        }
-                    }
-                    .fullScreenCover(
-                        isPresented: $viewModel.editImageViewIsShowing,
-                        onDismiss: {
-                            Task {
-                                await viewModel.getLatestBandData()
-                            }
-                        },
-                        content: {
-                            NavigationView {
-                                EditImageView(
-                                    band: band,
-                                    image: viewModel.bandImage,
-                                    updatedImage: $viewModel.updatedImage
-                                )
-                            }
-                        }
-                    )
+                    BandProfileImageButton(viewModel: viewModel)
                 } else if !band.loggedInUserIsBandAdmin {
                     if let bandImage = band.profileImageUrl {
                         ProfileAsyncImage(url: URL(string: bandImage), loadedImage: .constant(viewModel.bandImage))

@@ -13,15 +13,20 @@ import XCTest
 final class BandProfileViewModelTests: XCTestCase {
     var sut: BandProfileViewModel!
     var testingDatabaseService: TestingDatabaseService!
+    var createdBandId: String?
     let exampleBandPatheticFallacy = TestingConstants.exampleBandPatheticFallacy
     let exampleShowParticipantPatheticFallacy = TestingConstants.exampleShowParticipantPatheticFallacyInDumpweedExtravaganza
 
     override func setUp() async throws {
         testingDatabaseService = TestingDatabaseService()
-        try await testingDatabaseService.logInToJulianAccount()
     }
 
-    override func tearDownWithError() throws {
+    override func tearDown() async throws {
+        if let createdBandId {
+            try await testingDatabaseService.deleteBand(with: createdBandId)
+            self.createdBandId = nil
+        }
+
         try testingDatabaseService.logOut()
         sut = nil
         testingDatabaseService = nil
@@ -47,6 +52,7 @@ final class BandProfileViewModelTests: XCTestCase {
     }
 
     func test_OnInitWithShowParticipant_DefaultValuesAreCorrect() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         sut = BandProfileViewModel(showParticipant: exampleShowParticipantPatheticFallacy)
         try await Task.sleep(seconds: 0.5)
 
@@ -92,7 +98,8 @@ final class BandProfileViewModelTests: XCTestCase {
         XCTAssertTrue(sut.errorAlertIsShowing)
     }
 
-    func test_OnCallOnAppearMethods_AllBandDataIsFetched() async {
+    func test_OnCallOnAppearMethods_AllBandDataIsFetched() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         sut = BandProfileViewModel(band: exampleBandPatheticFallacy)
 
         await sut.callOnAppearMethods()
@@ -108,6 +115,7 @@ final class BandProfileViewModelTests: XCTestCase {
     }
 
     func test_OnGetLatestBandData_UpdatedBandIsFetched() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         sut = BandProfileViewModel(band: exampleBandPatheticFallacy)
         try await testingDatabaseService.updateBandName(bandId: exampleBandPatheticFallacy.id, newName: "Path Fall")
 
@@ -119,5 +127,27 @@ final class BandProfileViewModelTests: XCTestCase {
             bandId: exampleBandPatheticFallacy.id,
             newName: exampleBandPatheticFallacy.name
         )
+    }
+
+    func test_OnDeleteBandImage_BandImageIsDeleted() async throws {
+        try await testingDatabaseService.logInToEricAccount()
+        var exampleBand = TestingConstants.exampleBandForIntegrationTesting
+        self.createdBandId = try await testingDatabaseService.createBandWithProfileImage(exampleBand)
+        exampleBand.id = createdBandId!
+        let createdBandWithProfileImageUrl = try await testingDatabaseService.getBand(withId: exampleBand.id)
+        exampleBand.profileImageUrl = createdBandWithProfileImageUrl.profileImageUrl
+        sut = BandProfileViewModel(band: exampleBand)
+
+        await sut.deleteBandImage()
+        let createdBandWithNoProfileImage = try await testingDatabaseService.getBand(withId: exampleBand.id)
+
+        do {
+            _ = try await testingDatabaseService.imageExists(at: exampleBand.profileImageUrl!)
+            XCTFail("The image shouldn't exist, so this method should've thrown an error")
+        } catch {
+            XCTAssertNotNil(error, "An error should've been thrown")
+        }
+
+        XCTAssertNil(createdBandWithNoProfileImage.profileImageUrl, "The band should no longer have a profileImageUrl property")
     }
 }
