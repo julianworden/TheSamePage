@@ -1010,6 +1010,46 @@ class DatabaseService: NSObject {
             throw FirebaseError.connection(message: "Failed to delete image", systemError: error.localizedDescription)
         }
     }
+
+    func deleteBacklineItem(delete backlineItem: BacklineItem, inShowWithId showId: String) async throws {
+        guard let backlineItemId = backlineItem.id else {
+            throw LogicError.unexpectedNilValue(message: "Failed to delete backline item, please try again.")
+        }
+
+        do {
+            try await db
+                .collection(FbConstants.shows)
+                .document(showId)
+                .collection(FbConstants.backlineItems)
+                .document(backlineItemId)
+                .delete()
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to delete backline item",
+                systemError: error.localizedDescription
+            )
+        }
+    }
+
+    func deleteDrumKitBacklineItem(delete drumKitBacklineItem: DrumKitBacklineItem, inShowWithId showId: String) async throws {
+        guard let drumKitBacklineItemId = drumKitBacklineItem.id else {
+            throw LogicError.unexpectedNilValue(message: "Failed to delete backline item, please try again.")
+        }
+
+        do {
+            try await db
+                .collection(FbConstants.shows)
+                .document(showId)
+                .collection(FbConstants.backlineItems)
+                .document(drumKitBacklineItemId)
+                .delete()
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to delete backline item",
+                systemError: error.localizedDescription
+            )
+        }
+    }
     
     // MARK: - Chats
 

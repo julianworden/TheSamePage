@@ -52,7 +52,7 @@ final class BandProfileViewModelTests: XCTestCase {
     }
 
     func test_OnInitWithShowParticipant_DefaultValuesAreCorrect() async throws {
-        try await testingDatabaseService.logInToJulianAccount()
+            try await testingDatabaseService.logInToJulianAccount()
         sut = BandProfileViewModel(showParticipant: exampleShowParticipantPatheticFallacy)
         try await Task.sleep(seconds: 0.5)
 

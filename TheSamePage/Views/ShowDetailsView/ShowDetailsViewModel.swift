@@ -31,6 +31,8 @@ final class ShowDetailsViewModel: ObservableObject {
     @Published var addMyBandToShowSheetIsShowing = false
     @Published var editImageConfirmationDialogIsShowing = false
     @Published var deleteImageConfirmationAlertIsShowing = false
+    @Published var deleteBacklineItemConfirmationAlertIsShowing = false
+    @Published var deleteDrumKitBacklineItemConfirmationAlertIsShowing = false
 
     /// The image loaded from the ProfileAsyncImage
     @Published var showImage: Image?
@@ -265,6 +267,22 @@ final class ShowDetailsViewModel: ObservableObject {
         percussionBacklineItems = []
         bassGuitarBacklineItems = []
         electricGuitarBacklineItems = []
+    }
+
+    func deleteBacklineItem(_ backlineItem: BacklineItem) async {
+        do {
+            try await DatabaseService.shared.deleteBacklineItem(delete: backlineItem, inShowWithId: show.id)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func deleteDrumKitBacklineItem(_ drumKitBacklineItem: DrumKitBacklineItem) async {
+        do {
+            try await DatabaseService.shared.deleteDrumKitBacklineItem(delete: drumKitBacklineItem, inShowWithId: show.id)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
     }
     
     func showDirectionsInMaps() {

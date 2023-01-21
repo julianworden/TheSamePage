@@ -32,7 +32,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "658"
                   endingLineNumber = "658"
-                  offsetFromSymbolStart = "96">
+                  offsetFromSymbolStart = "240">
                </Location>
                <Location
                   uuid = "43B61CF7-C3D9-44D8-8CAB-B2205080BEBF - 10570c9045265837"
@@ -47,7 +47,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "658"
                   endingLineNumber = "658"
-                  offsetFromSymbolStart = "900">
+                  offsetFromSymbolStart = "1412">
                </Location>
                <Location
                   uuid = "43B61CF7-C3D9-44D8-8CAB-B2205080BEBF - c81ea45263de636"
@@ -62,7 +62,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "658"
                   endingLineNumber = "658"
-                  offsetFromSymbolStart = "96">
+                  offsetFromSymbolStart = "80">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -99,7 +99,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "944B4AFB-4FA3-497E-9115-A5192F152A34 - 1abb5e7f1eef83bd"
+                  uuid = "944B4AFB-4FA3-497E-9115-A5192F152A34 - 1abb5e7f1eef8392"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -109,12 +109,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Services/TestingDatabaseService.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "662"
-                  endingLineNumber = "662"
-                  offsetFromSymbolStart = "276">
+                  startingLineNumber = "661"
+                  endingLineNumber = "661"
+                  offsetFromSymbolStart = "804">
                </Location>
                <Location
-                  uuid = "944B4AFB-4FA3-497E-9115-A5192F152A34 - 9dc83ea690a84076"
+                  uuid = "944B4AFB-4FA3-497E-9115-A5192F152A34 - 9dc83ea690a85fdd"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -124,12 +124,57 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Services/TestingDatabaseService.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "662"
-                  endingLineNumber = "662"
-                  offsetFromSymbolStart = "44">
+                  startingLineNumber = "657"
+                  endingLineNumber = "657"
+                  offsetFromSymbolStart = "40">
                </Location>
                <Location
-                  uuid = "944B4AFB-4FA3-497E-9115-A5192F152A34 - c81ea45263de636"
+                  uuid = "944B4AFB-4FA3-497E-9115-A5192F152A34 - 9dc83ea690a84059"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for TheSamePage.TestingDatabaseService.imageExists(at: Swift.Optional&lt;Swift.String&gt;) async throws -&gt; Swift.Bool"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Services/TestingDatabaseService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "661"
+                  endingLineNumber = "661"
+                  offsetFromSymbolStart = "164">
+               </Location>
+               <Location
+                  uuid = "944B4AFB-4FA3-497E-9115-A5192F152A34 - 10570c9045265810"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for TheSamePage.TestingDatabaseService.imageExists(at: Swift.Optional&lt;Swift.String&gt;) async throws -&gt; Swift.Bool"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Services/TestingDatabaseService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "657"
+                  endingLineNumber = "657"
+                  offsetFromSymbolStart = "72">
+               </Location>
+               <Location
+                  uuid = "944B4AFB-4FA3-497E-9115-A5192F152A34 - 10570c9045264794"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for TheSamePage.TestingDatabaseService.imageExists(at: Swift.Optional&lt;Swift.String&gt;) async throws -&gt; Swift.Bool"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Services/TestingDatabaseService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "661"
+                  endingLineNumber = "661"
+                  offsetFromSymbolStart = "128">
+               </Location>
+               <Location
+                  uuid = "944B4AFB-4FA3-497E-9115-A5192F152A34 - c81ea45263de611"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -139,12 +184,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Services/TestingDatabaseService.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "658"
-                  endingLineNumber = "658"
-                  offsetFromSymbolStart = "96">
+                  startingLineNumber = "657"
+                  endingLineNumber = "657"
+                  offsetFromSymbolStart = "32">
                </Location>
                <Location
-                  uuid = "944B4AFB-4FA3-497E-9115-A5192F152A34 - c81ea45263df9ba"
+                  uuid = "944B4AFB-4FA3-497E-9115-A5192F152A34 - c81ea45263df995"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -154,11 +199,43 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Services/TestingDatabaseService.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "662"
-                  endingLineNumber = "662"
-                  offsetFromSymbolStart = "120">
+                  startingLineNumber = "661"
+                  endingLineNumber = "661"
+                  offsetFromSymbolStart = "180">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6F46A8A4-6891-4C6F-9381-E82F19D99F7E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "getBacklineItems()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "80EC800C-4E47-47A8-8372-85FE51730207"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
+            landmarkName = "getBacklineItems()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

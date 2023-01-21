@@ -271,7 +271,6 @@ final class ShowDetailsViewModelTests: XCTestCase {
         XCTAssertNil(createdShowWithNoProfileImage.imageUrl, "The show should no longer have a imageUrl property")
     }
 
-
     func test_OnRemoveShowTimeFromShow_ShowTimesAreRemovedFromShow() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         sut = ShowDetailsViewModel(show: dumpweedExtravaganza)

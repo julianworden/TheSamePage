@@ -13,11 +13,23 @@ struct PercussionBacklineList: View {
     var body: some View {
         VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(viewModel.drumKitBacklineItems) { drumKitBacklineItem in
-                ShowBacklineRow(title: "Drum Kit", subtitle: "\(drumKitBacklineItem.details). \(drumKitBacklineItem.notes ?? "")", iconName: "drums")
+                ShowBacklineRow(
+                    viewModel: viewModel,
+                    drumKitBacklineItem: drumKitBacklineItem,
+                    title: "Drum Kit",
+                    subtitle: "\(drumKitBacklineItem.details). \(drumKitBacklineItem.notes ?? "")",
+                    iconName: "drums"
+                )
             }
             
             ForEach(viewModel.percussionBacklineItems) { percussionBacklineItem in
-                ShowBacklineRow(title: percussionBacklineItem.name, subtitle: percussionBacklineItem.notes, iconName: "drums")
+                ShowBacklineRow(
+                    viewModel: viewModel,
+                    backlineItem: percussionBacklineItem,
+                    title: percussionBacklineItem.name,
+                    subtitle: percussionBacklineItem.notes,
+                    iconName: "drums"
+                )
             }
         }
     }

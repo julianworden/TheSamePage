@@ -31,6 +31,10 @@ struct DrumKitBacklineItem: Codable, Equatable, Identifiable {
         return "\(kickIncluded ? "Kick" : ""), \(snareIncluded ? "Snare" : ""), \(tomsIncluded ? "\(numberOfTomsIncluded ?? 2) toms" : ""), \(hiHatIncluded ? "Hi-Hat" : ""), \(cymbalsIncluded ? "\(numberOfCymbalsIncluded ?? 2) cymbals" : ""), \(cymbalStandsIncluded ? "\(numberOfCymbalStandsIncluded ?? 2) cymbal stands" : "")"
     }
 
+    var loggedInUserIsBackliner: Bool {
+        return backlinerUid == AuthController.getLoggedInUid()
+    }
+
     init(
         id: String? = nil,
         backlinerUid: String,

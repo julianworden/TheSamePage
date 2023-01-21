@@ -13,7 +13,13 @@ struct ElectricGuitarBacklineList: View {
     var body: some View {
         VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(viewModel.electricGuitarBacklineItems) { electricGuitarBacklineItem in
-                ShowBacklineRow(title: electricGuitarBacklineItem.name, subtitle: electricGuitarBacklineItem.notes, iconName: "guitar")
+                ShowBacklineRow(
+                    viewModel: viewModel,
+                    backlineItem: electricGuitarBacklineItem,
+                    title: electricGuitarBacklineItem.name,
+                    subtitle: electricGuitarBacklineItem.notes,
+                    iconName: "guitar"
+                )
             }
         }
     }

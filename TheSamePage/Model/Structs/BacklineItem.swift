@@ -33,4 +33,8 @@ struct BacklineItem: Codable, Equatable, Hashable, Identifiable {
         self.name = name
         self.notes = notes
     }
+
+    var loggedInUserIsBackliner: Bool {
+        return backlinerUid == AuthController.getLoggedInUid()
+    }
 }
