@@ -21,8 +21,7 @@ struct ShowBacklineRow: View {
             ListRowElements(
                 title: title,
                 subtitle: subtitle,
-                iconName: iconName,
-                displayDivider: true
+                iconName: iconName
             )
 
             Spacer()

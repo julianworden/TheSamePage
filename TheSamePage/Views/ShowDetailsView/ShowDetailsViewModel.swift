@@ -33,6 +33,7 @@ final class ShowDetailsViewModel: ObservableObject {
     @Published var deleteImageConfirmationAlertIsShowing = false
     @Published var deleteBacklineItemConfirmationAlertIsShowing = false
     @Published var deleteDrumKitBacklineItemConfirmationAlertIsShowing = false
+    @Published var bandProfileSheetIsShowing = false
 
     /// The image loaded from the ProfileAsyncImage
     @Published var showImage: Image?
@@ -58,6 +59,7 @@ final class ShowDetailsViewModel: ObservableObject {
             }
         }
     }
+    let isPresentedModally: Bool
     
     var showSlotsRemainingMessage: String {
         let slotsRemainingCount = show.maxNumberOfBands - showParticipants.count
@@ -107,8 +109,9 @@ final class ShowDetailsViewModel: ObservableObject {
         }
     }
     
-    init(show: Show) {
+    init(show: Show, isPresentedModally: Bool = false) {
         self.show = show
+        self.isPresentedModally = isPresentedModally
     }
 
     func callOnAppearMethods() async {

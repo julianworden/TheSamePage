@@ -20,7 +20,6 @@ struct LoggedInUserBandRow: View {
                 title: band.name,
                 subtitle: "\(band.city), \(band.state)",
                 iconName: "band",
-                displayChevron: true,
                 displayDivider: true
             )
         }

@@ -9,19 +9,24 @@ import SwiftUI
 
 struct LoggedInUserBandList: View {
     @EnvironmentObject var loggedInUserController: LoggedInUserController
+
+    @State private var bandProfileViewIsShowing = false
     
     var body: some View {
         VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(Array(loggedInUserController.bands.enumerated()), id: \.element) { index, band in
-                NavigationLink {
-                    BandProfileView(band: band)
-                    // Necessary because the view will assume .large and then shift the view awkwardly otherwise
-                    .navigationBarTitleDisplayMode(.inline)
+                Button {
+                    bandProfileViewIsShowing.toggle()
                 } label: {
                     LoggedInUserBandRow(index: index)
                 }
                 .tint(.primary)
                 .padding(.horizontal)
+                .fullScreenCover(isPresented: $bandProfileViewIsShowing) {
+                    NavigationView {
+                        BandProfileView(band: band, isPresentedModally: true)
+                    }
+                }
             }
             .animation(.easeInOut, value: loggedInUserController.bands)
         }

@@ -7,15 +7,13 @@
 
 import SwiftUI
 
-// TODO: Allow for the band admin to add their own bands to any of their hosted shows
-
 struct BandProfileView: View {
     @Environment(\.dismiss) var dismiss
     
     @StateObject var viewModel: BandProfileViewModel
 
-    init(band: Band? = nil, showParticipant: ShowParticipant? = nil) {
-        _viewModel = StateObject(wrappedValue: BandProfileViewModel(band: band, showParticipant: showParticipant))
+    init(band: Band? = nil, showParticipant: ShowParticipant? = nil, isPresentedModally: Bool = false) {
+        _viewModel = StateObject(wrappedValue: BandProfileViewModel(band: band, showParticipant: showParticipant, isPresentedModally: isPresentedModally))
     }
     
     var body: some View {
@@ -111,6 +109,15 @@ struct BandProfileView: View {
         }
         .navigationTitle("Band Profile")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                if viewModel.isPresentedModally {
+                    Button("Back", role: .cancel) {
+                        dismiss()
+                    }
+                }
+            }
+        }
         .errorAlert(
             isPresented: $viewModel.errorAlertIsShowing,
             message: viewModel.errorAlertText,

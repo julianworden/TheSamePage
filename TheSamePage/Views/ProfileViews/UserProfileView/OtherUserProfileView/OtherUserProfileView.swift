@@ -13,8 +13,8 @@ struct OtherUserProfileView: View {
     
     @StateObject var viewModel: OtherUserProfileViewModel
     
-    init(user: User?, bandMember: BandMember? = nil) {
-        _viewModel = StateObject(wrappedValue: OtherUserProfileViewModel(user: user, bandMember: bandMember))
+    init(user: User?, bandMember: BandMember? = nil, isPresentedModally: Bool = false) {
+        _viewModel = StateObject(wrappedValue: OtherUserProfileViewModel(user: user, bandMember: bandMember, isPresentedModally: isPresentedModally))
     }
     
     var body: some View {
@@ -69,6 +69,15 @@ struct OtherUserProfileView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                if viewModel.isPresentedModally {
+                    Button("Back", role: .cancel) {
+                        dismiss()
+                    }
+                }
+            }
+        }
         .errorAlert(
             isPresented: $viewModel.errorAlertIsShowing,
             message: viewModel.errorAlertText,
@@ -76,9 +85,6 @@ struct OtherUserProfileView: View {
                 dismiss()
             }
         )
-        .task {
-
-        }
     }
 }
 

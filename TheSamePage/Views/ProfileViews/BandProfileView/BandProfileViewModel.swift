@@ -26,6 +26,8 @@ class BandProfileViewModel: ObservableObject {
     @Published var addEditBandSheetIsShowing = false
     @Published var editImageConfirmationDialogIsShowing = false
     @Published var deleteImageConfirmationAlertIsShowing = false
+    @Published var bandMemberSheetIsShowing = false
+    @Published var showDetailsViewIsShowing = false
 
     @Published var bandImage: Image?
     @Published var updatedImage: UIImage?
@@ -47,11 +49,14 @@ class BandProfileViewModel: ObservableObject {
             }
         }
     }
+    let isPresentedModally: Bool
     
     let db = Firestore.firestore()
     var bandListener: ListenerRegistration?
     
-    init(band: Band? = nil, showParticipant: ShowParticipant? = nil) {
+    init(band: Band? = nil, showParticipant: ShowParticipant? = nil, isPresentedModally: Bool = false) {
+        self.isPresentedModally = isPresentedModally
+
         if let band {
             self.band = band
             viewState = .dataLoaded

@@ -13,15 +13,18 @@ struct OtherUserBandList: View {
     var body: some View {
         VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(Array(viewModel.bands.enumerated()), id: \.element) { index, band in
-                NavigationLink {
-                    BandProfileView(band: band)
-                        // Necessary because the view will assume .large and then shift the view awkwardly otherwise
-                        .navigationBarTitleDisplayMode(.inline)
+                Button {
+                    viewModel.bandProfileViewIsShowing.toggle()
                 } label: {
                     OtherUserBandRow(viewModel: viewModel, index: index)
                 }
                 .tint(.primary)
                 .padding(.horizontal)
+                .fullScreenCover(isPresented: $viewModel.bandProfileViewIsShowing) {
+                    NavigationView {
+                        BandProfileView(band: band, isPresentedModally: true)
+                    }
+                }
             }
             .animation(.easeInOut, value: viewModel.bands)
         }

@@ -24,19 +24,21 @@ struct ShowTimeRow: View {
                 
                 Spacer()
 
-                if viewModel.timeForShowExists(showTimeType: showTimeType) {
-                    Button(role: .destructive) {
-                        Task {
-                            await viewModel.removeShowTimeFromShow(showTimeType: showTimeType)
+                if viewModel.show.loggedInUserIsShowHost {
+                    if viewModel.timeForShowExists(showTimeType: showTimeType) {
+                        Button(role: .destructive) {
+                            Task {
+                                await viewModel.removeShowTimeFromShow(showTimeType: showTimeType)
+                            }
+                        } label: {
+                            Image(systemName: "trash")
                         }
-                    } label: {
-                        Image(systemName: "trash")
-                    }
-                } else {
-                    Button {
-                        selectedShowTimeType = showTimeType
-                    } label: {
-                        Image(systemName: "plus")
+                    } else {
+                        Button {
+                            selectedShowTimeType = showTimeType
+                        } label: {
+                            Image(systemName: "plus")
+                        }
                     }
                 }
             }

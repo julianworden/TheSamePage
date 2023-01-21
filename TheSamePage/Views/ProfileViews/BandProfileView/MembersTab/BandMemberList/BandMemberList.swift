@@ -14,8 +14,8 @@ struct BandMemberList: View {
         VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(Array(viewModel.bandMembers.enumerated()), id: \.element) { index, bandMember in
                 if !bandMember.bandMemberIsLoggedInUser {
-                    NavigationLink {
-                        OtherUserProfileView(user: nil, bandMember: bandMember)
+                    Button {
+                        viewModel.bandMemberSheetIsShowing.toggle()
                     } label: {
                         BandMemberListRow(
                             viewModel: viewModel,
@@ -23,6 +23,11 @@ struct BandMemberList: View {
                         )
                     }
                     .tint(.primary)
+                    .fullScreenCover(isPresented: $viewModel.bandMemberSheetIsShowing) {
+                        NavigationView {
+                            OtherUserProfileView(user: nil, bandMember: bandMember, isPresentedModally: true)
+                        }
+                    }
                 } else {
                     BandMemberListRow(
                         viewModel: viewModel,

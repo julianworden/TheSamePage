@@ -18,7 +18,6 @@ struct ShowLineupRow: View {
         ListRowElements(
             title: showParticipant.name,
             iconName: "band",
-            displayChevron: true,
             displayDivider: true
         )
     }

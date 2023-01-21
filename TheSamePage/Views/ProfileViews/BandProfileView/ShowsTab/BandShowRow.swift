@@ -19,7 +19,6 @@ struct BandShowRow: View {
             title: show.name,
             subtitle: "At \(show.venue) on \(show.formattedDate)",
             iconName: "stage",
-            displayChevron: true,
             displayDivider: true
         )
         .foregroundColor(show.date.unixDateAsDate < Date.now ? .secondary : .primary)

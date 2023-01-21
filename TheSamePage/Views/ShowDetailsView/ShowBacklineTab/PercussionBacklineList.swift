@@ -20,6 +20,8 @@ struct PercussionBacklineList: View {
                     subtitle: "\(drumKitBacklineItem.details). \(drumKitBacklineItem.notes ?? "")",
                     iconName: "drums"
                 )
+
+                Divider()
             }
             
             ForEach(viewModel.percussionBacklineItems) { percussionBacklineItem in
@@ -30,6 +32,8 @@ struct PercussionBacklineList: View {
                     subtitle: percussionBacklineItem.notes,
                     iconName: "drums"
                 )
+
+                Divider()
             }
         }
     }

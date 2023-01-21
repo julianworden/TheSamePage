@@ -13,10 +13,15 @@ struct BandShowsList: View {
     var body: some View {
         VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(Array(viewModel.bandShows.enumerated()), id: \.element) { index, show in
-                NavigationLink {
-                    ShowDetailsView(show: show)
+                Button {
+                    viewModel.showDetailsViewIsShowing.toggle()
                 } label: {
                     BandShowRow(viewModel: viewModel, index: index)
+                }
+                .fullScreenCover(isPresented: $viewModel.showDetailsViewIsShowing) {
+                    NavigationView {
+                        ShowDetailsView(show: show, isPresentedModally: true)
+                    }
                 }
             }
         }

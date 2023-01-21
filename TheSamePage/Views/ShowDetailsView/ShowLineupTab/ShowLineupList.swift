@@ -13,12 +13,17 @@ struct ShowLineupList: View {
     var body: some View {
         VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(Array(viewModel.showParticipants.enumerated()), id: \.element) { index, showParticipant in
-                NavigationLink {
-                    BandProfileView(showParticipant: showParticipant)
+                Button {
+                    viewModel.bandProfileSheetIsShowing.toggle()
                 } label: {                        
                     ShowLineupRow(viewModel: viewModel, index: index)
                 }
                 .tint(.primary)
+                .fullScreenCover(isPresented: $viewModel.bandProfileSheetIsShowing) {
+                    NavigationView {
+                        BandProfileView(showParticipant: showParticipant, isPresentedModally: true)
+                    }
+                }
             }
         }
     }

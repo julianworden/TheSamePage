@@ -18,6 +18,7 @@ final class OtherUserProfileViewModel: ObservableObject {
     @Published var bands = [Band]()
 
     @Published var sendBandInviteViewIsShowing = false
+    @Published var bandProfileViewIsShowing = false
     
     @Published var errorAlertIsShowing = false
     var errorAlertText = ""
@@ -36,8 +37,11 @@ final class OtherUserProfileViewModel: ObservableObject {
             }
         }
     }
+    let isPresentedModally: Bool
     
-    init(user: User?, bandMember: BandMember? = nil) {
+    init(user: User?, bandMember: BandMember? = nil, isPresentedModally: Bool = false) {
+        self.isPresentedModally = isPresentedModally
+        
         Task {
             if let user {
                 await initializeUser(user: user)

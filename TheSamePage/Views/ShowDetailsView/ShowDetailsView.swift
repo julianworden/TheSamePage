@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct ShowDetailsView: View {
+    @Environment(\.dismiss) var dismiss
+
     @StateObject var viewModel: ShowDetailsViewModel
         
-    init(show: Show) {
-        _viewModel = StateObject(wrappedValue: ShowDetailsViewModel(show: show))
+    init(show: Show, isPresentedModally: Bool = false) {
+        _viewModel = StateObject(wrappedValue: ShowDetailsViewModel(show: show, isPresentedModally: isPresentedModally))
     }
     
     var body: some View {
@@ -64,6 +66,14 @@ struct ShowDetailsView: View {
         .navigationTitle("Show Details")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                if viewModel.isPresentedModally {
+                    Button("Back", role: .cancel) {
+                        dismiss()
+                    }
+                }
+            }
+
             ToolbarItem(placement: .navigationBarTrailing) {
                 if viewModel.show.loggedInUserIsInvolvedInShow {
                     Button {

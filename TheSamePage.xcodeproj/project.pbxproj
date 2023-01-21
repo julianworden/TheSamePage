@@ -138,7 +138,6 @@
 		ABA1020728DDE5BE00A4E818 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020628DDE5BE00A4E818 /* NotificationsViewModel.swift */; };
 		ABA1020928DDF3C000A4E818 /* NotificationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020828DDF3C000A4E818 /* NotificationRow.swift */; };
 		ABA1020D28DDFD6900A4E818 /* BandMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1020C28DDFD6900A4E818 /* BandMember.swift */; };
-		ABA1DDCC28F9A35700E7A72E /* AddShowTimeButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1DDCB28F9A35700E7A72E /* AddShowTimeButtons.swift */; };
 		ABA1DDCE28F9B2AC00E7A72E /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA1DDCD28F9B2AC00E7A72E /* ViewState.swift */; };
 		ABA42BC3292D176600ADE3AD /* Notification.Name+CustomNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA42BC2292D176600ADE3AD /* Notification.Name+CustomNotifications.swift */; };
 		ABA42BC5292D1E3400ADE3AD /* AddEditShowAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA42BC4292D1E3400ADE3AD /* AddEditShowAddressViewModel.swift */; };
@@ -374,7 +373,6 @@
 		ABA1020628DDE5BE00A4E818 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
 		ABA1020828DDF3C000A4E818 /* NotificationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRow.swift; sourceTree = "<group>"; };
 		ABA1020C28DDFD6900A4E818 /* BandMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMember.swift; sourceTree = "<group>"; };
-		ABA1DDCB28F9A35700E7A72E /* AddShowTimeButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShowTimeButtons.swift; sourceTree = "<group>"; };
 		ABA1DDCD28F9B2AC00E7A72E /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
 		ABA42BC2292D176600ADE3AD /* Notification.Name+CustomNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+CustomNotifications.swift"; sourceTree = "<group>"; };
 		ABA42BC4292D1E3400ADE3AD /* AddEditShowAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowAddressViewModel.swift; sourceTree = "<group>"; };
@@ -536,7 +534,6 @@
 				AB285AF928F6F76200EB5F2B /* ShowTimeTab.swift */,
 				AB285AFB28F6F7EE00EB5F2B /* ShowTimeList.swift */,
 				AB6514DE28F911EB008DFDD0 /* ShowTimeRow.swift */,
-				ABA1DDCB28F9A35700E7A72E /* AddShowTimeButtons.swift */,
 				AB6514E328F91250008DFDD0 /* AddShowTimeView */,
 			);
 			path = ShowTimeTab;
@@ -1468,7 +1465,6 @@
 				ABF1C40628ECE83F0004A3C1 /* TypesenseController.swift in Sources */,
 				AB668EB7291C0180007899A9 /* BandAboutTab.swift in Sources */,
 				AB8627C1292687FC001537D9 /* ErrorMessageConstants.swift in Sources */,
-				ABA1DDCC28F9A35700E7A72E /* AddShowTimeButtons.swift in Sources */,
 				ABADC999292529F90049ABAA /* Task+sleepInSeconds.swift in Sources */,
 				AB5054A728DC91CF00321380 /* MemberSearchView.swift in Sources */,
 				AB285AFA28F6F76200EB5F2B /* ShowTimeTab.swift in Sources */,

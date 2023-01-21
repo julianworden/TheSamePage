@@ -20,7 +20,6 @@ struct BandMemberListRow: View {
                 title: bandMember.bandMemberIsLoggedInUser ? "You" : bandMember.fullName,
                 subtitle: bandMember.role,
                 iconName: bandMember.listRowIconName,
-                displayChevron: !bandMember.bandMemberIsLoggedInUser,
                 displayDivider: true
             )
         }

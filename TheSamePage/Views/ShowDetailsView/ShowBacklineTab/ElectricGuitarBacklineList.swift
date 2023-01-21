@@ -20,6 +20,8 @@ struct ElectricGuitarBacklineList: View {
                     subtitle: electricGuitarBacklineItem.notes,
                     iconName: "guitar"
                 )
+
+                Divider()
             }
         }
     }

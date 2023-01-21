@@ -18,9 +18,13 @@ struct ShowTimeList: View {
         
         VStack(spacing: UiConstants.listRowSpacing) {
             ShowTimeRow(viewModel: viewModel, selectedShowTimeType: $selectedShowTimeType, showTimeType: .loadIn)
+            Divider()
             ShowTimeRow(viewModel: viewModel, selectedShowTimeType: $selectedShowTimeType, showTimeType: .doors)
+            Divider()
             ShowTimeRow(viewModel: viewModel, selectedShowTimeType: $selectedShowTimeType, showTimeType: .musicStart)
+            Divider()
             ShowTimeRow(viewModel: viewModel, selectedShowTimeType: $selectedShowTimeType, showTimeType: .end)
+            Divider()
         }
         .sheet(
             item: $selectedShowTimeType,
