@@ -76,18 +76,14 @@ struct ShowDetailsView: View {
 
             ToolbarItem(placement: .navigationBarTrailing) {
                 if viewModel.show.loggedInUserIsInvolvedInShow {
-                    Button {
-                        viewModel.chatSheetIsShowing.toggle()
+                    // TODO: Make this a NavigationLink instead
+                    NavigationLink {
+                        ConversationView(
+                            show: viewModel.show,
+                            showParticipants: viewModel.showParticipants
+                        )
                     } label: {
                         Image(systemName: "bubble.right")
-                    }
-                    .fullScreenCover(isPresented: $viewModel.chatSheetIsShowing) {
-                        NavigationView {
-                            ConversationView(
-                                show: viewModel.show,
-                                showParticipants: viewModel.showParticipants
-                            )
-                        }
                     }
                 } else if viewModel.show.loggedInUserIsNotInvolvedInShow {
                     Button {
@@ -106,24 +102,12 @@ struct ShowDetailsView: View {
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 if viewModel.show.loggedInUserIsShowHost {
-                    Button {
-                        viewModel.showSettingsSheetIsShowing.toggle()
+                    // TODO: Make this a NavigationLink instead
+                    NavigationLink {
+                        ShowSettingsView(show: viewModel.show)
                     } label: {
                         Image(systemName: "gear")
                     }
-                    .fullScreenCover(
-                        isPresented: $viewModel.showSettingsSheetIsShowing,
-                        onDismiss: {
-                            Task {
-                                await viewModel.getLatestShowData()
-                            }
-                        },
-                        content: {
-                            NavigationView {
-                                ShowSettingsView(show: viewModel.show)
-                            }
-                        }
-                    )
                 }
             }
         }

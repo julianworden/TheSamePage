@@ -14,6 +14,7 @@ final class ShowDetailsViewModelTests: XCTestCase {
     var sut: ShowDetailsViewModel!
     var testingDatabaseService: TestingDatabaseService!
     var createdShowId: String?
+    let craigAndTheFettuccinis = TestingConstants.exampleBandCraigAndTheFettuccinis
     let dumpweedExtravaganza = TestingConstants.exampleShowDumpweedExtravaganza
     let showParticipantDumpweed = TestingConstants.exampleShowParticipantDumpweedInDumpweedExtravaganza
     let showParticipantPatheticFallacy = TestingConstants.exampleShowParticipantPatheticFallacyInDumpweedExtravaganza
@@ -22,7 +23,12 @@ final class ShowDetailsViewModelTests: XCTestCase {
         testingDatabaseService = TestingDatabaseService()
     }
 
-    override func tearDownWithError() throws {
+    override func tearDown() async throws {
+        if let createdShowId {
+            try await testingDatabaseService.deleteShow(withId: createdShowId)
+            self.createdShowId = nil
+        }
+
         try testingDatabaseService.logOut()
         sut = nil
         testingDatabaseService = nil
@@ -39,7 +45,6 @@ final class ShowDetailsViewModelTests: XCTestCase {
         XCTAssertTrue(sut.bassGuitarBacklineItems.isEmpty)
         XCTAssertTrue(sut.electricGuitarBacklineItems.isEmpty)
         XCTAssertFalse(sut.errorAlertIsShowing)
-        XCTAssertFalse(sut.showSettingsSheetIsShowing)
         XCTAssertFalse(sut.editImageViewIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
         XCTAssertFalse(sut.addBacklineSheetIsShowing)
@@ -235,6 +240,38 @@ final class ShowDetailsViewModelTests: XCTestCase {
         XCTAssertEqual(sut.showParticipants.count, 2, "Dumpweed and Pathetic Fallacy are playing this show")
         XCTAssertTrue(sut.showParticipants.contains(showParticipantDumpweed), "Dumpweed is playing this show")
         XCTAssertTrue(sut.showParticipants.contains(showParticipantPatheticFallacy), "Pathetic Fallacy is playing this show")
+    }
+
+    func test_OnRemoveShowParticipantFromShow_ShowParticipantIsRemovedFromShow() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
+        sut = ShowDetailsViewModel(show: dumpweedExtravaganza)
+        var craigAndTheFettuccinisAsShowParticipant = ShowParticipant(
+            name: craigAndTheFettuccinis.name,
+            bandId: craigAndTheFettuccinis.id,
+            showId: dumpweedExtravaganza.id
+        )
+        let showParticipantDocumentId = try await testingDatabaseService.addBandToShow(
+            add: craigAndTheFettuccinis,
+            as: craigAndTheFettuccinisAsShowParticipant,
+            to: dumpweedExtravaganza
+        )
+        craigAndTheFettuccinisAsShowParticipant.id = showParticipantDocumentId
+        let showParticipant = try await testingDatabaseService.getShowParticipant(craigAndTheFettuccinisAsShowParticipant)
+
+        await sut.removeShowParticipantFromShow(showParticipant: showParticipant)
+        let editedShow = try await testingDatabaseService.getShow(withId: dumpweedExtravaganza.id)
+        let editedShowChat = try await testingDatabaseService.getChat(forShowWithId: dumpweedExtravaganza.id)
+
+        do {
+            _ = try await testingDatabaseService.getShowParticipant(craigAndTheFettuccinisAsShowParticipant)
+            XCTFail("The show participant should've been deleted, so the fetch shouldn't have been successful")
+        } catch {
+            XCTAssertNotNil(error)
+            XCTAssertEqual(editedShow.bandIds.count, 2, "There should only be 2 bands on the show now")
+            XCTAssertEqual(editedShow.participantUids.count, 3, "There should only be 3 users in the array")
+            XCTAssertFalse(editedShow.participantUids.contains(TestingConstants.exampleUserCraig.id))
+            XCTAssertFalse(editedShowChat.participantUids.contains(TestingConstants.exampleUserCraig.id))
+        }
     }
 
     func test_OnGetBacklineItems_BacklineItemsAreFetched() async throws {

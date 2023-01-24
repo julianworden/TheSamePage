@@ -13,7 +13,6 @@ struct LoggedInUserProfileView: View {
 
     @State private var errorAlertIsShowing = false
     @State private var errorAlertText = ""
-    @State private var settingsSheetIsShowing = false
     @State private var createBandSheetIsShowing = false
 
     @Binding var userIsLoggedOut: Bool
@@ -70,22 +69,15 @@ struct LoggedInUserProfileView: View {
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem {
-                    Button {
-                        settingsSheetIsShowing.toggle()
+                    NavigationLink {
+                        UserSettingsView()
+                            // These modifiers have to be here, not within the view, or else strange
+                            // navigationTitle and list behavior in UserSettingsView will occur
+                            .navigationTitle("Profile Settings")
+                            .navigationBarTitleDisplayMode(.inline)
                     } label: {
                         Label("Settings", systemImage: "gear")
                     }
-                    .fullScreenCover(
-                        isPresented: $settingsSheetIsShowing,
-                        onDismiss: {
-                            if loggedInUserController.loggedInUser == nil {
-                                userIsLoggedOut = true
-                            }
-                        },
-                        content: {
-                            UserSettingsView()
-                        }
-                    )
                 }
             }
             .errorAlert(
@@ -97,6 +89,9 @@ struct LoggedInUserProfileView: View {
             )
             .task {
                 await loggedInUserController.callOnAppLaunchMethods()
+                if loggedInUserController.loggedInUser == nil {
+                    userIsLoggedOut = true
+                }
             }
         }
         // Without this, the search bar in MemberSearchView is not usable

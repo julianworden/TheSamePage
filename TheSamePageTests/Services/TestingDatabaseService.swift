@@ -170,6 +170,52 @@ class TestingDatabaseService {
             .updateData([FbConstants.participantUids: FieldValue.arrayRemove([uid])])
     }
 
+    func addBandToShow(add band: Band, as showParticipant: ShowParticipant, to show: Show) async throws -> String {
+        do {
+            // Add showParticipant to the show's participants collection
+            let showParticipantDocument = try db
+                .collection(FbConstants.shows)
+                .document(show.id)
+                .collection(FbConstants.participants)
+                .addDocument(from: showParticipant)
+
+            // Add the band's ID to the show's bandIds property
+            try await db
+                .collection(FbConstants.shows)
+                .document(show.id)
+                .updateData([FbConstants.bandIds: FieldValue.arrayUnion([band.id])])
+
+            if !band.memberUids.isEmpty {
+                try await db
+                    .collection(FbConstants.shows)
+                    .document(show.id)
+                    .updateData(
+                        [
+                            FbConstants.participantUids: FieldValue.arrayUnion(band.memberUids)
+                        ]
+                    )
+                try await addBandToChat(band: band, showId: show.id)
+            }
+
+            // Check to see if the band admin is already in the memberUids array. If it isn't, add it to the show's participantUids property.
+            if !band.memberUids.contains(band.adminUid) {
+                let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
+                try await db
+                    .collection(FbConstants.shows)
+                    .document(show.id)
+                    .updateData([FbConstants.participantUids: FieldValue.arrayUnion([band.adminUid])])
+                try await addUserToChat(user: loggedInUser, showId: show.id)
+            }
+
+            return showParticipantDocument.documentID
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to add \(band.name) to \(show.name)",
+                systemError: error.localizedDescription
+            )
+        }
+    }
+
     func removeBandFromShow(bandId: String, showId: String) async throws {
         try await db
             .collection(FbConstants.shows)
@@ -507,6 +553,48 @@ class TestingDatabaseService {
             .collection(FbConstants.chats)
             .document(chatId)
             .updateData([FbConstants.participantUids: FieldValue.arrayUnion([uid])])
+    }
+
+    func addUserToChat(user: User, showId: String) async throws {
+        let chatQuery = try await db
+            .collection(FbConstants.chats)
+            .whereField(FbConstants.showId, isEqualTo: showId)
+            .getDocuments()
+
+        guard !chatQuery.documents.isEmpty && chatQuery.documents.count == 1 else { return }
+
+        let chat = try chatQuery.documents[0].data(as: Chat.self)
+
+        try await db
+            .collection(FbConstants.chats)
+            .document(chat.id)
+            .updateData(
+                [
+                    FbConstants.participantUids: FieldValue.arrayUnion([user.id]),
+                    FbConstants.participantFcmTokens: (user.fcmToken != nil ? FieldValue.arrayUnion([user.fcmToken!]) : FieldValue.arrayUnion([]))
+                ]
+            )
+    }
+
+
+    func addBandToChat(band: Band, showId: String) async throws {
+        let chatQuery = try await db
+            .collection(FbConstants.chats)
+            .whereField(FbConstants.showId, isEqualTo: showId)
+            .getDocuments()
+
+        guard !chatQuery.documents.isEmpty && chatQuery.documents.count == 1 else { return }
+
+        let chat = try chatQuery.documents[0].data(as: Chat.self)
+        try await db
+            .collection(FbConstants.chats)
+            .document(chat.id)
+            .updateData(
+                [
+                    FbConstants.participantUids: FieldValue.arrayUnion(band.memberUids),
+                    FbConstants.participantFcmTokens: FieldValue.arrayUnion(band.memberFcmTokens)
+                ]
+            )
     }
 
     func deleteChat(withId id: String) async throws {

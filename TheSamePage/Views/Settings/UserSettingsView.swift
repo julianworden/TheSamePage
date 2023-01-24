@@ -11,30 +11,32 @@ struct UserSettingsView: View {
     @Environment(\.dismiss) var dismiss
     
     @EnvironmentObject var loggedInUserController: LoggedInUserController
-        
+
+    @State private var logOutConfirmationAlertIsShowing = false
+
     var body: some View {
-        NavigationView {
-            Form {
-                Button("Log Out", role: .destructive) {
-                    loggedInUserController.logOut()
-                    dismiss()
-                }
+        Form {
+            Button("Log Out", role: .destructive) {
+                logOutConfirmationAlertIsShowing.toggle()
             }
-            .navigationTitle("Profile Settings")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Back", role: .cancel) {
+            .alert(
+                "Are You Sure?",
+                isPresented: $logOutConfirmationAlertIsShowing,
+                actions: {
+                    Button("Cancel", role: .cancel) { }
+                    Button("Yes", role: .destructive) {
+                        loggedInUserController.logOut()
                         dismiss()
                     }
-                }
-            }
+                },
+                message: { Text("You will not be able to access your data on The Same Page until you log in again.") }
+            )
         }
     }
 }
-    
-    struct UserSettingsView_Previews: PreviewProvider {
-        static var previews: some View {
-            UserSettingsView()
-        }
+
+struct UserSettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        UserSettingsView()
     }
+}

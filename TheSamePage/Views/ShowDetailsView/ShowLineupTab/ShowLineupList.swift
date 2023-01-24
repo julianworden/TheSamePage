@@ -24,6 +24,8 @@ struct ShowLineupList: View {
                         BandProfileView(showParticipant: showParticipant, isPresentedModally: true)
                     }
                 }
+
+                Divider()
             }
         }
     }

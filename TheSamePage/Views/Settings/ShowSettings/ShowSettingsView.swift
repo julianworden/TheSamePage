@@ -23,35 +23,30 @@ struct ShowSettingsView: View {
             } label: {
                 Text("Edit Show Info")
             }
-            
-            Button("Cancel Show", role: .destructive) {
-                viewModel.cancelShowAlertIsShowing = true
-            }
-            .alert(
-                "Are you sure?",
-                isPresented: $viewModel.cancelShowAlertIsShowing,
-                actions: {
-                    Button("No", role: .cancel) { }
-                    Button("Yes", role: .destructive) {
-                        Task {
-                            await viewModel.cancelShow()
-                        }
-                    }
-                },
-                message: {
-                    Text("Cancelling this show will permanently delete all of its data from The Same Page, including its chat.")
+
+            Section {
+                Button("Cancel Show", role: .destructive) {
+                    viewModel.cancelShowAlertIsShowing = true
                 }
-            )
+                .alert(
+                    "Are you sure?",
+                    isPresented: $viewModel.cancelShowAlertIsShowing,
+                    actions: {
+                        Button("No", role: .cancel) { }
+                        Button("Yes", role: .destructive) {
+                            Task {
+                                await viewModel.cancelShow()
+                            }
+                        }
+                    },
+                    message: {
+                        Text("Cancelling this show will permanently delete all of its data from The Same Page, including its chat.")
+                    }
+                )
+            }
         }
         .navigationTitle("Show Settings")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button("Back", role: .cancel) {
-                    dismiss()
-                }
-            }
-        }
         .errorAlert(
             isPresented: $viewModel.errorAlertIsShowing,
             message: viewModel.errorAlertText,

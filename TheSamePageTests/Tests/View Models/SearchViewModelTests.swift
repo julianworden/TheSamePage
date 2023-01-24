@@ -117,7 +117,11 @@ final class SearchViewModelTests: XCTestCase {
         XCTAssertEqual(sut.viewState, .dataNotFound, "Data should've been loaded")
     }
 
-    func test_OnFetchBandsWithResults_BandIsInFetchedBandsArrayAndViewStateIsSet() async {
+    func test_OnFetchBandsWithResults_BandIsInFetchedBandsArrayAndViewStateIsSet() async throws {
+        // This test fails sometime, likely because TypeSense takes more time to receive updates than Firebase Emulator.
+        // This sleep should allow TypeSense to catch up.
+        try await Task.sleep(seconds: 1)
+
         sut.queryText = patheticFallacy.name
 
         await sut.fetchBands()
@@ -136,7 +140,11 @@ final class SearchViewModelTests: XCTestCase {
         XCTAssertEqual(sut.viewState, .dataNotFound, "Data should've been loaded")
     }
 
-    func test_OnFetchShowsWithResults_ShowIsInFetchedShowsArrayAndViewStateIsSet() async {
+    func test_OnFetchShowsWithResults_ShowIsInFetchedShowsArrayAndViewStateIsSet() async throws {
+        // This test fails sometime, likely because TypeSense takes more time to receive updates than Firebase Emulator.
+        // This sleep should allow TypeSense to catch up.
+        try await Task.sleep(seconds: 1)
+
         sut.queryText = dumpweedExtravaganza.name
 
         await sut.fetchShows()

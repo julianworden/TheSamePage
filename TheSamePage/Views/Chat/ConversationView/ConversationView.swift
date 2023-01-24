@@ -53,12 +53,6 @@ struct ConversationView: View {
         .navigationTitle("Chat")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button("Back") {
-                    dismiss()
-                }
-            }
-            
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink {
                     ChatInfoView(chatParticipants: viewModel.showParticipants)

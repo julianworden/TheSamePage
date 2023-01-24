@@ -25,8 +25,6 @@ final class ShowDetailsViewModel: ObservableObject {
     @Published var addBacklineSheetIsShowing = false
     @Published var bandSearchViewIsShowing = false
     @Published var editImageViewIsShowing = false
-    @Published var showSettingsSheetIsShowing = false
-    @Published var chatSheetIsShowing = false
     @Published var showApplicationSheetIsShowing = false
     @Published var addMyBandToShowSheetIsShowing = false
     @Published var editImageConfirmationDialogIsShowing = false
@@ -34,6 +32,7 @@ final class ShowDetailsViewModel: ObservableObject {
     @Published var deleteBacklineItemConfirmationAlertIsShowing = false
     @Published var deleteDrumKitBacklineItemConfirmationAlertIsShowing = false
     @Published var bandProfileSheetIsShowing = false
+    @Published var removeShowParticipantConfirmationAlertIsShowing = false
 
     /// The image loaded from the ProfileAsyncImage
     @Published var showImage: Image?
@@ -132,6 +131,15 @@ final class ShowDetailsViewModel: ObservableObject {
     func getShowParticipants() async {
         do {
             showParticipants = try await DatabaseService.shared.getShowLineup(forShow: show)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    // TODO: This should also remove any backline items that any members in the removed band contributed
+    func removeShowParticipantFromShow(showParticipant: ShowParticipant) async {
+        do {
+            try await DatabaseService.shared.removeShowParticipantFromShow(remove: showParticipant, from: show)
         } catch {
             viewState = .error(message: error.localizedDescription)
         }

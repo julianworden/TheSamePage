@@ -75,6 +75,13 @@ class DatabaseService: NSObject {
             )
         }
     }
+
+    func getUser(withUid uid: String) async throws -> User {
+        return try await db
+            .collection(FbConstants.users)
+            .document(uid)
+            .getDocument(as: User.self)
+    }
     
     /// Fetches all the shows of which the signed in user is the host.
     /// - Returns: An array of shows that the signed in user is hosting.
@@ -809,6 +816,44 @@ class DatabaseService: NSObject {
                 message: "Failed to add \(band.name) to \(show.name)",
                 systemError: error.localizedDescription
             )
+        }
+    }
+
+    /// Removes a band from a show. This method removes the band's id from the show's bandIds property, removes
+    /// each of the band's member's UIDs from the show's participantUids property, and removes each of the band's
+    /// member's from the show's chat.
+    /// - Parameters:
+    ///   - showParticipant: The show participant that is to be removed from the show.
+    ///   - show: The show from which the band in the band property will be removed.
+    func removeShowParticipantFromShow(remove showParticipant: ShowParticipant, from show: Show) async throws {
+        guard let showParticipantId = showParticipant.id else {
+            throw LogicError.unexpectedNilValue(message: "Failed to remove band from show, please try again.")
+        }
+
+        let showParticipantAsBand = try await getBand(with: showParticipant.bandId)
+
+        try await db
+            .collection(FbConstants.shows)
+            .document(show.id)
+            .updateData([FbConstants.bandIds: FieldValue.arrayRemove([showParticipant.bandId])])
+
+        try await db
+            .collection(FbConstants.shows)
+            .document(show.id)
+            .collection(FbConstants.participants)
+            .document(showParticipantId)
+            .delete()
+
+        try await db
+            .collection(FbConstants.shows)
+            .document(show.id)
+            .updateData([FbConstants.participantUids: FieldValue.arrayRemove(showParticipantAsBand.memberUids)])
+
+        if let showChat = try await getChat(withShowId: show.id) {
+            for uid in showParticipantAsBand.memberUids {
+                let bandMemberAsUser = try await getUser(withUid: uid)
+                try await removeUserFromChat(user: bandMemberAsUser, chat: showChat)
+            }
         }
     }
     

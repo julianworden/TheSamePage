@@ -43,13 +43,6 @@ struct BandSettingsView: View {
         }
         .navigationTitle("Band Settings")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button("Back", role: .cancel) {
-                    dismiss()
-                }
-            }
-        }
         .alert(
             "Are you sure?",
             isPresented: $leaveBandAlertIsShowing,
