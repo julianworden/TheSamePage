@@ -55,28 +55,4 @@ final class BandSettingsViewModelTests: XCTestCase {
         XCTAssertEqual(sut.errorAlertText, ErrorMessageConstants.invalidViewState)
         XCTAssertTrue(sut.errorAlertIsShowing)
     }
-
-    func test_OnLeaveBand_UserLeavesBand() async throws {
-        sut = BandSettingsViewModel(band: patheticFallacy)
-
-        await sut.leaveBand()
-        let patheticFallacyWithoutJulian = try await testingDatabaseService.getBand(withId: patheticFallacy.id)
-        let patheticFallacyUpdatedBandMembers = try await testingDatabaseService.getAllBandMembers(
-            forBandWithId: patheticFallacy.id
-        )
-        let dumpweedExtravangaUpdated = try await testingDatabaseService.getShow(withId: dumpweedExtravaganza.id)
-        let dumpweedExtravaganzaChatUpdated = try await testingDatabaseService.getChat(forShowWithId: dumpweedExtravaganza.id)
-
-        XCTAssertFalse(patheticFallacyWithoutJulian.memberUids.contains(exampleUserLou.id), "Lou left PF")
-        XCTAssertFalse (patheticFallacyUpdatedBandMembers.contains(exampleBandMemberLou), "Lou left PF")
-        XCTAssertFalse(dumpweedExtravaganzaChatUpdated.participantUids.contains(exampleUserLou.id), "Lou should no longer be in any chats for shows that PF is playing")
-        XCTAssertFalse(dumpweedExtravangaUpdated.participantUids.contains(exampleUserLou.id), "Lou should no longer be a participant in any shows that PF is playing")
-
-        try await testingDatabaseService.restorePatheticFallacy(
-            band: patheticFallacy,
-            show: dumpweedExtravaganza,
-            chat: TestingConstants.exampleChatDumpweedExtravaganza,
-            bandMember: exampleBandMemberLou
-        )
-    }
 }

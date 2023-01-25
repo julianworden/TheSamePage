@@ -9,20 +9,22 @@ import SwiftUI
 
 struct OtherUserBandList: View {
     @ObservedObject var viewModel: OtherUserProfileViewModel
+
+    @State private var selectedBand: Band?
     
     var body: some View {
         VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(Array(viewModel.bands.enumerated()), id: \.element) { index, band in
                 Button {
-                    viewModel.bandProfileViewIsShowing.toggle()
+                    selectedBand = band
                 } label: {
                     OtherUserBandRow(viewModel: viewModel, index: index)
                 }
                 .tint(.primary)
                 .padding(.horizontal)
-                .fullScreenCover(isPresented: $viewModel.bandProfileViewIsShowing) {
+                .fullScreenCover(item: $selectedBand) { selectedBand in
                     NavigationView {
-                        BandProfileView(band: band, isPresentedModally: true)
+                        BandProfileView(band: selectedBand, isPresentedModally: true)
                     }
                 }
             }

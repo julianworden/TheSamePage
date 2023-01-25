@@ -9,31 +9,29 @@ import SwiftUI
 
 struct BandMemberList: View {
     @ObservedObject var viewModel: BandProfileViewModel
+
+    @State private var selectedBandMember: BandMember?
     
     var body: some View {
         VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(Array(viewModel.bandMembers.enumerated()), id: \.element) { index, bandMember in
-                if !bandMember.bandMemberIsLoggedInUser {
-                    Button {
-                        viewModel.bandMemberSheetIsShowing.toggle()
-                    } label: {
-                        BandMemberListRow(
-                            viewModel: viewModel,
-                            index: index
-                        )
-                    }
-                    .tint(.primary)
-                    .fullScreenCover(isPresented: $viewModel.bandMemberSheetIsShowing) {
-                        NavigationView {
-                            OtherUserProfileView(user: nil, bandMember: bandMember, isPresentedModally: true)
-                        }
-                    }
-                } else {
+                Button {
+                    selectedBandMember = bandMember
+                } label: {
                     BandMemberListRow(
                         viewModel: viewModel,
                         index: index
                     )
                 }
+                .tint(.primary)
+                .allowsHitTesting(bandMember.bandMemberIsLoggedInUser ? false : true)
+                .fullScreenCover(item: $selectedBandMember) { selectedBandMember in
+                    NavigationView {
+                        OtherUserProfileView(user: nil, bandMember: selectedBandMember, isPresentedModally: true)
+                    }
+                }
+
+                Divider()
             }
         }
     }

@@ -13,14 +13,16 @@ struct OtherUserBandRow: View {
     let index: Int
 
     var body: some View {
-        let band = viewModel.bands[index]
-        
-        ListRowElements(
-            title: band.name,
-            subtitle: "\(band.city), \(band.state)",
-            iconName: "band",
-            displayDivider: true
-        )
+        if viewModel.bands.indices.contains(index) {
+            let band = viewModel.bands[index]
+
+            ListRowElements(
+                title: band.name,
+                subtitle: "\(band.city), \(band.state)",
+                iconName: "band",
+                displayDivider: true
+            )
+        }
     }
 }
 

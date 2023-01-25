@@ -13,13 +13,15 @@ struct BandLinkRow: View {
     let index: Int
     
     var body: some View {
-        let link = viewModel.bandLinks[index]
-        
-        ListRowElements(
-            title: link.platformName,
-            iconName: link.platformName.lowercased(),
-            displayDivider: true
-        )
+        if viewModel.bandLinks.indices.contains(index) {
+            let link = viewModel.bandLinks[index]
+
+            ListRowElements(
+                title: link.platformName,
+                iconName: link.platformName.lowercased(),
+                displayDivider: true
+            )
+        }
     }
 }
 

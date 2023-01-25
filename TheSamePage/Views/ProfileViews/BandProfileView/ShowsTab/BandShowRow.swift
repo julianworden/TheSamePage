@@ -13,15 +13,17 @@ struct BandShowRow: View {
     let index: Int
     
     var body: some View {
-        let show = viewModel.bandShows[index]
-        
-        ListRowElements(
-            title: show.name,
-            subtitle: "At \(show.venue) on \(show.formattedDate)",
-            iconName: "stage",
-            displayDivider: true
-        )
-        .foregroundColor(show.date.unixDateAsDate < Date.now ? .secondary : .primary)
+        if viewModel.bandShows.indices.contains(index) {
+            let show = viewModel.bandShows[index]
+            
+            ListRowElements(
+                title: show.name,
+                subtitle: "At \(show.venue) on \(show.formattedDate)",
+                iconName: "stage",
+                displayDivider: true
+            )
+            .foregroundColor(show.date.unixDateAsDate < Date.now ? .secondary : .primary)
+        }
     }
 }
 

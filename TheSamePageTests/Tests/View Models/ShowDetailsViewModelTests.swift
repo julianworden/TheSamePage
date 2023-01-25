@@ -49,6 +49,7 @@ final class ShowDetailsViewModelTests: XCTestCase {
         XCTAssertTrue(sut.errorAlertText.isEmpty)
         XCTAssertFalse(sut.addBacklineSheetIsShowing)
         XCTAssertFalse(sut.bandSearchViewIsShowing)
+        XCTAssertNil(sut.selectedShowParticipant)
     }
 
     func test_OnErrorViewState_PropertiesAreChanged() async throws {

@@ -25,8 +25,7 @@ class BandProfileViewModel: ObservableObject {
     @Published var addEditBandSheetIsShowing = false
     @Published var editImageConfirmationDialogIsShowing = false
     @Published var deleteImageConfirmationAlertIsShowing = false
-    @Published var bandMemberSheetIsShowing = false
-    @Published var showDetailsViewIsShowing = false
+    @Published var removeBandMemberFromBandConfirmationAlertIsShowing = false
 
     @Published var bandImage: Image?
     @Published var updatedImage: UIImage?
@@ -98,12 +97,25 @@ class BandProfileViewModel: ObservableObject {
         }
     }
 
-
     func getBandMembers() async {
         guard let band else { return }
 
         do {
             self.bandMembers = try await DatabaseService.shared.getBandMembers(forBand: band)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func removeBandMemberFromBand(bandMember: BandMember) async {
+        guard let band else {
+            viewState = .error(message: "Failed to remove user from band. Please restart The Same Page and try again.")
+            return
+        }
+
+        do {
+            let bandMemberAsUser = try await DatabaseService.shared.convertBandMemberToUser(bandMember: bandMember)
+            try await DatabaseService.shared.removeUserFromBand(remove: bandMemberAsUser, as: bandMember, from: band)
         } catch {
             viewState = .error(message: error.localizedDescription)
         }

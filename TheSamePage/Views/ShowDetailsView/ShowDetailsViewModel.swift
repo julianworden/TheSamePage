@@ -31,9 +31,11 @@ final class ShowDetailsViewModel: ObservableObject {
     @Published var deleteImageConfirmationAlertIsShowing = false
     @Published var deleteBacklineItemConfirmationAlertIsShowing = false
     @Published var deleteDrumKitBacklineItemConfirmationAlertIsShowing = false
-    @Published var bandProfileSheetIsShowing = false
     @Published var removeShowParticipantConfirmationAlertIsShowing = false
     @Published var leaveShowConfirmationAlertIsShowing = false
+    /// The ShowParticipant that can be selected in ShowDetailsView's ShowLineup Tab. When this property
+    /// is not nil, a BandProfileView for the selected ShowParticipant is presented.
+    @Published var selectedShowParticipant: ShowParticipant?
 
     /// The image loaded from the ProfileAsyncImage
     @Published var showImage: Image?

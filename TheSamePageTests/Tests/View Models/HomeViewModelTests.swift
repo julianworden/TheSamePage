@@ -71,7 +71,10 @@ final class HomeViewModelTests: XCTestCase {
         XCTAssertEqual(sut.viewState, .dataNotFound, "No data should've been found")
     }
 
-    func test_OnChangeSearchRadius_SearchIsRetried() async {
+    func test_OnChangeSearchRadius_SearchIsRetried() async throws {
+        // This test fails sometime, likely because TypeSense takes more time to receive updates than Firebase Emulator.
+        // This sleep should allow TypeSense to catch up.
+        try await Task.sleep(seconds: 1)
         sut = HomeViewModel()
         MockController.setAlaskaMockLocationControllerValues()
 

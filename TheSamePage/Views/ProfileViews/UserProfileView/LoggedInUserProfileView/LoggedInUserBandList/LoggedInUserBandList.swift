@@ -10,21 +10,21 @@ import SwiftUI
 struct LoggedInUserBandList: View {
     @EnvironmentObject var loggedInUserController: LoggedInUserController
 
-    @State private var bandProfileViewIsShowing = false
-    
+    @State private var selectedBand: Band?
+
     var body: some View {
         VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(Array(loggedInUserController.bands.enumerated()), id: \.element) { index, band in
                 Button {
-                    bandProfileViewIsShowing.toggle()
+                    selectedBand = band
                 } label: {
                     LoggedInUserBandRow(index: index)
                 }
                 .tint(.primary)
                 .padding(.horizontal)
-                .fullScreenCover(isPresented: $bandProfileViewIsShowing) {
+                .fullScreenCover(item: $selectedBand) { selectedBand in
                     NavigationView {
-                        BandProfileView(band: band, isPresentedModally: true)
+                        BandProfileView(band: selectedBand, isPresentedModally: true)
                     }
                 }
             }

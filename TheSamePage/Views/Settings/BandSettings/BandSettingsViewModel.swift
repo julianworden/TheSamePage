@@ -30,13 +30,6 @@ final class BandSettingsViewModel: ObservableObject {
     init(band: Band) {
         self.band = band
     }
-    
-    func leaveBand() async {
-        do {
-            let user = try await DatabaseService.shared.getLoggedInUser()
-            try await DatabaseService.shared.removeUserFromBand(user: user, band: band)
-        } catch {
-            viewState = .error(message: error.localizedDescription)
-        }
-    }
+
+    // TODO: Allow for a band to be deleted in this view
 }

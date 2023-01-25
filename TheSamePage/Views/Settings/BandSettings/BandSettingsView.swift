@@ -30,12 +30,6 @@ struct BandSettingsView: View {
                     Text("Edit Band Info")
                 }
                 
-                if !band.loggedInUserIsBandAdmin {
-                    Button("Leave band", role: .destructive) {
-                        leaveBandAlertIsShowing = true
-                    }
-                }
-                
                 if band.loggedInUserIsBandAdmin {
                     // TODO: Add logic to make someone else band admin
                 }
@@ -43,24 +37,9 @@ struct BandSettingsView: View {
         }
         .navigationTitle("Band Settings")
         .navigationBarTitleDisplayMode(.inline)
-        .alert(
-            "Are you sure?",
-            isPresented: $leaveBandAlertIsShowing,
-            actions: {
-                Button("Cancel", role: .cancel) { }
-                Button("Leave Band", role: .destructive) {
-                    Task {
-                        await viewModel.leaveBand(); dismiss()
-                    }
-                }
-            }, message: {
-                Text("If you leave \(band.name), you will no longer have access to \(band.name)'s chats, shows, etc.")
-            }
-        )
         .errorAlert(
             isPresented: $viewModel.errorAlertIsShowing,
-            message: viewModel.errorAlertText,
-            tryAgainAction: { await viewModel.leaveBand() }
+            message: viewModel.errorAlertText
         )
     }
 }

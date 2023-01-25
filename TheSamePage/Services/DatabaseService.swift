@@ -183,7 +183,7 @@ class DatabaseService: NSObject {
     /// - Parameters:
     ///   - user: The user that is being removed from the band.
     ///   - band: The band whose memberUids property is being altered.
-    func removeUserFromBand(user: User, band: Band) async throws {
+    func removeUserFromBand(remove user: User, as bandMember: BandMember, from band: Band) async throws {
         do {
             try await db
                 .collection(FbConstants.bands)
@@ -195,26 +195,17 @@ class DatabaseService: NSObject {
                     ]
                 )
             
-            let bandMemberDocumentId = try await db
-                .collection(FbConstants.bands)
-                .document(band.id)
-                .collection(FbConstants.members)
-                .whereField(FbConstants.uid, isEqualTo: user.id)
-                .getDocuments()
-                .documents[0]
-                .documentID
-            
             try await db
                 .collection(FbConstants.bands)
                 .document(band.id)
                 .collection(FbConstants.members)
-                .document(bandMemberDocumentId)
+                .document(bandMember.id)
                 .delete()
             
-            let userShows = try await getShowsForBand(band: band)
+            let bandShows = try await getShowsForBand(band: band)
             
-            if !userShows.isEmpty {
-                for show in userShows {
+            if !bandShows.isEmpty {
+                for show in bandShows {
                     try await removeUserFromShow(user: user, show: show)
                     
                     if let showChat = try await getChat(withShowId: show.id) {
@@ -364,7 +355,8 @@ class DatabaseService: NSObject {
         do {
             let query = try await db
                 .collection(FbConstants.bands)
-                .document(band.id).collection("members")
+                .document(band.id)
+                .collection(FbConstants.members)
                 .getDocuments()
             
             return try query.documents.map { try $0.data(as: BandMember.self) }

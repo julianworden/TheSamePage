@@ -18,7 +18,6 @@ final class OtherUserProfileViewModel: ObservableObject {
     @Published var bands = [Band]()
 
     @Published var sendBandInviteViewIsShowing = false
-    @Published var bandProfileViewIsShowing = false
     
     @Published var errorAlertIsShowing = false
     var errorAlertText = ""
