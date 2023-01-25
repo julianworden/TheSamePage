@@ -403,6 +403,7 @@ struct TestingConstants {
         id: "KbfVkNKelH4JNBkO3CeW",
         name: exampleBandPatheticFallacy.name,
         bandId: exampleBandPatheticFallacy.id,
+        bandAdminUid: exampleBandPatheticFallacy.adminUid,
         showId: exampleShowDumpweedExtravaganza.id
     )
 
@@ -410,6 +411,7 @@ struct TestingConstants {
         id: "7QUOjTRZVLdlJ4EzdaLr",
         name: exampleBandDumpweed.name,
         bandId: exampleBandDumpweed.id,
+        bandAdminUid: exampleBandDumpweed.adminUid,
         showId: exampleShowDumpweedExtravaganza.id
     )
 
@@ -417,6 +419,7 @@ struct TestingConstants {
         id: "6NoWme0DUx3y508uxjak",
         name: exampleBandTheApples.name,
         bandId: exampleBandTheApples.id,
+        bandAdminUid: exampleBandTheApples.adminUid,
         showId: exampleShowAppleParkThrowdown.id
     )
 

@@ -287,6 +287,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(patheticFallacyInEmulator.id, patheticFallacyInTestingConstants.id)
         XCTAssertEqual(patheticFallacyInEmulator.showId, patheticFallacyInTestingConstants.showId)
         XCTAssertEqual(patheticFallacyInEmulator.bandId, patheticFallacyInTestingConstants.bandId)
+        XCTAssertEqual(patheticFallacyInEmulator.bandAdminUid, patheticFallacyInTestingConstants.bandAdminUid)
         XCTAssertEqual(patheticFallacyInEmulator.name, patheticFallacyInTestingConstants.name)
     }
 
@@ -299,6 +300,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(dumpweedInEmulator.id, dumpweedInTestingConstants.id)
         XCTAssertEqual(dumpweedInEmulator.showId, dumpweedInTestingConstants.showId)
         XCTAssertEqual(dumpweedInEmulator.bandId, dumpweedInTestingConstants.bandId)
+        XCTAssertEqual(dumpweedInEmulator.bandAdminUid, dumpweedInTestingConstants.bandAdminUid)
         XCTAssertEqual(dumpweedInEmulator.name, dumpweedInTestingConstants.name)
     }
 
@@ -311,6 +313,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(theApplesInEmulator.id, theApplesInTestingConstants.id)
         XCTAssertEqual(theApplesInEmulator.showId, theApplesInTestingConstants.showId)
         XCTAssertEqual(theApplesInEmulator.bandId, theApplesInTestingConstants.bandId)
+        XCTAssertEqual(theApplesInEmulator.bandAdminUid, theApplesInTestingConstants.bandAdminUid)
         XCTAssertEqual(theApplesInEmulator.name, theApplesInTestingConstants.name)
     }
 

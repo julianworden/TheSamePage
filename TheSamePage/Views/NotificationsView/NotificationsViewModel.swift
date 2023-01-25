@@ -103,7 +103,12 @@ final class NotificationsViewModel: ObservableObject {
     
     func acceptShowInvite(showInvite: ShowInvite) async throws {
         let band = try await DatabaseService.shared.getBand(with: showInvite.bandId)
-        let showParticipant = ShowParticipant(name: showInvite.bandName, bandId: showInvite.bandId, showId: showInvite.showId)
+        let showParticipant = ShowParticipant(
+            name: showInvite.bandName,
+            bandId: showInvite.bandId,
+            bandAdminUid: band.adminUid,
+            showId: showInvite.showId
+        )
         
         try await DatabaseService.shared.addBandToShow(add: band, as: showParticipant, withShowInvite: showInvite)
     }

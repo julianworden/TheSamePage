@@ -32,6 +32,4 @@ final class PlatformLinkTests: XCTestCase {
 
         XCTAssertEqual(LinkPlatform.facebook, link.platformNameAsPlatformLinkObject)
     }
-
-    // TODO: Make and test spotify link once that functionality is working
 }

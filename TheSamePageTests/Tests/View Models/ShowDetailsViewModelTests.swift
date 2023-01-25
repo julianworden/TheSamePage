@@ -248,6 +248,7 @@ final class ShowDetailsViewModelTests: XCTestCase {
         var craigAndTheFettuccinisAsShowParticipant = ShowParticipant(
             name: craigAndTheFettuccinis.name,
             bandId: craigAndTheFettuccinis.id,
+            bandAdminUid: craigAndTheFettuccinis.adminUid,
             showId: dumpweedExtravaganza.id
         )
         let showParticipantDocumentId = try await testingDatabaseService.addBandToShow(

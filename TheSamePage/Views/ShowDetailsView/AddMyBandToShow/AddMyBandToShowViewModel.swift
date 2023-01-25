@@ -85,6 +85,7 @@ final class AddMyBandToShowViewModel: ObservableObject {
             let newShowParticipant = ShowParticipant(
                 name: selectedBand.name,
                 bandId: selectedBand.id,
+                bandAdminUid: selectedBand.adminUid,
                 showId: show.id
             )
 

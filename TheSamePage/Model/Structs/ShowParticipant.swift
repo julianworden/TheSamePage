@@ -15,11 +15,17 @@ struct ShowParticipant: Codable, Hashable, Identifiable {
     @DocumentID var id: String?
     let name: String
     let bandId: String
+    let bandAdminUid: String
     let showId: String
     
     static let example = ShowParticipant(
         name: "Pathetic Fallacy",
         bandId: "a;lsdkjfa;sldf",
+        bandAdminUid: "alskhfawoiefhawio",
         showId: ";alskdfj;aslkf"
     )
+
+    var bandAdminIsLoggedInUser: Bool {
+        return AuthController.getLoggedInUid() == bandAdminUid
+    }
 }
