@@ -18,6 +18,7 @@ class BandProfileViewModel: ObservableObject {
     @Published var bandShows = [Show]()
     @Published var selectedTab = SelectedBandProfileTab.about
 
+    @Published var bandWasDeleted = false
     @Published var addEditLinkSheetIsShowing = false
     @Published var addBandMemberSheetIsShowing = false
     @Published var sendShowInviteViewIsShowing = false
@@ -39,6 +40,8 @@ class BandProfileViewModel: ObservableObject {
             case .error(let message):
                 errorAlertText = message
                 errorAlertIsShowing = true
+            case .dataDeleted:
+                bandWasDeleted = true
             default:
                 if viewState != .dataLoaded && viewState != .dataLoading {
                     errorAlertText = ErrorMessageConstants.invalidViewState
@@ -48,10 +51,7 @@ class BandProfileViewModel: ObservableObject {
         }
     }
     let isPresentedModally: Bool
-    
-    let db = Firestore.firestore()
-    var bandListener: ListenerRegistration?
-    
+
     init(band: Band? = nil, showParticipant: ShowParticipant? = nil, isPresentedModally: Bool = false) {
         self.isPresentedModally = isPresentedModally
 
@@ -92,6 +92,8 @@ class BandProfileViewModel: ObservableObject {
 
         do {
             self.band = try await DatabaseService.shared.getBand(with: band.id)
+        } catch FirebaseError.dataDeleted {
+            viewState = .dataDeleted
         } catch {
             viewState = .error(message: error.localizedDescription)
         }
@@ -155,9 +157,5 @@ class BandProfileViewModel: ObservableObject {
         } catch {
             viewState = .error(message: error.localizedDescription)
         }
-    }
-
-    func removeListeners() {
-        bandListener?.remove()
     }
 }

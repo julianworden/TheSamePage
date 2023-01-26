@@ -22,16 +22,24 @@ struct LoggedInUserBandList: View {
                 }
                 .tint(.primary)
                 .padding(.horizontal)
-                .fullScreenCover(item: $selectedBand) { selectedBand in
-                    NavigationView {
-                        BandProfileView(band: selectedBand, isPresentedModally: true)
+                .fullScreenCover(
+                    item: $selectedBand,
+                    onDismiss: {
+                        Task {
+                            await loggedInUserController.getLoggedInUserBands()
+                        }
+                    },
+                    content: { selectedBand in
+                        NavigationView {
+                            BandProfileView(band: selectedBand, isPresentedModally: true)
+                        }
                     }
-                }
-
-                Divider()
+                )
             }
-            .animation(.easeInOut, value: loggedInUserController.bands)
+
+            Divider()
         }
+        .animation(.easeInOut, value: loggedInUserController.bands)
     }
 }
 

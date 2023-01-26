@@ -347,6 +347,8 @@ class DatabaseService: NSObject {
                 .collection(FbConstants.bands)
                 .document(id)
                 .getDocument(as: Band.self)
+        } catch DecodingError.valueNotFound {
+            throw FirebaseError.dataDeleted
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to fetch band",
@@ -618,6 +620,34 @@ class DatabaseService: NSObject {
             throw FirebaseError.connection(message: "Failed to delete image", systemError: error.localizedDescription)
         }
     }
+
+    func deleteBand(_ band: Band) async throws {
+        do {
+            let bandMembers = try await getBandMembers(forBand: band)
+            let bandShows = try await getShowsForBand(band: band)
+
+            for show in bandShows {
+                let chat = try await getChat(withShowId: show.id)
+
+                for member in bandMembers {
+                    let memberAsUser = try await convertBandMemberToUser(bandMember: member)
+                    try await removeUserFromShow(user: memberAsUser, show: show)
+                    if let chat {
+                        try await removeUserFromChat(user: memberAsUser, chat: chat)
+                    }
+                }
+
+                try await removeBandFromShow(bandId: band.id, showId: show.id)
+            }
+
+            _ = try await Functions.functions().httpsCallable(FbConstants.recursiveDelete).call([FbConstants.path: "\(FbConstants.bands)/\(band.id)"])
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to delete show chat",
+                systemError: error.localizedDescription
+            )
+        }
+    }
     
     
     // MARK: - Shows
@@ -836,6 +866,29 @@ class DatabaseService: NSObject {
                 systemError: error.localizedDescription
             )
         }
+    }
+
+    func removeBandFromShow(bandId: String, showId: String) async throws {
+        try await db
+            .collection(FbConstants.shows)
+            .document(showId)
+            .updateData([FbConstants.bandIds: FieldValue.arrayRemove([bandId])])
+
+        let showParticipantDocument = try await db
+            .collection(FbConstants.shows)
+            .document(showId)
+            .collection(FbConstants.participants)
+            .whereField(FbConstants.bandId, isEqualTo: bandId)
+            .getDocuments()
+            .documents
+             .first!
+
+        try await db
+            .collection(FbConstants.shows)
+            .document(showId)
+            .collection(FbConstants.participants)
+            .document(showParticipantDocument.documentID)
+            .delete()
     }
 
     /// Removes a band from a show. This method removes the band's id from the show's bandIds property, removes

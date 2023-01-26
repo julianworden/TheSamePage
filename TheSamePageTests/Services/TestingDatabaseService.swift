@@ -354,7 +354,19 @@ class TestingDatabaseService {
     ///   - show: exampleShowDumpeedExtravaganza with its correct values that should be restored.
     ///   - chat: exampleChatDumpweedExtravaganza with its correct values that should be restored.
     ///   - bandMember: exampleBandMemberLou with his correct values that should be restored.
-    func restorePatheticFallacy(band: Band, show: Show, chat: Chat, bandMember: BandMember) async throws {
+    func restorePatheticFallacy(
+        band: Band,
+        show: Show,
+        chat: Chat,
+        showParticipant: ShowParticipant? = nil,
+        bandMembers: [BandMember],
+        links: [PlatformLink] = []
+    ) async throws {
+        try db
+            .collection(FbConstants.bands)
+            .document(band.id)
+            .setData(from: band)
+
         try await db
             .collection(FbConstants.chats)
             .document(chat.id)
@@ -366,16 +378,41 @@ class TestingDatabaseService {
             .updateData([FbConstants.participantUids: show.participantUids])
 
         try await db
+            .collection(FbConstants.shows)
+            .document(show.id)
+            .updateData([FbConstants.bandIds: show.bandIds])
+
+        if let showParticipant {
+            _ = try db
+                .collection(FbConstants.shows)
+                .document(show.id)
+                .collection(FbConstants.participants)
+                .document(showParticipant.id!)
+                .setData(from: showParticipant)
+        }
+
+        try await db
             .collection(FbConstants.bands)
             .document(band.id)
             .updateData([FbConstants.memberUids: band.memberUids])
 
-        try db
-            .collection(FbConstants.bands)
-            .document(band.id)
-            .collection(FbConstants.members)
-            .document(bandMember.id)
-            .setData(from: bandMember)
+        for bandMember in bandMembers {
+            try db
+                .collection(FbConstants.bands)
+                .document(band.id)
+                .collection(FbConstants.members)
+                .document(bandMember.id)
+                .setData(from: bandMember)
+        }
+
+        for link in links {
+            try db
+                .collection(FbConstants.bands)
+                .document(band.id)
+                .collection(FbConstants.links)
+                .document(link.id!)
+                .setData(from: link)
+        }
     }
 
     func removeUserFromBand(uid: String, bandId: String) async throws {
@@ -575,7 +612,6 @@ class TestingDatabaseService {
                 ]
             )
     }
-
 
     func addBandToChat(band: Band, showId: String) async throws {
         let chatQuery = try await db

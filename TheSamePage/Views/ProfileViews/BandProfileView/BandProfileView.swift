@@ -113,8 +113,10 @@ struct BandProfileView: View {
         .task {
             await viewModel.callOnAppearMethods()
         }
-        .onDisappear {
-            viewModel.removeListeners()
+        .onChange(of: viewModel.bandWasDeleted) { bandWasDeleted in
+            if bandWasDeleted {
+                dismiss()
+            }
         }
     }
 }

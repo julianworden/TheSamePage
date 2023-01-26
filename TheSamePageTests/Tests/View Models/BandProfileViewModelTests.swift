@@ -50,7 +50,6 @@ final class BandProfileViewModelTests: XCTestCase {
         XCTAssertFalse(sut.addEditBandSheetIsShowing)
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
-        XCTAssertNil(sut.bandListener)
         XCTAssertEqual(sut.viewState, .dataLoaded)
     }
 
@@ -78,7 +77,6 @@ final class BandProfileViewModelTests: XCTestCase {
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertFalse(sut.editImageViewIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
-        XCTAssertNil(sut.bandListener)
         XCTAssertEqual(sut.viewState, .dataLoaded)
     }
 
@@ -174,7 +172,7 @@ final class BandProfileViewModelTests: XCTestCase {
             band: exampleBandPatheticFallacy,
             show: dumpweedExtravaganza,
             chat: TestingConstants.exampleChatDumpweedExtravaganza,
-            bandMember: TestingConstants.exampleBandMemberLou
+            bandMembers: [TestingConstants.exampleBandMemberLou]
         )
     }
 }

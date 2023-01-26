@@ -11,15 +11,24 @@ import Foundation
 final class BandSettingsViewModel: ObservableObject {
     let band: Band
 
+    @Published var deleteBandConfirmationAlertIsShowing = false
+    @Published var deleteBandButtonIsDisabled = false
+    @Published var bandDeleteWasSuccessful = false
+
     @Published var errorAlertIsShowing = false
     var errorAlertText = ""
 
     @Published var viewState = ViewState.displayingView {
         didSet {
             switch viewState {
+            case .performingWork:
+                deleteBandButtonIsDisabled = true
+            case .workCompleted:
+                bandDeleteWasSuccessful = true
             case .error(let message):
                 errorAlertText = message
                 errorAlertIsShowing = true
+                deleteBandButtonIsDisabled = false
             default:
                 errorAlertText = ErrorMessageConstants.invalidViewState
                 errorAlertIsShowing = true
@@ -31,5 +40,13 @@ final class BandSettingsViewModel: ObservableObject {
         self.band = band
     }
 
-    // TODO: Allow for a band to be deleted in this view
+    func deleteBand() async {
+        do {
+            viewState = .performingWork
+            try await DatabaseService.shared.deleteBand(band)
+            viewState = .workCompleted
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
 }
