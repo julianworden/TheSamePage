@@ -27,6 +27,8 @@ struct LoggedInUserBandList: View {
                         BandProfileView(band: selectedBand, isPresentedModally: true)
                     }
                 }
+
+                Divider()
             }
             .animation(.easeInOut, value: loggedInUserController.bands)
         }

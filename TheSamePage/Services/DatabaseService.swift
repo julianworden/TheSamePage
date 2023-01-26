@@ -291,6 +291,33 @@ class DatabaseService: NSObject {
         }
     }
 
+    /// Queries Firestore to convert a BandMember object to a User object. Used to open a user's profile when they've
+    /// been selected on a band's member list.
+    /// - Parameter bandMember: The BandMember object that will be converted into a User object.
+    /// - Returns: The user returned from Firestore that corresponds to the BandMember object passed into the bandMember parameter.
+    func convertUserToBandMember(user: User, band: Band) async throws -> BandMember {
+        do {
+            let userAsBandMemberDocuments = try await db
+                .collection(FbConstants.bands)
+                .document(band.id)
+                .collection(FbConstants.members)
+                .whereField(FbConstants.uid, isEqualTo: user.id)
+                .getDocuments()
+                .documents
+
+            guard !userAsBandMemberDocuments.isEmpty && userAsBandMemberDocuments.count == 1 else {
+                throw LogicError.unexpectedNilValue(message: "Failed to fetch band member information. Please restart The Same Page and try again.")
+            }
+
+            return try userAsBandMemberDocuments.first!.data(as: BandMember.self)
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to fetch user profile",
+                systemError: error.localizedDescription
+            )
+        }
+    }
+
     /// Deletes a user's profile image in Firebase Storage, and deletes the value in their profileImageUrl property.
     /// - Parameter user: The user who will have their profile image deleted.
     func deleteUserProfileImage(forUser user: User) async throws {

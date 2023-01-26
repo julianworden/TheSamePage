@@ -74,6 +74,15 @@ class LoggedInUserController: ObservableObject {
             loggedInUserProfileViewState = .error(message: error.localizedDescription)
         }
     }
+
+    func removeUserFromBand(remove user: User, from band: Band) async {
+        do {
+            let userAsBandMember = try await DatabaseService.shared.convertUserToBandMember(user: user, band: band)
+            try await DatabaseService.shared.removeUserFromBand(remove: user, as: userAsBandMember, from: band)
+        } catch {
+            loggedInUserProfileViewState = .error(message: error.localizedDescription)
+        }
+    }
     
     func logOut() {
         self.loggedInUser = nil

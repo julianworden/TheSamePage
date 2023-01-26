@@ -14,6 +14,9 @@ final class BandProfileViewModelTests: XCTestCase {
     var sut: BandProfileViewModel!
     var testingDatabaseService: TestingDatabaseService!
     var createdBandId: String?
+    let exampleUserLou = TestingConstants.exampleUserLou
+    let exampleBandMemberLou = TestingConstants.exampleBandMemberLou
+    let dumpweedExtravaganza = TestingConstants.exampleShowDumpweedExtravaganza
     let exampleBandPatheticFallacy = TestingConstants.exampleBandPatheticFallacy
     let exampleShowParticipantPatheticFallacy = TestingConstants.exampleShowParticipantPatheticFallacyInDumpweedExtravaganza
 
@@ -148,5 +151,30 @@ final class BandProfileViewModelTests: XCTestCase {
         }
 
         XCTAssertNil(createdBandWithNoProfileImage.profileImageUrl, "The band should no longer have a profileImageUrl property")
+    }
+
+    func test_OnLeaveBand_UserLeavesBand() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
+        sut = BandProfileViewModel(band: exampleBandPatheticFallacy)
+
+        await sut.removeBandMemberFromBand(bandMember: TestingConstants.exampleBandMemberLou)
+        let patheticFallacyWithoutJulian = try await testingDatabaseService.getBand(withId: exampleBandPatheticFallacy.id)
+        let patheticFallacyUpdatedBandMembers = try await testingDatabaseService.getAllBandMembers(
+            forBandWithId: exampleBandPatheticFallacy.id
+        )
+        let dumpweedExtravangaUpdated = try await testingDatabaseService.getShow(withId: dumpweedExtravaganza.id)
+        let dumpweedExtravaganzaChatUpdated = try await testingDatabaseService.getChat(forShowWithId: dumpweedExtravaganza.id)
+
+        XCTAssertFalse(patheticFallacyWithoutJulian.memberUids.contains(exampleUserLou.id), "Lou left PF")
+        XCTAssertFalse (patheticFallacyUpdatedBandMembers.contains(exampleBandMemberLou), "Lou left PF")
+        XCTAssertFalse(dumpweedExtravaganzaChatUpdated.participantUids.contains(exampleUserLou.id), "Lou should no longer be in any chats for shows that PF is playing")
+        XCTAssertFalse(dumpweedExtravangaUpdated.participantUids.contains(exampleUserLou.id), "Lou should no longer be a participant in any shows that PF is playing")
+
+        try await testingDatabaseService.restorePatheticFallacy(
+            band: exampleBandPatheticFallacy,
+            show: dumpweedExtravaganza,
+            chat: TestingConstants.exampleChatDumpweedExtravaganza,
+            bandMember: TestingConstants.exampleBandMemberLou
+        )
     }
 }
