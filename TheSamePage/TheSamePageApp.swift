@@ -7,6 +7,7 @@
 
 import FirebaseAuth
 import FirebaseCore
+import FirebaseDynamicLinks
 import FirebaseFirestore
 import FirebaseFunctions
 import FirebaseMessaging

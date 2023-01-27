@@ -35,6 +35,7 @@ struct FbConstants {
     static let backlineItems = "backlineItems"
     static let profileImageUrl = "profileImageUrl"
     static let imageUrl = "imageUrl"
+    static let emailAddress = "emailAddress"
 
     // MARK: - Firebase Functions
     static let recursiveDelete = "recursiveDelete"

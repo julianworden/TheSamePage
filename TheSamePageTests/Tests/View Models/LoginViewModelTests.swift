@@ -77,7 +77,7 @@ final class LoginViewModelTests: XCTestCase {
         let currentUser = testingDatabaseService.getLoggedInUserFromFirebaseAuth()
 
         XCTAssertNil(currentUser, "No one should've been signed in")
-        XCTAssertEqual(sut.viewState, .error(message: ErrorMessageConstants.invalidEmailAddressOnSignIn))
+        XCTAssertEqual(sut.viewState, .error(message: ErrorMessageConstants.invalidEmailAddress))
     }
 
     func test_OnLogInUserWithWrongPassword_CorrectErrorIsThrown() async {

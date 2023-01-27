@@ -47,7 +47,7 @@ final class LoginViewModel: ObservableObject {
             
             switch error.code {
             case .invalidEmail:
-                viewState = .error(message: ErrorMessageConstants.invalidEmailAddressOnSignIn)
+                viewState = .error(message: ErrorMessageConstants.invalidEmailAddress)
             case .networkError:
                 viewState = .error(message: "\(ErrorMessageConstants.networkErrorOnSignIn). System error: \(error.localizedDescription)")
             case .wrongPassword:

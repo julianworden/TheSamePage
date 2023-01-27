@@ -12,7 +12,7 @@ final class BandSettingsViewModel: ObservableObject {
     let band: Band
 
     @Published var deleteBandConfirmationAlertIsShowing = false
-    @Published var deleteBandButtonIsDisabled = false
+    @Published var buttonsAreDisabled = false
     @Published var bandDeleteWasSuccessful = false
 
     @Published var errorAlertIsShowing = false
@@ -22,13 +22,13 @@ final class BandSettingsViewModel: ObservableObject {
         didSet {
             switch viewState {
             case .performingWork:
-                deleteBandButtonIsDisabled = true
+                buttonsAreDisabled = true
             case .workCompleted:
                 bandDeleteWasSuccessful = true
             case .error(let message):
                 errorAlertText = message
                 errorAlertIsShowing = true
-                deleteBandButtonIsDisabled = false
+                buttonsAreDisabled = false
             default:
                 errorAlertText = ErrorMessageConstants.invalidViewState
                 errorAlertIsShowing = true

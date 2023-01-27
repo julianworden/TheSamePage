@@ -93,6 +93,8 @@
 		AB5E490629003F870076EABE /* AddBacklineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E490529003F870076EABE /* AddBacklineView.swift */; };
 		AB5E490829003F8D0076EABE /* AddBacklineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E490729003F8D0076EABE /* AddBacklineViewModel.swift */; };
 		AB5E8C89296DB4740073FDEB /* EditImageViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E8C88296DB4740073FDEB /* EditImageViewModelTests.swift */; };
+		AB5EFF9B2982BE4D000399DE /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5EFF9A2982BE4D000399DE /* ForgotPasswordView.swift */; };
+		AB5EFF9D2982BE58000399DE /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5EFF9C2982BE58000399DE /* ForgotPasswordViewModel.swift */; };
 		AB6514DD28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6514DC28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift */; };
 		AB6514DF28F911EB008DFDD0 /* ShowTimeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6514DE28F911EB008DFDD0 /* ShowTimeRow.swift */; };
 		AB657D2329719D5A00696EF4 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB657D2229719D5A00696EF4 /* LoginViewModelTests.swift */; };
@@ -116,6 +118,8 @@
 		AB7F381528EF20EA007741C7 /* ShowParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7F381428EF20EA007741C7 /* ShowParticipant.swift */; };
 		AB7F6FC0296F0E7F00612D3B /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7F6FBF296F0E7F00612D3B /* HomeViewModelTests.swift */; };
 		AB7F6FC2296F173400612D3B /* MyShowsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7F6FC1296F173400612D3B /* MyShowsViewModelTests.swift */; };
+		AB816580298422C000C5C1B4 /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = AB81657F298422C000C5C1B4 /* FirebaseDynamicLinks */; };
+		AB816582298424E800C5C1B4 /* ForgotPasswordViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB816581298424E800C5C1B4 /* ForgotPasswordViewModelTests.swift */; };
 		AB8326B429129CE200208414 /* NoDataFoundMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8326B329129CE200208414 /* NoDataFoundMessage.swift */; };
 		AB8326B62912A89800208414 /* ShowBacklineRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8326B52912A89800208414 /* ShowBacklineRow.swift */; };
 		AB8326B82912BA2500208414 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8326B72912BA2500208414 /* Chat.swift */; };
@@ -145,6 +149,7 @@
 		ABA42BC8292D248400ADE3AD /* NotificationConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA42BC7292D248400ADE3AD /* NotificationConstants.swift */; };
 		ABA75756296F92A8001F6B70 /* NotificationsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA75755296F92A8001F6B70 /* NotificationsViewModelTests.swift */; };
 		ABA784EA290A3CFF0081CBF4 /* PlayingShowRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA784E9290A3CFF0081CBF4 /* PlayingShowRow.swift */; };
+		ABAAB3392983456900C1285F /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = ABAAB3382983456900C1285F /* FirebaseDynamicLinks */; };
 		ABAB45F928F24C2400FA8F70 /* HostedShowRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAB45F828F24C2400FA8F70 /* HostedShowRow.swift */; };
 		ABADC98C29251BFA0049ABAA /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = ABADC98B29251BFA0049ABAA /* FirebaseAuth */; };
 		ABADC98E29251C220049ABAA /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = ABADC98D29251C220049ABAA /* FirebaseFirestore */; };
@@ -328,6 +333,8 @@
 		AB5E490529003F870076EABE /* AddBacklineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBacklineView.swift; sourceTree = "<group>"; };
 		AB5E490729003F8D0076EABE /* AddBacklineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBacklineViewModel.swift; sourceTree = "<group>"; };
 		AB5E8C88296DB4740073FDEB /* EditImageViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageViewModelTests.swift; sourceTree = "<group>"; };
+		AB5EFF9A2982BE4D000399DE /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		AB5EFF9C2982BE58000399DE /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		AB6514DC28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+CustomTimeFormat.swift"; sourceTree = "<group>"; };
 		AB6514DE28F911EB008DFDD0 /* ShowTimeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimeRow.swift; sourceTree = "<group>"; };
 		AB657D2229719D5A00696EF4 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
@@ -351,6 +358,7 @@
 		AB7F381428EF20EA007741C7 /* ShowParticipant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowParticipant.swift; sourceTree = "<group>"; };
 		AB7F6FBF296F0E7F00612D3B /* HomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
 		AB7F6FC1296F173400612D3B /* MyShowsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowsViewModelTests.swift; sourceTree = "<group>"; };
+		AB816581298424E800C5C1B4 /* ForgotPasswordViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModelTests.swift; sourceTree = "<group>"; };
 		AB8326B329129CE200208414 /* NoDataFoundMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataFoundMessage.swift; sourceTree = "<group>"; };
 		AB8326B52912A89800208414 /* ShowBacklineRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowBacklineRow.swift; sourceTree = "<group>"; };
 		AB8326B72912BA2500208414 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
@@ -475,6 +483,7 @@
 				AB31440C291713B300E2D08B /* FirebaseMessaging in Frameworks */,
 				AB4A461C29172832007F1C8B /* FirebaseFunctions in Frameworks */,
 				AB07AC2C290452B900E378C6 /* FirebaseAuth in Frameworks */,
+				ABAAB3392983456900C1285F /* FirebaseDynamicLinks in Frameworks */,
 				AB07AC32290452B900E378C6 /* FirebaseStorage in Frameworks */,
 				AB07AC2E290452B900E378C6 /* FirebaseFirestore in Frameworks */,
 				AB07AC352904534F00E378C6 /* Typesense in Frameworks */,
@@ -491,6 +500,7 @@
 				ABADC99429251C220049ABAA /* FirebaseMessaging in Frameworks */,
 				ABADC99029251C220049ABAA /* FirebaseFirestoreSwift in Frameworks */,
 				ABADC99229251C220049ABAA /* FirebaseFunctions in Frameworks */,
+				AB816580298422C000C5C1B4 /* FirebaseDynamicLinks in Frameworks */,
 				ABADC99629251C220049ABAA /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -526,6 +536,7 @@
 			children = (
 				AB24E3A528D7C9B0002B4F2C /* LoginView.swift */,
 				AB24E3A728D7C9C4002B4F2C /* LoginViewModel.swift */,
+				AB5EFF992982BE42000399DE /* ForgotPasswordView */,
 			);
 			path = LoginView;
 			sourceTree = "<group>";
@@ -862,6 +873,15 @@
 			path = AddBackline;
 			sourceTree = "<group>";
 		};
+		AB5EFF992982BE42000399DE /* ForgotPasswordView */ = {
+			isa = PBXGroup;
+			children = (
+				AB5EFF9A2982BE4D000399DE /* ForgotPasswordView.swift */,
+				AB5EFF9C2982BE58000399DE /* ForgotPasswordViewModel.swift */,
+			);
+			path = ForgotPasswordView;
+			sourceTree = "<group>";
+		};
 		AB6514DA28F90EED008DFDD0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -1020,6 +1040,7 @@
 				AB7F6FC1296F173400612D3B /* MyShowsViewModelTests.swift */,
 				ABA75755296F92A8001F6B70 /* NotificationsViewModelTests.swift */,
 				AB657D2229719D5A00696EF4 /* LoginViewModelTests.swift */,
+				AB816581298424E800C5C1B4 /* ForgotPasswordViewModelTests.swift */,
 				AB657D242971A74600696EF4 /* SignUpViewModelTests.swift */,
 				AB657D26297233B500696EF4 /* OtherUserProfileViewModelTests.swift */,
 				ABE0251B29738CE70089E969 /* SendBandInviteViewModelTests.swift */,
@@ -1330,6 +1351,7 @@
 				AB07AC342904534F00E378C6 /* Typesense */,
 				AB31440B291713B300E2D08B /* FirebaseMessaging */,
 				AB4A461B29172832007F1C8B /* FirebaseFunctions */,
+				ABAAB3382983456900C1285F /* FirebaseDynamicLinks */,
 			);
 			productName = TheSamePage;
 			productReference = AB36FF6228D356FD00AAC00C /* TheSamePage.app */;
@@ -1356,6 +1378,7 @@
 				ABADC99129251C220049ABAA /* FirebaseFunctions */,
 				ABADC99329251C220049ABAA /* FirebaseMessaging */,
 				ABADC99529251C220049ABAA /* FirebaseStorage */,
+				AB81657F298422C000C5C1B4 /* FirebaseDynamicLinks */,
 			);
 			productName = TheSamePageTests;
 			productReference = AB55184529245D1F0085D1B6 /* TheSamePageTests.xctest */;
@@ -1463,6 +1486,7 @@
 				ABA1020728DDE5BE00A4E818 /* NotificationsViewModel.swift in Sources */,
 				AB668EB4291BF4C3007899A9 /* LoggedInUserProfileHeader.swift in Sources */,
 				ABD323F128E1181F00540B93 /* SendBandInviteViewModel.swift in Sources */,
+				AB5EFF9B2982BE4D000399DE /* ForgotPasswordView.swift in Sources */,
 				ABA784EA290A3CFF0081CBF4 /* PlayingShowRow.swift in Sources */,
 				AB794E2D28E25A77000ABB37 /* SearchView.swift in Sources */,
 				ABF1C40628ECE83F0004A3C1 /* TypesenseController.swift in Sources */,
@@ -1599,6 +1623,7 @@
 				AB9DAB04292329AF009BE932 /* ShowSettingsView.swift in Sources */,
 				AB285AFC28F6F7EE00EB5F2B /* ShowTimeList.swift in Sources */,
 				ABDC0D7928D76FC60054269E /* AddEditShowViewModel.swift in Sources */,
+				AB5EFF9D2982BE58000399DE /* ForgotPasswordViewModel.swift in Sources */,
 				AB5C0D3B292B14DE0040CE97 /* FirebaseError.swift in Sources */,
 				AB36FF8928D35C2800AAC00C /* PlatformLink.swift in Sources */,
 				ABEF10EA28E6506000A1DBAC /* LinkPlatform.swift in Sources */,
@@ -1635,6 +1660,7 @@
 				ABA054992974C917006B5908 /* BandSettingsViewModelTests.swift in Sources */,
 				AB657D2329719D5A00696EF4 /* LoginViewModelTests.swift in Sources */,
 				ABD4BD1E2968695E00CCA88B /* BandTests.swift in Sources */,
+				AB816582298424E800C5C1B4 /* ForgotPasswordViewModelTests.swift in Sources */,
 				ABA75756296F92A8001F6B70 /* NotificationsViewModelTests.swift in Sources */,
 				AB1CDD3E296A12BD008ACC48 /* ChatTests.swift in Sources */,
 				ABE0251C29738CE70089E969 /* SendBandInviteViewModelTests.swift in Sources */,
@@ -1980,6 +2006,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AB07AC2A290452B900E378C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFunctions;
+		};
+		AB81657F298422C000C5C1B4 /* FirebaseDynamicLinks */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AB07AC2A290452B900E378C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDynamicLinks;
+		};
+		ABAAB3382983456900C1285F /* FirebaseDynamicLinks */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AB07AC2A290452B900E378C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDynamicLinks;
 		};
 		ABADC98B29251BFA0049ABAA /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

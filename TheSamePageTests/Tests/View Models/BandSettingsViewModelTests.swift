@@ -45,7 +45,7 @@ final class BandSettingsViewModelTests: XCTestCase {
 
         sut.viewState = .performingWork
 
-        XCTAssertTrue(sut.deleteBandButtonIsDisabled)
+        XCTAssertTrue(sut.buttonsAreDisabled)
     }
 
     func test_OnWorkCompletedViewState_PropertiesAreSet() {
@@ -63,7 +63,7 @@ final class BandSettingsViewModelTests: XCTestCase {
 
         XCTAssertEqual(sut.errorAlertText, "TEST ERROR")
         XCTAssertTrue(sut.errorAlertIsShowing)
-        XCTAssertFalse(sut.deleteBandButtonIsDisabled)
+        XCTAssertFalse(sut.buttonsAreDisabled)
     }
 
     func test_OnInvalidViewState_PropertiesAreSet() {

@@ -29,7 +29,7 @@ struct BandSettingsView: View {
                 } label: {
                     Text("Edit Band Info")
                 }
-                .disabled(viewModel.viewState == .performingWork)
+                .disabled(viewModel.buttonsAreDisabled)
                 
                 if band.loggedInUserIsBandAdmin {
                     // TODO: Add logic to make someone else band admin
@@ -47,7 +47,7 @@ struct BandSettingsView: View {
                         }
                     }
                 }
-                .disabled(viewModel.viewState == .performingWork)
+                .disabled(viewModel.buttonsAreDisabled)
                 .alert(
                     "Are You Sure?",
                     isPresented: $viewModel.deleteBandConfirmationAlertIsShowing,
@@ -65,7 +65,7 @@ struct BandSettingsView: View {
         }
         .navigationTitle("Band Settings")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(viewModel.viewState == .performingWork)
+        .navigationBarBackButtonHidden(viewModel.buttonsAreDisabled)
         .errorAlert(
             isPresented: $viewModel.errorAlertIsShowing,
             message: viewModel.errorAlertText

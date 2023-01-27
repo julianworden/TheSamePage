@@ -15,27 +15,41 @@ struct LoginView: View {
     
     @Binding var userIsOnboarding: Bool
 
+    @State private var forgotPasswordSheetIsShowing = false
+
     var body: some View {
         NavigationView {
             Form {
-                TextField("Email Address", text: $viewModel.emailAddress)
-                SecureField("Password", text: $viewModel.password)
-                AsyncButton {
-                    await viewModel.logInUserWith(
-                        emailAddress: viewModel.emailAddress,
-                        password: viewModel.password
-                    )
-                } label: {
-                    Text("Log In")
+                Section {
+                    TextField("Email Address", text: $viewModel.emailAddress)
+                    SecureField("Password", text: $viewModel.password)
+                    AsyncButton {
+                        await viewModel.logInUserWith(
+                            emailAddress: viewModel.emailAddress,
+                            password: viewModel.password
+                        )
+                    } label: {
+                        Text("Log In")
+                    }
+                    .disabled(viewModel.loginButtonIsDisabled)
+
+                    Button("Forgot your password?") {
+                        forgotPasswordSheetIsShowing.toggle()
+                    }
+                    .sheet(isPresented: $forgotPasswordSheetIsShowing) {
+                        NavigationView {
+                            ForgotPasswordView()
+                        }
+                    }
                 }
-                .disabled(viewModel.loginButtonIsDisabled)
-                
-                Text("Don't have an account?")
-                NavigationLink {
-                    SignUpView(userIsOnboarding: $userIsOnboarding)
-                } label: {
-                    Text("Sign Up")
-                        .foregroundColor(.accentColor)
+
+                Section("Don't have an account?") {
+                    NavigationLink {
+                        SignUpView(userIsOnboarding: $userIsOnboarding)
+                    } label: {
+                        Text("Sign Up")
+                            .foregroundColor(.accentColor)
+                    }
                 }
             }
             .navigationTitle("Log In")
