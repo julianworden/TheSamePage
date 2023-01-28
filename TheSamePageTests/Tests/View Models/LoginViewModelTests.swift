@@ -30,7 +30,7 @@ final class LoginViewModelTests: XCTestCase {
         XCTAssertTrue(sut.password.isEmpty)
         XCTAssertFalse(sut.loginErrorShowing)
         XCTAssertTrue(sut.loginErrorMessage.isEmpty)
-        XCTAssertFalse(sut.loginButtonIsDisabled)
+        XCTAssertFalse(sut.logInButtonIsDisabled)
         XCTAssertTrue(sut.userIsOnboarding)
         XCTAssertEqual(sut.viewState, .displayingView)
     }
@@ -38,7 +38,7 @@ final class LoginViewModelTests: XCTestCase {
     func test_OnPerformingWorkViewState_PropertiesAreSet() {
         sut.viewState = .performingWork
 
-        XCTAssertTrue(sut.loginButtonIsDisabled, "The Log In button should be disabled while the system attempts to log the user in")
+        XCTAssertTrue(sut.logInButtonIsDisabled, "The Log In button should be disabled while the system attempts to log the user in")
     }
 
     func test_OnWorkCompletedViewState_PropertiesAreSet() {
@@ -52,7 +52,7 @@ final class LoginViewModelTests: XCTestCase {
 
         XCTAssertEqual(sut.loginErrorMessage, "TEST ERROR", "The user should see the error message set above")
         XCTAssertTrue(sut.loginErrorShowing, "The user should see an error message")
-        XCTAssertFalse(sut.loginButtonIsDisabled, "The user should be able to attempt to log in again after getting an error")
+        XCTAssertFalse(sut.logInButtonIsDisabled, "The user should be able to attempt to log in again after getting an error")
     }
 
     func test_OnInvalidViewState_PropertiesAreSet() {
@@ -94,5 +94,34 @@ final class LoginViewModelTests: XCTestCase {
 
         XCTAssertNil(currentUser, "No one should've been signed in")
         XCTAssertEqual(sut.viewState, .error(message: ErrorMessageConstants.userNotFoundOnSignIn))
+    }
+
+    func test_OnLogInUserWithUnverifiedEmailAddress_AlertIsShown() async throws {
+        await sut.logInUserWith(
+            emailAddress: TestingConstants.exampleUserLou.emailAddress,
+            password: "dynomite"
+        )
+
+        XCTAssertTrue(sut.unverifiedEmailErrorShowing)
+        XCTAssertTrue(AuthController.userIsLoggedOut())
+    }
+
+    func test_OnLogInUserWithVerifiedEmailAddress_UserIsLoggedIn() async {
+        await sut.logInUserWith(
+            emailAddress: TestingConstants.exampleUserJulian.emailAddress,
+            password: "dynomite"
+        )
+
+        XCTAssertFalse(sut.unverifiedEmailErrorShowing)
+        XCTAssertEqual(sut.viewState, .workCompleted)
+        XCTAssertFalse(AuthController.userIsLoggedOut())
+    }
+
+    func test_OnLogOutUser_UserIsLoggedOut() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
+
+        sut.logOutUser()
+
+        XCTAssertTrue(AuthController.userIsLoggedOut())
     }
 }

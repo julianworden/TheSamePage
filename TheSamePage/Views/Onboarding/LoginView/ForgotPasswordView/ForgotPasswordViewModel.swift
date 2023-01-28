@@ -45,7 +45,9 @@ final class ForgotPasswordViewModel: ObservableObject {
             // url property AFTER they've reset their password. If this is true, the link
             // in the password reset email will direct the user straight to the URL in the url property
             actionCodeSettings.handleCodeInApp = false
-            actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
+            if let appBundleId = Bundle.main.bundleIdentifier {
+                actionCodeSettings.setIOSBundleID(appBundleId)
+            }
             actionCodeSettings.url = URL(string: "https://thesamepage.page.link")
             try await Auth.auth().sendPasswordReset(withEmail: emailAddress, actionCodeSettings: actionCodeSettings)
             viewState = .workCompleted

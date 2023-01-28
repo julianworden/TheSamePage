@@ -20,6 +20,7 @@ struct ErrorMessageConstants {
     static let networkErrorOnSignIn = "Login failed. \(checkYourConnection)"
     static let wrongPasswordOnSignIn = "Incorrect email or password. Please try again."
     static let userNotFoundOnSignIn = "This email address is not registered with The Same Page. If you need to create a new account, use the Sign Up button."
+    static let unverifiedEmailAddressOnSignIn = "You cannot sign in until you verify your email address with The Same Page."
 
     // MARK: - Forgot Password
     static let emailAddressDoesNotBelongToAccountOnForgotPassword = "This email address is not associated with an existing account on The Same Page. If you need to create an account, go back and tap the Sign Up button."

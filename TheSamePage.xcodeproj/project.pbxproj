@@ -215,8 +215,6 @@
 		ABE3EFA628D91960002EEF23 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3EFA528D91960002EEF23 /* SignUpView.swift */; };
 		ABE3EFA828D919A2002EEF23 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */; };
 		ABE7AB002978C14500534FC3 /* NoDataFoundMessageWithButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE7AAFF2978C14500534FC3 /* NoDataFoundMessageWithButtonView.swift */; };
-		ABEACE7B28DBBB6200BB1D67 /* InABandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEACE7A28DBBB6200BB1D67 /* InABandView.swift */; };
-		ABEACE7D28DBBB6F00BB1D67 /* InABandViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEACE7C28DBBB6F00BB1D67 /* InABandViewModel.swift */; };
 		ABEF10E528E64CD800A1DBAC /* AddEditLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEF10E428E64CD800A1DBAC /* AddEditLinkView.swift */; };
 		ABEF10E728E64CE100A1DBAC /* AddEditLinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEF10E628E64CE100A1DBAC /* AddEditLinkViewModel.swift */; };
 		ABEF10EA28E6506000A1DBAC /* LinkPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEF10E928E6506000A1DBAC /* LinkPlatform.swift */; };
@@ -448,8 +446,6 @@
 		ABE3EFA528D91960002EEF23 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		ABE7AAFF2978C14500534FC3 /* NoDataFoundMessageWithButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataFoundMessageWithButtonView.swift; sourceTree = "<group>"; };
-		ABEACE7A28DBBB6200BB1D67 /* InABandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InABandView.swift; sourceTree = "<group>"; };
-		ABEACE7C28DBBB6F00BB1D67 /* InABandViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InABandViewModel.swift; sourceTree = "<group>"; };
 		ABEF10E428E64CD800A1DBAC /* AddEditLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditLinkView.swift; sourceTree = "<group>"; };
 		ABEF10E628E64CE100A1DBAC /* AddEditLinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditLinkViewModel.swift; sourceTree = "<group>"; };
 		ABEF10E828E64F8800A1DBAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -1234,18 +1230,8 @@
 			children = (
 				AB24E3A428D7C9A8002B4F2C /* LoginView */,
 				ABE3EFA428D91955002EEF23 /* SignUpView */,
-				ABEACE7728DBBB4300BB1D67 /* InABandView */,
 			);
 			path = Onboarding;
-			sourceTree = "<group>";
-		};
-		ABEACE7728DBBB4300BB1D67 /* InABandView */ = {
-			isa = PBXGroup;
-			children = (
-				ABEACE7A28DBBB6200BB1D67 /* InABandView.swift */,
-				ABEACE7C28DBBB6F00BB1D67 /* InABandViewModel.swift */,
-			);
-			path = InABandView;
 			sourceTree = "<group>";
 		};
 		ABEF10E328E64CCB00A1DBAC /* AddEditLinkView */ = {
@@ -1499,7 +1485,6 @@
 				AB8326B82912BA2500208414 /* Chat.swift in Sources */,
 				AB3E11E828D656FF000F147B /* OtherUserBandRow.swift in Sources */,
 				ABB71C4A28FE08D500D3126D /* HomeViewModel.swift in Sources */,
-				ABEACE7B28DBBB6200BB1D67 /* InABandView.swift in Sources */,
 				ABF1C40228ECD0F60004A3C1 /* SearchResultRow.swift in Sources */,
 				AB7F381328EF1B56007741C7 /* NotificationType.swift in Sources */,
 				AB1B559829202E8300571316 /* SmallIconStyle.swift in Sources */,
@@ -1599,7 +1584,6 @@
 				ABB4C3FF29207CE600E2C153 /* NotificationAction.swift in Sources */,
 				AB36FF6628D356FD00AAC00C /* TheSamePageApp.swift in Sources */,
 				ABE07A0C29799A93009D3661 /* AddMyBandToShowView.swift in Sources */,
-				ABEACE7D28DBBB6F00BB1D67 /* InABandViewModel.swift in Sources */,
 				AB8326B62912A89800208414 /* ShowBacklineRow.swift in Sources */,
 				ABDDAD4C28DB49DF00F1CF9B /* AddEditBandViewModel.swift in Sources */,
 				AB668EAF291BE666007899A9 /* LoggedInUserBandRow.swift in Sources */,

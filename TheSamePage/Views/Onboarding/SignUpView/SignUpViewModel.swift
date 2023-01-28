@@ -21,12 +21,10 @@ final class SignUpViewModel: ObservableObject {
     @Published var firstName = ""
     @Published var lastName = ""
     @Published var phoneNumber: String?
-    @Published var userIsInABand = false
-    
+
     @Published var imagePickerIsShowing = false
     @Published var profileCreationWasSuccessful = false
     @Published var signUpButtonIsDisabled = false
-    @Published var userIsOnboarding = true
     
     @Published var errorAlertIsShowing = false
     var errorAlertText = ""
@@ -37,12 +35,8 @@ final class SignUpViewModel: ObservableObject {
             case .performingWork:
                 signUpButtonIsDisabled = true
             case .workCompleted:
-                if userIsInABand {
-                    // Segues to InABandView
-                    profileCreationWasSuccessful = true
-                } else {
-                    userIsOnboarding = false
-                }
+                // Segues to InABandView
+                profileCreationWasSuccessful = true
             case .error(let message):
                 errorAlertText = message
                 errorAlertIsShowing = true
@@ -60,6 +54,8 @@ final class SignUpViewModel: ObservableObject {
     }
     
     @discardableResult func signUpButtonTapped() async -> String {
+        #warning("Check for matching email and password textfields once they're added")
+
         guard formIsComplete else {
             viewState = .error(message: ErrorMessageConstants.incompleteFormOnSignUp)
             return ""
@@ -114,6 +110,24 @@ final class SignUpViewModel: ObservableObject {
         )
         
         try await DatabaseService.shared.createUserObject(user: newUser)
+        try await sendEmailVerificationEmail(to: result.user)
+        // The user shouldn't be logged in unless they verified their email
+        try AuthController.logOut()
+
         return uid
+    }
+
+    func sendEmailVerificationEmail(to user: FirebaseAuth.User) async throws {
+        let actionCodeSettings = ActionCodeSettings()
+        // This line tells Firebase to direct the user to the url set in the
+        // url property AFTER they've reset their password. If this is true, the link
+        // in the password reset email will direct the user straight to the URL in the url property
+        actionCodeSettings.handleCodeInApp = false
+        if let appBundleId = Bundle.main.bundleIdentifier {
+            actionCodeSettings.setIOSBundleID(appBundleId)
+        }
+        actionCodeSettings.url = URL(string: "https://thesamepage.page.link")
+        
+        try await user.sendEmailVerification(with: actionCodeSettings)
     }
 }

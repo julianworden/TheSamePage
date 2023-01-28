@@ -54,10 +54,11 @@ class LoggedInUserController: ObservableObject {
     }
 
     func getLoggedInUserBands() async {
-        guard !AuthController.userIsLoggedOut() else { return }
+        guard let loggedInUser,
+              !AuthController.userIsLoggedOut() else { return }
 
         do {
-            self.bands = try await DatabaseService.shared.getBands(withUid: loggedInUser!.id)
+            self.bands = try await DatabaseService.shared.getBands(withUid: loggedInUser.id)
         } catch {
             loggedInUserProfileViewState = .error(message: error.localizedDescription)
         }

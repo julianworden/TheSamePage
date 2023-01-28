@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct SignUpView: View {
+    @Environment(\.dismiss) var dismiss
+
     @StateObject var viewModel = SignUpViewModel()
-    
-    @Binding var userIsOnboarding: Bool
-    
+
     var body: some View {
         Form {
             Section("Account Info") {
@@ -32,27 +32,24 @@ struct SignUpView: View {
             }
             
             Section {
-                Toggle("Are affiliated with a band?", isOn: $viewModel.userIsInABand)
-            }
-            
-            Section {
                 AsyncButton {
                     await viewModel.signUpButtonTapped()
                 } label: {
-                    NavigationLink(
-                        destination: InABandView(userIsOnboarding: $userIsOnboarding),
-                        isActive: $viewModel.profileCreationWasSuccessful,
-                        label: {
-                            Text("Create Profile")
-                        }
-                    )
+                    Text("Create Profile")
                 }
                 .disabled(viewModel.signUpButtonIsDisabled)
+                .alert(
+                    "Success!",
+                    isPresented: $viewModel.profileCreationWasSuccessful,
+                    actions: {
+                        Button("OK") { dismiss() }
+                    },
+                    message: { Text("Your account on The Same Page was successfully created! However, you'll need to click the email verification link that was sent to \(viewModel.emailAddress) before you can log in.") }
+                )
             }
         }
         .navigationTitle("Sign Up")
         .navigationBarTitleDisplayMode(.inline)
-        .animation(.easeInOut, value: viewModel.userIsInABand)
         .sheet(isPresented: $viewModel.imagePickerIsShowing) {
             ImagePicker(image: $viewModel.profileImage, pickerIsShowing: $viewModel.imagePickerIsShowing)
         }
@@ -60,18 +57,13 @@ struct SignUpView: View {
             isPresented: $viewModel.errorAlertIsShowing,
             message: viewModel.errorAlertText
         )
-        .onChange(of: viewModel.userIsOnboarding) { userIsOnboarding in
-            if !userIsOnboarding {
-                self.userIsOnboarding = userIsOnboarding
-            }
-        }
     }
 }
 
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            SignUpView(userIsOnboarding: .constant(true))
+            SignUpView()
         }
     }
 }

@@ -13,10 +13,12 @@ import Foundation
 final class LoginViewModel: ObservableObject {
     @Published var emailAddress = ""
     @Published var password = ""
-    
+
+    @Published var unverifiedEmailErrorShowing = false
+    @Published var unverifiedEmailErrorText = ErrorMessageConstants.unverifiedEmailAddressOnSignIn
     @Published var loginErrorShowing = false
     @Published var loginErrorMessage = ""
-    @Published var loginButtonIsDisabled = false
+    @Published var logInButtonIsDisabled = false
     @Published var userIsOnboarding = true
     
     @Published var viewState = ViewState.displayingView {
@@ -25,9 +27,9 @@ final class LoginViewModel: ObservableObject {
             case .error(let message):
                 loginErrorMessage = message
                 loginErrorShowing = true
-                loginButtonIsDisabled = false
+                logInButtonIsDisabled = false
             case .performingWork:
-                loginButtonIsDisabled = true
+                logInButtonIsDisabled = true
             case .workCompleted:
                 userIsOnboarding = false
             default:
@@ -40,8 +42,13 @@ final class LoginViewModel: ObservableObject {
     func logInUserWith(emailAddress: String, password: String) async {
         do {
             viewState = .performingWork
-            try await Auth.auth().signIn(withEmail: emailAddress, password: password)
-            viewState = .workCompleted
+            let result = try await Auth.auth().signIn(withEmail: emailAddress, password: password)
+            if result.user.isEmailVerified {
+                viewState = .workCompleted
+            } else {
+                unverifiedEmailErrorShowing = true
+                logOutUser()
+            }
         } catch {
             let error = AuthErrorCode(_nsError: error as NSError)
             
@@ -58,7 +65,32 @@ final class LoginViewModel: ObservableObject {
             default:
                 viewState = .error(message: "\(ErrorMessageConstants.unknownError). System error: \(error.localizedDescription)")
             }
-            
+        }
+    }
+
+    func logOutUser() {
+        do {
+            try AuthController.logOut()
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func sendEmailVerificationEmail() async {
+        do {
+            let actionCodeSettings = ActionCodeSettings()
+            // This line tells Firebase to direct the user to the url set in the
+            // url property AFTER they've reset their password. If this is true, the link
+            // in the password reset email will direct the user straight to the URL in the url property
+            actionCodeSettings.handleCodeInApp = false
+            if let appBundleId = Bundle.main.bundleIdentifier {
+                actionCodeSettings.setIOSBundleID(appBundleId)
+            }
+            actionCodeSettings.url = URL(string: "https://thesamepage.page.link")
+
+            try await Auth.auth().currentUser?.sendEmailVerification(with: actionCodeSettings)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
         }
     }
 }

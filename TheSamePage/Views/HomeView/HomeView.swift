@@ -70,10 +70,8 @@ struct HomeView: View {
                 tryAgainAction: viewModel.fetchNearbyShows
             )
             .task {                
-//                if viewModel.nearbyShows.isEmpty {
-                    viewModel.viewState = .dataLoading
-                    await viewModel.fetchNearbyShows()
-//                }
+                viewModel.viewState = .dataLoading
+                await viewModel.fetchNearbyShows()
             }
         }
         .navigationViewStyle(.stack)

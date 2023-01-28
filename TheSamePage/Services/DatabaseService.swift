@@ -31,7 +31,7 @@ class DatabaseService: NSObject {
         do {
             try db
                 .collection(FbConstants.users)
-                .document(AuthController.getLoggedInUid())
+                .document(user.id)
                 .setData(from: user)
         } catch {
             throw FirebaseError.connection(

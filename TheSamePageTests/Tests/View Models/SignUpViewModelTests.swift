@@ -49,11 +49,9 @@ final class SignUpViewModelTests: XCTestCase {
         XCTAssertTrue(sut.firstName.isEmpty)
         XCTAssertTrue(sut.lastName.isEmpty)
         XCTAssertNil(sut.phoneNumber)
-        XCTAssertFalse(sut.userIsInABand)
         XCTAssertFalse(sut.imagePickerIsShowing)
         XCTAssertFalse(sut.profileCreationWasSuccessful)
         XCTAssertFalse(sut.signUpButtonIsDisabled)
-        XCTAssertTrue(sut.userIsOnboarding)
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
         XCTAssertEqual(sut.viewState, .displayingView)
@@ -65,17 +63,10 @@ final class SignUpViewModelTests: XCTestCase {
         XCTAssertTrue(sut.signUpButtonIsDisabled, "The sign up button should be disabled while the system signs the user in")
     }
 
-    func test_OnWorkCompletedViewStateWhenUserIsNotInABand_PropertiesAreSet() {
+    func test_OnWorkCompletedViewState_PropertiesAreSet() {
         sut.viewState = .workCompleted
 
-        XCTAssertFalse(sut.userIsOnboarding, "Onboarding should end here if the user is not in a band")
-    }
-
-    func test_OnWorkCompletedViewStateWhenUserIsInABand_PropertiesAreSet() {
-        sut.userIsInABand = true
-        sut.viewState = .workCompleted
-
-        XCTAssertTrue(sut.profileCreationWasSuccessful, "The user should see the option to create a band after creating their profile if they're in a band")
+        XCTAssertTrue(sut.profileCreationWasSuccessful, "If sign up was completed, then profile creation was successful.")
     }
 
     func test_OnErrorViewState_PropertiesAreSet() {
@@ -116,18 +107,22 @@ final class SignUpViewModelTests: XCTestCase {
         XCTAssertFalse(sut.formIsComplete)
     }
 
-    func test_OnSignUpButtonTappedWithCompleteFormAndValidAccountInfoAndNoProfileImage_NewUserIsSignedIn() async {
+    func test_OnSignUpButtonTappedWithCompleteFormAndValidAccountInfoAndNoProfileImage_NewUserIsSignedOut() async throws {
         setTimCookAccountInfoInViewModelProperties()
 
         createdUserUid = await sut.signUpButtonTapped()
 
-        XCTAssertTrue(testingDatabaseService.userIsLoggedIn())
+        XCTAssertTrue(AuthController.userIsLoggedOut(), "The user should get logged out ")
+
+        // Necessary so that objects can get deleted in tearDown
+        try await testingDatabaseService.logInToTimAccount()
     }
 
     func test_OnSignUpButtonTappedWithCompleteFormAndValidAccountInfoAndNoProfileImage_NewUserIsCreatedInFirestore() async throws {
         setTimCookAccountInfoInViewModelProperties()
 
         createdUserUid = await sut.signUpButtonTapped()
+        try await testingDatabaseService.logInToTimAccount()
         let createdUser = try await testingDatabaseService.getUserFromFirestore(withUid: createdUserUid!)
 
         XCTAssertEqual(tim.firstName, createdUser.firstName)
@@ -140,6 +135,7 @@ final class SignUpViewModelTests: XCTestCase {
         setTimCookAccountInfoInViewModelProperties()
 
         createdUserUid = await sut.signUpButtonTapped()
+        try await testingDatabaseService.logInToTimAccount()
         let createdUser = testingDatabaseService.getLoggedInUserFromFirebaseAuth()
 
         XCTAssertNotNil(createdUser, "The user should've been created and become the Auth.auth().currentUser")
@@ -151,6 +147,7 @@ final class SignUpViewModelTests: XCTestCase {
         sut.profileImage = TestingConstants.uiImageForTesting
 
         createdUserUid = await sut.signUpButtonTapped()
+        try await testingDatabaseService.logInToTimAccount()
         let createdUser = try await testingDatabaseService.getUserFromFirestore(withUid: createdUserUid!)
         createdImageDownloadUrl = createdUser.profileImageUrl
         let profileImageExistsInFirebaseStorage = try await testingDatabaseService.imageExists(at: createdImageDownloadUrl)

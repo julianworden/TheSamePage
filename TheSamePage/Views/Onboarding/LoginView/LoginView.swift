@@ -31,7 +31,26 @@ struct LoginView: View {
                     } label: {
                         Text("Log In")
                     }
-                    .disabled(viewModel.loginButtonIsDisabled)
+                    .disabled(viewModel.logInButtonIsDisabled)
+                    .alert(
+                        "Error",
+                        isPresented: $viewModel.unverifiedEmailErrorShowing,
+                        actions: {
+                            Button("OK") {
+                                viewModel.logOutUser()
+                                viewModel.logInButtonIsDisabled = false
+                            }
+
+                            Button("Send New Verification Link") {
+                                Task {
+                                    await viewModel.sendEmailVerificationEmail()
+                                    viewModel.logOutUser()
+                                    viewModel.logInButtonIsDisabled = false
+                                }
+                            }
+                        },
+                        message: { Text(viewModel.unverifiedEmailErrorText) }
+                    )
 
                     Button("Forgot your password?") {
                         forgotPasswordSheetIsShowing.toggle()
@@ -45,7 +64,7 @@ struct LoginView: View {
 
                 Section("Don't have an account?") {
                     NavigationLink {
-                        SignUpView(userIsOnboarding: $userIsOnboarding)
+                        SignUpView()
                     } label: {
                         Text("Sign Up")
                             .foregroundColor(.accentColor)
