@@ -30,6 +30,11 @@
 		AB1B559829202E8300571316 /* SmallIconStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1B559729202E8300571316 /* SmallIconStyle.swift */; };
 		AB1B559A29202FB500571316 /* ListIconStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1B559929202FB500571316 /* ListIconStyle.swift */; };
 		AB1CDD3E296A12BD008ACC48 /* ChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1CDD3D296A12BD008ACC48 /* ChatTests.swift */; };
+		AB1D5E342987145000E62C29 /* ReauthenticateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D5E332987145000E62C29 /* ReauthenticateView.swift */; };
+		AB1D5E362987145E00E62C29 /* ReauthenticateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D5E352987145E00E62C29 /* ReauthenticateViewModel.swift */; };
+		AB1D5E38298719A100E62C29 /* UserSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D5E37298719A100E62C29 /* UserSettingsViewModel.swift */; };
+		AB1D5E3C29871C9700E62C29 /* EditUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D5E3B29871C9700E62C29 /* EditUserInfoView.swift */; };
+		AB1D5E3E29871C9E00E62C29 /* EditUserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D5E3D29871C9E00E62C29 /* EditUserInfoViewModel.swift */; };
 		AB24E3A628D7C9B0002B4F2C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24E3A528D7C9B0002B4F2C /* LoginView.swift */; };
 		AB24E3A828D7C9C4002B4F2C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24E3A728D7C9C4002B4F2C /* LoginViewModel.swift */; };
 		AB272F882976FD3D00E74091 /* AddBacklineViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB272F872976FD3D00E74091 /* AddBacklineViewModelTests.swift */; };
@@ -273,6 +278,11 @@
 		AB1B559729202E8300571316 /* SmallIconStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallIconStyle.swift; sourceTree = "<group>"; };
 		AB1B559929202FB500571316 /* ListIconStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListIconStyle.swift; sourceTree = "<group>"; };
 		AB1CDD3D296A12BD008ACC48 /* ChatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTests.swift; sourceTree = "<group>"; };
+		AB1D5E332987145000E62C29 /* ReauthenticateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReauthenticateView.swift; sourceTree = "<group>"; };
+		AB1D5E352987145E00E62C29 /* ReauthenticateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReauthenticateViewModel.swift; sourceTree = "<group>"; };
+		AB1D5E37298719A100E62C29 /* UserSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsViewModel.swift; sourceTree = "<group>"; };
+		AB1D5E3B29871C9700E62C29 /* EditUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoView.swift; sourceTree = "<group>"; };
+		AB1D5E3D29871C9E00E62C29 /* EditUserInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoViewModel.swift; sourceTree = "<group>"; };
 		AB24E3A528D7C9B0002B4F2C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		AB24E3A728D7C9C4002B4F2C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		AB272F872976FD3D00E74091 /* AddBacklineViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBacklineViewModelTests.swift; sourceTree = "<group>"; };
@@ -544,6 +554,35 @@
 				AB1B559929202FB500571316 /* ListIconStyle.swift */,
 			);
 			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
+		AB1D5E322987144400E62C29 /* Reauthenticate */ = {
+			isa = PBXGroup;
+			children = (
+				AB1D5E332987145000E62C29 /* ReauthenticateView.swift */,
+				AB1D5E352987145E00E62C29 /* ReauthenticateViewModel.swift */,
+			);
+			path = Reauthenticate;
+			sourceTree = "<group>";
+		};
+		AB1D5E3929871B5B00E62C29 /* UserSettings */ = {
+			isa = PBXGroup;
+			children = (
+				AB9D086028FDA24B0098A244 /* UserSettingsView.swift */,
+				AB1D5E37298719A100E62C29 /* UserSettingsViewModel.swift */,
+				AB1D5E322987144400E62C29 /* Reauthenticate */,
+				AB1D5E3A29871C8300E62C29 /* EditUserInfoView */,
+			);
+			path = UserSettings;
+			sourceTree = "<group>";
+		};
+		AB1D5E3A29871C8300E62C29 /* EditUserInfoView */ = {
+			isa = PBXGroup;
+			children = (
+				AB1D5E3B29871C9700E62C29 /* EditUserInfoView.swift */,
+				AB1D5E3D29871C9E00E62C29 /* EditUserInfoViewModel.swift */,
+			);
+			path = EditUserInfoView;
 			sourceTree = "<group>";
 		};
 		AB24E3A428D7C9A8002B4F2C /* LoginView */ = {
@@ -970,7 +1009,7 @@
 		AB9D085F28FDA2300098A244 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				AB9D086028FDA24B0098A244 /* UserSettingsView.swift */,
+				AB1D5E3929871B5B00E62C29 /* UserSettings */,
 				AB9DAB0229232962009BE932 /* ShowSettings */,
 				ABBEC0A92921D06100314BE5 /* BandSettings */,
 			);
@@ -1464,7 +1503,9 @@
 				AB5E48FC29003B950076EABE /* PercussionGearType.swift in Sources */,
 				AB5E48FE29003CA80076EABE /* VocalGear.swift in Sources */,
 				ABD029B428E8978F00BDF73C /* BandMemberList.swift in Sources */,
+				AB1D5E3E29871C9E00E62C29 /* EditUserInfoViewModel.swift in Sources */,
 				ABCD5F66291B551800E33934 /* BandShowRow.swift in Sources */,
+				AB1D5E38298719A100E62C29 /* UserSettingsViewModel.swift in Sources */,
 				AB36FF7428D358FB00AAC00C /* HomeView.swift in Sources */,
 				ABBADD7928DFE5FA00720C64 /* BandState.swift in Sources */,
 				AB37EBB8290971390029588C /* ShowDetailsStaticRow.swift in Sources */,
@@ -1493,6 +1534,7 @@
 				AB5E490629003F870076EABE /* AddBacklineView.swift in Sources */,
 				AB36FF9828D36A6600AAC00C /* SectionTitle.swift in Sources */,
 				AB07295628F454EE0069B268 /* ShowDetailsList.swift in Sources */,
+				AB1D5E342987145000E62C29 /* ReauthenticateView.swift in Sources */,
 				ABDC0D7B28D76FDE0054269E /* AddEditShowView.swift in Sources */,
 				ABA1020728DDE5BE00A4E818 /* NotificationsViewModel.swift in Sources */,
 				AB668EB4291BF4C3007899A9 /* LoggedInUserProfileHeader.swift in Sources */,
@@ -1501,6 +1543,7 @@
 				ABA784EA290A3CFF0081CBF4 /* PlayingShowRow.swift in Sources */,
 				AB794E2D28E25A77000ABB37 /* SearchView.swift in Sources */,
 				ABF1C40628ECE83F0004A3C1 /* TypesenseController.swift in Sources */,
+				AB1D5E3C29871C9700E62C29 /* EditUserInfoView.swift in Sources */,
 				AB668EB7291C0180007899A9 /* BandAboutTab.swift in Sources */,
 				AB8627C1292687FC001537D9 /* ErrorMessageConstants.swift in Sources */,
 				ABADC999292529F90049ABAA /* Task+sleepInSeconds.swift in Sources */,
@@ -1600,6 +1643,7 @@
 				AB4BD581292C388100E0360B /* AddressSearchList.swift in Sources */,
 				ABE07A0E29799A9C009D3661 /* AddMyBandToShowViewModel.swift in Sources */,
 				AB93A90D2929269C00C0EEE6 /* errorAlert.swift in Sources */,
+				AB1D5E362987145E00E62C29 /* ReauthenticateViewModel.swift in Sources */,
 				AB37EBB2290966C90029588C /* HomeShowRow.swift in Sources */,
 				ABD1D16F28F30CE500791969 /* MyPlayingShowsView.swift in Sources */,
 				ABA42BC5292D1E3400ADE3AD /* AddEditShowAddressViewModel.swift in Sources */,
