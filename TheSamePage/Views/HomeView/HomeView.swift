@@ -71,7 +71,8 @@ struct HomeView: View {
             )
             .task {                
                 viewModel.viewState = .dataLoading
-                await viewModel.fetchNearbyShows()
+                viewModel.addLocationNotificationObserver()
+                LocationController.shared.startLocationServices()
             }
         }
         .navigationViewStyle(.stack)

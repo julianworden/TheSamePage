@@ -42,7 +42,6 @@ final class SignUpViewModelTests: XCTestCase {
     }
 
     func test_OnInit_DefaultValuesAreCorrect() {
-        XCTAssertTrue(sut.username.isEmpty)
         XCTAssertTrue(sut.emailAddress.isEmpty)
         XCTAssertNil(sut.profileImage)
         XCTAssertTrue(sut.password.isEmpty)
@@ -84,38 +83,63 @@ final class SignUpViewModelTests: XCTestCase {
         XCTAssertTrue(sut.errorAlertIsShowing)
     }
 
+    func test_EmailAddressesMatch_ReturnsFalseWhenEmailAddressesDoNotMatch() {
+        sut.emailAddress = "julianworden@gmail.com"
+        sut.confirmedEmailAddress = "juliaworden@gmail.com"
+
+        XCTAssertFalse(sut.emailAddressesMatch)
+    }
+
+    func test_EmailAddressesMatch_ReturnsTrueWhenEmailAddressesDoMatch() {
+        sut.emailAddress = "julianworden@gmail.com"
+        sut.confirmedEmailAddress = "julianworden@gmail.com"
+
+        XCTAssertTrue(sut.emailAddressesMatch)
+    }
+
+    func test_PasswordsMatch_ReturnsFalseWhenPasswordsDoNotMatch() {
+        sut.password = "dynomite"
+        sut.confirmedPassword = "dynmite"
+
+        XCTAssertFalse(sut.passwordsMatch)
+    }
+
+    func test_PasswordsMatch_ReturnsTrueWhenPasswordsDoMatch() {
+        sut.password = "dynomite"
+        sut.confirmedPassword = "dynomite"
+
+        XCTAssertTrue(sut.passwordsMatch)
+    }
+
     func test_FormIsComplete_ReturnsTrueWithFirstNameAndLastNameFieldsFilled() {
         sut.firstName = "Julian"
         sut.lastName = "Worden"
 
-        XCTAssertTrue(sut.formIsComplete)
+        XCTAssertTrue(sut.firstAndLastNameAreFilled)
     }
 
     func test_FormIsComplete_ReturnsFalseWithFirstNameAndNoLastName() {
         sut.firstName = "Julian"
 
-        XCTAssertFalse(sut.formIsComplete)
+        XCTAssertFalse(sut.firstAndLastNameAreFilled)
     }
 
     func test_FormIsComplete_ReturnsFalseWithNoFirstNameAndWithLastName() {
         sut.lastName = "Worden"
 
-        XCTAssertFalse(sut.formIsComplete)
+        XCTAssertFalse(sut.firstAndLastNameAreFilled)
     }
 
     func test_FormIsComplete_ReturnsFalseWithNoFirstNameAndNoLastName() {
-        XCTAssertFalse(sut.formIsComplete)
+        XCTAssertFalse(sut.firstAndLastNameAreFilled)
     }
 
-    func test_OnSignUpButtonTappedWithCompleteFormAndValidAccountInfoAndNoProfileImage_NewUserIsSignedOut() async throws {
+    func test_OnSignUpButtonTappedWithCompleteFormAndValidAccountInfoAndNoProfileImage_NewUserIsSignedIn() async throws {
         setTimCookAccountInfoInViewModelProperties()
 
         createdUserUid = await sut.signUpButtonTapped()
 
-        XCTAssertTrue(AuthController.userIsLoggedOut(), "The user should get logged out ")
-
-        // Necessary so that objects can get deleted in tearDown
-        try await testingDatabaseService.logInToTimAccount()
+        XCTAssertFalse(AuthController.userIsLoggedOut(), "The user should be logged in after creating their account.")
     }
 
     func test_OnSignUpButtonTappedWithCompleteFormAndValidAccountInfoAndNoProfileImage_NewUserIsCreatedInFirestore() async throws {
@@ -128,7 +152,7 @@ final class SignUpViewModelTests: XCTestCase {
         XCTAssertEqual(tim.firstName, createdUser.firstName)
         XCTAssertEqual(tim.lastName, createdUser.lastName)
         XCTAssertEqual(tim.emailAddress, createdUser.emailAddress)
-        XCTAssertEqual(tim.username, createdUser.username)
+        XCTAssertTrue(createdUser.username.isEmpty, "The user should not yet have a username.")
     }
 
     func test_OnSignUpButtonTappedWithCompleteFormAndValidAccountInfoAndNoProfileImage_NewUserIsCreatedInFirebaseAuth() async throws {
@@ -156,15 +180,34 @@ final class SignUpViewModelTests: XCTestCase {
         XCTAssertTrue(profileImageExistsInFirebaseStorage, "The user's profile image should be getting stored in Firebase Storage")
     }
 
+    func test_OnSignUpButtonTappedWithEmailAddressesThatDoNotMatch_ErrorViewStateIsSet() async {
+        setTimCookAccountInfoInViewModelProperties()
+        sut.confirmedEmailAddress = "tim@gmail.com"
+
+        await sut.signUpButtonTapped()
+
+        XCTAssertEqual(sut.viewState, .error(message: ErrorMessageConstants.emailAddressesDoNotMatch))
+    }
+
+    func test_OnSignUpButtonTappedWithPasswordsThatDoNotMatch_ErrorViewStateIsSet() async {
+        setTimCookAccountInfoInViewModelProperties()
+        sut.confirmedPassword = "dynmite"
+
+        await sut.signUpButtonTapped()
+
+        XCTAssertEqual(sut.viewState, .error(message: ErrorMessageConstants.passwordsDoNotMatch))
+    }
+
     func test_OnSignUpButtonTappedWithIncompleteForm_ErrorViewStateIsSet() async {
         await sut.signUpButtonTapped()
 
-        XCTAssertEqual(sut.viewState, .error(message: ErrorMessageConstants.incompleteFormOnSignUp))
+        XCTAssertEqual(sut.viewState, .error(message: ErrorMessageConstants.missingFirstAndLastNameOnSignUp))
     }
 
     func test_OnSignUpButtonTappedWithInvalidEmail_CorrectErrorIsThrown() async {
         setTimCookAccountInfoInViewModelProperties()
         sut.emailAddress = "timcook"
+        sut.confirmedEmailAddress = "timcook"
 
         await sut.signUpButtonTapped()
 
@@ -174,6 +217,7 @@ final class SignUpViewModelTests: XCTestCase {
     func test_OnSignUpButtonTappedWithNoEmail_CorrectErrorIsThrown() async {
         setTimCookAccountInfoInViewModelProperties()
         sut.emailAddress = ""
+        sut.confirmedEmailAddress = ""
 
         await sut.signUpButtonTapped()
 
@@ -183,6 +227,7 @@ final class SignUpViewModelTests: XCTestCase {
     func test_OnSignUpButtonTappedWithEmailAlreadyInUse_CorrectErrorIsThrown() async {
         setTimCookAccountInfoInViewModelProperties()
         sut.emailAddress = "julianworden@gmail.com"
+        sut.confirmedEmailAddress = "julianworden@gmail.com"
 
         await sut.signUpButtonTapped()
 
@@ -192,6 +237,7 @@ final class SignUpViewModelTests: XCTestCase {
     func test_OnSignUpButtonTappedWithWeakPassword_CorrectErrorIsThrown() async {
         setTimCookAccountInfoInViewModelProperties()
         sut.password = "1234"
+        sut.confirmedPassword = "1234"
 
         await sut.signUpButtonTapped()
 
@@ -202,7 +248,8 @@ final class SignUpViewModelTests: XCTestCase {
         sut.firstName = tim.firstName
         sut.lastName = tim.lastName
         sut.emailAddress = tim.emailAddress
+        sut.confirmedEmailAddress = tim.emailAddress
         sut.password = "dynomite"
-        sut.username = tim.username
+        sut.confirmedPassword = "dynomite"
     }
 }

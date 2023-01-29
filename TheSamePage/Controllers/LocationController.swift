@@ -43,6 +43,8 @@ final class LocationController: NSObject, ObservableObject, CLLocationManagerDel
                 userRegion = MKCoordinateRegion(center: userCoordinates, latitudinalMeters: 0.5, longitudinalMeters: 0.5)
                 locationSet = true
             }
+
+            NotificationCenter.default.post(name: .userLocationWasSet, object: nil)
         @unknown default:
             break
         }

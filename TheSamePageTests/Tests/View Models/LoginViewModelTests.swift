@@ -106,15 +106,50 @@ final class LoginViewModelTests: XCTestCase {
         XCTAssertTrue(AuthController.userIsLoggedOut())
     }
 
-    func test_OnLogInUserWithVerifiedEmailAddress_UserIsLoggedIn() async {
+    func test_OnLogInUserWithVerifiedEmailAddressAndNoUsername_AlertIsShown() async throws {
+        try await signInJulianAndDeleteUsername()
+        try testingDatabaseService.logOut()
+
         await sut.logInUserWith(
             emailAddress: TestingConstants.exampleUserJulian.emailAddress,
             password: "dynomite"
         )
 
         XCTAssertFalse(sut.unverifiedEmailErrorShowing)
+        XCTAssertTrue(sut.currentUserHasNoUsernameAlertIsShowing)
+        XCTAssertFalse(AuthController.userIsLoggedOut(), "Even though the user won't be able to use the app because they don't have a username, they need to be logged in in order to create a username when prompted.")
+
+        try await restoreJulianUsername()
+    }
+
+    func test_OnLogInUserWithVerifiedEmailAddressAndUsername_UserIsLoggedIn() async {
+        await sut.logInUserWith(
+            emailAddress: TestingConstants.exampleUserJulian.emailAddress,
+            password: "dynomite"
+        )
+
+        XCTAssertFalse(sut.unverifiedEmailErrorShowing)
+        XCTAssertFalse(sut.currentUserHasNoUsernameAlertIsShowing)
         XCTAssertEqual(sut.viewState, .workCompleted)
         XCTAssertFalse(AuthController.userIsLoggedOut())
+    }
+
+    func test_UserHasUsername_ReturnsFalseWhenUserDoesNotHaveUsername() async throws {
+        try await signInJulianAndDeleteUsername()
+        
+        let userHasUsername = await sut.userHasUsername()
+
+        XCTAssertFalse(userHasUsername)
+
+        try await restoreJulianUsername()
+    }
+
+    func test_UserHasUsername_ReturnsTrueWhenUserDoesHaveUsername() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
+
+        let userHasUsername = await sut.userHasUsername()
+
+        XCTAssertTrue(userHasUsername)
     }
 
     func test_OnLogOutUser_UserIsLoggedOut() async throws {
@@ -123,5 +158,20 @@ final class LoginViewModelTests: XCTestCase {
         sut.logOutUser()
 
         XCTAssertTrue(AuthController.userIsLoggedOut())
+    }
+
+    func signInJulianAndDeleteUsername() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
+        try await testingDatabaseService.editUserInfo(
+            uid: TestingConstants.exampleUserJulian.id,
+            field: FbConstants.username, newValue: ""
+        )
+    }
+
+    func restoreJulianUsername() async throws {
+        try await testingDatabaseService.editUserInfo(
+            uid: TestingConstants.exampleUserJulian.id,
+            field: FbConstants.username, newValue: TestingConstants.exampleUserJulian.username
+        )
     }
 }

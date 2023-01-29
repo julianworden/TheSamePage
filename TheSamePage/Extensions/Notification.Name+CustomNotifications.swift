@@ -11,4 +11,5 @@ extension Notification.Name {
     static let showAddressSelected = Notification.Name("showAddressSelected")
     static let deviceIsOffline = Notification.Name("deviceIsOffline")
     static let deviceIsOnline = Notification.Name("deviceIsOnline")
+    static let userLocationWasSet = Notification.Name("userLocationWasSet")
 }

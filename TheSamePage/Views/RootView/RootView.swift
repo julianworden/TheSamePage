@@ -17,10 +17,9 @@ struct RootView: View {
         ZStack {
             BackgroundColor()
             
-            if !viewModel.userIsLoggedOut {
+            if !loggedInUserController.userIsLoggedOut {
                 TabView(selection: $viewModel.selectedTab) {
                     HomeView()
-                        .environmentObject(MyShowsViewModel())
                         .tabItem {
                             Label("Home", systemImage: "house")
                         }
@@ -44,39 +43,54 @@ struct RootView: View {
                         }
                         .tag(3)
                     
-                        LoggedInUserProfileView(userIsLoggedOut: $viewModel.userIsLoggedOut)
-                            .tabItem {
-                                Label("Profile", systemImage: "person")
-                            }
-                            .tag(4)
-                    
+                    LoggedInUserProfileView()
+                        .tabItem {
+                            Label("Profile", systemImage: "person")
+                        }
+                        .tag(4)
                 }
-                .onAppear {
-                    LocationController.shared.startLocationServices()
+                .task {
+                    await loggedInUserController.validateIfUserHasUsername()
+                }
+                .alert(
+                    "Error",
+                    isPresented: $loggedInUserController.currentUserHasNoUsernameAlertIsShowing,
+                    actions: {
+                        Button("Create a Username") { loggedInUserController.createUsernameSheetIsShowing = true }
+                    },
+                    message: { Text("You need a username to use The Same Page, but you have not set one up yet.") }
+                )
+                .fullScreenCover(isPresented: $loggedInUserController.createUsernameSheetIsShowing) {
+                    NavigationView {
+                        CreateUsernameView(signUpFlowIsActive: .constant(false))
+                    }
                 }
             }
         }
+        .fullScreenCover(
+            isPresented: $loggedInUserController.currentUserIsInvalid,
+            onDismiss: {
+                viewModel.selectedTab = 0
+                Task {
+                    await loggedInUserController.callOnAppLaunchMethods()
+                    LocationController.shared.startLocationServices()
+                }
+            },
+            content: {
+                LoginView()
+            }
+        )
         .errorAlert(
             isPresented: $loggedInUserController.errorMessageShowing,
             message: loggedInUserController.errorMessageText,
-            tryAgainAction: { viewModel.userIsLoggedOut = true },
+            tryAgainAction: { loggedInUserController.currentUserIsInvalid = true },
             tryAgainButtonText: "Log In"
         )
-        .fullScreenCover(
-            isPresented: $viewModel.userIsLoggedOut,
-            onDismiss: {
-                viewModel.selectedTab = 0
-                
-                if loggedInUserController.loggedInUser == nil {
-                    Task {
-                        await loggedInUserController.callOnAppLaunchMethods()
-                    }
-                }
-            },
-            content: { LoginView(userIsOnboarding: $viewModel.userIsLoggedOut) }
-        )
         .task {
-            await loggedInUserController.callOnAppLaunchMethods()
+            await loggedInUserController.validateUserLogInStatusAndEmailVerification()
+            if !loggedInUserController.currentUserIsInvalid && !loggedInUserController.currentUserHasNoUsernameAlertIsShowing {
+                await loggedInUserController.callOnAppLaunchMethods()
+            }
         }
     }
 }

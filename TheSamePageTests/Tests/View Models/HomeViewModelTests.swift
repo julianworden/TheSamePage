@@ -35,6 +35,24 @@ final class HomeViewModelTests: XCTestCase {
         XCTAssertEqual(sut.viewState, .dataLoading)
     }
 
+    func test_OnErrorViewState_PropertiesAreChanged() {
+        sut = HomeViewModel()
+
+        sut.viewState = .error(message: "TEST ERROR")
+
+        XCTAssertTrue(sut.errorMessageIsShowing)
+        XCTAssertEqual(sut.errorMessageText, "TEST ERROR")
+    }
+
+    func test_OnInvalidViewState_PropertiesAreChanged() {
+        sut = HomeViewModel()
+
+        sut.viewState = .displayingView
+
+        XCTAssertTrue(sut.errorMessageIsShowing)
+        XCTAssertEqual(sut.errorMessageText, "Invalid View State")
+    }
+
     func test_NearbyShowsListHeaderText_ReturnsCorrectValue() {
         sut = HomeViewModel()
 
@@ -51,7 +69,8 @@ final class HomeViewModelTests: XCTestCase {
         XCTAssertEqual(sut.searchRadiusInMeters, 80467.2)
     }
 
-    func test_OnFetchNearbyShowsWithLocationInNewJersey_ShowIsFetchedAndViewStateIsSet() async {
+    func test_OnFetchNearbyShowsWithLocationInNewJersey_ShowIsFetchedAndViewStateIsSet() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         MockController.setNewJerseyMockLocationControllerValues()
         sut = HomeViewModel()
 
@@ -61,7 +80,8 @@ final class HomeViewModelTests: XCTestCase {
         XCTAssertEqual(sut.viewState, .dataLoaded, "Data should've been found")
     }
 
-    func test_OnFetchNearbyShowsWithLocationInAlaska_NoShowsAreFetchedAndViewStateIsSet() async {
+    func test_OnFetchNearbyShowsWithLocationInAlaska_NoShowsAreFetchedAndViewStateIsSet() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         MockController.setAlaskaMockLocationControllerValues()
         sut = HomeViewModel()
 
@@ -75,6 +95,7 @@ final class HomeViewModelTests: XCTestCase {
         // This test fails sometime, likely because TypeSense takes more time to receive updates than Firebase Emulator.
         // This sleep should allow TypeSense to catch up.
         try await Task.sleep(seconds: 1)
+        try await testingDatabaseService.logInToJulianAccount()
         sut = HomeViewModel()
         MockController.setAlaskaMockLocationControllerValues()
 
@@ -92,21 +113,26 @@ final class HomeViewModelTests: XCTestCase {
         XCTAssertEqual(sut.searchRadiusInMiles, 50, "The function call should've changed the searchRadiusInMiles value")
     }
 
-    func test_OnErrorViewState_PropertiesAreChanged() {
+    func test_OnAddPostUserLocationWasSetNotification_NearbyShowsAreFetched() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         sut = HomeViewModel()
+        sut.addLocationNotificationObserver()
+        MockController.setNewJerseyMockLocationControllerValues()
+        let notificationExpectation = XCTNSNotificationExpectation(name: .userLocationWasSet)
 
-        sut.viewState = .error(message: "TEST ERROR")
+        NotificationCenter.default.post(
+            name: .userLocationWasSet,
+            object: nil
+        )
+        try await Task.sleep(seconds: 0.5)
+        let predicate = NSPredicate { _,_ in
+            !self.sut.nearbyShows.isEmpty
+        }
+        let showLoadedExpectation = XCTNSPredicateExpectation(predicate: predicate, object: nil)
 
-        XCTAssertTrue(sut.errorMessageIsShowing)
-        XCTAssertEqual(sut.errorMessageText, "TEST ERROR")
-    }
-
-    func test_OnInvalidViewState_PropertiesAreChanged() {
-        sut = HomeViewModel()
-
-        sut.viewState = .displayingView
-
-        XCTAssertTrue(sut.errorMessageIsShowing)
-        XCTAssertEqual(sut.errorMessageText, "Invalid View State")
+        wait(for: [notificationExpectation], timeout: 2)
+        wait(for: [showLoadedExpectation], timeout: 2)
+        XCTAssertEqual(sut.nearbyShows.count, 1, "1 show should be in New Jersey near the user.")
+        XCTAssertEqual(sut.nearbyShows.first?.document, TestingConstants.exampleShowDumpweedExtravaganza, "Dumpweed Extravaganza should be the only show near the user.")
     }
 }

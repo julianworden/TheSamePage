@@ -40,17 +40,34 @@ class DatabaseService: NSObject {
             )
         }
     }
+
+    func createUsername(_ username: String) async throws {
+        guard let currentUser = Auth.auth().currentUser else {
+            throw LogicError.unexpectedNilValue(message: "Failed to verify user's authorization status. Please try again.")
+        }
+
+        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+        changeRequest?.displayName = username
+        try await changeRequest?.commitChanges()
+        try await db
+            .collection(FbConstants.users)
+            .document(currentUser.uid)
+            .updateData([FbConstants.username: username])
+    }
     
-    func newUsernameIsValid(_ username: String) async throws -> Bool {
+    func newUsernameIsNotAlreadyTaken(_ username: String) async throws -> Bool {
         do {
-            let newUsernameIsValid = try await db
+            return try await db
                 .collection(FbConstants.users)
                 .whereField(FbConstants.username, isEqualTo: username)
                 .getDocuments()
                 .documents
                 .isEmpty
-            
-            return newUsernameIsValid
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to determine if username is unique",
+                systemError: error.localizedDescription
+            )
         }
     }
     

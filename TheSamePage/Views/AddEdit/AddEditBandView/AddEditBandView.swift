@@ -11,15 +11,11 @@ struct AddEditBandView: View {
     @Environment(\.dismiss) var dismiss
     
     @StateObject var viewModel: AddEditBandViewModel
-    
-    @Binding var userIsOnboarding: Bool
 
-    init(userIsOnboarding: Binding<Bool> = .constant(false), bandToEdit: Band? = nil, isPresentedModally: Bool = false) {
-        _userIsOnboarding = Binding(projectedValue: userIsOnboarding)
+    init(bandToEdit: Band? = nil, isPresentedModally: Bool = false) {
         _viewModel = StateObject(
             wrappedValue: AddEditBandViewModel(
                 bandToEdit: bandToEdit,
-                userIsOnboarding: userIsOnboarding.wrappedValue,
                 isPresentedModally: isPresentedModally
             )
         )
@@ -95,11 +91,6 @@ struct AddEditBandView: View {
             isPresented: $viewModel.errorAlertIsShowing,
             message: viewModel.errorAlertText
         )
-        .onChange(of: viewModel.userIsOnboarding) { userIsOnboarding in
-            if !userIsOnboarding {
-                self.userIsOnboarding = userIsOnboarding
-            }
-        }
         .onChange(of: viewModel.dismissView) { dismissView in
             if dismissView {
                 dismiss()
@@ -111,7 +102,7 @@ struct AddEditBandView: View {
 struct AddEditBandView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            AddEditBandView(userIsOnboarding: .constant(false), bandToEdit: Band.example)
+            AddEditBandView(bandToEdit: Band.example)
         }
     }
 }

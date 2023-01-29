@@ -24,7 +24,7 @@ struct ShowDetailsView: View {
             case .dataLoading:
                 ProgressView()
                 
-            case .dataLoaded:
+            case .dataLoaded, .displayingView:
                 ScrollView {
                     VStack(spacing: 10) {
                         ShowDetailsHeader(viewModel: viewModel)

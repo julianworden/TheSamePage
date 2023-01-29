@@ -46,7 +46,10 @@ final class HomeViewModel: ObservableObject {
     }
     
     func fetchNearbyShows() async {
-        guard let userCoordinates = LocationController.shared.userCoordinates else { return }
+        guard !AuthController.userIsLoggedOut(),
+              let userCoordinates = LocationController.shared.userCoordinates else {
+            return
+        }
         
         let searchParameters = SearchParameters(
             q: "*",
@@ -73,5 +76,20 @@ final class HomeViewModel: ObservableObject {
         viewState = .dataLoading
         searchRadiusInMiles = value
         await fetchNearbyShows()
+    }
+
+    func addLocationNotificationObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(locationDataWasSet),
+            name: .userLocationWasSet,
+            object: nil
+        )
+    }
+
+    @objc func locationDataWasSet() {
+        Task {
+            await fetchNearbyShows()
+        }
     }
 }

@@ -26,7 +26,6 @@ struct UserSettingsView: View {
                     Button("Cancel", role: .cancel) { }
                     Button("Yes", role: .destructive) {
                         loggedInUserController.logOut()
-                        dismiss()
                     }
                 },
                 message: { Text("You will not be able to access your data on The Same Page until you log in again.") }

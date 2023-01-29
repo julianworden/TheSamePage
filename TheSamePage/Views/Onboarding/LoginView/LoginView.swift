@@ -9,21 +9,29 @@ import UIKit
 import SwiftUI
 
 struct LoginView: View {
+    @Environment(\.dismiss) var dismiss
+
     @EnvironmentObject var loggedInUserController: LoggedInUserController
     
     @StateObject var viewModel = LoginViewModel()
-    
-    @Binding var userIsOnboarding: Bool
 
     @State private var forgotPasswordSheetIsShowing = false
+    /// A property that's passed to views involved in signing up a new user for the app. This property
+    /// enables CreateUsernameView to pop back to LoginView after a user has created a username successfully
+    @State private var signUpFlowIsActive = false
+
+    @FocusState var keyboardIsFocused: Bool
 
     var body: some View {
         NavigationView {
             Form {
                 Section {
                     TextField("Email Address", text: $viewModel.emailAddress)
+                        .focused($keyboardIsFocused)
                     SecureField("Password", text: $viewModel.password)
+                        .focused($keyboardIsFocused)
                     AsyncButton {
+                        keyboardIsFocused = false
                         await viewModel.logInUserWith(
                             emailAddress: viewModel.emailAddress,
                             password: viewModel.password
@@ -61,10 +69,14 @@ struct LoginView: View {
                         }
                     }
                 }
+                .errorAlert(
+                    isPresented: $viewModel.loginErrorShowing,
+                    message: viewModel.loginErrorMessage
+                )
 
                 Section("Don't have an account?") {
-                    NavigationLink {
-                        SignUpView()
+                    NavigationLink(isActive: $signUpFlowIsActive) {
+                        SignUpView(signUpFlowIsActive: $signUpFlowIsActive)
                     } label: {
                         Text("Sign Up")
                             .foregroundColor(.accentColor)
@@ -72,13 +84,34 @@ struct LoginView: View {
                 }
             }
             .navigationTitle("Log In")
-            .errorAlert(
-                isPresented: $viewModel.loginErrorShowing,
-                message: viewModel.loginErrorMessage
+            .fullScreenCover(
+                isPresented: $viewModel.createUsernameSheetIsShowing,
+                onDismiss: {
+                    Task {
+                        if await viewModel.userHasUsername() {
+                            dismiss()
+                        } else {
+                            viewModel.logInButtonIsDisabled = false
+                        }
+                    }
+                },
+                content: {
+                    NavigationView {
+                        CreateUsernameView(signUpFlowIsActive: .constant(false))
+                    }
+                }
+            )
+            .alert(
+                "Error",
+                isPresented: $viewModel.currentUserHasNoUsernameAlertIsShowing,
+                actions: {
+                    Button("Create a Username") { viewModel.createUsernameSheetIsShowing = true }
+                },
+                message: { Text("You need a username to use The Same Page, but you have not set one up yet.") }
             )
             .onChange(of: viewModel.userIsOnboarding) { userIsOnboarding in
                 if !userIsOnboarding {
-                    self.userIsOnboarding = userIsOnboarding
+                    dismiss()
                 }
             }
         }
@@ -87,6 +120,6 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(userIsOnboarding: .constant(true))
+        LoginView()
     }
 }

@@ -14,10 +14,11 @@ import UIKit.UIImage
 
 @MainActor
 final class SignUpViewModel: ObservableObject {
-    @Published var username = ""
     @Published var emailAddress = ""
+    @Published var confirmedEmailAddress = ""
     @Published var profileImage: UIImage?
     @Published var password = ""
+    @Published var confirmedPassword = ""
     @Published var firstName = ""
     @Published var lastName = ""
     @Published var phoneNumber: String?
@@ -25,6 +26,7 @@ final class SignUpViewModel: ObservableObject {
     @Published var imagePickerIsShowing = false
     @Published var profileCreationWasSuccessful = false
     @Published var signUpButtonIsDisabled = false
+    @Published var presentCreateUsernameView = false
     
     @Published var errorAlertIsShowing = false
     var errorAlertText = ""
@@ -35,7 +37,6 @@ final class SignUpViewModel: ObservableObject {
             case .performingWork:
                 signUpButtonIsDisabled = true
             case .workCompleted:
-                // Segues to InABandView
                 profileCreationWasSuccessful = true
             case .error(let message):
                 errorAlertText = message
@@ -47,21 +48,37 @@ final class SignUpViewModel: ObservableObject {
             }
         }
     }
+
+    var emailAddressesMatch: Bool {
+        return emailAddress.lowercasedAndTrimmed == confirmedEmailAddress.lowercasedAndTrimmed
+    }
+
+    var passwordsMatch: Bool {
+        return password.trimmed == confirmedPassword.trimmed
+    }
     
-    var formIsComplete: Bool {
+    var firstAndLastNameAreFilled: Bool {
         return !firstName.isReallyEmpty &&
                !lastName.isReallyEmpty
     }
     
     @discardableResult func signUpButtonTapped() async -> String {
-        #warning("Check for matching email and password textfields once they're added")
-
-        guard formIsComplete else {
-            viewState = .error(message: ErrorMessageConstants.incompleteFormOnSignUp)
-            return ""
-        }
-        
         do {
+            guard emailAddressesMatch else {
+                viewState = .error(message: ErrorMessageConstants.emailAddressesDoNotMatch)
+                return ""
+            }
+
+            guard passwordsMatch else {
+                viewState = .error(message: ErrorMessageConstants.passwordsDoNotMatch)
+                return ""
+            }
+
+            guard firstAndLastNameAreFilled else {
+                viewState = .error(message: ErrorMessageConstants.missingFirstAndLastNameOnSignUp)
+                return ""
+            }
+
             viewState = .performingWork
             let newUserUid = try await registerUser()
             viewState = .workCompleted
@@ -92,7 +109,7 @@ final class SignUpViewModel: ObservableObject {
     /// which will add that new user object to the users collection in Firestore.
     /// - Parameter image: The profile image selected by the user.
     func registerUser() async throws -> String {
-        let result = try await Auth.auth().createUser(withEmail: emailAddress, password: password)
+        let result = try await Auth.auth().createUser(withEmail: emailAddress.lowercasedAndTrimmed, password: password)
         let uid = result.user.uid
         let fcmToken = Messaging.messaging().fcmToken
         
@@ -100,19 +117,17 @@ final class SignUpViewModel: ObservableObject {
         
         newUser = User(
             id: uid,
-            username: username,
+            username: "",
             firstName: firstName,
             lastName: lastName,
             profileImageUrl: profileImage == nil ? nil : try await DatabaseService.shared.uploadImage(image: profileImage!),
             phoneNumber: phoneNumber,
-            emailAddress: emailAddress,
+            emailAddress: emailAddress.lowercasedAndTrimmed,
             fcmToken: fcmToken
         )
         
         try await DatabaseService.shared.createUserObject(user: newUser)
         try await sendEmailVerificationEmail(to: result.user)
-        // The user shouldn't be logged in unless they verified their email
-        try AuthController.logOut()
 
         return uid
     }

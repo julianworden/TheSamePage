@@ -16,6 +16,8 @@ final class LoginViewModel: ObservableObject {
 
     @Published var unverifiedEmailErrorShowing = false
     @Published var unverifiedEmailErrorText = ErrorMessageConstants.unverifiedEmailAddressOnSignIn
+    @Published var createUsernameSheetIsShowing = false
+    @Published var currentUserHasNoUsernameAlertIsShowing = false
     @Published var loginErrorShowing = false
     @Published var loginErrorMessage = ""
     @Published var logInButtonIsDisabled = false
@@ -31,6 +33,7 @@ final class LoginViewModel: ObservableObject {
             case .performingWork:
                 logInButtonIsDisabled = true
             case .workCompleted:
+                currentUserHasNoUsernameAlertIsShowing = false
                 userIsOnboarding = false
             default:
                 loginErrorMessage = ErrorMessageConstants.invalidViewState
@@ -43,12 +46,18 @@ final class LoginViewModel: ObservableObject {
         do {
             viewState = .performingWork
             let result = try await Auth.auth().signIn(withEmail: emailAddress, password: password)
-            if result.user.isEmailVerified {
-                viewState = .workCompleted
-            } else {
+            if !result.user.isEmailVerified {
                 unverifiedEmailErrorShowing = true
                 logOutUser()
+                return
             }
+
+            if await !userHasUsername() {
+                currentUserHasNoUsernameAlertIsShowing = true
+                return
+            }
+
+            viewState = .workCompleted
         } catch {
             let error = AuthErrorCode(_nsError: error as NSError)
             
@@ -91,6 +100,20 @@ final class LoginViewModel: ObservableObject {
             try await Auth.auth().currentUser?.sendEmailVerification(with: actionCodeSettings)
         } catch {
             viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func userHasUsername() async -> Bool {
+        do {
+            let currentUser = try await DatabaseService.shared.getLoggedInUser()
+            if currentUser.username.isReallyEmpty {
+                return false
+            } else {
+                return true
+            }
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+            return false
         }
     }
 }

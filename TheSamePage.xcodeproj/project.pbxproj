@@ -21,6 +21,9 @@
 		AB07AC372904738B00E378C6 /* PercussionBacklineList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07AC362904738B00E378C6 /* PercussionBacklineList.swift */; };
 		AB07AC3929047F1800E378C6 /* ElectricGuitarBacklineList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07AC3829047F1800E378C6 /* ElectricGuitarBacklineList.swift */; };
 		AB07AC3B290486F200E378C6 /* BassGuitarBacklineList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07AC3A290486F200E378C6 /* BassGuitarBacklineList.swift */; };
+		AB092F552984AE7B00264659 /* String+trimmed.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB092F542984AE7B00264659 /* String+trimmed.swift */; };
+		AB092F582984B96000264659 /* CreateUsernameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB092F572984B96000264659 /* CreateUsernameView.swift */; };
+		AB092F5A2984B96700264659 /* CreateUsernameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB092F592984B96700264659 /* CreateUsernameViewModel.swift */; };
 		AB0DD4D228F0D82E00CEA1BD /* ShowLineupList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DD4D128F0D82E00CEA1BD /* ShowLineupList.swift */; };
 		AB1ACE2D28E08F9E00B46C90 /* Instrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1ACE2C28E08F9E00B46C90 /* Instrument.swift */; };
 		AB1B559629200CD100571316 /* ProfileImageStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1B559529200CD100571316 /* ProfileImageStyle.swift */; };
@@ -40,6 +43,7 @@
 		AB2B867E28D9F884004601B6 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867D28D9F884004601B6 /* ImagePicker.swift */; };
 		AB2BF26D2919C3C200C65DD8 /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2BF26C2919C3C200C65DD8 /* ChatInfoView.swift */; };
 		AB2BF26F2919C3D500C65DD8 /* ChatInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2BF26E2919C3D500C65DD8 /* ChatInfoViewModel.swift */; };
+		AB2C81612985A4B5001C68BE /* String+usernameFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2C81602985A4B5001C68BE /* String+usernameFormat.swift */; };
 		AB31440C291713B300E2D08B /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = AB31440B291713B300E2D08B /* FirebaseMessaging */; };
 		AB35A8CC28E9CFCF009FB203 /* LoggedInUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8CB28E9CFCF009FB203 /* LoggedInUserProfileView.swift */; };
 		AB35A8D628E9DC73009FB203 /* BandProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8D528E9DC73009FB203 /* BandProfileView.swift */; };
@@ -61,6 +65,7 @@
 		AB36FF9828D36A6600AAC00C /* SectionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF9728D36A6600AAC00C /* SectionTitle.swift */; };
 		AB37EBB2290966C90029588C /* HomeShowRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB37EBB1290966C90029588C /* HomeShowRow.swift */; };
 		AB37EBB8290971390029588C /* ShowDetailsStaticRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB37EBB7290971390029588C /* ShowDetailsStaticRow.swift */; };
+		AB389FD32986DF10000C798C /* CreateUsernameViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB389FD22986DF10000C798C /* CreateUsernameViewModelTests.swift */; };
 		AB38E1B128FB21CB006D1788 /* AddEditShowAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38E1B028FB21CB006D1788 /* AddEditShowAddressView.swift */; };
 		AB38E1B328FB2422006D1788 /* CLPlacemark+formattedAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38E1B228FB2422006D1788 /* CLPlacemark+formattedAddress.swift */; };
 		AB399AD628D4BCD8009B39F7 /* Notes.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AB399AD528D4BCD8009B39F7 /* Notes.rtf */; };
@@ -259,6 +264,9 @@
 		AB07AC362904738B00E378C6 /* PercussionBacklineList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercussionBacklineList.swift; sourceTree = "<group>"; };
 		AB07AC3829047F1800E378C6 /* ElectricGuitarBacklineList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectricGuitarBacklineList.swift; sourceTree = "<group>"; };
 		AB07AC3A290486F200E378C6 /* BassGuitarBacklineList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BassGuitarBacklineList.swift; sourceTree = "<group>"; };
+		AB092F542984AE7B00264659 /* String+trimmed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+trimmed.swift"; sourceTree = "<group>"; };
+		AB092F572984B96000264659 /* CreateUsernameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUsernameView.swift; sourceTree = "<group>"; };
+		AB092F592984B96700264659 /* CreateUsernameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUsernameViewModel.swift; sourceTree = "<group>"; };
 		AB0DD4D128F0D82E00CEA1BD /* ShowLineupList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLineupList.swift; sourceTree = "<group>"; };
 		AB1ACE2C28E08F9E00B46C90 /* Instrument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instrument.swift; sourceTree = "<group>"; };
 		AB1B559529200CD100571316 /* ProfileImageStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageStyle.swift; sourceTree = "<group>"; };
@@ -278,6 +286,7 @@
 		AB2B867D28D9F884004601B6 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		AB2BF26C2919C3C200C65DD8 /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
 		AB2BF26E2919C3D500C65DD8 /* ChatInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoViewModel.swift; sourceTree = "<group>"; };
+		AB2C81602985A4B5001C68BE /* String+usernameFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+usernameFormat.swift"; sourceTree = "<group>"; };
 		AB31440D29171C5A00E2D08B /* TheSamePage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TheSamePage.entitlements; sourceTree = "<group>"; };
 		AB35A8CB28E9CFCF009FB203 /* LoggedInUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserProfileView.swift; sourceTree = "<group>"; };
 		AB35A8D528E9DC73009FB203 /* BandProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileView.swift; sourceTree = "<group>"; };
@@ -300,6 +309,7 @@
 		AB36FF9728D36A6600AAC00C /* SectionTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTitle.swift; sourceTree = "<group>"; };
 		AB37EBB1290966C90029588C /* HomeShowRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShowRow.swift; sourceTree = "<group>"; };
 		AB37EBB7290971390029588C /* ShowDetailsStaticRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsStaticRow.swift; sourceTree = "<group>"; };
+		AB389FD22986DF10000C798C /* CreateUsernameViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUsernameViewModelTests.swift; sourceTree = "<group>"; };
 		AB38E1B028FB21CB006D1788 /* AddEditShowAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowAddressView.swift; sourceTree = "<group>"; };
 		AB38E1B228FB2422006D1788 /* CLPlacemark+formattedAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLPlacemark+formattedAddress.swift"; sourceTree = "<group>"; };
 		AB399AD528D4BCD8009B39F7 /* Notes.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Notes.rtf; sourceTree = "<group>"; };
@@ -517,6 +527,15 @@
 			path = ShowBacklineTab;
 			sourceTree = "<group>";
 		};
+		AB092F562984B93B00264659 /* CreateUsernameView */ = {
+			isa = PBXGroup;
+			children = (
+				AB092F572984B96000264659 /* CreateUsernameView.swift */,
+				AB092F592984B96700264659 /* CreateUsernameViewModel.swift */,
+			);
+			path = CreateUsernameView;
+			sourceTree = "<group>";
+		};
 		AB1B559429200C8400571316 /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
@@ -732,10 +751,10 @@
 			isa = PBXGroup;
 			children = (
 				AB36FF8E28D35E8C00AAC00C /* Genre.swift */,
+				AB794E3028E25B0F000ABB37 /* SearchType.swift */,
 				ABEF10E928E6506000A1DBAC /* LinkPlatform.swift */,
 				ABBADD7828DFE5FA00720C64 /* BandState.swift */,
 				AB1ACE2C28E08F9E00B46C90 /* Instrument.swift */,
-				AB794E3028E25B0F000ABB37 /* SearchType.swift */,
 				AB7F381228EF1B56007741C7 /* NotificationType.swift */,
 				ABD1D17028F30D3200791969 /* ShowType.swift */,
 				AB07295728F4631D0069B268 /* SelectedShowDetailsTab.swift */,
@@ -888,6 +907,8 @@
 				AB7B65A2291D38C50027FC6B /* String+isReallyEmpty.swift */,
 				ABADC998292529F90049ABAA /* Task+sleepInSeconds.swift */,
 				AB571CA829705961000629AA /* Double+UnixDateAsDate.swift */,
+				AB092F542984AE7B00264659 /* String+trimmed.swift */,
+				AB2C81602985A4B5001C68BE /* String+usernameFormat.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1049,6 +1070,7 @@
 				ABF9903D297584FC00FD32D1 /* ShowDetailsViewModelTests.swift */,
 				AB272F872976FD3D00E74091 /* AddBacklineViewModelTests.swift */,
 				AB7E1D75297A2AE80046DB92 /* AddMyBandToShowViewModelTests.swift */,
+				AB389FD22986DF10000C798C /* CreateUsernameViewModelTests.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -1221,6 +1243,7 @@
 			children = (
 				ABE3EFA528D91960002EEF23 /* SignUpView.swift */,
 				ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */,
+				AB092F562984B93B00264659 /* CreateUsernameView */,
 			);
 			path = SignUpView;
 			sourceTree = "<group>";
@@ -1451,7 +1474,9 @@
 				AB2B867A28D9EE43004601B6 /* MyShowsViewModel.swift in Sources */,
 				AB38E1B128FB21CB006D1788 /* AddEditShowAddressView.swift in Sources */,
 				ABF1C40A28ECF09F0004A3C1 /* BandSearchResultsList.swift in Sources */,
+				AB2C81612985A4B5001C68BE /* String+usernameFormat.swift in Sources */,
 				AB7F381128EF1AB4007741C7 /* NotificationsList.swift in Sources */,
+				AB092F5A2984B96700264659 /* CreateUsernameViewModel.swift in Sources */,
 				ABF83DD2291A9F03006A06CC /* UiConstants.swift in Sources */,
 				AB399ADB28D4C548009B39F7 /* LoggedInUserController.swift in Sources */,
 				ABCAAA0228E9ED6C00685F91 /* BandLinkList.swift in Sources */,
@@ -1489,6 +1514,7 @@
 				AB7F381328EF1B56007741C7 /* NotificationType.swift in Sources */,
 				AB1B559829202E8300571316 /* SmallIconStyle.swift in Sources */,
 				ABA42BC3292D176600ADE3AD /* Notification.Name+CustomNotifications.swift in Sources */,
+				AB092F552984AE7B00264659 /* String+trimmed.swift in Sources */,
 				ABD1D16D28F30CDF00791969 /* MyHostedShowsView.swift in Sources */,
 				AB5E490829003F8D0076EABE /* AddBacklineViewModel.swift in Sources */,
 				ABB93F3828F0732D0055659B /* AsyncButton.swift in Sources */,
@@ -1515,6 +1541,7 @@
 				AB36FF6828D356FD00AAC00C /* RootView.swift in Sources */,
 				AB7B65A3291D38C50027FC6B /* String+isReallyEmpty.swift in Sources */,
 				AB4750192900B55C0000DB13 /* AddPercussionBacklineForm.swift in Sources */,
+				AB092F582984B96000264659 /* CreateUsernameView.swift in Sources */,
 				AB1B559A29202FB500571316 /* ListIconStyle.swift in Sources */,
 				AB24E3A828D7C9C4002B4F2C /* LoginViewModel.swift in Sources */,
 				AB07AC3929047F1800E378C6 /* ElectricGuitarBacklineList.swift in Sources */,
@@ -1642,6 +1669,7 @@
 				ABBE36A1296B555A0092F594 /* LinkPlatformTests.swift in Sources */,
 				AB7F6FC0296F0E7F00612D3B /* HomeViewModelTests.swift in Sources */,
 				ABA054992974C917006B5908 /* BandSettingsViewModelTests.swift in Sources */,
+				AB389FD32986DF10000C798C /* CreateUsernameViewModelTests.swift in Sources */,
 				AB657D2329719D5A00696EF4 /* LoginViewModelTests.swift in Sources */,
 				ABD4BD1E2968695E00CCA88B /* BandTests.swift in Sources */,
 				AB816582298424E800C5C1B4 /* ForgotPasswordViewModelTests.swift in Sources */,

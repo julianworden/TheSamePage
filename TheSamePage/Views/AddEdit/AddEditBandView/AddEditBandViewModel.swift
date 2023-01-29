@@ -20,8 +20,6 @@ final class AddEditBandViewModel: ObservableObject {
     
     @Published var imagePickerIsShowing = false
     @Published var bandCreationButtonIsDisabled = false
-    /// Modified when a band is created during onboarding.
-    @Published var userIsOnboarding = false
     /// Modified when a band is created at any time other than during onboarding
     @Published var dismissView = false
     @Published var selectedImage: UIImage?
@@ -37,11 +35,7 @@ final class AddEditBandViewModel: ObservableObject {
             case .performingWork:
                 bandCreationButtonIsDisabled = true
             case .workCompleted:
-                if userIsOnboarding {
-                    userIsOnboarding = false
-                } else {
-                    dismissView = true
-                }
+                dismissView = true
             case .error(let message):
                 errorAlertIsShowing = true
                 errorAlertText = message
@@ -53,8 +47,7 @@ final class AddEditBandViewModel: ObservableObject {
     
     var bandToEdit: Band?
     
-    init(bandToEdit: Band? = nil, userIsOnboarding: Bool, isPresentedModally: Bool = false) {
-        self.userIsOnboarding = userIsOnboarding
+    init(bandToEdit: Band? = nil, isPresentedModally: Bool = false) {
         self.isPresentedModally = isPresentedModally
         
         if let bandToEdit {

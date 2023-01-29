@@ -20,10 +20,20 @@ final class AuthController: ObservableObject {
         let user = try await DatabaseService.shared.getLoggedInUser()
         return user.username
     }
+
+    static func getLoggedInUser() -> FirebaseAuth.User? {
+        return Auth.auth().currentUser
+    }
     
     static func getLoggedInFullName() async throws -> String {
         let user = try await DatabaseService.shared.getLoggedInUser()
         return "\(user.firstName) \(user.lastName)"
+    }
+
+    static func loggedInUserEmailIsVerified() -> Bool {
+        guard let currentUser = Auth.auth().currentUser else { return false }
+
+        return currentUser.isEmailVerified
     }
     
     static func getLoggedInFcmToken() async throws -> String {

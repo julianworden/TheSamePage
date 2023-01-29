@@ -75,6 +75,13 @@ class TestingDatabaseService {
         }
     }
 
+    func editUserInfo(uid: String, field: String, newValue: String) async throws {
+        try await db
+            .collection(FbConstants.users)
+            .document(uid)
+            .updateData([field: newValue])
+    }
+
     // MARK: - Firestore Shows
 
     func getShow(withId id: String) async throws -> Show {

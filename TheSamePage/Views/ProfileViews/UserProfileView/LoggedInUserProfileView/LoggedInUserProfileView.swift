@@ -15,8 +15,6 @@ struct LoggedInUserProfileView: View {
     @State private var errorAlertText = ""
     @State private var createBandSheetIsShowing = false
 
-    @Binding var userIsLoggedOut: Bool
-    
     var body: some View {
         NavigationView {
             ZStack {
@@ -48,7 +46,7 @@ struct LoggedInUserProfileView: View {
                                 },
                                 content: {
                                     NavigationView {
-                                        AddEditBandView(userIsOnboarding: .constant(false), bandToEdit: nil, isPresentedModally: true)
+                                        AddEditBandView(bandToEdit: nil, isPresentedModally: true)
                                     }
                                 }
                             )
@@ -84,14 +82,11 @@ struct LoggedInUserProfileView: View {
                 isPresented: $loggedInUserController.errorMessageShowing,
                 message: loggedInUserController.errorMessageText,
                 tryAgainAction: {
-                    await loggedInUserController.callOnAppLaunchMethods()
+                    loggedInUserController.currentUserIsInvalid = true
                 }
             )
             .task {
                 await loggedInUserController.callOnAppLaunchMethods()
-                if loggedInUserController.loggedInUser == nil {
-                    userIsLoggedOut = true
-                }
             }
         }
         // Without this, the search bar in MemberSearchView is not usable
@@ -101,6 +96,6 @@ struct LoggedInUserProfileView: View {
 
 struct LoggedInUserProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        LoggedInUserProfileView(userIsLoggedOut: .constant(false))
+        LoggedInUserProfileView()
     }
 }

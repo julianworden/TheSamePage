@@ -23,44 +23,51 @@ class LoggedInUserController: ObservableObject {
     
     @Published var errorMessageShowing = false
     @Published var errorMessageText = ""
+
+    @Published var currentUserIsInvalid = false
+    @Published var currentUserHasNoUsernameAlertIsShowing = false
+    @Published var createUsernameSheetIsShowing = false
     
-    @Published var loggedInUserProfileViewState = ViewState.displayingView {
+    @Published var viewState = ViewState.displayingView {
         didSet {
-            switch loggedInUserProfileViewState {
+            switch viewState {
             case .error(let message):
                 errorMessageText = message
                 errorMessageShowing = true
             default:
-                print("Unknown viewState passed to LoggedInUserController: \(loggedInUserProfileViewState)")
+                print("Unknown viewState passed to LoggedInUserController: \(viewState)")
             }
         }
     }
-    
+
+    var userIsLoggedOut: Bool {
+        AuthController.userIsLoggedOut()
+    }
+
     let db = Firestore.firestore()
 
     func callOnAppLaunchMethods() async {
+        guard !AuthController.userIsLoggedOut() else { return }
+
         await getLoggedInUserInfo()
         await getLoggedInUserBands()
     }
 
     func getLoggedInUserInfo() async {
-        guard !AuthController.userIsLoggedOut() else { return }
-
         do {
             self.loggedInUser = try await DatabaseService.shared.getLoggedInUser()
         } catch {
-            loggedInUserProfileViewState = .error(message: error.localizedDescription)
+            viewState = .error(message: error.localizedDescription)
         }
     }
 
     func getLoggedInUserBands() async {
-        guard let loggedInUser,
-              !AuthController.userIsLoggedOut() else { return }
+        guard let loggedInUser else { return }
 
         do {
             self.bands = try await DatabaseService.shared.getBands(withUid: loggedInUser.id)
         } catch {
-            loggedInUserProfileViewState = .error(message: error.localizedDescription)
+            viewState = .error(message: error.localizedDescription)
         }
     }
 
@@ -72,7 +79,7 @@ class LoggedInUserController: ObservableObject {
             userImage = nil
             updatedImage = nil
         } catch {
-            loggedInUserProfileViewState = .error(message: error.localizedDescription)
+            viewState = .error(message: error.localizedDescription)
         }
     }
 
@@ -81,7 +88,7 @@ class LoggedInUserController: ObservableObject {
             let userAsBandMember = try await DatabaseService.shared.convertUserToBandMember(user: user, band: band)
             try await DatabaseService.shared.removeUserFromBand(remove: user, as: userAsBandMember, from: band)
         } catch {
-            loggedInUserProfileViewState = .error(message: error.localizedDescription)
+            viewState = .error(message: error.localizedDescription)
         }
     }
     
@@ -93,8 +100,30 @@ class LoggedInUserController: ObservableObject {
 
         do {
             try AuthController.logOut()
+            currentUserIsInvalid = true
         } catch {
-            loggedInUserProfileViewState = .error(message: error.localizedDescription)
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func validateUserLogInStatusAndEmailVerification() async {
+        guard !userIsLoggedOut,
+              AuthController.loggedInUserEmailIsVerified() else {
+            currentUserIsInvalid = true
+            return
+        }
+    }
+
+    func validateIfUserHasUsername() async {
+        do {
+            let currentUser = try await DatabaseService.shared.getLoggedInUser()
+            if currentUser.username.isReallyEmpty {
+                currentUserHasNoUsernameAlertIsShowing = true
+            } else {
+                currentUserHasNoUsernameAlertIsShowing = false
+            }
+        } catch {
+            viewState = .error(message: error.localizedDescription)
         }
     }
 }

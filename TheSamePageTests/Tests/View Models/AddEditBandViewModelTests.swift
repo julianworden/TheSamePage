@@ -53,7 +53,7 @@ final class AddEditBandViewModelTests: XCTestCase {
     }
 
     func test_OnInitWithNoBandToEditAndUserIsNotOnboarding_DefaultValuesAreCorrect() {
-        sut = AddEditBandViewModel(userIsOnboarding: false)
+        sut = AddEditBandViewModel()
 
         XCTAssertTrue(sut.bandName.isEmpty)
         XCTAssertTrue(sut.bandBio.isEmpty)
@@ -64,7 +64,6 @@ final class AddEditBandViewModelTests: XCTestCase {
         XCTAssertEqual(sut.userRoleInBand, .vocals)
         XCTAssertFalse(sut.imagePickerIsShowing)
         XCTAssertFalse(sut.bandCreationButtonIsDisabled)
-        XCTAssertFalse(sut.userIsOnboarding)
         XCTAssertFalse(sut.dismissView)
         XCTAssertNil(sut.selectedImage)
         XCTAssertFalse(sut.errorAlertIsShowing)
@@ -75,10 +74,7 @@ final class AddEditBandViewModelTests: XCTestCase {
 
     func test_OnInitWithBandToEditAndUserIsOnboarding_DefaultValuesAreCorrect() {
         let bandToEdit = TestingConstants.exampleBandForIntegrationTesting
-        sut = AddEditBandViewModel(
-            bandToEdit: bandToEdit,
-            userIsOnboarding: true
-        )
+        sut = AddEditBandViewModel(bandToEdit: bandToEdit)
 
         XCTAssertEqual(sut.bandName, bandToEdit.name)
         XCTAssertEqual(sut.bandBio, bandToEdit.bio)
@@ -89,7 +85,6 @@ final class AddEditBandViewModelTests: XCTestCase {
         XCTAssertEqual(sut.userRoleInBand, .vocals)
         XCTAssertFalse(sut.imagePickerIsShowing)
         XCTAssertFalse(sut.bandCreationButtonIsDisabled)
-        XCTAssertTrue(sut.userIsOnboarding)
         XCTAssertFalse(sut.dismissView)
         XCTAssertNil(sut.selectedImage)
         XCTAssertFalse(sut.errorAlertIsShowing)
@@ -101,7 +96,7 @@ final class AddEditBandViewModelTests: XCTestCase {
     // TODO: Add form validation tests when that's added
 
     func test_OnCreateUpdateBandButtonTappedWithNoBandToEditAndUserNotInBandAndNoImage_BandIsCreated() async throws {
-        sut = AddEditBandViewModel(bandToEdit: TestingConstants.exampleBandForIntegrationTesting, userIsOnboarding: false)
+        sut = AddEditBandViewModel(bandToEdit: TestingConstants.exampleBandForIntegrationTesting)
         sut.bandToEdit = nil
 
         guard let createdBandDocumentId = await sut.createUpdateBandButtonTapped() else {
@@ -117,7 +112,7 @@ final class AddEditBandViewModelTests: XCTestCase {
     }
 
     func test_OnCreateUpdateBandButtonTappedWithNoBandToEditAndUserNotInBandAndWithImage_BandAndImageAreCreated() async throws {
-        sut = AddEditBandViewModel(bandToEdit: TestingConstants.exampleBandForIntegrationTesting, userIsOnboarding: false)
+        sut = AddEditBandViewModel(bandToEdit: TestingConstants.exampleBandForIntegrationTesting)
         sut.bandToEdit = nil
         sut.selectedImage = TestingConstants.uiImageForTesting
 
@@ -137,7 +132,7 @@ final class AddEditBandViewModelTests: XCTestCase {
     }
 
     func test_OnCreateUpdateBandButtonTappedWithNoBandToEditAndUserIsInBand_BandIsCreatedAndUserIsAddedToBand() async throws {
-        sut = AddEditBandViewModel(bandToEdit: TestingConstants.exampleBandForIntegrationTesting, userIsOnboarding: false)
+        sut = AddEditBandViewModel(bandToEdit: TestingConstants.exampleBandForIntegrationTesting)
         sut.bandToEdit = nil
         sut.userPlaysInBand = true
         sut.userRoleInBand = .drums
@@ -167,7 +162,7 @@ final class AddEditBandViewModelTests: XCTestCase {
         self.createdBandDocumentId = try await testingDatabaseService.createBand(TestingConstants.exampleBandForIntegrationTesting)
         var bandToEdit = TestingConstants.exampleBandForIntegrationTesting
         bandToEdit.id = createdBandDocumentId!
-        sut = AddEditBandViewModel(bandToEdit: bandToEdit, userIsOnboarding: false)
+        sut = AddEditBandViewModel(bandToEdit: bandToEdit)
 
         sut.bandName = "TEST BAND NAME UPDATED"
         await sut.createUpdateBandButtonTapped()
@@ -179,23 +174,15 @@ final class AddEditBandViewModelTests: XCTestCase {
     }
 
     func test_OnPerformingWorkViewState_ExpectedWorkIsPerformed() async throws {
-        sut = AddEditBandViewModel(userIsOnboarding: false)
+        sut = AddEditBandViewModel()
 
         sut.viewState = .performingWork
 
         XCTAssertTrue(sut.bandCreationButtonIsDisabled, "The button should be disabled while work is being performed")
     }
 
-    func test_OnWorkCompletedViewStateWhenUserIsOnboarding_ExpectedWorkIsPerformed() async throws {
-        sut = AddEditBandViewModel(userIsOnboarding: true)
-
-        sut.viewState = .workCompleted
-
-        XCTAssertFalse(sut.userIsOnboarding, "Onboarding should end if the user is onboarding they successfully create a band")
-    }
-
-    func test_OnWorkCompletedViewStateWhenUserIsNotOnboarding_ExpectedWorkIsPerformed() async throws {
-        sut = AddEditBandViewModel(userIsOnboarding: false)
+    func test_OnWorkCompletedViewState_ExpectedWorkIsPerformed() async throws {
+        sut = AddEditBandViewModel()
 
         sut.viewState = .workCompleted
 
