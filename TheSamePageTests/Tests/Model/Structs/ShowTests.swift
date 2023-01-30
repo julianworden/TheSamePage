@@ -37,7 +37,7 @@ final class ShowTests: XCTestCase {
         XCTAssertNotNil(exampleShow.formattedTicketPrice)
         XCTAssertEqual(
             exampleShow.formattedTicketPrice,
-            exampleShow.ticketPrice!.formatted(.currency(code: Locale.current.currencyCode ?? "USD"))
+            exampleShow.ticketPrice!.formatted(.currency(code: Locale.current.currency?.identifier ?? "USD"))
         )
     }
 

@@ -49,7 +49,7 @@ final class SendBandInviteViewModel: ObservableObject {
     // TODO: This should get bands that the user is the admin of but is not a member of, too
     func getLoggedInUserBands() async {
         do {
-            let fetchedBands = try await DatabaseService.shared.getBands(withUid: AuthController.getLoggedInUid())
+            let fetchedBands = try await DatabaseService.shared.getJoinedBands(withUid: AuthController.getLoggedInUid())
             userBands = fetchedBands.filter { $0.adminUid == AuthController.getLoggedInUid() }
             
             if !userBands.isEmpty {

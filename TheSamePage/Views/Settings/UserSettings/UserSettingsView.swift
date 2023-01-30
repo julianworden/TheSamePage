@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct UserSettingsView: View {
-
     @Environment(\.dismiss) var dismiss
     
     @EnvironmentObject var loggedInUserController: LoggedInUserController
@@ -38,6 +37,7 @@ struct UserSettingsView: View {
                     actions: {
                         Button("Cancel", role: .cancel) { }
                         Button("Yes", role: .destructive) {
+                            editAccountFlowIsActive = false
                             loggedInUserController.logOut()
                         }
                     },
@@ -45,6 +45,7 @@ struct UserSettingsView: View {
                 )
             }
         }
+        .toolbar(.hidden, for: .tabBar)
     }
 }
 

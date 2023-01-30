@@ -90,7 +90,7 @@ final class SendShowInviteViewModel: ObservableObject {
     
     func getHostedShows() async {
         do {
-            userShows = try await DatabaseService.shared.getHostedShows()
+            userShows = try await DatabaseService.shared.getLoggedInUserHostedShows()
             
             if !userShows.isEmpty {
                 viewState = .dataLoaded

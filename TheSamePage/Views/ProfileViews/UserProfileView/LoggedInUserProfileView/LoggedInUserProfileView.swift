@@ -14,6 +14,7 @@ struct LoggedInUserProfileView: View {
     @State private var errorAlertIsShowing = false
     @State private var errorAlertText = ""
     @State private var createBandSheetIsShowing = false
+    @State private var settingsButtonTapped = false
 
     var body: some View {
         NavigationView {
@@ -28,7 +29,7 @@ struct LoggedInUserProfileView: View {
                             SectionTitle(title: "Member of")
                         }
 
-                        if !loggedInUserController.bands.isEmpty {
+                        if !loggedInUserController.playingBands.isEmpty {
                             LoggedInUserBandList()
 
                             Button {
@@ -41,7 +42,7 @@ struct LoggedInUserProfileView: View {
                                 isPresented: $createBandSheetIsShowing,
                                 onDismiss: {
                                     Task {
-                                        await loggedInUserController.getLoggedInUserBands()
+                                        await loggedInUserController.getLoggedInUserPlayingBands()
                                     }
                                 },
                                 content: {
@@ -50,7 +51,7 @@ struct LoggedInUserProfileView: View {
                                     }
                                 }
                             )
-                        } else if loggedInUserController.bands.isEmpty {
+                        } else if loggedInUserController.playingBands.isEmpty {
                             NoDataFoundMessageWithButtonView(
                                 isPresentingSheet: $createBandSheetIsShowing,
                                 shouldDisplayButton: true,
@@ -67,7 +68,7 @@ struct LoggedInUserProfileView: View {
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem {
-                    NavigationLink {
+                    NavigationLink(isActive: $settingsButtonTapped) {
                         UserSettingsView()
                             // These modifiers have to be here, not within the view, or else strange
                             // navigationTitle and list behavior in UserSettingsView will occur
@@ -78,14 +79,10 @@ struct LoggedInUserProfileView: View {
                     }
                 }
             }
-            .errorAlert(
-                isPresented: $loggedInUserController.errorMessageShowing,
-                message: loggedInUserController.errorMessageText,
-                tryAgainAction: {
-                    loggedInUserController.currentUserIsInvalid = true
-                }
-            )
             .task {
+                // Without this, UserSettingsView will still be present after a user
+                // logs out and logs back in and navigates to the Profile tab.
+                settingsButtonTapped = false
                 await loggedInUserController.callOnAppLaunchMethods()
             }
         }

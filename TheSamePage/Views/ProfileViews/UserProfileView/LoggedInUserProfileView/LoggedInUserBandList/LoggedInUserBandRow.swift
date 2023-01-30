@@ -15,9 +15,9 @@ struct LoggedInUserBandRow: View {
     let index: Int
     
     var body: some View {
-        if loggedInUserController.bands.indices.contains(index),
+        if loggedInUserController.playingBands.indices.contains(index),
            let loggedInUser = loggedInUserController.loggedInUser {
-            let band = loggedInUserController.bands[index]
+            let band = loggedInUserController.playingBands[index]
             
             HStack {
                 ListRowElements(
@@ -43,7 +43,7 @@ struct LoggedInUserBandRow: View {
                             Button("Yes", role: .destructive) {
                                 Task {
                                     await loggedInUserController.removeUserFromBand(remove: loggedInUser, from: band)
-                                    await loggedInUserController.getLoggedInUserBands()
+                                    await loggedInUserController.getLoggedInUserPlayingBands()
                                     await loggedInUserController.getLoggedInUserInfo()
                                 }
                             }

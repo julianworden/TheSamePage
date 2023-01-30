@@ -14,7 +14,7 @@ struct LoggedInUserBandList: View {
 
     var body: some View {
         VStack(spacing: UiConstants.listRowSpacing) {
-            ForEach(Array(loggedInUserController.bands.enumerated()), id: \.element) { index, band in
+            ForEach(Array(loggedInUserController.playingBands.enumerated()), id: \.element) { index, band in
                 Button {
                     selectedBand = band
                 } label: {
@@ -26,7 +26,7 @@ struct LoggedInUserBandList: View {
                     item: $selectedBand,
                     onDismiss: {
                         Task {
-                            await loggedInUserController.getLoggedInUserBands()
+                            await loggedInUserController.getLoggedInUserPlayingBands()
                         }
                     },
                     content: { selectedBand in
@@ -39,7 +39,7 @@ struct LoggedInUserBandList: View {
 
             Divider()
         }
-        .animation(.easeInOut, value: loggedInUserController.bands)
+        .animation(.easeInOut, value: loggedInUserController.playingBands)
     }
 }
 

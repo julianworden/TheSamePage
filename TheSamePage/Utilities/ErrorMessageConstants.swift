@@ -16,7 +16,7 @@ struct ErrorMessageConstants {
     static let emptyChatMessage = "You cannot send an empty message."
     static let invalidEmailAddress = "Please enter a valid email address."
 
-    // MARK: Sign In
+    // MARK: - Sign In
     static let networkErrorOnSignIn = "Login failed. \(checkYourConnection)"
     static let wrongPasswordOnSignIn = "Incorrect email or password. Please try again."
     static let userNotFoundOnSignIn = "This email address is not registered with The Same Page. If you need to create a new account, use the Sign Up button."
@@ -25,7 +25,7 @@ struct ErrorMessageConstants {
     // MARK: - Forgot Password
     static let emailAddressDoesNotBelongToAccountOnForgotPassword = "This email address is not associated with an existing account on The Same Page. If you need to create an account, go back and tap the Sign Up button."
 
-    // MARK: Sign Up
+    // MARK: - Sign Up
     static let missingFirstAndLastNameOnSignUp = "Please ensure that you've entered your first and last name."
     static let invalidOrMissingEmailOnSignUp = "Please enter a valid email address."
     static let emailAlreadyInUseOnSignUp = "An account with this email address already exists, please go back and sign in or reset your password, if necessary."
@@ -35,10 +35,15 @@ struct ErrorMessageConstants {
     static let emailAddressesDoNotMatch = "The email addresses you entered do not match each other. Please try again."
     static let passwordsDoNotMatch = "The passwords you entered do not match each other. Please try again."
 
-    // MARK: SendShowInvite
+    // MARK: - SendShowInvite
     static let bandIsAlreadyPlayingShow = "This band is already playing this show."
     static let showLineupIsFull = "This show's lineup is full. To invite this band, either increase the show's max number of bands or remove a band from the show's lineup."
 
-    // MARK: Create Username
+    // MARK: - Create Username
     static let usernameIsTooShort = "Your username must contain at least three characters."
+
+    // MARK: - Delete Account
+
+    static let userIsStillBandAdminAndCannotDeleteAccount = "You are still a band admin for at least one band, so you will need to give another band member admin privelages before you can delete your account. Tap a band above, select the gear icon in its profile, and select \"Relinquish Admin Priveleges\" to do this."
+    static let userIsStillHostingUpcomingShowsAndCannotDeleteAccount = "You are still a show host for at least one upcoming show, so you will need to give another show participant host privelages before you can delete your account. Tap a show above, select the gear icon in its details page, and select \"Relinquish Host Priveleges\" to do this."
 }

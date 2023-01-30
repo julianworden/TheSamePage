@@ -102,14 +102,33 @@ class DatabaseService: NSObject {
     
     /// Fetches all the shows of which the signed in user is the host.
     /// - Returns: An array of shows that the signed in user is hosting.
-    func getHostedShows() async throws -> [Show] {
+    func getLoggedInUserHostedShows() async throws -> [Show] {
         do {
             let query = try await db
                 .collection(FbConstants.shows)
-                .whereField("hostUid", isEqualTo: AuthController.getLoggedInUid())
+                .whereField(FbConstants.hostUid, isEqualTo: AuthController.getLoggedInUid())
                 .getDocuments()
             
             return try query.documents.map { try $0.data(as: Show.self) }
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to fetch your hosted shows",
+                systemError: error.localizedDescription
+            )
+        }
+    }
+
+    func getLoggedInUserUpcomingHostedShows() async throws -> [Show] {
+        do {
+            let query = try await db
+                .collection(FbConstants.shows)
+                .whereField(FbConstants.hostUid, isEqualTo: AuthController.getLoggedInUid())
+                .getDocuments()
+            let hostedShows = try query.documents.map { try $0.data(as: Show.self) }
+
+            return hostedShows.filter {
+                $0.date.unixDateAsDate >= Date.now
+            }
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to fetch your hosted shows",
@@ -223,7 +242,7 @@ class DatabaseService: NSObject {
             
             if !bandShows.isEmpty {
                 for show in bandShows {
-                    try await removeUserFromShow(user: user, show: show)
+                    try await removeUserFromShow(uid: user.id, show: show)
                     
                     if let showChat = try await getChat(withShowId: show.id) {
                         try await removeUserFromChat(user: user, chat: showChat)
@@ -236,6 +255,30 @@ class DatabaseService: NSObject {
                 systemError: error.localizedDescription
             )
         }
+    }
+
+    func removeUserFromBand(uid: String, bandId: String) async throws {
+        try await db
+            .collection(FbConstants.bands)
+            .document(bandId)
+            .updateData([FbConstants.memberUids: FieldValue.arrayRemove([uid])])
+
+        let bandMemberId = try await db
+            .collection(FbConstants.bands)
+            .document(bandId)
+            .collection(FbConstants.members)
+            .whereField(FbConstants.uid, isEqualTo: uid)
+            .getDocuments()
+            .documents
+            .first!
+            .documentID
+
+        try await db
+            .collection(FbConstants.bands)
+            .document(bandId)
+            .collection(FbConstants.members)
+            .document(bandMemberId)
+            .delete()
     }
     
     func removeUserFromChat(user: User, chat: Chat) async throws {
@@ -257,12 +300,12 @@ class DatabaseService: NSObject {
         }
     }
     
-    func removeUserFromShow(user: User, show: Show) async throws {
+    func removeUserFromShow(uid: String, show: Show) async throws {
         do {
             try await db
                 .collection(FbConstants.shows)
                 .document(show.id)
-                .updateData([FbConstants.participantUids: FieldValue.arrayRemove([user.id])])
+                .updateData([FbConstants.participantUids: FieldValue.arrayRemove([uid])])
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to remove you from \(show.name)",
@@ -274,13 +317,32 @@ class DatabaseService: NSObject {
     /// Fetches all the bands in the bands collection that include a given UID in their memberUids array.
     /// - Parameter uid: The UID for which the search is occuring in the bands' memberUids array.
     /// - Returns: The bands that include the provided UID in the memberUids array.
-    func getBands(withUid uid: String) async throws -> [Band] {
+    func getJoinedBands(withUid uid: String) async throws -> [Band] {
         do {
             let query = try await db
                 .collection(FbConstants.bands)
-                .whereField("memberUids", arrayContains: uid)
+                .whereField(FbConstants.memberUids, arrayContains: uid)
                 .getDocuments()
             
+            return try query.documents.map { try $0.data(as: Band.self) }
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to fetch your bands",
+                systemError: error.localizedDescription
+            )
+        }
+    }
+
+    /// Fetches all the bands in the bands collection that have an adminUid property that matches a given UID.
+    /// - Parameter uid: The UID that must match a band's adminUid property in order for that band to be returned.
+    /// - Returns: The bands with an adminUid property that matches the UID in the uid property.
+    func getAdminBands(withUid uid: String) async throws -> [Band] {
+        do {
+            let query = try await db
+                .collection(FbConstants.bands)
+                .whereField(FbConstants.adminUid, isEqualTo: uid)
+                .getDocuments()
+
             return try query.documents.map { try $0.data(as: Band.self) }
         } catch {
             throw FirebaseError.connection(
@@ -353,6 +415,41 @@ class DatabaseService: NSObject {
             throw FirebaseError.connection(message: "Failed to delete image", systemError: error.localizedDescription)
         }
     }
+
+    func deleteUserFromFirestore(withUid uid: String) async throws {
+        let loggedInUser = try await getLoggedInUser()
+
+        _ = try await Functions.functions().httpsCallable(FbConstants.recursiveDelete).call([FbConstants.path: "\(FbConstants.users)/\(uid)"])
+
+        let userShows = try await getPlayingShows()
+        for show in userShows {
+            try await removeUserFromShow(uid: uid, show: show)
+        }
+
+        let userChats = try await getChats(forUserWithUid: uid)
+        for chat in userChats {
+            try await removeUserFromChat(user: loggedInUser, chat: chat)
+        }
+
+        let userBands = try await getJoinedBands(withUid: uid)
+        for band in userBands {
+            try await removeUserFromBand(uid: uid, bandId: band.id)
+        }
+    }
+
+
+    func deleteAccountInFirebaseAuthAndFirestore(forUserWithUid uid: String) async throws {
+        do {
+            try await deleteUserFromFirestore(withUid: uid)
+            try await Auth.auth().currentUser?.delete()
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to delete account. Please try again",
+                systemError: error.localizedDescription
+            )
+        }
+    }
+
     
     
     // MARK: - Bands
@@ -648,7 +745,7 @@ class DatabaseService: NSObject {
 
                 for member in bandMembers {
                     let memberAsUser = try await convertBandMemberToUser(bandMember: member)
-                    try await removeUserFromShow(user: memberAsUser, show: show)
+                    try await removeUserFromShow(uid: memberAsUser.id, show: show)
                     if let chat {
                         try await removeUserFromChat(user: memberAsUser, chat: chat)
                     }
@@ -1210,6 +1307,17 @@ class DatabaseService: NSObject {
             )
         }
     }
+
+    func getChats(forUserWithUid uid: String) async throws -> [Chat] {
+        let chatDocuments = try await db
+            .collection(FbConstants.chats)
+            .whereField(FbConstants.participantUids, arrayContains: uid)
+            .getDocuments()
+            .documents
+
+        return try chatDocuments.map { try $0.data(as: Chat.self) }
+    }
+
     
     /// Creates a chat in the Firestore chats collection.
     /// - Parameter chat: The chat object to be added to Firestore. This chat object will not have an id property.

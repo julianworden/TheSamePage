@@ -19,32 +19,26 @@ struct EditUserInfoView: View {
     var body: some View {
         Form {
             Section {
-                Button("Change Email Address") {
-                    viewModel.changeEmailAddressSheetIsShowing.toggle()
+                NavigationLink {
+                    EditEmailAddressView()
+                } label: {
+                    Text("Change Email Address")
                 }
 
-                Button("Change Password") {
-                    viewModel.changePasswordSheetIsShowing.toggle()
-                }
-
-                Button("Change Username") {
-                    viewModel.changeUsernameSheetIsShowing.toggle()
+                NavigationLink {
+                    ChangePasswordView()
+                } label: {
+                    Text("Change Password")
                 }
             }
 
             Section {
-                Button("Delete Account", role: .destructive) {
-                    viewModel.deleteAccountConfirmationAlertIsShowing.toggle()
+                NavigationLink {
+                    DeleteAccountView()
+                } label: {
+                    Text("Delete Account")
                 }
-                .alert(
-                    "Are You Sure?",
-                    isPresented: $viewModel.deleteAccountConfirmationAlertIsShowing,
-                    actions: {
-                        Button("Cancel", role: .cancel) { }
-                        Button("Yes", role: .destructive) { }
-                    }
-                )
-                #warning("Make the yes button above delete the account")
+                .foregroundColor(.red)
             }
         }
         .navigationTitle("Edit Profile")
@@ -62,6 +56,7 @@ struct EditUserInfoView: View {
                 }
             }
         }
+
     }
 }
 

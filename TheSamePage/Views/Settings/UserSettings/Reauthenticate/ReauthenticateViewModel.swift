@@ -51,7 +51,8 @@ class ReauthenticateViewModel: ObservableObject {
                 viewState = .error(message: ErrorMessageConstants.invalidEmailAddress)
             case .networkError:
                 viewState = .error(message: "\(ErrorMessageConstants.networkErrorOnSignIn). System error: \(error.localizedDescription)")
-            case .wrongPassword:
+            // User mismatch occurs when email address is valid but doesn't match that of the currently signed in user
+            case .wrongPassword, .userMismatch:
                 viewState = .error(message: ErrorMessageConstants.wrongPasswordOnSignIn)
             case .userNotFound:
                 // Password and email are valid, but no registered user has this info

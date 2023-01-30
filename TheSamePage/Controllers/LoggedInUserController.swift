@@ -14,7 +14,9 @@ import UIKit.UIImage
 @MainActor
 class LoggedInUserController: ObservableObject {
     @Published var loggedInUser: User?
-    @Published var bands = [Band]()
+    @Published var playingBands = [Band]()
+    @Published var adminBands = [Band]()
+    @Published var hostedShows = [Show]()
     
     /// The image loaded from the ProfileAsyncImage in LoggedInUserProfileView
     @Published var userImage: Image?
@@ -27,6 +29,7 @@ class LoggedInUserController: ObservableObject {
     @Published var currentUserIsInvalid = false
     @Published var currentUserHasNoUsernameAlertIsShowing = false
     @Published var createUsernameSheetIsShowing = false
+    @Published var accountDeletionWasSuccessful = false
     
     @Published var viewState = ViewState.displayingView {
         didSet {
@@ -41,7 +44,11 @@ class LoggedInUserController: ObservableObject {
     }
 
     var userIsLoggedOut: Bool {
-        AuthController.userIsLoggedOut()
+        return AuthController.userIsLoggedOut()
+    }
+
+    var loggedInUserIsNotLeadingAnyShowsOrBands: Bool {
+        return adminBands.isEmpty && hostedShows.isEmpty
     }
 
     let db = Firestore.firestore()
@@ -50,7 +57,7 @@ class LoggedInUserController: ObservableObject {
         guard !AuthController.userIsLoggedOut() else { return }
 
         await getLoggedInUserInfo()
-        await getLoggedInUserBands()
+        await getLoggedInUserPlayingBands()
     }
 
     func getLoggedInUserInfo() async {
@@ -61,11 +68,31 @@ class LoggedInUserController: ObservableObject {
         }
     }
 
-    func getLoggedInUserBands() async {
+    func getLoggedInUserPlayingBands() async {
         guard let loggedInUser else { return }
 
         do {
-            self.bands = try await DatabaseService.shared.getBands(withUid: loggedInUser.id)
+            self.playingBands = try await DatabaseService.shared.getJoinedBands(withUid: loggedInUser.id)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func getLoggedInUserAdminBands() async {
+        guard let loggedInUser else { return }
+
+        do {
+            self.adminBands = try await DatabaseService.shared.getAdminBands(withUid: loggedInUser.id)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func getLoggedInUserHostedShows() async {
+        guard loggedInUser != nil else { return }
+
+        do {
+            self.hostedShows = try await DatabaseService.shared.getLoggedInUserHostedShows()
         } catch {
             viewState = .error(message: error.localizedDescription)
         }
@@ -96,7 +123,7 @@ class LoggedInUserController: ObservableObject {
         self.loggedInUser = nil
         self.userImage = nil
         self.updatedImage = nil
-        self.bands = []
+        self.playingBands = []
 
         do {
             try AuthController.logOut()
@@ -122,6 +149,15 @@ class LoggedInUserController: ObservableObject {
             } else {
                 currentUserHasNoUsernameAlertIsShowing = false
             }
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func deleteAccount() async {
+        do {
+            try await DatabaseService.shared.deleteAccountInFirebaseAuthAndFirestore(forUserWithUid: AuthController.getLoggedInUid())
+            accountDeletionWasSuccessful = true
         } catch {
             viewState = .error(message: error.localizedDescription)
         }

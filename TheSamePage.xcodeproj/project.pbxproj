@@ -35,6 +35,7 @@
 		AB1D5E38298719A100E62C29 /* UserSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D5E37298719A100E62C29 /* UserSettingsViewModel.swift */; };
 		AB1D5E3C29871C9700E62C29 /* EditUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D5E3B29871C9700E62C29 /* EditUserInfoView.swift */; };
 		AB1D5E3E29871C9E00E62C29 /* EditUserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D5E3D29871C9E00E62C29 /* EditUserInfoViewModel.swift */; };
+		AB1D5E4129874CAC00E62C29 /* EditEmailAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D5E4029874CAC00E62C29 /* EditEmailAddressView.swift */; };
 		AB24E3A628D7C9B0002B4F2C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24E3A528D7C9B0002B4F2C /* LoginView.swift */; };
 		AB24E3A828D7C9C4002B4F2C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24E3A728D7C9C4002B4F2C /* LoginViewModel.swift */; };
 		AB272F882976FD3D00E74091 /* AddBacklineViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB272F872976FD3D00E74091 /* AddBacklineViewModelTests.swift */; };
@@ -88,6 +89,9 @@
 		AB4D097C292725C500B5DB4D /* ShowAddressSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4D097B292725C500B5DB4D /* ShowAddressSearchResults.swift */; };
 		AB5054A728DC91CF00321380 /* MemberSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054A628DC91CF00321380 /* MemberSearchView.swift */; };
 		AB5054B328DCA04900321380 /* BandInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054B228DCA04900321380 /* BandInvite.swift */; };
+		AB50DBC329881EBB006F6FAF /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = AB50DBC229881EBB006F6FAF /* Collections */; };
+		AB50DBC529881EBB006F6FAF /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = AB50DBC429881EBB006F6FAF /* OrderedCollections */; };
+		AB50DBC729881EE3006F6FAF /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = AB50DBC629881EE3006F6FAF /* DequeModule */; };
 		AB55E7722901F651009F039B /* DrumKitBacklineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB55E7712901F651009F039B /* DrumKitBacklineItem.swift */; };
 		AB571CA929705961000629AA /* Double+UnixDateAsDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB571CA829705961000629AA /* Double+UnixDateAsDate.swift */; };
 		AB582B7E28FA3B3D00D357F3 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB582B7D28FA3B3D00D357F3 /* LocationController.swift */; };
@@ -175,6 +179,10 @@
 		ABB71C4A28FE08D500D3126D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB71C4928FE08D500D3126D /* HomeViewModel.swift */; };
 		ABB93F3828F0732D0055659B /* AsyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB93F3728F0732D0055659B /* AsyncButton.swift */; };
 		ABBADD7928DFE5FA00720C64 /* BandState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBADD7828DFE5FA00720C64 /* BandState.swift */; };
+		ABBBC1542988037E005AF468 /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBBC1532988037E005AF468 /* DeleteAccountView.swift */; };
+		ABBBC1562988069F005AF468 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBBC1552988069F005AF468 /* ChangePasswordView.swift */; };
+		ABBBC15929880D37005AF468 /* LeadingBandsAndShowsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBBC15829880D37005AF468 /* LeadingBandsAndShowsList.swift */; };
+		ABBBC15B29880D82005AF468 /* DeleteAccountConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBBC15A29880D81005AF468 /* DeleteAccountConfirmationView.swift */; };
 		ABBE3691296B06C30092F594 /* ChatMessageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE3690296B06C30092F594 /* ChatMessageTests.swift */; };
 		ABBE3693296B25200092F594 /* PlatformLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE3692296B25200092F594 /* PlatformLinkTests.swift */; };
 		ABBE3695296B26970092F594 /* ShowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE3694296B26970092F594 /* ShowTests.swift */; };
@@ -283,6 +291,7 @@
 		AB1D5E37298719A100E62C29 /* UserSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsViewModel.swift; sourceTree = "<group>"; };
 		AB1D5E3B29871C9700E62C29 /* EditUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoView.swift; sourceTree = "<group>"; };
 		AB1D5E3D29871C9E00E62C29 /* EditUserInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoViewModel.swift; sourceTree = "<group>"; };
+		AB1D5E4029874CAC00E62C29 /* EditEmailAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEmailAddressView.swift; sourceTree = "<group>"; };
 		AB24E3A528D7C9B0002B4F2C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		AB24E3A728D7C9C4002B4F2C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		AB272F872976FD3D00E74091 /* AddBacklineViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBacklineViewModelTests.swift; sourceTree = "<group>"; };
@@ -416,6 +425,10 @@
 		ABB71C4928FE08D500D3126D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		ABB93F3728F0732D0055659B /* AsyncButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncButton.swift; sourceTree = "<group>"; };
 		ABBADD7828DFE5FA00720C64 /* BandState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandState.swift; sourceTree = "<group>"; };
+		ABBBC1532988037E005AF468 /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
+		ABBBC1552988069F005AF468 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
+		ABBBC15829880D37005AF468 /* LeadingBandsAndShowsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingBandsAndShowsList.swift; sourceTree = "<group>"; };
+		ABBBC15A29880D81005AF468 /* DeleteAccountConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountConfirmationView.swift; sourceTree = "<group>"; };
 		ABBE3690296B06C30092F594 /* ChatMessageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageTests.swift; sourceTree = "<group>"; };
 		ABBE3692296B25200092F594 /* PlatformLinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformLinkTests.swift; sourceTree = "<group>"; };
 		ABBE3694296B26970092F594 /* ShowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTests.swift; sourceTree = "<group>"; };
@@ -496,14 +509,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB50DBC529881EBB006F6FAF /* OrderedCollections in Frameworks */,
 				AB31440C291713B300E2D08B /* FirebaseMessaging in Frameworks */,
 				AB4A461C29172832007F1C8B /* FirebaseFunctions in Frameworks */,
 				AB07AC2C290452B900E378C6 /* FirebaseAuth in Frameworks */,
 				ABAAB3392983456900C1285F /* FirebaseDynamicLinks in Frameworks */,
 				AB07AC32290452B900E378C6 /* FirebaseStorage in Frameworks */,
 				AB07AC2E290452B900E378C6 /* FirebaseFirestore in Frameworks */,
+				AB50DBC329881EBB006F6FAF /* Collections in Frameworks */,
 				AB07AC352904534F00E378C6 /* Typesense in Frameworks */,
 				AB07AC30290452B900E378C6 /* FirebaseFirestoreSwift in Frameworks */,
+				AB50DBC729881EE3006F6FAF /* DequeModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,6 +597,9 @@
 			children = (
 				AB1D5E3B29871C9700E62C29 /* EditUserInfoView.swift */,
 				AB1D5E3D29871C9E00E62C29 /* EditUserInfoViewModel.swift */,
+				AB1D5E4029874CAC00E62C29 /* EditEmailAddressView.swift */,
+				ABBBC1552988069F005AF468 /* ChangePasswordView.swift */,
+				ABBBC15729880D24005AF468 /* DeleteAccount */,
 			);
 			path = EditUserInfoView;
 			sourceTree = "<group>";
@@ -1053,6 +1072,16 @@
 			path = AddEdit;
 			sourceTree = "<group>";
 		};
+		ABBBC15729880D24005AF468 /* DeleteAccount */ = {
+			isa = PBXGroup;
+			children = (
+				ABBBC1532988037E005AF468 /* DeleteAccountView.swift */,
+				ABBBC15A29880D81005AF468 /* DeleteAccountConfirmationView.swift */,
+				ABBBC15829880D37005AF468 /* LeadingBandsAndShowsList.swift */,
+			);
+			path = DeleteAccount;
+			sourceTree = "<group>";
+		};
 		ABBE3699296B398D0092F594 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1400,6 +1429,9 @@
 				AB31440B291713B300E2D08B /* FirebaseMessaging */,
 				AB4A461B29172832007F1C8B /* FirebaseFunctions */,
 				ABAAB3382983456900C1285F /* FirebaseDynamicLinks */,
+				AB50DBC229881EBB006F6FAF /* Collections */,
+				AB50DBC429881EBB006F6FAF /* OrderedCollections */,
+				AB50DBC629881EE3006F6FAF /* DequeModule */,
 			);
 			productName = TheSamePage;
 			productReference = AB36FF6228D356FD00AAC00C /* TheSamePage.app */;
@@ -1463,6 +1495,7 @@
 			packageReferences = (
 				AB07AC2A290452B900E378C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				AB07AC332904534F00E378C6 /* XCRemoteSwiftPackageReference "typesense-swift" */,
+				AB50DBC129881EBB006F6FAF /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = AB36FF6328D356FD00AAC00C /* Products */;
 			projectDirPath = "";
@@ -1545,8 +1578,10 @@
 				ABF1C40628ECE83F0004A3C1 /* TypesenseController.swift in Sources */,
 				AB1D5E3C29871C9700E62C29 /* EditUserInfoView.swift in Sources */,
 				AB668EB7291C0180007899A9 /* BandAboutTab.swift in Sources */,
+				ABBBC15B29880D82005AF468 /* DeleteAccountConfirmationView.swift in Sources */,
 				AB8627C1292687FC001537D9 /* ErrorMessageConstants.swift in Sources */,
 				ABADC999292529F90049ABAA /* Task+sleepInSeconds.swift in Sources */,
+				ABBBC1542988037E005AF468 /* DeleteAccountView.swift in Sources */,
 				AB5054A728DC91CF00321380 /* MemberSearchView.swift in Sources */,
 				AB285AFA28F6F76200EB5F2B /* ShowTimeTab.swift in Sources */,
 				ABF0DA93291B135A00BD5DD7 /* BandMembersTab.swift in Sources */,
@@ -1559,6 +1594,7 @@
 				ABA42BC3292D176600ADE3AD /* Notification.Name+CustomNotifications.swift in Sources */,
 				AB092F552984AE7B00264659 /* String+trimmed.swift in Sources */,
 				ABD1D16D28F30CDF00791969 /* MyHostedShowsView.swift in Sources */,
+				ABBBC15929880D37005AF468 /* LeadingBandsAndShowsList.swift in Sources */,
 				AB5E490829003F8D0076EABE /* AddBacklineViewModel.swift in Sources */,
 				ABB93F3828F0732D0055659B /* AsyncButton.swift in Sources */,
 				ABF8B81928FC43C400608657 /* CustomMapAnnotation.swift in Sources */,
@@ -1621,6 +1657,7 @@
 				AB35A8CC28E9CFCF009FB203 /* LoggedInUserProfileView.swift in Sources */,
 				AB9C2391297B5F7D0012BE9F /* ShowImageButton.swift in Sources */,
 				ABB4C3F829205AC400E2C153 /* UserNotification.swift in Sources */,
+				ABBBC1562988069F005AF468 /* ChangePasswordView.swift in Sources */,
 				AB571CA929705961000629AA /* Double+UnixDateAsDate.swift in Sources */,
 				ABF1C40828ECF0950004A3C1 /* UserSearchResultsList.swift in Sources */,
 				AB1B559629200CD100571316 /* ProfileImageStyle.swift in Sources */,
@@ -1657,6 +1694,7 @@
 				ABE07A0C29799A93009D3661 /* AddMyBandToShowView.swift in Sources */,
 				AB8326B62912A89800208414 /* ShowBacklineRow.swift in Sources */,
 				ABDDAD4C28DB49DF00F1CF9B /* AddEditBandViewModel.swift in Sources */,
+				AB1D5E4129874CAC00E62C29 /* EditEmailAddressView.swift in Sources */,
 				AB668EAF291BE666007899A9 /* LoggedInUserBandRow.swift in Sources */,
 				AB8326BA2912BB3500208414 /* ChatMessage.swift in Sources */,
 				AB5054B328DCA04900321380 /* BandInvite.swift in Sources */,
@@ -1871,13 +1909,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheSamePage/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "The Same Page";
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Atlantis would use Bonjour Service to discover Proxyman app from your local network";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to find shows near you";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1909,13 +1946,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheSamePage/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "The Same Page";
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Atlantis would use Bonjour Service to discover Proxyman app from your local network";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to find shows near you";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1940,7 +1976,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9LT5ZRK64X;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.julianmichaeltechnologies.TheSamePageTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1962,7 +1998,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9LT5ZRK64X;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.julianmichaeltechnologies.TheSamePageTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2025,6 +2061,14 @@
 				minimumVersion = 0.1.2;
 			};
 		};
+		AB50DBC129881EBB006F6FAF /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2062,6 +2106,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AB07AC2A290452B900E378C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFunctions;
+		};
+		AB50DBC229881EBB006F6FAF /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AB50DBC129881EBB006F6FAF /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
+		};
+		AB50DBC429881EBB006F6FAF /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AB50DBC129881EBB006F6FAF /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+		AB50DBC629881EE3006F6FAF /* DequeModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AB50DBC129881EBB006F6FAF /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = DequeModule;
 		};
 		AB81657F298422C000C5C1B4 /* FirebaseDynamicLinks */ = {
 			isa = XCSwiftPackageProductDependency;

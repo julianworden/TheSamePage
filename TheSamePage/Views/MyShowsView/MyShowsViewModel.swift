@@ -54,7 +54,7 @@ final class MyShowsViewModel: ObservableObject {
     /// Fetches all shows that the user is hosting.
     func getHostedShows() async {
         do {
-            hostedShows = try await DatabaseService.shared.getHostedShows()
+            hostedShows = try await DatabaseService.shared.getLoggedInUserHostedShows()
             hostedShows.isEmpty ? (myHostedShowsViewState = .dataNotFound) : (myHostedShowsViewState = .dataLoaded)
         } catch {
             myHostedShowsViewState = .error(message: error.localizedDescription)

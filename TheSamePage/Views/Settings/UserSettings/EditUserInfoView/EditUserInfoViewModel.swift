@@ -9,8 +9,5 @@ import Foundation
 
 @MainActor
 final class EditUserInfoViewModel: ObservableObject {
-    @Published var changePasswordSheetIsShowing = false
-    @Published var changeEmailAddressSheetIsShowing = false
-    @Published var changeUsernameSheetIsShowing = false
-    @Published var deleteAccountConfirmationAlertIsShowing = false
+
 }

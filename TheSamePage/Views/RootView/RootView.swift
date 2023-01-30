@@ -5,6 +5,7 @@
 //  Created by Julian Worden on 9/15/22.
 //
 
+import Collections
 import SwiftUI
 
 struct RootView: View {
@@ -12,7 +13,7 @@ struct RootView: View {
     @EnvironmentObject var networkController: NetworkController
     
     @StateObject var viewModel = RootViewModel()
-    
+
     var body: some View {
         ZStack {
             BackgroundColor()
@@ -24,25 +25,25 @@ struct RootView: View {
                             Label("Home", systemImage: "house")
                         }
                         .tag(0)
-                    
+
                     SearchView()
                         .tabItem {
                             Label("Search", systemImage: "magnifyingglass")
                         }
                         .tag(1)
-                    
+
                     MyShowsRootView()
                         .tabItem {
                             Label("My Shows", systemImage: "music.mic")
                         }
                         .tag(2)
-                    
+
                     NotificationsView()
                         .tabItem {
                             Label("Notifications", systemImage: "bell")
                         }
                         .tag(3)
-                    
+
                     LoggedInUserProfileView()
                         .tabItem {
                             Label("Profile", systemImage: "person")
@@ -79,12 +80,6 @@ struct RootView: View {
             content: {
                 LoginView()
             }
-        )
-        .errorAlert(
-            isPresented: $loggedInUserController.errorMessageShowing,
-            message: loggedInUserController.errorMessageText,
-            tryAgainAction: { loggedInUserController.currentUserIsInvalid = true },
-            tryAgainButtonText: "Log In"
         )
         .task {
             await loggedInUserController.validateUserLogInStatusAndEmailVerification()

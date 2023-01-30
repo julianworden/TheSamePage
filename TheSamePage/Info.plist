@@ -22,10 +22,6 @@
 		<string>instagram</string>
 		<string>fb</string>
 	</array>
-	<key>NSBonjourServices</key>
-	<array>
-		<string>_Proxyman._tcp</string>
-	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

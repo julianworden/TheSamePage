@@ -79,6 +79,6 @@ final class OtherUserProfileViewModel: ObservableObject {
     
     // TODO: Incorporate a listener to this so the bands array is updated when the user joins a new band
     func getBands(forUser user: User) async throws -> [Band] {
-        return try await DatabaseService.shared.getBands(withUid: user.id)
+        return try await DatabaseService.shared.getJoinedBands(withUid: user.id)
     }
 }
