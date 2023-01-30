@@ -11,7 +11,7 @@ struct MyShowsRootView: View {
     @StateObject var viewModel = MyShowsViewModel()
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 BackgroundColor()
                 
@@ -35,7 +35,6 @@ struct MyShowsRootView: View {
                     Spacer()
                 }
             }
-            .navigationViewStyle(.stack)
             .navigationTitle("My Shows")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -54,14 +53,12 @@ struct MyShowsRootView: View {
                     }
                 },
                 content: {
-                    NavigationView {
+                    NavigationStack {
                         AddEditShowView(showToEdit: nil, isPresentedModally: true)
                     }
                 }
             )
         }
-        // If this isn't here, AddEditShowAddressView doesn't show the search bar
-        .navigationViewStyle(.stack)
     }
 }
 

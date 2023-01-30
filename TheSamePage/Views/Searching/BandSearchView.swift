@@ -43,7 +43,7 @@ struct BandSearchView: View {
 
 struct BandSearchView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             BandSearchView(isPresentedModally: true)
         }
     }

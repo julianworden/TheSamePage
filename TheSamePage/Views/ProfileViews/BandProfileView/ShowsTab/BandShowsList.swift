@@ -21,7 +21,7 @@ struct BandShowsList: View {
                     BandShowRow(viewModel: viewModel, index: index)
                 }
                 .fullScreenCover(item: $selectedShow) { selectedShow in
-                    NavigationView {
+                    NavigationStack {
                         ShowDetailsView(show: selectedShow, isPresentedModally: true)
                     }
                 }

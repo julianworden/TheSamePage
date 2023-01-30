@@ -84,7 +84,7 @@ struct SendBandInviteView: View {
 
 struct SendBandInviteView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             SendBandInviteView(user: User.example)
         }
     }

@@ -49,7 +49,7 @@ struct BandProfileImageButton: View {
                     }
                 },
                 content: {
-                    NavigationView {
+                    NavigationStack {
                         EditImageView(
                             band: band,
                             image: viewModel.bandImage,

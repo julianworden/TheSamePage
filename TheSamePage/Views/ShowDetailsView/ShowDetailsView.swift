@@ -92,7 +92,7 @@ struct ShowDetailsView: View {
                         Label("Play This Show", systemImage: "pencil.and.ellipsis.rectangle")
                     }
                     .fullScreenCover(isPresented: $viewModel.showApplicationSheetIsShowing) {
-                        NavigationView {
+                        NavigationStack {
                             // TODO: Fill this in!
                             EmptyView()
                         }
@@ -124,7 +124,7 @@ struct ShowDetailsView: View {
 // TODO: Figure out why this preview crashes
 struct ShowDetailsRootView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             ShowDetailsView(show: Show.example)
         }
     }

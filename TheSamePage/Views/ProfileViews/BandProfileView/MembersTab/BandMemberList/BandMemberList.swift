@@ -26,7 +26,7 @@ struct BandMemberList: View {
                 .tint(.primary)
                 .allowsHitTesting(bandMember.bandMemberIsLoggedInUser ? false : true)
                 .fullScreenCover(item: $selectedBandMember) { selectedBandMember in
-                    NavigationView {
+                    NavigationStack {
                         OtherUserProfileView(user: nil, bandMember: selectedBandMember, isPresentedModally: true)
                     }
                 }

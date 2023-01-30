@@ -30,7 +30,7 @@ struct LoggedInUserBandList: View {
                         }
                     },
                     content: { selectedBand in
-                        NavigationView {
+                        NavigationStack {
                             BandProfileView(band: selectedBand, isPresentedModally: true)
                         }
                     }

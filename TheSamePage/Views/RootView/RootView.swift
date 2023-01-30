@@ -62,7 +62,7 @@ struct RootView: View {
                     message: { Text("You need a username to use The Same Page, but you have not set one up yet.") }
                 )
                 .fullScreenCover(isPresented: $loggedInUserController.createUsernameSheetIsShowing) {
-                    NavigationView {
+                    NavigationStack {
                         CreateUsernameView(signUpFlowIsActive: .constant(false))
                     }
                 }

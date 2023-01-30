@@ -23,7 +23,7 @@ struct ShowLineupTab: View {
                 ShowLineupList(viewModel: viewModel)
                     // Has to go here and not in ShowLineupList or else .fullScreenCover dismissal won't animate
                     .fullScreenCover(item: $viewModel.selectedShowParticipant) { selectedShowParticipant in
-                        NavigationView {
+                        NavigationStack {
                             BandProfileView(showParticipant: selectedShowParticipant, isPresentedModally: true)
                         }
                     }
@@ -50,7 +50,7 @@ struct ShowLineupTab: View {
                                 }
                             },
                             content: {
-                                NavigationView {
+                                NavigationStack {
                                     AddMyBandToShowView(show: viewModel.show)
                                 }
                             }
@@ -81,7 +81,7 @@ struct ShowLineupTab: View {
                         }
                     },
                     content: {
-                        NavigationView {
+                        NavigationStack {
                             AddMyBandToShowView(show: viewModel.show)
                         }
                     }
@@ -90,7 +90,7 @@ struct ShowLineupTab: View {
         }
         .padding(.horizontal)
         .fullScreenCover(isPresented: $viewModel.bandSearchViewIsShowing) {
-            NavigationView {
+            NavigationStack {
                 BandSearchView(isPresentedModally: true)
             }
         }

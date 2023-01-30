@@ -23,7 +23,7 @@ struct LoginView: View {
     @FocusState var keyboardIsFocused: Bool
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Form {
                 Section {
                     TextField("Email Address", text: $viewModel.emailAddress)
@@ -64,7 +64,7 @@ struct LoginView: View {
                         forgotPasswordSheetIsShowing.toggle()
                     }
                     .sheet(isPresented: $forgotPasswordSheetIsShowing) {
-                        NavigationView {
+                        NavigationStack {
                             ForgotPasswordView()
                         }
                     }
@@ -96,7 +96,7 @@ struct LoginView: View {
                     }
                 },
                 content: {
-                    NavigationView {
+                    NavigationStack {
                         CreateUsernameView(signUpFlowIsActive: .constant(false))
                     }
                 }

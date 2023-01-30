@@ -11,7 +11,7 @@ struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 BackgroundColor()
                 
@@ -75,7 +75,6 @@ struct HomeView: View {
                 LocationController.shared.startLocationServices()
             }
         }
-        .navigationViewStyle(.stack)
     }
 }
 

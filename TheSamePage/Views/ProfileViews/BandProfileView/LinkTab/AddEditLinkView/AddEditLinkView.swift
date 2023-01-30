@@ -57,7 +57,7 @@ struct AddEditLinkView: View {
 
 struct AddLinkView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             AddEditLinkView(link: PlatformLink.example, band: Band.example)
         }
     }

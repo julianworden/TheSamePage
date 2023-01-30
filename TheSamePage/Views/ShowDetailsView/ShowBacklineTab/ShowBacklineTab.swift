@@ -71,7 +71,7 @@ struct ShowBacklineTab: View {
                 }
             },
             content: {
-                NavigationView {
+                NavigationStack {
                     AddBacklineView(show: viewModel.show)
                 }
             }

@@ -17,7 +17,7 @@ struct LoggedInUserProfileView: View {
     @State private var settingsButtonTapped = false
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 BackgroundColor()
                 
@@ -46,7 +46,7 @@ struct LoggedInUserProfileView: View {
                                     }
                                 },
                                 content: {
-                                    NavigationView {
+                                    NavigationStack {
                                         AddEditBandView(bandToEdit: nil, isPresentedModally: true)
                                     }
                                 }
@@ -86,8 +86,6 @@ struct LoggedInUserProfileView: View {
                 await loggedInUserController.callOnAppLaunchMethods()
             }
         }
-        // Without this, the search bar in MemberSearchView is not usable
-        .navigationViewStyle(.stack)
     }
 }
 

@@ -50,7 +50,7 @@ struct LoggedInUserProfileImage: View {
                     }
                 },
                 content: {
-                    NavigationView {
+                    NavigationStack {
                         EditImageView(
                             user: user,
                             image: loggedInUserController.userImage,

@@ -53,10 +53,9 @@ struct BandProfileView: View {
                         .padding(.horizontal)
                     }
                     .sheet(isPresented: $viewModel.addEditBandSheetIsShowing) {
-                        NavigationView {
+                        NavigationStack {
                             AddEditBandView(bandToEdit: band)
                         }
-                        .navigationViewStyle(.stack)
                     }
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
@@ -67,10 +66,9 @@ struct BandProfileView: View {
                                     Image(systemName: "envelope")
                                 }
                                 .sheet(isPresented: $viewModel.sendShowInviteViewIsShowing) {
-                                    NavigationView {
+                                    NavigationStack {
                                         SendShowInviteView(band: band)
                                     }
-                                    .navigationViewStyle(.stack)
                                 }
                             }
                         }

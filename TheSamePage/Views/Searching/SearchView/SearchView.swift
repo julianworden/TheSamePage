@@ -12,7 +12,7 @@ struct SearchView: View {
     @StateObject var viewModel = SearchViewModel()
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack(alignment: .top) {
                 BackgroundColor()
                 
@@ -49,7 +49,6 @@ struct SearchView: View {
                 message: viewModel.errorAlertText
             )
         }
-        .navigationViewStyle(.stack)
     }
 }
 

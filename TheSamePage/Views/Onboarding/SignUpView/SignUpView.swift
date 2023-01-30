@@ -94,7 +94,7 @@ struct SignUpView: View {
 
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             SignUpView(signUpFlowIsActive: .constant(true))
         }
     }

@@ -23,7 +23,7 @@ struct OtherUserBandList: View {
                 .tint(.primary)
                 .padding(.horizontal)
                 .fullScreenCover(item: $selectedBand) { selectedBand in
-                    NavigationView {
+                    NavigationStack {
                         BandProfileView(band: selectedBand, isPresentedModally: true)
                     }
                 }

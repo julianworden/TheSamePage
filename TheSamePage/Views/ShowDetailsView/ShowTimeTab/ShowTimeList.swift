@@ -34,7 +34,7 @@ struct ShowTimeList: View {
                 }
             },
             content: { showTimeType in
-                NavigationView {
+                NavigationStack {
                     switch showTimeType {
                     case .loadIn:
                         AddShowTimeView(show: show, showTimeType: showTimeType)

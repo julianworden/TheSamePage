@@ -36,7 +36,7 @@ struct BandMembersTab: View {
         .fullScreenCover(
             isPresented: $viewModel.addBandMemberSheetIsShowing,
             content: {
-                NavigationView {
+                NavigationStack {
                     MemberSearchView()
                 }
             }

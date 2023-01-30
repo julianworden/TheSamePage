@@ -101,7 +101,7 @@ struct AddEditBandView: View {
 
 struct AddEditBandView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             AddEditBandView(bandToEdit: Band.example)
         }
     }

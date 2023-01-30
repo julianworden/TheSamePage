@@ -11,7 +11,7 @@ struct NotificationsView: View {
     @StateObject var viewModel = NotificationsViewModel()
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 BackgroundColor()
                 
@@ -51,7 +51,6 @@ struct NotificationsView: View {
                 viewModel.removeListeners()
             }
         }
-        .navigationViewStyle(.stack)
     }
 }
 

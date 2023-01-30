@@ -76,7 +76,7 @@ struct DeleteAccountConfirmationView: View {
 
 struct DeleteAccountConfirmationView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 BackgroundColor()
 

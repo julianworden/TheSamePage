@@ -48,7 +48,7 @@ struct ShowImageButton: View {
                 }
             },
             content: {
-                NavigationView {
+                NavigationStack {
                     EditImageView(
                         show: viewModel.show,
                         image: viewModel.showImage,
