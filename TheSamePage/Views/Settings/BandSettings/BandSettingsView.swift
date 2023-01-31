@@ -20,59 +20,67 @@ struct BandSettingsView: View {
     }
     
     var body: some View {
-        let band = viewModel.band
-        
-        Form {
-            Section {
-                NavigationLink {
-                    AddEditBandView(bandToEdit: band)
-                } label: {
-                    Text("Edit Band Info")
-                }
-                .disabled(viewModel.buttonsAreDisabled)
-                
-                if band.loggedInUserIsBandAdmin {
-                    // TODO: Add logic to make someone else band admin
-                }
-            }
+        NavigationStack {
+            Form {
+                Section {
+                    NavigationLink {
+                        AddEditBandView(bandToEdit: viewModel.band)
+                    } label: {
+                        Text("Edit Band Info")
+                    }
+                    .disabled(viewModel.buttonsAreDisabled)
 
-            Section {
-                Button(role: .destructive) {
-                    viewModel.deleteBandConfirmationAlertIsShowing.toggle()
-                } label: {
-                    HStack(spacing: 5) {
-                        Text("Delete Band")
-                        if viewModel.viewState == .performingWork {
-                            ProgressView()
-                        }
+                    if viewModel.band.loggedInUserIsBandAdmin {
+                        // TODO: Add logic to make someone else band admin
                     }
                 }
-                .disabled(viewModel.buttonsAreDisabled)
-                .alert(
-                    "Are You Sure?",
-                    isPresented: $viewModel.deleteBandConfirmationAlertIsShowing,
-                    actions: {
-                        Button("Cancel", role: .cancel) { }
-                        Button("Yes", role: .destructive) {
-                            Task {
-                                await viewModel.deleteBand()
+
+                Section {
+                    Button(role: .destructive) {
+                        viewModel.deleteBandConfirmationAlertIsShowing.toggle()
+                    } label: {
+                        HStack(spacing: 5) {
+                            Text("Delete Band")
+                            if viewModel.viewState == .performingWork {
+                                ProgressView()
                             }
                         }
-                    },
-                    message: { Text("This band and all of its info will be permanently deleted. This cannot be undone.") }
-                )
+                    }
+                    .disabled(viewModel.buttonsAreDisabled)
+                    .alert(
+                        "Are You Sure?",
+                        isPresented: $viewModel.deleteBandConfirmationAlertIsShowing,
+                        actions: {
+                            Button("Cancel", role: .cancel) { }
+                            Button("Yes", role: .destructive) {
+                                Task {
+                                    await viewModel.deleteBand()
+                                }
+                            }
+                        },
+                        message: { Text("This band and all of its info will be permanently deleted. This cannot be undone.") }
+                    )
+                }
             }
-        }
-        .navigationTitle("Band Settings")
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(viewModel.buttonsAreDisabled)
-        .errorAlert(
-            isPresented: $viewModel.errorAlertIsShowing,
-            message: viewModel.errorAlertText
-        )
-        .onChange(of: viewModel.bandDeleteWasSuccessful) { bandDeleteWasSuccessful in
-            if bandDeleteWasSuccessful {
-                dismiss()
+            .navigationTitle("Band Settings")
+            .navigationBarTitleDisplayMode(.inline)
+            // TODO: get rid of this
+            .navigationBarBackButtonHidden(viewModel.buttonsAreDisabled)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Back") {
+                        dismiss()
+                    }
+                }
+            }
+            .errorAlert(
+                isPresented: $viewModel.errorAlertIsShowing,
+                message: viewModel.errorAlertText
+            )
+            .onChange(of: viewModel.bandDeleteWasSuccessful) { bandDeleteWasSuccessful in
+                if bandDeleteWasSuccessful {
+                    dismiss()
+                }
             }
         }
     }

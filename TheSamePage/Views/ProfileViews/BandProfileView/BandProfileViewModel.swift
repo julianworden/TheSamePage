@@ -27,6 +27,7 @@ class BandProfileViewModel: ObservableObject {
     @Published var editImageConfirmationDialogIsShowing = false
     @Published var deleteImageConfirmationAlertIsShowing = false
     @Published var removeBandMemberFromBandConfirmationAlertIsShowing = false
+    @Published var bandSettingsViewIsShowing = false
 
     @Published var bandImage: Image?
     @Published var updatedImage: UIImage?

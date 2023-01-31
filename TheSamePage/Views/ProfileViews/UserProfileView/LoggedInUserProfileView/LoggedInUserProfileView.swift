@@ -68,16 +68,15 @@ struct LoggedInUserProfileView: View {
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem {
-                    NavigationLink(isActive: $settingsButtonTapped) {
-                        UserSettingsView()
-                            // These modifiers have to be here, not within the view, or else strange
-                            // navigationTitle and list behavior in UserSettingsView will occur
-                            .navigationTitle("Profile Settings")
-                            .navigationBarTitleDisplayMode(.inline)
+                    Button {
+                        settingsButtonTapped.toggle()
                     } label: {
                         Label("Settings", systemImage: "gear")
                     }
                 }
+            }
+            .fullScreenCover(isPresented: $settingsButtonTapped) {
+                UserSettingsView()
             }
             .task {
                 // Without this, UserSettingsView will still be present after a user

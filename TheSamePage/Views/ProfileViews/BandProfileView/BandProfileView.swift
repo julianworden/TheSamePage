@@ -75,10 +75,13 @@ struct BandProfileView: View {
 
                         ToolbarItem(placement: .navigationBarTrailing) {
                             if band.loggedInUserIsInvolvedWithBand {
-                                NavigationLink {
-                                    BandSettingsView(band: band)
+                                Button {
+                                    viewModel.bandSettingsViewIsShowing.toggle()
                                 } label: {
                                     Label("Band settings", systemImage: "gear")
+                                }
+                                .fullScreenCover(isPresented: $viewModel.bandSettingsViewIsShowing) {
+                                    BandSettingsView(band: band)
                                 }
                             }
                         }

@@ -15,34 +15,46 @@ struct UserSettingsView: View {
     @StateObject private var viewModel = UserSettingsViewModel()
 
     @State private var logOutConfirmationAlertIsShowing = false
+    #warning("Replace this with a NavigationPath")
     @State private var editAccountFlowIsActive = false
 
     var body: some View {
-        Form {
-            Section {
-                NavigationLink(isActive: $editAccountFlowIsActive) {
-                    ReauthenticateView(editAccountFlowIsActive: $editAccountFlowIsActive)
-                } label: {
-                    Text("Edit Account")
+        NavigationStack {
+            Form {
+                Section {
+                    NavigationLink(isActive: $editAccountFlowIsActive) {
+                        ReauthenticateView(editAccountFlowIsActive: $editAccountFlowIsActive)
+                    } label: {
+                        Text("Edit Account")
+                    }
+                }
+
+                Section {
+                    Button("Log Out", role: .destructive) {
+                        logOutConfirmationAlertIsShowing.toggle()
+                    }
+                    .alert(
+                        "Are You Sure?",
+                        isPresented: $logOutConfirmationAlertIsShowing,
+                        actions: {
+                            Button("Cancel", role: .cancel) { }
+                            Button("Yes", role: .destructive) {
+                                editAccountFlowIsActive = false
+                                loggedInUserController.logOut()
+                            }
+                        },
+                        message: { Text("You will not be able to access your data on The Same Page until you log in again.") }
+                    )
                 }
             }
-
-            Section {
-                Button("Log Out", role: .destructive) {
-                    logOutConfirmationAlertIsShowing.toggle()
+            .navigationTitle("Profile Settings")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Back") {
+                        dismiss()
+                    }
                 }
-                .alert(
-                    "Are You Sure?",
-                    isPresented: $logOutConfirmationAlertIsShowing,
-                    actions: {
-                        Button("Cancel", role: .cancel) { }
-                        Button("Yes", role: .destructive) {
-                            editAccountFlowIsActive = false
-                            loggedInUserController.logOut()
-                        }
-                    },
-                    message: { Text("You will not be able to access your data on The Same Page until you log in again.") }
-                )
             }
         }
     }

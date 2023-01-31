@@ -76,14 +76,16 @@ struct ShowDetailsView: View {
 
             ToolbarItem(placement: .navigationBarTrailing) {
                 if viewModel.show.loggedInUserIsInvolvedInShow {
-                    // TODO: Make this a NavigationLink instead
-                    NavigationLink {
+                    Button {
+                        viewModel.conversationViewIsShowing.toggle()
+                    } label: {
+                        Image(systemName: "bubble.right")
+                    }
+                    .fullScreenCover(isPresented: $viewModel.conversationViewIsShowing) {
                         ConversationView(
                             show: viewModel.show,
                             showParticipants: viewModel.showParticipants
                         )
-                    } label: {
-                        Image(systemName: "bubble.right")
                     }
                 } else if viewModel.show.loggedInUserIsNotInvolvedInShow {
                     Button {
@@ -102,11 +104,13 @@ struct ShowDetailsView: View {
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 if viewModel.show.loggedInUserIsShowHost {
-                    // TODO: Make this a NavigationLink instead
-                    NavigationLink {
-                        ShowSettingsView(show: viewModel.show)
+                    Button {
+                        viewModel.showSettingsViewIsShowing.toggle()
                     } label: {
                         Image(systemName: "gear")
+                    }
+                    .fullScreenCover(isPresented: $viewModel.showSettingsViewIsShowing) {
+                        ShowSettingsView(show: viewModel.show)
                     }
                 }
             }

@@ -33,6 +33,8 @@ final class ShowDetailsViewModel: ObservableObject {
     @Published var deleteDrumKitBacklineItemConfirmationAlertIsShowing = false
     @Published var removeShowParticipantConfirmationAlertIsShowing = false
     @Published var leaveShowConfirmationAlertIsShowing = false
+    @Published var conversationViewIsShowing = false
+    @Published var showSettingsViewIsShowing = false
 
     /// The image loaded from the ProfileAsyncImage
     @Published var showImage: Image?

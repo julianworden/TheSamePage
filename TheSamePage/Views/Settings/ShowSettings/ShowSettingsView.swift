@@ -17,41 +17,50 @@ struct ShowSettingsView: View {
     }
     
     var body: some View {
-        Form {
-            NavigationLink {
-                AddEditShowView(showToEdit: viewModel.show)
-            } label: {
-                Text("Edit Show Info")
-            }
-
-            Section {
-                Button("Cancel Show", role: .destructive) {
-                    viewModel.cancelShowAlertIsShowing = true
+        NavigationStack {
+            Form {
+                NavigationLink {
+                    AddEditShowView(showToEdit: viewModel.show)
+                } label: {
+                    Text("Edit Show Info")
                 }
-                .alert(
-                    "Are you sure?",
-                    isPresented: $viewModel.cancelShowAlertIsShowing,
-                    actions: {
-                        Button("No", role: .cancel) { }
-                        Button("Yes", role: .destructive) {
-                            Task {
-                                await viewModel.cancelShow()
-                            }
-                        }
-                    },
-                    message: {
-                        Text("Cancelling this show will permanently delete all of its data from The Same Page, including its chat.")
+
+                Section {
+                    Button("Cancel Show", role: .destructive) {
+                        viewModel.cancelShowAlertIsShowing = true
                     }
-                )
+                    .alert(
+                        "Are you sure?",
+                        isPresented: $viewModel.cancelShowAlertIsShowing,
+                        actions: {
+                            Button("No", role: .cancel) { }
+                            Button("Yes", role: .destructive) {
+                                Task {
+                                    await viewModel.cancelShow()
+                                }
+                            }
+                        },
+                        message: {
+                            Text("Cancelling this show will permanently delete all of its data from The Same Page, including its chat.")
+                        }
+                    )
+                }
             }
+            .navigationTitle("Show Settings")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Back") {
+                        dismiss()
+                    }
+                }
+            }
+            .errorAlert(
+                isPresented: $viewModel.errorAlertIsShowing,
+                message: viewModel.errorAlertText,
+                tryAgainAction: { await viewModel.cancelShow() }
+            )
         }
-        .navigationTitle("Show Settings")
-        .navigationBarTitleDisplayMode(.inline)
-        .errorAlert(
-            isPresented: $viewModel.errorAlertIsShowing,
-            message: viewModel.errorAlertText,
-            tryAgainAction: { await viewModel.cancelShow() }
-        )
     }
 }
 
