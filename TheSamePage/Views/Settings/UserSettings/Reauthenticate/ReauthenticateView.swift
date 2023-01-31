@@ -10,7 +10,7 @@ import SwiftUI
 struct ReauthenticateView: View {
     @StateObject private var viewModel = ReauthenticateViewModel()
 
-    @Binding var editAccountFlowIsActive: Bool
+    @ObservedObject var navigationViewModel: UserSettingsNavigationViewModel
 
     @FocusState private var keyboardIsFocused: Bool
 
@@ -30,12 +30,11 @@ struct ReauthenticateView: View {
                 AsyncButton {
                     keyboardIsFocused = false
                     await viewModel.reauthenticateUser()
+                    if viewModel.reauthenticationSuccessful {
+                        navigationViewModel.navigateToEditUserInfoView()
+                    }
                 } label: {
-                    NavigationLink(
-                        "Submit",
-                        destination: EditUserInfoView(editAccountFlowIsActive: $editAccountFlowIsActive),
-                        isActive: $viewModel.reauthenticationSuccessful
-                    )
+                    Text("Submit")
                 }
                 .disabled(viewModel.submitButtonIsDisabled)
             }
@@ -51,6 +50,6 @@ struct ReauthenticateView: View {
 
 struct ReauthenticateView_Previews: PreviewProvider {
     static var previews: some View {
-        ReauthenticateView(editAccountFlowIsActive: .constant(true))
+        ReauthenticateView(navigationViewModel: UserSettingsNavigationViewModel())
     }
 }

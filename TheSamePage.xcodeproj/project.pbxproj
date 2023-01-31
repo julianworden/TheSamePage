@@ -35,7 +35,7 @@
 		AB1D5E38298719A100E62C29 /* UserSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D5E37298719A100E62C29 /* UserSettingsViewModel.swift */; };
 		AB1D5E3C29871C9700E62C29 /* EditUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D5E3B29871C9700E62C29 /* EditUserInfoView.swift */; };
 		AB1D5E3E29871C9E00E62C29 /* EditUserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D5E3D29871C9E00E62C29 /* EditUserInfoViewModel.swift */; };
-		AB1D5E4129874CAC00E62C29 /* EditEmailAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D5E4029874CAC00E62C29 /* EditEmailAddressView.swift */; };
+		AB1D5E4129874CAC00E62C29 /* ChangeEmailAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D5E4029874CAC00E62C29 /* ChangeEmailAddressView.swift */; };
 		AB24E3A628D7C9B0002B4F2C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24E3A528D7C9B0002B4F2C /* LoginView.swift */; };
 		AB24E3A828D7C9C4002B4F2C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24E3A728D7C9C4002B4F2C /* LoginViewModel.swift */; };
 		AB272F882976FD3D00E74091 /* AddBacklineViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB272F872976FD3D00E74091 /* AddBacklineViewModelTests.swift */; };
@@ -89,9 +89,6 @@
 		AB4D097C292725C500B5DB4D /* ShowAddressSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4D097B292725C500B5DB4D /* ShowAddressSearchResults.swift */; };
 		AB5054A728DC91CF00321380 /* MemberSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054A628DC91CF00321380 /* MemberSearchView.swift */; };
 		AB5054B328DCA04900321380 /* BandInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054B228DCA04900321380 /* BandInvite.swift */; };
-		AB50DBC329881EBB006F6FAF /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = AB50DBC229881EBB006F6FAF /* Collections */; };
-		AB50DBC529881EBB006F6FAF /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = AB50DBC429881EBB006F6FAF /* OrderedCollections */; };
-		AB50DBC729881EE3006F6FAF /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = AB50DBC629881EE3006F6FAF /* DequeModule */; };
 		AB55E7722901F651009F039B /* DrumKitBacklineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB55E7712901F651009F039B /* DrumKitBacklineItem.swift */; };
 		AB571CA929705961000629AA /* Double+UnixDateAsDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB571CA829705961000629AA /* Double+UnixDateAsDate.swift */; };
 		AB582B7E28FA3B3D00D357F3 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB582B7D28FA3B3D00D357F3 /* LocationController.swift */; };
@@ -229,6 +226,9 @@
 		ABE0251E297393C50089E969 /* BandProfileViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE0251D297393C50089E969 /* BandProfileViewModelTests.swift */; };
 		ABE07A0C29799A93009D3661 /* AddMyBandToShowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE07A0B29799A93009D3661 /* AddMyBandToShowView.swift */; };
 		ABE07A0E29799A9C009D3661 /* AddMyBandToShowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE07A0D29799A9C009D3661 /* AddMyBandToShowViewModel.swift */; };
+		ABE2FDFE298964DD00D5A951 /* UserSettingsNavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE2FDFD298964DD00D5A951 /* UserSettingsNavigationViewModel.swift */; };
+		ABE2FE0029896BA600D5A951 /* MockBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE2FDFF29896BA600D5A951 /* MockBackButton.swift */; };
+		ABE2FE022989722200D5A951 /* MockNavigationLinkRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE2FE012989722200D5A951 /* MockNavigationLinkRow.swift */; };
 		ABE3A2FD297775F100AA1548 /* LoggedInUserControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3A2FC297775F100AA1548 /* LoggedInUserControllerTests.swift */; };
 		ABE3EFA628D91960002EEF23 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3EFA528D91960002EEF23 /* SignUpView.swift */; };
 		ABE3EFA828D919A2002EEF23 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */; };
@@ -291,7 +291,7 @@
 		AB1D5E37298719A100E62C29 /* UserSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsViewModel.swift; sourceTree = "<group>"; };
 		AB1D5E3B29871C9700E62C29 /* EditUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoView.swift; sourceTree = "<group>"; };
 		AB1D5E3D29871C9E00E62C29 /* EditUserInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoViewModel.swift; sourceTree = "<group>"; };
-		AB1D5E4029874CAC00E62C29 /* EditEmailAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEmailAddressView.swift; sourceTree = "<group>"; };
+		AB1D5E4029874CAC00E62C29 /* ChangeEmailAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailAddressView.swift; sourceTree = "<group>"; };
 		AB24E3A528D7C9B0002B4F2C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		AB24E3A728D7C9C4002B4F2C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		AB272F872976FD3D00E74091 /* AddBacklineViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBacklineViewModelTests.swift; sourceTree = "<group>"; };
@@ -475,6 +475,9 @@
 		ABE0251D297393C50089E969 /* BandProfileViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileViewModelTests.swift; sourceTree = "<group>"; };
 		ABE07A0B29799A93009D3661 /* AddMyBandToShowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMyBandToShowView.swift; sourceTree = "<group>"; };
 		ABE07A0D29799A9C009D3661 /* AddMyBandToShowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMyBandToShowViewModel.swift; sourceTree = "<group>"; };
+		ABE2FDFD298964DD00D5A951 /* UserSettingsNavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsNavigationViewModel.swift; sourceTree = "<group>"; };
+		ABE2FDFF29896BA600D5A951 /* MockBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBackButton.swift; sourceTree = "<group>"; };
+		ABE2FE012989722200D5A951 /* MockNavigationLinkRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNavigationLinkRow.swift; sourceTree = "<group>"; };
 		ABE3A2FC297775F100AA1548 /* LoggedInUserControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserControllerTests.swift; sourceTree = "<group>"; };
 		ABE3EFA528D91960002EEF23 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
@@ -509,17 +512,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB50DBC529881EBB006F6FAF /* OrderedCollections in Frameworks */,
 				AB31440C291713B300E2D08B /* FirebaseMessaging in Frameworks */,
 				AB4A461C29172832007F1C8B /* FirebaseFunctions in Frameworks */,
 				AB07AC2C290452B900E378C6 /* FirebaseAuth in Frameworks */,
 				ABAAB3392983456900C1285F /* FirebaseDynamicLinks in Frameworks */,
 				AB07AC32290452B900E378C6 /* FirebaseStorage in Frameworks */,
 				AB07AC2E290452B900E378C6 /* FirebaseFirestore in Frameworks */,
-				AB50DBC329881EBB006F6FAF /* Collections in Frameworks */,
 				AB07AC352904534F00E378C6 /* Typesense in Frameworks */,
 				AB07AC30290452B900E378C6 /* FirebaseFirestoreSwift in Frameworks */,
-				AB50DBC729881EE3006F6FAF /* DequeModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -586,6 +586,7 @@
 			children = (
 				AB9D086028FDA24B0098A244 /* UserSettingsView.swift */,
 				AB1D5E37298719A100E62C29 /* UserSettingsViewModel.swift */,
+				ABE2FDFD298964DD00D5A951 /* UserSettingsNavigationViewModel.swift */,
 				AB1D5E322987144400E62C29 /* Reauthenticate */,
 				AB1D5E3A29871C8300E62C29 /* EditUserInfoView */,
 			);
@@ -597,7 +598,7 @@
 			children = (
 				AB1D5E3B29871C9700E62C29 /* EditUserInfoView.swift */,
 				AB1D5E3D29871C9E00E62C29 /* EditUserInfoViewModel.swift */,
-				AB1D5E4029874CAC00E62C29 /* EditEmailAddressView.swift */,
+				AB1D5E4029874CAC00E62C29 /* ChangeEmailAddressView.swift */,
 				ABBBC1552988069F005AF468 /* ChangePasswordView.swift */,
 				ABBBC15729880D24005AF468 /* DeleteAccount */,
 			);
@@ -849,6 +850,8 @@
 				ABF83DCF291A98CB006A06CC /* ListRowElements.swift */,
 				AB8AB3F4292FC8A500B4B1B5 /* BackgroundColor.swift */,
 				ABE7AAFF2978C14500534FC3 /* NoDataFoundMessageWithButtonView.swift */,
+				ABE2FDFF29896BA600D5A951 /* MockBackButton.swift */,
+				ABE2FE012989722200D5A951 /* MockNavigationLinkRow.swift */,
 			);
 			path = Miscellaneous;
 			sourceTree = "<group>";
@@ -1429,9 +1432,6 @@
 				AB31440B291713B300E2D08B /* FirebaseMessaging */,
 				AB4A461B29172832007F1C8B /* FirebaseFunctions */,
 				ABAAB3382983456900C1285F /* FirebaseDynamicLinks */,
-				AB50DBC229881EBB006F6FAF /* Collections */,
-				AB50DBC429881EBB006F6FAF /* OrderedCollections */,
-				AB50DBC629881EE3006F6FAF /* DequeModule */,
 			);
 			productName = TheSamePage;
 			productReference = AB36FF6228D356FD00AAC00C /* TheSamePage.app */;
@@ -1495,7 +1495,6 @@
 			packageReferences = (
 				AB07AC2A290452B900E378C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				AB07AC332904534F00E378C6 /* XCRemoteSwiftPackageReference "typesense-swift" */,
-				AB50DBC129881EBB006F6FAF /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = AB36FF6328D356FD00AAC00C /* Products */;
 			projectDirPath = "";
@@ -1555,6 +1554,7 @@
 				AB399ADB28D4C548009B39F7 /* LoggedInUserController.swift in Sources */,
 				ABCAAA0228E9ED6C00685F91 /* BandLinkList.swift in Sources */,
 				AB9C238F297B5C6B0012BE9F /* BandProfileImageButton.swift in Sources */,
+				ABE2FE022989722200D5A951 /* MockNavigationLinkRow.swift in Sources */,
 				AB36FF7628D3598900AAC00C /* MyShowsRootView.swift in Sources */,
 				ABEF10E728E64CE100A1DBAC /* AddEditLinkViewModel.swift in Sources */,
 				AB66474E292D990B000B817E /* NetworkController.swift in Sources */,
@@ -1694,9 +1694,11 @@
 				ABE07A0C29799A93009D3661 /* AddMyBandToShowView.swift in Sources */,
 				AB8326B62912A89800208414 /* ShowBacklineRow.swift in Sources */,
 				ABDDAD4C28DB49DF00F1CF9B /* AddEditBandViewModel.swift in Sources */,
-				AB1D5E4129874CAC00E62C29 /* EditEmailAddressView.swift in Sources */,
+				AB1D5E4129874CAC00E62C29 /* ChangeEmailAddressView.swift in Sources */,
 				AB668EAF291BE666007899A9 /* LoggedInUserBandRow.swift in Sources */,
 				AB8326BA2912BB3500208414 /* ChatMessage.swift in Sources */,
+				ABE2FDFE298964DD00D5A951 /* UserSettingsNavigationViewModel.swift in Sources */,
+				ABE2FE0029896BA600D5A951 /* MockBackButton.swift in Sources */,
 				AB5054B328DCA04900321380 /* BandInvite.swift in Sources */,
 				ABF83DD0291A98CB006A06CC /* ListRowElements.swift in Sources */,
 				AB38E1B328FB2422006D1788 /* CLPlacemark+formattedAddress.swift in Sources */,
@@ -2061,14 +2063,6 @@
 				minimumVersion = 0.1.2;
 			};
 		};
-		AB50DBC129881EBB006F6FAF /* XCRemoteSwiftPackageReference "swift-collections" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-collections.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2106,21 +2100,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AB07AC2A290452B900E378C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFunctions;
-		};
-		AB50DBC229881EBB006F6FAF /* Collections */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AB50DBC129881EBB006F6FAF /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = Collections;
-		};
-		AB50DBC429881EBB006F6FAF /* OrderedCollections */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AB50DBC129881EBB006F6FAF /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = OrderedCollections;
-		};
-		AB50DBC629881EE3006F6FAF /* DequeModule */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AB50DBC129881EBB006F6FAF /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = DequeModule;
 		};
 		AB81657F298422C000C5C1B4 /* FirebaseDynamicLinks */ = {
 			isa = XCSwiftPackageProductDependency;

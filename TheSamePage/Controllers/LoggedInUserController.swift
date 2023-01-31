@@ -127,7 +127,6 @@ class LoggedInUserController: ObservableObject {
 
         do {
             try AuthController.logOut()
-            currentUserIsInvalid = true
         } catch {
             viewState = .error(message: error.localizedDescription)
         }

@@ -12,6 +12,8 @@ struct DeleteAccountView: View {
 
     @EnvironmentObject var loggedInUserController: LoggedInUserController
 
+    @ObservedObject var navigationViewModel: UserSettingsNavigationViewModel
+
     @State private var searchingForHostedShowsAndAdminBands = false
 
     var body: some View {
@@ -21,7 +23,7 @@ struct DeleteAccountView: View {
             if searchingForHostedShowsAndAdminBands {
                 ProgressView()
             } else if loggedInUserController.loggedInUserIsNotLeadingAnyShowsOrBands {
-                DeleteAccountConfirmationView()
+                DeleteAccountConfirmationView(navigationViewModel: navigationViewModel)
             } else if !loggedInUserController.hostedShows.isEmpty || !loggedInUserController.adminBands.isEmpty {
                 LeadingBandsAndShowsList()
             }
@@ -46,7 +48,7 @@ struct DeleteAccountView: View {
 
 struct DeleteAccountView_Previews: PreviewProvider {
     static var previews: some View {
-        DeleteAccountView()
+        DeleteAccountView(navigationViewModel: UserSettingsNavigationViewModel())
             .environmentObject(LoggedInUserController())
     }
 }

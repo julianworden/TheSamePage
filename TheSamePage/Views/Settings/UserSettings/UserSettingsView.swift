@@ -13,47 +13,73 @@ struct UserSettingsView: View {
     @EnvironmentObject var loggedInUserController: LoggedInUserController
 
     @StateObject private var viewModel = UserSettingsViewModel()
+    @StateObject private var navigationViewModel = UserSettingsNavigationViewModel()
 
     @State private var logOutConfirmationAlertIsShowing = false
-    #warning("Replace this with a NavigationPath")
-    @State private var editAccountFlowIsActive = false
 
     var body: some View {
-        NavigationStack {
-            Form {
-                Section {
-                    NavigationLink(isActive: $editAccountFlowIsActive) {
-                        ReauthenticateView(editAccountFlowIsActive: $editAccountFlowIsActive)
-                    } label: {
-                        Text("Edit Account")
-                    }
-                }
+        NavigationStack(path: $navigationViewModel.navigationPath) {
+            ZStack {
+                BackgroundColor()
 
-                Section {
-                    Button("Log Out", role: .destructive) {
-                        logOutConfirmationAlertIsShowing.toggle()
-                    }
-                    .alert(
-                        "Are You Sure?",
-                        isPresented: $logOutConfirmationAlertIsShowing,
-                        actions: {
-                            Button("Cancel", role: .cancel) { }
-                            Button("Yes", role: .destructive) {
-                                editAccountFlowIsActive = false
-                                loggedInUserController.logOut()
+                // Keeps things from looking strange when user account is deleted
+                if !AuthController.userIsLoggedOut() {
+                    Form {
+                        Section {
+                            Button {
+                                navigationViewModel.navigateToReauthenticationView()
+                            } label: {
+                                MockNavigationLinkRow(text: "Edit Account")
                             }
-                        },
-                        message: { Text("You will not be able to access your data on The Same Page until you log in again.") }
-                    )
+                            .tint(.primary)
+                        }
+
+                        Section {
+                            Button("Log Out", role: .destructive) {
+                                logOutConfirmationAlertIsShowing.toggle()
+                            }
+                            .alert(
+                                "Are You Sure?",
+                                isPresented: $logOutConfirmationAlertIsShowing,
+                                actions: {
+                                    Button("Cancel", role: .cancel) { }
+                                    Button("Yes", role: .destructive) {
+                                        dismiss()
+                                        loggedInUserController.logOut()
+                                    }
+                                },
+                                message: { Text("You will not be able to access your data on The Same Page until you log in again.") }
+                            )
+                        }
+                    }
+                    .navigationTitle("Profile Settings")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button("Back") {
+                                dismiss()
+                            }
+                        }
+                    }
+                    .navigationDestination(for: UserSettingsScreen.self) { userSettingsScreen in
+                        switch userSettingsScreen {
+                        case .reauthenticateView:
+                            ReauthenticateView(navigationViewModel: navigationViewModel)
+                        case .editUserInfoView:
+                            EditUserInfoView(navigationViewModel: navigationViewModel)
+                        case .changeEmailAddressView:
+                            ChangeEmailAddressView(navigationViewModel: navigationViewModel)
+                        case .changePasswordView:
+                            ChangePasswordView(navigationViewModel: navigationViewModel)
+                        case .deleteAccountView:
+                            DeleteAccountView(navigationViewModel: navigationViewModel)
+                        }
+                    }
                 }
             }
-            .navigationTitle("Profile Settings")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Back") {
-                        dismiss()
-                    }
+            .onAppear {
+                if AuthController.userIsLoggedOut() {
+                    dismiss()
                 }
             }
         }

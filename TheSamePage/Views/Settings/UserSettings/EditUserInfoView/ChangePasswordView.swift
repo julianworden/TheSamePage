@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ChangePasswordView: View {
+    @ObservedObject var navigationViewModel: UserSettingsNavigationViewModel
+
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
@@ -15,6 +17,6 @@ struct ChangePasswordView: View {
 
 struct ChangePasswordView_Previews: PreviewProvider {
     static var previews: some View {
-        ChangePasswordView()
+        ChangePasswordView(navigationViewModel: UserSettingsNavigationViewModel())
     }
 }

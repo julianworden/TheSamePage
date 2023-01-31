@@ -75,15 +75,23 @@ struct LoggedInUserProfileView: View {
                     }
                 }
             }
-            .fullScreenCover(isPresented: $settingsButtonTapped) {
-                UserSettingsView()
-            }
-            .task {
-                // Without this, UserSettingsView will still be present after a user
-                // logs out and logs back in and navigates to the Profile tab.
-                settingsButtonTapped = false
-                await loggedInUserController.callOnAppLaunchMethods()
-            }
+            .fullScreenCover(
+                isPresented: $settingsButtonTapped,
+                onDismiss: {
+                    if AuthController.userIsLoggedOut() {
+                        loggedInUserController.currentUserIsInvalid = true
+                    }
+                },
+                content: {
+                    UserSettingsView()
+                }
+            )
+        }
+        .task {
+            // Without this, UserSettingsView will still be present after a user
+            // logs out and logs back in and navigates to the Profile tab.
+            settingsButtonTapped = false
+            await loggedInUserController.callOnAppLaunchMethods()
         }
     }
 }

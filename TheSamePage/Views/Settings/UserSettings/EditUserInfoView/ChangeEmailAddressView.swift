@@ -7,8 +7,10 @@
 
 import SwiftUI
 
-struct EditEmailAddressView: View {
+struct ChangeEmailAddressView: View {
     @EnvironmentObject var loggedInUserController: LoggedInUserController
+
+    @ObservedObject var navigationViewModel: UserSettingsNavigationViewModel
 
     var body: some View {
         Button("test") {
@@ -19,6 +21,6 @@ struct EditEmailAddressView: View {
 
 struct EditEmailAddressView_Previews: PreviewProvider {
     static var previews: some View {
-        EditEmailAddressView()
+        ChangeEmailAddressView(navigationViewModel: UserSettingsNavigationViewModel())
     }
 }

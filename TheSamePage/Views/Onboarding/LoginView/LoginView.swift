@@ -75,9 +75,14 @@ struct LoginView: View {
                 )
 
                 Section("Don't have an account?") {
-                    NavigationLink(isActive: $signUpFlowIsActive) {
-                        SignUpView(signUpFlowIsActive: $signUpFlowIsActive)
-                    } label: {
+                    ZStack(alignment: .leading) {
+                        NavigationLink(isActive: $signUpFlowIsActive) {
+                            SignUpView(signUpFlowIsActive: $signUpFlowIsActive)
+                        } label: {
+                            EmptyView()
+                        }
+                        .opacity(0)
+
                         Text("Sign Up")
                             .foregroundColor(.accentColor)
                     }

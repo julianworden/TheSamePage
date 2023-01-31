@@ -10,10 +10,11 @@ import SwiftUI
 struct DeleteAccountConfirmationView: View {
     @EnvironmentObject var loggedInUserController: LoggedInUserController
 
+    @ObservedObject var navigationViewModel: UserSettingsNavigationViewModel
+
     @State private var deleteAccountButtonIsDisabled = false
     @State private var deleteAccountConfirmationAlertIsShowing = false
-    @State private var accountDeletedSuccessfullyAlertIsShowing = false
-    
+
     @State private var viewState = ViewState.displayingView {
         didSet {
             switch viewState {
@@ -21,6 +22,7 @@ struct DeleteAccountConfirmationView: View {
                 deleteAccountButtonIsDisabled = true
             case .workCompleted:
                 loggedInUserController.logOut()
+                navigationViewModel.popToRoot()
             case .error(let message):
                 loggedInUserController.errorMessageText = message
                 loggedInUserController.errorMessageShowing = true
@@ -80,7 +82,7 @@ struct DeleteAccountConfirmationView_Previews: PreviewProvider {
             ZStack {
                 BackgroundColor()
 
-                DeleteAccountConfirmationView()
+                DeleteAccountConfirmationView(navigationViewModel: UserSettingsNavigationViewModel())
                     .environmentObject(LoggedInUserController())
             }
             .navigationTitle("Delete Account")

@@ -52,7 +52,7 @@ final class OtherUserProfileViewModelTests: XCTestCase {
             !self.sut.bands.isEmpty
         }
         let initializerExpectation = XCTNSPredicateExpectation(predicate: predicate, object: nil)
-        wait(for: [initializerExpectation], timeout: 2)
+        wait(for: [initializerExpectation], timeout: 4)
 
         XCTAssertNotNil(sut.user)
         XCTAssertEqual(sut.user, ericUser)

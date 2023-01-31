@@ -14,31 +14,31 @@ struct EditUserInfoView: View {
 
     @StateObject private var viewModel = EditUserInfoViewModel()
 
-    @Binding var editAccountFlowIsActive: Bool
+    @ObservedObject var navigationViewModel: UserSettingsNavigationViewModel
 
     var body: some View {
         Form {
             Section {
-                NavigationLink {
-                    EditEmailAddressView()
+                Button {
+                    navigationViewModel.navigateToChangeEmailAddressView()
                 } label: {
-                    Text("Change Email Address")
+                    MockNavigationLinkRow(text: "Change Email Address")
                 }
 
-                NavigationLink {
-                    ChangePasswordView()
+                Button {
+                    navigationViewModel.navigateToChangePasswordView()
                 } label: {
-                    Text("Change Password")
+                    MockNavigationLinkRow(text: "Change Password")
                 }
             }
+            .tint(.primary)
 
             Section {
-                NavigationLink {
-                    DeleteAccountView()
+                Button(role: .destructive) {
+                    navigationViewModel.navigateToDeleteAccountView()
                 } label: {
                     Text("Delete Account")
                 }
-                .foregroundColor(.red)
             }
         }
         .navigationTitle("Edit Profile")
@@ -47,12 +47,9 @@ struct EditUserInfoView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                    editAccountFlowIsActive = false
+                    navigationViewModel.popToRoot()
                 } label: {
-                    HStack(spacing: 3) {
-                        Image(systemName: "chevron.left")
-                        Text("Back")
-                    }
+                    MockBackButton()
                 }
             }
         }
@@ -62,6 +59,6 @@ struct EditUserInfoView: View {
 
 struct EditUserInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        EditUserInfoView(editAccountFlowIsActive: .constant(true))
+        EditUserInfoView(navigationViewModel: UserSettingsNavigationViewModel())
     }
 }
