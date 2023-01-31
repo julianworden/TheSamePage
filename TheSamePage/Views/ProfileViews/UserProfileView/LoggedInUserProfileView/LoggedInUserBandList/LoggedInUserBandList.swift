@@ -10,36 +10,20 @@ import SwiftUI
 struct LoggedInUserBandList: View {
     @EnvironmentObject var loggedInUserController: LoggedInUserController
 
-    @State private var selectedBand: Band?
-
     var body: some View {
         VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(Array(loggedInUserController.playingBands.enumerated()), id: \.element) { index, band in
-                Button {
-                    selectedBand = band
+                NavigationLink {
+                    BandProfileView(band: band)
                 } label: {
                     LoggedInUserBandRow(index: index)
                 }
                 .tint(.primary)
-                .padding(.horizontal)
-                .fullScreenCover(
-                    item: $selectedBand,
-                    onDismiss: {
-                        Task {
-                            await loggedInUserController.getLoggedInUserPlayingBands()
-                        }
-                    },
-                    content: { selectedBand in
-                        NavigationStack {
-                            BandProfileView(band: selectedBand, isPresentedModally: true)
-                        }
-                    }
-                )
             }
 
             Divider()
         }
-        .animation(.easeInOut, value: loggedInUserController.playingBands)
+        .padding(.horizontal)
     }
 }
 

@@ -45,7 +45,6 @@ struct UserSettingsView: View {
                 )
             }
         }
-        .toolbar(.hidden, for: .tabBar)
     }
 }
 

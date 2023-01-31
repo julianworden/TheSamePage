@@ -15,8 +15,8 @@ struct BandMemberList: View {
     var body: some View {
         VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(Array(viewModel.bandMembers.enumerated()), id: \.element) { index, bandMember in
-                Button {
-                    selectedBandMember = bandMember
+                NavigationLink {
+                    OtherUserProfileView(user: nil, bandMember: bandMember)
                 } label: {
                     BandMemberListRow(
                         viewModel: viewModel,
@@ -25,11 +25,6 @@ struct BandMemberList: View {
                 }
                 .tint(.primary)
                 .allowsHitTesting(bandMember.bandMemberIsLoggedInUser ? false : true)
-                .fullScreenCover(item: $selectedBandMember) { selectedBandMember in
-                    NavigationStack {
-                        OtherUserProfileView(user: nil, bandMember: selectedBandMember, isPresentedModally: true)
-                    }
-                }
 
                 Divider()
             }

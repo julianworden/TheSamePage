@@ -21,12 +21,6 @@ struct ShowLineupTab: View {
                 }
 
                 ShowLineupList(viewModel: viewModel)
-                    // Has to go here and not in ShowLineupList or else .fullScreenCover dismissal won't animate
-                    .fullScreenCover(item: $viewModel.selectedShowParticipant) { selectedShowParticipant in
-                        NavigationStack {
-                            BandProfileView(showParticipant: selectedShowParticipant, isPresentedModally: true)
-                        }
-                    }
 
                 if viewModel.show.loggedInUserIsShowHost && !viewModel.show.lineupIsFull {
                     HStack {

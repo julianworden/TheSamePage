@@ -10,20 +10,13 @@ import SwiftUI
 struct BandShowsList: View {
     @ObservedObject var viewModel: BandProfileViewModel
 
-    @State private var selectedShow: Show?
-    
     var body: some View {
         VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(Array(viewModel.bandShows.enumerated()), id: \.element) { index, show in
-                Button {
-                    selectedShow = show
+                NavigationLink {
+                    ShowDetailsView(show: show)
                 } label: {
                     BandShowRow(viewModel: viewModel, index: index)
-                }
-                .fullScreenCover(item: $selectedShow) { selectedShow in
-                    NavigationStack {
-                        ShowDetailsView(show: selectedShow, isPresentedModally: true)
-                    }
                 }
             }
         }
