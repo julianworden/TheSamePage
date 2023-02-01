@@ -21,51 +21,70 @@ struct BandSettingsView: View {
     
     var body: some View {
         NavigationStack {
-            Form {
-                Section {
-                    NavigationLink {
-                        AddEditBandView(bandToEdit: viewModel.band)
-                    } label: {
-                        Text("Edit Band Info")
-                    }
-                    .disabled(viewModel.buttonsAreDisabled)
+            ZStack {
+                BackgroundColor()
 
+                switch viewModel.viewState {
+                case .dataLoading:
+                    ProgressView()
+
+                case .dataLoaded, .performingWork, .workCompleted:
                     if viewModel.band.loggedInUserIsBandAdmin {
-                        // TODO: Add logic to make someone else band admin
-                    }
-                }
+                        Form {
+                            Section {
+                                NavigationLink {
+                                    AddEditBandView(bandToEdit: viewModel.band)
+                                } label: {
+                                    Text("Edit Band Info")
+                                }
+                                .disabled(viewModel.buttonsAreDisabled)
 
-                Section {
-                    Button(role: .destructive) {
-                        viewModel.deleteBandConfirmationAlertIsShowing.toggle()
-                    } label: {
-                        HStack(spacing: 5) {
-                            Text("Delete Band")
-                            if viewModel.viewState == .performingWork {
-                                ProgressView()
-                            }
-                        }
-                    }
-                    .disabled(viewModel.buttonsAreDisabled)
-                    .alert(
-                        "Are You Sure?",
-                        isPresented: $viewModel.deleteBandConfirmationAlertIsShowing,
-                        actions: {
-                            Button("Cancel", role: .cancel) { }
-                            Button("Yes", role: .destructive) {
-                                Task {
-                                    await viewModel.deleteBand()
+                                NavigationLink {
+                                    ChooseNewBandAdminView(band: viewModel.band)
+                                } label: {
+                                    Text("Choose New Band Admin")
                                 }
                             }
-                        },
-                        message: { Text("This band and all of its info will be permanently deleted. This cannot be undone.") }
-                    )
+
+                            Section {
+                                Button(role: .destructive) {
+                                    viewModel.deleteBandConfirmationAlertIsShowing.toggle()
+                                } label: {
+                                    HStack(spacing: 5) {
+                                        Text("Delete Band")
+                                        if viewModel.viewState == .performingWork {
+                                            ProgressView()
+                                        }
+                                    }
+                                }
+                                .disabled(viewModel.buttonsAreDisabled)
+                                .alert(
+                                    "Are You Sure?",
+                                    isPresented: $viewModel.deleteBandConfirmationAlertIsShowing,
+                                    actions: {
+                                        Button("Cancel", role: .cancel) { }
+                                        Button("Yes", role: .destructive) {
+                                            Task {
+                                                await viewModel.deleteBand()
+                                            }
+                                        }
+                                    },
+                                    message: { Text("This band and all of its info will be permanently deleted. This cannot be undone.") }
+                                )
+                            }
+                        }
+                        .navigationTitle("Band Settings")
+                        .navigationBarTitleDisplayMode(.inline)
+                        .navigationBarBackButtonHidden(viewModel.buttonsAreDisabled)
+                    }
+
+                case .error:
+                    EmptyView()
+
+                default:
+                    ErrorMessage(message: ErrorMessageConstants.invalidViewState)
                 }
             }
-            .navigationTitle("Band Settings")
-            .navigationBarTitleDisplayMode(.inline)
-            // TODO: get rid of this
-            .navigationBarBackButtonHidden(viewModel.buttonsAreDisabled)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Back") {
@@ -77,6 +96,12 @@ struct BandSettingsView: View {
                 isPresented: $viewModel.errorAlertIsShowing,
                 message: viewModel.errorAlertText
             )
+            .task {
+                await viewModel.getLatestBandData()
+                if !viewModel.band.loggedInUserIsBandAdmin {
+                    dismiss()
+                }
+            }
             .onChange(of: viewModel.bandDeleteWasSuccessful) { bandDeleteWasSuccessful in
                 if bandDeleteWasSuccessful {
                     dismiss()

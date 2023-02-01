@@ -140,6 +140,7 @@
 		AB8AB3F7292FCC0D00B4B1B5 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8AB3F6292FCC0D00B4B1B5 /* RootViewModel.swift */; };
 		AB93A90D2929269C00C0EEE6 /* errorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB93A90C2929269C00C0EEE6 /* errorAlert.swift */; };
 		AB9447C32981807900699235 /* ShowParticipantTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9447C22981807900699235 /* ShowParticipantTests.swift */; };
+		AB9BA8E8298B23AC001FDBDC /* ChooseNewBandAdminViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9BA8E7298B23AC001FDBDC /* ChooseNewBandAdminViewModelTests.swift */; };
 		AB9C238D297B59850012BE9F /* LoggedInUserProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9C238C297B59850012BE9F /* LoggedInUserProfileImage.swift */; };
 		AB9C238F297B5C6B0012BE9F /* BandProfileImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9C238E297B5C6B0012BE9F /* BandProfileImageButton.swift */; };
 		AB9C2391297B5F7D0012BE9F /* ShowImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9C2390297B5F7D0012BE9F /* ShowImageButton.swift */; };
@@ -258,6 +259,8 @@
 		ABFBA72129154F97006B1751 /* View+cornerRadius().swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFBA72029154F97006B1751 /* View+cornerRadius().swift */; };
 		ABFBA72329154FCD006B1751 /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFBA72229154FCD006B1751 /* ChatBubble.swift */; };
 		ABFF8169298A9F2700FAC995 /* ChooseNewShowHostViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFF8168298A9F2700FAC995 /* ChooseNewShowHostViewModelTests.swift */; };
+		ABFF816C298AB48E00FAC995 /* ChooseNewBandAdminView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFF816B298AB48E00FAC995 /* ChooseNewBandAdminView.swift */; };
+		ABFF816E298AB49800FAC995 /* ChooseNewBandAdminViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFF816D298AB49800FAC995 /* ChooseNewBandAdminViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -399,6 +402,7 @@
 		AB8AB3F6292FCC0D00B4B1B5 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		AB93A90C2929269C00C0EEE6 /* errorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = errorAlert.swift; sourceTree = "<group>"; };
 		AB9447C22981807900699235 /* ShowParticipantTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowParticipantTests.swift; sourceTree = "<group>"; };
+		AB9BA8E7298B23AC001FDBDC /* ChooseNewBandAdminViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseNewBandAdminViewModelTests.swift; sourceTree = "<group>"; };
 		AB9C238C297B59850012BE9F /* LoggedInUserProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserProfileImage.swift; sourceTree = "<group>"; };
 		AB9C238E297B5C6B0012BE9F /* BandProfileImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileImageButton.swift; sourceTree = "<group>"; };
 		AB9C2390297B5F7D0012BE9F /* ShowImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageButton.swift; sourceTree = "<group>"; };
@@ -511,6 +515,8 @@
 		ABFBA72029154F97006B1751 /* View+cornerRadius().swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+cornerRadius().swift"; sourceTree = "<group>"; };
 		ABFBA72229154FCD006B1751 /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
 		ABFF8168298A9F2700FAC995 /* ChooseNewShowHostViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseNewShowHostViewModelTests.swift; sourceTree = "<group>"; };
+		ABFF816B298AB48E00FAC995 /* ChooseNewBandAdminView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseNewBandAdminView.swift; sourceTree = "<group>"; };
+		ABFF816D298AB49800FAC995 /* ChooseNewBandAdminViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseNewBandAdminViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1049,7 +1055,7 @@
 			children = (
 				AB9DAB03292329AF009BE932 /* ShowSettingsView.swift */,
 				AB9DAB05292329BB009BE932 /* ShowSettingsViewModel.swift */,
-				ABE2FE0729897BF700D5A951 /* GiveUpShowHostRole */,
+				ABE2FE0729897BF700D5A951 /* ChooseNewShowHost */,
 			);
 			path = ShowSettings;
 			sourceTree = "<group>";
@@ -1145,6 +1151,7 @@
 				ABA0549429746385006B5908 /* SendShowInviteViewModelTests.swift */,
 				ABA054962974C05C006B5908 /* ShowSettingsViewModelTests.swift */,
 				ABFF8168298A9F2700FAC995 /* ChooseNewShowHostViewModelTests.swift */,
+				AB9BA8E7298B23AC001FDBDC /* ChooseNewBandAdminViewModelTests.swift */,
 				ABA054982974C917006B5908 /* BandSettingsViewModelTests.swift */,
 				ABF9903D297584FC00FD32D1 /* ShowDetailsViewModelTests.swift */,
 				AB272F872976FD3D00E74091 /* AddBacklineViewModelTests.swift */,
@@ -1184,6 +1191,7 @@
 			children = (
 				ABBEC0A52921D02800314BE5 /* BandSettingsView.swift */,
 				ABBEC0A72921D05600314BE5 /* BandSettingsViewModel.swift */,
+				ABFF816A298AB47400FAC995 /* ChooseNewBandAdmin */,
 			);
 			path = BandSettings;
 			sourceTree = "<group>";
@@ -1309,13 +1317,13 @@
 			path = AddMyBandToShow;
 			sourceTree = "<group>";
 		};
-		ABE2FE0729897BF700D5A951 /* GiveUpShowHostRole */ = {
+		ABE2FE0729897BF700D5A951 /* ChooseNewShowHost */ = {
 			isa = PBXGroup;
 			children = (
 				ABE2FE0329897BED00D5A951 /* ChooseNewShowHostView.swift */,
 				ABE2FE0529897BF400D5A951 /* ChooseNewShowHostViewModel.swift */,
 			);
-			path = GiveUpShowHostRole;
+			path = ChooseNewShowHost;
 			sourceTree = "<group>";
 		};
 		ABE3A2FB297775E200AA1548 /* Controllers */ = {
@@ -1415,6 +1423,15 @@
 				ABFB2D472909E33B009A6F65 /* ShowLineupRow.swift */,
 			);
 			path = ShowLineupTab;
+			sourceTree = "<group>";
+		};
+		ABFF816A298AB47400FAC995 /* ChooseNewBandAdmin */ = {
+			isa = PBXGroup;
+			children = (
+				ABFF816B298AB48E00FAC995 /* ChooseNewBandAdminView.swift */,
+				ABFF816D298AB49800FAC995 /* ChooseNewBandAdminViewModel.swift */,
+			);
+			path = ChooseNewBandAdmin;
 			sourceTree = "<group>";
 		};
 		FF4320B392FCA7A1D9B09394 /* Frameworks */ = {
@@ -1669,6 +1686,7 @@
 				AB7F381528EF20EA007741C7 /* ShowParticipant.swift in Sources */,
 				AB07295828F4631D0069B268 /* SelectedShowDetailsTab.swift in Sources */,
 				ABDDAD4528DB3ED200F1CF9B /* ProfileAsyncImage.swift in Sources */,
+				ABFF816C298AB48E00FAC995 /* ChooseNewBandAdminView.swift in Sources */,
 				AB8AB3F5292FC8A500B4B1B5 /* BackgroundColor.swift in Sources */,
 				AB0DD4D228F0D82E00CEA1BD /* ShowLineupList.swift in Sources */,
 				ABF8B81B28FC786900608657 /* ErrorMessage.swift in Sources */,
@@ -1739,6 +1757,7 @@
 				ABDC0D7928D76FC60054269E /* AddEditShowViewModel.swift in Sources */,
 				AB5EFF9D2982BE58000399DE /* ForgotPasswordViewModel.swift in Sources */,
 				AB5C0D3B292B14DE0040CE97 /* FirebaseError.swift in Sources */,
+				ABFF816E298AB49800FAC995 /* ChooseNewBandAdminViewModel.swift in Sources */,
 				AB36FF8928D35C2800AAC00C /* PlatformLink.swift in Sources */,
 				ABEF10EA28E6506000A1DBAC /* LinkPlatform.swift in Sources */,
 				AB07AC372904738B00E378C6 /* PercussionBacklineList.swift in Sources */,
@@ -1750,6 +1769,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB9BA8E8298B23AC001FDBDC /* ChooseNewBandAdminViewModelTests.swift in Sources */,
 				AB657D252971A74600696EF4 /* SignUpViewModelTests.swift in Sources */,
 				ABD585BB296D041C007168D0 /* ConversationViewModelTests.swift in Sources */,
 				ABA054912974547D006B5908 /* RootViewModelTests.swift in Sources */,

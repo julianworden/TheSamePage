@@ -84,6 +84,8 @@ class TestingDatabaseService {
 
     // MARK: - Firestore Shows
 
+
+
     func getShow(withId id: String) async throws -> Show {
         do {
             return try await db
@@ -264,7 +266,11 @@ class TestingDatabaseService {
             .getDocument(as: ShowParticipant.self)
     }
 
+
+
     // MARK: - Firestore Bands
+
+    
 
     func createBand(_ band: Band) async throws -> String {
         let bandDocument = try db
@@ -286,6 +292,13 @@ class TestingDatabaseService {
             .addDocument(from: bandCopy)
 
         return docRef.documentID
+    }
+
+    func editBandInfo(bandId: String, field: String, newValue: String) async throws {
+        try await db
+            .collection(FbConstants.bands)
+            .document(bandId)
+            .updateData([field: newValue])
     }
 
     func getBand(withId id: String) async throws -> Band {

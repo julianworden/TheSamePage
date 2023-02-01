@@ -470,6 +470,30 @@ class DatabaseService: NSObject {
             )
         }
     }
+
+    /// Fetches user objects for all of the users listed in the memberUids property of a band.
+    /// - Parameter band: The band whose members are being fetched.
+    /// - Returns: The users that are playing in the band. Even if the admin of the band
+    /// is also a band member, this array will not include the band admin.
+    func getUsersPlayingInBand(band: Band) async throws -> [User] {
+        do {
+            var usersPlayingInBand = [User]()
+
+            for uid in band.memberUids {
+                if uid != band.adminUid {
+                    let fetchedUser = try await getUser(withUid: uid)
+                    usersPlayingInBand.append(fetchedUser)
+                }
+            }
+
+            return usersPlayingInBand
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to fetch the users that are playing in this band",
+                systemError: error.localizedDescription
+            )
+        }
+    }
     
     /// Fetches all of the shows that a band is playing.
     /// - Parameter band: The band for which the show search is taking place.
@@ -524,6 +548,30 @@ class DatabaseService: NSObject {
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to create band",
+                systemError: error.localizedDescription
+            )
+        }
+    }
+
+    /// Edits the adminUid property of a band so that a new user can become a band admin. At this time,
+    /// this method only allows for other existing members of the band to become the band admin. This may
+    /// change in the future.
+    /// - Parameters:
+    ///   - user: The user who is to become the new admin of the band.
+    ///   - band: The band whose adminUid property is being edited.
+    func setNewBandAdmin(user: User, band: Band) async throws {
+        do {
+            guard band.memberUids.contains(user.id) else {
+                throw LogicError.unknown(message: "\(user.fullName) cannot be the admin of this band because they are not currently a member of the band")
+            }
+
+            try await db
+                .collection(FbConstants.bands)
+                .document(band.id)
+                .updateData([FbConstants.adminUid: user.id])
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to designate new band admin. Please try again",
                 systemError: error.localizedDescription
             )
         }
@@ -813,6 +861,10 @@ class DatabaseService: NSObject {
         }
     }
 
+    /// Fetches user objects for all of the users listed in a show's participantUids property.
+    /// - Parameter show: The show whose participants are being fetched.
+    /// - Returns: The users that are playing the show. Even if the host of the show
+    /// is also in the participantUids array, this array will not include the band admin.
     func getUsersPlayingShow(show: Show) async throws -> [User] {
         do {
             var usersPlayingShow = [User]()
@@ -848,7 +900,8 @@ class DatabaseService: NSObject {
     }
 
     /// Called when a show host designates a new user as the host for their show. This replaces the existing value of the hostUid property
-    /// with a new UID belonging to the new show host.
+    /// with a new UID belonging to the new show host. At this time, this method only allows for an existing show participant
+    /// to become the new show host. This may change in the future.
     /// - Parameters:
     ///   - user: The new show host.
     ///   - show: The show that the new show host will be hosting.

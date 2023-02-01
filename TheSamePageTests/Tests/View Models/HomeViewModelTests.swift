@@ -1,5 +1,5 @@
 //
-//  HomeViewModelTests.swift
+//  FindShowsViewModelTests.swift
 //  TheSamePageTests
 //
 //  Created by Julian Worden on 1/11/23.
@@ -10,7 +10,7 @@
 import XCTest
 
 @MainActor
-final class HomeViewModelTests: XCTestCase {
+final class FindShowsViewModelTests: XCTestCase {
     var sut: FindShowsViewModel!
     var testingDatabaseService: TestingDatabaseService!
 
@@ -25,7 +25,7 @@ final class HomeViewModelTests: XCTestCase {
     }
 
     func test_OnInit_DefaultValuesAreCorrect() {
-        sut = HomeViewModel()
+        sut = FindShowsViewModel()
 
         XCTAssertTrue(sut.nearbyShows.isEmpty)
         XCTAssertEqual(sut.searchRadiusInMiles, 25)
@@ -36,7 +36,7 @@ final class HomeViewModelTests: XCTestCase {
     }
 
     func test_OnErrorViewState_PropertiesAreChanged() {
-        sut = HomeViewModel()
+        sut = FindShowsViewModel()
 
         sut.viewState = .error(message: "TEST ERROR")
 
@@ -45,7 +45,7 @@ final class HomeViewModelTests: XCTestCase {
     }
 
     func test_OnInvalidViewState_PropertiesAreChanged() {
-        sut = HomeViewModel()
+        sut = FindShowsViewModel()
 
         sut.viewState = .displayingView
 
@@ -54,7 +54,7 @@ final class HomeViewModelTests: XCTestCase {
     }
 
     func test_NearbyShowsListHeaderText_ReturnsCorrectValue() {
-        sut = HomeViewModel()
+        sut = FindShowsViewModel()
 
         sut.searchRadiusInMiles = 25
 
@@ -62,7 +62,7 @@ final class HomeViewModelTests: XCTestCase {
     }
 
     func test_SearchRadiusInMeters_ReturnsCorrectValue() {
-        sut = HomeViewModel()
+        sut = FindShowsViewModel()
 
         sut.searchRadiusInMiles = 50
 
@@ -72,7 +72,7 @@ final class HomeViewModelTests: XCTestCase {
     func test_OnFetchNearbyShowsWithLocationInNewJersey_ShowIsFetchedAndViewStateIsSet() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         MockController.setNewJerseyMockLocationControllerValues()
-        sut = HomeViewModel()
+        sut = FindShowsViewModel()
 
         await sut.fetchNearbyShows()
 
@@ -83,7 +83,7 @@ final class HomeViewModelTests: XCTestCase {
     func test_OnFetchNearbyShowsWithLocationInAlaska_NoShowsAreFetchedAndViewStateIsSet() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         MockController.setAlaskaMockLocationControllerValues()
-        sut = HomeViewModel()
+        sut = FindShowsViewModel()
 
         await sut.fetchNearbyShows()
 
@@ -96,7 +96,7 @@ final class HomeViewModelTests: XCTestCase {
         // This sleep should allow TypeSense to catch up.
         try await Task.sleep(seconds: 1)
         try await testingDatabaseService.logInToJulianAccount()
-        sut = HomeViewModel()
+        sut = FindShowsViewModel()
         MockController.setAlaskaMockLocationControllerValues()
 
         await sut.fetchNearbyShows()
@@ -115,7 +115,7 @@ final class HomeViewModelTests: XCTestCase {
 
     func test_OnAddPostUserLocationWasSetNotification_NearbyShowsAreFetched() async throws {
         try await testingDatabaseService.logInToJulianAccount()
-        sut = HomeViewModel()
+        sut = FindShowsViewModel()
         sut.addLocationNotificationObserver()
         MockController.setNewJerseyMockLocationControllerValues()
         let notificationExpectation = XCTNSNotificationExpectation(name: .userLocationWasSet)

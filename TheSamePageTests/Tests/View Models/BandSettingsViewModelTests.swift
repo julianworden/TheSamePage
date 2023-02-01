@@ -37,7 +37,7 @@ final class BandSettingsViewModelTests: XCTestCase {
         XCTAssertEqual(sut.band, patheticFallacy)
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
-        XCTAssertEqual(sut.viewState, .displayingView)
+        XCTAssertEqual(sut.viewState, .dataLoading)
     }
 
     func test_OnPerformingWorkViewState_PropertiesAreSet() {

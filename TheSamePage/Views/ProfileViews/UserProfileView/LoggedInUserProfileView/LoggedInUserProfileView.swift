@@ -86,12 +86,12 @@ struct LoggedInUserProfileView: View {
                     UserSettingsView()
                 }
             )
-        }
-        .task {
-            // Without this, UserSettingsView will still be present after a user
-            // logs out and logs back in and navigates to the Profile tab.
-            settingsButtonTapped = false
-            await loggedInUserController.callOnAppLaunchMethods()
+            .task {
+                // Without this, UserSettingsView will still be present after a user
+                // logs out and logs back in and navigates to the Profile tab.
+                settingsButtonTapped = false
+                await loggedInUserController.callOnAppLaunchMethods()
+            }
         }
     }
 }

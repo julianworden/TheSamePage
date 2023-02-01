@@ -7,7 +7,6 @@
 
 import Foundation
 
-#warning("TEST")
 @MainActor
 final class ChooseNewShowHostViewModel: ObservableObject {
     /// The users participating in a show. If the show host is also a show participant, they will not appear in this array.

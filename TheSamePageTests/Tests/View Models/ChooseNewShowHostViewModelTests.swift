@@ -42,6 +42,41 @@ final class ChooseNewShowHostViewModelTests: XCTestCase {
         XCTAssertEqual(sut.show, dumpweedExtravaganza)
     }
 
+    func test_OnPerformingWorkViewState_PropertiesAreSet() {
+        sut = ChooseNewShowHostViewModel(show: dumpweedExtravaganza)
+
+        sut.viewState = .performingWork
+
+        XCTAssertTrue(sut.showHostIsBeingSet)
+    }
+
+    func test_OnWorkCompletedViewState_PropertiesAreSet() {
+        sut = ChooseNewShowHostViewModel(show: dumpweedExtravaganza)
+
+        sut.viewState = .workCompleted
+
+        XCTAssertTrue(sut.newHostSelectionWasSuccessful)
+    }
+
+    func test_OnErrorViewState_PropertiesAreSet() {
+        sut = ChooseNewShowHostViewModel(show: dumpweedExtravaganza)
+
+        sut.viewState = .error(message: "TEST ERROR")
+
+        XCTAssertEqual(sut.errorAlertText, "TEST ERROR")
+        XCTAssertTrue(sut.errorAlertIsShowing)
+        XCTAssertFalse(sut.showHostIsBeingSet)
+    }
+
+    func test_OnInvalidViewState_PropertiesAreSet() {
+        sut = ChooseNewShowHostViewModel(show: dumpweedExtravaganza)
+
+        sut.viewState = .displayingView
+
+        XCTAssertEqual(sut.errorAlertText, ErrorMessageConstants.invalidViewState)
+        XCTAssertTrue(sut.errorAlertIsShowing)
+    }
+
     func test_OnGetUsersParticipatingInShow_ParticipantsAreFetchedAndViewStateIsSet() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         sut = ChooseNewShowHostViewModel(show: dumpweedExtravaganza)

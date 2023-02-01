@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 final class BandSettingsViewModel: ObservableObject {
-    let band: Band
+    @Published var band: Band
 
     @Published var deleteBandConfirmationAlertIsShowing = false
     @Published var buttonsAreDisabled = false
@@ -18,7 +18,7 @@ final class BandSettingsViewModel: ObservableObject {
     @Published var errorAlertIsShowing = false
     var errorAlertText = ""
 
-    @Published var viewState = ViewState.displayingView {
+    @Published var viewState = ViewState.dataLoading {
         didSet {
             switch viewState {
             case .performingWork:
@@ -30,8 +30,10 @@ final class BandSettingsViewModel: ObservableObject {
                 errorAlertIsShowing = true
                 buttonsAreDisabled = false
             default:
-                errorAlertText = ErrorMessageConstants.invalidViewState
-                errorAlertIsShowing = true
+                if viewState != .dataLoading && viewState != .dataLoaded {
+                    errorAlertText = ErrorMessageConstants.invalidViewState
+                    errorAlertIsShowing = true
+                }
             }
         }
     }
@@ -45,6 +47,16 @@ final class BandSettingsViewModel: ObservableObject {
             viewState = .performingWork
             try await DatabaseService.shared.deleteBand(band)
             viewState = .workCompleted
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func getLatestBandData() async {
+        do {
+            viewState = .dataLoading
+            band = try await DatabaseService.shared.getBand(with: band.id)
+            viewState = .dataLoaded
         } catch {
             viewState = .error(message: error.localizedDescription)
         }
