@@ -11,7 +11,7 @@ import XCTest
 
 @MainActor
 final class HomeViewModelTests: XCTestCase {
-    var sut: HomeViewModel!
+    var sut: FindShowsViewModel!
     var testingDatabaseService: TestingDatabaseService!
 
     override func setUp() async throws {

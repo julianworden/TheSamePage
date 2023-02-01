@@ -44,9 +44,7 @@ struct AddBacklineView: View {
             }
             
             Section {
-                TextEditor(text: $viewModel.backlineGearNotes)
-            } header: {
-                Text("Notes (Gear make, model, etc.)")
+                TextField("Notes (Make, Model, etc.)", text: $viewModel.backlineGearNotes, axis: .vertical)
             }
 
             Section {

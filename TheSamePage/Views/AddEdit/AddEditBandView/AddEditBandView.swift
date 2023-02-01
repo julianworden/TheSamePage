@@ -51,8 +51,8 @@ struct AddEditBandView: View {
                 }
             }
             
-            Section("Bio") {
-                TextEditor(text: $viewModel.bandBio)
+            Section {
+                TextField("Bio", text: $viewModel.bandBio, axis: .vertical)
             }
             
             Section("Location") {

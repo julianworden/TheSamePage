@@ -8,8 +8,8 @@
 import SwiftUI
 import Typesense
 
-struct HomeViewShowsList: View {
-    @ObservedObject var viewModel: HomeViewModel
+struct FindShowList: View {
+    @ObservedObject var viewModel: FindShowsViewModel
     
     @Binding var filterConfirmationDialogIsShowing: Bool
     
@@ -22,7 +22,7 @@ struct HomeViewShowsList: View {
                     NavigationLink {
                         ShowDetailsView(show: show)
                     } label: {
-                        HomeShowRow(show: show)
+                        FindShowsListRow(show: show)
                     }
                 }
             }
@@ -36,6 +36,6 @@ struct HomeViewShowsList: View {
 
 struct NearbyShowsList_Previews: PreviewProvider {
     static var previews: some View {
-        HomeViewShowsList(viewModel: HomeViewModel(), filterConfirmationDialogIsShowing: .constant(false))
+        FindShowList(viewModel: FindShowsViewModel(), filterConfirmationDialogIsShowing: .constant(false))
     }
 }

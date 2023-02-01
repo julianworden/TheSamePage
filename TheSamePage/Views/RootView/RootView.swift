@@ -19,9 +19,9 @@ struct RootView: View {
             
             if !loggedInUserController.userIsLoggedOut {
                 TabView(selection: $viewModel.selectedTab) {
-                    HomeView()
+                    FindShowsView()
                         .tabItem {
-                            Label("Home", systemImage: "house")
+                            Label("Find Shows", systemImage: "square.stack")
                         }
                         .tag(0)
 

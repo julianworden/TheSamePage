@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct HomeView: View {
-    @StateObject var viewModel = HomeViewModel()
+struct FindShowsView: View {
+    @StateObject var viewModel = FindShowsViewModel()
     
     var body: some View {
         NavigationStack {
@@ -20,7 +20,7 @@ struct HomeView: View {
                     ProgressView()
                     
                 case .dataLoaded:
-                    HomeViewShowsList(
+                    FindShowList(
                         viewModel: viewModel,
                         filterConfirmationDialogIsShowing: $viewModel.filterConfirmationDialogIsShowing
                     )
@@ -80,6 +80,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(viewModel: HomeViewModel())
+        FindShowsView(viewModel: FindShowsViewModel())
     }
 }

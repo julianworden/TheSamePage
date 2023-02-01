@@ -1,5 +1,5 @@
 //
-//  HomeShowRow.swift
+//  FindShowsListRow.swift
 //  TheSamePage
 //
 //  Created by Julian Worden on 10/26/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HomeShowRow: View {    
+struct FindShowsListRow: View {    
     let show: Show
     
     var body: some View {
@@ -64,6 +64,6 @@ struct HomeShowRow: View {
 
 struct HomeShowRow_Previews: PreviewProvider {
     static var previews: some View {
-        HomeShowRow(show: Show.example)
+        FindShowsListRow(show: Show.example)
     }
 }

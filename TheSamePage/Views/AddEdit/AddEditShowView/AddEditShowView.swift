@@ -37,8 +37,8 @@ struct AddEditShowView: View {
                 DatePicker("Date", selection: $viewModel.showDate, in: viewModel.showDate..., displayedComponents: .date)
             }
             
-            Section("Description") {
-                TextEditor(text: $viewModel.showDescription)
+            Section {
+                TextField("Description", text: $viewModel.showDescription, axis: .vertical)
             }
             
             Section {

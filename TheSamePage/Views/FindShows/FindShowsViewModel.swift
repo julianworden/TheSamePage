@@ -11,7 +11,7 @@ import Foundation
 import Typesense
 
 @MainActor
-final class HomeViewModel: ObservableObject {
+final class FindShowsViewModel: ObservableObject {
     @Published var nearbyShows = [SearchResultHit<Show>]()
     @Published var searchRadiusInMiles: Double = 25
     

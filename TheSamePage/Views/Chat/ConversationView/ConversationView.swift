@@ -37,7 +37,7 @@ struct ConversationView: View {
                     Spacer()
 
                     HStack {
-                        TextField("Message", text: $viewModel.messageText)
+                        TextField("Message", text: $viewModel.messageText, axis: .vertical)
                             .textFieldStyle(.roundedBorder)
 
                         AsyncButton {
