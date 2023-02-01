@@ -111,7 +111,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     
     var formattedTicketPrice: String? {
         if let ticketPrice {
-            return ticketPrice.formatted(.currency(code: Locale.current.currencyCode ?? "USD"))
+            return ticketPrice.formatted(.currency(code: Locale.current.currency?.identifier ?? "USD"))
         } else {
             return nil
         }

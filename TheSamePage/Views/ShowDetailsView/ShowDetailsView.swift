@@ -109,9 +109,17 @@ struct ShowDetailsView: View {
                     } label: {
                         Image(systemName: "gear")
                     }
-                    .fullScreenCover(isPresented: $viewModel.showSettingsViewIsShowing) {
-                        ShowSettingsView(show: viewModel.show)
-                    }
+                    .fullScreenCover(
+                        isPresented: $viewModel.showSettingsViewIsShowing,
+                        onDismiss: {
+                            Task {
+                                await viewModel.getLatestShowData()
+                            }
+                        },
+                        content: {
+                            ShowSettingsView(show: viewModel.show)
+                        }
+                    )
                 }
             }
         }

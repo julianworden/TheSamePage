@@ -812,6 +812,26 @@ class DatabaseService: NSObject {
             )
         }
     }
+
+    func getUsersPlayingShow(show: Show) async throws -> [User] {
+        do {
+            var usersPlayingShow = [User]()
+
+            for uid in show.participantUids {
+                if uid != show.hostUid {
+                    let fetchedUser = try await getUser(withUid: uid)
+                    usersPlayingShow.append(fetchedUser)
+                }
+            }
+
+            return usersPlayingShow
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to fetch the users that are playing this show",
+                systemError: error.localizedDescription
+            )
+        }
+    }
     
     func updateShow(show: Show) async throws {
         do {
@@ -822,6 +842,29 @@ class DatabaseService: NSObject {
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to update \(show.name)",
+                systemError: error.localizedDescription
+            )
+        }
+    }
+
+    /// Called when a show host designates a new user as the host for their show. This replaces the existing value of the hostUid property
+    /// with a new UID belonging to the new show host.
+    /// - Parameters:
+    ///   - user: The new show host.
+    ///   - show: The show that the new show host will be hosting.
+    func setNewShowHost(user: User, show: Show) async throws {
+        do {
+            guard show.participantUids.contains(user.id) else {
+                throw LogicError.unknown(message: "\(user.fullName) cannot host this show because they are not participating in it")
+            }
+
+            try await db
+                .collection(FbConstants.shows)
+                .document(show.id)
+                .updateData([FbConstants.hostUid: user.id])
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to designate new show host. Please try again",
                 systemError: error.localizedDescription
             )
         }

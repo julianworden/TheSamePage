@@ -41,7 +41,7 @@ final class ShowSettingsViewModelTests: XCTestCase {
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
         XCTAssertEqual(sut.show, dumpweedExtravaganza)
-        XCTAssertEqual(sut.viewState, .displayingView)
+        XCTAssertEqual(sut.viewState, .dataLoading)
     }
 
     func test_OnErrorViewState_PropertiesAreSet() {
@@ -75,5 +75,17 @@ final class ShowSettingsViewModelTests: XCTestCase {
         XCTAssertFalse(showExists, "The show should've been deleted")
 
         self.createdShowId = nil
+    }
+
+    func test_OnGetLatestShowData_UpdatedShowDataIsFetched() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
+        sut = ShowSettingsViewModel(show: dumpweedExtravaganza)
+        try await testingDatabaseService.updateShowName(showId: dumpweedExtravaganza.id, newName: "Heavy Banger")
+
+        await sut.getLatestShowData()
+
+        XCTAssertEqual(sut.show.name, "Heavy Banger")
+
+        try await testingDatabaseService.updateShowName(showId: dumpweedExtravaganza.id, newName: dumpweedExtravaganza.name)
     }
 }

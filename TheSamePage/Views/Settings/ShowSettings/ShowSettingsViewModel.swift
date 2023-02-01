@@ -14,17 +14,19 @@ final class ShowSettingsViewModel: ObservableObject {
     @Published var errorAlertIsShowing = false
     var errorAlertText = ""
     
-    let show: Show
+    @Published var show: Show
 
-    @Published var viewState = ViewState.displayingView {
+    @Published var viewState = ViewState.dataLoading {
         didSet {
             switch viewState {
             case .error(let message):
                 errorAlertText = message
                 errorAlertIsShowing = true
             default:
-                errorAlertText = ErrorMessageConstants.invalidViewState
-                errorAlertIsShowing = true
+                if viewState != .dataLoading && viewState != .dataLoaded {
+                    errorAlertText = ErrorMessageConstants.invalidViewState
+                    errorAlertIsShowing = true
+                }
             }
         }
     }
@@ -36,6 +38,16 @@ final class ShowSettingsViewModel: ObservableObject {
     func cancelShow() async {
         do {
             try await DatabaseService.shared.cancelShow(show: show)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func getLatestShowData() async {
+        do {
+            viewState = .dataLoading
+            show = try await DatabaseService.shared.getLatestShowData(showId: show.id)
+            viewState = .dataLoaded
         } catch {
             viewState = .error(message: error.localizedDescription)
         }

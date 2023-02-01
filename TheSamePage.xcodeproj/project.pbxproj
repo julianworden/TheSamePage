@@ -229,6 +229,8 @@
 		ABE2FDFE298964DD00D5A951 /* UserSettingsNavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE2FDFD298964DD00D5A951 /* UserSettingsNavigationViewModel.swift */; };
 		ABE2FE0029896BA600D5A951 /* MockBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE2FDFF29896BA600D5A951 /* MockBackButton.swift */; };
 		ABE2FE022989722200D5A951 /* MockNavigationLinkRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE2FE012989722200D5A951 /* MockNavigationLinkRow.swift */; };
+		ABE2FE0429897BED00D5A951 /* ChooseNewShowHostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE2FE0329897BED00D5A951 /* ChooseNewShowHostView.swift */; };
+		ABE2FE0629897BF400D5A951 /* ChooseNewShowHostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE2FE0529897BF400D5A951 /* ChooseNewShowHostViewModel.swift */; };
 		ABE3A2FD297775F100AA1548 /* LoggedInUserControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3A2FC297775F100AA1548 /* LoggedInUserControllerTests.swift */; };
 		ABE3EFA628D91960002EEF23 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3EFA528D91960002EEF23 /* SignUpView.swift */; };
 		ABE3EFA828D919A2002EEF23 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */; };
@@ -255,6 +257,7 @@
 		ABFB2D482909E33B009A6F65 /* ShowLineupRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFB2D472909E33B009A6F65 /* ShowLineupRow.swift */; };
 		ABFBA72129154F97006B1751 /* View+cornerRadius().swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFBA72029154F97006B1751 /* View+cornerRadius().swift */; };
 		ABFBA72329154FCD006B1751 /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFBA72229154FCD006B1751 /* ChatBubble.swift */; };
+		ABFF8169298A9F2700FAC995 /* ChooseNewShowHostViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFF8168298A9F2700FAC995 /* ChooseNewShowHostViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -478,6 +481,8 @@
 		ABE2FDFD298964DD00D5A951 /* UserSettingsNavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsNavigationViewModel.swift; sourceTree = "<group>"; };
 		ABE2FDFF29896BA600D5A951 /* MockBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBackButton.swift; sourceTree = "<group>"; };
 		ABE2FE012989722200D5A951 /* MockNavigationLinkRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNavigationLinkRow.swift; sourceTree = "<group>"; };
+		ABE2FE0329897BED00D5A951 /* ChooseNewShowHostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseNewShowHostView.swift; sourceTree = "<group>"; };
+		ABE2FE0529897BF400D5A951 /* ChooseNewShowHostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseNewShowHostViewModel.swift; sourceTree = "<group>"; };
 		ABE3A2FC297775F100AA1548 /* LoggedInUserControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserControllerTests.swift; sourceTree = "<group>"; };
 		ABE3EFA528D91960002EEF23 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
@@ -505,6 +510,7 @@
 		ABFB2D472909E33B009A6F65 /* ShowLineupRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLineupRow.swift; sourceTree = "<group>"; };
 		ABFBA72029154F97006B1751 /* View+cornerRadius().swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+cornerRadius().swift"; sourceTree = "<group>"; };
 		ABFBA72229154FCD006B1751 /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
+		ABFF8168298A9F2700FAC995 /* ChooseNewShowHostViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseNewShowHostViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1043,6 +1049,7 @@
 			children = (
 				AB9DAB03292329AF009BE932 /* ShowSettingsView.swift */,
 				AB9DAB05292329BB009BE932 /* ShowSettingsViewModel.swift */,
+				ABE2FE0729897BF700D5A951 /* GiveUpShowHostRole */,
 			);
 			path = ShowSettings;
 			sourceTree = "<group>";
@@ -1137,6 +1144,7 @@
 				ABA0549229745A4C006B5908 /* SearchViewModelTests.swift */,
 				ABA0549429746385006B5908 /* SendShowInviteViewModelTests.swift */,
 				ABA054962974C05C006B5908 /* ShowSettingsViewModelTests.swift */,
+				ABFF8168298A9F2700FAC995 /* ChooseNewShowHostViewModelTests.swift */,
 				ABA054982974C917006B5908 /* BandSettingsViewModelTests.swift */,
 				ABF9903D297584FC00FD32D1 /* ShowDetailsViewModelTests.swift */,
 				AB272F872976FD3D00E74091 /* AddBacklineViewModelTests.swift */,
@@ -1299,6 +1307,15 @@
 				ABE07A0D29799A9C009D3661 /* AddMyBandToShowViewModel.swift */,
 			);
 			path = AddMyBandToShow;
+			sourceTree = "<group>";
+		};
+		ABE2FE0729897BF700D5A951 /* GiveUpShowHostRole */ = {
+			isa = PBXGroup;
+			children = (
+				ABE2FE0329897BED00D5A951 /* ChooseNewShowHostView.swift */,
+				ABE2FE0529897BF400D5A951 /* ChooseNewShowHostViewModel.swift */,
+			);
+			path = GiveUpShowHostRole;
 			sourceTree = "<group>";
 		};
 		ABE3A2FB297775E200AA1548 /* Controllers */ = {
@@ -1645,6 +1662,7 @@
 				AB6514DF28F911EB008DFDD0 /* ShowTimeRow.swift in Sources */,
 				AB3C73D528DC0A1D0038085A /* BandSearchView.swift in Sources */,
 				AB9DAB06292329BB009BE932 /* ShowSettingsViewModel.swift in Sources */,
+				ABE2FE0629897BF400D5A951 /* ChooseNewShowHostViewModel.swift in Sources */,
 				ABFB2D482909E33B009A6F65 /* ShowLineupRow.swift in Sources */,
 				ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */,
 				ABA1DDCE28F9B2AC00E7A72E /* ViewState.swift in Sources */,
@@ -1717,6 +1735,7 @@
 				AB35A8D628E9DC73009FB203 /* BandProfileView.swift in Sources */,
 				AB9DAB04292329AF009BE932 /* ShowSettingsView.swift in Sources */,
 				AB285AFC28F6F7EE00EB5F2B /* ShowTimeList.swift in Sources */,
+				ABE2FE0429897BED00D5A951 /* ChooseNewShowHostView.swift in Sources */,
 				ABDC0D7928D76FC60054269E /* AddEditShowViewModel.swift in Sources */,
 				AB5EFF9D2982BE58000399DE /* ForgotPasswordViewModel.swift in Sources */,
 				AB5C0D3B292B14DE0040CE97 /* FirebaseError.swift in Sources */,
@@ -1752,6 +1771,7 @@
 				ABA0549529746385006B5908 /* SendShowInviteViewModelTests.swift in Sources */,
 				ABBE36A1296B555A0092F594 /* LinkPlatformTests.swift in Sources */,
 				AB7F6FC0296F0E7F00612D3B /* HomeViewModelTests.swift in Sources */,
+				ABFF8169298A9F2700FAC995 /* ChooseNewShowHostViewModelTests.swift in Sources */,
 				ABA054992974C917006B5908 /* BandSettingsViewModelTests.swift in Sources */,
 				AB389FD32986DF10000C798C /* CreateUsernameViewModelTests.swift in Sources */,
 				AB657D2329719D5A00696EF4 /* LoginViewModelTests.swift in Sources */,
