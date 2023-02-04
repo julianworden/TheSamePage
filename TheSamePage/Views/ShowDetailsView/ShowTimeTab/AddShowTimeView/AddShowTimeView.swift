@@ -28,7 +28,8 @@ struct AddShowTimeView: View {
                     dismiss()
                 }
             }
-            
+
+            // TODO: Put this in the form instead to match the rest of the app
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Save") {
                     viewModel.addShowTime(ofType: viewModel.showTimeType)

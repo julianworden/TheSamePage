@@ -22,30 +22,6 @@ struct BandMemberListRow: View {
                     subtitle: bandMember.role,
                     iconName: bandMember.listRowIconName
                 )
-
-                // Force unwrap is safe because the only way this list is visible is if viewModel.band != nil
-                if !bandMember.bandMemberIsLoggedInUser && viewModel.band!.loggedInUserIsBandAdmin {
-                    Button(role: .destructive) {
-                        viewModel.removeBandMemberFromBandConfirmationAlertIsShowing.toggle()
-                    } label: {
-                        Image(systemName: "trash")
-                    }
-                    .alert(
-                        "Are You Sure?",
-                        isPresented: $viewModel.removeBandMemberFromBandConfirmationAlertIsShowing,
-                        actions: {
-                            Button("Cancel", role: .cancel) { }
-                            Button("Yes", role: .destructive) {
-                                Task {
-                                    await viewModel.removeBandMemberFromBand(bandMember: bandMember)
-                                    await viewModel.getBandMembers()
-                                    await viewModel.getLatestBandData()
-                                }
-                            }
-                        },
-                        message: { Text("If you remove this user from \(viewModel.band!.name), they will no longer be able to access chats and private data for shows in which \(viewModel.band!.name) is a participant.") }
-                    )
-                }
             }
         }
     }

@@ -18,8 +18,7 @@ struct BandLinkRow: View {
 
             ListRowElements(
                 title: link.platformName,
-                iconName: link.platformName.lowercased(),
-                displayDivider: true
+                iconName: link.platformName.lowercased()
             )
         }
     }

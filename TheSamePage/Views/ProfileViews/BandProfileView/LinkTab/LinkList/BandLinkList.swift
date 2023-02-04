@@ -13,10 +13,25 @@ struct BandLinkList: View {
     var body: some View {
         VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(Array(viewModel.bandLinks.enumerated()), id: \.element) { index, link in
-                Link(destination: URL(string: link.url)!) {
-                    BandLinkRow(viewModel: viewModel, index: index)
+                ZStack {
+                    VStack {
+                        HStack {
+                            Link(destination: URL(string: link.url)!) {
+                                BandLinkRow(viewModel: viewModel, index: index)
+                            }
+                            .tint(.primary)
+
+                            Spacer()
+
+                            // This force unwrap is safe because this list is only shown if viewModel.band != nil
+                            if viewModel.band!.loggedInUserIsBandAdmin {
+                                BandLinkMenuButton(viewModel: viewModel, link: link)
+                            }
+                        }
+
+                        Divider()
+                    }
                 }
-                .tint(.primary)
             }
         }
     }

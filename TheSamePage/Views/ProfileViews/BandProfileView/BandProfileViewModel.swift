@@ -28,6 +28,7 @@ class BandProfileViewModel: ObservableObject {
     @Published var deleteImageConfirmationAlertIsShowing = false
     @Published var removeBandMemberFromBandConfirmationAlertIsShowing = false
     @Published var bandSettingsViewIsShowing = false
+    @Published var deleteLinkConfirmationAlertIsShowing = false
 
     @Published var bandImage: Image?
     @Published var updatedImage: UIImage?
@@ -155,6 +156,17 @@ class BandProfileViewModel: ObservableObject {
             try await DatabaseService.shared.deleteBandImage(forBand: band)
             bandImage = nil
             updatedImage = nil
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    #warning("TEST")
+    func deleteBandLink(_ link: PlatformLink) async {
+        guard let band else { return }
+
+        do {
+            try await DatabaseService.shared.deleteBandLink(band: band, link: link)
         } catch {
             viewState = .error(message: error.localizedDescription)
         }

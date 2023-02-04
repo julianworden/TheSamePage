@@ -737,6 +737,15 @@ class TestingDatabaseService {
             .getDocument(as: PlatformLink.self)
     }
 
+    func restorePlatformLink(restore platformLink: PlatformLink, for band: Band) async throws {
+        try db
+            .collection(FbConstants.bands)
+            .document(band.id)
+            .collection(FbConstants.links)
+            .document(platformLink.id!)
+            .setData(from: platformLink)
+    }
+
     // MARK: - Firestore Backline
 
     func getBacklineItem(withId backlineItemId: String, inShowWithId showId: String) async throws -> BacklineItem {

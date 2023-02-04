@@ -13,15 +13,27 @@ struct LoggedInUserBandList: View {
     var body: some View {
         VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(Array(loggedInUserController.playingBands.enumerated()), id: \.element) { index, band in
-                NavigationLink {
-                    BandProfileView(band: band)
-                } label: {
-                    LoggedInUserBandRow(index: index)
-                }
-                .tint(.primary)
-            }
+                ZStack {
+                    VStack {
+                        HStack {
+                            NavigationLink {
+                                BandProfileView(band: band)
+                            } label: {
+                                LoggedInUserBandRow(index: index)
+                            }
+                            .tint(.primary)
 
-            Divider()
+                            Spacer()
+
+                            if band.loggedInUserIsBandMember && !band.loggedInUserIsBandAdmin {
+                                LoggedInUserBandMenuButton(band: band)
+                            }
+                        }
+
+                        Divider()
+                    }
+                }
+            }
         }
         .padding(.horizontal)
     }

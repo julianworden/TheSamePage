@@ -15,18 +15,31 @@ struct BandMemberList: View {
     var body: some View {
         VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(Array(viewModel.bandMembers.enumerated()), id: \.element) { index, bandMember in
-                NavigationLink {
-                    OtherUserProfileView(user: nil, bandMember: bandMember)
-                } label: {
-                    BandMemberListRow(
-                        viewModel: viewModel,
-                        index: index
-                    )
-                }
-                .tint(.primary)
-                .allowsHitTesting(bandMember.bandMemberIsLoggedInUser ? false : true)
+                ZStack {
+                    VStack {
+                        HStack {
+                            NavigationLink {
+                                OtherUserProfileView(user: nil, bandMember: bandMember)
+                            } label: {
+                                BandMemberListRow(
+                                    viewModel: viewModel,
+                                    index: index
+                                )
+                            }
+                            .tint(.primary)
+                            .allowsHitTesting(bandMember.bandMemberIsLoggedInUser ? false : true)
 
-                Divider()
+                            Spacer()
+
+                            // Force unwrap is safe because the only way this list is visible is if viewModel.band != nil
+                            if !bandMember.bandMemberIsLoggedInUser && viewModel.band!.loggedInUserIsBandAdmin {
+                                BandProfileMemberRowMenuButton(viewModel: viewModel, bandMember: bandMember)
+                            }
+                        }
+
+                        Divider()
+                    }
+                }
             }
         }
     }

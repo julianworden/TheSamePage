@@ -7,7 +7,6 @@
 
 import Foundation
 
-#warning("TEST")
 @MainActor
 final class ChooseNewBandAdminViewModel: ObservableObject {
     /// The users playing in a band. If the band admin also plays in this band, they will not appear in this array.

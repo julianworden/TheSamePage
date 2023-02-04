@@ -13,14 +13,24 @@ struct ShowLineupList: View {
     var body: some View {
         VStack(spacing: UiConstants.listRowSpacing) {
             ForEach(Array(viewModel.showParticipants.enumerated()), id: \.element) { index, showParticipant in
-                NavigationLink {
-                    BandProfileView(showParticipant: showParticipant)
-                } label: {
-                    ShowLineupRow(viewModel: viewModel, index: index)
-                }
-                .tint(.primary)
+                ZStack {
+                    VStack {
+                        HStack {
+                            NavigationLink {
+                                BandProfileView(showParticipant: showParticipant)
+                            } label: {
+                                ShowLineupRow(viewModel: viewModel, index: index)
+                            }
+                            .tint(.primary)
 
-                Divider()
+                            Spacer()
+
+                            ShowLineupRowMenuButton(viewModel: viewModel, showParticipant: showParticipant)
+                        }
+
+                        Divider()
+                    }
+                }
             }
         }
     }

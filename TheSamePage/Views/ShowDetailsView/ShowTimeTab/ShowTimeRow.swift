@@ -25,20 +25,24 @@ struct ShowTimeRow: View {
                 Spacer()
 
                 if viewModel.show.loggedInUserIsShowHost {
-                    if viewModel.timeForShowExists(showTimeType: showTimeType) {
-                        Button(role: .destructive) {
-                            Task {
-                                await viewModel.removeShowTimeFromShow(showTimeType: showTimeType)
+                    Menu {
+                        if viewModel.timeForShowExists(showTimeType: showTimeType) {
+                            Button(role: .destructive) {
+                                Task {
+                                    await viewModel.removeShowTimeFromShow(showTimeType: showTimeType)
+                                }
+                            } label: {
+                                Label("Delete Time", systemImage: "trash")
                             }
-                        } label: {
-                            Image(systemName: "trash")
+                        } else {
+                            Button {
+                                selectedShowTimeType = showTimeType
+                            } label: {
+                                Label("Add Time", systemImage: "plus")
+                            }
                         }
-                    } else {
-                        Button {
-                            selectedShowTimeType = showTimeType
-                        } label: {
-                            Image(systemName: "plus")
-                        }
+                    } label: {
+                        EllipsesMenuIcon()
                     }
                 }
             }

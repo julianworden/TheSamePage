@@ -151,6 +151,24 @@ final class BandProfileViewModelTests: XCTestCase {
         XCTAssertNil(createdBandWithNoProfileImage.profileImageUrl, "The band should no longer have a profileImageUrl property")
     }
 
+    func test_OnDeleteBandLink_BandLinkIsDeleted() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
+        sut = BandProfileViewModel(band: exampleBandPatheticFallacy)
+
+        await sut.deleteBandLink(TestingConstants.examplePlatformLinkPatheticFallacyInstagram)
+
+        do {
+            _ = try await testingDatabaseService.getPlatformLink(get: TestingConstants.examplePlatformLinkPatheticFallacyInstagram, for: exampleBandPatheticFallacy)
+            XCTFail("The fetch should've failed because the link should've been deleted.")
+        } catch Swift.DecodingError.valueNotFound {
+            XCTAssert(true)
+        } catch {
+            XCTFail("The only reason the method above should've failed is because of a DecodingError.")
+        }
+
+        try await testingDatabaseService.restorePlatformLink(restore: TestingConstants.examplePlatformLinkPatheticFallacyInstagram, for: exampleBandPatheticFallacy)
+    }
+
     func test_OnLeaveBand_UserLeavesBand() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         sut = BandProfileViewModel(band: exampleBandPatheticFallacy)

@@ -810,6 +810,25 @@ class DatabaseService: NSObject {
             )
         }
     }
+
+    func deleteBandLink(band: Band, link: PlatformLink) async throws {
+        guard let platformLinkId = link.id else {
+            throw LogicError.unexpectedNilValue(message: "Failed to delete band link. Please try again.")
+        }
+        do {
+            try await db
+                .collection(FbConstants.bands)
+                .document(band.id)
+                .collection(FbConstants.links)
+                .document(platformLinkId)
+                .delete()
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to delete band link",
+                systemError: error.localizedDescription
+            )
+        }
+    }
     
     
     // MARK: - Shows

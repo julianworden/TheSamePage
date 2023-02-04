@@ -11,7 +11,7 @@ struct FindShowsView: View {
     @StateObject var viewModel = FindShowsViewModel()
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ZStack {
                 BackgroundColor()
                 
