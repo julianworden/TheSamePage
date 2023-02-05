@@ -17,18 +17,11 @@ struct DrumKitBacklineItem: Backline, Codable, Equatable, Identifiable {
     let type: String
     let name: String
     let notes: String?
-    let kickIncluded: Bool
-    let snareIncluded: Bool
-    let tomsIncluded: Bool
-    let numberOfTomsIncluded: Int?
-    let hiHatIncluded: Bool
-    let cymbalsIncluded: Bool
-    let numberOfCymbalsIncluded: Int?
-    let cymbalStandsIncluded: Bool
-    let numberOfCymbalStandsIncluded: Int?
+    let includedKitPieces: [String]
     
-    var details: String {
-        return "\(kickIncluded ? "Kick" : ""), \(snareIncluded ? "Snare" : ""), \(tomsIncluded ? "\(numberOfTomsIncluded ?? 2) toms" : ""), \(hiHatIncluded ? "Hi-Hat" : ""), \(cymbalsIncluded ? "\(numberOfCymbalsIncluded ?? 2) cymbals" : ""), \(cymbalStandsIncluded ? "\(numberOfCymbalStandsIncluded ?? 2) cymbal stands" : "")"
+    var includedKitPiecesFormattedList: String {
+        let listFormatter = ListFormatter()
+        return listFormatter.string(from: includedKitPieces) ?? ""
     }
 
     var loggedInUserIsBackliner: Bool {
@@ -42,15 +35,7 @@ struct DrumKitBacklineItem: Backline, Codable, Equatable, Identifiable {
         type: String,
         name: String,
         notes: String? = nil,
-        kickIncluded: Bool,
-        snareIncluded: Bool,
-        tomsIncluded: Bool,
-        numberOfTomsIncluded: Int? = nil,
-        hiHatIncluded: Bool,
-        cymbalsIncluded: Bool,
-        numberOfCymbalsIncluded: Int? = nil,
-        cymbalStandsIncluded: Bool,
-        numberOfCymbalStandsIncluded: Int? = nil
+        includedKitPieces: [String] = []
     ) {
         self.id = id
         self.backlinerUid = backlinerUid
@@ -58,14 +43,6 @@ struct DrumKitBacklineItem: Backline, Codable, Equatable, Identifiable {
         self.type = type
         self.name = name
         self.notes = notes
-        self.kickIncluded = kickIncluded
-        self.snareIncluded = snareIncluded
-        self.tomsIncluded = tomsIncluded
-        self.numberOfTomsIncluded = numberOfTomsIncluded
-        self.hiHatIncluded = hiHatIncluded
-        self.cymbalsIncluded = cymbalsIncluded
-        self.numberOfCymbalsIncluded = numberOfCymbalsIncluded
-        self.cymbalStandsIncluded = cymbalStandsIncluded
-        self.numberOfCymbalStandsIncluded = numberOfCymbalStandsIncluded
+        self.includedKitPieces = includedKitPieces
     }
 }

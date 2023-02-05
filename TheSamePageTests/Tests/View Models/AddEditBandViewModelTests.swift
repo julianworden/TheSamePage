@@ -52,7 +52,7 @@ final class AddEditBandViewModelTests: XCTestCase {
         sut = nil
     }
 
-    func test_OnInitWithNoBandToEditAndUserIsNotOnboarding_DefaultValuesAreCorrect() {
+    func test_OnInitWithNoBandToEdit_DefaultValuesAreCorrect() {
         sut = AddEditBandViewModel()
 
         XCTAssertTrue(sut.bandName.isEmpty)
@@ -72,7 +72,7 @@ final class AddEditBandViewModelTests: XCTestCase {
         XCTAssertNil(sut.bandToEdit)
     }
 
-    func test_OnInitWithBandToEditAndUserIsOnboarding_DefaultValuesAreCorrect() {
+    func test_OnInitWithBandToEdit_DefaultValuesAreCorrect() {
         let bandToEdit = TestingConstants.exampleBandForIntegrationTesting
         sut = AddEditBandViewModel(bandToEdit: bandToEdit)
 

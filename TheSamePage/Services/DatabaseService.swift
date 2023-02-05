@@ -1288,10 +1288,10 @@ class DatabaseService: NSObject {
             var backlineItemsAsAnyBackline = [AnyBackline]()
 
             for document in fetchedBacklineItemDocuments {
-                if let backlineItem = try? document.data(as: BacklineItem.self) {
-                    backlineItemsAsAnyBackline.append(AnyBackline(id: backlineItem.id!, backline: backlineItem))
-                } else if let drumKitBacklineItem = try? document.data(as: DrumKitBacklineItem.self) {
+                if let drumKitBacklineItem = try? document.data(as: DrumKitBacklineItem.self) {
                     backlineItemsAsAnyBackline.append(AnyBackline(id: drumKitBacklineItem.id!, backline: drumKitBacklineItem))
+                } else if let backlineItem = try? document.data(as: BacklineItem.self) {
+                    backlineItemsAsAnyBackline.append(AnyBackline(id: backlineItem.id!, backline: backlineItem))
                 }
             }
 

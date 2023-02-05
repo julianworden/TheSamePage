@@ -22,12 +22,13 @@ final class AddBacklineViewModel: ObservableObject {
     @Published var kickIncluded = false
     @Published var snareIncluded = false
     @Published var tomsIncluded = false
-    @Published var numberOfTomsIncluded = 0
+    @Published var numberOfTomsIncluded = 1
     @Published var hiHatIncluded = false
     @Published var cymbalsIncluded = false
-    @Published var numberOfCymbalsIncluded = 0
+    @Published var numberOfCymbalsIncluded = 1
     @Published var cymbalStandsIncluded = false
-    @Published var numberOfCymbalStandsIncluded = 0
+    @Published var numberOfCymbalStandsIncluded = 1
+    var includedKitPieces = [String]()
     
     @Published var addGearButtonIsDisabled = false
     @Published var gearAddedSuccessfully = false
@@ -56,10 +57,6 @@ final class AddBacklineViewModel: ObservableObject {
         }
     }
 
-    init(show: Show) {
-        self.show = show
-    }
-
     var newBacklineItemName: String {
         switch selectedGearType {
         case .electricGuitar:
@@ -70,6 +67,36 @@ final class AddBacklineViewModel: ObservableObject {
             return selectedAcousticGuitarGear.rawValue
         default:
             return "Invalid Backline Item Name"
+        }
+    }
+
+    init(show: Show) {
+        self.show = show
+    }
+
+    func createIncludedKitPiecesArray() {
+        if kickIncluded {
+            includedKitPieces.append("Kick")
+        }
+
+        if snareIncluded {
+            includedKitPieces.append("Snare")
+        }
+
+        if tomsIncluded {
+            includedKitPieces.append("\(numberOfTomsIncluded) \(numberOfTomsIncluded == 1 ? "Tom" : "Toms")")
+        }
+
+        if hiHatIncluded {
+            includedKitPieces.append("Hi-Hat")
+        }
+
+        if cymbalsIncluded {
+            includedKitPieces.append("\(numberOfCymbalsIncluded) \(numberOfCymbalsIncluded == 1 ? "Cymbal" : "Cymbals")")
+        }
+
+        if cymbalStandsIncluded {
+            includedKitPieces.append("\(numberOfCymbalStandsIncluded) \(numberOfCymbalStandsIncluded == 1 ? "Cymbal Stand" : "Cymbal Stands")")
         }
     }
 
@@ -94,21 +121,15 @@ final class AddBacklineViewModel: ObservableObject {
             case .percussion:
                 switch selectedPercussionGearType {
                 case .fullKit:
+                    createIncludedKitPiecesArray()
+
                     drumKitBacklineItem = DrumKitBacklineItem(
                         backlinerUid: loggedInUser.id,
                         backlinerFullName: loggedInUser.fullName,
                         type: selectedGearType.rawValue,
                         name: selectedPercussionGearType.rawValue,
                         notes: backlineGearNotes.isReallyEmpty ? nil : backlineGearNotes,
-                        kickIncluded: kickIncluded,
-                        snareIncluded: snareIncluded,
-                        tomsIncluded: tomsIncluded,
-                        numberOfTomsIncluded: numberOfTomsIncluded,
-                        hiHatIncluded: hiHatIncluded,
-                        cymbalsIncluded: cymbalsIncluded,
-                        numberOfCymbalsIncluded: numberOfCymbalsIncluded,
-                        cymbalStandsIncluded: cymbalStandsIncluded,
-                        numberOfCymbalStandsIncluded: numberOfCymbalStandsIncluded
+                        includedKitPieces: includedKitPieces
                     )
 
                 case .kitPiece:

@@ -55,12 +55,53 @@ final class AddBacklineViewModelTests: XCTestCase {
         XCTAssertFalse(sut.addGearButtonIsDisabled)
         XCTAssertFalse(sut.gearAddedSuccessfully)
         XCTAssertFalse(sut.errorAlertIsShowing)
-        XCTAssertEqual(sut.numberOfTomsIncluded, 0)
-        XCTAssertEqual(sut.numberOfCymbalsIncluded, 0)
-        XCTAssertEqual(sut.numberOfCymbalStandsIncluded, 0)
+        XCTAssertEqual(sut.numberOfTomsIncluded, 1)
+        XCTAssertEqual(sut.numberOfCymbalsIncluded, 1)
+        XCTAssertEqual(sut.numberOfCymbalStandsIncluded, 1)
+        XCTAssertTrue(sut.includedKitPieces.isEmpty)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
         XCTAssertEqual(sut.show, dumpweedExtravaganza)
         XCTAssertEqual(sut.viewState, .displayingView)
+    }
+
+    func test_OnPerformingWorkViewState_PropertiesAreSet() async throws {
+        sut.viewState = .performingWork
+
+        XCTAssertTrue(sut.addGearButtonIsDisabled, "The button should be disabled while work is being performed.")
+    }
+
+    func test_OnWorkCompletedViewState_PropertiesAreSet() async throws {
+        sut.viewState = .workCompleted
+
+        XCTAssertTrue(sut.gearAddedSuccessfully, "The view should be dismissed if the user is not onboarding and the band is successfully created.")
+        XCTAssertFalse(sut.addGearButtonIsDisabled, "The button should be re-enabled in case the view doesn't get dismissed automatically for some reason.")
+    }
+
+    func test_OnErrorViewState_PropertiesAreSet() {
+        sut.viewState = .error(message: "AN ERROR HAPPENED")
+
+        XCTAssertTrue(sut.errorAlertIsShowing, "An error alert should be presented.")
+        XCTAssertEqual(sut.errorAlertText, "AN ERROR HAPPENED", "The error message should be assigned to the text property.")
+        XCTAssertFalse(sut.addGearButtonIsDisabled, "The user should be able to retry after an error occurs.")
+    }
+
+    func test_OnInvalidViewState_PropertiesAreSet() {
+        sut.viewState = .dataNotFound
+
+        XCTAssertEqual(sut.errorAlertText, ErrorMessageConstants.invalidViewState)
+        XCTAssertTrue(sut.errorAlertIsShowing)
+    }
+
+    func test_OnCreateIncludedKitPiecesArray_IncludedKitPiecesArrayIsCreated() {
+        sut.kickIncluded = true
+        sut.tomsIncluded = true
+        sut.numberOfTomsIncluded = 3
+        sut.cymbalsIncluded = true
+        sut.numberOfCymbalsIncluded = 4
+
+        sut.createIncludedKitPiecesArray()
+
+        XCTAssertEqual(sut.includedKitPieces, ["Kick", "3 Toms", "4 Cymbals"])
     }
 
     func test_OnAddElectricGuitarBacklineItemToShow_BacklineItemIsAdded() async throws {
@@ -167,14 +208,6 @@ final class AddBacklineViewModelTests: XCTestCase {
         XCTAssertEqual(createdDrumKitBacklineItem.type, BacklineItemType.percussion.rawValue)
         XCTAssertEqual(createdDrumKitBacklineItem.name, PercussionGearType.fullKit.rawValue)
         XCTAssertEqual(createdDrumKitBacklineItem.notes, "The best drum kit you've ever heard")
-        XCTAssertEqual(createdDrumKitBacklineItem.kickIncluded, false)
-        XCTAssertEqual(createdDrumKitBacklineItem.snareIncluded, false)
-        XCTAssertEqual(createdDrumKitBacklineItem.tomsIncluded, true)
-        XCTAssertEqual(createdDrumKitBacklineItem.numberOfTomsIncluded, 3)
-        XCTAssertEqual(createdDrumKitBacklineItem.hiHatIncluded, true)
-        XCTAssertEqual(createdDrumKitBacklineItem.cymbalsIncluded, true)
-        XCTAssertEqual(createdDrumKitBacklineItem.numberOfCymbalsIncluded, 4)
-        XCTAssertEqual(createdDrumKitBacklineItem.cymbalStandsIncluded, true)
-        XCTAssertEqual(createdDrumKitBacklineItem.numberOfCymbalStandsIncluded, 4)
+        XCTAssertEqual(createdDrumKitBacklineItem.includedKitPieces, ["3 Toms", "Hi-Hat", "4 Cymbals", "4 Cymbal Stands"])
     }
 }

@@ -43,7 +43,8 @@ struct ListRowElements: View {
                 VStack(alignment: .leading) {
                     Text(title)
                     
-                    if let subtitle {
+                    if let subtitle,
+                       !subtitle.isReallyEmpty {
                         Text(subtitle)
                             .font(.caption)
                     }

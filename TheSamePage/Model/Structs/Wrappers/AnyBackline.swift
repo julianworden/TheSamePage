@@ -16,6 +16,16 @@ struct AnyBackline: Identifiable {
         return BacklineItemType(rawValue: backlineTypeAsString)!
     }
 
+    var details: String {
+        if let drumKitBacklineItem = backline as? DrumKitBacklineItem {
+            return "\(drumKitBacklineItem.notes ?? "")\(drumKitBacklineItem.notes == nil ?  drumKitBacklineItem.includedKitPiecesFormattedList : " \(drumKitBacklineItem.includedKitPiecesFormattedList)")"
+        } else if let backlineItem = backline as? BacklineItem {
+            return backlineItem.notes ?? ""
+        } else {
+            return ""
+        }
+    }
+
     var loggedInUserIsBackliner: Bool {
         backline.loggedInUserIsBackliner
     }

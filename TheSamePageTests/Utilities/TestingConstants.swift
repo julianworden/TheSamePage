@@ -467,15 +467,7 @@ struct TestingConstants {
         type: BacklineItemType.percussion.rawValue,
         name: PercussionGearType.fullKit.rawValue,
         notes: "Pearl kit with Ziljian Cymbals",
-        kickIncluded: true,
-        snareIncluded: true,
-        tomsIncluded: true,
-        numberOfTomsIncluded: 5,
-        hiHatIncluded: true,
-        cymbalsIncluded: true,
-        numberOfCymbalsIncluded: 5,
-        cymbalStandsIncluded: true,
-        numberOfCymbalStandsIncluded: 5
+        includedKitPieces: ["Kick", "Snare", "5 Toms", "Hi-Hat", "5 Cymbals", "5 Cymbal Stands"]
     )
 
     // MARK: - Example Location Data

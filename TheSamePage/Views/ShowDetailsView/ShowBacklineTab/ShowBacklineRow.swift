@@ -19,7 +19,7 @@ struct ShowBacklineRow: View {
             HStack {
                 ListRowElements(
                     title: anyBackline.backline.name,
-                    subtitle: anyBackline.backline.notes,
+                    subtitle: anyBackline.details,
                     iconName: anyBackline.iconName
                 )
 

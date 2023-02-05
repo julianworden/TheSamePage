@@ -660,15 +660,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(backlineItemInEmulator.type, backlineItemInTestingConstants.type)
         XCTAssertEqual(backlineItemInEmulator.name, backlineItemInTestingConstants.name)
         XCTAssertEqual(backlineItemInEmulator.notes, backlineItemInTestingConstants.notes)
-        XCTAssertEqual(backlineItemInEmulator.kickIncluded, backlineItemInTestingConstants.kickIncluded)
-        XCTAssertEqual(backlineItemInEmulator.snareIncluded, backlineItemInTestingConstants.snareIncluded)
-        XCTAssertEqual(backlineItemInEmulator.tomsIncluded, backlineItemInTestingConstants.tomsIncluded)
-        XCTAssertEqual(backlineItemInEmulator.numberOfTomsIncluded, backlineItemInTestingConstants.numberOfTomsIncluded)
-        XCTAssertEqual(backlineItemInEmulator.hiHatIncluded, backlineItemInTestingConstants.hiHatIncluded)
-        XCTAssertEqual(backlineItemInEmulator.cymbalsIncluded, backlineItemInTestingConstants.cymbalsIncluded)
-        XCTAssertEqual(backlineItemInEmulator.numberOfCymbalsIncluded, backlineItemInTestingConstants.numberOfCymbalsIncluded)
-        XCTAssertEqual(backlineItemInEmulator.cymbalStandsIncluded, backlineItemInTestingConstants.cymbalStandsIncluded)
-        XCTAssertEqual(backlineItemInEmulator.numberOfCymbalStandsIncluded, backlineItemInTestingConstants.numberOfCymbalStandsIncluded)
+        XCTAssertEqual(backlineItemInEmulator.includedKitPieces, backlineItemInTestingConstants.includedKitPieces)
     }
 
     func test_OnInit_ExampleBacklineInFirestoreEmulatorMatchTestingConstants() async throws {
