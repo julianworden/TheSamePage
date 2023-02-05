@@ -10,78 +10,37 @@ import SwiftUI
 struct ShowBacklineRow: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
 
-    var backlineItem: BacklineItem?
-    var drumKitBacklineItem: DrumKitBacklineItem?
-    let title: String
-    let subtitle: String?
-    let iconName: String
+    let index: Int
     
     var body: some View {
-        HStack {
-            ListRowElements(
-                title: title,
-                subtitle: subtitle,
-                iconName: iconName
-            )
+        if viewModel.showBackline.indices.contains(index) {
+            let anyBackline = viewModel.showBackline[index]
 
-            Spacer()
+            HStack {
+                ListRowElements(
+                    title: anyBackline.backline.name,
+                    subtitle: anyBackline.backline.notes,
+                    iconName: anyBackline.iconName
+                )
 
-            if let backlineItem {
-                if backlineItem.loggedInUserIsBackliner || viewModel.show.loggedInUserIsShowHost {
-                    Button(role: .destructive) {
-                        viewModel.deleteBacklineItemConfirmationAlertIsShowing.toggle()
-                    } label: {
-                        Image(systemName: "trash")
-                    }
-                    .alert(
-                        "Are You Sure?",
-                        isPresented: $viewModel.deleteBacklineItemConfirmationAlertIsShowing,
-                        actions: {
-                            Button("Cancel", role: .cancel) { }
-                            Button("Yes", role: .destructive) {
-                                Task {
-                                    await viewModel.deleteBacklineItem(backlineItem)
-                                    await viewModel.getBacklineItems()
-                                }
-                            }
-                        },
-                        message: { Text("This backline item will be permanently deleted from this show.") }
-                    )
-                }
-            } else if let drumKitBacklineItem {
-                if drumKitBacklineItem.loggedInUserIsBackliner || viewModel.show.loggedInUserIsShowHost {
-                    Button(role: .destructive) {
-                        viewModel.deleteDrumKitBacklineItemConfirmationAlertIsShowing.toggle()
-                    } label: {
-                        Image(systemName: "trash")
-                    }
-                    .alert(
-                        "Are You Sure?",
-                        isPresented: $viewModel.deleteDrumKitBacklineItemConfirmationAlertIsShowing,
-                        actions: {
-                            Button("Cancel", role: .cancel) { }
-                            Button("Yes", role: .destructive) {
-                                Task {
-                                    await viewModel.deleteDrumKitBacklineItem(drumKitBacklineItem)
-                                    await viewModel.getBacklineItems()
-                                }
-                            }
-                        },
-                        message: { Text("This backline item will be permanently deleted from this show.") }
-                    )
+                Spacer()
+
+                if anyBackline.loggedInUserIsBackliner || viewModel.show.loggedInUserIsShowHost {
+                    ShowBacklineRowMenuButton(viewModel: viewModel, anyBackline: anyBackline)
                 }
             }
         }
     }
 }
 
-struct ShowBacklineRow_Previews: PreviewProvider {
-    static var previews: some View {
-        ShowBacklineRow(
-            viewModel: ShowDetailsViewModel(show: Show.example),
-            title: "Drums",
-            subtitle: "Kick, snare, toms",
-            iconName: "drums"
-        )
-    }
-}
+//struct ShowBacklineRow_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ShowBacklineRow(
+//            viewModel: ShowDetailsViewModel(show: Show.example),
+//            anyBackline: AnyBackline(id: <#T##String#>, backline: BacklineItem(backlinerUid: "asdfasdf", backlinerFullName: "Julian Worden", type: <#T##String#>, name: <#T##String#>))
+//            title: "Drums",
+//            subtitle: "Kick, snare, toms",
+//            iconName: "drums"
+//        )
+//    }
+//}

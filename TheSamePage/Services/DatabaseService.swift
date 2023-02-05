@@ -1276,13 +1276,26 @@ class DatabaseService: NSObject {
         }
     }
     
-    func getBacklineItems(forShow show: Show) async throws -> QuerySnapshot {
+    func getBacklineItems(forShow show: Show) async throws -> [AnyBackline] {
         do {
-            return try await db
+            let fetchedBacklineItemDocuments = try await db
                 .collection(FbConstants.shows)
                 .document(show.id)
-                .collection("backlineItems")
+                .collection(FbConstants.backlineItems)
                 .getDocuments()
+                .documents
+
+            var backlineItemsAsAnyBackline = [AnyBackline]()
+
+            for document in fetchedBacklineItemDocuments {
+                if let backlineItem = try? document.data(as: BacklineItem.self) {
+                    backlineItemsAsAnyBackline.append(AnyBackline(id: backlineItem.id!, backline: backlineItem))
+                } else if let drumKitBacklineItem = try? document.data(as: DrumKitBacklineItem.self) {
+                    backlineItemsAsAnyBackline.append(AnyBackline(id: drumKitBacklineItem.id!, backline: drumKitBacklineItem))
+                }
+            }
+
+            return backlineItemsAsAnyBackline
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to fetch backline items for \(show.name)",

@@ -161,7 +161,6 @@ class BandProfileViewModel: ObservableObject {
         }
     }
 
-    #warning("TEST")
     func deleteBandLink(_ link: PlatformLink) async {
         guard let band else { return }
 

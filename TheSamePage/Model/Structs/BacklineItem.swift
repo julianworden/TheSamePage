@@ -8,7 +8,7 @@
 import FirebaseFirestoreSwift
 import Foundation
 
-struct BacklineItem: Codable, Equatable, Hashable, Identifiable {
+struct BacklineItem: Backline, Codable, Equatable, Hashable, Identifiable {
     @DocumentID var id: String?
     /// The UID for the user that added this item to a show's backline
     let backlinerUid: String
@@ -17,6 +17,10 @@ struct BacklineItem: Codable, Equatable, Hashable, Identifiable {
     let type: String
     let name: String
     let notes: String?
+
+    var loggedInUserIsBackliner: Bool {
+        return backlinerUid == AuthController.getLoggedInUid()
+    }
     
     init(
         id: String? = nil,
@@ -32,9 +36,5 @@ struct BacklineItem: Codable, Equatable, Hashable, Identifiable {
         self.type = type
         self.name = name
         self.notes = notes
-    }
-
-    var loggedInUserIsBackliner: Bool {
-        return backlinerUid == AuthController.getLoggedInUid()
     }
 }

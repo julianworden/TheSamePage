@@ -28,21 +28,30 @@ struct AddBacklineView: View {
                 switch viewModel.selectedGearType {
                 case .percussion:
                     AddPercussionBacklineForm(viewModel: viewModel)
+
                 case .bassGuitar:
-                    Picker("Select Bass Gear", selection: $viewModel.selectedGuitarGear) {
-                        ForEach(GuitarGear.allCases) { guitarGear in
-                            Text(guitarGear.rawValue)
+                    Picker("Select Bass Gear", selection: $viewModel.selectedBassGuitarGear) {
+                        ForEach(BassGuitarGear.allCases) { bassGuitarGear in
+                            Text(bassGuitarGear.rawValue)
                         }
                     }
+
                 case .electricGuitar:
-                    Picker("Select Guitar Gear", selection: $viewModel.selectedGuitarGear) {
-                        ForEach(GuitarGear.allCases) { guitarGear in
-                            Text(guitarGear.rawValue)
+                    Picker("Select Electric Guitar Gear", selection: $viewModel.selectedElectricGuitarGear) {
+                        ForEach(ElectricGuitarGear.allCases) { electricGuitarGear in
+                            Text(electricGuitarGear.rawValue)
+                        }
+                    }
+
+                case .acousticGuitar:
+                    Picker("Select Acoustic Guitar Gear", selection: $viewModel.selectedAcousticGuitarGear) {
+                        ForEach(AcousticGuitarGear.allCases) { acousticGuitarGear in
+                            Text(acousticGuitarGear.rawValue)
                         }
                     }
                 }
             }
-            
+
             Section {
                 TextField("Notes (Make, Model, etc.)", text: $viewModel.backlineGearNotes, axis: .vertical)
             }

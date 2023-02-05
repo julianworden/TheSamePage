@@ -17,10 +17,7 @@ final class ShowDetailsViewModel: ObservableObject {
     @Published var showParticipants = [ShowParticipant]()
     @Published var selectedTab = SelectedShowDetailsTab.details
     
-    @Published var drumKitBacklineItems = [DrumKitBacklineItem]()
-    @Published var percussionBacklineItems = [BacklineItem]()
-    @Published var bassGuitarBacklineItems = [BacklineItem]()
-    @Published var electricGuitarBacklineItems = [BacklineItem]()
+    @Published var showBackline = [AnyBackline]()
 
     @Published var addBacklineSheetIsShowing = false
     @Published var bandSearchViewIsShowing = false
@@ -29,8 +26,8 @@ final class ShowDetailsViewModel: ObservableObject {
     @Published var addMyBandToShowSheetIsShowing = false
     @Published var editImageConfirmationDialogIsShowing = false
     @Published var deleteImageConfirmationAlertIsShowing = false
-    @Published var deleteBacklineItemConfirmationAlertIsShowing = false
-    @Published var deleteDrumKitBacklineItemConfirmationAlertIsShowing = false
+//    @Published var deleteBacklineItemConfirmationAlertIsShowing = false
+//    @Published var deleteDrumKitBacklineItemConfirmationAlertIsShowing = false
     @Published var removeShowParticipantConfirmationAlertIsShowing = false
     @Published var leaveShowConfirmationAlertIsShowing = false
     @Published var conversationViewIsShowing = false
@@ -86,10 +83,7 @@ final class ShowDetailsViewModel: ObservableObject {
     }
 
     var showHasBackline: Bool {
-        return !percussionBacklineItems.isEmpty ||
-        !drumKitBacklineItems.isEmpty ||
-        !bassGuitarBacklineItems.isEmpty ||
-        !electricGuitarBacklineItems.isEmpty
+        return !showBackline.isEmpty
     }
 
     var noShowParticipantsText: String {
@@ -149,40 +143,13 @@ final class ShowDetailsViewModel: ObservableObject {
 
     func getBacklineItems() async {
         do {
-            let backlineItemDocuments = try await DatabaseService.shared.getBacklineItems(forShow: show).documents
+            showBackline = try await DatabaseService.shared.getBacklineItems(forShow: show).sorted {
+                $0.backline.type > $1.backline.type
+            }
 
             // Necessary so that the UI is updated when all backline items are removed
-            guard !backlineItemDocuments.isEmpty else {
-                clearAllBacklineItems()
-                return
-            }
-
-            let drumKitBacklineItems = backlineItemDocuments.compactMap { try? $0.data(as: DrumKitBacklineItem.self) }
-
-            if !drumKitBacklineItems.isEmpty {
-                self.drumKitBacklineItems = drumKitBacklineItems
-            }
-
-            let fetchedBacklineItems = backlineItemDocuments.compactMap { try? $0.data(as: BacklineItem.self) }
-
-            for backlineItem in fetchedBacklineItems {
-                switch backlineItem.type {
-                case BacklineItemType.percussion.rawValue:
-                    if backlineItem.name != PercussionGearType.fullKit.rawValue &&
-                        !self.percussionBacklineItems.contains(backlineItem) {
-                        self.percussionBacklineItems.append(backlineItem)
-                    }
-                case BacklineItemType.electricGuitar.rawValue:
-                    if !self.electricGuitarBacklineItems.contains(backlineItem) {
-                        self.electricGuitarBacklineItems.append(backlineItem)
-                    }
-                case BacklineItemType.bassGuitar.rawValue:
-                    if !self.bassGuitarBacklineItems.contains(backlineItem) {
-                        self.bassGuitarBacklineItems.append(backlineItem)
-                    }
-                default:
-                    viewState = .error(message: "Attempted to fetch invalid BacklineItemType. Please try again")
-                }
+            if showBackline.isEmpty {
+                clearAllBackline()
             }
         } catch {
             viewState = .error(message: error.localizedDescription)
@@ -275,11 +242,16 @@ final class ShowDetailsViewModel: ObservableObject {
         }
     }
 
-    func clearAllBacklineItems() {
-        drumKitBacklineItems = []
-        percussionBacklineItems = []
-        bassGuitarBacklineItems = []
-        electricGuitarBacklineItems = []
+    func clearAllBackline() {
+        showBackline = []
+    }
+
+    func deleteBackline(_ backline: any Backline) async {
+        if let backlineItem = backline as? BacklineItem {
+            await deleteBacklineItem(backlineItem)
+        } else if let drumKitBacklineItem = backline as? DrumKitBacklineItem {
+            await deleteDrumKitBacklineItem(drumKitBacklineItem)
+        }
     }
 
     func deleteBacklineItem(_ backlineItem: BacklineItem) async {

@@ -748,6 +748,24 @@ class TestingDatabaseService {
 
     // MARK: - Firestore Backline
 
+    func createBacklineItem(create backlineItem: BacklineItem, in show: Show) async throws {
+        try db
+            .collection(FbConstants.shows)
+            .document(show.id)
+            .collection(FbConstants.backlineItems)
+            .document(backlineItem.id!)
+            .setData(from: backlineItem)
+    }
+
+    func createDrumKitBacklineItem(create drumKitBacklineItem: DrumKitBacklineItem, in show: Show) async throws {
+        try db
+            .collection(FbConstants.shows)
+            .document(show.id)
+            .collection(FbConstants.backlineItems)
+            .document(drumKitBacklineItem.id!)
+            .setData(from: drumKitBacklineItem)
+    }
+
     func getBacklineItem(withId backlineItemId: String, inShowWithId showId: String) async throws -> BacklineItem {
         return try await db
             .collection(FbConstants.shows)

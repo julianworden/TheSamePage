@@ -39,7 +39,9 @@ final class AddBacklineViewModelTests: XCTestCase {
 
     func test_OnInit_DefaultValuesAreCorrect() {
         XCTAssertEqual(sut.selectedGearType, .electricGuitar)
-        XCTAssertEqual(sut.selectedGuitarGear, .comboAmp)
+        XCTAssertEqual(sut.selectedElectricGuitarGear, .comboAmp)
+        XCTAssertEqual(sut.selectedBassGuitarGear, .comboAmp)
+        XCTAssertEqual(sut.selectedAcousticGuitarGear, .amp)
         XCTAssertEqual(sut.selectedPercussionGearType, .fullKit)
         XCTAssertEqual(sut.selectedDrumKitPiece, .kick)
         XCTAssertEqual(sut.selectedAuxillaryPercussion, .congas)
@@ -63,7 +65,7 @@ final class AddBacklineViewModelTests: XCTestCase {
 
     func test_OnAddElectricGuitarBacklineItemToShow_BacklineItemIsAdded() async throws {
         sut.selectedGearType = .electricGuitar
-        sut.selectedGuitarGear = .ampHead
+        sut.selectedElectricGuitarGear = .ampHead
         sut.backlineGearNotes = "Really great amp head"
 
         createdBacklineDocumentId = await sut.addBacklineItemToShow()
@@ -76,13 +78,13 @@ final class AddBacklineViewModelTests: XCTestCase {
         XCTAssertEqual(createdBacklineItem.backlinerUid, lou.id)
         XCTAssertEqual(createdBacklineItem.backlinerFullName, lou.fullName)
         XCTAssertEqual(createdBacklineItem.type, BacklineItemType.electricGuitar.rawValue)
-        XCTAssertEqual(createdBacklineItem.name, GuitarGear.ampHead.rawValue)
+        XCTAssertEqual(createdBacklineItem.name, ElectricGuitarGear.ampHead.rawValue)
         XCTAssertEqual(createdBacklineItem.notes, "Really great amp head")
     }
 
     func test_OnAddBassGuitarBacklineItemToShow_BacklineItemIsAdded() async throws {
         sut.selectedGearType = .bassGuitar
-        sut.selectedGuitarGear = .comboAmp
+        sut.selectedBassGuitarGear = .comboAmp
         sut.backlineGearNotes = "Really great combo amp"
 
         createdBacklineDocumentId = await sut.addBacklineItemToShow()
@@ -95,7 +97,7 @@ final class AddBacklineViewModelTests: XCTestCase {
         XCTAssertEqual(createdBacklineItem.backlinerUid, lou.id)
         XCTAssertEqual(createdBacklineItem.backlinerFullName, lou.fullName)
         XCTAssertEqual(createdBacklineItem.type, BacklineItemType.bassGuitar.rawValue)
-        XCTAssertEqual(createdBacklineItem.name, GuitarGear.comboAmp.rawValue)
+        XCTAssertEqual(createdBacklineItem.name, BassGuitarGear.comboAmp.rawValue)
         XCTAssertEqual(createdBacklineItem.notes, "Really great combo amp")
     }
 

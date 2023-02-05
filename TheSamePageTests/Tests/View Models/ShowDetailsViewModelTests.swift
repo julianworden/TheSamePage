@@ -40,10 +40,7 @@ final class ShowDetailsViewModelTests: XCTestCase {
 
         XCTAssertEqual(sut.show, dumpweedExtravaganza)
         XCTAssertEqual(sut.selectedTab, .details)
-        XCTAssertTrue(sut.drumKitBacklineItems.isEmpty)
-        XCTAssertTrue(sut.percussionBacklineItems.isEmpty)
-        XCTAssertTrue(sut.bassGuitarBacklineItems.isEmpty)
-        XCTAssertTrue(sut.electricGuitarBacklineItems.isEmpty)
+        XCTAssertTrue(sut.showBackline.isEmpty)
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertFalse(sut.editImageViewIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
@@ -77,10 +74,7 @@ final class ShowDetailsViewModelTests: XCTestCase {
 
         await sut.callOnAppearMethods()
 
-        XCTAssertEqual(sut.drumKitBacklineItems.count, 1)
-        XCTAssertEqual(sut.electricGuitarBacklineItems.count, 1)
-        XCTAssertEqual(sut.bassGuitarBacklineItems.count, 1)
-        XCTAssertEqual(sut.percussionBacklineItems.count, 2)
+        XCTAssertEqual(sut.showBackline.count, 5)
         XCTAssertEqual(sut.showParticipants.count, 2, "Two bands are playing this show")
         XCTAssertEqual(sut.viewState, .dataLoaded)
     }
@@ -117,34 +111,10 @@ final class ShowDetailsViewModelTests: XCTestCase {
         XCTAssertEqual(sut.noShowTimesMessage, "No times have been added to this show. Only the show's host can add times.")
     }
 
-    func test_ShowHasBackline_ReturnsTrueWithOnlyPercussionBacklineItems() async throws {
+    func test_ShowHasBackline_ReturnsTrueWhenShowHasBackline() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         sut = ShowDetailsViewModel(show: dumpweedExtravaganza)
-        sut.percussionBacklineItems.append(TestingConstants.exampleAuxPercussionBacklineItemDumpweedExtravaganza)
-
-        XCTAssertTrue(sut.showHasBackline)
-    }
-
-    func test_ShowHasBackline_ReturnsTrueWithOnlyDrumKitBacklineItems() async throws {
-        try await testingDatabaseService.logInToJulianAccount()
-        sut = ShowDetailsViewModel(show: dumpweedExtravaganza)
-        sut.drumKitBacklineItems.append(TestingConstants.exampleDrumKitBacklineItemDumpweedExtravaganza)
-
-        XCTAssertTrue(sut.showHasBackline)
-    }
-
-    func test_ShowHasBackline_ReturnsTrueWithOnlyBassGuitarBacklineItems() async throws {
-        try await testingDatabaseService.logInToJulianAccount()
-        sut = ShowDetailsViewModel(show: dumpweedExtravaganza)
-        sut.bassGuitarBacklineItems.append(TestingConstants.exampleBassGuitarBacklineItemDumpweedExtravaganza)
-
-        XCTAssertTrue(sut.showHasBackline)
-    }
-
-    func test_ShowHasBackline_ReturnsTrueWithOnlyElectricGuitarBacklineItems() async throws {
-        try await testingDatabaseService.logInToJulianAccount()
-        sut = ShowDetailsViewModel(show: dumpweedExtravaganza)
-        sut.electricGuitarBacklineItems.append(TestingConstants.exampleElectricGuitarBacklineItemDumpweedExtravaganza)
+        await sut.getBacklineItems()
 
         XCTAssertTrue(sut.showHasBackline)
     }
@@ -281,10 +251,7 @@ final class ShowDetailsViewModelTests: XCTestCase {
 
         await sut.getBacklineItems()
 
-        XCTAssertEqual(sut.drumKitBacklineItems.count, 1)
-        XCTAssertEqual(sut.electricGuitarBacklineItems.count, 1)
-        XCTAssertEqual(sut.bassGuitarBacklineItems.count, 1)
-        XCTAssertEqual(sut.percussionBacklineItems.count, 2)
+        XCTAssertEqual(sut.showBackline.count, 5)
     }
 
     func test_OnDeleteShowImage_ImageIsDeleted() async throws {
@@ -366,16 +333,61 @@ final class ShowDetailsViewModelTests: XCTestCase {
         XCTAssertEqual("Not Set", endText)
     }
 
-    func test_OnClearAllBacklineItems_BacklineArraysAreCleared() async throws {
+    func test_OnClearAllBacklineItems_BacklineArrayIsCleared() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         sut = ShowDetailsViewModel(show: dumpweedExtravaganza)
         await sut.getBacklineItems()
 
-        sut.clearAllBacklineItems()
+        sut.clearAllBackline()
 
-        XCTAssertTrue(sut.drumKitBacklineItems.isEmpty)
-        XCTAssertTrue(sut.electricGuitarBacklineItems.isEmpty)
-        XCTAssertTrue(sut.bassGuitarBacklineItems.isEmpty)
-        XCTAssertTrue(sut.percussionBacklineItems.isEmpty)
+        XCTAssertTrue(sut.showBackline.isEmpty)
+    }
+
+    func test_OnDeleteBackline_BacklineItemIsDeleted() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
+        sut = ShowDetailsViewModel(show: dumpweedExtravaganza)
+
+        await sut.deleteBackline(TestingConstants.exampleBassGuitarBacklineItemDumpweedExtravaganza)
+
+        do {
+            _ = try await testingDatabaseService.getBacklineItem(
+                withId: TestingConstants.exampleBassGuitarBacklineItemDumpweedExtravaganza.id!,
+                inShowWithId: dumpweedExtravaganza.id
+            )
+            XCTFail("This fetch should've failed because the BacklineItem was deleted")
+        } catch Swift.DecodingError.valueNotFound {
+            XCTAssert(true)
+        } catch {
+            XCTFail("The only error that should be thrown here is a Swift.DecodingError.valueNotFound.")
+        }
+
+        try await testingDatabaseService.createBacklineItem(
+            create: TestingConstants.exampleBassGuitarBacklineItemDumpweedExtravaganza,
+            in: dumpweedExtravaganza
+        )
+    }
+
+    func test_OnDeleteBackline_DrumKitBacklineItemIsDeleted() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
+        sut = ShowDetailsViewModel(show: dumpweedExtravaganza)
+
+        await sut.deleteBackline(TestingConstants.exampleDrumKitBacklineItemDumpweedExtravaganza)
+
+        do {
+            _ = try await testingDatabaseService.getDrumKitBacklineItem(
+                withId: TestingConstants.exampleDrumKitBacklineItemDumpweedExtravaganza.id!,
+                inShowWithId: dumpweedExtravaganza.id
+            )
+            XCTFail("This fetch should've failed because the DrumKitBacklineItem was deleted")
+        } catch Swift.DecodingError.valueNotFound {
+            XCTAssert(true)
+        } catch {
+            XCTFail("The only error that should be thrown here is a Swift.DecodingError.valueNotFound.")
+        }
+
+        try await testingDatabaseService.createDrumKitBacklineItem(
+            create: TestingConstants.exampleDrumKitBacklineItemDumpweedExtravaganza,
+            in: dumpweedExtravaganza
+        )
     }
 }

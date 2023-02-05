@@ -430,7 +430,7 @@ struct TestingConstants {
         backlinerUid: exampleUserJulian.id,
         backlinerFullName: exampleUserJulian.fullName,
         type: BacklineItemType.electricGuitar.rawValue,
-        name: GuitarGear.comboAmp.rawValue,
+        name: ElectricGuitarGear.comboAmp.rawValue,
         notes: "Marshall"
     )
 
@@ -439,7 +439,7 @@ struct TestingConstants {
         backlinerUid: exampleUserJulian.id,
         backlinerFullName: exampleUserJulian.fullName,
         type: BacklineItemType.bassGuitar.rawValue,
-        name: GuitarGear.cab.rawValue,
+        name: BassGuitarGear.cab.rawValue,
         notes: "Ampeg 8 X 12"
     )
 

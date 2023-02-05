@@ -13,37 +13,7 @@ struct ShowBacklineTab: View {
     var body: some View {
         VStack(spacing: 15) {
             if viewModel.showHasBackline {
-                if !viewModel.drumKitBacklineItems.isEmpty || !viewModel.percussionBacklineItems.isEmpty {
-                    HStack {
-                        Text("Percussion")
-                            .font(.title3.bold())
-                        Spacer()
-                    }
-
-                    PercussionBacklineList(viewModel: viewModel)
-                }
-
-                if !viewModel.electricGuitarBacklineItems.isEmpty {
-                    HStack {
-                        Text("Electric Guitar")
-                            .font(.title3.bold())
-
-                        Spacer()
-                    }
-
-                    ElectricGuitarBacklineList(viewModel: viewModel)
-                }
-
-                if !viewModel.bassGuitarBacklineItems.isEmpty {
-                    HStack {
-                        Text("Bass Guitar")
-                            .font(.title3.bold())
-
-                        Spacer()
-                    }
-
-                    BassGuitarBacklineList(viewModel: viewModel)
-                }
+                ShowBacklineList(viewModel: viewModel)
 
                 Button {
                     viewModel.addBacklineSheetIsShowing.toggle()
@@ -51,6 +21,19 @@ struct ShowBacklineTab: View {
                     Label("Add Backline", systemImage: "plus")
                 }
                 .buttonStyle(.bordered)
+                .sheet(
+                    isPresented: $viewModel.addBacklineSheetIsShowing,
+                    onDismiss: {
+                        Task {
+                            await viewModel.getBacklineItems()
+                        }
+                    },
+                    content: {
+                        NavigationStack {
+                            AddBacklineView(show: viewModel.show)
+                        }
+                    }
+                )
 
             } else if !viewModel.showHasBackline {
                 NoDataFoundMessageWithButtonView(
@@ -63,19 +46,6 @@ struct ShowBacklineTab: View {
             }
         }
         .padding(.horizontal)
-        .sheet(
-            isPresented: $viewModel.addBacklineSheetIsShowing,
-            onDismiss: {
-                Task {
-                    await viewModel.getBacklineItems()
-                }
-            },
-            content: {
-                NavigationStack {
-                    AddBacklineView(show: viewModel.show)
-                }
-            }
-        )
     }
 }
 

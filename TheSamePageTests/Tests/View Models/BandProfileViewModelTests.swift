@@ -190,7 +190,8 @@ final class BandProfileViewModelTests: XCTestCase {
             band: exampleBandPatheticFallacy,
             show: dumpweedExtravaganza,
             chat: TestingConstants.exampleChatDumpweedExtravaganza,
-            bandMembers: [TestingConstants.exampleBandMemberLou]
+            bandMembers: [TestingConstants.exampleBandMemberLou],
+            links: [TestingConstants.examplePlatformLinkPatheticFallacyInstagram, TestingConstants.examplePlatformLinkPatheticFallacyFacebook]
         )
     }
 }

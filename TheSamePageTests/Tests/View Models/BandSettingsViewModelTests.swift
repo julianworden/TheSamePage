@@ -93,18 +93,18 @@ final class BandSettingsViewModelTests: XCTestCase {
             XCTAssertEqual(updatedDumpweedExtravaganza.bandIds.count, 1, "There should now be one band on the show")
             XCTAssertFalse(updatedDumpweedExtravaganza.participantUids.contains(exampleUserLou.id), "Lou should've been removed from the show since he was a part of Pathetic Fallacy")
             XCTAssertFalse(updatedDumpweedExtravaganza.participantUids.contains(exampleUserJulian.id), "Julian should've been removed from the show since he was a part of Pathetic Fallacy")
-        }
 
-        try await testingDatabaseService.restorePatheticFallacy(
-            band: patheticFallacy,
-            show: dumpweedExtravaganza,
-            chat: dumpweedExtravaganzaChat,
-            showParticipant: TestingConstants.exampleShowParticipantPatheticFallacyInDumpweedExtravaganza,
-            bandMembers: [exampleBandMemberLou, exampleBandMemberJulian],
-            links: [
-                TestingConstants.examplePlatformLinkPatheticFallacyFacebook,
-                TestingConstants.examplePlatformLinkPatheticFallacyInstagram
-            ]
-        )
+            try await testingDatabaseService.restorePatheticFallacy(
+                band: patheticFallacy,
+                show: dumpweedExtravaganza,
+                chat: dumpweedExtravaganzaChat,
+                showParticipant: TestingConstants.exampleShowParticipantPatheticFallacyInDumpweedExtravaganza,
+                bandMembers: [exampleBandMemberLou, exampleBandMemberJulian],
+                links: [
+                    TestingConstants.examplePlatformLinkPatheticFallacyFacebook,
+                    TestingConstants.examplePlatformLinkPatheticFallacyInstagram
+                ]
+            )
+        }
     }
 }

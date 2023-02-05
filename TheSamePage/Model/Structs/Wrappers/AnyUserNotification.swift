@@ -1,5 +1,5 @@
 //
-//  AnyNotification.swift
+//  AnyUserNotification.swift
 //  TheSamePage
 //
 //  Created by Julian Worden on 11/12/22.

@@ -8,10 +8,10 @@
 import Foundation
 
 /// Backline options for both electric and bass guitar gear.
-enum GuitarGear: String, CaseIterable, Identifiable {
-    case ampHead = "Amp Head"
-    case cab = "Cab"
-    case comboAmp = "Combo Amp"
-    
+enum ElectricGuitarGear: String, CaseIterable, Identifiable {
+    case ampHead = "Electric Electric Amp Head"
+    case cab = "Electric Guitar Cab"
+    case comboAmp = "Electric Guitar Combo Amp"
+
     var id: Self { self }
 }

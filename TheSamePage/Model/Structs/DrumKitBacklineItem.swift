@@ -8,7 +8,7 @@
 import FirebaseFirestoreSwift
 import Foundation
 
-struct DrumKitBacklineItem: Codable, Equatable, Identifiable {
+struct DrumKitBacklineItem: Backline, Codable, Equatable, Identifiable {
     @DocumentID var id: String?
     /// The UID for the user that added this item to a show's backline
     let backlinerUid: String

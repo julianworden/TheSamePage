@@ -11,8 +11,10 @@ import SwiftUI
 @MainActor
 final class AddBacklineViewModel: ObservableObject {
     @Published var selectedGearType = BacklineItemType.electricGuitar
-    @Published var selectedGuitarGear = GuitarGear.comboAmp
     @Published var selectedPercussionGearType = PercussionGearType.fullKit
+    @Published var selectedElectricGuitarGear = ElectricGuitarGear.comboAmp
+    @Published var selectedBassGuitarGear = BassGuitarGear.comboAmp
+    @Published var selectedAcousticGuitarGear = AcousticGuitarGear.amp
     @Published var selectedDrumKitPiece = DrumKitPiece.kick
     @Published var selectedAuxillaryPercussion = AuxillaryPercussion.congas
     @Published var backlineGearNotes = ""
@@ -57,7 +59,20 @@ final class AddBacklineViewModel: ObservableObject {
     init(show: Show) {
         self.show = show
     }
-    
+
+    var newBacklineItemName: String {
+        switch selectedGearType {
+        case .electricGuitar:
+            return selectedElectricGuitarGear.rawValue
+        case .bassGuitar:
+            return selectedBassGuitarGear.rawValue
+        case .acousticGuitar:
+            return selectedAcousticGuitarGear.rawValue
+        default:
+            return "Invalid Backline Item Name"
+        }
+    }
+
     @discardableResult func addBacklineItemToShow() async -> String {
         do {
             viewState = .performingWork
@@ -67,12 +82,12 @@ final class AddBacklineViewModel: ObservableObject {
             var drumKitBacklineItem: DrumKitBacklineItem?
 
             switch selectedGearType {
-            case .electricGuitar, .bassGuitar:
+            case .electricGuitar, .bassGuitar, .acousticGuitar:
                 backlineItem = BacklineItem(
                     backlinerUid: loggedInUser.id,
                     backlinerFullName: loggedInUser.fullName,
                     type: selectedGearType.rawValue,
-                    name: selectedGuitarGear.rawValue,
+                    name: newBacklineItemName,
                     notes: backlineGearNotes.isReallyEmpty ? nil : backlineGearNotes
                 )
 
@@ -128,29 +143,29 @@ final class AddBacklineViewModel: ObservableObject {
             return ""
         }
     }
-    
+
     func incrementNumberOfTomsIncluded() {
         numberOfTomsIncluded += 1
     }
-    
+
     func decrementNumberOfTomsIncluded() {
         numberOfTomsIncluded -= 1
     }
-    
+
     func incrementNumberOfCymbalsIncluded() {
         numberOfCymbalsIncluded += 1
     }
-    
+
     func decrementNumberOfCymbalsIncluded() {
         if numberOfCymbalsIncluded >= 1 {
             numberOfCymbalsIncluded -= 1
         }
     }
-    
+
     func incrementNumberOfCymbalStandsIncluded() {
         numberOfCymbalStandsIncluded += 1
     }
-    
+
     func decrementNumberOfCymbalStandsIncluded() {
         numberOfCymbalStandsIncluded -= 1
     }
