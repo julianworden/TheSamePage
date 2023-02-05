@@ -1,35 +1,36 @@
 //
-//  ChangePasswordView.swift
+//  ChangeUsernameView.swift
 //  TheSamePage
 //
-//  Created by Julian Worden on 1/30/23.
+//  Created by Julian Worden on 2/5/23.
 //
 
 import SwiftUI
 
-struct ChangePasswordView: View {
+struct ChangeUsernameView: View {
     @EnvironmentObject var loggedInUserController: LoggedInUserController
 
     @ObservedObject var navigationViewModel: UserSettingsNavigationViewModel
 
-    @State private var newPassword = ""
-    @State private var confirmedNewPassword = ""
+    @State private var newUsername = ""
+    @State private var confirmedNewUsername = ""
 
-    @State private var changePasswordButtonIsDisabled = false
-    @State private var changePasswordConfirmationAlertIsShowing = false
+    @State private var changeUsernameButtonIsDisabled = false
+    @State private var changeUsernameConfirmationAlertIsShowing = false
 
     @State private var viewState = ViewState.displayingView {
         didSet {
             switch viewState {
             case .performingWork:
-                changePasswordButtonIsDisabled = true
+                changeUsernameButtonIsDisabled = true
             case .workCompleted:
-                loggedInUserController.logOut()
                 navigationViewModel.popToRoot()
             case .error(let message):
                 loggedInUserController.errorMessageText = message
                 loggedInUserController.errorMessageShowing = true
-                changePasswordButtonIsDisabled = false
+                changeUsernameButtonIsDisabled = false
+            case .displayingView:
+                changeUsernameButtonIsDisabled = false
             default:
                 loggedInUserController.errorMessageText = ErrorMessageConstants.invalidViewState
                 loggedInUserController.errorMessageShowing = true
@@ -40,64 +41,65 @@ struct ChangePasswordView: View {
     var body: some View {
         Form {
             Section {
-                SecureField("New Password", text: $newPassword)
-                SecureField("Confirm Password", text: $confirmedNewPassword)
+                UsernameTextField("New Username", text: $newUsername)
+                UsernameTextField("Confirm Username", text: $confirmedNewUsername)
             }
 
             Section {
                 Button {
-                    if newPassword == confirmedNewPassword {
-                        changePasswordConfirmationAlertIsShowing.toggle()
+                    if newUsername == confirmedNewUsername {
+                        changeUsernameConfirmationAlertIsShowing.toggle()
                     } else {
-                        loggedInUserController.viewState = .error(message: "The passwords do not match, please try again.")
+                        loggedInUserController.viewState = .error(message: "The usernames do not match, please try again.")
                     }
                 } label: {
                     HStack(spacing: 5) {
-                        Text("Change Password")
+                        Text("Change Username")
                         if viewState == .performingWork {
                             ProgressView()
                         }
                     }
                 }
-                .disabled(changePasswordButtonIsDisabled)
+                .disabled(changeUsernameButtonIsDisabled)
                 .alert(
                     "Are You Sure?",
-                    isPresented: $changePasswordConfirmationAlertIsShowing,
+                    isPresented: $changeUsernameConfirmationAlertIsShowing,
                     actions: {
                         Button("Cancel", role: .cancel) { }
                         Button("Yes", role: .destructive) {
-                            changePassword()
+                            changeUsername()
                         }
                     },
-                    message: { Text("You will not be able to use The Same Page again until you log in again with your new password.") }
+                    message: { Text("Your username will be changed to \(newUsername).") }
                 )
             }
         }
-        .navigationTitle("Change Password")
+        .navigationTitle("Change Username")
         .errorAlert(
             isPresented: $loggedInUserController.errorMessageShowing,
             message: loggedInUserController.errorMessageText,
             okButtonAction: {
-                changePasswordButtonIsDisabled = false
+                changeUsernameButtonIsDisabled = false
+                viewState = .displayingView
             }
         )
-        .onChange(of: loggedInUserController.passwordChangeWasSuccessful) { passwordChangeWasSuccessful in
-            if passwordChangeWasSuccessful {
+        .onChange(of: loggedInUserController.usernameChangeWasSuccessful) { usernameChangeWasSuccessful in
+            if usernameChangeWasSuccessful {
                 viewState = .workCompleted
             }
         }
     }
 
-    func changePassword() {
+    func changeUsername() {
         Task {
             viewState = .performingWork
-            await loggedInUserController.changePassword(to: newPassword)
+            await loggedInUserController.changeUsername(to: newUsername)
         }
     }
 }
 
-struct ChangePasswordView_Previews: PreviewProvider {
+struct ChangeUsernameView_Previews: PreviewProvider {
     static var previews: some View {
-        ChangePasswordView(navigationViewModel: UserSettingsNavigationViewModel())
+        ChangeUsernameView(navigationViewModel: UserSettingsNavigationViewModel())
     }
 }

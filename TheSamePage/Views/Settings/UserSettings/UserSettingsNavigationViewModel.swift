@@ -7,14 +7,6 @@
 
 import Foundation
 
-enum UserSettingsScreen {
-    case reauthenticateView
-    case editUserInfoView
-    case changeEmailAddressView
-    case changePasswordView
-    case deleteAccountView
-}
-
 @MainActor
 final class UserSettingsNavigationViewModel: ObservableObject {
     @Published var navigationPath = [UserSettingsScreen]()
@@ -33,6 +25,10 @@ final class UserSettingsNavigationViewModel: ObservableObject {
 
     func navigateToChangePasswordView() {
         navigationPath.append(.changePasswordView)
+    }
+
+    func navigateToChangeUsernameView() {
+        navigationPath.append(.changeUsernameView)
     }
 
     func navigateToDeleteAccountView() {

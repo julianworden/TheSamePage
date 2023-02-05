@@ -31,6 +31,7 @@ class LoggedInUserController: ObservableObject {
     @Published var createUsernameSheetIsShowing = false
     @Published var accountDeletionWasSuccessful = false
     @Published var passwordChangeWasSuccessful = false
+    @Published var usernameChangeWasSuccessful = false
     
     @Published var viewState = ViewState.displayingView {
         didSet {
@@ -171,6 +172,35 @@ class LoggedInUserController: ObservableObject {
         do {
             try await AuthController.changePassword(to: password)
             passwordChangeWasSuccessful = true
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func usernameIsValid(_ username: String) async throws -> Bool {
+        guard username.count >= 3 else {
+            viewState = .error(message: ErrorMessageConstants.usernameIsTooShort)
+            return false
+        }
+
+        guard try await DatabaseService.shared.newUsernameIsNotAlreadyTaken(username.lowercasedAndTrimmed) else {
+            viewState = .error(message: ErrorMessageConstants.usernameIsAlreadyTaken)
+            return false
+        }
+
+        return true
+    }
+
+    func changeUsername(to username: String) async {
+        do {
+            viewState = .performingWork
+
+            guard try await usernameIsValid(username) else {
+                return
+            }
+
+            try await DatabaseService.shared.createOrUpdateUsername(username.lowercasedAndTrimmed)
+            usernameChangeWasSuccessful = true
         } catch {
             viewState = .error(message: error.localizedDescription)
         }

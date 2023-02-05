@@ -71,6 +71,8 @@ struct UserSettingsView: View {
                             ChangeEmailAddressView(navigationViewModel: navigationViewModel)
                         case .changePasswordView:
                             ChangePasswordView(navigationViewModel: navigationViewModel)
+                        case .changeUsernameView:
+                            ChangeUsernameView(navigationViewModel: navigationViewModel)
                         case .deleteAccountView:
                             DeleteAccountView(navigationViewModel: navigationViewModel)
                         }

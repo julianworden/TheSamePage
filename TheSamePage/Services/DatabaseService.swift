@@ -41,7 +41,7 @@ class DatabaseService: NSObject {
         }
     }
 
-    func createUsername(_ username: String) async throws {
+    func createOrUpdateUsername(_ username: String) async throws {
         guard let currentUser = Auth.auth().currentUser else {
             throw LogicError.unexpectedNilValue(message: "Failed to verify user's authorization status. Please try again.")
         }

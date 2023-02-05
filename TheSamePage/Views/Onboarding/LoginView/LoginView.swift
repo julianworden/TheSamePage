@@ -11,8 +11,6 @@ import SwiftUI
 struct LoginView: View {
     @Environment(\.dismiss) var dismiss
 
-    @EnvironmentObject var loggedInUserController: LoggedInUserController
-    
     @StateObject var viewModel = LoginViewModel()
 
     @State private var forgotPasswordSheetIsShowing = false

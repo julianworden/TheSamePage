@@ -58,7 +58,7 @@ final class CreateUsernameViewModel: ObservableObject {
                 return
             }
 
-            try await DatabaseService.shared.createUsername(username.lowercasedAndTrimmed)
+            try await DatabaseService.shared.createOrUpdateUsername(username.lowercasedAndTrimmed)
             viewState = .workCompleted
         } catch {
             viewState = .error(message: error.localizedDescription)

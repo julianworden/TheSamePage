@@ -30,6 +30,12 @@ struct EditUserInfoView: View {
                 } label: {
                     MockNavigationLinkRow(text: "Change Password")
                 }
+
+                Button {
+                    navigationViewModel.navigateToChangeUsernameView()
+                } label: {
+                    MockNavigationLinkRow(text: "Change Username")
+                }
             }
             .tint(.primary)
 

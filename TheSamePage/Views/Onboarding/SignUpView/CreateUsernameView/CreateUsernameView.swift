@@ -17,9 +17,7 @@ struct CreateUsernameView: View {
     var body: some View {
         Form {
             Section {
-                TextField("Username", text: $viewModel.username)
-                    .autocorrectionDisabled()
-                    .textInputAutocapitalization(.never)
+                UsernameTextField("Username", text: $viewModel.username)
             }
 
             Section {
