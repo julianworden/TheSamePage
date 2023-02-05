@@ -10,12 +10,14 @@ import SwiftUI
 struct BandProfileMemberRowMenuButton: View {
     @ObservedObject var viewModel: BandProfileViewModel
 
+    @State private var removeBandMemberFromBandConfirmationAlertIsShowing = false
+
     let bandMember: BandMember
 
     var body: some View {
         Menu {
             Button(role: .destructive) {
-                viewModel.removeBandMemberFromBandConfirmationAlertIsShowing.toggle()
+                removeBandMemberFromBandConfirmationAlertIsShowing.toggle()
             } label: {
                 Label("Remove User from Band", systemImage: "trash")
             }
@@ -24,7 +26,7 @@ struct BandProfileMemberRowMenuButton: View {
         }
         .alert(
             "Are You Sure?",
-            isPresented: $viewModel.removeBandMemberFromBandConfirmationAlertIsShowing,
+            isPresented: $removeBandMemberFromBandConfirmationAlertIsShowing,
             actions: {
                 Button("Cancel", role: .cancel) { }
                 Button("Yes", role: .destructive) {

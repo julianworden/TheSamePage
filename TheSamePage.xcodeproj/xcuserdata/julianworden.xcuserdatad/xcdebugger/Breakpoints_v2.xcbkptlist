@@ -77,8 +77,8 @@
             filePath = "TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
             landmarkName = "removeShowParticipantFromShow(showParticipant:)"
             landmarkType = "7">
             <Locations>
@@ -140,8 +140,8 @@
             filePath = "TheSamePage/Views/ProfileViews/BandProfileView/LinkTab/LinkList/BandLinkMenuButton.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>

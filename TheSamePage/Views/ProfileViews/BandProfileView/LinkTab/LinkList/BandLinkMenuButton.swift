@@ -10,12 +10,14 @@ import SwiftUI
 struct BandLinkMenuButton: View {
     @ObservedObject var viewModel: BandProfileViewModel
 
+    @State private var deleteLinkConfirmationAlertIsShowing = false
+
     let link: PlatformLink
 
     var body: some View {
         Menu {
             Button(role: .destructive) {
-                viewModel.deleteLinkConfirmationAlertIsShowing.toggle()
+                deleteLinkConfirmationAlertIsShowing.toggle()
             } label: {
                 Label("Delete Link", systemImage: "trash")
             }
@@ -24,7 +26,7 @@ struct BandLinkMenuButton: View {
         }
         .alert(
             "Are You Sure?",
-            isPresented: $viewModel.deleteLinkConfirmationAlertIsShowing,
+            isPresented: $deleteLinkConfirmationAlertIsShowing,
             actions: {
                 Button("Cancel", role: .cancel) { }
                 Button("Yes", role: .destructive) {

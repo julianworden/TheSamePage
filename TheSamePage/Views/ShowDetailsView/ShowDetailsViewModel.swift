@@ -26,10 +26,6 @@ final class ShowDetailsViewModel: ObservableObject {
     @Published var addMyBandToShowSheetIsShowing = false
     @Published var editImageConfirmationDialogIsShowing = false
     @Published var deleteImageConfirmationAlertIsShowing = false
-//    @Published var deleteBacklineItemConfirmationAlertIsShowing = false
-//    @Published var deleteDrumKitBacklineItemConfirmationAlertIsShowing = false
-    @Published var removeShowParticipantConfirmationAlertIsShowing = false
-    @Published var leaveShowConfirmationAlertIsShowing = false
     @Published var conversationViewIsShowing = false
     @Published var showSettingsViewIsShowing = false
 

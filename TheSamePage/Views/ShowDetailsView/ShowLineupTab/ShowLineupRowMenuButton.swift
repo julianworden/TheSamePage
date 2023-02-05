@@ -10,13 +10,16 @@ import SwiftUI
 struct ShowLineupRowMenuButton: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
 
+    @State private var leaveShowConfirmationAlertIsShowing = false
+    @State private var removeShowParticipantConfirmationAlertIsShowing = false
+
     let showParticipant: ShowParticipant
 
     var body: some View {
         if viewModel.show.loggedInUserIsShowHost {
             Menu {
                 Button(role: .destructive) {
-                    viewModel.removeShowParticipantConfirmationAlertIsShowing.toggle()
+                    removeShowParticipantConfirmationAlertIsShowing.toggle()
                 } label: {
                     Label("Remove Band from Lineup", systemImage: "trash")
                 }
@@ -25,7 +28,7 @@ struct ShowLineupRowMenuButton: View {
             }
             .alert(
                 "Are You Sure?",
-                isPresented: $viewModel.removeShowParticipantConfirmationAlertIsShowing,
+                isPresented: $removeShowParticipantConfirmationAlertIsShowing,
                 actions: {
                     Button("Cancel", role: .cancel) { }
                     Button("Yes", role: .destructive) {
@@ -41,7 +44,7 @@ struct ShowLineupRowMenuButton: View {
         } else if showParticipant.bandAdminIsLoggedInUser {
             Menu {
                 Button(role: .destructive) {
-                    viewModel.leaveShowConfirmationAlertIsShowing.toggle()
+                    leaveShowConfirmationAlertIsShowing.toggle()
                 } label: {
                     Label("Leave Show", systemImage: "figure.walk")
                 }
@@ -50,7 +53,7 @@ struct ShowLineupRowMenuButton: View {
             }
             .alert(
                 "Are You Sure?",
-                isPresented: $viewModel.leaveShowConfirmationAlertIsShowing,
+                isPresented: $leaveShowConfirmationAlertIsShowing,
                 actions: {
                     Button("Cancel", role: .cancel) { }
                     Button("Yes", role: .destructive) {
