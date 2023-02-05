@@ -30,6 +30,7 @@ class LoggedInUserController: ObservableObject {
     @Published var currentUserHasNoUsernameAlertIsShowing = false
     @Published var createUsernameSheetIsShowing = false
     @Published var accountDeletionWasSuccessful = false
+    @Published var passwordChangeWasSuccessful = false
     
     @Published var viewState = ViewState.displayingView {
         didSet {
@@ -161,6 +162,15 @@ class LoggedInUserController: ObservableObject {
         do {
             try await DatabaseService.shared.deleteAccountInFirebaseAuthAndFirestore(forUserWithUid: AuthController.getLoggedInUid())
             accountDeletionWasSuccessful = true
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func changePassword(to password: String) async {
+        do {
+            try await AuthController.changePassword(to: password)
+            passwordChangeWasSuccessful = true
         } catch {
             viewState = .error(message: error.localizedDescription)
         }

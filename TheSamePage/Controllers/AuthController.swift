@@ -60,4 +60,8 @@ final class AuthController: ObservableObject {
     static func userIsLoggedOut() -> Bool {
         return Auth.auth().currentUser == nil
     }
+
+    static func changePassword(to password: String) async throws {
+        try await Auth.auth().currentUser?.updatePassword(to: password)
+    }
 }
