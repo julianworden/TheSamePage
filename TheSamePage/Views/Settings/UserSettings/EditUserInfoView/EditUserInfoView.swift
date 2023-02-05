@@ -37,7 +37,7 @@ struct EditUserInfoView: View {
                 Button(role: .destructive) {
                     navigationViewModel.navigateToDeleteAccountView()
                 } label: {
-                    Text("Delete Account")
+                    MockNavigationLinkRow(text: "Delete Account", chevronColor: .red)
                 }
             }
         }

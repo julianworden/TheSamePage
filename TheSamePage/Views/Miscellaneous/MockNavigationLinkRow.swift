@@ -11,6 +11,12 @@ import SwiftUI
 /// after performing an asynchronous task successfully.
 struct MockNavigationLinkRow: View {
     let text: String
+    let chevronColor: Color
+
+    init(text: String, chevronColor: Color = .secondary) {
+        self.text = text
+        self.chevronColor = chevronColor
+    }
 
     var body: some View {
         HStack {
@@ -21,7 +27,7 @@ struct MockNavigationLinkRow: View {
             Image(systemName: "chevron.right")
                 .fontWeight(.semibold)
                 .imageScale(.small)
-                .foregroundColor(.secondary)
+                .foregroundColor(chevronColor)
                 .opacity(0.6)
         }
     }

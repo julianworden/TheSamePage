@@ -127,7 +127,7 @@ class DatabaseService: NSObject {
             let hostedShows = try query.documents.map { try $0.data(as: Show.self) }
 
             return hostedShows.filter {
-                $0.date.unixDateAsDate >= Date.now
+                $0.alreadyHappened == true
             }
         } catch {
             throw FirebaseError.connection(

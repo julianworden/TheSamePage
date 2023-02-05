@@ -20,7 +20,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     var bandIds: [String]
     var participantUids: [String]
     let venue: String
-    let date: Double
+    var date: Double
     var loadInTime: Double?
     var doorsTime: Double?
     var musicStartTime: Double?
@@ -173,6 +173,10 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     
     var lineupIsFull: Bool {
         return maxNumberOfBands == bandIds.count
+    }
+
+    var alreadyHappened: Bool {
+        return date.unixDateAsDate < Date.now ? true : false
     }
     
     static let example = Show(

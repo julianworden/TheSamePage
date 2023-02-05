@@ -51,6 +51,10 @@ class LoggedInUserController: ObservableObject {
         return adminBands.isEmpty && hostedShows.isEmpty
     }
 
+    var upcomingHostedShows: [Show] {
+        return hostedShows.filter { !$0.alreadyHappened }
+    }
+
     let db = Firestore.firestore()
 
     func callOnAppLaunchMethods() async {

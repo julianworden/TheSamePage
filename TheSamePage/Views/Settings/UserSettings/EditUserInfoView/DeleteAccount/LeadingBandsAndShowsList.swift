@@ -12,7 +12,7 @@ struct LeadingBandsAndShowsList: View {
 
     var body: some View {
         List {
-            if !loggedInUserController.hostedShows.isEmpty {
+            if !loggedInUserController.upcomingHostedShows.isEmpty {
                 Section {
                     ForEach(loggedInUserController.hostedShows) { show in
                         NavigationLink {

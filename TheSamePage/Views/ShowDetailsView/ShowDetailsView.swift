@@ -87,7 +87,7 @@ struct ShowDetailsView: View {
                             showParticipants: viewModel.showParticipants
                         )
                     }
-                } else if viewModel.show.loggedInUserIsNotInvolvedInShow {
+                } else if viewModel.show.loggedInUserIsNotInvolvedInShow && !viewModel.show.alreadyHappened {
                     Button {
                         viewModel.showApplicationSheetIsShowing.toggle()
                     } label: {
@@ -103,7 +103,7 @@ struct ShowDetailsView: View {
             }
             
             ToolbarItem(placement: .navigationBarTrailing) {
-                if viewModel.show.loggedInUserIsShowHost {
+                if viewModel.show.loggedInUserIsShowHost && !viewModel.show.alreadyHappened {
                     Button {
                         viewModel.showSettingsViewIsShowing.toggle()
                     } label: {

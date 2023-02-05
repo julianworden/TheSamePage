@@ -22,7 +22,7 @@ struct BandShowRow: View {
                 iconName: "stage",
                 displayDivider: true
             )
-            .foregroundColor(show.date.unixDateAsDate < Date.now ? .secondary : .primary)
+            .foregroundColor(show.alreadyHappened ? .secondary : .primary)
         }
     }
 }

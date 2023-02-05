@@ -252,4 +252,16 @@ final class ShowTests: XCTestCase {
 
         XCTAssertFalse(exampleShow.lineupIsFull, "The lineup is not full because 2 bands are playing the show and the max number of bands for the show is 4")
     }
+
+    func test_AlreadyHappened_ReturnsTrueWhenShowAlreadyHappened() {
+        exampleShow.date = 1672560000
+
+        XCTAssertTrue(exampleShow.alreadyHappened, "1/1/23 is in the past, so this show should've already happened.")
+    }
+
+    func test_AlreadyHappened_ReturnsFalseWhenShowDidNotAlreadyHappen() {
+        exampleShow.date = 253402329600
+
+        XCTAssertFalse(exampleShow.alreadyHappened, "January 1, 10,000 is in the future, so this should not have already happened.")
+    }
 }
