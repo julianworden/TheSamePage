@@ -102,7 +102,14 @@ final class NotificationsViewModel: ObservableObject {
     }
     
     func acceptShowInvite(showInvite: ShowInvite) async throws {
+        guard try await showInviteIsStillValid(showInvite: showInvite) else {
+            try await DatabaseService.shared.deleteShowInvite(showInvite: showInvite)
+            viewState = .error(message: ErrorMessageConstants.showLineupIsFullOnAcceptShowInvite)
+            return
+        }
+
         let band = try await DatabaseService.shared.getBand(with: showInvite.bandId)
+
         let showParticipant = ShowParticipant(
             name: showInvite.bandName,
             bandId: showInvite.bandId,
@@ -111,6 +118,12 @@ final class NotificationsViewModel: ObservableObject {
         )
         
         try await DatabaseService.shared.addBandToShow(add: band, as: showParticipant, withShowInvite: showInvite)
+    }
+
+    func showInviteIsStillValid(showInvite: ShowInvite) async throws -> Bool {
+        let show = try await DatabaseService.shared.getShow(showId: showInvite.showId)
+
+        return show.lineupIsFull == false
     }
 
     func declineBandInvite(bandInvite: BandInvite) async throws {

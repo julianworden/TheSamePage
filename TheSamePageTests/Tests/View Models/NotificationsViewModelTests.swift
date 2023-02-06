@@ -222,6 +222,33 @@ final class NotificationsViewModelTests: XCTestCase {
         XCTAssertFalse(showInviteExists, "The invite should no longer exist in the user's notifications collection after it was accepted")
     }
 
+    func test_OnAcceptShowInviteForShowWithFullLineup_InviteIsDeletedAndViewStateIsSet() async throws {
+        let mike = TestingConstants.exampleUserMike
+        try await testingDatabaseService.logInToMikeAccount()
+        try await testingDatabaseService.editShow(
+            showId: TestingConstants.exampleShowDumpweedExtravaganza.id,
+            field: FbConstants.maxNumberOfBands,
+            newValue: 2
+        )
+        let showInvite = try await createGenerationUndergroundAndSendInviteToPlayDumpweedExtravaganza()
+        let showInviteAsAnyUserNotification = AnyUserNotification(id: showInvite.id, notification: showInvite)
+
+        await sut.handleNotification(anyUserNotification: showInviteAsAnyUserNotification, withAction: .accept)
+        let showInviteExists = try await testingDatabaseService.notificationExists(
+            forUserWithUid: mike.id,
+            notificationId: showInvite.id
+        )
+
+        XCTAssertEqual(sut.viewState, .error(message: ErrorMessageConstants.showLineupIsFullOnAcceptShowInvite), "An error should've been thrown because the show's lineup was filled since the invite was sent.")
+        XCTAssertFalse(showInviteExists, "The invite should get deleted since it's no longer valid.")
+
+        try await testingDatabaseService.editShow(
+            showId: TestingConstants.exampleShowDumpweedExtravaganza.id,
+            field: FbConstants.maxNumberOfBands,
+            newValue: 3
+        )
+    }
+
     func test_OnDeclineShowInvite_BandIsNotAddedToShowAndNotificationIsDeleted() async throws {
         let mike = TestingConstants.exampleUserMike
         try await testingDatabaseService.logInToMikeAccount()

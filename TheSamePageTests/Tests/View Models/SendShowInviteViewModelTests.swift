@@ -105,7 +105,7 @@ final class SendShowInviteViewModelTests: XCTestCase {
 
         await sut.sendShowInvite()
 
-        XCTAssertEqual(sut.invalidInviteAlertText, ErrorMessageConstants.showLineupIsFull, "The max number of bands for the show is 1, and one band is already playing")
+        XCTAssertEqual(sut.invalidInviteAlertText, ErrorMessageConstants.showLineupIsFullOnSendShowInvite, "The max number of bands for the show is 1, and one band is already playing")
         XCTAssertTrue(sut.invalidInviteAlertIsShowing, "The show's lineup is full, so nobody else can be invited to play")
     }
 

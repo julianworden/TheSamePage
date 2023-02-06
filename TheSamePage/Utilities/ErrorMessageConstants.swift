@@ -35,9 +35,10 @@ struct ErrorMessageConstants {
     static let emailAddressesDoNotMatch = "The email addresses you entered do not match each other. Please try again."
     static let passwordsDoNotMatch = "The passwords you entered do not match each other. Please try again."
 
-    // MARK: - SendShowInvite
+    // MARK: - ShowInvite
     static let bandIsAlreadyPlayingShow = "This band is already playing this show."
-    static let showLineupIsFull = "This show's lineup is full. To invite this band, either increase the show's max number of bands or remove a band from the show's lineup."
+    static let showLineupIsFullOnSendShowInvite = "This show's lineup is full. To invite this band, either increase the show's max number of bands or remove a band from the show's lineup."
+    static let showLineupIsFullOnAcceptShowInvite = "Sorry, you can no longer accept this invite. This show's lineup is now full."
 
     // MARK: - Create Username
     static let usernameIsTooShort = "Your username must contain at least three characters."

@@ -39,10 +39,7 @@ struct NotificationsView: View {
             .navigationTitle("Notifications")
             .errorAlert(
                 isPresented: $viewModel.errorAlertIsShowing,
-                message: viewModel.errorAlertText,
-                tryAgainAction: {
-                    viewModel.getNotifications()
-                }
+                message: viewModel.errorAlertText
             )
             .task {
                 viewModel.getNotifications()

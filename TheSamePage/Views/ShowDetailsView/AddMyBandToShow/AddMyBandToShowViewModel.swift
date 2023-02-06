@@ -70,7 +70,7 @@ final class AddMyBandToShowViewModel: ObservableObject {
         }
 
         guard !show.lineupIsFull else {
-            invalidRequestAlertText = ErrorMessageConstants.showLineupIsFull
+            invalidRequestAlertText = ErrorMessageConstants.showLineupIsFullOnSendShowInvite
             invalidRequestAlertIsShowing = true
             return
         }

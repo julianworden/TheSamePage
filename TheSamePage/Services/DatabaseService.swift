@@ -845,7 +845,7 @@ class DatabaseService: NSObject {
     
     // MARK: - Shows
 
-    func getLatestShowData(showId: String) async throws -> Show {
+    func getShow(showId: String) async throws -> Show {
         do {
             return try await db
                 .collection(FbConstants.shows)

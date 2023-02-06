@@ -46,7 +46,7 @@ final class ShowSettingsViewModel: ObservableObject {
     func getLatestShowData() async {
         do {
             viewState = .dataLoading
-            show = try await DatabaseService.shared.getLatestShowData(showId: show.id)
+            show = try await DatabaseService.shared.getShow(showId: show.id)
             viewState = .dataLoaded
         } catch {
             viewState = .error(message: error.localizedDescription)

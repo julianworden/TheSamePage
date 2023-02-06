@@ -55,10 +55,12 @@ final class SendShowInviteViewModel: ObservableObject {
         }
         
         guard !selectedShow!.lineupIsFull else {
-            invalidInviteAlertText = ErrorMessageConstants.showLineupIsFull
+            invalidInviteAlertText = ErrorMessageConstants.showLineupIsFullOnSendShowInvite
             invalidInviteAlertIsShowing = true
             return nil
         }
+
+        viewState = .performingWork
             
         do {
             let senderUsername = try await AuthController.getLoggedInUsername()
@@ -81,7 +83,9 @@ final class SendShowInviteViewModel: ObservableObject {
                 message: "\(senderUsername) is inviting \(band.name) to play \(selectedShow!.name) at \(selectedShow!.venue) on \(selectedShow!.formattedDate)"
             )
 
-            return try await DatabaseService.shared.sendShowInvite(invite: showInvite)
+            let showInviteId = try await DatabaseService.shared.sendShowInvite(invite: showInvite)
+            viewState = .workCompleted
+            return showInviteId
         } catch {
             viewState = .error(message: error.localizedDescription)
             return nil

@@ -24,7 +24,7 @@ struct SendShowInviteView: View {
             case .dataLoading:
                 ProgressView()
 
-            case .dataLoaded:
+            case .dataLoaded, .performingWork, .workCompleted:
                 Form {
                     Picker("Which show would you like to invite \(viewModel.band.name) to?", selection: $viewModel.selectedShow) {
                         ForEach(viewModel.userShows) { show in
@@ -47,7 +47,7 @@ struct SendShowInviteView: View {
                     .padding(.horizontal)
 
             default:
-                ErrorMessage(message: "Unknown ViewState provided to SendShowInviteView.")
+                ErrorMessage(message: ErrorMessageConstants.invalidViewState)
             }
         }
         .navigationTitle("Send Show Invite")

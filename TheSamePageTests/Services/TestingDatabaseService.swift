@@ -95,6 +95,13 @@ class TestingDatabaseService {
         }
     }
 
+    func editShow(showId: String, field: String, newValue: Any) async throws {
+        try await db
+            .collection(FbConstants.shows)
+            .document(showId)
+            .updateData([field: newValue])
+    }
+
     func getPlayingShows(forUserWithUid uid: String) async throws -> [Show] {
         let showDocuments = try await db
             .collection(FbConstants.shows)

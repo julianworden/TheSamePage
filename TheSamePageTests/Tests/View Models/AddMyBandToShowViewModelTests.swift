@@ -136,7 +136,7 @@ final class AddMyBandToShowViewModelTests: XCTestCase {
 
         await sut.addBandToShow()
 
-        XCTAssertEqual(sut.invalidRequestAlertText, ErrorMessageConstants.showLineupIsFull, "The max number of bands for the show is 1, and 1 band is already playing")
+        XCTAssertEqual(sut.invalidRequestAlertText, ErrorMessageConstants.showLineupIsFullOnSendShowInvite, "The max number of bands for the show is 1, and 1 band is already playing")
         XCTAssertTrue(sut.invalidRequestAlertIsShowing, "The show's lineup is full, so nobody else can be added to the lineup")
     }
 }
