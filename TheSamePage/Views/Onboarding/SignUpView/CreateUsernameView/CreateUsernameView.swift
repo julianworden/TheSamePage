@@ -17,7 +17,7 @@ struct CreateUsernameView: View {
     var body: some View {
         Form {
             Section {
-                UsernameTextField("Username", text: $viewModel.username)
+                CustomTextField("Username", text: $viewModel.username)
             }
 
             Section {

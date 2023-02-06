@@ -437,7 +437,6 @@ class DatabaseService: NSObject {
         }
     }
 
-
     func deleteAccountInFirebaseAuthAndFirestore(forUserWithUid uid: String) async throws {
         do {
             try await deleteUserFromFirestore(withUid: uid)
@@ -447,6 +446,19 @@ class DatabaseService: NSObject {
                 message: "Failed to delete account. Please try again",
                 systemError: error.localizedDescription
             )
+        }
+    }
+
+    func changeEmailAddress(to emailAddress: String) async throws {
+        try await Auth.auth().currentUser?.updateEmail(to: emailAddress)
+
+        do {
+            try await db
+                .collection(FbConstants.users)
+                .document(AuthController.getLoggedInUid())
+                .updateData([FbConstants.emailAddress: emailAddress])
+        } catch {
+            throw FirebaseError.connection(message: "Email address update failed", systemError: error.localizedDescription)
         }
     }
 

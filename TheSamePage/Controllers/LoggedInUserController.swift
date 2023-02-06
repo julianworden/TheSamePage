@@ -32,6 +32,7 @@ class LoggedInUserController: ObservableObject {
     @Published var accountDeletionWasSuccessful = false
     @Published var passwordChangeWasSuccessful = false
     @Published var usernameChangeWasSuccessful = false
+    @Published var emailAddressChangeWasSuccessful = false
     
     @Published var viewState = ViewState.displayingView {
         didSet {
@@ -193,8 +194,6 @@ class LoggedInUserController: ObservableObject {
 
     func changeUsername(to username: String) async {
         do {
-            viewState = .performingWork
-
             guard try await usernameIsValid(username) else {
                 return
             }
@@ -204,5 +203,40 @@ class LoggedInUserController: ObservableObject {
         } catch {
             viewState = .error(message: error.localizedDescription)
         }
+    }
+
+    func changeEmailAddress(to emailAddress: String) async {
+        do {
+            try await DatabaseService.shared.changeEmailAddress(to: emailAddress)
+            try await sendEmailVerificationEmailToCurrentUser()
+            emailAddressChangeWasSuccessful = true
+        } catch {
+            let error = AuthErrorCode(_nsError: error as NSError)
+
+            switch error.code {
+            case .invalidEmail, .missingEmail:
+                viewState = .error(message: ErrorMessageConstants.invalidOrMissingEmailOnSignUp)
+            case .emailAlreadyInUse:
+                viewState = .error(message: ErrorMessageConstants.emailAlreadyInUseOnSignUp)
+            case .networkError:
+                viewState = .error(message: "\(ErrorMessageConstants.networkErrorOnSignUp). System error: \(error.localizedDescription)")
+            default:
+                viewState = .error(message: "\(ErrorMessageConstants.unknownError). System error: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    func sendEmailVerificationEmailToCurrentUser() async throws {
+        let actionCodeSettings = ActionCodeSettings()
+        // This line tells Firebase to direct the user to the url set in the
+        // url property AFTER they've reset their password. If this is true, the link
+        // in the password reset email will direct the user straight to the URL in the url property
+        actionCodeSettings.handleCodeInApp = false
+        if let appBundleId = Bundle.main.bundleIdentifier {
+            actionCodeSettings.setIOSBundleID(appBundleId)
+        }
+        actionCodeSettings.url = URL(string: "https://thesamepage.page.link")
+
+        try await Auth.auth().currentUser?.sendEmailVerification(with: actionCodeSettings)
     }
 }

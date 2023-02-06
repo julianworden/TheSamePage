@@ -7,18 +7,22 @@
 
 import SwiftUI
 
-struct UsernameTextField: View {
+/// A convenience view for adding a TextField that does not allow spaces and does not auto capitalize or correct text input.
+struct CustomTextField: View {
     @Binding var text: String
 
     let label: String
+    let keyboardType: UIKeyboardType
 
-    init(_ label: String, text: Binding<String>) {
+    init(_ label: String, text: Binding<String>, keyboardType: UIKeyboardType = .default) {
         _text = Binding(projectedValue: text)
         self.label = label
+        self.keyboardType = keyboardType
     }
 
     var body: some View {
         TextField(label, text: $text)
+            .keyboardType(keyboardType)
             .autocorrectionDisabled()
             .textInputAutocapitalization(.never)
             .onChange(of: text) { newText in

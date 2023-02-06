@@ -41,8 +41,8 @@ struct ChangeUsernameView: View {
     var body: some View {
         Form {
             Section {
-                UsernameTextField("New Username", text: $newUsername)
-                UsernameTextField("Confirm Username", text: $confirmedNewUsername)
+                CustomTextField("New Username", text: $newUsername)
+                CustomTextField("Confirm Username", text: $confirmedNewUsername)
             }
 
             Section {

@@ -17,7 +17,7 @@ struct ReauthenticateView: View {
     var body: some View {
         Form {
             Section {
-                TextField("Email Address", text: $viewModel.emailAddress)
+                CustomTextField("Email Address", text: $viewModel.emailAddress, keyboardType: .emailAddress)
                     .focused($keyboardIsFocused)
 
                 SecureField("Password", text: $viewModel.password)

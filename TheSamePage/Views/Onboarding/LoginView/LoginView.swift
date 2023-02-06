@@ -24,10 +24,12 @@ struct LoginView: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Email Address", text: $viewModel.emailAddress)
+                    CustomTextField("Email Address", text: $viewModel.emailAddress, keyboardType: .emailAddress)
                         .focused($keyboardIsFocused)
+
                     SecureField("Password", text: $viewModel.password)
                         .focused($keyboardIsFocused)
+
                     AsyncButton {
                         keyboardIsFocused = false
                         await viewModel.logInUserWith(

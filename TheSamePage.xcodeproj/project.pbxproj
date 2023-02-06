@@ -52,7 +52,7 @@
 		AB2C81612985A4B5001C68BE /* String+usernameFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2C81602985A4B5001C68BE /* String+usernameFormat.swift */; };
 		AB3074C129901C740025615F /* ChangeUsernameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3074C029901C740025615F /* ChangeUsernameView.swift */; };
 		AB3074C329901E650025615F /* UserSettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3074C229901E650025615F /* UserSettingsScreen.swift */; };
-		AB3074C5299020610025615F /* UsernameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3074C4299020610025615F /* UsernameTextField.swift */; };
+		AB3074C5299020610025615F /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3074C4299020610025615F /* CustomTextField.swift */; };
 		AB31440C291713B300E2D08B /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = AB31440B291713B300E2D08B /* FirebaseMessaging */; };
 		AB35A8CC28E9CFCF009FB203 /* LoggedInUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8CB28E9CFCF009FB203 /* LoggedInUserProfileView.swift */; };
 		AB35A8D628E9DC73009FB203 /* BandProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35A8D528E9DC73009FB203 /* BandProfileView.swift */; };
@@ -325,7 +325,7 @@
 		AB2C81602985A4B5001C68BE /* String+usernameFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+usernameFormat.swift"; sourceTree = "<group>"; };
 		AB3074C029901C740025615F /* ChangeUsernameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUsernameView.swift; sourceTree = "<group>"; };
 		AB3074C229901E650025615F /* UserSettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsScreen.swift; sourceTree = "<group>"; };
-		AB3074C4299020610025615F /* UsernameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameTextField.swift; sourceTree = "<group>"; };
+		AB3074C4299020610025615F /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		AB31440D29171C5A00E2D08B /* TheSamePage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TheSamePage.entitlements; sourceTree = "<group>"; };
 		AB35A8CB28E9CFCF009FB203 /* LoggedInUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserProfileView.swift; sourceTree = "<group>"; };
 		AB35A8D528E9DC73009FB203 /* BandProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileView.swift; sourceTree = "<group>"; };
@@ -888,7 +888,7 @@
 				ABE2FDFF29896BA600D5A951 /* MockBackButton.swift */,
 				ABE2FE012989722200D5A951 /* MockNavigationLinkRow.swift */,
 				AB24876B298C188A00BD4528 /* EllipsesMenuIcon.swift */,
-				AB3074C4299020610025615F /* UsernameTextField.swift */,
+				AB3074C4299020610025615F /* CustomTextField.swift */,
 			);
 			path = Miscellaneous;
 			sourceTree = "<group>";
@@ -1673,7 +1673,7 @@
 				ABA42BC8292D248400ADE3AD /* NotificationConstants.swift in Sources */,
 				AB5D08AB2913F5C20073F8EE /* ConversationViewModel.swift in Sources */,
 				ABFBA72329154FCD006B1751 /* ChatBubble.swift in Sources */,
-				AB3074C5299020610025615F /* UsernameTextField.swift in Sources */,
+				AB3074C5299020610025615F /* CustomTextField.swift in Sources */,
 				AB5E48F5290029B20076EABE /* FindShowsList.swift in Sources */,
 				AB794E2F28E25A81000ABB37 /* SearchViewModel.swift in Sources */,
 				AB5B77C528E72B8E00B32537 /* BandLinkRow.swift in Sources */,

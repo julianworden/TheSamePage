@@ -30,13 +30,10 @@ struct SignUpView: View {
             }
 
             Section {
-                TextField("Email Address", text: $viewModel.emailAddress)
-                    .autocorrectionDisabled()
-                    .autocapitalization(.none)
+                CustomTextField("Email Address", text: $viewModel.emailAddress, keyboardType: .emailAddress)
                     .focused($textFieldIsFocused)
-                TextField("Confirm Email Address", text: $viewModel.confirmedEmailAddress)
-                    .autocorrectionDisabled()
-                    .autocapitalization(.none)
+
+                CustomTextField("Confirm Email Address", text: $viewModel.confirmedEmailAddress, keyboardType: .emailAddress)
                     .focused($textFieldIsFocused)
             } footer: {
                 Text("Ensure you've entered a valid email address, you'll need to receive an email verification link after signing up.")
