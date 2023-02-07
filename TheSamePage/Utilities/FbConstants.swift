@@ -39,6 +39,7 @@ struct FbConstants {
     static let adminUid = "adminUid"
     static let hostUid = "hostUid"
     static let maxNumberOfBands = "maxNumberOfBands"
+    static let setTime = "setTime"
 
     // MARK: - Firebase Functions
     static let recursiveDelete = "recursiveDelete"

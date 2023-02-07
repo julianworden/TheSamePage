@@ -404,7 +404,8 @@ struct TestingConstants {
         name: exampleBandPatheticFallacy.name,
         bandId: exampleBandPatheticFallacy.id,
         bandAdminUid: exampleBandPatheticFallacy.adminUid,
-        showId: exampleShowDumpweedExtravaganza.id
+        showId: exampleShowDumpweedExtravaganza.id,
+        setTime: 1668826800
     )
 
     static let exampleShowParticipantDumpweedInDumpweedExtravaganza = ShowParticipant(

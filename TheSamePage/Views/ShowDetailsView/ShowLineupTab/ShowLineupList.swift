@@ -25,7 +25,9 @@ struct ShowLineupList: View {
 
                             Spacer()
 
-                            ShowLineupRowMenuButton(viewModel: viewModel, showParticipant: showParticipant)
+                            if viewModel.show.loggedInUserIsShowHost || showParticipant.bandAdminIsLoggedInUser {
+                                ShowLineupRowMenuButton(viewModel: viewModel, showParticipant: showParticipant)
+                            }
                         }
 
                         Divider()
@@ -33,6 +35,18 @@ struct ShowLineupList: View {
                 }
             }
         }
+        .sheet(
+            item: $viewModel.showParticipantToEdit,
+            onDismiss: {
+                Task {
+                    await viewModel.getShowParticipants()
+                    await viewModel.getLatestShowData()
+                }
+            },
+            content: { showParticipant in
+                AddEditSetTimeView(show: viewModel.show, showParticipant: showParticipant)
+            }
+        )
     }
 }
 

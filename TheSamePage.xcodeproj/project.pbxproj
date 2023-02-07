@@ -22,6 +22,8 @@
 		AB092F582984B96000264659 /* CreateUsernameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB092F572984B96000264659 /* CreateUsernameView.swift */; };
 		AB092F5A2984B96700264659 /* CreateUsernameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB092F592984B96700264659 /* CreateUsernameViewModel.swift */; };
 		AB0DD4D228F0D82E00CEA1BD /* ShowLineupList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DD4D128F0D82E00CEA1BD /* ShowLineupList.swift */; };
+		AB132FA62991EDE40055227C /* AddEditSetTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB132FA52991EDE40055227C /* AddEditSetTimeViewModel.swift */; };
+		AB132FA82991EDEA0055227C /* AddEditSetTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB132FA72991EDEA0055227C /* AddEditSetTimeView.swift */; };
 		AB1ACE2D28E08F9E00B46C90 /* Instrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1ACE2C28E08F9E00B46C90 /* Instrument.swift */; };
 		AB1B559629200CD100571316 /* ProfileImageStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1B559529200CD100571316 /* ProfileImageStyle.swift */; };
 		AB1B559829202E8300571316 /* SmallIconStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1B559729202E8300571316 /* SmallIconStyle.swift */; };
@@ -179,6 +181,7 @@
 		ABADC99429251C220049ABAA /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = ABADC99329251C220049ABAA /* FirebaseMessaging */; };
 		ABADC99629251C220049ABAA /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = ABADC99529251C220049ABAA /* FirebaseStorage */; };
 		ABADC999292529F90049ABAA /* Task+sleepInSeconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABADC998292529F90049ABAA /* Task+sleepInSeconds.swift */; };
+		ABADE07A2992A380001967FA /* AddEditSetTimeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABADE0792992A380001967FA /* AddEditSetTimeViewModelTests.swift */; };
 		ABB4C3F829205AC400E2C153 /* UserNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB4C3F729205AC400E2C153 /* UserNotification.swift */; };
 		ABB4C3FB29205D5700E2C153 /* AnyUserNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB4C3FA29205D5700E2C153 /* AnyUserNotification.swift */; };
 		ABB4C3FD2920618900E2C153 /* FbConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB4C3FC2920618900E2C153 /* FbConstants.swift */; };
@@ -295,6 +298,8 @@
 		AB092F572984B96000264659 /* CreateUsernameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUsernameView.swift; sourceTree = "<group>"; };
 		AB092F592984B96700264659 /* CreateUsernameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUsernameViewModel.swift; sourceTree = "<group>"; };
 		AB0DD4D128F0D82E00CEA1BD /* ShowLineupList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLineupList.swift; sourceTree = "<group>"; };
+		AB132FA52991EDE40055227C /* AddEditSetTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditSetTimeViewModel.swift; sourceTree = "<group>"; };
+		AB132FA72991EDEA0055227C /* AddEditSetTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditSetTimeView.swift; sourceTree = "<group>"; };
 		AB1ACE2C28E08F9E00B46C90 /* Instrument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instrument.swift; sourceTree = "<group>"; };
 		AB1B559529200CD100571316 /* ProfileImageStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageStyle.swift; sourceTree = "<group>"; };
 		AB1B559729202E8300571316 /* SmallIconStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallIconStyle.swift; sourceTree = "<group>"; };
@@ -445,6 +450,7 @@
 		ABA784E9290A3CFF0081CBF4 /* PlayingShowRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingShowRow.swift; sourceTree = "<group>"; };
 		ABAB45F828F24C2400FA8F70 /* HostedShowRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostedShowRow.swift; sourceTree = "<group>"; };
 		ABADC998292529F90049ABAA /* Task+sleepInSeconds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+sleepInSeconds.swift"; sourceTree = "<group>"; };
+		ABADE0792992A380001967FA /* AddEditSetTimeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditSetTimeViewModelTests.swift; sourceTree = "<group>"; };
 		ABB4C3F729205AC400E2C153 /* UserNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotification.swift; sourceTree = "<group>"; };
 		ABB4C3FA29205D5700E2C153 /* AnyUserNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyUserNotification.swift; sourceTree = "<group>"; };
 		ABB4C3FC2920618900E2C153 /* FbConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FbConstants.swift; sourceTree = "<group>"; };
@@ -593,6 +599,15 @@
 				AB092F592984B96700264659 /* CreateUsernameViewModel.swift */,
 			);
 			path = CreateUsernameView;
+			sourceTree = "<group>";
+		};
+		AB132FA42991EDCA0055227C /* AddEditSetTime */ = {
+			isa = PBXGroup;
+			children = (
+				AB132FA72991EDEA0055227C /* AddEditSetTimeView.swift */,
+				AB132FA52991EDE40055227C /* AddEditSetTimeViewModel.swift */,
+			);
+			path = AddEditSetTime;
 			sourceTree = "<group>";
 		};
 		AB1B559429200C8400571316 /* ViewModifiers */ = {
@@ -1165,6 +1180,7 @@
 				AB272F872976FD3D00E74091 /* AddBacklineViewModelTests.swift */,
 				ABCD20E0296C76A500258F6F /* AddEditBandViewModelTests.swift */,
 				ABBE36A5296B583B0092F594 /* AddEditShowViewModelTests.swift */,
+				ABADE0792992A380001967FA /* AddEditSetTimeViewModelTests.swift */,
 				AB7E1D75297A2AE80046DB92 /* AddMyBandToShowViewModelTests.swift */,
 				ABE0251D297393C50089E969 /* BandProfileViewModelTests.swift */,
 				ABA054982974C917006B5908 /* BandSettingsViewModelTests.swift */,
@@ -1203,6 +1219,7 @@
 				AB285AF828F6F71D00EB5F2B /* ShowTimeTab */,
 				AB07295C28F4661D0069B268 /* ShowBacklineTab */,
 				ABE07A0A29799A78009D3661 /* AddMyBandToShow */,
+				AB132FA42991EDCA0055227C /* AddEditSetTime */,
 			);
 			path = ShowDetailsView;
 			sourceTree = "<group>";
@@ -1752,6 +1769,7 @@
 				ABE3EFA828D919A2002EEF23 /* SignUpViewModel.swift in Sources */,
 				ABD323EF28E1180C00540B93 /* SendBandInviteView.swift in Sources */,
 				AB2BF26F2919C3D500C65DD8 /* ChatInfoViewModel.swift in Sources */,
+				AB132FA82991EDEA0055227C /* AddEditSetTimeView.swift in Sources */,
 				ABBEC0A82921D05600314BE5 /* BandSettingsViewModel.swift in Sources */,
 				ABD18AAD28EE14C1002286C3 /* SendShowInviteView.swift in Sources */,
 				ABCF232829131E4E003DB6BB /* ConversationView.swift in Sources */,
@@ -1773,6 +1791,7 @@
 				AB7AC08B298F043900650BCC /* ShowBacklineList.swift in Sources */,
 				AB8326B62912A89800208414 /* ShowBacklineRow.swift in Sources */,
 				ABDDAD4C28DB49DF00F1CF9B /* AddEditBandViewModel.swift in Sources */,
+				AB132FA62991EDE40055227C /* AddEditSetTimeViewModel.swift in Sources */,
 				AB1D5E4129874CAC00E62C29 /* ChangeEmailAddressView.swift in Sources */,
 				AB668EAF291BE666007899A9 /* LoggedInUserBandRow.swift in Sources */,
 				AB8326BA2912BB3500208414 /* ChatMessage.swift in Sources */,
@@ -1827,6 +1846,7 @@
 				ABC9F412296919A6004DE24B /* BandMemberTests.swift in Sources */,
 				ABBE369B296B39AC0092F594 /* MockController.swift in Sources */,
 				ABE3A2FD297775F100AA1548 /* LoggedInUserControllerTests.swift in Sources */,
+				ABADE07A2992A380001967FA /* AddEditSetTimeViewModelTests.swift in Sources */,
 				ABF9903E297584FC00FD32D1 /* ShowDetailsViewModelTests.swift in Sources */,
 				ABE0251E297393C50089E969 /* BandProfileViewModelTests.swift in Sources */,
 				AB9447C32981807900699235 /* ShowParticipantTests.swift in Sources */,

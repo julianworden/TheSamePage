@@ -17,6 +17,23 @@ struct ShowParticipant: Codable, Hashable, Identifiable {
     let bandId: String
     let bandAdminUid: String
     let showId: String
+    let setTime: Double?
+
+    init(
+        id: String? = nil,
+        name: String,
+        bandId: String,
+        bandAdminUid: String,
+        showId: String,
+        setTime: Double? = nil
+    ) {
+        self.id = id
+        self.name = name
+        self.bandId = bandId
+        self.bandAdminUid = bandAdminUid
+        self.showId = showId
+        self.setTime = setTime
+    }
     
     static let example = ShowParticipant(
         name: "Pathetic Fallacy",

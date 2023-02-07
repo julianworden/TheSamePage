@@ -28,6 +28,8 @@ final class ShowDetailsViewModel: ObservableObject {
     @Published var deleteImageConfirmationAlertIsShowing = false
     @Published var conversationViewIsShowing = false
     @Published var showSettingsViewIsShowing = false
+    /// Used to trigger AddEditSetTimeView sheet in ShowLineupTab.
+    @Published var showParticipantToEdit: ShowParticipant?
 
     /// The image loaded from the ProfileAsyncImage
     @Published var showImage: Image?

@@ -289,6 +289,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(patheticFallacyInEmulator.bandId, patheticFallacyInTestingConstants.bandId)
         XCTAssertEqual(patheticFallacyInEmulator.bandAdminUid, patheticFallacyInTestingConstants.bandAdminUid)
         XCTAssertEqual(patheticFallacyInEmulator.name, patheticFallacyInTestingConstants.name)
+        XCTAssertEqual(patheticFallacyInEmulator.setTime, patheticFallacyInTestingConstants.setTime)
     }
 
     func test_OnInit_ExampleShowParticipantDumpweedInDumpweedExtravaganzaHasExpectedValues() async throws {
@@ -302,6 +303,8 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(dumpweedInEmulator.bandId, dumpweedInTestingConstants.bandId)
         XCTAssertEqual(dumpweedInEmulator.bandAdminUid, dumpweedInTestingConstants.bandAdminUid)
         XCTAssertEqual(dumpweedInEmulator.name, dumpweedInTestingConstants.name)
+        XCTAssertEqual(dumpweedInEmulator.setTime, dumpweedInTestingConstants.setTime)
+
     }
 
     func test_OnInit_ExampleShowParticipantTheApplesInAppleParkThrowdownHasExpectedValues() async throws {
@@ -314,7 +317,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(theApplesInEmulator.showId, theApplesInTestingConstants.showId)
         XCTAssertEqual(theApplesInEmulator.bandId, theApplesInTestingConstants.bandId)
         XCTAssertEqual(theApplesInEmulator.bandAdminUid, theApplesInTestingConstants.bandAdminUid)
-        XCTAssertEqual(theApplesInEmulator.name, theApplesInTestingConstants.name)
+        XCTAssertEqual(theApplesInEmulator.setTime, theApplesInEmulator.setTime)
     }
 
     func test_OnInit_ExampleShowParticipantsInFirestoreEmulatorMatchTestingConstants() async throws {

@@ -1421,8 +1421,46 @@ class DatabaseService: NSObject {
             )
         }
     }
+
+    func addEditSetTime(newSetTime: Date, for showParticipant: ShowParticipant, in show: Show) async throws {
+        guard let showParticipantId = showParticipant.id else {
+            throw LogicError.unexpectedNilValue(message: "Failed to edit set time, please restart The Same Page and try again")
+        }
+
+        do {
+            try await db
+                .collection(FbConstants.shows)
+                .document(show.id)
+                .collection(FbConstants.participants)
+                .document(showParticipantId)
+                .updateData([FbConstants.setTime: newSetTime.timeIntervalSince1970])
+        } catch {
+            throw FirebaseError.connection(message: "Failed to edit set time", systemError: error.localizedDescription)
+        }
+    }
+
+    func deleteSetTime(for showParticipant: ShowParticipant, in show: Show) async throws {
+        guard let showParticipantId = showParticipant.id else {
+            throw LogicError.unexpectedNilValue(message: "Failed to delete set time, please restart The Same Page and try again")
+        }
+
+        do {
+            try await db
+                .collection(FbConstants.shows)
+                .document(show.id)
+                .collection(FbConstants.participants)
+                .document(showParticipantId)
+                .updateData([FbConstants.setTime: FieldValue.delete()])
+        } catch {
+            throw FirebaseError.connection(message: "Failed to delete set time", systemError: error.localizedDescription)
+        }
+    }
+
+
     
     // MARK: - Chats
+
+
 
     /// Fetches the chat that belongs to a given show.
     /// - Parameter showId: The ID of the show that the fetched chat is associated with.

@@ -590,6 +590,15 @@ class TestingDatabaseService {
             .isEmpty
     }
 
+    func restoreShowParticipant(restore showParticipant: ShowParticipant, in show: Show) throws {
+        try db
+            .collection(FbConstants.shows)
+            .document(show.id)
+            .collection(FbConstants.participants)
+            .document(showParticipant.id!)
+            .setData(from: showParticipant)
+    }
+
     // MARK: - Firestore Chats and ChatMessages
 
     func getChat(forShowWithId showId: String) async throws -> Chat {
