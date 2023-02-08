@@ -19,8 +19,10 @@ struct ShowLineupRowMenuButton: View {
         ZStack {
             Menu {
                 if viewModel.show.loggedInUserIsShowHost {
-                    Button("Edit Set Time") {
+                    Button {
                         viewModel.showParticipantToEdit = showParticipant
+                    } label: {
+                        Label("Edit Set Time", systemImage: "square.and.pencil")
                     }
                 }
 

@@ -322,15 +322,15 @@ final class ShowDetailsViewModelTests: XCTestCase {
         dumpweedExtravaganzaDup.endTime = nil
         sut = ShowDetailsViewModel(show: dumpweedExtravaganzaDup)
 
-        let doorsText = sut.getShowTimeRowText(forShowTimeType: .loadIn)
+        let doorsText = sut.getShowTimeRowText(forShowTimeType: .doors)
         let loadInText = sut.getShowTimeRowText(forShowTimeType: .loadIn)
-        let musicStartText = sut.getShowTimeRowText(forShowTimeType: .loadIn)
-        let endText = sut.getShowTimeRowText(forShowTimeType: .loadIn)
+        let musicStartText = sut.getShowTimeRowText(forShowTimeType: .musicStart)
+        let endText = sut.getShowTimeRowText(forShowTimeType: .end)
 
-        XCTAssertEqual("Not Set", doorsText)
-        XCTAssertEqual("Not Set", loadInText)
-        XCTAssertEqual("Not Set", musicStartText)
-        XCTAssertEqual("Not Set", endText)
+        XCTAssertEqual("Doors: Not Set", doorsText)
+        XCTAssertEqual("Load In: Not Set", loadInText)
+        XCTAssertEqual("Music Start: Not Set", musicStartText)
+        XCTAssertEqual("End: Not Set", endText)
     }
 
     func test_OnClearAllBacklineItems_BacklineArrayIsCleared() async throws {

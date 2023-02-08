@@ -30,6 +30,8 @@ final class ShowDetailsViewModel: ObservableObject {
     @Published var showSettingsViewIsShowing = false
     /// Used to trigger AddEditSetTimeView sheet in ShowLineupTab.
     @Published var showParticipantToEdit: ShowParticipant?
+    /// Used to trigger AddEditShowTimeView sheet in ShowTimeTab.
+    @Published var selectedShowTimeType: ShowTimeType?
 
     /// The image loaded from the ProfileAsyncImage
     @Published var showImage: Image?
@@ -217,25 +219,25 @@ final class ShowDetailsViewModel: ObservableObject {
             if let showLoadInTime = show.loadInTime?.unixDateAsDate {
                 return "\(showTimeType.rowTitleText) \(showLoadInTime.timeShortened)"
             } else {
-                return "Not Set"
+                return "Load In: Not Set"
             }
         case .musicStart:
             if let showMusicStartTime = show.musicStartTime?.unixDateAsDate {
                 return "\(showTimeType.rowTitleText) \(showMusicStartTime.timeShortened)"
             } else {
-                return "Not Set"
+                return "Music Start: Not Set"
             }
         case .end:
             if let showEndTime = show.endTime?.unixDateAsDate {
                 return "\(showTimeType.rowTitleText) \(showEndTime.timeShortened)"
             } else {
-                return "Not Set"
+                return "End: Not Set"
             }
         case .doors:
             if let showDoorsTime = show.doorsTime?.unixDateAsDate {
                 return "\(showTimeType.rowTitleText) \(showDoorsTime.timeShortened)"
             } else {
-                return "Not Set"
+                return "Doors: Not Set"
             }
         }
     }

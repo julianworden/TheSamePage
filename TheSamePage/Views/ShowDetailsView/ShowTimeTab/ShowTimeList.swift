@@ -11,50 +11,37 @@ import SwiftUI
 struct ShowTimeList: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
 
-    @State private var selectedShowTimeType: ShowTimeType?
-    
     var body: some View {
         let show = viewModel.show
         
         VStack(spacing: UiConstants.listRowSpacing) {
-            ShowTimeRow(viewModel: viewModel, selectedShowTimeType: $selectedShowTimeType, showTimeType: .loadIn)
+            ShowTimeRow(viewModel: viewModel, showTimeType: .loadIn)
             Divider()
 
-            ShowTimeRow(viewModel: viewModel, selectedShowTimeType: $selectedShowTimeType, showTimeType: .doors)
+            ShowTimeRow(viewModel: viewModel, showTimeType: .doors)
             Divider()
 
-            ShowTimeRow(viewModel: viewModel, selectedShowTimeType: $selectedShowTimeType, showTimeType: .musicStart)
+            ShowTimeRow(viewModel: viewModel, showTimeType: .musicStart)
             Divider()
 
-            ShowTimeRow(viewModel: viewModel, selectedShowTimeType: $selectedShowTimeType, showTimeType: .end)
+            ShowTimeRow(viewModel: viewModel, showTimeType: .end)
             Divider()
         }
         .sheet(
-            item: $selectedShowTimeType,
+            item: $viewModel.selectedShowTimeType,
             onDismiss: {
                 Task {
                     await viewModel.getLatestShowData()
                 }
             },
             content: { showTimeType in
-                NavigationStack {
-                    switch showTimeType {
-                    case .loadIn:
-                        AddShowTimeView(show: show, showTimeType: showTimeType)
-                    case .musicStart:
-                        AddShowTimeView(show: show, showTimeType: showTimeType)
-                    case .end:
-                        AddShowTimeView(show: show, showTimeType: showTimeType)
-                    case .doors:
-                        AddShowTimeView(show: show, showTimeType: showTimeType)
-                    }
-                }
+                AddEditShowTimeView(show: show, showTimeType: showTimeType)
             }
         )
     }
 }
 
-    
+
 struct ShowTimeList_Previews: PreviewProvider {
     static var previews: some View {
         ShowTimeList(viewModel: ShowDetailsViewModel(show: Show.example))

@@ -10,8 +10,6 @@ import SwiftUI
 struct ShowTimeRow: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
 
-    @Binding var selectedShowTimeType: ShowTimeType?
-    
     let showTimeType: ShowTimeType
     
     var body: some View {
@@ -26,20 +24,10 @@ struct ShowTimeRow: View {
 
                 if viewModel.show.loggedInUserIsShowHost {
                     Menu {
-                        if viewModel.timeForShowExists(showTimeType: showTimeType) {
-                            Button(role: .destructive) {
-                                Task {
-                                    await viewModel.removeShowTimeFromShow(showTimeType: showTimeType)
-                                }
-                            } label: {
-                                Label("Delete Time", systemImage: "trash")
-                            }
-                        } else {
-                            Button {
-                                selectedShowTimeType = showTimeType
-                            } label: {
-                                Label("Add Time", systemImage: "plus")
-                            }
+                        Button {
+                            viewModel.selectedShowTimeType = showTimeType
+                        } label: {
+                            Label("Edit Time", systemImage: "square.and.pencil")
                         }
                     } label: {
                         EllipsesMenuIcon()
@@ -52,6 +40,6 @@ struct ShowTimeRow: View {
 
 struct ShowTimeRow_Previews: PreviewProvider {
     static var previews: some View {
-        ShowTimeRow(viewModel: ShowDetailsViewModel(show: Show.example), selectedShowTimeType: .constant(nil), showTimeType: .doors)
+        ShowTimeRow(viewModel: ShowDetailsViewModel(show: Show.example), showTimeType: .doors)
     }
 }

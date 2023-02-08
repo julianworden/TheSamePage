@@ -1198,28 +1198,10 @@ class DatabaseService: NSObject {
     
     func addTimeToShow(addTime time: Date, ofType showTimeType: ShowTimeType, forShow show: Show) async throws {
         do {
-            switch showTimeType {
-            case .loadIn:
-                try await db
-                    .collection(FbConstants.shows)
-                    .document(show.id)
-                    .updateData(["loadInTime": time.timeIntervalSince1970])
-            case .musicStart:
-                try await db
-                    .collection(FbConstants.shows)
-                    .document(show.id)
-                    .updateData(["musicStartTime": time.timeIntervalSince1970])
-            case .end:
-                try await db
-                    .collection(FbConstants.shows)
-                    .document(show.id)
-                    .updateData(["endTime": time.timeIntervalSince1970])
-            case .doors:
-                try await db
-                    .collection(FbConstants.shows)
-                    .document(show.id)
-                    .updateData(["doorsTime": time.timeIntervalSince1970])
-            }
+            try await db
+                .collection(FbConstants.shows)
+                .document(show.id)
+                .updateData([showTimeType.fbFieldValueName: time.timeIntervalSince1970])
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to add \(showTimeType.rawValue) time to \(show.name)",
@@ -1230,28 +1212,10 @@ class DatabaseService: NSObject {
     
     func deleteTimeFromShow(delete showTimeType: ShowTimeType, fromShow show: Show) async throws {
         do {
-            switch showTimeType {
-            case .loadIn:
-                try await db
-                    .collection(FbConstants.shows)
-                    .document(show.id)
-                    .updateData(["loadInTime": FieldValue.delete()])
-            case .musicStart:
-                try await db
-                    .collection(FbConstants.shows)
-                    .document(show.id)
-                    .updateData(["musicStartTime": FieldValue.delete()])
-            case .end:
-                try await db
-                    .collection(FbConstants.shows)
-                    .document(show.id)
-                    .updateData(["endTime": FieldValue.delete()])
-            case .doors:
-                try await db
-                    .collection(FbConstants.shows)
-                    .document(show.id)
-                    .updateData(["doorsTime": FieldValue.delete()])
-            }
+            try await db
+                .collection(FbConstants.shows)
+                .document(show.id)
+                .updateData([showTimeType.fbFieldValueName: FieldValue.delete()])
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to delete \(showTimeType.rawValue) time from \(show.name)",

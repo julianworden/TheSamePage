@@ -43,8 +43,8 @@ struct AddEditSetTimeView: View {
                         Button("Delete Set Time") {
                             viewModel.deleteSetTimeConfirmationAlertIsShowing.toggle()
                         }
+                        .tint(.red)
                         .disabled(viewModel.disableButtonsAndDismissal)
-                        .foregroundColor(.red)
                         .alert(
                             "Are You Sure?",
                             isPresented: $viewModel.deleteSetTimeConfirmationAlertIsShowing,

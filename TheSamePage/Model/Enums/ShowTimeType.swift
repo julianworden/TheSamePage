@@ -40,4 +40,17 @@ enum ShowTimeType: String, CaseIterable, Identifiable {
             return "doors"
         }
     }
+
+    var fbFieldValueName: String {
+        switch self {
+        case .loadIn:
+            return "loadInTime"
+        case .musicStart:
+            return "musicStartTime"
+        case .end:
+            return "endTime"
+        case .doors:
+            return "doorsTime"
+        }
+    }
 }

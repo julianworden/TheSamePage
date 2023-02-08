@@ -44,8 +44,8 @@
 		AB285AFA28F6F76200EB5F2B /* ShowTimeTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285AF928F6F76200EB5F2B /* ShowTimeTab.swift */; };
 		AB285AFC28F6F7EE00EB5F2B /* ShowTimeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285AFB28F6F7EE00EB5F2B /* ShowTimeList.swift */; };
 		AB285B0228F6FE8A00EB5F2B /* ShowTimeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285B0128F6FE8A00EB5F2B /* ShowTimeType.swift */; };
-		AB285B0428F6FF6600EB5F2B /* AddShowTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285B0328F6FF6600EB5F2B /* AddShowTimeView.swift */; };
-		AB285B0828F7086D00EB5F2B /* AddShowTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285B0728F7086D00EB5F2B /* AddShowTimeViewModel.swift */; };
+		AB285B0428F6FF6600EB5F2B /* AddEditShowTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285B0328F6FF6600EB5F2B /* AddEditShowTimeView.swift */; };
+		AB285B0828F7086D00EB5F2B /* AddEditShowTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285B0728F7086D00EB5F2B /* AddEditShowTimeViewModel.swift */; };
 		AB2B867A28D9EE43004601B6 /* MyShowsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867928D9EE43004601B6 /* MyShowsViewModel.swift */; };
 		AB2B867C28D9F444004601B6 /* NoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867B28D9F444004601B6 /* NoImageView.swift */; };
 		AB2B867E28D9F884004601B6 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867D28D9F884004601B6 /* ImagePicker.swift */; };
@@ -249,6 +249,7 @@
 		ABE3EFA828D919A2002EEF23 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */; };
 		ABE7AB002978C14500534FC3 /* NoDataFoundMessageWithButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE7AAFF2978C14500534FC3 /* NoDataFoundMessageWithButtonView.swift */; };
 		ABEBBD91298C993200481139 /* BandProfileMemberRowMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEBBD90298C993200481139 /* BandProfileMemberRowMenuButton.swift */; };
+		ABECC6BC29930E1F004424B1 /* AddEditShowTimeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABECC6BB29930E1F004424B1 /* AddEditShowTimeViewModelTests.swift */; };
 		ABEF10E528E64CD800A1DBAC /* AddEditLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEF10E428E64CD800A1DBAC /* AddEditLinkView.swift */; };
 		ABEF10E728E64CE100A1DBAC /* AddEditLinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEF10E628E64CE100A1DBAC /* AddEditLinkViewModel.swift */; };
 		ABEF10EA28E6506000A1DBAC /* LinkPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEF10E928E6506000A1DBAC /* LinkPlatform.swift */; };
@@ -320,8 +321,8 @@
 		AB285AF928F6F76200EB5F2B /* ShowTimeTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimeTab.swift; sourceTree = "<group>"; };
 		AB285AFB28F6F7EE00EB5F2B /* ShowTimeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimeList.swift; sourceTree = "<group>"; };
 		AB285B0128F6FE8A00EB5F2B /* ShowTimeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimeType.swift; sourceTree = "<group>"; };
-		AB285B0328F6FF6600EB5F2B /* AddShowTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShowTimeView.swift; sourceTree = "<group>"; };
-		AB285B0728F7086D00EB5F2B /* AddShowTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShowTimeViewModel.swift; sourceTree = "<group>"; };
+		AB285B0328F6FF6600EB5F2B /* AddEditShowTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowTimeView.swift; sourceTree = "<group>"; };
+		AB285B0728F7086D00EB5F2B /* AddEditShowTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowTimeViewModel.swift; sourceTree = "<group>"; };
 		AB2B867928D9EE43004601B6 /* MyShowsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowsViewModel.swift; sourceTree = "<group>"; };
 		AB2B867B28D9F444004601B6 /* NoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoImageView.swift; sourceTree = "<group>"; };
 		AB2B867D28D9F884004601B6 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -518,6 +519,7 @@
 		ABE3EFA728D919A2002EEF23 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		ABE7AAFF2978C14500534FC3 /* NoDataFoundMessageWithButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataFoundMessageWithButtonView.swift; sourceTree = "<group>"; };
 		ABEBBD90298C993200481139 /* BandProfileMemberRowMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandProfileMemberRowMenuButton.swift; sourceTree = "<group>"; };
+		ABECC6BB29930E1F004424B1 /* AddEditShowTimeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowTimeViewModelTests.swift; sourceTree = "<group>"; };
 		ABEF10E428E64CD800A1DBAC /* AddEditLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditLinkView.swift; sourceTree = "<group>"; };
 		ABEF10E628E64CE100A1DBAC /* AddEditLinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditLinkViewModel.swift; sourceTree = "<group>"; };
 		ABEF10E828E64F8800A1DBAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -1031,8 +1033,8 @@
 		AB6514E328F91250008DFDD0 /* AddShowTimeView */ = {
 			isa = PBXGroup;
 			children = (
-				AB285B0328F6FF6600EB5F2B /* AddShowTimeView.swift */,
-				AB285B0728F7086D00EB5F2B /* AddShowTimeViewModel.swift */,
+				AB285B0328F6FF6600EB5F2B /* AddEditShowTimeView.swift */,
+				AB285B0728F7086D00EB5F2B /* AddEditShowTimeViewModel.swift */,
 			);
 			path = AddShowTimeView;
 			sourceTree = "<group>";
@@ -1180,6 +1182,7 @@
 				AB272F872976FD3D00E74091 /* AddBacklineViewModelTests.swift */,
 				ABCD20E0296C76A500258F6F /* AddEditBandViewModelTests.swift */,
 				ABBE36A5296B583B0092F594 /* AddEditShowViewModelTests.swift */,
+				ABECC6BB29930E1F004424B1 /* AddEditShowTimeViewModelTests.swift */,
 				ABADE0792992A380001967FA /* AddEditSetTimeViewModelTests.swift */,
 				AB7E1D75297A2AE80046DB92 /* AddMyBandToShowViewModelTests.swift */,
 				ABE0251D297393C50089E969 /* BandProfileViewModelTests.swift */,
@@ -1757,7 +1760,7 @@
 				AB1B559629200CD100571316 /* ProfileImageStyle.swift in Sources */,
 				AB1ACE2D28E08F9E00B46C90 /* Instrument.swift in Sources */,
 				ABEF10E528E64CD800A1DBAC /* AddEditLinkView.swift in Sources */,
-				AB285B0428F6FF6600EB5F2B /* AddShowTimeView.swift in Sources */,
+				AB285B0428F6FF6600EB5F2B /* AddEditShowTimeView.swift in Sources */,
 				AB3074C329901E650025615F /* UserSettingsScreen.swift in Sources */,
 				AB5E490029003CF10076EABE /* BacklineItemType.swift in Sources */,
 				ABCAA9FF28E9E56C00685F91 /* BandProfileHeader.swift in Sources */,
@@ -1801,7 +1804,7 @@
 				AB7AC087298EF9D700650BCC /* Backline.swift in Sources */,
 				ABF83DD0291A98CB006A06CC /* ListRowElements.swift in Sources */,
 				AB38E1B328FB2422006D1788 /* CLPlacemark+formattedAddress.swift in Sources */,
-				AB285B0828F7086D00EB5F2B /* AddShowTimeViewModel.swift in Sources */,
+				AB285B0828F7086D00EB5F2B /* AddEditShowTimeViewModel.swift in Sources */,
 				AB24876E298C1C3100BD4528 /* LoggedInUserBandMenuButton.swift in Sources */,
 				AB5E48F829003ACF0076EABE /* ElectricGuitarGear.swift in Sources */,
 				AB07296328F468530069B268 /* ShowLocationTab.swift in Sources */,
@@ -1861,6 +1864,7 @@
 				AB657D2329719D5A00696EF4 /* LoginViewModelTests.swift in Sources */,
 				ABD4BD1E2968695E00CCA88B /* BandTests.swift in Sources */,
 				AB816582298424E800C5C1B4 /* ForgotPasswordViewModelTests.swift in Sources */,
+				ABECC6BC29930E1F004424B1 /* AddEditShowTimeViewModelTests.swift in Sources */,
 				ABA75756296F92A8001F6B70 /* NotificationsViewModelTests.swift in Sources */,
 				AB1CDD3E296A12BD008ACC48 /* ChatTests.swift in Sources */,
 				ABE0251C29738CE70089E969 /* SendBandInviteViewModelTests.swift in Sources */,
