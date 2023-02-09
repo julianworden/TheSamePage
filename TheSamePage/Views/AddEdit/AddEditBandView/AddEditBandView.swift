@@ -22,78 +22,82 @@ struct AddEditBandView: View {
     }
     
     var body: some View {
-        Form {
-            Section("Info") {
-                if viewModel.bandToEdit == nil {
-                    ImageSelectionButton(
-                        imagePickerIsShowing: $viewModel.imagePickerIsShowing,
-                        selectedImage: $viewModel.selectedImage
-                    )
-                }
-                
-                TextField("Name", text: $viewModel.bandName)
-                Picker("Genre", selection: $viewModel.bandGenre) {
-                    ForEach(Genre.allCases) { genre in
-                        Text(genre.rawValue)
+        NavigationStack {
+            Form {
+                Section("Info") {
+                    if viewModel.bandToEdit == nil {
+                        ImageSelectionButton(
+                            imagePickerIsShowing: $viewModel.imagePickerIsShowing,
+                            selectedImage: $viewModel.selectedImage
+                        )
                     }
-                }
-                
-                if viewModel.bandToEdit == nil {
-                    Toggle("Do you play in this band?", isOn: $viewModel.userPlaysInBand)
-                    
-                    if viewModel.userPlaysInBand {
-                        Picker("What's your role in this band?", selection: $viewModel.userRoleInBand) {
-                            ForEach(Instrument.allCases) { instrument in
-                                Text(instrument.rawValue)
+
+                    TextField("Name", text: $viewModel.bandName)
+                    Picker("Genre", selection: $viewModel.bandGenre) {
+                        ForEach(Genre.allCases) { genre in
+                            Text(genre.rawValue)
+                        }
+                    }
+
+                    if viewModel.bandToEdit == nil {
+                        Toggle("Do you play in this band?", isOn: $viewModel.userPlaysInBand)
+
+                        if viewModel.userPlaysInBand {
+                            Picker("What's your role in this band?", selection: $viewModel.userRoleInBand) {
+                                ForEach(Instrument.allCases) { instrument in
+                                    Text(instrument.rawValue)
+                                }
                             }
                         }
                     }
                 }
+
+                Section {
+                    TextField("Bio", text: $viewModel.bandBio, axis: .vertical)
+                }
+
+                Section("Location") {
+                    TextField("City", text: $viewModel.bandCity)
+                    Picker("State", selection: $viewModel.bandState) {
+                        ForEach(BandState.allCases) { state in
+                            Text(state.rawValue)
+                        }
+                    }
+                }
+
+                Section {
+                    AsyncButton {
+                        await viewModel.createUpdateBandButtonTapped()
+                    } label: {
+                        Text(viewModel.bandToEdit == nil ? "Create Band" : "Update Band Info")
+                    }
+                    .disabled(viewModel.buttonsAreDisabled)
+                }
             }
-            
-            Section {
-                TextField("Bio", text: $viewModel.bandBio, axis: .vertical)
-            }
-            
-            Section("Location") {
-                TextField("City", text: $viewModel.bandCity)
-                Picker("State", selection: $viewModel.bandState) {
-                    ForEach(BandState.allCases) { state in
-                        Text(state.rawValue)
+            .navigationTitle(viewModel.bandToEdit == nil ? "Create a Band" : "Update Band Info")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(viewModel.buttonsAreDisabled)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    if viewModel.isPresentedModally {
+                        Button("Back", role: .cancel) {
+                            dismiss()
+                        }
+                        .disabled(viewModel.buttonsAreDisabled)
                     }
                 }
             }
-            
-            Section {
-                AsyncButton {
-                    await viewModel.createUpdateBandButtonTapped()
-                } label: {
-                    Text(viewModel.bandToEdit == nil ? "Create Band" : "Update Band Info")
-                }
-                .disabled(viewModel.bandCreationButtonIsDisabled)
+            .sheet(isPresented: $viewModel.imagePickerIsShowing) {
+                ImagePicker(image: $viewModel.selectedImage, pickerIsShowing: $viewModel.imagePickerIsShowing)
             }
-        }
-        .navigationTitle(viewModel.bandToEdit == nil ? "Create a Band" : "Update Band Info")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                if viewModel.isPresentedModally {
-                    Button("Back", role: .cancel) {
-                        dismiss()
-                    }
+            .errorAlert(
+                isPresented: $viewModel.errorAlertIsShowing,
+                message: viewModel.errorAlertText
+            )
+            .onChange(of: viewModel.dismissView) { dismissView in
+                if dismissView {
+                    dismiss()
                 }
-            }
-        }
-        .sheet(isPresented: $viewModel.imagePickerIsShowing) {
-            ImagePicker(image: $viewModel.selectedImage, pickerIsShowing: $viewModel.imagePickerIsShowing)
-        }
-        .errorAlert(
-            isPresented: $viewModel.errorAlertIsShowing,
-            message: viewModel.errorAlertText
-        )
-        .onChange(of: viewModel.dismissView) { dismissView in
-            if dismissView {
-                dismiss()
             }
         }
     }

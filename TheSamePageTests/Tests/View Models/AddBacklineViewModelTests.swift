@@ -52,7 +52,7 @@ final class AddBacklineViewModelTests: XCTestCase {
         XCTAssertFalse(sut.hiHatIncluded)
         XCTAssertFalse(sut.cymbalsIncluded)
         XCTAssertFalse(sut.cymbalStandsIncluded)
-        XCTAssertFalse(sut.addGearButtonIsDisabled)
+        XCTAssertFalse(sut.buttonsAreDisabled)
         XCTAssertFalse(sut.gearAddedSuccessfully)
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertEqual(sut.numberOfTomsIncluded, 1)
@@ -67,14 +67,14 @@ final class AddBacklineViewModelTests: XCTestCase {
     func test_OnPerformingWorkViewState_PropertiesAreSet() async throws {
         sut.viewState = .performingWork
 
-        XCTAssertTrue(sut.addGearButtonIsDisabled, "The button should be disabled while work is being performed.")
+        XCTAssertTrue(sut.buttonsAreDisabled, "The button should be disabled while work is being performed.")
     }
 
     func test_OnWorkCompletedViewState_PropertiesAreSet() async throws {
         sut.viewState = .workCompleted
 
         XCTAssertTrue(sut.gearAddedSuccessfully, "The view should be dismissed if the user is not onboarding and the band is successfully created.")
-        XCTAssertFalse(sut.addGearButtonIsDisabled, "The button should be re-enabled in case the view doesn't get dismissed automatically for some reason.")
+        XCTAssertFalse(sut.buttonsAreDisabled, "The button should be re-enabled in case the view doesn't get dismissed automatically for some reason.")
     }
 
     func test_OnErrorViewState_PropertiesAreSet() {
@@ -82,7 +82,7 @@ final class AddBacklineViewModelTests: XCTestCase {
 
         XCTAssertTrue(sut.errorAlertIsShowing, "An error alert should be presented.")
         XCTAssertEqual(sut.errorAlertText, "AN ERROR HAPPENED", "The error message should be assigned to the text property.")
-        XCTAssertFalse(sut.addGearButtonIsDisabled, "The user should be able to retry after an error occurs.")
+        XCTAssertFalse(sut.buttonsAreDisabled, "The user should be able to retry after an error occurs.")
     }
 
     func test_OnInvalidViewState_PropertiesAreSet() {

@@ -27,7 +27,7 @@ final class ForgotPasswordViewModelTests: XCTestCase {
 
     func test_OnInit_DefaultValuesAreCorrect() {
         XCTAssertTrue(sut.emailAddress.isEmpty)
-        XCTAssertFalse(sut.sendEmailButtonIsDisabled)
+        XCTAssertFalse(sut.buttonsAreDisabled)
         XCTAssertFalse(sut.successfullySentPasswordResetEmailAlertIsShowing)
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
@@ -38,7 +38,7 @@ final class ForgotPasswordViewModelTests: XCTestCase {
     func test_OnPerformingWorkViewState_PropertiesAreSet() {
         sut.viewState = .performingWork
 
-        XCTAssertTrue(sut.sendEmailButtonIsDisabled, "The Send Email button should be disabled while the system attempts to send the password reset email.")
+        XCTAssertTrue(sut.buttonsAreDisabled, "The Send Email button should be disabled while the system attempts to send the password reset email.")
     }
 
     func test_OnWorkCompletedViewState_PropertiesAreSet() {
@@ -52,7 +52,7 @@ final class ForgotPasswordViewModelTests: XCTestCase {
 
         XCTAssertEqual(sut.errorAlertText, "TEST ERROR", "The user should see the error message set above.")
         XCTAssertTrue(sut.errorAlertIsShowing, "The user should see an error message.")
-        XCTAssertFalse(sut.sendEmailButtonIsDisabled, "The user should be able to attempt to send the email again after getting an error.")
+        XCTAssertFalse(sut.buttonsAreDisabled, "The user should be able to attempt to send the email again after getting an error.")
     }
 
     func test_OnInvalidViewState_PropertiesAreSet() {

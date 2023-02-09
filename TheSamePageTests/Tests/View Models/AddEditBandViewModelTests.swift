@@ -63,7 +63,7 @@ final class AddEditBandViewModelTests: XCTestCase {
         XCTAssertFalse(sut.userPlaysInBand)
         XCTAssertEqual(sut.userRoleInBand, .vocals)
         XCTAssertFalse(sut.imagePickerIsShowing)
-        XCTAssertFalse(sut.bandCreationButtonIsDisabled)
+        XCTAssertFalse(sut.buttonsAreDisabled)
         XCTAssertFalse(sut.dismissView)
         XCTAssertNil(sut.selectedImage)
         XCTAssertFalse(sut.errorAlertIsShowing)
@@ -84,7 +84,7 @@ final class AddEditBandViewModelTests: XCTestCase {
         XCTAssertFalse(sut.userPlaysInBand)
         XCTAssertEqual(sut.userRoleInBand, .vocals)
         XCTAssertFalse(sut.imagePickerIsShowing)
-        XCTAssertFalse(sut.bandCreationButtonIsDisabled)
+        XCTAssertFalse(sut.buttonsAreDisabled)
         XCTAssertFalse(sut.dismissView)
         XCTAssertNil(sut.selectedImage)
         XCTAssertFalse(sut.errorAlertIsShowing)
@@ -178,7 +178,7 @@ final class AddEditBandViewModelTests: XCTestCase {
 
         sut.viewState = .performingWork
 
-        XCTAssertTrue(sut.bandCreationButtonIsDisabled, "The button should be disabled while work is being performed")
+        XCTAssertTrue(sut.buttonsAreDisabled, "The button should be disabled while work is being performed")
     }
 
     func test_OnWorkCompletedViewState_ExpectedWorkIsPerformed() async throws {

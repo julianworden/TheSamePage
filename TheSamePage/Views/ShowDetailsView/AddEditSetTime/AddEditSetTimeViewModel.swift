@@ -15,7 +15,7 @@ class AddEditSetTimeViewModel: ObservableObject {
     let showParticipant: ShowParticipant
 
     @Published var setTimeChangedSuccessfully = false
-    @Published var disableButtonsAndDismissal = false
+    @Published var buttonsAreDisabled = false
     @Published var deleteSetTimeConfirmationAlertIsShowing = false
 
     @Published var errorAlertIsShowing = false
@@ -25,13 +25,13 @@ class AddEditSetTimeViewModel: ObservableObject {
         didSet {
             switch viewState {
             case .performingWork:
-                disableButtonsAndDismissal = true
+                buttonsAreDisabled = true
             case .workCompleted:
                 setTimeChangedSuccessfully = true
             case .error(let message):
                 errorAlertText = message
                 errorAlertIsShowing = true
-                disableButtonsAndDismissal = false
+                buttonsAreDisabled = false
             default:
                 errorAlertText = ErrorMessageConstants.invalidViewState
                 errorAlertIsShowing = true

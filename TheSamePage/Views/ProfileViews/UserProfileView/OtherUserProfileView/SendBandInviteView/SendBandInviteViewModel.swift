@@ -15,7 +15,7 @@ final class SendBandInviteViewModel: ObservableObject {
     /// The band that the user will be invited to join.
     @Published var selectedBand: Band?
     @Published var recipientRole = Instrument.vocals
-    @Published var sendBandInviteButtonIsDisabled = false
+    @Published var buttonsAreDisabled = false
     @Published var bandInviteSentSuccessfully = false
     
     @Published var errorAlertIsShowing = false
@@ -25,13 +25,13 @@ final class SendBandInviteViewModel: ObservableObject {
         didSet {
             switch viewState {
             case .performingWork:
-                sendBandInviteButtonIsDisabled = true
+                buttonsAreDisabled = true
             case .workCompleted:
                 bandInviteSentSuccessfully = true
             case .error(let message):
                 errorAlertText = message
                 errorAlertIsShowing = true
-                sendBandInviteButtonIsDisabled = false
+                buttonsAreDisabled = false
             default:
                 if viewState != .dataNotFound && viewState != .dataLoaded {
                     errorAlertText = ErrorMessageConstants.invalidViewState

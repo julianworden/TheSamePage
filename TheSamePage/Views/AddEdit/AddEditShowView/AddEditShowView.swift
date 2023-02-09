@@ -83,7 +83,7 @@ struct AddEditShowView: View {
                     if viewModel.ticketSalesAreRequired {
                         TextField("How many must be sold? (required)", text: $viewModel.minimumRequiredTicketsSold)
                             .keyboardType(.numberPad)
-                    } 
+                    }
                 }
             }
             
@@ -99,7 +99,7 @@ struct AddEditShowView: View {
                 } label: {
                     Text("\(viewModel.showToEdit != nil ? "Update Show Info" : "Create Show")")
                 }
-                .disabled(viewModel.createShowButtonIsDisabled)
+                .disabled(viewModel.buttonsAreDisabled)
             }
         }
         .navigationTitle(viewModel.showToEdit == nil ? "Create Show" : "Update Show ifno")
@@ -110,6 +110,7 @@ struct AddEditShowView: View {
                     Button("Back", role: .cancel) {
                         dismiss()
                     }
+                    .disabled(viewModel.buttonsAreDisabled)
                 }
             }
         }

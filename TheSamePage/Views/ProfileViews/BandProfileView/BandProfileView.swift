@@ -52,11 +52,6 @@ struct BandProfileView: View {
                         }
                         .padding(.horizontal)
                     }
-                    .sheet(isPresented: $viewModel.addEditBandSheetIsShowing) {
-                        NavigationStack {
-                            AddEditBandView(bandToEdit: band)
-                        }
-                    }
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             if band.loggedInUserIsNotInvolvedWithBand {
@@ -66,9 +61,7 @@ struct BandProfileView: View {
                                     Image(systemName: "envelope")
                                 }
                                 .sheet(isPresented: $viewModel.sendShowInviteViewIsShowing) {
-                                    NavigationStack {
-                                        SendShowInviteView(band: band)
-                                    }
+                                    SendShowInviteView(band: band)
                                 }
                             }
                         }

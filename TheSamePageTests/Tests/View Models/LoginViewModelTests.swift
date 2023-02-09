@@ -30,7 +30,7 @@ final class LoginViewModelTests: XCTestCase {
         XCTAssertTrue(sut.password.isEmpty)
         XCTAssertFalse(sut.loginErrorShowing)
         XCTAssertTrue(sut.loginErrorMessage.isEmpty)
-        XCTAssertFalse(sut.logInButtonIsDisabled)
+        XCTAssertFalse(sut.buttonsAreDisabled)
         XCTAssertTrue(sut.userIsOnboarding)
         XCTAssertEqual(sut.viewState, .displayingView)
     }
@@ -38,7 +38,7 @@ final class LoginViewModelTests: XCTestCase {
     func test_OnPerformingWorkViewState_PropertiesAreSet() {
         sut.viewState = .performingWork
 
-        XCTAssertTrue(sut.logInButtonIsDisabled, "The Log In button should be disabled while the system attempts to log the user in")
+        XCTAssertTrue(sut.buttonsAreDisabled, "The Log In button should be disabled while the system attempts to log the user in")
     }
 
     func test_OnWorkCompletedViewState_PropertiesAreSet() {
@@ -52,7 +52,7 @@ final class LoginViewModelTests: XCTestCase {
 
         XCTAssertEqual(sut.loginErrorMessage, "TEST ERROR", "The user should see the error message set above")
         XCTAssertTrue(sut.loginErrorShowing, "The user should see an error message")
-        XCTAssertFalse(sut.logInButtonIsDisabled, "The user should be able to attempt to log in again after getting an error")
+        XCTAssertFalse(sut.buttonsAreDisabled, "The user should be able to attempt to log in again after getting an error")
     }
 
     func test_OnInvalidViewState_PropertiesAreSet() {

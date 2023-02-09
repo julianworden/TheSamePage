@@ -346,6 +346,8 @@ final class NotificationsViewModelTests: XCTestCase {
         )
 
         XCTAssertFalse(showApplicationExists, "The application should no longer exist in the user's notifications collection after it was accepted.")
+
+        try await testingDatabaseService.restoreShowApplication(restore: TestingConstants.exampleShowApplicationForDumpweedExtravaganza, forUserWithUid: julian.id)
     }
 
     func test_OnErrorViewState_PropertiesAreSet() {

@@ -46,7 +46,7 @@ final class AddEditShowViewModel: ObservableObject {
     @Published var imagePickerIsShowing = false
     @Published var bandSearchSheetIsShowing = false
     @Published var showImage: UIImage?
-    @Published var createShowButtonIsDisabled = false
+    @Published var buttonsAreDisabled = false
     @Published var errorAlertIsShowing = false
     @Published var showCreatedSuccessfully = false
     
@@ -58,13 +58,13 @@ final class AddEditShowViewModel: ObservableObject {
         didSet {
             switch viewState {
             case .performingWork:
-                createShowButtonIsDisabled = true
+                buttonsAreDisabled = true
             case .workCompleted:
                 showCreatedSuccessfully = true
             case .error(let message):
                 errorAlertText = message
                 errorAlertIsShowing = true
-                createShowButtonIsDisabled = false
+                buttonsAreDisabled = false
             default:
                 print("Unknown ViewState assigned to AddEditShowViewModel.")
             }

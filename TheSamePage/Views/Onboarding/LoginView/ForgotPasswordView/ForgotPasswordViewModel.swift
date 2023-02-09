@@ -12,7 +12,7 @@ import Foundation
 final class ForgotPasswordViewModel: ObservableObject {
     @Published var emailAddress = ""
 
-    @Published var sendEmailButtonIsDisabled = false
+    @Published var buttonsAreDisabled = false
 
     @Published var successfullySentPasswordResetEmailAlertIsShowing = false
     @Published var errorAlertIsShowing = false
@@ -23,13 +23,13 @@ final class ForgotPasswordViewModel: ObservableObject {
         didSet {
             switch viewState {
             case .performingWork:
-                sendEmailButtonIsDisabled = true
+                buttonsAreDisabled = true
             case .workCompleted:
                 successfullySentPasswordResetEmailAlertIsShowing = true
             case .error(let message):
                 errorAlertText = message
                 errorAlertIsShowing = true
-                sendEmailButtonIsDisabled = false
+                buttonsAreDisabled = false
             default:
                 errorAlertText = ErrorMessageConstants.invalidViewState
                 errorAlertIsShowing = true

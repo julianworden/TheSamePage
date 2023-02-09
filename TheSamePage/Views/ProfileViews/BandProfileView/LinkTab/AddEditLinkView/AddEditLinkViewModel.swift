@@ -6,7 +6,7 @@
 //
 
 import Foundation
-// TODO: WRITE TESTS FOR THIS
+// TODO: WRITE TESTS FOR THIS AND ADD VIEWSTATE STUFF
 @MainActor
 final class AddEditLinkViewModel: ObservableObject {
     @Published var linkPlatform = LinkPlatform.instagram

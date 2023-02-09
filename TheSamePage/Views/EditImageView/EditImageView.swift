@@ -25,77 +25,79 @@ struct EditImageView: View {
     }
     
     var body: some View {
-        ZStack {
-            BackgroundColor()
-            
-            Group {
-                switch viewModel.viewState {
-                case .displayingView, .workCompleted:
-                    VStack {
-                        if let updatedImage {
-                            Image(uiImage: updatedImage)
-                                .resizable()
-                                .scaledToFit()
-                        } else if let image {
-                            image
-                                .resizable()
-                                .scaledToFit()
-                        } else {
-                            NoImageView()
+        NavigationStack {
+            ZStack {
+                BackgroundColor()
+
+                Group {
+                    switch viewModel.viewState {
+                    case .displayingView, .workCompleted:
+                        VStack {
+                            if let updatedImage {
+                                Image(uiImage: updatedImage)
+                                    .resizable()
+                                    .scaledToFit()
+                            } else if let image {
+                                image
+                                    .resizable()
+                                    .scaledToFit()
+                            } else {
+                                NoImageView()
+                            }
                         }
+
+                    case .performingWork:
+                        ProgressView()
+
+                    case .error:
+                        EmptyView()
+
+                    default:
+                        ErrorMessage(message: ErrorMessageConstants.invalidViewState)
                     }
-
-                case .performingWork:
-                    ProgressView()
-
-                case .error:
-                    EmptyView()
-
-                default:
-                    ErrorMessage(message: ErrorMessageConstants.invalidViewState)
                 }
             }
-        }
-        .navigationTitle("Edit Image")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button("Back") {
+            .navigationTitle("Edit Image")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Back") {
+                        dismiss()
+                    }
+                    .disabled(viewModel.toolbarButtonsDisabled)
+                }
+
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Edit") {
+                        viewModel.imagePickerIsShowing = true
+                    }
+                    .disabled(viewModel.toolbarButtonsDisabled)
+                }
+            }
+            .sheet(
+                isPresented: $viewModel.imagePickerIsShowing,
+                content: {
+                    ImagePicker(image: $updatedImage, pickerIsShowing: $viewModel.imagePickerIsShowing)
+                }
+            )
+            .errorAlert(
+                isPresented: $viewModel.errorAlertIsShowing,
+                message: viewModel.errorAlertText,
+                tryAgainAction: {
+                    guard let updatedImage else { return }
+                    _ = await viewModel.updateImage(withImage: updatedImage)
+                }
+            )
+            .onChange(of: updatedImage) { updatedImage in
+                guard let updatedImage else { return }
+                Task {
+                    await viewModel.updateImage(withImage: updatedImage)
+                }
+            }
+            .onChange(of: viewModel.imageUpdateIsComplete) { imageUpdateIsComplete in
+                if imageUpdateIsComplete {
                     dismiss()
                 }
-                .disabled(viewModel.toolbarButtonsDisabled)
-            }
-
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Edit") {
-                    viewModel.imagePickerIsShowing = true
-                }
-                .disabled(viewModel.toolbarButtonsDisabled)
-            }
-        }
-        .sheet(
-            isPresented: $viewModel.imagePickerIsShowing,
-            content: {
-                ImagePicker(image: $updatedImage, pickerIsShowing: $viewModel.imagePickerIsShowing)
-            }
-        )
-        .errorAlert(
-            isPresented: $viewModel.errorAlertIsShowing,
-            message: viewModel.errorAlertText,
-            tryAgainAction: {
-                guard let updatedImage else { return }
-                _ = await viewModel.updateImage(withImage: updatedImage)
-            }
-        )
-        .onChange(of: updatedImage) { updatedImage in
-            guard let updatedImage else { return }
-            Task {
-                await viewModel.updateImage(withImage: updatedImage)
-            }
-        }
-        .onChange(of: viewModel.imageUpdateIsComplete) { imageUpdateIsComplete in
-            if imageUpdateIsComplete {
-                dismiss()
             }
         }
     }

@@ -30,7 +30,7 @@ final class AddBacklineViewModel: ObservableObject {
     @Published var numberOfCymbalStandsIncluded = 1
     var includedKitPieces = [String]()
     
-    @Published var addGearButtonIsDisabled = false
+    @Published var buttonsAreDisabled = false
     @Published var gearAddedSuccessfully = false
 
     @Published var errorAlertIsShowing = false
@@ -42,14 +42,14 @@ final class AddBacklineViewModel: ObservableObject {
         didSet {
             switch viewState {
             case .performingWork:
-                addGearButtonIsDisabled = true
+                buttonsAreDisabled = true
             case .workCompleted:
                 gearAddedSuccessfully = true
-                addGearButtonIsDisabled = false
+                buttonsAreDisabled = false
             case .error(let message):
                 errorAlertText = message
                 errorAlertIsShowing = true
-                addGearButtonIsDisabled = false
+                buttonsAreDisabled = false
             default:
                 errorAlertText = ErrorMessageConstants.invalidViewState
                 errorAlertIsShowing = true

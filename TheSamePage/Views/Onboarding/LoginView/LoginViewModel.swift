@@ -20,7 +20,7 @@ final class LoginViewModel: ObservableObject {
     @Published var currentUserHasNoUsernameAlertIsShowing = false
     @Published var loginErrorShowing = false
     @Published var loginErrorMessage = ""
-    @Published var logInButtonIsDisabled = false
+    @Published var buttonsAreDisabled = false
     @Published var userIsOnboarding = true
     
     @Published var viewState = ViewState.displayingView {
@@ -29,9 +29,9 @@ final class LoginViewModel: ObservableObject {
             case .error(let message):
                 loginErrorMessage = message
                 loginErrorShowing = true
-                logInButtonIsDisabled = false
+                buttonsAreDisabled = false
             case .performingWork:
-                logInButtonIsDisabled = true
+                buttonsAreDisabled = true
             case .workCompleted:
                 currentUserHasNoUsernameAlertIsShowing = false
                 userIsOnboarding = false

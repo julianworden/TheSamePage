@@ -19,7 +19,7 @@ final class AddEditBandViewModel: ObservableObject {
     @Published var userRoleInBand = Instrument.vocals
     
     @Published var imagePickerIsShowing = false
-    @Published var bandCreationButtonIsDisabled = false
+    @Published var buttonsAreDisabled = false
     /// Modified when a band is created at any time other than during onboarding
     @Published var dismissView = false
     @Published var selectedImage: UIImage?
@@ -33,7 +33,7 @@ final class AddEditBandViewModel: ObservableObject {
         didSet {
             switch viewState {
             case .performingWork:
-                bandCreationButtonIsDisabled = true
+                buttonsAreDisabled = true
             case .workCompleted:
                 dismissView = true
             case .error(let message):

@@ -50,13 +50,11 @@ struct LoggedInUserProfileImage: View {
                     }
                 },
                 content: {
-                    NavigationStack {
-                        EditImageView(
-                            user: user,
-                            image: loggedInUserController.userImage,
-                            updatedImage: $loggedInUserController.updatedImage
-                        )
-                    }
+                    EditImageView(
+                        user: user,
+                        image: loggedInUserController.userImage,
+                        updatedImage: $loggedInUserController.updatedImage
+                    )
                 }
             )
             .alert(

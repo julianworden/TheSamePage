@@ -26,7 +26,7 @@ struct ForgotPasswordView: View {
                 } label: {
                     Text("Send Email")
                 }
-                .disabled(viewModel.sendEmailButtonIsDisabled)
+                .disabled(viewModel.buttonsAreDisabled)
                 .alert(
                     "Success!",
                     isPresented: $viewModel.successfullySentPasswordResetEmailAlertIsShowing,
@@ -37,11 +37,13 @@ struct ForgotPasswordView: View {
         }
         .navigationTitle("Password Reset")
         .navigationBarTitleDisplayMode(.inline)
+        .interactiveDismissDisabled(viewModel.buttonsAreDisabled)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button("Cancel", role: .cancel) {
                     dismiss()
                 }
+                .disabled(viewModel.buttonsAreDisabled)
             }
         }
         .errorAlert(

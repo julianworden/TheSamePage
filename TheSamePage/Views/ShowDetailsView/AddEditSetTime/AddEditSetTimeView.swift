@@ -35,7 +35,7 @@ struct AddEditSetTimeView: View {
                     } label: {
                         Text("Save Set Time")
                     }
-                    .disabled(viewModel.disableButtonsAndDismissal)
+                    .disabled(viewModel.buttonsAreDisabled)
                 }
 
                 if viewModel.showParticipant.setTime != nil {
@@ -44,7 +44,7 @@ struct AddEditSetTimeView: View {
                             viewModel.deleteSetTimeConfirmationAlertIsShowing.toggle()
                         }
                         .tint(.red)
-                        .disabled(viewModel.disableButtonsAndDismissal)
+                        .disabled(viewModel.buttonsAreDisabled)
                         .alert(
                             "Are You Sure?",
                             isPresented: $viewModel.deleteSetTimeConfirmationAlertIsShowing,
@@ -63,13 +63,13 @@ struct AddEditSetTimeView: View {
             }
             .navigationTitle("Change Set Time")
             .navigationBarTitleDisplayMode(.inline)
-            .interactiveDismissDisabled(viewModel.disableButtonsAndDismissal)
+            .interactiveDismissDisabled(viewModel.buttonsAreDisabled)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Back") {
                         dismiss()
                     }
-                    .disabled(viewModel.disableButtonsAndDismissal)
+                    .disabled(viewModel.buttonsAreDisabled)
                 }
             }
             .onChange(of: viewModel.setTimeChangedSuccessfully) { setTimeChangedSuccessfully in

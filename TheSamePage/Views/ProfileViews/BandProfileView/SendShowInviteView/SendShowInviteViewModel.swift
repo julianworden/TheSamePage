@@ -16,7 +16,7 @@ final class SendShowInviteViewModel: ObservableObject {
     let band: Band
 
     @Published var showInviteSentSuccessfully = false
-    @Published var sendButtonIsDisabled = false
+    @Published var buttonsAreDisabled = false
 
     @Published var invalidInviteAlertIsShowing = false
     @Published var invalidInviteAlertText = ""
@@ -27,13 +27,13 @@ final class SendShowInviteViewModel: ObservableObject {
         didSet {
             switch viewState {
             case .performingWork:
-                sendButtonIsDisabled = true
+                buttonsAreDisabled = true
             case .workCompleted:
                 showInviteSentSuccessfully = true
             case .error(let message):
                 errorAlertText = message
                 errorAlertIsShowing = true
-                sendButtonIsDisabled = false
+                buttonsAreDisabled = false
             default:
                 if viewState != .dataNotFound && viewState != .dataLoaded && viewState != .dataLoading {
                     errorAlertText = ErrorMessageConstants.invalidViewState

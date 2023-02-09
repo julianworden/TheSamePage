@@ -35,7 +35,7 @@ final class AddEditSetTimeViewModelTests: XCTestCase {
         XCTAssertEqual(sut.show, dumpweedExtravaganza)
         XCTAssertEqual(sut.showParticipant, exampleShowParticipantPatheticFallacy)
         XCTAssertFalse(sut.setTimeChangedSuccessfully)
-        XCTAssertFalse(sut.disableButtonsAndDismissal)
+        XCTAssertFalse(sut.buttonsAreDisabled)
         XCTAssertFalse(sut.deleteSetTimeConfirmationAlertIsShowing)
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
@@ -49,7 +49,7 @@ final class AddEditSetTimeViewModelTests: XCTestCase {
         XCTAssertEqual(sut.show, dumpweedExtravaganza)
         XCTAssertEqual(sut.showParticipant, exampleShowParticipantDumpweed)
         XCTAssertFalse(sut.setTimeChangedSuccessfully)
-        XCTAssertFalse(sut.disableButtonsAndDismissal)
+        XCTAssertFalse(sut.buttonsAreDisabled)
         XCTAssertFalse(sut.deleteSetTimeConfirmationAlertIsShowing)
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
@@ -61,7 +61,7 @@ final class AddEditSetTimeViewModelTests: XCTestCase {
 
         sut.viewState = .performingWork
 
-        XCTAssertTrue(sut.disableButtonsAndDismissal, "The button should be disabled while work is being performed")
+        XCTAssertTrue(sut.buttonsAreDisabled, "The button should be disabled while work is being performed")
     }
 
     func test_OnWorkCompletedViewState_ExpectedWorkIsPerformed() {
@@ -79,7 +79,7 @@ final class AddEditSetTimeViewModelTests: XCTestCase {
 
         XCTAssertTrue(sut.errorAlertIsShowing, "An error alert should be presented")
         XCTAssertEqual(sut.errorAlertText, "AN ERROR HAPPENED", "The error message should be assigned to the text property")
-        XCTAssertFalse(sut.disableButtonsAndDismissal, "The user should be able to retry after an error occurs")
+        XCTAssertFalse(sut.buttonsAreDisabled, "The user should be able to retry after an error occurs")
     }
 
     func test_OnAddEditSetTime_SetTimeGetsCreatedForShowParticipantThatHasNoSetTime() async throws {

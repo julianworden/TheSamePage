@@ -39,21 +39,21 @@ struct LoginView: View {
                     } label: {
                         Text("Log In")
                     }
-                    .disabled(viewModel.logInButtonIsDisabled)
+                    .disabled(viewModel.buttonsAreDisabled)
                     .alert(
                         "Error",
                         isPresented: $viewModel.unverifiedEmailErrorShowing,
                         actions: {
                             Button("OK") {
                                 viewModel.logOutUser()
-                                viewModel.logInButtonIsDisabled = false
+                                viewModel.buttonsAreDisabled = false
                             }
 
                             Button("Send New Verification Link") {
                                 Task {
                                     await viewModel.sendEmailVerificationEmail()
                                     viewModel.logOutUser()
-                                    viewModel.logInButtonIsDisabled = false
+                                    viewModel.buttonsAreDisabled = false
                                 }
                             }
                         },
@@ -63,6 +63,7 @@ struct LoginView: View {
                     Button("Forgot your password?") {
                         forgotPasswordSheetIsShowing.toggle()
                     }
+                    .disabled(viewModel.buttonsAreDisabled)
                     .sheet(isPresented: $forgotPasswordSheetIsShowing) {
                         NavigationStack {
                             ForgotPasswordView()
@@ -81,6 +82,7 @@ struct LoginView: View {
                         } label: {
                             EmptyView()
                         }
+                        .disabled(viewModel.buttonsAreDisabled)
                         .opacity(0)
 
                         Text("Sign Up")
@@ -96,7 +98,7 @@ struct LoginView: View {
                         if await viewModel.userHasUsername() {
                             dismiss()
                         } else {
-                            viewModel.logInButtonIsDisabled = false
+                            viewModel.buttonsAreDisabled = false
                         }
                     }
                 },

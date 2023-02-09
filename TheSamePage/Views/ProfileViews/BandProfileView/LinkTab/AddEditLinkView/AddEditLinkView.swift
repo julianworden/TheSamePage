@@ -19,36 +19,38 @@ struct AddEditLinkView: View {
     }
     
     var body: some View {
-        Form {
-            Section {
-                Picker("Choose Platform", selection: $viewModel.linkPlatform) {
-                    ForEach(LinkPlatform.allCases) { platform in
-                        if platform != LinkPlatform.none {
-                            Text(platform.rawValue)
+        NavigationStack {
+            Form {
+                Section {
+                    Picker("Choose Platform", selection: $viewModel.linkPlatform) {
+                        ForEach(LinkPlatform.allCases) { platform in
+                            if platform != LinkPlatform.none {
+                                Text(platform.rawValue)
+                            }
+                        }
+                    }
+                    TextField("URL", text: $viewModel.enteredText)
+                }
+
+                Section {
+                    Button("Save Link") {
+                        do {
+                            viewModel.createLink()
+                            try viewModel.uploadBandLink()
+                            dismiss()
+                        } catch {
+                            print(error)
                         }
                     }
                 }
-                TextField("URL", text: $viewModel.enteredText)
             }
-
-            Section {
-                Button("Save Link") {
-                    do {
-                        viewModel.createLink()
-                        try viewModel.uploadBandLink()
+            .navigationTitle(viewModel.linkUrl == "" ? "Add Link" : "Edit Link")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel", role: .cancel) {
                         dismiss()
-                    } catch {
-                        print(error)
                     }
-                }
-            }
-        }
-        .navigationTitle(viewModel.linkUrl == "" ? "Add Link" : "Edit Link")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button("Cancel", role: .cancel) {
-                    dismiss()
                 }
             }
         }

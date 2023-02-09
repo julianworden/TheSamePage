@@ -48,13 +48,11 @@ struct ShowImageButton: View {
                 }
             },
             content: {
-                NavigationStack {
-                    EditImageView(
-                        show: viewModel.show,
-                        image: viewModel.showImage,
-                        updatedImage: $viewModel.updatedImage
-                    )
-                }
+                EditImageView(
+                    show: viewModel.show,
+                    image: viewModel.showImage,
+                    updatedImage: $viewModel.updatedImage
+                )
             }
         )
         .alert(

@@ -49,13 +49,11 @@ struct BandProfileImageButton: View {
                     }
                 },
                 content: {
-                    NavigationStack {
-                        EditImageView(
-                            band: band,
-                            image: viewModel.bandImage,
-                            updatedImage: $viewModel.updatedImage
-                        )
-                    }
+                    EditImageView(
+                        band: band,
+                        image: viewModel.bandImage,
+                        updatedImage: $viewModel.updatedImage
+                    )
                 }
             )
             .alert(

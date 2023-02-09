@@ -564,6 +564,14 @@ class TestingDatabaseService {
     }
 
     func restoreShowApplication(restore showApplication: ShowApplication, forUserWithUid uid: String) async throws {
+        // This call must occur first to create a document that the setData(from:) method can then reference.
+        try await db
+            .collection(FbConstants.users)
+            .document(uid)
+            .collection(FbConstants.notifications)
+            .document(showApplication.id)
+            .setData([:])
+
         try db
             .collection(FbConstants.users)
             .document(uid)

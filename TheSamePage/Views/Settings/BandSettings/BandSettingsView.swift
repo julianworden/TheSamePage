@@ -90,6 +90,7 @@ struct BandSettingsView: View {
                     Button("Back") {
                         dismiss()
                     }
+                    .disabled(viewModel.buttonsAreDisabled)
                 }
             }
             .errorAlert(

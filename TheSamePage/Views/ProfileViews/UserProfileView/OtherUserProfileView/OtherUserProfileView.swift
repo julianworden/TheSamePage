@@ -51,10 +51,7 @@ struct OtherUserProfileView: View {
                                 Image(systemName: "envelope")
                             }
                             .sheet(isPresented: $viewModel.sendBandInviteViewIsShowing) {
-                                // Force unwrap is safe because the button that shows this sheet is already checking if user is nil
-                                NavigationStack {
-                                    SendBandInviteView(user: user)
-                                }
+                                SendBandInviteView(user: user)
                             }
                         }
                     }

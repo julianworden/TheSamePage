@@ -80,7 +80,7 @@ final class AddEditShowViewModelTests: XCTestCase {
         XCTAssertFalse(sut.imagePickerIsShowing)
         XCTAssertFalse(sut.bandSearchSheetIsShowing)
         XCTAssertNil(sut.showImage)
-        XCTAssertFalse(sut.createShowButtonIsDisabled)
+        XCTAssertFalse(sut.buttonsAreDisabled)
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertFalse(sut.showCreatedSuccessfully)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
@@ -117,7 +117,7 @@ final class AddEditShowViewModelTests: XCTestCase {
         XCTAssertFalse(sut.imagePickerIsShowing)
         XCTAssertFalse(sut.bandSearchSheetIsShowing)
         XCTAssertNil(sut.showImage)
-        XCTAssertFalse(sut.createShowButtonIsDisabled)
+        XCTAssertFalse(sut.buttonsAreDisabled)
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertFalse(sut.showCreatedSuccessfully)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
@@ -346,7 +346,7 @@ final class AddEditShowViewModelTests: XCTestCase {
         XCTAssertEqual(sut.viewState, .error(message: LogicError.incompleteForm.localizedDescription))
         XCTAssertEqual(sut.errorAlertText, LogicError.incompleteForm.localizedDescription, "The user should see this error alert text")
         XCTAssertTrue(sut.errorAlertIsShowing, "The user should see an error alert")
-        XCTAssertFalse(sut.createShowButtonIsDisabled, "The button should be re-enabled so the user can try again")
+        XCTAssertFalse(sut.buttonsAreDisabled, "The button should be re-enabled so the user can try again")
     }
 
     func test_OnUpdateCreateShowButtonTappedWithIncompleteFormAndWithShowToEdit_ErrorIsThrownAndViewStateIsSet() async {
@@ -360,7 +360,7 @@ final class AddEditShowViewModelTests: XCTestCase {
         XCTAssertEqual(sut.viewState, .error(message: LogicError.incompleteForm.localizedDescription))
         XCTAssertEqual(sut.errorAlertText, LogicError.incompleteForm.localizedDescription, "The user should see this error alert text")
         XCTAssertTrue(sut.errorAlertIsShowing, "The user should see an error alert")
-        XCTAssertFalse(sut.createShowButtonIsDisabled, "The button should be re-enabled so the user can try again")
+        XCTAssertFalse(sut.buttonsAreDisabled, "The button should be re-enabled so the user can try again")
     }
 
     func test_OnPerformingWorkViewState_ExpectedWorkIsPerformed() {
@@ -368,7 +368,7 @@ final class AddEditShowViewModelTests: XCTestCase {
 
         sut.viewState = .performingWork
 
-        XCTAssertTrue(sut.createShowButtonIsDisabled, "The button should be disabled while work is being performed")
+        XCTAssertTrue(sut.buttonsAreDisabled, "The button should be disabled while work is being performed")
     }
 
     func test_OnWorkCompletedViewState_ExpectedWorkIsPerformed() {
@@ -386,6 +386,6 @@ final class AddEditShowViewModelTests: XCTestCase {
 
         XCTAssertTrue(sut.errorAlertIsShowing, "An error alert should be presented")
         XCTAssertEqual(sut.errorAlertText, "AN ERROR HAPPENED", "The error message should be assigned to the text property")
-        XCTAssertFalse(sut.createShowButtonIsDisabled, "The user should be able to retry after an error occurs")
+        XCTAssertFalse(sut.buttonsAreDisabled, "The user should be able to retry after an error occurs")
     }
 }

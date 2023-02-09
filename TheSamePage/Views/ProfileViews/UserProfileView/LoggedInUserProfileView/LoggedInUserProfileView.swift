@@ -46,9 +46,7 @@ struct LoggedInUserProfileView: View {
                                     }
                                 },
                                 content: {
-                                    NavigationStack {
-                                        AddEditBandView(bandToEdit: nil, isPresentedModally: true)
-                                    }
+                                    AddEditBandView(bandToEdit: nil, isPresentedModally: true)
                                 }
                             )
                         } else if loggedInUserController.playingBands.isEmpty {

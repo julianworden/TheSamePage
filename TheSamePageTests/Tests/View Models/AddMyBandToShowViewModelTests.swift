@@ -34,7 +34,7 @@ final class AddMyBandToShowViewModelTests: XCTestCase {
         XCTAssertEqual(sut.show, dumpweedExtravaganza)
         XCTAssertTrue(sut.userBands.isEmpty)
         XCTAssertNil(sut.selectedBand)
-        XCTAssertFalse(sut.addBandToShowButtonIsDisabled)
+        XCTAssertFalse(sut.buttonsAreDisabled)
         XCTAssertFalse(sut.bandAddedSuccessfully)
         XCTAssertFalse(sut.invalidRequestAlertIsShowing)
         XCTAssertFalse(sut.errorAlertIsShowing)
@@ -48,7 +48,7 @@ final class AddMyBandToShowViewModelTests: XCTestCase {
 
         sut.viewState = .performingWork
 
-        XCTAssertTrue(sut.addBandToShowButtonIsDisabled, "The button should be disabled while work is being performed")
+        XCTAssertTrue(sut.buttonsAreDisabled, "The button should be disabled while work is being performed")
     }
 
     func test_OnWorkCompletedViewState_ExpectedWorkIsPerformed() {
@@ -66,7 +66,7 @@ final class AddMyBandToShowViewModelTests: XCTestCase {
 
         XCTAssertTrue(sut.errorAlertIsShowing, "An error alert should be presented")
         XCTAssertEqual(sut.errorAlertText, "AN ERROR HAPPENED", "The error message should be assigned to the text property")
-        XCTAssertFalse(sut.addBandToShowButtonIsDisabled, "The user should be able to retry after an error occurs")
+        XCTAssertFalse(sut.buttonsAreDisabled, "The user should be able to retry after an error occurs")
     }
 
     func test_OnInvalidViewState_PropertiesAreChanged() {

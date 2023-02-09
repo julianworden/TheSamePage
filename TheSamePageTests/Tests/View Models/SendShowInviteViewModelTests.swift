@@ -56,7 +56,7 @@ final class SendShowInviteViewModelTests: XCTestCase {
 
         sut.viewState = .performingWork
 
-        XCTAssertTrue(sut.sendButtonIsDisabled, "The button should be disabled while work is being performed")
+        XCTAssertTrue(sut.buttonsAreDisabled, "The button should be disabled while work is being performed")
     }
 
     func test_OnWorkCompletedViewState_PropertiesAreSet() {
@@ -74,7 +74,7 @@ final class SendShowInviteViewModelTests: XCTestCase {
 
         XCTAssertEqual(sut.errorAlertText, "TEST ERROR")
         XCTAssertTrue(sut.errorAlertIsShowing)
-        XCTAssertFalse(sut.sendButtonIsDisabled, "The user should be able to try sending again after seeing an error")
+        XCTAssertFalse(sut.buttonsAreDisabled, "The user should be able to try sending again after seeing an error")
     }
 
     func test_OnInvalidViewState_PropertiesAreSet() {

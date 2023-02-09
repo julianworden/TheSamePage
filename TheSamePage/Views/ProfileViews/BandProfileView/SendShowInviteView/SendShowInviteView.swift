@@ -17,68 +17,72 @@ struct SendShowInviteView: View {
     }
     
     var body: some View {
-        ZStack {
-            BackgroundColor()
-            
-            switch viewModel.viewState {
-            case .dataLoading:
-                ProgressView()
+        NavigationStack {
+            ZStack {
+                BackgroundColor()
 
-            case .dataLoaded, .performingWork, .workCompleted:
-                Form {
-                    Picker("Which show would you like to invite \(viewModel.band.name) to?", selection: $viewModel.selectedShow) {
-                        ForEach(viewModel.userShows) { show in
-                            Text(show.name).tag(show as Show?)
+                switch viewModel.viewState {
+                case .dataLoading:
+                    ProgressView()
+
+                case .dataLoaded, .performingWork, .workCompleted:
+                    Form {
+                        Picker("Which show would you like to invite \(viewModel.band.name) to?", selection: $viewModel.selectedShow) {
+                            ForEach(viewModel.userShows) { show in
+                                Text(show.name).tag(show as Show?)
+                            }
                         }
+
+                        AsyncButton {
+                            await viewModel.sendShowInvite()
+                        } label: {
+                            Text("Send Invite")
+                        }
+                        .disabled(viewModel.buttonsAreDisabled)
                     }
 
-                    AsyncButton {
-                        await viewModel.sendShowInvite()
-                    } label: {
-                        Text("Send Invite")
-                    }
-                    .disabled(viewModel.sendButtonIsDisabled)
+                case .dataNotFound:
+                    Text("No hosted shows found, you are not hosting any shows. You can create a show in the My Shows tab.")
+                        .italic()
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+
+                default:
+                    ErrorMessage(message: ErrorMessageConstants.invalidViewState)
                 }
-
-            case .dataNotFound:
-                Text("No hosted shows found, you are not hosting any shows. You can create a show in the My Shows tab.")
-                    .italic()
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
-
-            default:
-                ErrorMessage(message: ErrorMessageConstants.invalidViewState)
             }
-        }
-        .navigationTitle("Send Show Invite")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button("Back", role: .cancel) {
+            .navigationTitle("Send Show Invite")
+            .navigationBarTitleDisplayMode(.inline)
+            .interactiveDismissDisabled(viewModel.buttonsAreDisabled)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Back", role: .cancel) {
+                        dismiss()
+                    }
+                    .disabled(viewModel.buttonsAreDisabled)
+                }
+            }
+            .alert(
+                "Error",
+                isPresented: $viewModel.invalidInviteAlertIsShowing,
+                actions: {
+                    Button("OK") { }
+                }, message: {
+                    Text(viewModel.invalidInviteAlertText)
+                }
+            )
+            .errorAlert(
+                isPresented: $viewModel.errorAlertIsShowing,
+                message: viewModel.errorAlertText,
+                tryAgainAction: { await viewModel.getHostedShows() }
+            )
+            .task {
+                await viewModel.getHostedShows()
+            }
+            .onChange(of: viewModel.showInviteSentSuccessfully) { showInviteSentSuccessfully in
+                if showInviteSentSuccessfully {
                     dismiss()
                 }
-            }
-        }
-        .alert(
-            "Error",
-            isPresented: $viewModel.invalidInviteAlertIsShowing,
-            actions: {
-                Button("OK") { }
-            }, message: {
-                Text(viewModel.invalidInviteAlertText)
-            }
-        )
-        .errorAlert(
-            isPresented: $viewModel.errorAlertIsShowing,
-            message: viewModel.errorAlertText,
-            tryAgainAction: { await viewModel.getHostedShows() }
-        )
-        .task {
-            await viewModel.getHostedShows()
-        }
-        .onChange(of: viewModel.showInviteSentSuccessfully) { showInviteSentSuccessfully in
-            if showInviteSentSuccessfully {
-                dismiss()
             }
         }
     }

@@ -44,9 +44,7 @@ struct ShowLineupTab: View {
                                 }
                             },
                             content: {
-                                NavigationStack {
-                                    AddMyBandToShowView(show: viewModel.show)
-                                }
+                                AddMyBandToShowView(show: viewModel.show)
                             }
                         )
                     }
@@ -75,9 +73,7 @@ struct ShowLineupTab: View {
                         }
                     },
                     content: {
-                        NavigationStack {
-                            AddMyBandToShowView(show: viewModel.show)
-                        }
+                        AddMyBandToShowView(show: viewModel.show)
                     }
                 )
             }

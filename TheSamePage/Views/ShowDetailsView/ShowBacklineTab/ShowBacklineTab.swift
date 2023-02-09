@@ -29,9 +29,7 @@ struct ShowBacklineTab: View {
                         }
                     },
                     content: {
-                        NavigationStack {
-                            AddBacklineView(show: viewModel.show)
-                        }
+                        AddBacklineView(show: viewModel.show)
                     }
                 )
 

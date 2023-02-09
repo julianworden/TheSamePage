@@ -23,7 +23,6 @@ class BandProfileViewModel: ObservableObject {
     @Published var addBandMemberSheetIsShowing = false
     @Published var sendShowInviteViewIsShowing = false
     @Published var editImageViewIsShowing = false
-    @Published var addEditBandSheetIsShowing = false
     @Published var editImageConfirmationDialogIsShowing = false
     @Published var deleteImageConfirmationAlertIsShowing = false
     @Published var bandSettingsViewIsShowing = false

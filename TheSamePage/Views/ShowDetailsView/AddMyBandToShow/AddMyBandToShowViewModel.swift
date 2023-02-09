@@ -12,7 +12,7 @@ final class AddMyBandToShowViewModel: ObservableObject {
     @Published var userBands = [Band]()
     /// The band that will be added to the show.
     @Published var selectedBand: Band?
-    @Published var addBandToShowButtonIsDisabled = false
+    @Published var buttonsAreDisabled = false
     @Published var bandAddedSuccessfully = false
 
     let show: Show
@@ -26,13 +26,13 @@ final class AddMyBandToShowViewModel: ObservableObject {
         didSet {
             switch viewState {
             case .performingWork:
-                addBandToShowButtonIsDisabled = true
+                buttonsAreDisabled = true
             case .workCompleted:
                 bandAddedSuccessfully = true
             case .error(let message):
                 errorAlertText = message
                 errorAlertIsShowing = true
-                addBandToShowButtonIsDisabled = false
+                buttonsAreDisabled = false
             default:
                 if viewState != .dataNotFound && viewState != .dataLoaded {
                     errorAlertText = ErrorMessageConstants.invalidViewState

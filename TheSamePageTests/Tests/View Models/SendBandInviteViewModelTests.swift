@@ -40,7 +40,7 @@ final class SendBandInviteViewModelTests: XCTestCase {
         sut = SendBandInviteViewModel(user: eric)
 
         XCTAssertEqual(sut.recipientRole, .vocals)
-        XCTAssertFalse(sut.sendBandInviteButtonIsDisabled)
+        XCTAssertFalse(sut.buttonsAreDisabled)
         XCTAssertFalse(sut.bandInviteSentSuccessfully)
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
@@ -53,7 +53,7 @@ final class SendBandInviteViewModelTests: XCTestCase {
 
         sut.viewState = .performingWork
 
-        XCTAssertTrue(sut.sendBandInviteButtonIsDisabled, "The button should be disabled while work is being performed")
+        XCTAssertTrue(sut.buttonsAreDisabled, "The button should be disabled while work is being performed")
     }
 
     func test_OnWorkCompletedViewState_PropertiesAreSet() {

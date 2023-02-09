@@ -10,7 +10,8 @@ import Foundation
 @MainActor
 final class ShowSettingsViewModel: ObservableObject {
     @Published var cancelShowAlertIsShowing = false
-    
+
+    @Published var buttonsAreDisabled = false
     @Published var errorAlertIsShowing = false
     var errorAlertText = ""
     
@@ -19,9 +20,12 @@ final class ShowSettingsViewModel: ObservableObject {
     @Published var viewState = ViewState.dataLoading {
         didSet {
             switch viewState {
+            case .performingWork:
+                buttonsAreDisabled = true
             case .error(let message):
                 errorAlertText = message
                 errorAlertIsShowing = true
+                buttonsAreDisabled = false
             default:
                 if viewState != .dataLoading && viewState != .dataLoaded {
                     errorAlertText = ErrorMessageConstants.invalidViewState

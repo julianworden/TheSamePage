@@ -40,9 +40,7 @@ struct LinkTab: View {
                     }
                 },
                 content: {
-                    NavigationStack {
-                        AddEditLinkView(link: nil, band: viewModel.band!)
-                    }
+                    AddEditLinkView(link: nil, band: viewModel.band!)
                 }
             )
         }
