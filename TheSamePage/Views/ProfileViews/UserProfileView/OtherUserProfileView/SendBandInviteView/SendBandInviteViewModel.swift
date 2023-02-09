@@ -10,7 +10,8 @@ import Foundation
 
 @MainActor
 final class SendBandInviteViewModel: ObservableObject {
-    var userBands = [Band]()
+    /// The bands of which the logged in user is the admin.
+    var adminBands = [Band]()
     /// The band that the user will be invited to join.
     @Published var selectedBand: Band?
     @Published var recipientRole = Instrument.vocals
@@ -30,6 +31,7 @@ final class SendBandInviteViewModel: ObservableObject {
             case .error(let message):
                 errorAlertText = message
                 errorAlertIsShowing = true
+                sendBandInviteButtonIsDisabled = false
             default:
                 if viewState != .dataNotFound && viewState != .dataLoaded {
                     errorAlertText = ErrorMessageConstants.invalidViewState
@@ -47,13 +49,12 @@ final class SendBandInviteViewModel: ObservableObject {
     }
 
     // TODO: This should get bands that the user is the admin of but is not a member of, too
-    func getLoggedInUserBands() async {
+    func getLoggedInUserAdminBands() async {
         do {
-            let fetchedBands = try await DatabaseService.shared.getJoinedBands(withUid: AuthController.getLoggedInUid())
-            userBands = fetchedBands.filter { $0.adminUid == AuthController.getLoggedInUid() }
-            
-            if !userBands.isEmpty {
-                selectedBand = userBands.first!
+            adminBands = try await DatabaseService.shared.getAdminBands(withUid: AuthController.getLoggedInUid())
+
+            if !adminBands.isEmpty {
+                selectedBand = adminBands.first!
                 viewState = .dataLoaded
             } else {
                 viewState = .dataNotFound
@@ -73,6 +74,8 @@ final class SendBandInviteViewModel: ObservableObject {
             if let selectedBand {
                 let invite = BandInvite(
                     id: "",
+                    recipientFcmToken: user.fcmToken,
+                    senderFcmToken: loggedInUser.fcmToken,
                     dateSent: Date.now.timeIntervalSince1970,
                     notificationType: NotificationType.bandInvite.rawValue,
                     recipientUid: user.id,

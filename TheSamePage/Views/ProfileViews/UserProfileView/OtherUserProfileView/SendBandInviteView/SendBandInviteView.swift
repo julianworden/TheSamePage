@@ -27,7 +27,7 @@ struct SendBandInviteView: View {
             case .dataLoaded, .workCompleted, .performingWork:
                 Form {
                     Picker("Which band would you like to invite \(viewModel.user.firstName) to?", selection: $viewModel.selectedBand) {
-                        ForEach(viewModel.userBands) { band in
+                        ForEach(viewModel.adminBands) { band in
                             Text(band.name).tag(band as Band?)
                         }
                     }
@@ -48,7 +48,7 @@ struct SendBandInviteView: View {
                 }
                 
             case .dataNotFound:
-                NoDataFoundMessage(message: "You are not the admin of any bands. You can only invite others to join your band if you are the band admin.")
+                NoDataFoundMessage(message: ErrorMessageConstants.userIsNotAdminOfAnyBands)
                     .padding(.horizontal)
                 
             case .error:
@@ -72,7 +72,7 @@ struct SendBandInviteView: View {
             message: viewModel.errorAlertText
         )
         .task {
-            await viewModel.getLoggedInUserBands()
+            await viewModel.getLoggedInUserAdminBands()
         }
         .onChange(of: viewModel.bandInviteSentSuccessfully) { bandInviteSentSuccessfully in
             if bandInviteSentSuccessfully {

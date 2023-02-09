@@ -35,6 +35,10 @@
 		AB1D5E3C29871C9700E62C29 /* EditUserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D5E3B29871C9700E62C29 /* EditUserInfoView.swift */; };
 		AB1D5E3E29871C9E00E62C29 /* EditUserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D5E3D29871C9E00E62C29 /* EditUserInfoViewModel.swift */; };
 		AB1D5E4129874CAC00E62C29 /* ChangeEmailAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D5E4029874CAC00E62C29 /* ChangeEmailAddressView.swift */; };
+		AB1ECDE62993E6B60086C32A /* SendShowApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1ECDE52993E6B60086C32A /* SendShowApplicationView.swift */; };
+		AB1ECDE82993E6BD0086C32A /* SendShowApplicationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1ECDE72993E6BD0086C32A /* SendShowApplicationViewModel.swift */; };
+		AB1ECDEA2993F0860086C32A /* ShowApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1ECDE92993F0860086C32A /* ShowApplication.swift */; };
+		AB1ECDEC2994061B0086C32A /* SendShowApplicationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1ECDEB2994061B0086C32A /* SendShowApplicationViewModelTests.swift */; };
 		AB24876A298C149200BD4528 /* ShowLineupRowMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB248769298C149200BD4528 /* ShowLineupRowMenuButton.swift */; };
 		AB24876C298C188B00BD4528 /* EllipsesMenuIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24876B298C188A00BD4528 /* EllipsesMenuIcon.swift */; };
 		AB24876E298C1C3100BD4528 /* LoggedInUserBandMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24876D298C1C3100BD4528 /* LoggedInUserBandMenuButton.swift */; };
@@ -312,6 +316,10 @@
 		AB1D5E3B29871C9700E62C29 /* EditUserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoView.swift; sourceTree = "<group>"; };
 		AB1D5E3D29871C9E00E62C29 /* EditUserInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoViewModel.swift; sourceTree = "<group>"; };
 		AB1D5E4029874CAC00E62C29 /* ChangeEmailAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailAddressView.swift; sourceTree = "<group>"; };
+		AB1ECDE52993E6B60086C32A /* SendShowApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendShowApplicationView.swift; sourceTree = "<group>"; };
+		AB1ECDE72993E6BD0086C32A /* SendShowApplicationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendShowApplicationViewModel.swift; sourceTree = "<group>"; };
+		AB1ECDE92993F0860086C32A /* ShowApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowApplication.swift; sourceTree = "<group>"; };
+		AB1ECDEB2994061B0086C32A /* SendShowApplicationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendShowApplicationViewModelTests.swift; sourceTree = "<group>"; };
 		AB248769298C149200BD4528 /* ShowLineupRowMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLineupRowMenuButton.swift; sourceTree = "<group>"; };
 		AB24876B298C188A00BD4528 /* EllipsesMenuIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EllipsesMenuIcon.swift; sourceTree = "<group>"; };
 		AB24876D298C1C3100BD4528 /* LoggedInUserBandMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserBandMenuButton.swift; sourceTree = "<group>"; };
@@ -657,6 +665,15 @@
 			path = EditUserInfoView;
 			sourceTree = "<group>";
 		};
+		AB1ECDE42993E6A30086C32A /* SendShowApplication */ = {
+			isa = PBXGroup;
+			children = (
+				AB1ECDE52993E6B60086C32A /* SendShowApplicationView.swift */,
+				AB1ECDE72993E6BD0086C32A /* SendShowApplicationViewModel.swift */,
+			);
+			path = SendShowApplication;
+			sourceTree = "<group>";
+		};
 		AB24E3A428D7C9A8002B4F2C /* LoginView */ = {
 			isa = PBXGroup;
 			children = (
@@ -779,7 +796,6 @@
 				AB35A8D328E9D044009FB203 /* ProfileViews */,
 				AB36FF7A28D35B9A00AAC00C /* RootView */,
 				AB5054B128DC9BFF00321380 /* Searching */,
-				ABD18AAB28EE14B1002286C3 /* SendShowInviteView */,
 				AB9D085F28FDA2300098A244 /* Settings */,
 				ABBE94C028D8AD9E00790A04 /* ShowDetailsView */,
 			);
@@ -844,13 +860,14 @@
 				AB55E7712901F651009F039B /* DrumKitBacklineItem.swift */,
 				AB36FF8628D35C2000AAC00C /* Band.swift */,
 				AB5054B228DCA04900321380 /* BandInvite.swift */,
+				ABD18AB028EE2FAB002286C3 /* ShowInvite.swift */,
+				AB1ECDE92993F0860086C32A /* ShowApplication.swift */,
 				ABA1020C28DDFD6900A4E818 /* BandMember.swift */,
 				AB8326B72912BA2500208414 /* Chat.swift */,
 				AB8326B92912BB3500208414 /* ChatMessage.swift */,
 				ABF8B81828FC43C400608657 /* CustomMapAnnotation.swift */,
 				AB36FF8828D35C2800AAC00C /* PlatformLink.swift */,
 				AB36FF8228D35C0600AAC00C /* Show.swift */,
-				ABD18AB028EE2FAB002286C3 /* ShowInvite.swift */,
 				AB7F381428EF20EA007741C7 /* ShowParticipant.swift */,
 				AB36FF7F28D35BFA00AAC00C /* User.swift */,
 				ABBEC0A42921B45500314BE5 /* Wrappers */,
@@ -1202,6 +1219,7 @@
 				ABA0549229745A4C006B5908 /* SearchViewModelTests.swift */,
 				ABE0251B29738CE70089E969 /* SendBandInviteViewModelTests.swift */,
 				ABA0549429746385006B5908 /* SendShowInviteViewModelTests.swift */,
+				AB1ECDEB2994061B0086C32A /* SendShowApplicationViewModelTests.swift */,
 				ABF9903D297584FC00FD32D1 /* ShowDetailsViewModelTests.swift */,
 				ABA054962974C05C006B5908 /* ShowSettingsViewModelTests.swift */,
 				AB657D242971A74600696EF4 /* SignUpViewModelTests.swift */,
@@ -1223,6 +1241,7 @@
 				AB07295C28F4661D0069B268 /* ShowBacklineTab */,
 				ABE07A0A29799A78009D3661 /* AddMyBandToShow */,
 				AB132FA42991EDCA0055227C /* AddEditSetTime */,
+				AB1ECDE42993E6A30086C32A /* SendShowApplication */,
 			);
 			path = ShowDetailsView;
 			sourceTree = "<group>";
@@ -1424,6 +1443,7 @@
 				ABF83DD5291AB67C006A06CC /* MembersTab */,
 				ABF83DD3291AB232006A06CC /* LinkTab */,
 				ABCD5F60291B53EA00E33934 /* ShowsTab */,
+				ABD18AAB28EE14B1002286C3 /* SendShowInviteView */,
 			);
 			path = BandProfileView;
 			sourceTree = "<group>";
@@ -1636,6 +1656,7 @@
 				AB38E1B128FB21CB006D1788 /* AddEditShowAddressView.swift in Sources */,
 				ABF1C40A28ECF09F0004A3C1 /* BandSearchResultsList.swift in Sources */,
 				AB2C81612985A4B5001C68BE /* String+usernameFormat.swift in Sources */,
+				AB1ECDEA2993F0860086C32A /* ShowApplication.swift in Sources */,
 				AB7F381128EF1AB4007741C7 /* NotificationsList.swift in Sources */,
 				AB092F5A2984B96700264659 /* CreateUsernameViewModel.swift in Sources */,
 				ABF83DD2291A9F03006A06CC /* UiConstants.swift in Sources */,
@@ -1777,6 +1798,7 @@
 				ABD18AAD28EE14C1002286C3 /* SendShowInviteView.swift in Sources */,
 				ABCF232829131E4E003DB6BB /* ConversationView.swift in Sources */,
 				AB4BD581292C388100E0360B /* AddressSearchList.swift in Sources */,
+				AB1ECDE62993E6B60086C32A /* SendShowApplicationView.swift in Sources */,
 				ABE07A0E29799A9C009D3661 /* AddMyBandToShowViewModel.swift in Sources */,
 				AB93A90D2929269C00C0EEE6 /* errorAlert.swift in Sources */,
 				AB1D5E362987145E00E62C29 /* ReauthenticateViewModel.swift in Sources */,
@@ -1794,6 +1816,7 @@
 				AB7AC08B298F043900650BCC /* ShowBacklineList.swift in Sources */,
 				AB8326B62912A89800208414 /* ShowBacklineRow.swift in Sources */,
 				ABDDAD4C28DB49DF00F1CF9B /* AddEditBandViewModel.swift in Sources */,
+				AB1ECDE82993E6BD0086C32A /* SendShowApplicationViewModel.swift in Sources */,
 				AB132FA62991EDE40055227C /* AddEditSetTimeViewModel.swift in Sources */,
 				AB1D5E4129874CAC00E62C29 /* ChangeEmailAddressView.swift in Sources */,
 				AB668EAF291BE666007899A9 /* LoggedInUserBandRow.swift in Sources */,
@@ -1871,6 +1894,7 @@
 				ABBE36A3296B566C0092F594 /* SearchTypeTests.swift in Sources */,
 				ABCD20E1296C76A500258F6F /* AddEditBandViewModelTests.swift in Sources */,
 				AB272F882976FD3D00E74091 /* AddBacklineViewModelTests.swift in Sources */,
+				AB1ECDEC2994061B0086C32A /* SendShowApplicationViewModelTests.swift in Sources */,
 				ABBE3695296B26970092F594 /* ShowTests.swift in Sources */,
 				ABA0549329745A4C006B5908 /* SearchViewModelTests.swift in Sources */,
 				AB7E1D76297A2AE80046DB92 /* AddMyBandToShowViewModelTests.swift in Sources */,

@@ -7,9 +7,11 @@
 
 import Foundation
 
-protocol UserNotification {
+protocol UserNotification: Codable, Equatable, Hashable, Identifiable {
+    var id: String { get }
+    var recipientFcmToken: String? { get }
+    var senderFcmToken: String? { get }
     var notificationType: String { get }
-    var senderUsername: String { get }
     var message: String { get }
     var recipientUid: String { get }
 }

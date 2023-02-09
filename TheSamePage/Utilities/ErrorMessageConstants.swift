@@ -15,6 +15,7 @@ struct ErrorMessageConstants {
     static let deviceIsOffline = "NOTE: Your device is not connected to the internet"
     static let emptyChatMessage = "You cannot send an empty message."
     static let invalidEmailAddress = "Please enter a valid email address."
+    static let userIsNotAdminOfAnyBands = "You are not the admin of any bands. You can only interact with others on behalf of your band if you are the band admin."
 
     // MARK: - Sign In
     static let networkErrorOnSignIn = "Login failed. \(checkYourConnection)"
@@ -39,6 +40,9 @@ struct ErrorMessageConstants {
     static let bandIsAlreadyPlayingShow = "This band is already playing this show."
     static let showLineupIsFullOnSendShowInvite = "This show's lineup is full. To invite this band, either increase the show's max number of bands or remove a band from the show's lineup."
     static let showLineupIsFullOnAcceptShowInvite = "Sorry, you can no longer accept this invite. This show's lineup is now full."
+
+    // MARK: - ShowApplication
+    static let showLineupIsFullOnAcceptShowApplication = "Sorry, you can no longer accept this application. This show's lineup is now full."
 
     // MARK: - Create Username
     static let usernameIsTooShort = "Your username must contain at least three characters."

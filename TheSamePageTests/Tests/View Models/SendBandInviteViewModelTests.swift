@@ -27,7 +27,7 @@ final class SendBandInviteViewModelTests: XCTestCase {
 
     override func tearDown() async throws {
         if let createdBandInviteId {
-            try await testingDatabaseService.deleteBandInvite(withId: createdBandInviteId, forUserWithUid: eric.id)
+            try await testingDatabaseService.deleteNotification(withId: createdBandInviteId, forUserWithUid: eric.id)
         }
 
         try testingDatabaseService.logOut()
@@ -82,33 +82,33 @@ final class SendBandInviteViewModelTests: XCTestCase {
         XCTAssertTrue(sut.errorAlertIsShowing)
     }
 
-    func test_OnGetLoggedInUserBands_DataIsFetchedWhenExpected() async throws {
+    func test_OnGetLoggedInUserAdminBands_DataIsFetchedWhenExpected() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         sut = SendBandInviteViewModel(user: eric)
 
-        await sut.getLoggedInUserBands()
+        await sut.getLoggedInUserAdminBands()
 
         XCTAssertEqual(sut.selectedBand, patheticFallacy, "Pathetic Fallacy should be the default selected band because that's Julian's only band")
         XCTAssertEqual(sut.viewState, .dataLoaded)
-        XCTAssertEqual(sut.userBands.count, 1, "Julian is only the admin of 1 band")
-        XCTAssertEqual(sut.userBands.first!, patheticFallacy, "Julian is only the admin of Pathetic Fallacy")
+        XCTAssertEqual(sut.adminBands.count, 1, "Julian is only the admin of 1 band")
+        XCTAssertEqual(sut.adminBands.first!, patheticFallacy, "Julian is only the admin of Pathetic Fallacy")
     }
 
-    func test_OnGetLoggedInUserBands_NoDataIsFetchedWhenExpected() async throws {
+    func test_OnGetLoggedInUserAdminBands_NoDataIsFetchedWhenExpected() async throws {
         try await testingDatabaseService.logInToLouAccount()
         sut = SendBandInviteViewModel(user: eric)
 
-        await sut.getLoggedInUserBands()
+        await sut.getLoggedInUserAdminBands()
 
         XCTAssertNil(sut.selectedBand, "Lou is not the admin of any bands")
         XCTAssertEqual(sut.viewState, .dataNotFound, "No data should've been fetched")
-        XCTAssertTrue(sut.userBands.isEmpty, "Lou is not the admin of any bands")
+        XCTAssertTrue(sut.adminBands.isEmpty, "Lou is not the admin of any bands")
     }
 
     func test_OnSendBandInvite_BandInviteNotificationIsSentSuccessfully() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         sut = SendBandInviteViewModel(user: eric)
-        await sut.getLoggedInUserBands()
+        await sut.getLoggedInUserAdminBands()
         sut.recipientRole = .bassGuitar
 
         self.createdBandInviteId = await sut.sendBandInvite()

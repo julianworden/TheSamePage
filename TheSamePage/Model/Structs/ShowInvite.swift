@@ -9,8 +9,10 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
 
-struct ShowInvite: Codable, Equatable, Identifiable, UserNotification {
+struct ShowInvite: UserNotification {
     var id: String
+    var recipientFcmToken: String?
+    var senderFcmToken: String?
     var dateSent: Double
     let notificationType: String
     let recipientUid: String
@@ -29,6 +31,8 @@ struct ShowInvite: Codable, Equatable, Identifiable, UserNotification {
     
     static let example = ShowInvite(
         id: "a;slkdfja;lsdjf",
+        recipientFcmToken: "a;lskdfa;sklfj",
+        senderFcmToken: "ertupwqeritnb",
         dateSent: 123232,
         notificationType: NotificationType.showInvite.rawValue,
         recipientUid: ";askldjf;alskdjf",

@@ -9,8 +9,10 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
 
-struct BandInvite: Codable, Equatable, Hashable, Identifiable, UserNotification {
+struct BandInvite: UserNotification {
     var id: String
+    var recipientFcmToken: String?
+    var senderFcmToken: String?
     let dateSent: Double
     let notificationType: String
     var recipientUid: String
@@ -22,6 +24,8 @@ struct BandInvite: Codable, Equatable, Hashable, Identifiable, UserNotification 
     
     static var example = BandInvite(
         id: "aowiefawpoefijaw;ef",
+        recipientFcmToken: "a;lskdfa;sklfj",
+        senderFcmToken: "qweryqwouieh",
         dateSent: Date.now.timeIntervalSince1970,
         notificationType: NotificationType.bandInvite.rawValue,
         recipientUid: "as;ldkfjapwoiefhaw;jgr",

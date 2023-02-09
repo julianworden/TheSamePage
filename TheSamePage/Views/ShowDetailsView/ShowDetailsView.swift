@@ -93,11 +93,8 @@ struct ShowDetailsView: View {
                     } label: {
                         Label("Play This Show", systemImage: "pencil.and.ellipsis.rectangle")
                     }
-                    .fullScreenCover(isPresented: $viewModel.showApplicationSheetIsShowing) {
-                        NavigationStack {
-                            // TODO: Fill this in!
-                            EmptyView()
-                        }
+                    .sheet(isPresented: $viewModel.showApplicationSheetIsShowing) {
+                        SendShowApplicationView(show: viewModel.show)
                     }
                 }
             }

@@ -99,6 +99,17 @@ class DatabaseService: NSObject {
             .document(uid)
             .getDocument(as: User.self)
     }
+
+    func getFcmToken(forUserWithUid uid: String) async throws -> String? {
+        do {
+            let user = try await db
+                .collection(FbConstants.users)
+                .document(uid)
+                .getDocument(as: User.self)
+
+            return user.fcmToken
+        }
+    }
     
     /// Fetches all the shows of which the signed in user is the host.
     /// - Returns: An array of shows that the signed in user is hosting.
@@ -643,7 +654,7 @@ class DatabaseService: NSObject {
             }
             
             if let bandInvite {
-                try await deleteBandInvite(bandInvite: bandInvite)
+                try await deleteNotification(withId: bandInvite.id)
             }
         } catch {
             throw FirebaseError.connection(
@@ -716,24 +727,6 @@ class DatabaseService: NSObject {
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to send band invite",
-                systemError: error.localizedDescription
-            )
-        }
-    }
-    
-    /// Deletes a band invite from the logged in user's bandInvites Firestore collection.
-    /// - Parameter bandInvite: The band invite to be deleted.
-    func deleteBandInvite(bandInvite: BandInvite) async throws {
-        do {
-            try await db
-                .collection(FbConstants.users)
-                .document(bandInvite.recipientUid)
-                .collection(FbConstants.notifications)
-                .document(bandInvite.id)
-                .delete()
-        } catch {
-            throw FirebaseError.connection(
-                message: "Failed to delete band invite from notifications list",
                 systemError: error.localizedDescription
             )
         }
@@ -1003,6 +996,23 @@ class DatabaseService: NSObject {
             )
         }
     }
+
+    func sendShowApplication(application: ShowApplication) async throws -> String {
+        do {
+            let showApplicationDocument = try db
+                .collection(FbConstants.users)
+                .document(application.recipientUid)
+                .collection(FbConstants.notifications)
+                .addDocument(from: application)
+            try await showApplicationDocument.updateData([FbConstants.id: showApplicationDocument.documentID])
+            return showApplicationDocument.documentID
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to send show application",
+                systemError: error.localizedDescription
+            )
+        }
+    }
     
     /// Adds band to show's bands collection, adds band members to show's chat, and adds user to show's participants collection.
     /// Also deletes the ShowInvite in the user's showInvites collection.
@@ -1050,10 +1060,57 @@ class DatabaseService: NSObject {
             }
             
             
-            try await deleteShowInvite(showInvite: showInvite)
+            try await deleteNotification(withId: showInvite.id)
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to add \(band.name) to \(showInvite.showName)",
+                systemError: error.localizedDescription
+            )
+        }
+    }
+
+    func addBandToShow(add band: Band, as showParticipant: ShowParticipant, withShowApplication showApplication: ShowApplication) async throws {
+        do {
+            // Add showParticipant to the show's participants collection
+            _ = try db
+                .collection(FbConstants.shows)
+                .document(showApplication.showId)
+                .collection(FbConstants.participants)
+                .addDocument(from: showParticipant)
+
+            // Add the band's ID to the show's bandIds property
+            try await db
+                .collection(FbConstants.shows)
+                .document(showApplication.showId)
+                .updateData([FbConstants.bandIds: FieldValue.arrayUnion([band.id])])
+
+            if !band.memberUids.isEmpty {
+                try await db
+                    .collection(FbConstants.shows)
+                    .document(showApplication.showId)
+                    .updateData(
+                        [
+                            FbConstants.participantUids: FieldValue.arrayUnion(band.memberUids)
+                        ]
+                    )
+                try await addBandToChat(band: band, showId: showApplication.showId)
+            }
+
+            // Check to see if the band admin is already in the memberUids array. If it isn't, add it to the show's participantUids property.
+            if !band.memberUids.contains(band.adminUid) {
+                let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
+                try await db
+                    .collection(FbConstants.shows)
+                    .document(showApplication.showId)
+                    .updateData([FbConstants.participantUids: FieldValue.arrayUnion([band.adminUid])])
+                try await addUserToChat(user: loggedInUser, showId: showApplication.showId)
+            }
+
+
+            try await deleteNotification(withId: showApplication.id)
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to add \(band.name) to \(showApplication.showName)",
                 systemError: error.localizedDescription
             )
         }
@@ -1295,21 +1352,19 @@ class DatabaseService: NSObject {
             )
         }
     }
-    
-    /// Deletes a show invite from the logged in user's showInvites collection.
-    /// - Parameter showInvite: The ShowInvite to be deleted.
-    func deleteShowInvite(showInvite: ShowInvite) async throws {
+
+    func deleteNotification(withId id: String) async throws {
         do {
             try await db
                 .collection(FbConstants.users)
                 .document(AuthController.getLoggedInUid())
                 .collection(FbConstants.notifications)
-                .document(showInvite.id)
+                .document(id)
                 .delete()
 
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to elete show invite from notifications list",
+                message: "Failed to delete notification",
                 systemError: error.localizedDescription
             )
         }

@@ -54,6 +54,9 @@ final class NotificationsViewModel: ObservableObject {
                         } else if let showInvite = try? document.data(as: ShowInvite.self) {
                             let showInviteAsAnyUserNotification = AnyUserNotification(id: showInvite.id, notification: showInvite)
                             notificationsAsAnyUserNotification.append(showInviteAsAnyUserNotification)
+                        } else if let showApplication = try? document.data(as: ShowApplication.self) {
+                            let showApplicationAsAnyUserNotification = AnyUserNotification(id: showApplication.id, notification: showApplication)
+                            notificationsAsAnyUserNotification.append(showApplicationAsAnyUserNotification)
                         }
                     }
 
@@ -68,19 +71,17 @@ final class NotificationsViewModel: ObservableObject {
     
     func handleNotification(anyUserNotification: AnyUserNotification, withAction action: NotificationAction) async {
         do {
+            guard action != .decline else {
+                try await declineNotification(notification: anyUserNotification.notification)
+                return
+            }
+
             if let bandInvite = anyUserNotification.notification as? BandInvite {
-                if action == .accept {
-                    try await acceptBandInvite(bandInvite: bandInvite)
-                } else {
-                    try await declineBandInvite(bandInvite: bandInvite)
-                }
-                
+                try await acceptBandInvite(bandInvite: bandInvite)
             } else if let showInvite = anyUserNotification.notification as? ShowInvite {
-                if action == .accept {
-                    try await acceptShowInvite(showInvite: showInvite)
-                } else {
-                    try await declineShowInvite(showInvite: showInvite)
-                }
+                try await acceptShowInvite(showInvite: showInvite)
+            } else if let showApplication = anyUserNotification.notification as? ShowApplication {
+                try await acceptShowApplication(showApplication: showApplication)
             }
         } catch {
             viewState = .error(message: error.localizedDescription)
@@ -102,8 +103,8 @@ final class NotificationsViewModel: ObservableObject {
     }
     
     func acceptShowInvite(showInvite: ShowInvite) async throws {
-        guard try await showInviteIsStillValid(showInvite: showInvite) else {
-            try await DatabaseService.shared.deleteShowInvite(showInvite: showInvite)
+        guard try await showInviteOrApplicationIsStillValid(showInvite: showInvite, showApplication: nil) else {
+            try await DatabaseService.shared.deleteNotification(withId: showInvite.id)
             viewState = .error(message: ErrorMessageConstants.showLineupIsFullOnAcceptShowInvite)
             return
         }
@@ -120,18 +121,39 @@ final class NotificationsViewModel: ObservableObject {
         try await DatabaseService.shared.addBandToShow(add: band, as: showParticipant, withShowInvite: showInvite)
     }
 
-    func showInviteIsStillValid(showInvite: ShowInvite) async throws -> Bool {
-        let show = try await DatabaseService.shared.getShow(showId: showInvite.showId)
+    func acceptShowApplication(showApplication: ShowApplication) async throws {
+        guard try await showInviteOrApplicationIsStillValid(showInvite: nil, showApplication: showApplication) else {
+            try await DatabaseService.shared.deleteNotification(withId: showApplication.id)
+            viewState = .error(message: ErrorMessageConstants.showLineupIsFullOnAcceptShowApplication)
+            return
+        }
 
-        return show.lineupIsFull == false
+        let band = try await DatabaseService.shared.getBand(with: showApplication.bandId)
+
+        let showParticipant = ShowParticipant(
+            name: showApplication.bandName,
+            bandId: showApplication.bandId,
+            bandAdminUid: band.adminUid,
+            showId: showApplication.showId
+        )
+
+        try await DatabaseService.shared.addBandToShow(add: band, as: showParticipant, withShowApplication: showApplication)
     }
 
-    func declineBandInvite(bandInvite: BandInvite) async throws {
-        try await DatabaseService.shared.deleteBandInvite(bandInvite: bandInvite)
+    func showInviteOrApplicationIsStillValid(showInvite: ShowInvite?, showApplication: ShowApplication?) async throws -> Bool {
+        if let showInvite {
+            let show = try await DatabaseService.shared.getShow(showId: showInvite.showId)
+            return show.lineupIsFull == false
+        } else if let showApplication {
+            let show = try await DatabaseService.shared.getShow(showId: showApplication.showId)
+            return show.lineupIsFull == false
+        }
+
+        throw LogicError.unexpectedNilValue(message: "Failed to determine if notification is valid. Please restart The Same Page and try again.")
     }
 
-    func declineShowInvite(showInvite: ShowInvite) async throws {
-        try await DatabaseService.shared.deleteShowInvite(showInvite: showInvite)
+    func declineNotification(notification: any UserNotification) async throws {
+        try await DatabaseService.shared.deleteNotification(withId: notification.id)
     }
     
     func removeListeners() {

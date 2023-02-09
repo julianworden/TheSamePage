@@ -13,7 +13,7 @@ import XCTest
 final class SendShowInviteViewModelTests: XCTestCase {
     var sut: SendShowInviteViewModel!
     var testingDatabaseService: TestingDatabaseService!
-    /// Makes it easier to delete an example show that's created for testing in tearDown method. Any show
+    /// Makes it easier to delete an example show invite that's created for testing in tearDown method. Any show invite
     /// that's created in these tests should assign its id property to this property so that it can be deleted
     /// during tearDown.
     var createdShowInviteId: String?
@@ -30,7 +30,7 @@ final class SendShowInviteViewModelTests: XCTestCase {
 
     override func tearDown() async throws {
         if let createdShowInviteId {
-            try await testingDatabaseService.deleteShowInvite(showInviteId: createdShowInviteId, forUserWithUid: craig.id)
+            try await testingDatabaseService.deleteNotification(withId: createdShowInviteId, forUserWithUid: craig.id)
         }
 
         try testingDatabaseService.logOut()

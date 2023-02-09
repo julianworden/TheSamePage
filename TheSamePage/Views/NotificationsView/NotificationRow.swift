@@ -18,28 +18,24 @@ struct NotificationRow: View {
             ListRowElements(
                 title: anyUserNotification.notificationTitle,
                 subtitle: anyUserNotification.notification.message,
-                iconName: anyUserNotification.iconName,
-                displayChevron: false,
-                displayDivider: false
+                iconName: anyUserNotification.iconName
             )
             
-            if anyUserNotification.notificationType == .bandInvite || anyUserNotification.notificationType == .showInvite {
-                HStack {
-                    AsyncButton {
-                        await viewModel.handleNotification(anyUserNotification: anyUserNotification, withAction: .accept)
-                    } label: {
-                        Text("Accept")
-                    }
-                    
-                    AsyncButton {
-                        await viewModel.handleNotification(anyUserNotification: anyUserNotification, withAction: .decline)
-                    } label: {
-                        Text("Decline")
-                    }
+            HStack {
+                AsyncButton {
+                    await viewModel.handleNotification(anyUserNotification: anyUserNotification, withAction: .accept)
+                } label: {
+                    Text("Accept")
                 }
-                .buttonStyle(.bordered)
+
+                AsyncButton {
+                    await viewModel.handleNotification(anyUserNotification: anyUserNotification, withAction: .decline)
+                } label: {
+                    Text("Decline")
+                }
             }
-            
+            .buttonStyle(.bordered)
+
             Divider()
         }
     }

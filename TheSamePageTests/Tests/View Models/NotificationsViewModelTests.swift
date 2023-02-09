@@ -25,6 +25,11 @@ final class NotificationsViewModelTests: XCTestCase {
     /// that's created in these tests should assign its id property to this property so that it can be deleted
     /// during tearDown.
     var createdShowInviteId: String?
+    let julian = TestingConstants.exampleUserJulian
+    let mike = TestingConstants.exampleUserMike
+    let craig = TestingConstants.exampleUserCraig
+    let matt = TestingConstants.exampleUserMattForIntegrationTesting
+    let theApples = TestingConstants.exampleBandTheApples
 
     override func setUpWithError() throws {
         sut = NotificationsViewModel()
@@ -33,8 +38,8 @@ final class NotificationsViewModelTests: XCTestCase {
 
     override func tearDown() async throws {
         if let createdShowInviteId {
-            try await testingDatabaseService.deleteShowInvite(
-                showInviteId: createdShowInviteId,
+            try await testingDatabaseService.deleteNotification(
+                withId: createdShowInviteId,
                 forUserWithUid: AuthController.getLoggedInUid()
             )
             self.createdShowInviteId = nil
@@ -74,12 +79,12 @@ final class NotificationsViewModelTests: XCTestCase {
     }
 
     func test_OnGetNotificationsWhenUserHasNoNotifications_NoNotificationsAreFetchedAndViewStateIsSet() async throws {
-        try await testingDatabaseService.logInToJulianAccount()
+        try await testingDatabaseService.logInToLouAccount()
 
         sut.getNotifications()
         try await Task.sleep(seconds: 0.5)
 
-        XCTAssertTrue(sut.fetchedNotifications.isEmpty, "Julian has no notifications")
+        XCTAssertTrue(sut.fetchedNotifications.isEmpty, "Lou has no notifications")
         XCTAssertEqual(sut.viewState, .dataNotFound, "No data should've been found")
     }
 
@@ -101,8 +106,8 @@ final class NotificationsViewModelTests: XCTestCase {
         XCTAssertEqual(sut.fetchedNotifications.count, 2, "Mike now has 2 notifications")
 
         // Cleans up the second sent notification
-        try await testingDatabaseService.deleteShowInvite(
-            showInviteId: showInvite.id,
+        try await testingDatabaseService.deleteNotification(
+            withId: showInvite.id,
             forUserWithUid: TestingConstants.exampleUserMike.id
         )
     }
@@ -127,8 +132,8 @@ final class NotificationsViewModelTests: XCTestCase {
         XCTAssertEqual(sut.fetchedNotifications.count, 1, "An additional notification shouldn't have been fetched because the listener was removed")
 
         // Cleans up the second sent notification
-        try await testingDatabaseService.deleteShowInvite(
-            showInviteId: showInvite.id,
+        try await testingDatabaseService.deleteNotification(
+            withId: showInvite.id,
             forUserWithUid: TestingConstants.exampleUserMike.id
         )
     }
@@ -170,7 +175,7 @@ final class NotificationsViewModelTests: XCTestCase {
         XCTAssertFalse(bandInviteNotificationExists, "The notification should've been deleted from the user's notifications collection after accepting the invite")
     }
 
-    func test_OnDeclinedBandInvite_UserIsNotAddedToBandAndNotificationIsDeleted() async throws {
+    func test_OnDeclinedBandInvite_NotificationIsDeleted() async throws {
         let bandInvite = try await createMattUserAndSendBandInviteToJoinPatheticFallacy()
         let bandInviteAsAnyUserNotification = AnyUserNotification(id: bandInvite.id, notification: bandInvite)
 
@@ -178,18 +183,11 @@ final class NotificationsViewModelTests: XCTestCase {
         let bandInviteNotificationExists = try await testingDatabaseService.notificationExists(
             forUserWithUid: createdUserUid!, notificationId: bandInvite.id
         )
-        let patheticFallacy = try await testingDatabaseService.getBand(withId: TestingConstants.exampleBandPatheticFallacy.id)
-        let userExistsInBandMembersCollection = try await testingDatabaseService.userExistsInMembersCollectionForBand(
-            uid: createdUserUid!, bandId: patheticFallacy.id
-        )
 
         XCTAssertFalse(bandInviteNotificationExists, "The notification should've been deleted after the user declined the invite")
-        XCTAssertFalse(patheticFallacy.memberUids.contains(createdUserUid!), "The user should not have been added to the band's memberUids array")
-        XCTAssertFalse(userExistsInBandMembersCollection, "The user should not have been added to the band's members collection")
     }
 
-    func test_OnAcceptShowInvite_UserAndBandAreAddedToShow() async throws {
-        let mike = TestingConstants.exampleUserMike
+    func test_OnAcceptShowInvite_BandIsAddedToShow() async throws {
         try await testingDatabaseService.logInToMikeAccount()
         let showInvite = try await createGenerationUndergroundAndSendInviteToPlayDumpweedExtravaganza()
         let showInviteAsAnyUserNotification = AnyUserNotification(id: showInvite.id, notification: showInvite)
@@ -208,7 +206,6 @@ final class NotificationsViewModelTests: XCTestCase {
     }
 
     func test_OnAcceptShowInvite_InviteIsDeletedFromUserNotifications() async throws {
-        let mike = TestingConstants.exampleUserMike
         try await testingDatabaseService.logInToMikeAccount()
         let showInvite = try await createGenerationUndergroundAndSendInviteToPlayDumpweedExtravaganza()
         let showInviteAsAnyUserNotification = AnyUserNotification(id: showInvite.id, notification: showInvite)
@@ -223,7 +220,6 @@ final class NotificationsViewModelTests: XCTestCase {
     }
 
     func test_OnAcceptShowInviteForShowWithFullLineup_InviteIsDeletedAndViewStateIsSet() async throws {
-        let mike = TestingConstants.exampleUserMike
         try await testingDatabaseService.logInToMikeAccount()
         try await testingDatabaseService.editShow(
             showId: TestingConstants.exampleShowDumpweedExtravaganza.id,
@@ -249,8 +245,7 @@ final class NotificationsViewModelTests: XCTestCase {
         )
     }
 
-    func test_OnDeclineShowInvite_BandIsNotAddedToShowAndNotificationIsDeleted() async throws {
-        let mike = TestingConstants.exampleUserMike
+    func test_OnDeclineShowInvite_NotificationIsDeleted() async throws {
         try await testingDatabaseService.logInToMikeAccount()
         let showInvite = try await createGenerationUndergroundAndSendInviteToPlayDumpweedExtravaganza()
         let showInviteAsAnyUserNotification = AnyUserNotification(id: showInvite.id, notification: showInvite)
@@ -260,16 +255,97 @@ final class NotificationsViewModelTests: XCTestCase {
             forUserWithUid: mike.id,
             notificationId: showInvite.id
         )
-        let dumpweedExtravaganza = try await testingDatabaseService.getShow(withId: showInvite.showId)
-        let bandExistsInShowParticipantsCollection = try await testingDatabaseService.bandExistsInParticipantsCollectionForShow(
-            showId: showInvite.bandId,
-            bandId: createdBandId!
+
+        XCTAssertFalse(showInviteExists, "The notification should've been deleted from Mike's notifications collection after it was declined")
+    }
+
+    func test_OnAcceptShowApplication_BandIsAddedToShow() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
+        let showApplication = TestingConstants.exampleShowApplicationForDumpweedExtravaganza
+        let showApplicationAsAnyUserNotification = AnyUserNotification(id: showApplication.id, notification: showApplication)
+
+        await sut.handleNotification(anyUserNotification: showApplicationAsAnyUserNotification, withAction: .accept)
+
+        let dumpweedExtravaganza = try await testingDatabaseService.getShow(withId: TestingConstants.exampleShowDumpweedExtravaganza.id)
+        let bandExistsInParticipantsCollection = try await testingDatabaseService.bandExistsInParticipantsCollectionForShow(
+            showId: dumpweedExtravaganza.id,
+            bandId: theApples.id
+        )
+        let chatForDumpweedExtravaganza = try await testingDatabaseService.getChat(forShowWithId: dumpweedExtravaganza.id)
+
+        XCTAssertTrue(chatForDumpweedExtravaganza.participantUids.contains(craig.id), "Craig should be in the show's chat since he was in the band that joined the show")
+        XCTAssertTrue(dumpweedExtravaganza.bandIds.contains(theApples.id), "The Apples' id should be in the show's bandIds array")
+        XCTAssertTrue(bandExistsInParticipantsCollection, "The Apples should be included in the show's participants collection")
+
+        try await testingDatabaseService.restoreShow(TestingConstants.exampleShowDumpweedExtravaganza)
+        try await testingDatabaseService.deleteShowParticipant(withName: theApples.name, inShowWithId: dumpweedExtravaganza.id)
+        try await testingDatabaseService.restoreChat(TestingConstants.exampleChatDumpweedExtravaganza)
+        try await testingDatabaseService.restoreShowApplication(restore: TestingConstants.exampleShowApplicationForDumpweedExtravaganza, forUserWithUid: julian.id)
+    }
+
+    func test_OnAcceptShowApplication_ApplicationIsDeletedFromUserNotifications() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
+        let showApplication = TestingConstants.exampleShowApplicationForDumpweedExtravaganza
+        let showApplicationAsAnyUserNotification = AnyUserNotification(id: showApplication.id, notification: showApplication)
+
+        await sut.handleNotification(anyUserNotification: showApplicationAsAnyUserNotification, withAction: .accept)
+
+        let showApplicationExists = try await testingDatabaseService.notificationExists(
+            forUserWithUid: julian.id,
+            notificationId: showApplication.id
         )
 
-        XCTAssertFalse(dumpweedExtravaganza.bandIds.contains(createdBandId!), "Mike declined the invite, so his band shouldn't be playing")
-        XCTAssertFalse(bandExistsInShowParticipantsCollection, "Mike declined the invite, so his band shouldn't be playing")
-        XCTAssertFalse(showInviteExists, "The notification should've been deleted from Mike's notifications collection after it was declined")
+        XCTAssertFalse(showApplicationExists, "The application should no longer exist in the user's notifications collection after it was accepted.")
 
+        try await testingDatabaseService.restoreShow(TestingConstants.exampleShowDumpweedExtravaganza)
+        try await testingDatabaseService.deleteShowParticipant(
+            withName: theApples.name,
+            inShowWithId: TestingConstants.exampleShowDumpweedExtravaganza.id
+        )
+        try await testingDatabaseService.restoreChat(TestingConstants.exampleChatDumpweedExtravaganza)
+        try await testingDatabaseService.restoreShowApplication(restore: TestingConstants.exampleShowApplicationForDumpweedExtravaganza, forUserWithUid: julian.id)
+    }
+
+    func test_OnAcceptShowApplicationThatIsNoLongerValid_ApplicationIsDeletedAndViewStateIsSet() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
+        try await testingDatabaseService.editShow(
+            showId: TestingConstants.exampleShowDumpweedExtravaganza.id,
+            field: FbConstants.maxNumberOfBands,
+            newValue: 2
+        )
+        let showApplication = TestingConstants.exampleShowApplicationForDumpweedExtravaganza
+        let showApplicationAsAnyUserNotification = AnyUserNotification(id: showApplication.id, notification: showApplication)
+
+        await sut.handleNotification(anyUserNotification: showApplicationAsAnyUserNotification, withAction: .accept)
+        let showApplicationExists = try await testingDatabaseService.notificationExists(
+            forUserWithUid: mike.id,
+            notificationId: showApplication.id
+        )
+
+        XCTAssertEqual(sut.viewState, .error(message: ErrorMessageConstants.showLineupIsFullOnAcceptShowApplication), "An error should've been thrown because the show's lineup was filled since the application was sent.")
+        XCTAssertFalse(showApplicationExists, "The application should get deleted since it's no longer valid.")
+
+        try await testingDatabaseService.editShow(
+            showId: TestingConstants.exampleShowDumpweedExtravaganza.id,
+            field: FbConstants.maxNumberOfBands,
+            newValue: 3
+        )
+        try await testingDatabaseService.restoreShowApplication(restore: TestingConstants.exampleShowApplicationForDumpweedExtravaganza, forUserWithUid: julian.id)
+    }
+
+    func test_OnDeclineShowApplication_ApplicationIsDeleted() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
+        let showApplication = TestingConstants.exampleShowApplicationForDumpweedExtravaganza
+        let showApplicationAsAnyUserNotification = AnyUserNotification(id: showApplication.id, notification: showApplication)
+
+        await sut.handleNotification(anyUserNotification: showApplicationAsAnyUserNotification, withAction: .decline)
+
+        let showApplicationExists = try await testingDatabaseService.notificationExists(
+            forUserWithUid: julian.id,
+            notificationId: showApplication.id
+        )
+
+        XCTAssertFalse(showApplicationExists, "The application should no longer exist in the user's notifications collection after it was accepted.")
     }
 
     func test_OnErrorViewState_PropertiesAreSet() {
@@ -292,7 +368,6 @@ final class NotificationsViewModelTests: XCTestCase {
     /// clean up Firestore. The notification that's sent to Matt should also be deleted after this method is called if this method is run in a test that doesn't do this already.
     /// - Returns: The BandInvite that is sent to Matt to join Pathetic Fallacy.
     func createMattUserAndSendBandInviteToJoinPatheticFallacy() async throws -> BandInvite {
-        let matt = TestingConstants.exampleUserMattForIntegrationTesting
         var mattBandInvite = TestingConstants.exampleBandInviteForMatt
         self.createdUserUid = try await testingDatabaseService.createAccountInFirebaseAuthAndAddNewUserToFirestore(
             emailAddress: matt.emailAddress,
@@ -322,7 +397,6 @@ final class NotificationsViewModelTests: XCTestCase {
     /// to Mike should also be deleted if this method is run in a test that doesn't do this already.
     /// - Returns: The ShowInvite that is sent to Mike for Generation Underground to play Dumpweed Extravaganza.
     func createGenerationUndergroundAndSendInviteToPlayDumpweedExtravaganza() async throws -> ShowInvite {
-        let mike = TestingConstants.exampleUserMike
         var mikeShowInvite = TestingConstants.exampleShowInviteForGenerationUnderground
         var generationUnderground = Band(
             id: "",

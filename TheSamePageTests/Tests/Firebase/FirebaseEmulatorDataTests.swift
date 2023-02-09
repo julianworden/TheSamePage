@@ -371,6 +371,27 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(bandInviteInEmulator, TestingConstants.exampleBandInviteForTas)
     }
 
+    // MARK: - Firestore Example ShowApplications
+
+    func test_OnInit_ExampleShowApplicationInFirestoreEmulatorHasExpectedValues() async throws {
+        let showApplicationInEmulator = try await testingDatabaseService.getShowApplication(
+            withId: TestingConstants.exampleShowApplicationForDumpweedExtravaganza.id,
+            forUserWithUid: TestingConstants.exampleUserJulian.id
+        )
+        let showApplicationInTestingConstants = TestingConstants.exampleShowApplicationForDumpweedExtravaganza
+
+        XCTAssertEqual(showApplicationInEmulator.id, showApplicationInTestingConstants.id)
+        XCTAssertEqual(showApplicationInEmulator.recipientFcmToken, showApplicationInTestingConstants.recipientFcmToken)
+        XCTAssertEqual(showApplicationInEmulator.senderFcmToken, showApplicationInTestingConstants.senderFcmToken)
+        XCTAssertEqual(showApplicationInEmulator.notificationType, showApplicationInTestingConstants.notificationType)
+        XCTAssertEqual(showApplicationInEmulator.bandName, showApplicationInTestingConstants.bandName)
+        XCTAssertEqual(showApplicationInEmulator.message, showApplicationInTestingConstants.message)
+        XCTAssertEqual(showApplicationInEmulator.recipientUid, showApplicationInTestingConstants.recipientUid)
+        XCTAssertEqual(showApplicationInEmulator.showId, showApplicationInTestingConstants.showId)
+        XCTAssertEqual(showApplicationInEmulator.showName, showApplicationInTestingConstants.showName)
+        XCTAssertEqual(showApplicationInEmulator.bandId, showApplicationInTestingConstants.bandId)
+    }
+
     // MARK: - Firestore Example BandMembers
 
     func test_OnInit_ExampleBandMemberJulianInFirestoreEmulatorHasExpectedValues() async throws {

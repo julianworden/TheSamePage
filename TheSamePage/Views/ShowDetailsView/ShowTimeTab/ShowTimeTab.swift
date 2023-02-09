@@ -16,12 +16,7 @@ struct ShowTimeTab: View {
         let show = viewModel.show
         
         VStack {
-            if show.hasTime {
-                ShowTimeList(viewModel: viewModel)
-            } else {
-                Text(viewModel.noShowTimesMessage)
-                    .multilineTextAlignment(.center)
-            }
+            ShowTimeList(viewModel: viewModel)
         }
         .padding(.horizontal)
     }

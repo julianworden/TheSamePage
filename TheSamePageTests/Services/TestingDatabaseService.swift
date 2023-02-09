@@ -532,15 +532,6 @@ class TestingDatabaseService {
             .documentID
     }
 
-    func deleteBandInvite(withId id: String, forUserWithUid uid: String) async throws {
-        try await db
-            .collection(FbConstants.users)
-            .document(uid)
-            .collection(FbConstants.notifications)
-            .document(id)
-            .delete()
-    }
-
     // MARK: - Firestore ShowInvites
 
     func getShowInvite(withId id: String, forUserWithUid uid: String) async throws -> ShowInvite {
@@ -561,13 +552,24 @@ class TestingDatabaseService {
             .documentID
     }
 
-    func deleteShowInvite(showInviteId: String, forUserWithUid uid: String) async throws {
-        try await db
+    // MARK: - Firestore ShowApplications
+
+    func getShowApplication(withId id: String, forUserWithUid uid: String) async throws -> ShowApplication {
+        return try await db
             .collection(FbConstants.users)
             .document(uid)
             .collection(FbConstants.notifications)
-            .document(showInviteId)
-            .delete()
+            .document(id)
+            .getDocument(as: ShowApplication.self)
+    }
+
+    func restoreShowApplication(restore showApplication: ShowApplication, forUserWithUid uid: String) async throws {
+        try db
+            .collection(FbConstants.users)
+            .document(uid)
+            .collection(FbConstants.notifications)
+            .document(showApplication.id)
+            .setData(from: showApplication)
     }
 
     // MARK: - Firestore ShowParticipants
@@ -580,6 +582,19 @@ class TestingDatabaseService {
             .getDocuments()
             .documents
             .map { try $0.data(as: ShowParticipant.self) }
+    }
+
+    func deleteShowParticipant(withName bandName: String, inShowWithId showId: String) async throws {
+        try await db
+            .collection(FbConstants.shows)
+            .document(showId)
+            .collection(FbConstants.participants)
+            .whereField(FbConstants.name, isEqualTo: bandName)
+            .getDocuments()
+            .documents
+            .first!
+            .reference
+            .delete()
     }
 
     func bandExistsInParticipantsCollectionForShow(showId: String, bandId: String) async throws -> Bool {
@@ -622,6 +637,13 @@ class TestingDatabaseService {
             .documents
 
         return try chatDocuments.map { try $0.data(as: Chat.self) }
+    }
+
+    func restoreChat(_ chat: Chat) async throws {
+        try db
+            .collection(FbConstants.chats)
+            .document(chat.id)
+            .setData(from: chat)
     }
 
     func addUserToChat(chatId: String, uid: String) async throws {
@@ -743,6 +765,15 @@ class TestingDatabaseService {
             .document(notificationId)
             .getDocument()
             .exists
+    }
+
+    func deleteNotification(withId id: String, forUserWithUid uid: String) async throws {
+        try await db
+            .collection(FbConstants.users)
+            .document(uid)
+            .collection(FbConstants.notifications)
+            .document(id)
+            .delete()
     }
 
     // MARK: - Firestore PlatformLinks

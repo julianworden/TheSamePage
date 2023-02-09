@@ -218,11 +218,11 @@ struct TestingConstants {
         bandIds: [exampleBandPatheticFallacy.id, exampleBandDumpweed.id],
         participantUids: [exampleUserJulian.id, exampleUserLou.id, exampleUserEric.id],
         venue: "Starland Ballroom",
-        date: 1668782049.620614,
-        loadInTime: 1668830410,
-        doorsTime: 1668832210,
-        musicStartTime: 1668834010,
-        endTime: 1668835810,
+        date: 1893484800,
+        loadInTime: 1893556800,
+        doorsTime: 1893558600,
+        musicStartTime: 1893560400,
+        endTime: 1893562200,
         isFree: false,
         ticketPrice: 100,
         ticketSalesAreRequired: true,
@@ -354,6 +354,20 @@ struct TestingConstants {
         hasBar: exampleShowDumpweedExtravaganza.hasBar,
         is21Plus: exampleShowDumpweedExtravaganza.is21Plus,
         message: "\(exampleUserJulian.username) is inviting Generation Underground to play \(exampleShowDumpweedExtravaganza.name) at \(exampleShowDumpweedExtravaganza.venue) on \(exampleShowDumpweedExtravaganza.formattedDate)"
+    )
+
+    // MARK: - Example ShowApplications
+
+    static let exampleShowApplicationForDumpweedExtravaganza = ShowApplication(
+        id: "LHN7T2KCPTS8utVIHlXF",
+        recipientFcmToken: nil,
+        senderFcmToken: nil,
+        bandName: exampleBandTheApples.name,
+        message: "\(exampleBandTheApples.name) wants to play \(exampleShowDumpweedExtravaganza.name).",
+        recipientUid: exampleUserJulian.id,
+        showId: exampleShowDumpweedExtravaganza.id,
+        showName: exampleShowDumpweedExtravaganza.name,
+        bandId: exampleBandTheApples.id
     )
 
     // MARK: - Example Chats
