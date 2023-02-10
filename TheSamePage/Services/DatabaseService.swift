@@ -430,7 +430,7 @@ class DatabaseService: NSObject {
     func deleteUserFromFirestore(withUid uid: String) async throws {
         let loggedInUser = try await getLoggedInUser()
 
-        _ = try await Functions.functions().httpsCallable(FbConstants.recursiveDelete).call([FbConstants.path: "\(FbConstants.users)/\(uid)"])
+        try await FirebaseFunctionsController.recursiveDelete(path: "\(FbConstants.users)/\(uid)")
 
         let userShows = try await getPlayingShows()
         for show in userShows {
@@ -807,7 +807,7 @@ class DatabaseService: NSObject {
                 try await removeBandFromShow(bandId: band.id, showId: show.id)
             }
 
-            _ = try await Functions.functions().httpsCallable(FbConstants.recursiveDelete).call([FbConstants.path: "\(FbConstants.bands)/\(band.id)"])
+            try await FirebaseFunctionsController.recursiveDelete(path: "\(FbConstants.bands)/\(band.id)")
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to delete show chat",
@@ -1372,7 +1372,7 @@ class DatabaseService: NSObject {
     
     func cancelShow(show: Show) async throws {
         do {
-            _ = try await Functions.functions().httpsCallable(FbConstants.recursiveDelete).call([FbConstants.path: "\(FbConstants.shows)/\(show.id)"])
+            try await FirebaseFunctionsController.recursiveDelete(path: "\(FbConstants.shows)/\(show.id)")
             try await deleteChat(for: show)
         } catch {
             throw FirebaseError.connection(
@@ -1666,8 +1666,8 @@ class DatabaseService: NSObject {
             guard !chatDocument.isEmpty else { return }
             
             let chat = try chatDocument[0].data(as: Chat.self)
-            
-            _ = try await Functions.functions().httpsCallable(FbConstants.recursiveDelete).call([FbConstants.recursiveDelete: "\(FbConstants.chats)/\(chat.id)"])
+
+            try await FirebaseFunctionsController.recursiveDelete(path: "\(FbConstants.chats)/\(chat.id)")
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to delete show chat",

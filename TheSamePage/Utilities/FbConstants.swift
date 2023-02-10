@@ -40,8 +40,13 @@ struct FbConstants {
     static let hostUid = "hostUid"
     static let maxNumberOfBands = "maxNumberOfBands"
     static let setTime = "setTime"
+    static let recipientFcmToken = "recipientFcmToken"
+    static let message = "message"
 
     // MARK: - Firebase Functions
     static let recursiveDelete = "recursiveDelete"
+    static let notifyAcceptedBandInvite = "notifyAcceptedBandInvite"
+    static let notifyAcceptedShowInvite = "notifyAcceptedShowInvite"
+    static let notifyAcceptedShowApplication = "notifyAcceptedShowApplication"
     static let path = "path"
 }

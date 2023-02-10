@@ -49,4 +49,9 @@ struct ShowInvite: UserNotification {
         is21Plus: true,
         message: "ericpalermo is inviting Pathetic Fallacy to play Absolute Banger at Starland Ballroom on 10/11/22"
     )
+
+    #warning("TEST")
+    var acceptanceMessage: String {
+        return "\(bandName) is now playing \(showName)."
+    }
 }

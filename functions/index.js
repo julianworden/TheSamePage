@@ -32,7 +32,7 @@ exports.notifyNewNotification = functions.firestore
     .onCreate((snapshot, context) => {
         const notification = snapshot.data();
         const message = notification['message'];
-        const notificationType = notification['notificationType']
+        const notificationType = notification['notificationType'];
         const recipientFcmToken = notification['recipientFcmToken'];
 
         functions.logger.log('Recipient FCM token is:', recipientFcmToken, 'Notification message is:', message);
@@ -49,6 +49,78 @@ exports.notifyNewNotification = functions.firestore
 
         return admin.messaging().sendToDevice(recipientFcmToken, payload);
     })
+
+exports.notifyAcceptedBandInvite = functions
+    .runWith({
+        timeoutSeconds: 540,
+        memory: '2GB'
+    })
+    .https.onCall(async (data, context) => {
+        const recipientFcmToken = data.recipientFcmToken;
+        const message = data.message;
+
+        functions.logger.log('Sending notification with message', message, 'to user with FCM token', recipientFcmToken);
+        
+        const payload = {
+            notification: {
+                title: 'Band Invite Accepted',
+                body: `${message}`
+            },
+            data: {
+                openNotificationsTab: 'true'
+            }
+        };
+
+        return admin.messaging().sendToDevice(recipientFcmToken, payload);
+    });
+
+exports.notifyAcceptedShowInvite = functions
+    .runWith({
+        timeoutSeconds: 540,
+        memory: '2GB'
+    })
+    .https.onCall(async (data, context) => {
+        const recipientFcmToken = data.recipientFcmToken;
+        const message = data.message;
+
+        functions.logger.log('Sending notification with message', message, 'to user with FCM token', recipientFcmToken);
+        
+        const payload = {
+            notification: {
+                title: 'Show Invite Accepted',
+                body: `${message}`
+            },
+            data: {
+                openNotificationsTab: 'true'
+            }
+        };
+
+        return admin.messaging().sendToDevice(recipientFcmToken, payload);
+    });
+
+exports.notifyAcceptedShowApplication = functions
+    .runWith({
+        timeoutSeconds: 540,
+        memory: '2GB'
+    })
+    .https.onCall(async (data, context) => {
+        const recipientFcmToken = data.recipientFcmToken;
+        const message = data.message;
+
+        functions.logger.log('Sending notification with message', message, 'to user with FCM token', recipientFcmToken);
+        
+        const payload = {
+            notification: {
+                title: 'Show Application Accepted',
+                body: `${message}`
+            },
+            data: {
+                openNotificationsTab: 'true'
+            }
+        };
+
+        return admin.messaging().sendToDevice(recipientFcmToken, payload);
+    });
 
 exports.recursiveDelete = functions
     .runWith({
