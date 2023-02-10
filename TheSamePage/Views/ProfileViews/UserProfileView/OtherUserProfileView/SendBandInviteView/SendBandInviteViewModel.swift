@@ -83,7 +83,7 @@ final class SendBandInviteViewModel: ObservableObject {
                     bandId: selectedBand.id,
                     senderUsername: loggedInUser.username,
                     senderBand: selectedBand.name,
-                    message: "\(loggedInUser.username) is inviting you to join \(selectedBand.name)"
+                    message: "\(loggedInUser.username) is inviting you to join \(selectedBand.name)."
                 )
                 let bandInviteId = try await DatabaseService.shared.sendBandInvite(invite: invite)
                 viewState = .workCompleted

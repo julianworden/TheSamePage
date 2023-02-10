@@ -38,17 +38,6 @@ struct LoggedInUserProfileView: View {
                                 Label("Create Band", systemImage: "plus")
                             }
                             .buttonStyle(.bordered)
-                            .fullScreenCover(
-                                isPresented: $createBandSheetIsShowing,
-                                onDismiss: {
-                                    Task {
-                                        await loggedInUserController.getLoggedInUserPlayingBands()
-                                    }
-                                },
-                                content: {
-                                    AddEditBandView(bandToEdit: nil, isPresentedModally: true)
-                                }
-                            )
                         } else if loggedInUserController.playingBands.isEmpty {
                             NoDataFoundMessageWithButtonView(
                                 isPresentingSheet: $createBandSheetIsShowing,
@@ -60,6 +49,17 @@ struct LoggedInUserProfileView: View {
                             .padding(.top)
                         }
                     }
+                    .fullScreenCover(
+                        isPresented: $createBandSheetIsShowing,
+                        onDismiss: {
+                            Task {
+                                await loggedInUserController.getLoggedInUserPlayingBands()
+                            }
+                        },
+                        content: {
+                            AddEditBandView(bandToEdit: nil, isPresentedModally: true)
+                        }
+                    )
                 }
             }
             .navigationTitle("Your Profile")
