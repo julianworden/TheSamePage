@@ -51,7 +51,12 @@ class BandProfileViewModel: ObservableObject {
     }
     let isPresentedModally: Bool
 
-    init(band: Band? = nil, showParticipant: ShowParticipant? = nil, isPresentedModally: Bool = false) {
+    init(
+        band: Band?,
+        showParticipant: ShowParticipant? = nil,
+        bandId: String? = nil,
+        isPresentedModally: Bool = false
+    ) {
         self.isPresentedModally = isPresentedModally
 
         if let band {
@@ -64,14 +69,23 @@ class BandProfileViewModel: ObservableObject {
             Task {
                 self.band = await convertShowParticipantToBand(showParticipant: showParticipant)
                 viewState = .dataLoaded
+                return
+            }
+        }
+
+        if let bandId {
+            Task {
+                self.band = await getBand(withId: bandId)
+                viewState = .dataLoaded
+                return
             }
         }
     }
     
     func convertShowParticipantToBand(showParticipant: ShowParticipant) async -> Band? {
-        viewState = .dataLoading
-        
         do {
+            viewState = .dataLoading
+
             return try await DatabaseService.shared.convertShowParticipantToBand(showParticipant: showParticipant)
         } catch {
             viewState = .error(message: error.localizedDescription)
@@ -84,6 +98,17 @@ class BandProfileViewModel: ObservableObject {
         await getBandMembers()
         await getBandLinks()
         await getBandShows()
+    }
+
+    func getBand(withId id: String) async -> Band? {
+        do {
+            viewState = .dataLoading
+
+            return try await DatabaseService.shared.getBand(with: id)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+            return nil
+        }
     }
 
     func getLatestBandData() async {

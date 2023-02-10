@@ -11,56 +11,55 @@ struct ShowDetailsView: View {
     @Environment(\.dismiss) var dismiss
 
     @StateObject var viewModel: ShowDetailsViewModel
-        
-    init(show: Show, isPresentedModally: Bool = false) {
-        _viewModel = StateObject(wrappedValue: ShowDetailsViewModel(show: show, isPresentedModally: isPresentedModally))
+
+    init(show: Show?, showId: String? = nil, isPresentedModally: Bool = false) {
+        _viewModel = StateObject(wrappedValue: ShowDetailsViewModel(show: show, showId: showId, isPresentedModally: isPresentedModally))
     }
     
     var body: some View {
         ZStack {
             BackgroundColor()
-            
-            switch viewModel.viewState {
-            case .dataLoading:
-                ProgressView()
-                
-            case .dataLoaded, .displayingView:
-                ScrollView {
-                    VStack(spacing: 10) {
-                        ShowDetailsHeader(viewModel: viewModel)
 
-                        Picker("Select View", selection: $viewModel.selectedTab) {
-                            ForEach(SelectedShowDetailsTab.allCases) { tabName in
-                                Text(tabName.rawValue)
+            if let show = viewModel.show {
+                switch viewModel.viewState {
+                case .dataLoading:
+                    ProgressView()
+
+                case .dataLoaded, .displayingView:
+                    ScrollView {
+                        VStack(spacing: 10) {
+                            ShowDetailsHeader(viewModel: viewModel)
+
+                            Picker("Select View", selection: $viewModel.selectedTab) {
+                                ForEach(SelectedShowDetailsTab.allCases) { tabName in
+                                    Text(tabName.rawValue)
+                                }
+                            }
+                            .pickerStyle(.segmented)
+                            .padding(.horizontal)
+
+                            switch viewModel.selectedTab {
+                            case .lineup:
+                                ShowLineupTab(viewModel: viewModel)
+                            case .backline:
+                                ShowBacklineTab(viewModel: viewModel)
+                            case .times:
+                                ShowTimeTab(viewModel: viewModel)
+                            case .location:
+                                ShowLocationTab(viewModel: viewModel, show: show)
+                            case .details:
+                                ShowDetailsTab(viewModel: viewModel)
                             }
                         }
-                        .pickerStyle(.segmented)
-                        .padding(.horizontal)
-
-                        switch viewModel.selectedTab {
-                        case .lineup:
-                            ShowLineupTab(viewModel: viewModel)
-                        case .backline:
-                            ShowBacklineTab(viewModel: viewModel)
-                        case .times:
-                            ShowTimeTab(viewModel: viewModel)
-                        case .location:
-                            ShowLocationTab(viewModel: viewModel)
-                        case .details:
-                            ShowDetailsTab(viewModel: viewModel)
-                        }
                     }
-                }
 
-                // TODO: MAke this error handling more uniform with the rest of the app
-            case .error(let message):
-                ErrorMessage(
-                    message: "Failed to fetch details for this show.",
-                    systemErrorText: message
-                )
-                
-            default:
-                ErrorMessage(message: ErrorMessageConstants.invalidViewState)
+                    // TODO: MAke this error handling more uniform with the rest of the app
+                case .error:
+                    EmptyView()
+
+                default:
+                    ErrorMessage(message: ErrorMessageConstants.invalidViewState)
+                }
             }
         }
         .navigationTitle("Show Details")
@@ -75,51 +74,56 @@ struct ShowDetailsView: View {
             }
 
             ToolbarItem(placement: .navigationBarTrailing) {
-                if viewModel.show.loggedInUserIsInvolvedInShow {
-                    Button {
-                        viewModel.conversationViewIsShowing.toggle()
-                    } label: {
-                        Image(systemName: "bubble.right")
-                    }
-                    .fullScreenCover(isPresented: $viewModel.conversationViewIsShowing) {
-                        ConversationView(
-                            show: viewModel.show,
-                            showParticipants: viewModel.showParticipants
-                        )
-                    }
-                } else if viewModel.show.loggedInUserIsNotInvolvedInShow && !viewModel.show.alreadyHappened {
-                    Button {
-                        viewModel.showApplicationSheetIsShowing.toggle()
-                    } label: {
-                        Label("Play This Show", systemImage: "pencil.and.ellipsis.rectangle")
-                    }
-                    .sheet(isPresented: $viewModel.showApplicationSheetIsShowing) {
-                        SendShowApplicationView(show: viewModel.show)
+                if let show = viewModel.show {
+                    if show.loggedInUserIsInvolvedInShow {
+                        Button {
+                            viewModel.conversationViewIsShowing.toggle()
+                        } label: {
+                            Image(systemName: "bubble.right")
+                        }
+                        .fullScreenCover(isPresented: $viewModel.conversationViewIsShowing) {
+                            ConversationView(
+                                show: show,
+                                showParticipants: viewModel.showParticipants
+                            )
+                        }
+                    } else if show.loggedInUserIsNotInvolvedInShow && !show.alreadyHappened {
+                        Button {
+                            viewModel.showApplicationSheetIsShowing.toggle()
+                        } label: {
+                            Label("Play This Show", systemImage: "pencil.and.ellipsis.rectangle")
+                        }
+                        .sheet(isPresented: $viewModel.showApplicationSheetIsShowing) {
+                            SendShowApplicationView(show: show)
+                        }
                     }
                 }
             }
-            
+
             ToolbarItem(placement: .navigationBarTrailing) {
-                if viewModel.show.loggedInUserIsShowHost && !viewModel.show.alreadyHappened {
-                    Button {
-                        viewModel.showSettingsViewIsShowing.toggle()
-                    } label: {
-                        Image(systemName: "gear")
-                    }
-                    .fullScreenCover(
-                        isPresented: $viewModel.showSettingsViewIsShowing,
-                        onDismiss: {
-                            Task {
-                                await viewModel.getLatestShowData()
-                            }
-                        },
-                        content: {
-                            ShowSettingsView(show: viewModel.show)
+                if let show = viewModel.show {
+                    if show.loggedInUserIsShowHost && !show.alreadyHappened {
+                        Button {
+                            viewModel.showSettingsViewIsShowing.toggle()
+                        } label: {
+                            Image(systemName: "gear")
                         }
-                    )
+                        .fullScreenCover(
+                            isPresented: $viewModel.showSettingsViewIsShowing,
+                            onDismiss: {
+                                Task {
+                                    await viewModel.getLatestShowData()
+                                }
+                            },
+                            content: {
+                                ShowSettingsView(show: show)
+                            }
+                        )
+                    }
                 }
             }
         }
+        .errorAlert(isPresented: $viewModel.errorAlertIsShowing, message: viewModel.errorAlertText)
         .task {
             await viewModel.callOnAppearMethods()
         }

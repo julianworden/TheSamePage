@@ -84,7 +84,7 @@ final class SendShowInviteViewModel: ObservableObject {
                 hasFood: selectedShow!.hasFood,
                 hasBar: selectedShow!.hasBar,
                 is21Plus: selectedShow!.is21Plus,
-                message: "\(senderUsername) is inviting \(band.name) to play \(selectedShow!.name) at \(selectedShow!.venue) on \(selectedShow!.formattedDate)"
+                message: "\(senderUsername) is inviting \(band.name) to play \(selectedShow!.name)."
             )
 
             let showInviteId = try await DatabaseService.shared.sendShowInvite(invite: showInvite)

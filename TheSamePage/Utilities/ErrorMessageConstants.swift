@@ -16,6 +16,7 @@ struct ErrorMessageConstants {
     static let emptyChatMessage = "You cannot send an empty message."
     static let invalidEmailAddress = "Please enter a valid email address."
     static let userIsNotAdminOfAnyBands = "You are not the admin of any bands. You can only interact with others on behalf of your band if you are the band admin."
+    static let failedToFetchShow = "Failed to fetch latest show info. Please restart The Same Page and try again."
 
     // MARK: - Sign In
     static let networkErrorOnSignIn = "Login failed. \(checkYourConnection)"
@@ -48,7 +49,6 @@ struct ErrorMessageConstants {
     static let usernameIsTooShort = "Your username must contain at least three characters."
 
     // MARK: - Delete Account
-
     static let userIsStillBandAdminAndCannotDeleteAccount = "You are still a band admin for at least one band, so you will need to give another band member admin privelages before you can delete your account. Tap a band above, select the gear icon in its profile, and select \"Relinquish Admin Priveleges\" to do this."
     static let userIsStillHostingUpcomingShowsAndCannotDeleteAccount = "You are still a show host for at least one upcoming show, so you will need to give another show participant host privelages before you can delete your account. Tap a show above, select the gear icon in its details page, and select \"Relinquish Host Priveleges\" to do this."
 }

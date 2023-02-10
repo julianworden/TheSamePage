@@ -34,13 +34,35 @@ final class ShowDetailsViewModelTests: XCTestCase {
         testingDatabaseService = nil
     }
 
-    func test_OnInit_DefaultValuesAreCorrect() async throws {
+    func test_OnInitWithShow_DefaultValuesAreCorrect() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         sut = ShowDetailsViewModel(show: dumpweedExtravaganza)
 
         XCTAssertEqual(sut.show, dumpweedExtravaganza)
         XCTAssertEqual(sut.selectedTab, .details)
         XCTAssertTrue(sut.showBackline.isEmpty)
+        XCTAssertFalse(sut.errorAlertIsShowing)
+        XCTAssertFalse(sut.editImageViewIsShowing)
+        XCTAssertTrue(sut.errorAlertText.isEmpty)
+        XCTAssertFalse(sut.addBacklineSheetIsShowing)
+        XCTAssertFalse(sut.bandSearchViewIsShowing)
+    }
+
+    func test_OnInitWithShowId_DefaultValuesAreCorrect() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
+        sut = ShowDetailsViewModel(show: nil, showId: dumpweedExtravaganza.id)
+        try await Task.sleep(seconds: 0.5)
+
+        let showPredicate = NSPredicate { _, _ in
+            (self.sut.show) != nil
+        }
+        let showExpectation = XCTNSPredicateExpectation(predicate: showPredicate, object: nil)
+
+        wait(for: [showExpectation], timeout: 2)
+        XCTAssertEqual(sut.show, dumpweedExtravaganza, "The view model was initialized with Dumpweed Extravaganza's ID, so it should've been fetched.")
+        XCTAssertEqual(sut.viewState, .dataLoaded)
+        XCTAssertEqual(sut.selectedTab, .details)
+        XCTAssertFalse(sut.showBackline.isEmpty)
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertFalse(sut.editImageViewIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
@@ -62,7 +84,7 @@ final class ShowDetailsViewModelTests: XCTestCase {
         try await testingDatabaseService.logInToJulianAccount()
         sut = ShowDetailsViewModel(show: dumpweedExtravaganza)
 
-        sut.viewState = .dataLoading
+        sut.viewState = .dataDeleted
 
         XCTAssertEqual(sut.errorAlertText, ErrorMessageConstants.invalidViewState)
         XCTAssertTrue(sut.errorAlertIsShowing)
@@ -196,7 +218,7 @@ final class ShowDetailsViewModelTests: XCTestCase {
 
         await sut.getLatestShowData()
 
-        XCTAssertEqual(sut.show.name, "Heavy Banger")
+        XCTAssertEqual(sut.show!.name, "Heavy Banger")
 
         try await testingDatabaseService.updateShowName(showId: dumpweedExtravaganza.id, newName: dumpweedExtravaganza.name)
     }
@@ -290,10 +312,10 @@ final class ShowDetailsViewModelTests: XCTestCase {
         XCTAssertNil(updatedDumpweedExtravaganza.doorsTime)
         XCTAssertNil(updatedDumpweedExtravaganza.musicStartTime)
         XCTAssertNil(updatedDumpweedExtravaganza.endTime)
-        XCTAssertNil(sut.show.loadInTime)
-        XCTAssertNil(sut.show.doorsTime)
-        XCTAssertNil(sut.show.musicStartTime)
-        XCTAssertNil(sut.show.endTime)
+        XCTAssertNil(sut.show!.loadInTime)
+        XCTAssertNil(sut.show!.doorsTime)
+        XCTAssertNil(sut.show!.musicStartTime)
+        XCTAssertNil(sut.show!.endTime)
 
         try testingDatabaseService.restoreExampleShowData(withDataIn: dumpweedExtravaganza)
     }

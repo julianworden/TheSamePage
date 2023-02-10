@@ -8,6 +8,10 @@
 import Foundation
 
 extension Date {
+    var timeOmittedNumericDate: String {
+        self.formatted(date: .numeric, time: .omitted)
+    }
+
     var timeShortened: String {
         self.formatted(date: .omitted, time: .shortened)
     }

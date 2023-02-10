@@ -12,32 +12,32 @@ struct ShowTimeList: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
 
     var body: some View {
-        let show = viewModel.show
-        
-        VStack(spacing: UiConstants.listRowSpacing) {
-            ShowTimeRow(viewModel: viewModel, showTimeType: .loadIn)
-            Divider()
-
-            ShowTimeRow(viewModel: viewModel, showTimeType: .doors)
-            Divider()
-
-            ShowTimeRow(viewModel: viewModel, showTimeType: .musicStart)
-            Divider()
-
-            ShowTimeRow(viewModel: viewModel, showTimeType: .end)
-            Divider()
-        }
-        .sheet(
-            item: $viewModel.selectedShowTimeType,
-            onDismiss: {
-                Task {
-                    await viewModel.getLatestShowData()
-                }
-            },
-            content: { showTimeType in
-                AddEditShowTimeView(show: show, showTimeType: showTimeType)
+        if let show = viewModel.show {
+            VStack(spacing: UiConstants.listRowSpacing) {
+                ShowTimeRow(viewModel: viewModel, showTimeType: .loadIn)
+                Divider()
+                
+                ShowTimeRow(viewModel: viewModel, showTimeType: .doors)
+                Divider()
+                
+                ShowTimeRow(viewModel: viewModel, showTimeType: .musicStart)
+                Divider()
+                
+                ShowTimeRow(viewModel: viewModel, showTimeType: .end)
+                Divider()
             }
-        )
+            .sheet(
+                item: $viewModel.selectedShowTimeType,
+                onDismiss: {
+                    Task {
+                        await viewModel.getLatestShowData()
+                    }
+                },
+                content: { showTimeType in
+                    AddEditShowTimeView(show: show, showTimeType: showTimeType)
+                }
+            )
+        }
     }
 }
 

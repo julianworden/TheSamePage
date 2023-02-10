@@ -13,15 +13,16 @@ struct ShowLocationTab: View {
     
     // This is here instead of in viewModel to avoid "Publishing changes within view updates" runtime error
     @State private var showRegion: MKCoordinateRegion
+
+    let show: Show
     
-    init(viewModel: ShowDetailsViewModel) {
+    init(viewModel: ShowDetailsViewModel, show: Show) {
         _viewModel = ObservedObject(initialValue: viewModel)
-        self.showRegion = viewModel.show.region
+        self.show = show
+        self.showRegion = show.region
     }
     
     var body: some View {
-        let show = viewModel.show
-        
         VStack {
             if show.addressIsVisibleToUser {
                 VStack {
@@ -31,16 +32,16 @@ struct ShowLocationTab: View {
                     .frame(height: 150)
                 }
             }
-            
+
             HStack {
                 if show.addressIsVisibleToUser {
                     Text(show.address)
                 } else {
                     Text("This show is taking place at a private address.")
                 }
-                
+
                 Spacer()
-                
+
                 VStack {
                     if show.addressIsVisibleToUser {
                         Button {
@@ -50,7 +51,7 @@ struct ShowLocationTab: View {
                         }
                         .buttonStyle(.bordered)
                     }
-                    
+
                     if let showDistanceFromUser = show.distanceFromUser {
                         Text("~\(showDistanceFromUser) away")
                     }
@@ -63,6 +64,6 @@ struct ShowLocationTab: View {
 
 struct ShowLocationTab_Previews: PreviewProvider {
     static var previews: some View {
-        ShowLocationTab(viewModel: ShowDetailsViewModel(show: Show.example))
+        ShowLocationTab(viewModel: ShowDetailsViewModel(show: Show.example), show: Show.example)
     }
 }

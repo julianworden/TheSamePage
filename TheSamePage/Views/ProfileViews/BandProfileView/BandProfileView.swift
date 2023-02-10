@@ -12,8 +12,13 @@ struct BandProfileView: View {
     
     @StateObject var viewModel: BandProfileViewModel
 
-    init(band: Band? = nil, showParticipant: ShowParticipant? = nil, isPresentedModally: Bool = false) {
-        _viewModel = StateObject(wrappedValue: BandProfileViewModel(band: band, showParticipant: showParticipant, isPresentedModally: isPresentedModally))
+    init(
+        band: Band?,
+        showParticipant: ShowParticipant? = nil,
+        bandId: String? = nil,
+        isPresentedModally: Bool = false
+    ) {
+        _viewModel = StateObject(wrappedValue: BandProfileViewModel(band: band, showParticipant: showParticipant, bandId: bandId, isPresentedModally: isPresentedModally))
     }
     
     var body: some View {

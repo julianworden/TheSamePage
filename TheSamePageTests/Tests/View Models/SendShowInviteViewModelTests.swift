@@ -126,7 +126,7 @@ final class SendShowInviteViewModelTests: XCTestCase {
         XCTAssertEqual(createdShowInvite.showName, dumpweedExtravaganza.name)
         XCTAssertEqual(createdShowInvite.senderUsername, julian.username)
         XCTAssertEqual(createdShowInvite.showVenue, dumpweedExtravaganza.venue)
-        XCTAssertEqual(createdShowInvite.message, "\(julian.username) is inviting \(theApples.name) to play \(dumpweedExtravaganza.name) at \(dumpweedExtravaganza.venue) on \(dumpweedExtravaganza.formattedDate)")
+        XCTAssertEqual(createdShowInvite.message, "\(julian.username) is inviting \(theApples.name) to play \(dumpweedExtravaganza.name).")
     }
 
     func test_OnGetHostedShowsWithUserThatIsHostingShow_DataIsFetchedAndViewStateIsSet() async throws {

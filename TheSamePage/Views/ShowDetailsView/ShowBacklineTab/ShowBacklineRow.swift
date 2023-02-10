@@ -13,7 +13,8 @@ struct ShowBacklineRow: View {
     let index: Int
     
     var body: some View {
-        if viewModel.showBackline.indices.contains(index) {
+        if viewModel.showBackline.indices.contains(index),
+           let show = viewModel.show {
             let anyBackline = viewModel.showBackline[index]
 
             HStack {
@@ -25,7 +26,7 @@ struct ShowBacklineRow: View {
 
                 Spacer()
 
-                if anyBackline.loggedInUserIsBackliner || viewModel.show.loggedInUserIsShowHost {
+                if anyBackline.loggedInUserIsBackliner || show.loggedInUserIsShowHost {
                     ShowBacklineRowMenuButton(viewModel: viewModel, anyBackline: anyBackline)
                 }
             }

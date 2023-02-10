@@ -39,7 +39,14 @@ struct NotificationsView: View {
             .navigationTitle("Notifications")
             .errorAlert(
                 isPresented: $viewModel.errorAlertIsShowing,
-                message: viewModel.errorAlertText
+                message: viewModel.errorAlertText,
+                okButtonAction: {
+                    if viewModel.fetchedNotifications.isEmpty {
+                        viewModel.viewState = .dataNotFound
+                    } else {
+                        viewModel.viewState = .dataLoaded
+                    }
+                }
             )
             .task {
                 viewModel.getNotifications()

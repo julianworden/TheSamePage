@@ -846,7 +846,7 @@ class DatabaseService: NSObject {
                 .getDocument(as: Show.self)
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch latest show data. Please check your internet connection and try again.",
+                message: "Failed to fetch latest show data, it's possible this show was cancelled",
                 systemError: error.localizedDescription
             )
         }

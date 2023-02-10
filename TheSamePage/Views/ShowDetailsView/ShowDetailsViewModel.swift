@@ -13,7 +13,7 @@ import UIKit.UIImage
 
 @MainActor
 final class ShowDetailsViewModel: ObservableObject {
-    @Published var show: Show
+    @Published var show: Show?
     @Published var showParticipants = [ShowParticipant]()
     @Published var selectedTab = SelectedShowDetailsTab.details
     
@@ -50,7 +50,7 @@ final class ShowDetailsViewModel: ObservableObject {
                 errorAlertText = message
                 errorAlertIsShowing = true
             default:
-                if viewState != .dataNotFound && viewState != .dataLoaded {
+                if viewState != .dataNotFound && viewState != .dataLoaded && viewState != .dataLoading {
                     errorAlertText = ErrorMessageConstants.invalidViewState
                     errorAlertIsShowing = true
                 }
@@ -60,6 +60,11 @@ final class ShowDetailsViewModel: ObservableObject {
     let isPresentedModally: Bool
     
     var showSlotsRemainingMessage: String {
+        guard let show else {
+            viewState = .error(message: ErrorMessageConstants.failedToFetchShow)
+            return ""
+        }
+
         let slotsRemainingCount = show.maxNumberOfBands - showParticipants.count
         
         if slotsRemainingCount == 1 {
@@ -70,14 +75,24 @@ final class ShowDetailsViewModel: ObservableObject {
     }
     
     var noShowTimesMessage: String {
+        guard let show else {
+            viewState = .error(message: ErrorMessageConstants.failedToFetchShow)
+            return ""
+        }
+
         if show.loggedInUserIsShowHost {
             return "No times have been added to this show. Use the buttons above to add show times."
         } else {
             return "No times have been added to this show. Only the show's host can add times."
         }
     }
-    
+
     var mapAnnotations: [CustomMapAnnotation] {
+        guard let show else {
+            viewState = .error(message: ErrorMessageConstants.failedToFetchShow)
+            return []
+        }
+
         let venue = CustomMapAnnotation(coordinates: show.coordinates)
         return [venue]
     }
@@ -87,6 +102,11 @@ final class ShowDetailsViewModel: ObservableObject {
     }
 
     var noShowParticipantsText: String {
+        guard let show else {
+            viewState = .error(message: ErrorMessageConstants.failedToFetchShow)
+            return ""
+        }
+
         if show.loggedInUserIsShowHost {
             return "No bands are playing this show."
         } else if show.loggedInUserIsNotInvolvedInShow || show.loggedInUserIsShowParticipant {
@@ -97,6 +117,11 @@ final class ShowDetailsViewModel: ObservableObject {
     }
 
     var noBacklineMessageText: String {
+        guard let show else {
+            viewState = .error(message: ErrorMessageConstants.failedToFetchShow)
+            return ""
+        }
+
         if !show.loggedInUserIsInvolvedInShow {
             return "This show has no backline. You must be participating in this show to add backline to it."
         } else {
@@ -104,21 +129,52 @@ final class ShowDetailsViewModel: ObservableObject {
         }
     }
     
-    init(show: Show, isPresentedModally: Bool = false) {
-        self.show = show
+    init(show: Show?, showId: String? = nil, isPresentedModally: Bool = false) {
         self.isPresentedModally = isPresentedModally
+
+        if let show {
+            self.show = show
+            viewState = .dataLoaded
+            return
+        }
+
+        if let showId {
+            Task {
+                viewState = .dataLoading
+                self.show = await getShow(withId: showId)
+                await callOnAppearMethods()
+                return
+            }
+        }
     }
 
     func callOnAppearMethods() async {
-        await getLatestShowData()
-        await getShowParticipants()
-        await getBacklineItems()
-        viewState = .dataLoaded
+        if show != nil {
+            await getLatestShowData()
+            await getShowParticipants()
+            await getBacklineItems()
+            viewState = .dataLoaded
+        }
+    }
+
+    func getShow(withId id: String) async -> Show? {
+        do {
+            let fetchedShow = try await DatabaseService.shared.getShow(showId: id)
+            return fetchedShow
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+            return nil
+        }
     }
     
     func getLatestShowData() async {
         do {
-            show = try await DatabaseService.shared.getShow(showId: show.id)
+            guard let show else {
+                viewState = .error(message: ErrorMessageConstants.failedToFetchShow)
+                return
+            }
+
+            self.show = try await DatabaseService.shared.getShow(showId: show.id)
         } catch {
             viewState = .error(message: error.localizedDescription)
         }
@@ -126,6 +182,11 @@ final class ShowDetailsViewModel: ObservableObject {
 
     func getShowParticipants() async {
         do {
+            guard let show else {
+                viewState = .error(message: ErrorMessageConstants.failedToFetchShow)
+                return
+            }
+
             showParticipants = try await DatabaseService.shared.getShowLineup(forShow: show)
         } catch {
             viewState = .error(message: error.localizedDescription)
@@ -135,6 +196,11 @@ final class ShowDetailsViewModel: ObservableObject {
     // TODO: This should also remove any backline items that any members in the removed band contributed
     func removeShowParticipantFromShow(showParticipant: ShowParticipant) async {
         do {
+            guard let show else {
+                viewState = .error(message: ErrorMessageConstants.failedToFetchShow)
+                return
+            }
+
             try await DatabaseService.shared.removeShowParticipantFromShow(remove: showParticipant, from: show)
         } catch {
             viewState = .error(message: error.localizedDescription)
@@ -143,6 +209,11 @@ final class ShowDetailsViewModel: ObservableObject {
 
     func getBacklineItems() async {
         do {
+            guard let show else {
+                viewState = .error(message: ErrorMessageConstants.failedToFetchShow)
+                return
+            }
+
             showBackline = try await DatabaseService.shared.getBacklineItems(forShow: show).sorted {
                 $0.backline.type > $1.backline.type
             }
@@ -158,6 +229,11 @@ final class ShowDetailsViewModel: ObservableObject {
 
     func deleteShowImage() async {
         do {
+            guard let show else {
+                viewState = .error(message: ErrorMessageConstants.failedToFetchShow)
+                return
+            }
+
             try await DatabaseService.shared.deleteShowImage(forShow: show)
             showImage = nil
             updatedImage = nil
@@ -167,6 +243,11 @@ final class ShowDetailsViewModel: ObservableObject {
     }
 
     func timeForShowExists(showTimeType: ShowTimeType) -> Bool {
+        guard let show else {
+            viewState = .error(message: ErrorMessageConstants.failedToFetchShow)
+            return false
+        }
+
         switch showTimeType {
         case .loadIn:
             guard show.loadInTime != nil else {
@@ -196,17 +277,22 @@ final class ShowDetailsViewModel: ObservableObject {
 
     func removeShowTimeFromShow(showTimeType: ShowTimeType) async {
         do {
+            guard let show else {
+                viewState = .error(message: ErrorMessageConstants.failedToFetchShow)
+                return
+            }
+
             try await DatabaseService.shared.deleteTimeFromShow(delete: showTimeType, fromShow: show)
 
             switch showTimeType {
             case .loadIn:
-                show.loadInTime = nil
+                self.show?.loadInTime = nil
             case .musicStart:
-                show.musicStartTime = nil
+                self.show?.musicStartTime = nil
             case .end:
-                show.endTime = nil
+                self.show?.endTime = nil
             case .doors:
-                show.doorsTime = nil
+                self.show?.doorsTime = nil
             }
         } catch {
             viewState = .error(message: error.localizedDescription)
@@ -214,6 +300,11 @@ final class ShowDetailsViewModel: ObservableObject {
     }
 
     func getShowTimeRowText(forShowTimeType showTimeType: ShowTimeType) -> String {
+        guard let show else {
+            viewState = .error(message: ErrorMessageConstants.failedToFetchShow)
+            return ""
+        }
+
         switch showTimeType {
         case .loadIn:
             if let showLoadInTime = show.loadInTime?.unixDateAsDate {
@@ -256,6 +347,11 @@ final class ShowDetailsViewModel: ObservableObject {
 
     func deleteBacklineItem(_ backlineItem: BacklineItem) async {
         do {
+            guard let show else {
+                viewState = .error(message: ErrorMessageConstants.failedToFetchShow)
+                return
+            }
+
             try await DatabaseService.shared.deleteBacklineItem(delete: backlineItem, inShowWithId: show.id)
         } catch {
             viewState = .error(message: error.localizedDescription)
@@ -264,6 +360,11 @@ final class ShowDetailsViewModel: ObservableObject {
 
     func deleteDrumKitBacklineItem(_ drumKitBacklineItem: DrumKitBacklineItem) async {
         do {
+            guard let show else {
+                viewState = .error(message: ErrorMessageConstants.failedToFetchShow)
+                return
+            }
+
             try await DatabaseService.shared.deleteDrumKitBacklineItem(delete: drumKitBacklineItem, inShowWithId: show.id)
         } catch {
             viewState = .error(message: error.localizedDescription)
@@ -271,6 +372,11 @@ final class ShowDetailsViewModel: ObservableObject {
     }
     
     func showDirectionsInMaps() {
+        guard let show else {
+            viewState = .error(message: ErrorMessageConstants.failedToFetchShow)
+            return
+        }
+
         let showPlacemark = MKPlacemark(coordinate: show.coordinates)
         let showMapItem = MKMapItem(placemark: showPlacemark)
         showMapItem.name = show.venue

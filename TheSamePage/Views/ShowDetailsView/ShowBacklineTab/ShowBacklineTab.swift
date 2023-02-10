@@ -11,39 +11,41 @@ struct ShowBacklineTab: View {
     @ObservedObject var viewModel: ShowDetailsViewModel
 
     var body: some View {
-        VStack(spacing: 15) {
-            if viewModel.showHasBackline {
-                ShowBacklineList(viewModel: viewModel)
+        if let show = viewModel.show {
+            VStack(spacing: 15) {
+                if viewModel.showHasBackline {
+                    ShowBacklineList(viewModel: viewModel)
 
-                Button {
-                    viewModel.addBacklineSheetIsShowing.toggle()
-                } label: {
-                    Label("Add Backline", systemImage: "plus")
-                }
-                .buttonStyle(.bordered)
-                .sheet(
-                    isPresented: $viewModel.addBacklineSheetIsShowing,
-                    onDismiss: {
-                        Task {
-                            await viewModel.getBacklineItems()
-                        }
-                    },
-                    content: {
-                        AddBacklineView(show: viewModel.show)
+                    Button {
+                        viewModel.addBacklineSheetIsShowing.toggle()
+                    } label: {
+                        Label("Add Backline", systemImage: "plus")
                     }
-                )
+                    .buttonStyle(.bordered)
+                    .sheet(
+                        isPresented: $viewModel.addBacklineSheetIsShowing,
+                        onDismiss: {
+                            Task {
+                                await viewModel.getBacklineItems()
+                            }
+                        },
+                        content: {
+                            AddBacklineView(show: show)
+                        }
+                    )
 
-            } else if !viewModel.showHasBackline {
-                NoDataFoundMessageWithButtonView(
-                    isPresentingSheet: $viewModel.addBacklineSheetIsShowing,
-                    shouldDisplayButton: viewModel.show.loggedInUserIsInvolvedInShow,
-                    buttonText: "Add Backline",
-                    buttonImageName: "plus",
-                    message: viewModel.noBacklineMessageText
-                )
+                } else if !viewModel.showHasBackline {
+                    NoDataFoundMessageWithButtonView(
+                        isPresentingSheet: $viewModel.addBacklineSheetIsShowing,
+                        shouldDisplayButton: show.loggedInUserIsInvolvedInShow,
+                        buttonText: "Add Backline",
+                        buttonImageName: "plus",
+                        message: viewModel.noBacklineMessageText
+                    )
+                }
             }
+            .padding(.horizontal)
         }
-        .padding(.horizontal)
     }
 }
 

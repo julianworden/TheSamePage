@@ -47,15 +47,14 @@ final class BandProfileViewModelTests: XCTestCase {
         XCTAssertFalse(sut.addBandMemberSheetIsShowing)
         XCTAssertFalse(sut.sendShowInviteViewIsShowing)
         XCTAssertFalse(sut.editImageViewIsShowing)
-        XCTAssertFalse(sut.addEditBandSheetIsShowing)
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
         XCTAssertEqual(sut.viewState, .dataLoaded)
     }
 
     func test_OnInitWithShowParticipant_DefaultValuesAreCorrect() async throws {
-            try await testingDatabaseService.logInToJulianAccount()
-        sut = BandProfileViewModel(showParticipant: exampleShowParticipantPatheticFallacy)
+        try await testingDatabaseService.logInToJulianAccount()
+        sut = BandProfileViewModel(band: nil, showParticipant: exampleShowParticipantPatheticFallacy)
         try await Task.sleep(seconds: 0.5)
 
         let bandPredicate = NSPredicate { _, _ in
@@ -73,7 +72,32 @@ final class BandProfileViewModelTests: XCTestCase {
         XCTAssertFalse(sut.addBandMemberSheetIsShowing)
         XCTAssertFalse(sut.sendShowInviteViewIsShowing)
         XCTAssertFalse(sut.editImageViewIsShowing)
-        XCTAssertFalse(sut.addEditBandSheetIsShowing)
+        XCTAssertFalse(sut.errorAlertIsShowing)
+        XCTAssertFalse(sut.editImageViewIsShowing)
+        XCTAssertTrue(sut.errorAlertText.isEmpty)
+        XCTAssertEqual(sut.viewState, .dataLoaded)
+    }
+
+    func test_OnInitWithBandId_DefaultValuesAreCorrect() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
+        sut = BandProfileViewModel(band: nil, bandId: exampleBandPatheticFallacy.id)
+        try await Task.sleep(seconds: 0.5)
+
+        let bandPredicate = NSPredicate { _, _ in
+            (self.sut.band) != nil
+        }
+        let bandExpectation = XCTNSPredicateExpectation(predicate: bandPredicate, object: nil)
+
+        wait(for: [bandExpectation], timeout: 5)
+        XCTAssertEqual(sut.band, exampleBandPatheticFallacy)
+        XCTAssertTrue(sut.bandLinks.isEmpty)
+        XCTAssertTrue(sut.bandMembers.isEmpty)
+        XCTAssertTrue(sut.bandShows.isEmpty)
+        XCTAssertEqual(sut.selectedTab, .about)
+        XCTAssertFalse(sut.addEditLinkSheetIsShowing)
+        XCTAssertFalse(sut.addBandMemberSheetIsShowing)
+        XCTAssertFalse(sut.sendShowInviteViewIsShowing)
+        XCTAssertFalse(sut.editImageViewIsShowing)
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertFalse(sut.editImageViewIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
@@ -81,7 +105,7 @@ final class BandProfileViewModelTests: XCTestCase {
     }
 
     func test_OnErrorViewState_PropertiesAreSet() {
-        sut = BandProfileViewModel()
+        sut = BandProfileViewModel(band: exampleBandPatheticFallacy)
         
         sut.viewState = .error(message: "TEST ERROR")
 
@@ -90,7 +114,7 @@ final class BandProfileViewModelTests: XCTestCase {
     }
 
     func test_OnInvalidViewState_PropertiesAreSet() {
-        sut = BandProfileViewModel()
+        sut = BandProfileViewModel(band: exampleBandPatheticFallacy)
 
         sut.viewState = .displayingView
 

@@ -12,9 +12,7 @@ struct ShowTimeTab: View {
     
     @State private var showTimeToEdit: Date?
     
-    var body: some View {
-        let show = viewModel.show
-        
+    var body: some View {        
         VStack {
             ShowTimeList(viewModel: viewModel)
         }

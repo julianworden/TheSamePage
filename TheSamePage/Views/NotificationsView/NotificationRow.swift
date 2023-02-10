@@ -25,13 +25,33 @@ struct NotificationRow: View {
                 AsyncButton {
                     await viewModel.handleNotification(anyUserNotification: anyUserNotification, withAction: .accept)
                 } label: {
-                    Text("Accept")
+                    Label("Accept", systemImage: "checkmark.circle")
                 }
 
                 AsyncButton {
                     await viewModel.handleNotification(anyUserNotification: anyUserNotification, withAction: .decline)
                 } label: {
-                    Text("Decline")
+                    Label("Decline", systemImage: "x.circle")
+                }
+
+                if let showApplication = anyUserNotification.notification as? ShowApplication {
+                    NavigationLink {
+                        BandProfileView(band: nil, bandId: showApplication.bandId)
+                    } label: {
+                        Label("Band Info", systemImage: "info.circle")
+                    }
+                } else if let bandInvite = anyUserNotification.notification as? BandInvite {
+                    NavigationLink {
+                        BandProfileView(band: nil, bandId: bandInvite.bandId)
+                    } label: {
+                        Label("Band Info", systemImage: "info.circle")
+                    }
+                } else if let showInvite = anyUserNotification.notification as? ShowInvite {
+                    NavigationLink {
+                        ShowDetailsView(show: nil, showId: showInvite.showId)
+                    } label: {
+                        Label("Show Info", systemImage: "info.circle")
+                    }
                 }
             }
             .buttonStyle(.bordered)

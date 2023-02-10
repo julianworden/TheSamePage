@@ -13,24 +13,26 @@ struct ShowTimeRow: View {
     let showTimeType: ShowTimeType
     
     var body: some View {
-        ZStack {
-            HStack {
-                ListRowElements(
-                    title: viewModel.getShowTimeRowText(forShowTimeType: showTimeType),
-                    iconName: showTimeType.rowIconName
-                )
-                
-                Spacer()
+        if let show = viewModel.show {
+            ZStack {
+                HStack {
+                    ListRowElements(
+                        title: viewModel.getShowTimeRowText(forShowTimeType: showTimeType),
+                        iconName: showTimeType.rowIconName
+                    )
 
-                if viewModel.show.loggedInUserIsShowHost {
-                    Menu {
-                        Button {
-                            viewModel.selectedShowTimeType = showTimeType
+                    Spacer()
+
+                    if show.loggedInUserIsShowHost {
+                        Menu {
+                            Button {
+                                viewModel.selectedShowTimeType = showTimeType
+                            } label: {
+                                Label("Edit Time", systemImage: "square.and.pencil")
+                            }
                         } label: {
-                            Label("Edit Time", systemImage: "square.and.pencil")
+                            EllipsesMenuIcon()
                         }
-                    } label: {
-                        EllipsesMenuIcon()
                     }
                 }
             }
