@@ -35,32 +35,36 @@ struct ShowSettingsView: View {
                                     Text("Edit Show Info")
                                 }
 
-                                NavigationLink {
-                                    ChooseNewShowHostView(show: viewModel.show)
-                                } label: {
-                                    Text("Choose New Show Host")
+                                if !viewModel.show.alreadyHappened {
+                                    NavigationLink {
+                                        ChooseNewShowHostView(show: viewModel.show)
+                                    } label: {
+                                        Text("Choose New Show Host")
+                                    }
                                 }
                             }
 
-                            Section {
-                                Button("Cancel Show", role: .destructive) {
-                                    viewModel.cancelShowAlertIsShowing = true
-                                }
-                                .alert(
-                                    "Are you sure?",
-                                    isPresented: $viewModel.cancelShowAlertIsShowing,
-                                    actions: {
-                                        Button("No", role: .cancel) { }
-                                        Button("Yes", role: .destructive) {
-                                            Task {
-                                                await viewModel.cancelShow()
-                                            }
-                                        }
-                                    },
-                                    message: {
-                                        Text("Cancelling this show will permanently delete all of its data from The Same Page, including its chat.")
+                            if !viewModel.show.alreadyHappened {
+                                Section {
+                                    Button("Cancel Show", role: .destructive) {
+                                        viewModel.cancelShowAlertIsShowing = true
                                     }
-                                )
+                                    .alert(
+                                        "Are you sure?",
+                                        isPresented: $viewModel.cancelShowAlertIsShowing,
+                                        actions: {
+                                            Button("No", role: .cancel) { }
+                                            Button("Yes", role: .destructive) {
+                                                Task {
+                                                    await viewModel.cancelShow()
+                                                }
+                                            }
+                                        },
+                                        message: {
+                                            Text("Cancelling this show will permanently delete all of its data from The Same Page, including its chat.")
+                                        }
+                                    )
+                                }
                             }
                         }
                         .navigationTitle("Show Settings")

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB05170F29972AD6007069AD /* ShowApplicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB05170E29972AD6007069AD /* ShowApplicationTests.swift */; };
+		AB05171129972B81007069AD /* BandInviteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB05171029972B81007069AD /* BandInviteTests.swift */; };
+		AB05171329972BD4007069AD /* ShowInviteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB05171229972BD4007069AD /* ShowInviteTests.swift */; };
 		AB07295628F454EE0069B268 /* ShowDetailsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07295528F454EE0069B268 /* ShowDetailsList.swift */; };
 		AB07295828F4631D0069B268 /* SelectedShowDetailsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07295728F4631D0069B268 /* SelectedShowDetailsTab.swift */; };
 		AB07295F28F466510069B268 /* ShowLineupTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07295E28F466510069B268 /* ShowLineupTab.swift */; };
@@ -294,6 +297,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AB05170E29972AD6007069AD /* ShowApplicationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowApplicationTests.swift; sourceTree = "<group>"; };
+		AB05171029972B81007069AD /* BandInviteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandInviteTests.swift; sourceTree = "<group>"; };
+		AB05171229972BD4007069AD /* ShowInviteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowInviteTests.swift; sourceTree = "<group>"; };
 		AB07295528F454EE0069B268 /* ShowDetailsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsList.swift; sourceTree = "<group>"; };
 		AB07295728F4631D0069B268 /* SelectedShowDetailsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedShowDetailsTab.swift; sourceTree = "<group>"; };
 		AB07295E28F466510069B268 /* ShowLineupTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLineupTab.swift; sourceTree = "<group>"; };
@@ -1183,6 +1189,9 @@
 				ABBE3690296B06C30092F594 /* ChatMessageTests.swift */,
 				ABBE3692296B25200092F594 /* PlatformLinkTests.swift */,
 				AB9447C22981807900699235 /* ShowParticipantTests.swift */,
+				AB05170E29972AD6007069AD /* ShowApplicationTests.swift */,
+				AB05171029972B81007069AD /* BandInviteTests.swift */,
+				AB05171229972BD4007069AD /* ShowInviteTests.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -1885,6 +1894,7 @@
 				ABA0549529746385006B5908 /* SendShowInviteViewModelTests.swift in Sources */,
 				ABBE36A1296B555A0092F594 /* LinkPlatformTests.swift in Sources */,
 				AB7F6FC0296F0E7F00612D3B /* HomeViewModelTests.swift in Sources */,
+				AB05170F29972AD6007069AD /* ShowApplicationTests.swift in Sources */,
 				ABFF8169298A9F2700FAC995 /* ChooseNewShowHostViewModelTests.swift in Sources */,
 				ABA054992974C917006B5908 /* BandSettingsViewModelTests.swift in Sources */,
 				AB389FD32986DF10000C798C /* CreateUsernameViewModelTests.swift in Sources */,
@@ -1892,10 +1902,12 @@
 				ABD4BD1E2968695E00CCA88B /* BandTests.swift in Sources */,
 				AB816582298424E800C5C1B4 /* ForgotPasswordViewModelTests.swift in Sources */,
 				ABECC6BC29930E1F004424B1 /* AddEditShowTimeViewModelTests.swift in Sources */,
+				AB05171129972B81007069AD /* BandInviteTests.swift in Sources */,
 				ABA75756296F92A8001F6B70 /* NotificationsViewModelTests.swift in Sources */,
 				AB1CDD3E296A12BD008ACC48 /* ChatTests.swift in Sources */,
 				ABE0251C29738CE70089E969 /* SendBandInviteViewModelTests.swift in Sources */,
 				ABBE36A3296B566C0092F594 /* SearchTypeTests.swift in Sources */,
+				AB05171329972BD4007069AD /* ShowInviteTests.swift in Sources */,
 				ABCD20E1296C76A500258F6F /* AddEditBandViewModelTests.swift in Sources */,
 				AB272F882976FD3D00E74091 /* AddBacklineViewModelTests.swift in Sources */,
 				AB1ECDEC2994061B0086C32A /* SendShowApplicationViewModelTests.swift in Sources */,

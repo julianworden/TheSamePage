@@ -313,6 +313,7 @@ struct TestingConstants {
     /// An example band invite inviting exampleUserTas to join Pathetic Fallacy. Sent by exampleUserJulian.
     static let exampleBandInviteForTas = BandInvite(
         id: "I8jPC6U14IolWMSc8Ivp",
+        recipientUsername: exampleUserTas.username,
         dateSent: 1673073450,
         notificationType: NotificationType.bandInvite.rawValue,
         recipientUid: exampleUserTas.id,
@@ -325,6 +326,7 @@ struct TestingConstants {
 
     static let exampleBandInviteForMatt = BandInvite(
         id: "",
+        recipientUsername: exampleUserMattForIntegrationTesting.username,
         dateSent: 1673073450,
         notificationType: NotificationType.bandInvite.rawValue,
         recipientUid: exampleUserMattForIntegrationTesting.id,

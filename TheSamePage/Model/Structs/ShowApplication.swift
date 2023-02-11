@@ -44,7 +44,6 @@ struct ShowApplication: UserNotification {
         self.bandId = bandId
     }
 
-    #warning("TEST")
     var acceptanceMessage: String {
         return "\(bandName) is now playing \(showName)."
     }

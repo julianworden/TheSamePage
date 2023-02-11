@@ -116,7 +116,7 @@ final class SendBandInviteViewModelTests: XCTestCase {
 
         XCTAssertEqual(createdBandInvite.id, createdBandInviteId)
         XCTAssertEqual(createdBandInvite.recipientRole, Instrument.bassGuitar.rawValue)
-        XCTAssertEqual(createdBandInvite.message, "\(julian.username) is inviting you to join \(patheticFallacy.name)")
+        XCTAssertEqual(createdBandInvite.message, "\(julian.username) is inviting you to join \(patheticFallacy.name).")
         XCTAssertEqual(createdBandInvite.bandId, patheticFallacy.id)
         XCTAssertEqual(createdBandInvite.senderUsername, julian.username)
         XCTAssertEqual(createdBandInvite.senderBand, patheticFallacy.name)

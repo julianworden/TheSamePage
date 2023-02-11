@@ -14,4 +14,5 @@ protocol UserNotification: Codable, Equatable, Hashable, Identifiable {
     var notificationType: String { get }
     var message: String { get }
     var recipientUid: String { get }
+    var acceptanceMessage: String { get }
 }

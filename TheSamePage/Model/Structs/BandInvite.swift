@@ -38,7 +38,6 @@ struct BandInvite: UserNotification {
         message: "ericpalermo is inviting you to join Dumpweed"
     )
 
-    #warning("TEST")
     var acceptanceMessage: String {
         return "\(recipientUsername) is now a member of \(senderBand)."
     }

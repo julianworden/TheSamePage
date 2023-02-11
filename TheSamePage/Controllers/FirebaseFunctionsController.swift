@@ -14,7 +14,7 @@ struct FirebaseFunctionsController {
     }
 
     static func notifyAcceptedBandInvite(
-        recipientFcmToken: String?,
+        recipientFcmToken: String,
         message: String
     ) async throws {
         _ = try await Functions.functions().httpsCallable(FbConstants.notifyAcceptedBandInvite).call(
@@ -26,7 +26,7 @@ struct FirebaseFunctionsController {
     }
 
     static func notifyAcceptedShowInvite(
-        recipientFcmToken: String?,
+        recipientFcmToken: String,
         message: String
     ) async throws {
         _ = try await Functions.functions().httpsCallable(FbConstants.notifyAcceptedShowInvite).call(
@@ -38,7 +38,7 @@ struct FirebaseFunctionsController {
     }
 
     static func notifyAcceptedShowApplication(
-        recipientFcmToken: String?,
+        recipientFcmToken: String,
         message: String
     ) async throws {
         _ = try await Functions.functions().httpsCallable(FbConstants.notifyAcceptedShowApplication).call(

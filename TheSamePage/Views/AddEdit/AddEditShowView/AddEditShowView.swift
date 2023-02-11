@@ -34,7 +34,7 @@ struct AddEditShowView: View {
                         Text(genre.rawValue)
                     }
                 }
-                DatePicker("Date", selection: $viewModel.showDate, in: viewModel.showDate..., displayedComponents: .date)
+                DatePicker("Date", selection: $viewModel.showDate, in: Date.now..., displayedComponents: .date)
             }
             
             Section {

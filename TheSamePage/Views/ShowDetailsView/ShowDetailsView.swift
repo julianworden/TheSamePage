@@ -102,7 +102,7 @@ struct ShowDetailsView: View {
 
             ToolbarItem(placement: .navigationBarTrailing) {
                 if let show = viewModel.show {
-                    if show.loggedInUserIsShowHost && !show.alreadyHappened {
+                    if show.loggedInUserIsShowHost {
                         Button {
                             viewModel.showSettingsViewIsShowing.toggle()
                         } label: {
