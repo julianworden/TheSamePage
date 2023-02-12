@@ -11,17 +11,15 @@ import SwiftUI
 struct LoginView: View {
     @Environment(\.dismiss) var dismiss
 
-    @StateObject var viewModel = LoginViewModel()
+    @StateObject private var viewModel = LoginViewModel()
+    @StateObject private var navigationViewModel = OnboardingNavigationViewModel()
 
     @State private var forgotPasswordSheetIsShowing = false
-    /// A property that's passed to views involved in signing up a new user for the app. This property
-    /// enables CreateUsernameView to pop back to LoginView after a user has created a username successfully
-    @State private var signUpFlowIsActive = false
 
     @FocusState var keyboardIsFocused: Bool
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationViewModel.navigationPath) {
             Form {
                 Section {
                     CustomTextField("Email Address", text: $viewModel.emailAddress, keyboardType: .emailAddress)
@@ -77,16 +75,11 @@ struct LoginView: View {
 
                 Section("Don't have an account?") {
                     ZStack(alignment: .leading) {
-                        NavigationLink(isActive: $signUpFlowIsActive) {
-                            SignUpView(signUpFlowIsActive: $signUpFlowIsActive)
+                        Button {
+                            navigationViewModel.navigateToSignUpView()
                         } label: {
-                            EmptyView()
+                            Text("Sign Up")
                         }
-                        .disabled(viewModel.buttonsAreDisabled)
-                        .opacity(0)
-
-                        Text("Sign Up")
-                            .foregroundColor(.accentColor)
                     }
                 }
             }
@@ -104,7 +97,7 @@ struct LoginView: View {
                 },
                 content: {
                     NavigationStack {
-                        CreateUsernameView(signUpFlowIsActive: .constant(false))
+                        CreateUsernameView(navigationViewModel: navigationViewModel)
                     }
                 }
             )
@@ -116,6 +109,14 @@ struct LoginView: View {
                 },
                 message: { Text("You need a username to use The Same Page, but you have not set one up yet.") }
             )
+            .navigationDestination(for: OnboardingScreen.self) { onboardingScreen in
+                switch onboardingScreen {
+                case .signUpView:
+                    SignUpView(navigationViewModel: navigationViewModel)
+                case .createUsernameView:
+                    CreateUsernameView(navigationViewModel: navigationViewModel)
+                }
+            }
             .onChange(of: viewModel.userIsOnboarding) { userIsOnboarding in
                 if !userIsOnboarding {
                     dismiss()

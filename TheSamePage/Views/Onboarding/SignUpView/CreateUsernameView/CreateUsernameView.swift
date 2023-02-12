@@ -12,7 +12,7 @@ struct CreateUsernameView: View {
 
     @StateObject private var viewModel = CreateUsernameViewModel()
 
-    @Binding var signUpFlowIsActive: Bool
+    @ObservedObject var navigationViewModel: OnboardingNavigationViewModel
 
     var body: some View {
         Form {
@@ -32,9 +32,11 @@ struct CreateUsernameView: View {
                     isPresented: $viewModel.usernameCreationWasSuccessfulAlertIsShowing,
                     actions: {
                         Button("OK") {
-                            if signUpFlowIsActive {
-                                signUpFlowIsActive.toggle()
+                            if navigationViewModel.navigationPath.count > 1 {
+                                // User is onboarding
+                                navigationViewModel.popToRoot()
                             } else {
+                                // User is not onboarding
                                 dismiss()
                             }
                         }
@@ -55,6 +57,6 @@ struct CreateUsernameView: View {
 
 struct CreateUsernameView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateUsernameView(signUpFlowIsActive: .constant(true))
+        CreateUsernameView(navigationViewModel: OnboardingNavigationViewModel())
     }
 }

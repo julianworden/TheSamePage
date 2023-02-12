@@ -12,7 +12,7 @@ struct SignUpView: View {
 
     @StateObject var viewModel = SignUpViewModel()
 
-    @Binding var signUpFlowIsActive: Bool
+    @ObservedObject var navigationViewModel: OnboardingNavigationViewModel
 
     @FocusState private var textFieldIsFocused: Bool
 
@@ -49,8 +49,11 @@ struct SignUpView: View {
             Section {
                 TextField("First name", text: $viewModel.firstName)
                     .focused($textFieldIsFocused)
+                    .autocorrectionDisabled()
+
                 TextField("Last name", text: $viewModel.lastName)
                     .focused($textFieldIsFocused)
+                    .autocorrectionDisabled()
             }
 
             Section {
@@ -58,20 +61,14 @@ struct SignUpView: View {
                     textFieldIsFocused = false
                     await viewModel.signUpButtonTapped()
                 } label: {
-                    NavigationLink(
-                        destination: CreateUsernameView(signUpFlowIsActive: $signUpFlowIsActive),
-                        isActive: $viewModel.presentCreateUsernameView,
-                        label: {
-                            Text("Create Profile")
-                        }
-                    )
+                    Text("Create Profile")
                 }
                 .disabled(viewModel.signUpButtonIsDisabled)
                 .alert(
                     "Success!",
                     isPresented: $viewModel.profileCreationWasSuccessful,
                     actions: {
-                        Button("OK") { viewModel.presentCreateUsernameView.toggle() }
+                        Button("OK") { navigationViewModel.navigateToCreateUsernameView() }
                     },
                     message: { Text("An email verification link was sent to \(viewModel.emailAddress). You'll need to verify your email address before you can log in and use The Same Page.") }
                 )
@@ -92,7 +89,7 @@ struct SignUpView: View {
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            SignUpView(signUpFlowIsActive: .constant(true))
+            SignUpView(navigationViewModel: OnboardingNavigationViewModel())
         }
     }
 }

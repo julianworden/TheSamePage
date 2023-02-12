@@ -62,7 +62,7 @@ struct RootView: View {
                 )
                 .fullScreenCover(isPresented: $loggedInUserController.createUsernameSheetIsShowing) {
                     NavigationStack {
-                        CreateUsernameView(signUpFlowIsActive: .constant(false))
+                        CreateUsernameView(navigationViewModel: OnboardingNavigationViewModel())
                     }
                 }
             }

@@ -26,7 +26,6 @@ final class SignUpViewModel: ObservableObject {
     @Published var imagePickerIsShowing = false
     @Published var profileCreationWasSuccessful = false
     @Published var signUpButtonIsDisabled = false
-    @Published var presentCreateUsernameView = false
     
     @Published var errorAlertIsShowing = false
     var errorAlertText = ""
