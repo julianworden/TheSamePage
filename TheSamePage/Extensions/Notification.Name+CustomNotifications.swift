@@ -14,4 +14,5 @@ extension Notification.Name {
     static let userLocationWasSet = Notification.Name("userLocationWasSet")
     static let appOpenedViaNewMessageNotification = Notification.Name("appOpenedViaNewMessageNotification")
     static let appOpenedViaNewInviteOrApplicationNotification = Notification.Name("appOpenedViaNewInviteOrApplicationNotification")
+    static let appOpenedViaAcceptedBandInviteNotification = Notification.Name("appOpenedViaAcceptedBandInviteNotification")
 }

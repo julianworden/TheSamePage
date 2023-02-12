@@ -21,7 +21,8 @@ class AppOpenedViaNotificationController: ObservableObject {
 
     init() {
         addAppOpenedViaNewMessageNotificationObserver()
-        addAppOpenedViaInviteOrApplicationNotificationObserver()
+        addAppOpenedViaNewInviteOrApplicationNotificationObserver()
+        addAppOpenedViaAcceptedBandInviteNotificationObserver()
     }
 
     func sheetView() -> AnyView {
@@ -33,7 +34,7 @@ class AppOpenedViaNotificationController: ObservableObject {
             return ShowDetailsView(show: nil, showId: showId).eraseToAnyView()
 
         case .bandProfileView(let bandId):
-            return BandProfileView(band: nil, bandId: bandId).eraseToAnyView()
+            return BandProfileView(band: nil, bandId: bandId, isPresentedModally: true).eraseToAnyView()
 
         default:
             return Text("Invalid Sheet Destination").eraseToAnyView()
@@ -50,13 +51,24 @@ class AppOpenedViaNotificationController: ObservableObject {
         }
     }
 
-    func addAppOpenedViaInviteOrApplicationNotificationObserver() {
+    func addAppOpenedViaNewInviteOrApplicationNotificationObserver() {
         NotificationCenter.default.addObserver(forName: .appOpenedViaNewInviteOrApplicationNotification, object: nil, queue: .main) { notification in
             if let openNotificationsTab = notification.userInfo?[FbConstants.openNotificationsTab] as? String {
                 if openNotificationsTab.isTrue {
                     Task { @MainActor in
                         self.selectedRootViewTab = 3
                     }
+                }
+            }
+        }
+    }
+
+    func addAppOpenedViaAcceptedBandInviteNotificationObserver() {
+        NotificationCenter.default.addObserver(forName: .appOpenedViaAcceptedBandInviteNotification, object: nil, queue: .main) { notification in
+            if let bandId = notification.userInfo?[FbConstants.bandId] as? String {
+                Task { @MainActor in
+//                    self.selectedRootViewTab = 0
+                    self.sheetDestination = .bandProfileView(bandId: bandId)
                 }
             }
         }

@@ -28,7 +28,9 @@ struct TheSamePageApp: App {
                 .environmentObject(loggedInUserController)
                 .environmentObject(networkController)
                 .fullScreenCover(isPresented: $appOpenedViaNotificationController.presentSheet) {
-                    appOpenedViaNotificationController.sheetView()
+                    NavigationStack {
+                        appOpenedViaNotificationController.sheetView()
+                    }
                 }
         }
     }
@@ -103,6 +105,14 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                 name: .appOpenedViaNewInviteOrApplicationNotification,
                 object: nil,
                 userInfo: [FbConstants.openNotificationsTab: openNotificationsTab]
+            )
+        }
+
+        if let bandIdForAcceptedBandInvite = userInfo[FbConstants.bandId] {
+            NotificationCenter.default.post(
+                name: .appOpenedViaAcceptedBandInviteNotification,
+                object: nil,
+                userInfo: [FbConstants.bandId: bandIdForAcceptedBandInvite]
             )
         }
         completionHandler()

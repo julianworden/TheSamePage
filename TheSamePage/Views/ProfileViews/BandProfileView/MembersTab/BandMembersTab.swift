@@ -16,12 +16,14 @@ struct BandMembersTab: View {
                 if !viewModel.bandMembers.isEmpty {
                     BandMemberList(viewModel: viewModel)
 
-                    Button {
-                        viewModel.addBandMemberSheetIsShowing.toggle()
-                    } label: {
-                        Label("Invite Member", systemImage: "envelope")
+                    if band.loggedInUserIsBandAdmin {
+                        Button {
+                            viewModel.addBandMemberSheetIsShowing.toggle()
+                        } label: {
+                            Label("Invite Member", systemImage: "envelope")
+                        }
+                        .buttonStyle(.bordered)
                     }
-                    .buttonStyle(.bordered)
                 } else {
                     NoDataFoundMessageWithButtonView(
                         isPresentingSheet: $viewModel.addBandMemberSheetIsShowing,

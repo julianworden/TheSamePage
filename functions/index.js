@@ -59,6 +59,7 @@ exports.notifyAcceptedBandInvite = functions
     .https.onCall(async (data, context) => {
         const recipientFcmToken = data.recipientFcmToken;
         const message = data.message;
+        const bandId = data.bandId;
 
         functions.logger.log('Sending notification with message', message, 'to user with FCM token', recipientFcmToken);
         
@@ -68,7 +69,7 @@ exports.notifyAcceptedBandInvite = functions
                 body: `${message}`
             },
             data: {
-                openNotificationsTab: 'true'
+                bandId: bandId
             }
         };
 

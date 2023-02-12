@@ -82,10 +82,12 @@ struct ShowDetailsView: View {
                             Image(systemName: "bubble.right")
                         }
                         .fullScreenCover(isPresented: $viewModel.conversationViewIsShowing) {
-                            ConversationView(
-                                show: show,
-                                chatParticipantUids: show.participantUids
-                            )
+                            NavigationStack {
+                                ConversationView(
+                                    show: show,
+                                    chatParticipantUids: show.participantUids
+                                )
+                            }
                         }
                     } else if show.loggedInUserIsNotInvolvedInShow && !show.alreadyHappened {
                         Button {

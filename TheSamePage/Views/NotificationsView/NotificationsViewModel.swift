@@ -81,7 +81,8 @@ final class NotificationsViewModel: ObservableObject {
                 if let senderFcmToken = bandInvite.senderFcmToken {
                     try await FirebaseFunctionsController.notifyAcceptedBandInvite(
                         recipientFcmToken: senderFcmToken,
-                        message: bandInvite.acceptanceMessage
+                        message: bandInvite.acceptanceMessage,
+                        bandId: bandInvite.bandId
                     )
                 }
             } else if let showInvite = anyUserNotification.notification as? ShowInvite {

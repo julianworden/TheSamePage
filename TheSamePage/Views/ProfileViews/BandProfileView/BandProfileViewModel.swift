@@ -60,14 +60,18 @@ class BandProfileViewModel: ObservableObject {
         self.isPresentedModally = isPresentedModally
 
         if let band {
-            self.band = band
-            viewState = .dataLoaded
-            return
+            Task {
+                self.band = band
+                await callOnAppearMethods()
+                viewState = .dataLoaded
+                return
+            }
         }
 
         if let showParticipant {
             Task {
                 self.band = await convertShowParticipantToBand(showParticipant: showParticipant)
+                await callOnAppearMethods()
                 viewState = .dataLoaded
                 return
             }
@@ -76,6 +80,7 @@ class BandProfileViewModel: ObservableObject {
         if let bandId {
             Task {
                 self.band = await getBand(withId: bandId)
+                await callOnAppearMethods()
                 viewState = .dataLoaded
                 return
             }
@@ -94,10 +99,12 @@ class BandProfileViewModel: ObservableObject {
     }
 
     func callOnAppearMethods() async {
-        await getLatestBandData()
-        await getBandMembers()
-        await getBandLinks()
-        await getBandShows()
+        if band != nil {
+            await getLatestBandData()
+            await getBandMembers()
+            await getBandLinks()
+            await getBandShows()
+        }
     }
 
     func getBand(withId id: String) async -> Band? {

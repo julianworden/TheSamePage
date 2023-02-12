@@ -19,66 +19,64 @@ struct ConversationView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                BackgroundColor()
+        ZStack {
+            BackgroundColor()
 
-                VStack {
-                    ScrollView {
-                        VStack {
-                            ForEach(viewModel.messages) { message in
-                                ChatBubble(chatMessage: message)
-                            }
+            VStack {
+                ScrollView {
+                    VStack {
+                        ForEach(viewModel.messages) { message in
+                            ChatBubble(chatMessage: message)
                         }
                     }
-                    // Needed to prevent ScrollView from going behind the navigation bar. I don't know why
-                    .padding(.top, 0.5)
-
-                    Spacer()
-
-                    HStack {
-                        TextField("Message", text: $viewModel.messageText, axis: .vertical)
-                            .textFieldStyle(.roundedBorder)
-
-                        AsyncButton {
-                            await viewModel.sendMessageButtonTapped(by: loggedInUserController.loggedInUser)
-                        } label: {
-                            Image(systemName: "arrow.up")
-                        }
-                        .disabled(viewModel.sendButtonIsDisabled)
-                    }
-                    .padding(.bottom)
                 }
-                .padding(.horizontal)
-            }
-            .navigationTitle("Chat")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        ChatInfoView(show: viewModel.show, chatParticipantUids: viewModel.chatParticipantUids)
+                // Needed to prevent ScrollView from going behind the navigation bar. I don't know why
+                .padding(.top, 0.5)
+
+                Spacer()
+
+                HStack {
+                    TextField("Message", text: $viewModel.messageText, axis: .vertical)
+                        .textFieldStyle(.roundedBorder)
+
+                    AsyncButton {
+                        await viewModel.sendMessageButtonTapped(by: loggedInUserController.loggedInUser)
                     } label: {
-                        Image(systemName: "info.circle")
+                        Image(systemName: "arrow.up")
                     }
+                    .disabled(viewModel.sendButtonIsDisabled)
                 }
-
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Back") {
-                        dismiss()
-                    }
+                .padding(.bottom)
+            }
+            .padding(.horizontal)
+        }
+        .navigationTitle("Chat")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink {
+                    ChatInfoView(show: viewModel.show, chatParticipantUids: viewModel.chatParticipantUids)
+                } label: {
+                    Image(systemName: "info.circle")
                 }
             }
-            .errorAlert(
-                isPresented: $viewModel.errorAlertIsShowing,
-                message: viewModel.errorAlertText,
-                tryAgainAction: viewModel.callOnAppearMethods
-            )
-            .onChange(of: viewModel.messageText) { messageText in
-                if !messageText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                    viewModel.sendButtonIsDisabled = false
-                } else {
-                    viewModel.sendButtonIsDisabled = true
+
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Back") {
+                    dismiss()
                 }
+            }
+        }
+        .errorAlert(
+            isPresented: $viewModel.errorAlertIsShowing,
+            message: viewModel.errorAlertText,
+            tryAgainAction: viewModel.callOnAppearMethods
+        )
+        .onChange(of: viewModel.messageText) { messageText in
+            if !messageText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                viewModel.sendButtonIsDisabled = false
+            } else {
+                viewModel.sendButtonIsDisabled = true
             }
         }
     }

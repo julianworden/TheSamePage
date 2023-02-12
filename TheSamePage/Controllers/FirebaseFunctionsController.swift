@@ -15,12 +15,14 @@ struct FirebaseFunctionsController {
 
     static func notifyAcceptedBandInvite(
         recipientFcmToken: String,
-        message: String
+        message: String,
+        bandId: String
     ) async throws {
         _ = try await Functions.functions().httpsCallable(FbConstants.notifyAcceptedBandInvite).call(
             [
                 FbConstants.recipientFcmToken: recipientFcmToken,
-                FbConstants.message: message
+                FbConstants.message: message,
+                FbConstants.bandId: bandId
             ]
         )
     }
