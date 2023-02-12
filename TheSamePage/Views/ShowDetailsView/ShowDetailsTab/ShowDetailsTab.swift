@@ -14,7 +14,6 @@ struct ShowDetailsTab: View {
         VStack(spacing: 8) {
             ShowDetailsList(viewModel: viewModel)
         }
-        .padding(.top, 2)
     }
 }
 

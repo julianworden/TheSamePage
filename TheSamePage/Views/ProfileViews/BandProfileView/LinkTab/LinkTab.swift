@@ -32,6 +32,7 @@ struct LinkTab: View {
                     )
                 }
             }
+            .padding(.top, 5)
             .sheet(
                 isPresented: $viewModel.addEditLinkSheetIsShowing,
                 onDismiss: {

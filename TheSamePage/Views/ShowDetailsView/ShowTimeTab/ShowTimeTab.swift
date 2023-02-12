@@ -15,6 +15,7 @@ struct ShowTimeTab: View {
     var body: some View {        
         VStack {
             ShowTimeList(viewModel: viewModel)
+                .padding(.top, 5)
         }
         .padding(.horizontal)
     }

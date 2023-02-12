@@ -42,9 +42,21 @@ struct ShowBacklineTab: View {
                         buttonImageName: "plus",
                         message: viewModel.noBacklineMessageText
                     )
+                    .sheet(
+                        isPresented: $viewModel.addBacklineSheetIsShowing,
+                        onDismiss: {
+                            Task {
+                                await viewModel.getBacklineItems()
+                            }
+                        },
+                        content: {
+                            AddBacklineView(show: show)
+                        }
+                    )
                 }
             }
             .padding(.horizontal)
+            .padding(.top, 5)
         }
     }
 }

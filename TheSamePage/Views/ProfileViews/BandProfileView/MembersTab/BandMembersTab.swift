@@ -11,18 +11,20 @@ struct BandMembersTab: View {
     @ObservedObject var viewModel: BandProfileViewModel
     
     var body: some View {
-        Group {
+        VStack {
             if let band = viewModel.band {
                 if !viewModel.bandMembers.isEmpty {
-                    BandMemberList(viewModel: viewModel)
-
-                    if band.loggedInUserIsBandAdmin {
-                        Button {
-                            viewModel.addBandMemberSheetIsShowing.toggle()
-                        } label: {
-                            Label("Invite Member", systemImage: "envelope")
+                    VStack {
+                        BandMemberList(viewModel: viewModel)
+                        
+                        if band.loggedInUserIsBandAdmin {
+                            Button {
+                                viewModel.addBandMemberSheetIsShowing.toggle()
+                            } label: {
+                                Label("Invite Member", systemImage: "envelope")
+                            }
+                            .buttonStyle(.bordered)
                         }
-                        .buttonStyle(.bordered)
                     }
                 } else {
                     NoDataFoundMessageWithButtonView(
@@ -35,6 +37,7 @@ struct BandMembersTab: View {
                 }
             }
         }
+        .padding(.top, 5)
         .fullScreenCover(
             isPresented: $viewModel.addBandMemberSheetIsShowing,
             content: {
