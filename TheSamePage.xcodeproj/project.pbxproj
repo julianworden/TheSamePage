@@ -264,6 +264,7 @@
 		ABEF10E528E64CD800A1DBAC /* AddEditLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEF10E428E64CD800A1DBAC /* AddEditLinkView.swift */; };
 		ABEF10E728E64CE100A1DBAC /* AddEditLinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEF10E628E64CE100A1DBAC /* AddEditLinkViewModel.swift */; };
 		ABEF10EA28E6506000A1DBAC /* LinkPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEF10E928E6506000A1DBAC /* LinkPlatform.swift */; };
+		ABF0BF6B29996B820022B046 /* AppOpenedViaNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF0BF6A29996B820022B046 /* AppOpenedViaNotificationController.swift */; };
 		ABF0DA90291B111400BD5DD7 /* SelectedBandProfileTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF0DA8F291B111400BD5DD7 /* SelectedBandProfileTab.swift */; };
 		ABF0DA93291B135A00BD5DD7 /* BandMembersTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF0DA92291B135A00BD5DD7 /* BandMembersTab.swift */; };
 		ABF0DA95291B147B00BD5DD7 /* LinkTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF0DA94291B147B00BD5DD7 /* LinkTab.swift */; };
@@ -546,6 +547,7 @@
 		ABEF10E628E64CE100A1DBAC /* AddEditLinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditLinkViewModel.swift; sourceTree = "<group>"; };
 		ABEF10E828E64F8800A1DBAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		ABEF10E928E6506000A1DBAC /* LinkPlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPlatform.swift; sourceTree = "<group>"; };
+		ABF0BF6A29996B820022B046 /* AppOpenedViaNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOpenedViaNotificationController.swift; sourceTree = "<group>"; };
 		ABF0DA8F291B111400BD5DD7 /* SelectedBandProfileTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedBandProfileTab.swift; sourceTree = "<group>"; };
 		ABF0DA92291B135A00BD5DD7 /* BandMembersTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMembersTab.swift; sourceTree = "<group>"; };
 		ABF0DA94291B147B00BD5DD7 /* LinkTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkTab.swift; sourceTree = "<group>"; };
@@ -774,6 +776,7 @@
 				ABEF10E828E64F8800A1DBAC /* Info.plist */,
 				AB399AD528D4BCD8009B39F7 /* Notes.rtf */,
 				AB36FF6528D356FD00AAC00C /* TheSamePageApp.swift */,
+				ABF0BF6A29996B820022B046 /* AppOpenedViaNotificationController.swift */,
 				AB36FF7E28D35BDC00AAC00C /* Model */,
 				AB36FF7928D35B9500AAC00C /* Views */,
 				AB36FFA028D372A100AAC00C /* Controllers */,
@@ -1865,6 +1868,7 @@
 				AB35A8D628E9DC73009FB203 /* BandProfileView.swift in Sources */,
 				AB9DAB04292329AF009BE932 /* ShowSettingsView.swift in Sources */,
 				AB285AFC28F6F7EE00EB5F2B /* ShowTimeList.swift in Sources */,
+				ABF0BF6B29996B820022B046 /* AppOpenedViaNotificationController.swift in Sources */,
 				ABE2FE0429897BED00D5A951 /* ChooseNewShowHostView.swift in Sources */,
 				ABDC0D7928D76FC60054269E /* AddEditShowViewModel.swift in Sources */,
 				AB5EFF9D2982BE58000399DE /* ForgotPasswordViewModel.swift in Sources */,

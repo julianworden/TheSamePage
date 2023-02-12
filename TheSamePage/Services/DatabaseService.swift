@@ -1515,6 +1515,19 @@ class DatabaseService: NSObject {
         return try chatDocuments.map { try $0.data(as: Chat.self) }
     }
 
+    func getChat(withId id: String) async throws -> Chat {
+        do {
+            return try await db
+                .collection(FbConstants.chats)
+                .document(id)
+                .getDocument(as: Chat.self)
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to fetch chat",
+                systemError: error.localizedDescription
+            )
+        }
+    }
     
     /// Creates a chat in the Firestore chats collection.
     /// - Parameter chat: The chat object to be added to Firestore. This chat object will not have an id property.

@@ -10,13 +10,13 @@ import SwiftUI
 struct RootView: View {
     @EnvironmentObject var loggedInUserController: LoggedInUserController
     @EnvironmentObject var networkController: NetworkController
-    
+
     @StateObject var viewModel = RootViewModel()
 
     var body: some View {
         ZStack {
             BackgroundColor()
-            
+
             if !loggedInUserController.userIsLoggedOut {
                 TabView(selection: $viewModel.selectedTab) {
                     FindShowsView()

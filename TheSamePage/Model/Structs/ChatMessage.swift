@@ -15,6 +15,7 @@ struct ChatMessage: Codable, Equatable, Identifiable {
     @DocumentID var id: String?
     let text: String
     let senderUid: String
+    let chatId: String
     let senderFullName: String
     let sentTimestamp: Double
     var recipientFcmTokens: [String] = []
@@ -26,6 +27,7 @@ struct ChatMessage: Codable, Equatable, Identifiable {
     static let example = ChatMessage(
         text: "Hello, how is everyone?",
         senderUid: "a;weifawhj;lefahjwef",
+        chatId: "a;sldfja;sldkj",
         senderFullName: "Julian Worden",
         sentTimestamp: 3636363636,
         recipientFcmTokens: ["a;slkdfja;sldf", "al;wifhwurte"]

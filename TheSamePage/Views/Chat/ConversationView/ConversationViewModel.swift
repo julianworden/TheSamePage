@@ -10,7 +10,7 @@ import FirebaseFirestoreSwift
 import Foundation
 
 @MainActor
-class ConversationViewModel: ObservableObject {
+class ConversationViewModel : ObservableObject {
     @Published var messageText = ""
     @Published var messages = [ChatMessage]()
     @Published var chatParticipantUids = [String]()
@@ -32,18 +32,30 @@ class ConversationViewModel: ObservableObject {
         }
     }
     
-    let show: Show?
+    var show: Show?
     let userId: String?
     var chat: Chat?
+    var chatId: String?
     
     var chatMessagesListener: ListenerRegistration?
     let db = Firestore.firestore()
     
-    init(show: Show? = nil, userId: String? = nil, chatParticipantUids: [String] = []) {
+    init(chatId: String? = nil, show: Show? = nil, userId: String? = nil, chatParticipantUids: [String] = []) {
         self.show = show
         self.userId = userId
         self.chatParticipantUids = chatParticipantUids
-    }
+
+            Task {
+                if let chatId {
+                    let chat = try await DatabaseService.shared.getChat(withId: chatId)
+                    self.show = try await DatabaseService.shared.getShow(showId: chat.showId ?? "")
+                    self.chat = chat
+                    self.chatParticipantUids = chat.participantUids
+                }
+
+                await callOnAppearMethods()
+            }
+        }
     
     func callOnAppearMethods() async {
         _ = await configureChat()
@@ -90,7 +102,7 @@ class ConversationViewModel: ObservableObject {
         do {
             if let fetchedChat = try await DatabaseService.shared.getChat(withShowId: show.id) {
                 self.chat = fetchedChat
-                messages = try await DatabaseService.shared.getMessagesForChat(chat: fetchedChat)
+                messages = await getMessagesForChat(fetchedChat)
                 return fetchedChat.id
             } else {
                 var chatParticipantUids = show.participantUids
@@ -113,6 +125,15 @@ class ConversationViewModel: ObservableObject {
         } catch {
             viewState = .error(message: error.localizedDescription)
             return nil
+        }
+    }
+
+    func getMessagesForChat(_ chat: Chat) async -> [ChatMessage] {
+        do {
+            return try await DatabaseService.shared.getMessagesForChat(chat: chat)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+            return []
         }
     }
     
@@ -144,6 +165,7 @@ class ConversationViewModel: ObservableObject {
             let newChatMessage = ChatMessage(
                 text: messageText,
                 senderUid: senderUid,
+                chatId: chat.id,
                 senderFullName: senderFullName,
                 sentTimestamp: Date().timeIntervalSince1970,
                 recipientFcmTokens: filteredFcmTokens

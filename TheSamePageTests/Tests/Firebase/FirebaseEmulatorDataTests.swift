@@ -542,6 +542,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(julianMessageInEmulator.senderFullName, julianMessageInTestingConstants.senderFullName)
         XCTAssertEqual(julianMessageInEmulator.sentTimestamp, julianMessageInTestingConstants.sentTimestamp)
         XCTAssertEqual(julianMessageInEmulator.recipientFcmTokens, julianMessageInTestingConstants.recipientFcmTokens)
+        XCTAssertEqual(julianMessageInEmulator.chatId, julianMessageInTestingConstants.chatId)
     }
 
     func test_OnInit_ExampleChatMessageEricHasExpectedValues() async throws {
@@ -555,6 +556,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(ericMessageInEmulator.senderFullName, ericMessageInTestingConstants.senderFullName)
         XCTAssertEqual(ericMessageInEmulator.sentTimestamp, ericMessageInTestingConstants.sentTimestamp)
         XCTAssertEqual(ericMessageInEmulator.recipientFcmTokens, ericMessageInTestingConstants.recipientFcmTokens)
+        XCTAssertEqual(ericMessageInEmulator.chatId, ericMessageInTestingConstants.chatId)
     }
 
     func test_OnInit_ExampleChatMessagesInFirestoreEmulatorMatchTestingConstants() async throws {

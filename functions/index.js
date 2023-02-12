@@ -8,6 +8,7 @@ exports.notifyNewMessage = functions.firestore
     .document('chats/{chat}/messages/{message}')
     .onCreate((snapshot, context) => {
         const message = snapshot.data();
+        const chatId = message['chatId']
         const messageText = message['text'];
         const senderName = message['senderFullName'];
         const recipientFcmTokens = message['recipientFcmTokens'];
@@ -20,7 +21,7 @@ exports.notifyNewMessage = functions.firestore
                 body: messageText
             },
             data: {
-                senderName: senderName
+                chatId: chatId
             }
         };
 

@@ -20,12 +20,16 @@ struct TheSamePageApp: App {
     
     @StateObject var loggedInUserController = LoggedInUserController()
     @StateObject var networkController = NetworkController()
-    
+    @StateObject var appOpenedViaNotificationController = AppOpenedViaNotificationController()
+
     var body: some Scene {
         WindowGroup {
             RootView()
                 .environmentObject(loggedInUserController)
                 .environmentObject(networkController)
+                .fullScreenCover(isPresented: $appOpenedViaNotificationController.appOpenedViaNewMessageNotification) {
+                    ConversationView(chatId: appOpenedViaNotificationController.chatId)
+                }
         }
     }
 }
@@ -35,7 +39,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         UITabBar.appearance().backgroundColor = .systemGroupedBackground
         
         FirebaseApp.configure()
-        startFirebaseEmulator()
+        useFirebaseEmulator()
         FirebaseConfiguration.shared.setLoggerLevel(.min)
         
         Messaging.messaging().delegate = self
@@ -52,7 +56,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         return true
     }
 
-    func startFirebaseEmulator() {
+    func useFirebaseEmulator() {
         let settings = Firestore.firestore().settings
         // Using 127.0.0.1 instead of localhost because localhost causes socket error in console
         settings.host = "127.0.0.1:8080"
@@ -86,7 +90,13 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-        print("Message sent by: \(userInfo["senderName"] ?? "Unknown User")")
+        if let idForChatContainingMessage = userInfo[FbConstants.chatId] {
+            NotificationCenter.default.post(
+                name: .appOpenedViaNewMessageNotification,
+                object: nil,
+                userInfo: [FbConstants.chatId: idForChatContainingMessage]
+            )
+        }
         completionHandler()
     }
     

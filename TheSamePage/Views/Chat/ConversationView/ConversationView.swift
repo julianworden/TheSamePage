@@ -14,8 +14,8 @@ struct ConversationView: View {
     
     @StateObject var viewModel: ConversationViewModel
     
-    init(show: Show? = nil, userId: String? = nil, chatParticipantUids: [String]) {
-        _viewModel = StateObject(wrappedValue: ConversationViewModel(show: show, userId: userId, chatParticipantUids: chatParticipantUids))
+    init(chatId: String? = nil, show: Show? = nil, userId: String? = nil, chatParticipantUids: [String] = []) {
+        _viewModel = StateObject(wrappedValue: ConversationViewModel(chatId: chatId, show: show, userId: userId, chatParticipantUids: chatParticipantUids))
     }
     
     var body: some View {
@@ -73,9 +73,6 @@ struct ConversationView: View {
                 message: viewModel.errorAlertText,
                 tryAgainAction: viewModel.callOnAppearMethods
             )
-            .task {
-                await viewModel.callOnAppearMethods()
-            }
             .onChange(of: viewModel.messageText) { messageText in
                 if !messageText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     viewModel.sendButtonIsDisabled = false
