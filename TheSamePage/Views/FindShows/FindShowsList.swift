@@ -27,7 +27,7 @@ struct FindShowList: View {
                 }
             }
         }
-        .listStyle(.grouped)
+        .listStyle(.insetGrouped)
         .refreshable {
             await viewModel.fetchNearbyShows()
         }

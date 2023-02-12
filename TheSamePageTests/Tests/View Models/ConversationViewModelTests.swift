@@ -45,10 +45,7 @@ final class ConversationViewModelTests: XCTestCase {
 
     func test_OnInitWithShowWithMessagesAndOnAppearMethodsCalled_PropertiesAreAssigned() async throws {
         let dumpweedExtravaganza = TestingConstants.exampleShowDumpweedExtravaganza
-        let showParticipants = [
-            TestingConstants.exampleShowParticipantDumpweedInDumpweedExtravaganza,TestingConstants.exampleShowParticipantPatheticFallacyInDumpweedExtravaganza
-        ]
-        sut = ConversationViewModel(show: dumpweedExtravaganza, showParticipants: showParticipants)
+        sut = ConversationViewModel(show: dumpweedExtravaganza, chatParticipantUids: [])
 
         await sut.callOnAppearMethods()
         let fetchedShowChat = try await testingDatabaseService.getChat(forShowWithId: dumpweedExtravaganza.id)
@@ -56,7 +53,7 @@ final class ConversationViewModelTests: XCTestCase {
 
         XCTAssertTrue(sut.messageText.isEmpty)
         XCTAssertEqual(fetchedShowChatMessages.count, sut.messages.count)
-        XCTAssertEqual(sut.showParticipants, showParticipants)
+        XCTAssertTrue(sut.chatParticipantUids.isEmpty)
         XCTAssertTrue(sut.sendButtonIsDisabled)
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
@@ -97,7 +94,7 @@ final class ConversationViewModelTests: XCTestCase {
         let showParticipants = [
             TestingConstants.exampleShowParticipantDumpweedInDumpweedExtravaganza,TestingConstants.exampleShowParticipantPatheticFallacyInDumpweedExtravaganza
         ]
-        sut = ConversationViewModel(show: dumpweedExtravaganza, showParticipants: showParticipants)
+        sut = ConversationViewModel(show: dumpweedExtravaganza, chatParticipantUids: [])
         await sut.callOnAppearMethods()
         sut.messageText = TestingConstants.testMessageText
 

@@ -18,7 +18,7 @@ struct MyPlayingShowsView: View {
                 
             case .dataLoaded:
                 List {
-                    Section("You're playing...") {
+                    Section("Shows You're Playing") {
                         ForEach(Array(viewModel.playingShows.enumerated()), id: \.element) { index, show in
                             NavigationLink {
                                 ShowDetailsView(show: show)
@@ -29,7 +29,7 @@ struct MyPlayingShowsView: View {
                         }
                     }
                 }
-                .listStyle(.grouped)
+                .listStyle(.insetGrouped)
                 
             case .dataNotFound:
                 NoDataFoundMessage(message: "You're not playing any shows")

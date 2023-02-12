@@ -42,7 +42,6 @@ struct OtherUserProfileView: View {
                         }
                     }
                     .navigationTitle(user.username)
-                    .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button {

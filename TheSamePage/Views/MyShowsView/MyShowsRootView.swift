@@ -31,7 +31,7 @@ struct MyShowsRootView: View {
                     if viewModel.selectedShowType == .playing {
                         MyPlayingShowsView(viewModel: viewModel)
                     }
-                    
+
                     Spacer()
                 }
             }

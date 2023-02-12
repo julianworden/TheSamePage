@@ -18,7 +18,7 @@ struct MyHostedShowsView: View {
 
             case .dataLoaded:
                 List {
-                    Section("You're hosting...") {
+                    Section("Shows You're Hosting") {
                         ForEach(Array(viewModel.hostedShows.enumerated()), id: \.element) { index, show in
                             NavigationLink {
                                 ShowDetailsView(show: show)
@@ -29,7 +29,7 @@ struct MyHostedShowsView: View {
                         }
                     }
                 }
-                .listStyle(.grouped)
+                .listStyle(.insetGrouped)
 
             case .dataNotFound:
                 VStack {

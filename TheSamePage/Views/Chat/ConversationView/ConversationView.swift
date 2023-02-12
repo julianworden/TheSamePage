@@ -14,8 +14,8 @@ struct ConversationView: View {
     
     @StateObject var viewModel: ConversationViewModel
     
-    init(show: Show? = nil, userId: String? = nil, showParticipants: [ShowParticipant]) {
-        _viewModel = StateObject(wrappedValue: ConversationViewModel(show: show, userId: userId, showParticipants: showParticipants))
+    init(show: Show? = nil, userId: String? = nil, chatParticipantUids: [String]) {
+        _viewModel = StateObject(wrappedValue: ConversationViewModel(show: show, userId: userId, chatParticipantUids: chatParticipantUids))
     }
     
     var body: some View {
@@ -56,7 +56,7 @@ struct ConversationView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink {
-                        ChatInfoView(chatParticipants: viewModel.showParticipants)
+                        ChatInfoView(show: viewModel.show, chatParticipantUids: viewModel.chatParticipantUids)
                     } label: {
                         Image(systemName: "info.circle")
                     }
@@ -89,6 +89,6 @@ struct ConversationView: View {
 
 struct ConversationView_Previews: PreviewProvider {
     static var previews: some View {
-        ConversationView(show: Show.example, showParticipants: [])
+        ConversationView(show: Show.example, chatParticipantUids: [])
     }
 }

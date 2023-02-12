@@ -37,10 +37,11 @@ final class AddEditBandViewModel: ObservableObject {
             case .workCompleted:
                 dismissView = true
             case .error(let message):
-                errorAlertIsShowing = true
                 errorAlertText = message
+                errorAlertIsShowing = true
             default:
-                print("Unknown viewState provided in AddEditBandViewModel")
+                errorAlertText = ErrorMessageConstants.invalidViewState
+                errorAlertIsShowing = true
             }
         }
     }

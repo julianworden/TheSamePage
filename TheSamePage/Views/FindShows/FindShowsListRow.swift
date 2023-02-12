@@ -47,16 +47,6 @@ struct FindShowsListRow: View {
                     }
                 }
                 .multilineTextAlignment(.leading)
-                
-                Spacer()
-                
-                if show.loggedInUserIsShowHost {
-                    VStack {
-                        Spacer()
-                        
-                        Text("You're hosting")
-                    }
-                }
             }
         }
     }

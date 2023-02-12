@@ -127,14 +127,14 @@ final class AddEditShowViewModelTests: XCTestCase {
         sut = AddEditShowViewModel()
         sut.addressIsPrivate = true
 
-        XCTAssertEqual(sut.publiclyVisibleAddressExplanation, "Anybody can see this show's address")
+        XCTAssertEqual(sut.publiclyVisibleAddressExplanation, "Anybody can see this show's address.")
     }
 
     func test_PubliclyVisibleAddressExplanation_ReturnsCorrectValueWhenAddressIsNotPrivate() {
         sut = AddEditShowViewModel()
         sut.addressIsPrivate = false
 
-        XCTAssertEqual(sut.publiclyVisibleAddressExplanation, "Anybody can see this show's city and state, but only this show's participants can see the full address")
+        XCTAssertEqual(sut.publiclyVisibleAddressExplanation, "Anybody can see this show's city and state, but only this show's participants can see the full address.")
     }
 
     func test_FormIsComplete_ReturnsFalseWithNoShowNameWhenShowIsFree() {

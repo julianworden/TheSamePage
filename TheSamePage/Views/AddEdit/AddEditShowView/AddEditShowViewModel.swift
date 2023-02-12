@@ -66,16 +66,17 @@ final class AddEditShowViewModel: ObservableObject {
                 errorAlertIsShowing = true
                 buttonsAreDisabled = false
             default:
-                print("Unknown ViewState assigned to AddEditShowViewModel.")
+                errorAlertText = ErrorMessageConstants.invalidViewState
+                errorAlertIsShowing = true
             }
         }
     }
     
     var publiclyVisibleAddressExplanation: String {
         if addressIsPrivate {
-            return "Anybody can see this show's address"
+            return "Anybody can see this show's address."
         } else {
-            return "Anybody can see this show's city and state, but only this show's participants can see the full address"
+            return "Anybody can see this show's city and state, but only this show's participants can see the full address."
         }
     }
     

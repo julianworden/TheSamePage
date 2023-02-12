@@ -13,7 +13,7 @@ import Foundation
 class ConversationViewModel: ObservableObject {
     @Published var messageText = ""
     @Published var messages = [ChatMessage]()
-    @Published var showParticipants = [ShowParticipant]()
+    @Published var chatParticipantUids = [String]()
     
     @Published var sendButtonIsDisabled = true
     @Published var errorAlertIsShowing = false
@@ -26,7 +26,8 @@ class ConversationViewModel: ObservableObject {
                 errorAlertText = message
                 errorAlertIsShowing = true
             default:
-                print("Unknown viewState set in ConversationViewModel")
+                errorAlertText = ErrorMessageConstants.invalidViewState
+                errorAlertIsShowing = true
             }
         }
     }
@@ -38,10 +39,10 @@ class ConversationViewModel: ObservableObject {
     var chatMessagesListener: ListenerRegistration?
     let db = Firestore.firestore()
     
-    init(show: Show? = nil, userId: String? = nil, showParticipants: [ShowParticipant] = []) {
+    init(show: Show? = nil, userId: String? = nil, chatParticipantUids: [String] = []) {
         self.show = show
         self.userId = userId
-        self.showParticipants = showParticipants
+        self.chatParticipantUids = chatParticipantUids
     }
     
     func callOnAppearMethods() async {

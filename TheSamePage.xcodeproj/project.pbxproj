@@ -44,6 +44,7 @@
 		AB1ECDEC2994061B0086C32A /* SendShowApplicationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1ECDEB2994061B0086C32A /* SendShowApplicationViewModelTests.swift */; };
 		AB1F174229992C3100C5B711 /* OnboardingNavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1F174129992C3100C5B711 /* OnboardingNavigationViewModel.swift */; };
 		AB1F174429992C7400C5B711 /* OnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1F174329992C7400C5B711 /* OnboardingScreen.swift */; };
+		AB1F1746299952CA00C5B711 /* ChatInfoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1F1745299952CA00C5B711 /* ChatInfoViewModelTests.swift */; };
 		AB24876A298C149200BD4528 /* ShowLineupRowMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB248769298C149200BD4528 /* ShowLineupRowMenuButton.swift */; };
 		AB24876C298C188B00BD4528 /* EllipsesMenuIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24876B298C188A00BD4528 /* EllipsesMenuIcon.swift */; };
 		AB24876E298C1C3100BD4528 /* LoggedInUserBandMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24876D298C1C3100BD4528 /* LoggedInUserBandMenuButton.swift */; };
@@ -331,6 +332,7 @@
 		AB1ECDEB2994061B0086C32A /* SendShowApplicationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendShowApplicationViewModelTests.swift; sourceTree = "<group>"; };
 		AB1F174129992C3100C5B711 /* OnboardingNavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingNavigationViewModel.swift; sourceTree = "<group>"; };
 		AB1F174329992C7400C5B711 /* OnboardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreen.swift; sourceTree = "<group>"; };
+		AB1F1745299952CA00C5B711 /* ChatInfoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoViewModelTests.swift; sourceTree = "<group>"; };
 		AB248769298C149200BD4528 /* ShowLineupRowMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLineupRowMenuButton.swift; sourceTree = "<group>"; };
 		AB24876B298C188A00BD4528 /* EllipsesMenuIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EllipsesMenuIcon.swift; sourceTree = "<group>"; };
 		AB24876D298C1C3100BD4528 /* LoggedInUserBandMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserBandMenuButton.swift; sourceTree = "<group>"; };
@@ -1225,6 +1227,7 @@
 				AB9BA8E7298B23AC001FDBDC /* ChooseNewBandAdminViewModelTests.swift */,
 				ABFF8168298A9F2700FAC995 /* ChooseNewShowHostViewModelTests.swift */,
 				ABD585BA296D041C007168D0 /* ConversationViewModelTests.swift */,
+				AB1F1745299952CA00C5B711 /* ChatInfoViewModelTests.swift */,
 				AB389FD22986DF10000C798C /* CreateUsernameViewModelTests.swift */,
 				AB5E8C88296DB4740073FDEB /* EditImageViewModelTests.swift */,
 				AB816581298424E800C5C1B4 /* ForgotPasswordViewModelTests.swift */,
@@ -1897,6 +1900,7 @@
 				ABF9903E297584FC00FD32D1 /* ShowDetailsViewModelTests.swift in Sources */,
 				ABE0251E297393C50089E969 /* BandProfileViewModelTests.swift in Sources */,
 				AB9447C32981807900699235 /* ShowParticipantTests.swift in Sources */,
+				AB1F1746299952CA00C5B711 /* ChatInfoViewModelTests.swift in Sources */,
 				ABCC3D742965CC6E006CF074 /* TestingConstants.swift in Sources */,
 				ABBE36A6296B583B0092F594 /* AddEditShowViewModelTests.swift in Sources */,
 				ABA0549529746385006B5908 /* SendShowInviteViewModelTests.swift in Sources */,

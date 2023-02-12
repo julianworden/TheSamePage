@@ -84,7 +84,7 @@ struct ShowDetailsView: View {
                         .fullScreenCover(isPresented: $viewModel.conversationViewIsShowing) {
                             ConversationView(
                                 show: show,
-                                showParticipants: viewModel.showParticipants
+                                chatParticipantUids: show.participantUids
                             )
                         }
                     } else if show.loggedInUserIsNotInvolvedInShow && !show.alreadyHappened {
