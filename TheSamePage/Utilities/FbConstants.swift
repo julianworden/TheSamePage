@@ -43,6 +43,7 @@ struct FbConstants {
     static let recipientFcmToken = "recipientFcmToken"
     static let message = "message"
     static let chatId = "chatId"
+    static let openNotificationsTab = "openNotificationsTab"
 
     // MARK: - Firebase Functions
     static let recursiveDelete = "recursiveDelete"

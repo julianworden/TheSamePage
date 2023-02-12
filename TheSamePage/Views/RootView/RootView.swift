@@ -13,12 +13,14 @@ struct RootView: View {
 
     @StateObject var viewModel = RootViewModel()
 
+    @ObservedObject var appOpenedViaNotificationController: AppOpenedViaNotificationController
+
     var body: some View {
         ZStack {
             BackgroundColor()
 
             if !loggedInUserController.userIsLoggedOut {
-                TabView(selection: $viewModel.selectedTab) {
+                TabView(selection: $appOpenedViaNotificationController.selectedRootViewTab) {
                     FindShowsView()
                         .tabItem {
                             Label("Find Shows", systemImage: "square.stack")
@@ -91,6 +93,6 @@ struct RootView: View {
 
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
-        RootView()
+        RootView(appOpenedViaNotificationController: AppOpenedViaNotificationController())
     }
 }

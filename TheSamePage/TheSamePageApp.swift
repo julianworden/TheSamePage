@@ -24,11 +24,11 @@ struct TheSamePageApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView()
+            RootView(appOpenedViaNotificationController: appOpenedViaNotificationController)
                 .environmentObject(loggedInUserController)
                 .environmentObject(networkController)
-                .fullScreenCover(isPresented: $appOpenedViaNotificationController.appOpenedViaNewMessageNotification) {
-                    ConversationView(chatId: appOpenedViaNotificationController.chatId)
+                .fullScreenCover(isPresented: $appOpenedViaNotificationController.presentSheet) {
+                    appOpenedViaNotificationController.sheetView()
                 }
         }
     }
@@ -39,7 +39,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         UITabBar.appearance().backgroundColor = .systemGroupedBackground
         
         FirebaseApp.configure()
-        useFirebaseEmulator()
+//        useFirebaseEmulator()
         FirebaseConfiguration.shared.setLoggerLevel(.min)
         
         Messaging.messaging().delegate = self
@@ -95,6 +95,14 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                 name: .appOpenedViaNewMessageNotification,
                 object: nil,
                 userInfo: [FbConstants.chatId: idForChatContainingMessage]
+            )
+        }
+
+        if let openNotificationsTab = userInfo[FbConstants.openNotificationsTab] {
+            NotificationCenter.default.post(
+                name: .appOpenedViaNewInviteOrApplicationNotification,
+                object: nil,
+                userInfo: [FbConstants.openNotificationsTab: openNotificationsTab]
             )
         }
         completionHandler()

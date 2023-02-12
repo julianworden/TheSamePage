@@ -265,6 +265,9 @@
 		ABEF10E728E64CE100A1DBAC /* AddEditLinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEF10E628E64CE100A1DBAC /* AddEditLinkViewModel.swift */; };
 		ABEF10EA28E6506000A1DBAC /* LinkPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEF10E928E6506000A1DBAC /* LinkPlatform.swift */; };
 		ABF0BF6B29996B820022B046 /* AppOpenedViaNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF0BF6A29996B820022B046 /* AppOpenedViaNotificationController.swift */; };
+		ABF0BF6D299987B30022B046 /* AppOpenedViaNotificationSheetNavigatorViewDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF0BF6C299987B30022B046 /* AppOpenedViaNotificationSheetNavigatorViewDestination.swift */; };
+		ABF0BF6F299988490022B046 /* View+eraseToAnyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF0BF6E299988490022B046 /* View+eraseToAnyView.swift */; };
+		ABF0BF7129998FAD0022B046 /* String+isTrue.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF0BF7029998FAD0022B046 /* String+isTrue.swift */; };
 		ABF0DA90291B111400BD5DD7 /* SelectedBandProfileTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF0DA8F291B111400BD5DD7 /* SelectedBandProfileTab.swift */; };
 		ABF0DA93291B135A00BD5DD7 /* BandMembersTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF0DA92291B135A00BD5DD7 /* BandMembersTab.swift */; };
 		ABF0DA95291B147B00BD5DD7 /* LinkTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF0DA94291B147B00BD5DD7 /* LinkTab.swift */; };
@@ -548,6 +551,9 @@
 		ABEF10E828E64F8800A1DBAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		ABEF10E928E6506000A1DBAC /* LinkPlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPlatform.swift; sourceTree = "<group>"; };
 		ABF0BF6A29996B820022B046 /* AppOpenedViaNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOpenedViaNotificationController.swift; sourceTree = "<group>"; };
+		ABF0BF6C299987B30022B046 /* AppOpenedViaNotificationSheetNavigatorViewDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOpenedViaNotificationSheetNavigatorViewDestination.swift; sourceTree = "<group>"; };
+		ABF0BF6E299988490022B046 /* View+eraseToAnyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+eraseToAnyView.swift"; sourceTree = "<group>"; };
+		ABF0BF7029998FAD0022B046 /* String+isTrue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+isTrue.swift"; sourceTree = "<group>"; };
 		ABF0DA8F291B111400BD5DD7 /* SelectedBandProfileTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedBandProfileTab.swift; sourceTree = "<group>"; };
 		ABF0DA92291B135A00BD5DD7 /* BandMembersTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMembersTab.swift; sourceTree = "<group>"; };
 		ABF0DA94291B147B00BD5DD7 /* LinkTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkTab.swift; sourceTree = "<group>"; };
@@ -776,7 +782,6 @@
 				ABEF10E828E64F8800A1DBAC /* Info.plist */,
 				AB399AD528D4BCD8009B39F7 /* Notes.rtf */,
 				AB36FF6528D356FD00AAC00C /* TheSamePageApp.swift */,
-				ABF0BF6A29996B820022B046 /* AppOpenedViaNotificationController.swift */,
 				AB36FF7E28D35BDC00AAC00C /* Model */,
 				AB36FF7928D35B9500AAC00C /* Views */,
 				AB36FFA028D372A100AAC00C /* Controllers */,
@@ -909,6 +914,7 @@
 				AB285B0128F6FE8A00EB5F2B /* ShowTimeType.swift */,
 				ABA1DDCD28F9B2AC00E7A72E /* ViewState.swift */,
 				ABB4C3FE29207CE600E2C153 /* NotificationAction.swift */,
+				ABF0BF6C299987B30022B046 /* AppOpenedViaNotificationSheetNavigatorViewDestination.swift */,
 				AB5E48F629003ABD0076EABE /* Backline */,
 			);
 			path = Enums;
@@ -949,6 +955,7 @@
 		AB36FFA028D372A100AAC00C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				ABF0BF6A29996B820022B046 /* AppOpenedViaNotificationController.swift */,
 				AB399ADA28D4C548009B39F7 /* LoggedInUserController.swift */,
 				AB66474D292D990B000B817E /* NetworkController.swift */,
 				ABDC0D7328D75CC80054269E /* AuthController.swift */,
@@ -1055,6 +1062,7 @@
 			isa = PBXGroup;
 			children = (
 				ABFBA72029154F97006B1751 /* View+cornerRadius().swift */,
+				ABF0BF6E299988490022B046 /* View+eraseToAnyView.swift */,
 				ABA42BC2292D176600ADE3AD /* Notification.Name+CustomNotifications.swift */,
 				AB38E1B228FB2422006D1788 /* CLPlacemark+formattedAddress.swift */,
 				AB6514DC28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift */,
@@ -1063,6 +1071,7 @@
 				AB571CA829705961000629AA /* Double+UnixDateAsDate.swift */,
 				AB092F542984AE7B00264659 /* String+trimmed.swift */,
 				AB2C81602985A4B5001C68BE /* String+usernameFormat.swift */,
+				ABF0BF7029998FAD0022B046 /* String+isTrue.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1737,6 +1746,7 @@
 				AB668EB2291BF31D007899A9 /* OtherUserProfileHeader.swift in Sources */,
 				ABDC0D7228D74BFF0054269E /* OtherUserProfileViewModel.swift in Sources */,
 				ABA42BC8292D248400ADE3AD /* NotificationConstants.swift in Sources */,
+				ABF0BF7129998FAD0022B046 /* String+isTrue.swift in Sources */,
 				AB5D08AB2913F5C20073F8EE /* ConversationViewModel.swift in Sources */,
 				ABFBA72329154FCD006B1751 /* ChatBubble.swift in Sources */,
 				AB3074C5299020610025615F /* CustomTextField.swift in Sources */,
@@ -1809,6 +1819,7 @@
 				AB285B0428F6FF6600EB5F2B /* AddEditShowTimeView.swift in Sources */,
 				AB3074C329901E650025615F /* UserSettingsScreen.swift in Sources */,
 				AB5E490029003CF10076EABE /* BacklineItemType.swift in Sources */,
+				ABF0BF6F299988490022B046 /* View+eraseToAnyView.swift in Sources */,
 				ABCAA9FF28E9E56C00685F91 /* BandProfileHeader.swift in Sources */,
 				ABF5563728DF93E40059E2DF /* BandProfileViewModel.swift in Sources */,
 				AB2B867E28D9F884004601B6 /* ImagePicker.swift in Sources */,
@@ -1824,6 +1835,7 @@
 				ABCF232829131E4E003DB6BB /* ConversationView.swift in Sources */,
 				AB4BD581292C388100E0360B /* AddressSearchList.swift in Sources */,
 				AB1ECDE62993E6B60086C32A /* SendShowApplicationView.swift in Sources */,
+				ABF0BF6D299987B30022B046 /* AppOpenedViaNotificationSheetNavigatorViewDestination.swift in Sources */,
 				ABE07A0E29799A9C009D3661 /* AddMyBandToShowViewModel.swift in Sources */,
 				AB93A90D2929269C00C0EEE6 /* errorAlert.swift in Sources */,
 				AB1D5E362987145E00E62C29 /* ReauthenticateViewModel.swift in Sources */,
