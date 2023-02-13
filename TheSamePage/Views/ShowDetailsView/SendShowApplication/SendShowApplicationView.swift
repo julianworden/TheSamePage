@@ -49,6 +49,7 @@ struct SendShowApplicationView: View {
                     Button("Back", role: .cancel) {
                         dismiss()
                     }
+                    .disabled(viewModel.buttonsAreDisabled)
                 }
             }
             .errorAlert(

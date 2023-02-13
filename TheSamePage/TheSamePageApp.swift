@@ -115,6 +115,15 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                 userInfo: [FbConstants.bandId: bandIdForAcceptedBandInvite]
             )
         }
+
+        if let showIdForAcceptedBandInviteOrApplication = userInfo[FbConstants.showId] {
+            NotificationCenter.default.post(
+                name: .appOpenedViaAcceptedShowInviteOrApplicationNotification,
+                object: nil,
+                userInfo: [FbConstants.showId: showIdForAcceptedBandInviteOrApplication]
+            )
+        }
+
         completionHandler()
     }
     

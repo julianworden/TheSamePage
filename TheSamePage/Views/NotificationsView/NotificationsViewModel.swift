@@ -90,7 +90,8 @@ final class NotificationsViewModel: ObservableObject {
                 if let senderFcmToke = showInvite.senderFcmToken {
                     try await FirebaseFunctionsController.notifyAcceptedShowInvite(
                         recipientFcmToken: senderFcmToke,
-                        message: showInvite.acceptanceMessage
+                        message: showInvite.acceptanceMessage,
+                        showId: showInvite.showId
                     )
                 }
             } else if let showApplication = anyUserNotification.notification as? ShowApplication {
@@ -98,7 +99,8 @@ final class NotificationsViewModel: ObservableObject {
                 if let senderFcmToken = showApplication.senderFcmToken {
                     try await FirebaseFunctionsController.notifyAcceptedShowApplication(
                         recipientFcmToken: senderFcmToken,
-                        message: showApplication.acceptanceMessage
+                        message: showApplication.acceptanceMessage,
+                        showId: showApplication.showId
                     )
                 }
             }

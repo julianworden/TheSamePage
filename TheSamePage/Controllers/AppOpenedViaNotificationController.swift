@@ -23,6 +23,7 @@ class AppOpenedViaNotificationController: ObservableObject {
         addAppOpenedViaNewMessageNotificationObserver()
         addAppOpenedViaNewInviteOrApplicationNotificationObserver()
         addAppOpenedViaAcceptedBandInviteNotificationObserver()
+        addAppOpenedViaAcceptedShowInviteOrApplicationNotificationObserver()
     }
 
     func sheetView() -> AnyView {
@@ -31,7 +32,7 @@ class AppOpenedViaNotificationController: ObservableObject {
             return ConversationView(chatId: chatId).eraseToAnyView()
 
         case .showDetailsView(let showId):
-            return ShowDetailsView(show: nil, showId: showId).eraseToAnyView()
+            return ShowDetailsView(show: nil, showId: showId, isPresentedModally: true).eraseToAnyView()
 
         case .bandProfileView(let bandId):
             return BandProfileView(band: nil, bandId: bandId, isPresentedModally: true).eraseToAnyView()
@@ -67,8 +68,17 @@ class AppOpenedViaNotificationController: ObservableObject {
         NotificationCenter.default.addObserver(forName: .appOpenedViaAcceptedBandInviteNotification, object: nil, queue: .main) { notification in
             if let bandId = notification.userInfo?[FbConstants.bandId] as? String {
                 Task { @MainActor in
-//                    self.selectedRootViewTab = 0
                     self.sheetDestination = .bandProfileView(bandId: bandId)
+                }
+            }
+        }
+    }
+
+    func addAppOpenedViaAcceptedShowInviteOrApplicationNotificationObserver() {
+        NotificationCenter.default.addObserver(forName: .appOpenedViaAcceptedShowInviteOrApplicationNotification, object: nil, queue: .main) { notification in
+            if let showId = notification.userInfo?[FbConstants.showId] as? String {
+                Task { @MainActor in
+                    self.sheetDestination = .showDetailsView(showId: showId)
                 }
             }
         }

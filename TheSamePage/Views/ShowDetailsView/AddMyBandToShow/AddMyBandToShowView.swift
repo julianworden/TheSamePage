@@ -56,7 +56,7 @@ struct AddMyBandToShowView: View {
                     }
 
                 case .dataNotFound:
-                    NoDataFoundMessage(message: "You are not the admin of any bands, you can only add bands of which you are the admin")
+                    NoDataFoundMessage(message: "You are not the admin of any bands, you can only add bands of which you are the admin.")
 
                 case .error:
                     EmptyView()

@@ -18,7 +18,7 @@ struct HostedShowRow: View {
     }
     
     var body: some View {
-        if !viewModel.hostedShows.isEmpty {
+        if viewModel.hostedShows.indices.contains(index) {
             let show = viewModel.hostedShows[index]
             
             VStack(spacing: 0) {

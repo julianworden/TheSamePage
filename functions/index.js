@@ -84,6 +84,7 @@ exports.notifyAcceptedShowInvite = functions
     .https.onCall(async (data, context) => {
         const recipientFcmToken = data.recipientFcmToken;
         const message = data.message;
+        const showId = data.showId;
 
         functions.logger.log('Sending notification with message', message, 'to user with FCM token', recipientFcmToken);
         
@@ -93,7 +94,7 @@ exports.notifyAcceptedShowInvite = functions
                 body: `${message}`
             },
             data: {
-                openNotificationsTab: 'true'
+                showId: showId
             }
         };
 
@@ -108,6 +109,7 @@ exports.notifyAcceptedShowApplication = functions
     .https.onCall(async (data, context) => {
         const recipientFcmToken = data.recipientFcmToken;
         const message = data.message;
+        const showId = data.showId;
 
         functions.logger.log('Sending notification with message', message, 'to user with FCM token', recipientFcmToken);
         
@@ -117,7 +119,7 @@ exports.notifyAcceptedShowApplication = functions
                 body: `${message}`
             },
             data: {
-                openNotificationsTab: 'true'
+                showId: showId
             }
         };
 

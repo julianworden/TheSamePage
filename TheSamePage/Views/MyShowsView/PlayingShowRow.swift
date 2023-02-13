@@ -18,7 +18,7 @@ struct PlayingShowRow: View {
     }
     
     var body: some View {
-        if !viewModel.playingShows.isEmpty {
+        if viewModel.playingShows.indices.contains(index) {
             let show = viewModel.playingShows[index]
             
             VStack(spacing: 0) {

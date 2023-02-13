@@ -29,24 +29,28 @@ struct FirebaseFunctionsController {
 
     static func notifyAcceptedShowInvite(
         recipientFcmToken: String,
-        message: String
+        message: String,
+        showId: String
     ) async throws {
         _ = try await Functions.functions().httpsCallable(FbConstants.notifyAcceptedShowInvite).call(
             [
                 FbConstants.recipientFcmToken: recipientFcmToken,
-                FbConstants.message: message
+                FbConstants.message: message,
+                FbConstants.showId: showId
             ]
         )
     }
 
     static func notifyAcceptedShowApplication(
         recipientFcmToken: String,
-        message: String
+        message: String,
+        showId: String
     ) async throws {
         _ = try await Functions.functions().httpsCallable(FbConstants.notifyAcceptedShowApplication).call(
             [
                 FbConstants.recipientFcmToken: recipientFcmToken,
-                FbConstants.message: message
+                FbConstants.message: message,
+                FbConstants.showId: showId
             ]
         )
     }
