@@ -20,7 +20,7 @@ struct NotificationsView: View {
                     case .dataLoading:
                         ProgressView()
                         
-                    case .dataLoaded:
+                    case .dataLoaded, .performingWork, .workCompleted:
                         NotificationsList(viewModel: viewModel)
                         
                     case .dataNotFound:

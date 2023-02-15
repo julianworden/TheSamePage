@@ -14,49 +14,60 @@ struct NotificationRow: View {
     
     // TODO: Add notification timestamp
     var body: some View {
-        VStack {
+        HStack {
             ListRowElements(
                 title: anyUserNotification.notificationTitle,
                 subtitle: anyUserNotification.notification.message,
+                secondaryText: anyUserNotification.notification.sentTimestamp.unixDateAsDate.timeOmittedNumericDate,
                 iconName: anyUserNotification.iconName
             )
-            
-            HStack {
-                AsyncButton {
-                    await viewModel.handleNotification(anyUserNotification: anyUserNotification, withAction: .accept)
-                } label: {
-                    Label("Accept", systemImage: "checkmark.circle")
-                }
 
-                AsyncButton {
-                    await viewModel.handleNotification(anyUserNotification: anyUserNotification, withAction: .decline)
+            HStack {
+                Button {
+                    Task {
+                        await viewModel.handleNotification(anyUserNotification: anyUserNotification, withAction: .accept)
+                    }
                 } label: {
-                    Label("Decline", systemImage: "x.circle")
+                    Image(systemName: "checkmark.circle")
                 }
+                .disabled(viewModel.buttonsAreDisabled)
+
+                Button {
+                    Task {
+                        await viewModel.handleNotification(anyUserNotification: anyUserNotification, withAction: .decline)
+                    }
+                } label: {
+                    Image(systemName: "x.circle")
+                }
+                .disabled(viewModel.buttonsAreDisabled)
 
                 if let showApplication = anyUserNotification.notification as? ShowApplication {
                     NavigationLink {
                         BandProfileView(band: nil, bandId: showApplication.bandId)
                     } label: {
-                        Label("Band Info", systemImage: "info.circle")
+                        Image(systemName: "info.circle")
                     }
+                    .disabled(viewModel.buttonsAreDisabled)
+
                 } else if let bandInvite = anyUserNotification.notification as? BandInvite {
                     NavigationLink {
                         BandProfileView(band: nil, bandId: bandInvite.bandId)
                     } label: {
-                        Label("Band Info", systemImage: "info.circle")
+                        Image(systemName: "info.circle")
                     }
+                    .disabled(viewModel.buttonsAreDisabled)
+
                 } else if let showInvite = anyUserNotification.notification as? ShowInvite {
                     NavigationLink {
                         ShowDetailsView(show: nil, showId: showInvite.showId)
                     } label: {
-                        Label("Show Info", systemImage: "info.circle")
+                        Image(systemName: "info.circle")
                     }
+                    .disabled(viewModel.buttonsAreDisabled)
+                    
                 }
             }
             .buttonStyle(.bordered)
-
-            Divider()
         }
     }
 }

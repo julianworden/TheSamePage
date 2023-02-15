@@ -13,7 +13,7 @@ struct ShowInvite: UserNotification {
     var id: String
     var recipientFcmToken: String?
     var senderFcmToken: String?
-    var dateSent: Double
+    var sentTimestamp: Double
     let notificationType: String
     let recipientUid: String
     let bandName: String
@@ -33,7 +33,7 @@ struct ShowInvite: UserNotification {
         id: "a;slkdfja;lsdjf",
         recipientFcmToken: "a;lskdfa;sklfj",
         senderFcmToken: "ertupwqeritnb",
-        dateSent: 123232,
+        sentTimestamp: 123232,
         notificationType: NotificationType.showInvite.rawValue,
         recipientUid: ";askldjf;alskdjf",
         bandName: "Pathetic Fallacy",

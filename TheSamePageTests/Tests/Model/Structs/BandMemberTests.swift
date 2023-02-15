@@ -26,8 +26,8 @@ final class BandMemberTests: XCTestCase {
         let bandInvite = TestingConstants.exampleBandInviteForTas
 
         XCTAssertEqual(
-            bandInvite.dateSent.unixDateAsDate.formatted(date: .complete, time: .complete),
-            Date(timeIntervalSince1970: bandInvite.dateSent).formatted(date: .complete, time: .complete)
+            bandInvite.sentTimestamp.unixDateAsDate.formatted(date: .complete, time: .complete),
+            Date(timeIntervalSince1970: bandInvite.sentTimestamp).formatted(date: .complete, time: .complete)
         )
     }
 

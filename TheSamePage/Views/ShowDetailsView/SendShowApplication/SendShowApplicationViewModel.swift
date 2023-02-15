@@ -75,6 +75,7 @@ final class SendShowApplicationViewModel: ObservableObject {
                 id: "",
                 recipientFcmToken: recipientFcmToken,
                 senderFcmToken: senderFcmToken,
+                sentTimestamp: Date.now.timeIntervalSince1970,
                 bandName: selectedBand.name,
                 message: "\(selectedBand.name) wants to play \(show.name).",
                 recipientUid: show.hostUid,

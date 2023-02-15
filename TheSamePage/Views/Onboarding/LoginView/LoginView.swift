@@ -80,6 +80,7 @@ struct LoginView: View {
                         } label: {
                             Text("Sign Up")
                         }
+                        .disabled(viewModel.buttonsAreDisabled)
                     }
                 }
             }

@@ -15,6 +15,8 @@ struct NotificationsList: View {
             VStack(spacing: UiConstants.listRowSpacing) {
                 ForEach(viewModel.fetchedNotifications) { anyUserNotification in
                     NotificationRow(viewModel: viewModel, anyUserNotification: anyUserNotification)
+
+                    Divider()
                 }
             }
             .padding(.horizontal)

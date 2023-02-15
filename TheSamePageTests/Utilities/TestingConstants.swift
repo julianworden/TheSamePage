@@ -314,7 +314,7 @@ struct TestingConstants {
     static let exampleBandInviteForTas = BandInvite(
         id: "I8jPC6U14IolWMSc8Ivp",
         recipientUsername: exampleUserTas.username,
-        dateSent: 1673073450,
+        sentTimestamp: 1673073450,
         notificationType: NotificationType.bandInvite.rawValue,
         recipientUid: exampleUserTas.id,
         recipientRole: "Drums",
@@ -327,7 +327,7 @@ struct TestingConstants {
     static let exampleBandInviteForMatt = BandInvite(
         id: "",
         recipientUsername: exampleUserMattForIntegrationTesting.username,
-        dateSent: 1673073450,
+        sentTimestamp: 1673073450,
         notificationType: NotificationType.bandInvite.rawValue,
         recipientUid: exampleUserMattForIntegrationTesting.id,
         recipientRole: "Bass Guitar",
@@ -341,7 +341,7 @@ struct TestingConstants {
 
     static let exampleShowInviteForGenerationUnderground = ShowInvite(
         id: "",
-        dateSent: 1673565412,
+        sentTimestamp: 1673565412,
         notificationType: NotificationType.showInvite.rawValue,
         recipientUid: exampleUserMike.id,
         bandName: "Generation Underground",
@@ -364,6 +364,7 @@ struct TestingConstants {
         id: "LHN7T2KCPTS8utVIHlXF",
         recipientFcmToken: nil,
         senderFcmToken: nil,
+        sentTimestamp: 167604400436.8428,
         bandName: exampleBandTheApples.name,
         message: "\(exampleBandTheApples.name) wants to play \(exampleShowDumpweedExtravaganza.name).",
         recipientUid: exampleUserJulian.id,

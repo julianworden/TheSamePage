@@ -12,13 +12,20 @@ import Foundation
 final class NotificationsViewModel: ObservableObject {
     @Published var fetchedNotifications = [AnyUserNotification]()
     @Published var selectedNotificationType = NotificationType.bandInvite
+
+    @Published var buttonsAreDisabled = false
     
     @Published var viewState = ViewState.dataLoading {
         didSet {
             switch viewState {
+            case .performingWork:
+                buttonsAreDisabled = true
+            case .workCompleted:
+                buttonsAreDisabled = false
             case .error(let message):
                 errorAlertText = message
                 errorAlertIsShowing = true
+                buttonsAreDisabled = false
             default:
                 if viewState != .dataLoaded && viewState != .dataNotFound {
                     errorAlertText = ErrorMessageConstants.invalidViewState
@@ -33,8 +40,6 @@ final class NotificationsViewModel: ObservableObject {
     
     let db = Firestore.firestore()
     var notificationsListener: ListenerRegistration?
-
-    // TODO: Add separate method for fetching notifications that already exist, also call the getNotifications
 
     func getNotifications() {
         notificationsListener = db
@@ -60,9 +65,11 @@ final class NotificationsViewModel: ObservableObject {
                         }
                     }
 
-                    self.fetchedNotifications = notificationsAsAnyUserNotification
-                    self.fetchedNotifications.isEmpty ? (self.viewState = .dataNotFound) : (self.viewState = .dataLoaded)
+                    self.fetchedNotifications = notificationsAsAnyUserNotification.sorted {
+                        $0.notification.sentTimestamp > $1.notification.sentTimestamp
+                    }
 
+                    self.fetchedNotifications.isEmpty ? (self.viewState = .dataNotFound) : (self.viewState = .dataLoaded)
                 } else if error != nil {
                     self.viewState = .error(message: "Failed to fetch up-to-date notifications. System error: \(error!.localizedDescription)")
                 }
@@ -71,8 +78,11 @@ final class NotificationsViewModel: ObservableObject {
     
     func handleNotification(anyUserNotification: AnyUserNotification, withAction action: NotificationAction) async {
         do {
+            viewState = .performingWork
+            
             guard action != .decline else {
                 try await declineNotification(notification: anyUserNotification.notification)
+                viewState = .workCompleted
                 return
             }
 
@@ -104,6 +114,8 @@ final class NotificationsViewModel: ObservableObject {
                     )
                 }
             }
+
+            viewState = .workCompleted
         } catch {
             viewState = .error(message: error.localizedDescription)
         }

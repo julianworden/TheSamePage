@@ -16,6 +16,7 @@ import SwiftUI
 struct ListRowElements: View {
     let title: String
     let subtitle: String?
+    let secondaryText: String?
     let iconName: String
     let displayChevron: Bool
     let displayDivider: Bool
@@ -23,12 +24,14 @@ struct ListRowElements: View {
     init(
         title: String,
         subtitle: String? = nil,
+        secondaryText: String? = nil,
         iconName: String,
         displayChevron: Bool = false,
         displayDivider: Bool = false
     ) {
         self.title = title
         self.subtitle = subtitle
+        self.secondaryText = secondaryText
         self.iconName = iconName
         self.displayChevron = displayChevron
         self.displayDivider = displayDivider
@@ -47,6 +50,13 @@ struct ListRowElements: View {
                        !subtitle.isReallyEmpty {
                         Text(subtitle)
                             .font(.caption)
+                    }
+
+                    if let secondaryText,
+                       !secondaryText.isReallyEmpty {
+                        Text(secondaryText)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
                     }
                 }
                 .multilineTextAlignment(.leading)

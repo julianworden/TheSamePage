@@ -349,7 +349,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         let bandInviteInTestingConstants = TestingConstants.exampleBandInviteForTas
 
         XCTAssertEqual(bandInviteInEmulator.id, bandInviteInTestingConstants.id)
-        XCTAssertEqual(bandInviteInEmulator.dateSent, bandInviteInTestingConstants.dateSent)
+        XCTAssertEqual(bandInviteInEmulator.sentTimestamp, bandInviteInTestingConstants.sentTimestamp)
         XCTAssertEqual(bandInviteInEmulator.notificationType, bandInviteInTestingConstants.notificationType)
         XCTAssertEqual(bandInviteInEmulator.recipientUid, TestingConstants.exampleUserTas.id)
         XCTAssertEqual(bandInviteInEmulator.recipientRole, bandInviteInTestingConstants.recipientRole)
@@ -390,6 +390,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(showApplicationInEmulator.showId, showApplicationInTestingConstants.showId)
         XCTAssertEqual(showApplicationInEmulator.showName, showApplicationInTestingConstants.showName)
         XCTAssertEqual(showApplicationInEmulator.bandId, showApplicationInTestingConstants.bandId)
+        XCTAssertEqual(showApplicationInEmulator.sentTimestamp, showApplicationInTestingConstants.sentTimestamp)
     }
 
     // MARK: - Firestore Example BandMembers

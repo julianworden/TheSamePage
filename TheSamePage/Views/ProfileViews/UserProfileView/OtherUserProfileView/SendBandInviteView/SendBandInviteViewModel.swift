@@ -77,7 +77,7 @@ final class SendBandInviteViewModel: ObservableObject {
                     recipientFcmToken: user.fcmToken,
                     recipientUsername: user.username,
                     senderFcmToken: loggedInUser.fcmToken,
-                    dateSent: Date.now.timeIntervalSince1970,
+                    sentTimestamp: Date.now.timeIntervalSince1970,
                     notificationType: NotificationType.bandInvite.rawValue,
                     recipientUid: user.id,
                     recipientRole: recipientRole.rawValue,
