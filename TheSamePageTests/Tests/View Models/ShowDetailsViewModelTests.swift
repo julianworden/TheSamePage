@@ -263,7 +263,7 @@ final class ShowDetailsViewModelTests: XCTestCase {
             XCTAssertEqual(editedShow.bandIds.count, 2, "There should only be 2 bands on the show now")
             XCTAssertEqual(editedShow.participantUids.count, 3, "There should only be 3 users in the array")
             XCTAssertFalse(editedShow.participantUids.contains(TestingConstants.exampleUserCraig.id))
-            XCTAssertFalse(editedShowChat.participantUids.contains(TestingConstants.exampleUserCraig.id))
+            XCTAssertFalse(editedShowChat!.participantUids.contains(TestingConstants.exampleUserCraig.id))
         }
     }
 

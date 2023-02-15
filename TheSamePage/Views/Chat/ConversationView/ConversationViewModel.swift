@@ -19,15 +19,17 @@ class ConversationViewModel : ObservableObject {
     @Published var errorAlertIsShowing = false
     @Published var errorAlertText = ""
     
-    @Published var viewState = ViewState.dataLoaded {
+    @Published var viewState = ViewState.dataLoading {
         didSet {
             switch viewState {
             case .error(let message):
                 errorAlertText = message
                 errorAlertIsShowing = true
             default:
-                errorAlertText = ErrorMessageConstants.invalidViewState
-                errorAlertIsShowing = true
+                if viewState != .dataLoaded {
+                    errorAlertText = ErrorMessageConstants.invalidViewState
+                    errorAlertIsShowing = true
+                }
             }
         }
     }
@@ -51,39 +53,36 @@ class ConversationViewModel : ObservableObject {
                     self.show = try await DatabaseService.shared.getShow(showId: chat.showId ?? "")
                     self.chat = chat
                     self.chatParticipantUids = chat.participantUids
+                    await callOnAppearMethods()
                 }
-
-                await callOnAppearMethods()
             }
         }
     
     func callOnAppearMethods() async {
-        _ = await configureChat()
-        addChatListener()
-    }
-    
-    func addChatListener() {
-        guard let chat else {
-            viewState = .error(
-                message: LogicError.unexpectedNilValue(message: "Failed to get latest chat info. Please relaunch The Same Page").localizedDescription)
-            return
+        if let show {
+            _ = await configureShowChat(forShow: show)
         }
-        
+
+        if let chat {
+            addChatListener(forChat: chat)
+        }
+    }
+
+    func addChatListener(forChat chat: Chat) {
         chatMessagesListener = db
             .collection(FbConstants.chats)
             .document(chat.id)
             .collection(FbConstants.messages)
+            .order(by: FbConstants.sentTimestamp, descending: true)
+            .limit(to: 20)
             .addSnapshotListener { snapshot, error in
                 if let snapshot, error == nil {
                     guard !snapshot.documents.isEmpty else { return }
-                    
+
                     let chatMessageDocuments = snapshot.documents
                     
                     if let chatMessages = try? chatMessageDocuments.map({ try $0.data(as: ChatMessage.self) }) {
-                        let sortedChatMessages = chatMessages.sorted {
-                            $0.sentTimestamp.unixDateAsDate < $1.sentTimestamp.unixDateAsDate
-                        }
-                        self.messages = sortedChatMessages
+                        self.messages = chatMessages.reversed()
                     } else {
                         self.viewState = .error(message: "Failed to fetch up-to-date chat messages. Please relaunch The Same Page and try again.")
                     }
@@ -91,19 +90,27 @@ class ConversationViewModel : ObservableObject {
                     self.viewState = .error(message: error!.localizedDescription)
                 }
             }
+
+        viewState = .dataLoaded
+    }
+
+    func getMoreMessages(before timestamp: Double) async {
+        do {
+            let nextTwentyMessages = try await DatabaseService.shared.getMessagesForChat(chat: chat!, before: timestamp)
+            nextTwentyMessages.forEach {
+                messages.insert($0, at: 0)
+            }
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
     }
     
-    func configureChat() async -> String? {
-        guard let show else {
-            viewState = .error(message: LogicError.unexpectedNilValue(message: "Failed to configure chat. Please restart The Same Page and try again").localizedDescription)
-            return nil
-        }
-
+    func configureShowChat(forShow show: Show) async -> String? {
         do {
-            if let fetchedChat = try await DatabaseService.shared.getChat(withShowId: show.id) {
+            if try await DatabaseService.shared.chatExists(forShowWithId: show.id) {
+                let fetchedChat = try await DatabaseService.shared.getChat(withShowId: show.id)
                 self.chat = fetchedChat
-                messages = await getMessagesForChat(fetchedChat)
-                return fetchedChat.id
+                return fetchedChat?.id
             } else {
                 var chatParticipantUids = show.participantUids
                 if !show.participantUids.contains(show.hostUid) {
@@ -125,15 +132,6 @@ class ConversationViewModel : ObservableObject {
         } catch {
             viewState = .error(message: error.localizedDescription)
             return nil
-        }
-    }
-
-    func getMessagesForChat(_ chat: Chat) async -> [ChatMessage] {
-        do {
-            return try await DatabaseService.shared.getMessagesForChat(chat: chat)
-        } catch {
-            viewState = .error(message: error.localizedDescription)
-            return []
         }
     }
     
@@ -176,5 +174,9 @@ class ConversationViewModel : ObservableObject {
             // TODO: Figure out why this state isn't being changed when wifi is off
             viewState = .error(message: error.localizedDescription)
         }
+    }
+
+    func removeChatListener() {
+        chatMessagesListener?.remove()
     }
 }

@@ -157,6 +157,7 @@
 		AB8326B82912BA2500208414 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8326B72912BA2500208414 /* Chat.swift */; };
 		AB8326BA2912BB3500208414 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8326B92912BB3500208414 /* ChatMessage.swift */; };
 		AB8627C1292687FC001537D9 /* ErrorMessageConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8627C0292687FC001537D9 /* ErrorMessageConstants.swift */; };
+		AB86F252299C487600B3FC2E /* ConversationViewMessagesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB86F251299C487600B3FC2E /* ConversationViewMessagesList.swift */; };
 		AB8AB3F5292FC8A500B4B1B5 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8AB3F4292FC8A500B4B1B5 /* BackgroundColor.swift */; };
 		AB8AB3F7292FCC0D00B4B1B5 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8AB3F6292FCC0D00B4B1B5 /* RootViewModel.swift */; };
 		AB9350C62996F9B000B1D2CA /* FirebaseFunctionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9350C52996F9B000B1D2CA /* FirebaseFunctionsController.swift */; };
@@ -449,6 +450,7 @@
 		AB8326B92912BB3500208414 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		AB8627BE2926751B001537D9 /* TestingDatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingDatabaseService.swift; sourceTree = "<group>"; };
 		AB8627C0292687FC001537D9 /* ErrorMessageConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessageConstants.swift; sourceTree = "<group>"; };
+		AB86F251299C487600B3FC2E /* ConversationViewMessagesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewMessagesList.swift; sourceTree = "<group>"; };
 		AB8AB3F4292FC8A500B4B1B5 /* BackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColor.swift; sourceTree = "<group>"; };
 		AB8AB3F6292FCC0D00B4B1B5 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		AB9350C52996F9B000B1D2CA /* FirebaseFunctionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFunctionsController.swift; sourceTree = "<group>"; };
@@ -723,6 +725,7 @@
 			isa = PBXGroup;
 			children = (
 				ABCF232729131E4E003DB6BB /* ConversationView.swift */,
+				AB86F251299C487600B3FC2E /* ConversationViewMessagesList.swift */,
 				AB5D08AA2913F5C20073F8EE /* ConversationViewModel.swift */,
 				ABFBA72229154FCD006B1751 /* ChatBubble.swift */,
 			);
@@ -1803,6 +1806,7 @@
 				AB7F381528EF20EA007741C7 /* ShowParticipant.swift in Sources */,
 				AB07295828F4631D0069B268 /* SelectedShowDetailsTab.swift in Sources */,
 				ABDDAD4528DB3ED200F1CF9B /* ProfileAsyncImage.swift in Sources */,
+				AB86F252299C487600B3FC2E /* ConversationViewMessagesList.swift in Sources */,
 				ABFF816C298AB48E00FAC995 /* ChooseNewBandAdminView.swift in Sources */,
 				AB8AB3F5292FC8A500B4B1B5 /* BackgroundColor.swift in Sources */,
 				AB0DD4D228F0D82E00CEA1BD /* ShowLineupList.swift in Sources */,

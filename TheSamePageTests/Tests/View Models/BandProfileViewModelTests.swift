@@ -36,12 +36,14 @@ final class BandProfileViewModelTests: XCTestCase {
     }
 
     func test_OnInitWithBand_DefaultValuesAreCorrect() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         sut = BandProfileViewModel(band: exampleBandPatheticFallacy)
+        try await Task.sleep(seconds: 0.5)
 
         XCTAssertEqual(sut.band, exampleBandPatheticFallacy)
-        XCTAssertTrue(sut.bandLinks.isEmpty)
-        XCTAssertTrue(sut.bandMembers.isEmpty)
-        XCTAssertTrue(sut.bandShows.isEmpty)
+        XCTAssertEqual(sut.bandLinks.count, 2)
+        XCTAssertEqual(sut.bandMembers.count, 2)
+        XCTAssertEqual(sut.bandShows.count, 1)
         XCTAssertEqual(sut.selectedTab, .about)
         XCTAssertFalse(sut.addEditLinkSheetIsShowing)
         XCTAssertFalse(sut.addBandMemberSheetIsShowing)
@@ -64,9 +66,9 @@ final class BandProfileViewModelTests: XCTestCase {
 
         wait(for: [bandExpectation], timeout: 5)
         XCTAssertEqual(sut.band, exampleBandPatheticFallacy)
-        XCTAssertTrue(sut.bandLinks.isEmpty)
-        XCTAssertTrue(sut.bandMembers.isEmpty)
-        XCTAssertTrue(sut.bandShows.isEmpty)
+        XCTAssertEqual(sut.bandLinks.count, 2)
+        XCTAssertEqual(sut.bandMembers.count, 2)
+        XCTAssertEqual(sut.bandShows.count, 1)
         XCTAssertEqual(sut.selectedTab, .about)
         XCTAssertFalse(sut.addEditLinkSheetIsShowing)
         XCTAssertFalse(sut.addBandMemberSheetIsShowing)
@@ -83,16 +85,10 @@ final class BandProfileViewModelTests: XCTestCase {
         sut = BandProfileViewModel(band: nil, bandId: exampleBandPatheticFallacy.id)
         try await Task.sleep(seconds: 0.5)
 
-        let bandPredicate = NSPredicate { _, _ in
-            (self.sut.band) != nil
-        }
-        let bandExpectation = XCTNSPredicateExpectation(predicate: bandPredicate, object: nil)
-
-        wait(for: [bandExpectation], timeout: 5)
         XCTAssertEqual(sut.band, exampleBandPatheticFallacy)
-        XCTAssertTrue(sut.bandLinks.isEmpty)
-        XCTAssertTrue(sut.bandMembers.isEmpty)
-        XCTAssertTrue(sut.bandShows.isEmpty)
+        XCTAssertEqual(sut.bandLinks.count, 2)
+        XCTAssertEqual(sut.bandMembers.count, 2)
+        XCTAssertEqual(sut.bandShows.count, 1)
         XCTAssertEqual(sut.selectedTab, .about)
         XCTAssertFalse(sut.addEditLinkSheetIsShowing)
         XCTAssertFalse(sut.addBandMemberSheetIsShowing)
@@ -125,6 +121,7 @@ final class BandProfileViewModelTests: XCTestCase {
     func test_OnCallOnAppearMethods_AllBandDataIsFetched() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         sut = BandProfileViewModel(band: exampleBandPatheticFallacy)
+        try await Task.sleep(seconds: 0.5)
 
         await sut.callOnAppearMethods()
 
@@ -141,6 +138,7 @@ final class BandProfileViewModelTests: XCTestCase {
     func test_OnGetLatestBandData_UpdatedBandIsFetched() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         sut = BandProfileViewModel(band: exampleBandPatheticFallacy)
+        try await Task.sleep(seconds: 0.5)
         try await testingDatabaseService.updateBandName(bandId: exampleBandPatheticFallacy.id, newName: "Path Fall")
 
         await sut.getLatestBandData()
@@ -161,6 +159,7 @@ final class BandProfileViewModelTests: XCTestCase {
         let createdBandWithProfileImageUrl = try await testingDatabaseService.getBand(withId: exampleBand.id)
         exampleBand.profileImageUrl = createdBandWithProfileImageUrl.profileImageUrl
         sut = BandProfileViewModel(band: exampleBand)
+        try await Task.sleep(seconds: 0.5)
 
         await sut.deleteBandImage()
         let createdBandWithNoProfileImage = try await testingDatabaseService.getBand(withId: exampleBand.id)
@@ -178,6 +177,7 @@ final class BandProfileViewModelTests: XCTestCase {
     func test_OnDeleteBandLink_BandLinkIsDeleted() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         sut = BandProfileViewModel(band: exampleBandPatheticFallacy)
+        try await Task.sleep(seconds: 0.5)
 
         await sut.deleteBandLink(TestingConstants.examplePlatformLinkPatheticFallacyInstagram)
 
@@ -196,6 +196,7 @@ final class BandProfileViewModelTests: XCTestCase {
     func test_OnLeaveBand_UserLeavesBand() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         sut = BandProfileViewModel(band: exampleBandPatheticFallacy)
+        try await Task.sleep(seconds: 0.5)
 
         await sut.removeBandMemberFromBand(bandMember: TestingConstants.exampleBandMemberLou)
         let patheticFallacyWithoutJulian = try await testingDatabaseService.getBand(withId: exampleBandPatheticFallacy.id)
@@ -207,7 +208,7 @@ final class BandProfileViewModelTests: XCTestCase {
 
         XCTAssertFalse(patheticFallacyWithoutJulian.memberUids.contains(exampleUserLou.id), "Lou left PF")
         XCTAssertFalse (patheticFallacyUpdatedBandMembers.contains(exampleBandMemberLou), "Lou left PF")
-        XCTAssertFalse(dumpweedExtravaganzaChatUpdated.participantUids.contains(exampleUserLou.id), "Lou should no longer be in any chats for shows that PF is playing")
+        XCTAssertFalse(dumpweedExtravaganzaChatUpdated!.participantUids.contains(exampleUserLou.id), "Lou should no longer be in any chats for shows that PF is playing")
         XCTAssertFalse(dumpweedExtravangaUpdated.participantUids.contains(exampleUserLou.id), "Lou should no longer be a participant in any shows that PF is playing")
 
         try await testingDatabaseService.restorePatheticFallacy(

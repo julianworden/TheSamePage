@@ -72,7 +72,7 @@ struct RootView: View {
         .fullScreenCover(
             isPresented: $loggedInUserController.currentUserIsInvalid,
             onDismiss: {
-                viewModel.selectedTab = 0
+                appOpenedViaNotificationController.selectedRootViewTab = 0
                 Task {
                     await loggedInUserController.callOnAppLaunchMethods()
                     LocationController.shared.startLocationServices()

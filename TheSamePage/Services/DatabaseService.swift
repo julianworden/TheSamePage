@@ -1534,9 +1534,19 @@ class DatabaseService: NSObject {
     /// Instead, its ID property will be set from within this method.
     func createChat(chat: Chat) async throws -> String {
         do {
-            let chatReference = try db
+            guard let showId = chat.showId,
+                  try await !chatExists(forShowWithId: showId) else { return "" }
+
+            let chatReference = try await db
                 .collection(FbConstants.chats)
-                .addDocument(from: chat)
+                .addDocument(data: [:])
+
+            try chatReference .setData(from: chat) { error in
+                if let error {
+                    print(error)
+                }
+            }
+
             try await chatReference.updateData(["id": chatReference.documentID])
             return chatReference.documentID
         } catch {
@@ -1567,7 +1577,29 @@ class DatabaseService: NSObject {
             )
         }
     }
-    
+
+    func getMessagesForChat(chat: Chat, before timestamp: Double) async throws -> [ChatMessage] {
+        do {
+            let chatMessageDocuments = try await db
+                .collection(FbConstants.chats)
+                .document(chat.id)
+                .collection(FbConstants.messages)
+                .whereField(FbConstants.sentTimestamp, isLessThan: timestamp)
+                .order(by: FbConstants.sentTimestamp, descending: true)
+                .limit(to: 20)
+                .getDocuments()
+                .documents
+
+            if let chatMessages = try? chatMessageDocuments.map({ try $0.data(as: ChatMessage.self) }) {
+                return chatMessages
+            } else {
+                throw LogicError.decode(message: "Failed to decode new messages. Please restart The Same Page and try again")
+            }
+        } catch {
+            throw FirebaseError.connection(message: "Failed to fetch new messages", systemError: error.localizedDescription)
+        }
+    }
+
     /// Called when a band admin accepts a show invite for their band. This allows the band to gain access to the show's chat.
     /// - Parameters:
     ///   - band: The band that will be joining the chat.
@@ -1684,6 +1716,22 @@ class DatabaseService: NSObject {
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to delete show chat",
+                systemError: error.localizedDescription
+            )
+        }
+    }
+
+    func chatExists(forShowWithId id: String) async throws -> Bool {
+        do {
+            return try await !db
+                .collection(FbConstants.chats)
+                .whereField(FbConstants.showId, isEqualTo: id)
+                .getDocuments()
+                .documents
+                .isEmpty
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to fetch chat details",
                 systemError: error.localizedDescription
             )
         }

@@ -301,6 +301,7 @@ class TestingDatabaseService {
             .collection(FbConstants.bands)
             .addDocument(from: bandCopy)
 
+        try await docRef.updateData([FbConstants.id: docRef.documentID])
         return docRef.documentID
     }
 
@@ -343,7 +344,7 @@ class TestingDatabaseService {
             let chat = try await getChat(forShowWithId: show.id)
 
             for member in bandMembers {
-                try await removeUserFromChat(uid: member.uid, chatId: chat.id)
+                try await removeUserFromChat(uid: member.uid, chatId: chat!.id)
                 try await removeUserFromShow(uid: member.uid, showId: show.id)
             }
 
@@ -627,7 +628,9 @@ class TestingDatabaseService {
 
     // MARK: - Firestore Chats and ChatMessages
 
-    func getChat(forShowWithId showId: String) async throws -> Chat {
+    func getChat(forShowWithId showId: String) async throws -> Chat? {
+        guard await chatExists(forShowWithId: showId) else { return nil }
+
         return try await db
             .collection(FbConstants.chats)
             .whereField(FbConstants.showId, isEqualTo: showId)
@@ -659,6 +662,19 @@ class TestingDatabaseService {
             .collection(FbConstants.chats)
             .document(chatId)
             .updateData([FbConstants.participantUids: FieldValue.arrayUnion([uid])])
+    }
+
+    func chatExists(forShowWithId id: String) async -> Bool {
+        do {
+            return try await !db
+                .collection(FbConstants.chats)
+                .whereField(FbConstants.showId, isEqualTo: id)
+                .getDocuments()
+                .documents
+                .isEmpty
+        } catch {
+            return false
+        }
     }
 
     func addUserToChat(user: User, showId: String) async throws {

@@ -158,7 +158,7 @@ final class NotificationsViewModelTests: XCTestCase {
         for show in patheticFallacyShows {
             XCTAssertTrue(show.participantUids.contains(createdUserUid!), "The user should've been added to the band's show's participantUids array")
             let showChat = try await testingDatabaseService.getChat(forShowWithId: show.id)
-            XCTAssertTrue(showChat.participantUids.contains(createdUserUid!), "The user should've been added to the chat that belongs to the show that the user's new band is playing")
+            XCTAssertTrue(showChat!.participantUids.contains(createdUserUid!), "The user should've been added to the chat that belongs to the show that the user's new band is playing")
         }
     }
 
@@ -200,7 +200,7 @@ final class NotificationsViewModelTests: XCTestCase {
         )
         let chatForDumpweedExtravaganza = try await testingDatabaseService.getChat(forShowWithId: dumpweedExtravaganza.id)
 
-        XCTAssertTrue(chatForDumpweedExtravaganza.participantUids.contains(mike.id), "Mike should be in the show's chat since he was in the band that joined the show")
+        XCTAssertTrue(chatForDumpweedExtravaganza!.participantUids.contains(mike.id), "Mike should be in the show's chat since he was in the band that joined the show")
         XCTAssertTrue(dumpweedExtravaganza.bandIds.contains(createdBandId!), "Generation Underground's id should be in the show's bandIds array")
         XCTAssertTrue(bandExistsInParticipantsCollection, "Generation Underground should be included in the show's participants collection")
     }
@@ -273,7 +273,7 @@ final class NotificationsViewModelTests: XCTestCase {
         )
         let chatForDumpweedExtravaganza = try await testingDatabaseService.getChat(forShowWithId: dumpweedExtravaganza.id)
 
-        XCTAssertTrue(chatForDumpweedExtravaganza.participantUids.contains(craig.id), "Craig should be in the show's chat since he was in the band that joined the show")
+        XCTAssertTrue(chatForDumpweedExtravaganza!.participantUids.contains(craig.id), "Craig should be in the show's chat since he was in the band that joined the show")
         XCTAssertTrue(dumpweedExtravaganza.bandIds.contains(theApples.id), "The Apples' id should be in the show's bandIds array")
         XCTAssertTrue(bandExistsInParticipantsCollection, "The Apples should be included in the show's participants collection")
 

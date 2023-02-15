@@ -88,8 +88,8 @@ final class BandSettingsViewModelTests: XCTestCase {
             XCTFail("The band was deleted, so this method shouldn't have successfully fetched anything.")
         } catch {
             XCTAssertEqual(sut.viewState, .workCompleted)
-            XCTAssertFalse(updatedDumpweedExtravaganzaChat.participantUids.contains(exampleUserLou.id), "Lou should've been removed from the show's chat since he was a part of Pathetic Fallacy")
-            XCTAssertFalse(updatedDumpweedExtravaganzaChat.participantUids.contains(exampleUserJulian.id), "Julian should've been removed from the show's chat since he was a part of Pathetic Fallacy")
+            XCTAssertFalse(updatedDumpweedExtravaganzaChat!.participantUids.contains(exampleUserLou.id), "Lou should've been removed from the show's chat since he was a part of Pathetic Fallacy")
+            XCTAssertFalse(updatedDumpweedExtravaganzaChat!.participantUids.contains(exampleUserJulian.id), "Julian should've been removed from the show's chat since he was a part of Pathetic Fallacy")
             XCTAssertEqual(updatedDumpweedExtravaganza.bandIds.count, 1, "There should now be one band on the show")
             XCTAssertFalse(updatedDumpweedExtravaganza.participantUids.contains(exampleUserLou.id), "Lou should've been removed from the show since he was a part of Pathetic Fallacy")
             XCTAssertFalse(updatedDumpweedExtravaganza.participantUids.contains(exampleUserJulian.id), "Julian should've been removed from the show since he was a part of Pathetic Fallacy")

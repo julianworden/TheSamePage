@@ -512,12 +512,12 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         )
         let chatInTestingConstants = TestingConstants.exampleChatDumpweedExtravaganza
 
-        XCTAssertEqual(chatInEmulator.id, chatInTestingConstants.id)
-        XCTAssertEqual(chatInEmulator.showId, TestingConstants.exampleShowDumpweedExtravaganza.id)
-        XCTAssertEqual(chatInEmulator.name, TestingConstants.exampleShowDumpweedExtravaganza.name)
-        XCTAssertEqual(chatInEmulator.participantUids, chatInTestingConstants.participantUids)
-        XCTAssertEqual(chatInEmulator.participantFcmTokens, chatInTestingConstants.participantFcmTokens)
-        XCTAssertEqual(chatInEmulator.userId, chatInTestingConstants.userId)
+        XCTAssertEqual(chatInEmulator!.id, chatInTestingConstants.id)
+        XCTAssertEqual(chatInEmulator!.showId, TestingConstants.exampleShowDumpweedExtravaganza.id)
+        XCTAssertEqual(chatInEmulator!.name, TestingConstants.exampleShowDumpweedExtravaganza.name)
+        XCTAssertEqual(chatInEmulator!.participantUids, chatInTestingConstants.participantUids)
+        XCTAssertEqual(chatInEmulator!.participantFcmTokens, chatInTestingConstants.participantFcmTokens)
+        XCTAssertEqual(chatInEmulator!.userId, chatInTestingConstants.userId)
     }
 
     func test_OnInit_ExampleChatsInFirestoreEmulatorMatchTestingConstants() async throws {
