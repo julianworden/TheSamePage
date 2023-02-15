@@ -24,6 +24,7 @@ struct BandProfileMemberRowMenuButton: View {
         } label: {
             EllipsesMenuIcon()
         }
+        .buttonStyle(.bordered)
         .alert(
             "Are You Sure?",
             isPresented: $removeBandMemberFromBandConfirmationAlertIsShowing,

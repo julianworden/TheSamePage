@@ -33,6 +33,7 @@ struct ShowTimeRow: View {
                         } label: {
                             EllipsesMenuIcon()
                         }
+                        .buttonStyle(.bordered)
                     }
                 }
             }

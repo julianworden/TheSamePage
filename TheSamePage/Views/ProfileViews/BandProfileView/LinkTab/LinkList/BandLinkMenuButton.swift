@@ -24,6 +24,7 @@ struct BandLinkMenuButton: View {
         } label: {
             EllipsesMenuIcon()
         }
+        .buttonStyle(.bordered)
         .alert(
             "Are You Sure?",
             isPresented: $deleteLinkConfirmationAlertIsShowing,

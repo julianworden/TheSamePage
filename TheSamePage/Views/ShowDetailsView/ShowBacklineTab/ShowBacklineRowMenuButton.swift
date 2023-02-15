@@ -24,6 +24,7 @@ struct ShowBacklineRowMenuButton: View {
         } label: {
             EllipsesMenuIcon()
         }
+        .buttonStyle(.bordered)
         .alert(
             "Are You Sure?",
             isPresented: $deleteBacklineItemConfirmationAlertIsShowing,

@@ -25,6 +25,7 @@ struct LoggedInUserBandMenuButton: View {
             } label: {
                 EllipsesMenuIcon()
             }
+            .buttonStyle(.bordered)
             .alert(
                 "Are You Sure?",
                 isPresented: $leaveBandConfirmationAlertIsShowing,

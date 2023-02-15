@@ -10,7 +10,6 @@ import SwiftUI
 struct EllipsesMenuIcon: View {
     var body: some View {
         Image(systemName: "ellipsis")
-            .tint(.primary)
     }
 }
 

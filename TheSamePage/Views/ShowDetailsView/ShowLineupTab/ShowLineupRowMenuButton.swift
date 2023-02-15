@@ -39,6 +39,7 @@ struct ShowLineupRowMenuButton: View {
                 } label: {
                     EllipsesMenuIcon()
                 }
+                .buttonStyle(.bordered)
                 .alert(
                     "Are You Sure?",
                     isPresented: $removeShowParticipantConfirmationAlertIsShowing,
