@@ -16,7 +16,8 @@ struct ErrorMessageConstants {
     static let emptyChatMessage = "You cannot send an empty message."
     static let invalidEmailAddress = "Please enter a valid email address."
     static let userIsNotAdminOfAnyBands = "You are not the admin of any bands. You can only interact with others on behalf of your band if you are the band admin."
-    static let failedToFetchShow = "Failed to fetch latest show info. Please restart The Same Page and try again."
+    static let failedToFetchShow = "Failed to fetch latest show info. Please ensure you have an internet connection, restart The Same Page, and try again."
+    static let failedToFetchBand = "Failed to fetch latest band data. Please ensure you have an internet connection, restart The Same Page, and try again."
     static let failedToPerformShowSearch = "Unable to fetch shows. Please check your phone's Settings to make sure The Same Page has access to your location."
 
     // MARK: - Sign In

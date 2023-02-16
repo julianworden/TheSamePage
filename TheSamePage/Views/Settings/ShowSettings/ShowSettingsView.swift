@@ -25,7 +25,7 @@ struct ShowSettingsView: View {
                 case .dataLoading:
                     ProgressView()
 
-                case .dataLoaded, .error:
+                case .dataLoaded, .performingWork, .error:
                     if viewModel.show.loggedInUserIsShowHost {
                         Form {
                             Section {
@@ -34,6 +34,7 @@ struct ShowSettingsView: View {
                                 } label: {
                                     Text("Edit Show Info")
                                 }
+                                .disabled(viewModel.buttonsAreDisabled)
 
                                 if !viewModel.show.alreadyHappened {
                                     NavigationLink {
@@ -41,19 +42,28 @@ struct ShowSettingsView: View {
                                     } label: {
                                         Text("Choose New Show Host")
                                     }
+                                    .disabled(viewModel.buttonsAreDisabled)
                                 }
                             }
 
                             if !viewModel.show.alreadyHappened {
                                 Section {
-                                    Button("Cancel Show", role: .destructive) {
+                                    Button(role: .destructive) {
                                         viewModel.cancelShowAlertIsShowing = true
+                                    } label: {
+                                        HStack(spacing: 5) {
+                                            Text("Cancel Show")
+                                            if viewModel.viewState == .performingWork {
+                                                ProgressView()
+                                            }
+                                        }
                                     }
+                                    .disabled(viewModel.buttonsAreDisabled)
                                     .alert(
-                                        "Are you sure?",
+                                        "Are You Sure?",
                                         isPresented: $viewModel.cancelShowAlertIsShowing,
                                         actions: {
-                                            Button("No", role: .cancel) { }
+                                            Button("Cancel", role: .cancel) { }
                                             Button("Yes", role: .destructive) {
                                                 Task {
                                                     await viewModel.cancelShow()
@@ -71,6 +81,9 @@ struct ShowSettingsView: View {
                         .navigationBarTitleDisplayMode(.inline)
                     }
 
+                case .workCompleted:
+                    EmptyView()
+
                 default:
                     ErrorMessage(message: ErrorMessageConstants.invalidViewState)
                 }
@@ -80,6 +93,7 @@ struct ShowSettingsView: View {
                     Button("Back") {
                         dismiss()
                     }
+                    .disabled(viewModel.buttonsAreDisabled)
                 }
             }
             .errorAlert(
@@ -90,6 +104,11 @@ struct ShowSettingsView: View {
             .task {
                 await viewModel.getLatestShowData()
                 if !viewModel.show.loggedInUserIsShowHost {
+                    dismiss()
+                }
+            }
+            .onChange(of: viewModel.showDeleteWasSuccessful) { showDeleteWasSuccessful in
+                if showDeleteWasSuccessful {
                     dismiss()
                 }
             }

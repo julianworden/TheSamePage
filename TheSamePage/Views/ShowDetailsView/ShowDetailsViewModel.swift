@@ -33,6 +33,8 @@ final class ShowDetailsViewModel: ObservableObject {
     /// Used to trigger AddEditShowTimeView sheet in ShowTimeTab.
     @Published var selectedShowTimeType: ShowTimeType?
 
+    @Published var showWasCancelled = false
+
     /// The image loaded from the ProfileAsyncImage
     @Published var showImage: Image?
     /// A new image set within EditImageView
@@ -46,6 +48,8 @@ final class ShowDetailsViewModel: ObservableObject {
     @Published var viewState = ViewState.displayingView {
         didSet {
             switch viewState {
+            case .dataDeleted:
+                showWasCancelled = true
             case .error(let message):
                 errorAlertText = message
                 errorAlertIsShowing = true
@@ -175,6 +179,8 @@ final class ShowDetailsViewModel: ObservableObject {
             }
 
             self.show = try await DatabaseService.shared.getShow(showId: show.id)
+        } catch FirebaseError.dataDeleted {
+            viewState = .dataDeleted
         } catch {
             viewState = .error(message: error.localizedDescription)
         }
@@ -193,7 +199,6 @@ final class ShowDetailsViewModel: ObservableObject {
         }
     }
 
-    // TODO: This should also remove any backline items that any members in the removed band contributed
     func removeShowParticipantFromShow(showParticipant: ShowParticipant) async {
         do {
             guard let show else {

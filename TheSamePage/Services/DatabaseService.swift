@@ -844,6 +844,8 @@ class DatabaseService: NSObject {
                 .collection(FbConstants.shows)
                 .document(showId)
                 .getDocument(as: Show.self)
+        } catch DecodingError.valueNotFound {
+            throw FirebaseError.dataDeleted
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to fetch latest show data, it's possible this show was cancelled",

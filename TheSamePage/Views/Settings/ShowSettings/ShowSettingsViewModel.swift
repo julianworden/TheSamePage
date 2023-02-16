@@ -11,6 +11,7 @@ import Foundation
 final class ShowSettingsViewModel: ObservableObject {
     @Published var cancelShowAlertIsShowing = false
 
+    @Published var showDeleteWasSuccessful = false
     @Published var buttonsAreDisabled = false
     @Published var errorAlertIsShowing = false
     var errorAlertText = ""
@@ -22,6 +23,8 @@ final class ShowSettingsViewModel: ObservableObject {
             switch viewState {
             case .performingWork:
                 buttonsAreDisabled = true
+            case .workCompleted:
+                showDeleteWasSuccessful = true
             case .error(let message):
                 errorAlertText = message
                 errorAlertIsShowing = true
@@ -41,7 +44,9 @@ final class ShowSettingsViewModel: ObservableObject {
     
     func cancelShow() async {
         do {
+            viewState = .performingWork
             try await DatabaseService.shared.cancelShow(show: show)
+            viewState = .workCompleted
         } catch {
             viewState = .error(message: error.localizedDescription)
         }

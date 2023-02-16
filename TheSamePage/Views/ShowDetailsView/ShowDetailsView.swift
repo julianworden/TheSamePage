@@ -53,6 +53,9 @@ struct ShowDetailsView: View {
                         }
                     }
 
+                case .dataDeleted:
+                    EmptyView()
+
                 default:
                     ErrorMessage(message: ErrorMessageConstants.invalidViewState)
                 }
@@ -69,54 +72,56 @@ struct ShowDetailsView: View {
                 }
             }
 
-            ToolbarItem(placement: .navigationBarTrailing) {
-                if let show = viewModel.show {
-                    if show.loggedInUserIsInvolvedInShow {
-                        Button {
-                            viewModel.conversationViewIsShowing.toggle()
-                        } label: {
-                            Image(systemName: "bubble.right")
-                        }
-                        .fullScreenCover(isPresented: $viewModel.conversationViewIsShowing) {
-                            NavigationStack {
-                                ConversationView(
-                                    show: show,
-                                    chatParticipantUids: show.participantUids
-                                )
+            if viewModel.viewState != .dataDeleted {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if let show = viewModel.show {
+                        if show.loggedInUserIsInvolvedInShow {
+                            Button {
+                                viewModel.conversationViewIsShowing.toggle()
+                            } label: {
+                                Image(systemName: "bubble.right")
                             }
-                        }
-                    } else if show.loggedInUserIsNotInvolvedInShow && !show.alreadyHappened {
-                        Button {
-                            viewModel.showApplicationSheetIsShowing.toggle()
-                        } label: {
-                            Label("Play This Show", systemImage: "pencil.and.ellipsis.rectangle")
-                        }
-                        .sheet(isPresented: $viewModel.showApplicationSheetIsShowing) {
-                            SendShowApplicationView(show: show)
+                            .fullScreenCover(isPresented: $viewModel.conversationViewIsShowing) {
+                                NavigationStack {
+                                    ConversationView(
+                                        show: show,
+                                        chatParticipantUids: show.participantUids
+                                    )
+                                }
+                            }
+                        } else if show.loggedInUserIsNotInvolvedInShow && !show.alreadyHappened {
+                            Button {
+                                viewModel.showApplicationSheetIsShowing.toggle()
+                            } label: {
+                                Label("Play This Show", systemImage: "pencil.and.ellipsis.rectangle")
+                            }
+                            .sheet(isPresented: $viewModel.showApplicationSheetIsShowing) {
+                                SendShowApplicationView(show: show)
+                            }
                         }
                     }
                 }
-            }
-
-            ToolbarItem(placement: .navigationBarTrailing) {
-                if let show = viewModel.show {
-                    if show.loggedInUserIsShowHost {
-                        Button {
-                            viewModel.showSettingsViewIsShowing.toggle()
-                        } label: {
-                            Image(systemName: "gear")
-                        }
-                        .fullScreenCover(
-                            isPresented: $viewModel.showSettingsViewIsShowing,
-                            onDismiss: {
-                                Task {
-                                    await viewModel.getLatestShowData()
-                                }
-                            },
-                            content: {
-                                ShowSettingsView(show: show)
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if let show = viewModel.show {
+                        if show.loggedInUserIsShowHost {
+                            Button {
+                                viewModel.showSettingsViewIsShowing.toggle()
+                            } label: {
+                                Image(systemName: "gear")
                             }
-                        )
+                            .fullScreenCover(
+                                isPresented: $viewModel.showSettingsViewIsShowing,
+                                onDismiss: {
+                                    Task {
+                                        await viewModel.getLatestShowData()
+                                    }
+                                },
+                                content: {
+                                    ShowSettingsView(show: show)
+                                }
+                            )
+                        }
                     }
                 }
             }
@@ -127,6 +132,11 @@ struct ShowDetailsView: View {
         }
         .refreshable {
             await viewModel.callOnAppearMethods()
+        }
+        .onChange(of: viewModel.showWasCancelled) { showWasCancelled in
+            if showWasCancelled {
+                dismiss()
+            }
         }
     }
 }

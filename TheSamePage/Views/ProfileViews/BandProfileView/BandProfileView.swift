@@ -93,6 +93,9 @@ struct BandProfileView: View {
                         }
                     }
                 }
+
+            case .dataDeleted:
+                EmptyView()
                 
             default:
                 ErrorMessage(message: "Unknown viewState provided")

@@ -84,7 +84,7 @@ final class ShowDetailsViewModelTests: XCTestCase {
         try await testingDatabaseService.logInToJulianAccount()
         sut = ShowDetailsViewModel(show: dumpweedExtravaganza)
 
-        sut.viewState = .dataDeleted
+        sut.viewState = .performingWork
 
         XCTAssertEqual(sut.errorAlertText, ErrorMessageConstants.invalidViewState)
         XCTAssertTrue(sut.errorAlertIsShowing)

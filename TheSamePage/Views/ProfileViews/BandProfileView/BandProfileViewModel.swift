@@ -119,7 +119,10 @@ class BandProfileViewModel: ObservableObject {
     }
 
     func getLatestBandData() async {
-        guard let band else { return }
+        guard let band else {
+            viewState = .error(message: ErrorMessageConstants.failedToFetchBand)
+            return
+        }
 
         do {
             self.band = try await DatabaseService.shared.getBand(with: band.id)
@@ -131,7 +134,10 @@ class BandProfileViewModel: ObservableObject {
     }
 
     func getBandMembers() async {
-        guard let band else { return }
+        guard let band else {
+            viewState = .error(message: ErrorMessageConstants.failedToFetchBand)
+            return
+        }
 
         do {
             self.bandMembers = try await DatabaseService.shared.getBandMembers(forBand: band)
@@ -142,7 +148,7 @@ class BandProfileViewModel: ObservableObject {
 
     func removeBandMemberFromBand(bandMember: BandMember) async {
         guard let band else {
-            viewState = .error(message: "Failed to remove user from band. Please restart The Same Page and try again.")
+            viewState = .error(message: ErrorMessageConstants.failedToFetchBand)
             return
         }
 
@@ -155,7 +161,10 @@ class BandProfileViewModel: ObservableObject {
     }
 
     func getBandLinks() async {
-        guard let band else { return }
+        guard let band else {
+            viewState = .error(message: ErrorMessageConstants.failedToFetchBand)
+            return
+        }
 
         do {
             self.bandLinks = try await DatabaseService.shared.getBandLinks(forBand: band)
@@ -165,7 +174,10 @@ class BandProfileViewModel: ObservableObject {
     }
 
     func getBandShows() async {
-        guard let band else { return }
+        guard let band else {
+            viewState = .error(message: ErrorMessageConstants.failedToFetchBand)
+            return
+        }
 
         do {
             let fetchedShows = try await DatabaseService.shared.getShowsForBand(band: band)
@@ -179,7 +191,10 @@ class BandProfileViewModel: ObservableObject {
     }
 
     func deleteBandImage() async {
-        guard let band else { return }
+        guard let band else {
+            viewState = .error(message: ErrorMessageConstants.failedToFetchBand)
+            return
+        }
 
         do {
             try await DatabaseService.shared.deleteBandImage(forBand: band)
@@ -191,7 +206,10 @@ class BandProfileViewModel: ObservableObject {
     }
 
     func deleteBandLink(_ link: PlatformLink) async {
-        guard let band else { return }
+        guard let band else {
+            viewState = .error(message: ErrorMessageConstants.failedToFetchBand)
+            return
+        }
 
         do {
             try await DatabaseService.shared.deleteBandLink(band: band, link: link)

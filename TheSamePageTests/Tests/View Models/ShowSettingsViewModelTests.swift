@@ -73,6 +73,7 @@ final class ShowSettingsViewModelTests: XCTestCase {
         let showExists = try await testingDatabaseService.showExists(createdShow)
 
         XCTAssertFalse(showExists, "The show should've been deleted")
+        XCTAssertEqual(sut.viewState, .workCompleted)
 
         self.createdShowId = nil
     }
