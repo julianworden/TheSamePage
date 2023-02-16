@@ -10,13 +10,11 @@ import Typesense
 
 struct FindShowList: View {
     @ObservedObject var viewModel: FindShowsViewModel
-    
-    @Binding var filterConfirmationDialogIsShowing: Bool
-    
+
     var body: some View {
         List {
-            Section(viewModel.nearbyShowsListHeaderText) {
-                ForEach(viewModel.nearbyShows, id: \.document) { result in
+            Section(viewModel.fetchedShowsListHeaderText) {
+                ForEach(viewModel.fetchedShows, id: \.document) { result in
                     let show = result.document!
                     
                     NavigationLink {
@@ -36,6 +34,6 @@ struct FindShowList: View {
 
 struct NearbyShowsList_Previews: PreviewProvider {
     static var previews: some View {
-        FindShowList(viewModel: FindShowsViewModel(), filterConfirmationDialogIsShowing: .constant(false))
+        FindShowList(viewModel: FindShowsViewModel())
     }
 }

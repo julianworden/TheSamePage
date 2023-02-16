@@ -408,7 +408,7 @@ final class NotificationsViewModelTests: XCTestCase {
             memberUids: [],
             genre: Genre.rock.rawValue,
             city: "Toms River",
-            state: BandState.NJ.rawValue
+            state: UsState.NJ.rawValue
         )
         self.createdBandId = try await testingDatabaseService.createBand(generationUnderground)
         generationUnderground.id = createdBandId!

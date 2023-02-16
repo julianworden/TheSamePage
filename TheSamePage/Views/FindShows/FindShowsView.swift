@@ -20,14 +20,10 @@ struct FindShowsView: View {
                     ProgressView()
                     
                 case .dataLoaded:
-                    FindShowList(
-                        viewModel: viewModel,
-                        filterConfirmationDialogIsShowing: $viewModel.filterConfirmationDialogIsShowing
-                    )
+                    FindShowList(viewModel: viewModel)
                     
                 case .dataNotFound:
-                    Text("We can't find any shows near you, try widening your search radius with the filter button!")
-                        .italic()
+                    Text(viewModel.noDataFoundText)
                         .multilineTextAlignment(.center)
 
                 case .error:
@@ -36,43 +32,58 @@ struct FindShowsView: View {
                     ErrorMessage(message: ErrorMessageConstants.invalidViewState)
                 }
             }
-            .navigationTitle("Shows Near You")
+            .navigationTitle("Find Shows")
             .toolbar {
                 ToolbarItem {
-                    Button {
-                        viewModel.filterConfirmationDialogIsShowing = true
+                    Menu {
+                        Menu {
+                            Button("10 Miles") {
+                                Task {
+                                    await viewModel.changeSearchRadius(toValueInMiles: 10)
+                                }
+                            }
+                            Button("25 Miles (Default)") {
+                                Task {
+                                    await viewModel.changeSearchRadius(toValueInMiles: 25)
+                                }
+                            }
+                            Button("50 Miles") {
+                                Task {
+                                    await viewModel.changeSearchRadius(toValueInMiles: 50)
+                                }
+                            }
+                        } label: {
+                            Label("Filter by Distance", systemImage: "mappin")
+                        }
+
+                        Menu {
+                            ForEach(UsState.allCases, id: \.self) { state in
+                                Button(state.rawValue) {
+                                    Task {
+                                        await viewModel.fetchShows(in: state.rawValue)
+                                    }
+                                }
+                            }
+                        } label: {
+                            Label("Filter by State", systemImage: "globe")
+                        }
                     } label: {
                         Label("Filter", systemImage: "line.horizontal.3.decrease.circle")
                     }
                 }
-            }
-            .confirmationDialog("Select a search radius", isPresented: $viewModel.filterConfirmationDialogIsShowing) {
-                Button("10 Miles") {
-                    Task {
-                        await viewModel.changeSearchRadius(toValueInMiles: 10)
-                    }
-                }
-                Button("25 Miles (Default)") {
-                    Task {
-                        await viewModel.changeSearchRadius(toValueInMiles: 25)
-                    }
-                }
-                Button("50 Miles") {
-                    Task {
-                        await viewModel.changeSearchRadius(toValueInMiles: 50)
-                    }
-                }
-                Button("Cancel", role: .cancel) { }
             }
             .errorAlert(
                 isPresented: $viewModel.errorMessageIsShowing,
                 message: viewModel.errorMessageText,
                 tryAgainAction: viewModel.fetchNearbyShows
             )
-            .task {                
-                viewModel.viewState = .dataLoading
-                viewModel.addLocationNotificationObserver()
-                LocationController.shared.startLocationServices()
+            .task {
+                // Keeps the search parameters from resetting every time this view is shown.
+                if !viewModel.isSearchingByState && !viewModel.isSearchingByState {
+                    viewModel.viewState = .dataLoading
+                    viewModel.addLocationNotificationObserver()
+                    LocationController.shared.startLocationServices()
+                }
             }
         }
     }

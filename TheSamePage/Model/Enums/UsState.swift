@@ -1,5 +1,5 @@
 //
-//  BandState.swift
+//  UsState.swift
 //  TheSamePage
 //
 //  Created by Julian Worden on 9/24/22.
@@ -7,8 +7,7 @@
 
 import Foundation
 
-enum BandState: String, Identifiable, CaseIterable {
-    var id: Self { self }
+enum UsState: String, CaseIterable {
     case AL
     case AK
     case AZ

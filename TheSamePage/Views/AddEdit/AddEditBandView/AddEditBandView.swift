@@ -59,7 +59,7 @@ struct AddEditBandView: View {
                 Section("Location") {
                     TextField("City", text: $viewModel.bandCity)
                     Picker("State", selection: $viewModel.bandState) {
-                        ForEach(BandState.allCases) { state in
+                        ForEach(UsState.allCases, id: \.self) { state in
                             Text(state.rawValue)
                         }
                     }

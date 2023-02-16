@@ -12,10 +12,12 @@ import Typesense
 
 @MainActor
 final class FindShowsViewModel: ObservableObject {
-    @Published var nearbyShows = [SearchResultHit<Show>]()
+    @Published var fetchedShows = [SearchResultHit<Show>]()
     @Published var searchRadiusInMiles: Double = 25
+    var searchingState: String?
+    var isSearchingByState = false
+    var isSearchingByDistance = false
     
-    @Published var filterConfirmationDialogIsShowing = false
     @Published var errorMessageIsShowing = false
     @Published var errorMessageText = ""
     
@@ -36,8 +38,28 @@ final class FindShowsViewModel: ObservableObject {
     
     let db = Firestore.firestore()
 
-    var nearbyShowsListHeaderText: String {
-        return "Shows within \(searchRadiusInMiles.formatted()) miles..."
+    var fetchedShowsListHeaderText: String {
+        if isSearchingByDistance && !isSearchingByState {
+            return "Shows within \(searchRadiusInMiles.formatted()) miles"
+        } else if isSearchingByState &&
+                  !isSearchingByDistance,
+                  let searchingState {
+            return "Shows in \(searchingState)"
+        } else {
+            return "Results."
+        }
+    }
+
+    var noDataFoundText: String {
+        if isSearchingByDistance && !isSearchingByState {
+            return NoDataFoundConstants.noShowsFoundNearby
+        } else if isSearchingByState &&
+                  !isSearchingByDistance,
+                  let searchingState {
+            return "We can't find any shows in \(searchingState)."
+        } else {
+            return NoDataFoundConstants.noShowsFoundGeneric
+        }
     }
     
     var searchRadiusInMeters: Double {
@@ -48,30 +70,75 @@ final class FindShowsViewModel: ObservableObject {
     func fetchNearbyShows() async {
         guard !AuthController.userIsLoggedOut(),
               let userCoordinates = LocationController.shared.userCoordinates else {
+            viewState = .error(message: ErrorMessageConstants.failedToPerformShowSearch)
+            return
+        }
+
+        isSearchingByDistance = true
+        isSearchingByState = false
+        
+        await performShowSearchWithCoordinates(userCoordinates)
+    }
+
+    func fetchShows(in state: String) async {
+        guard !AuthController.userIsLoggedOut(),
+              let userCoordinates = LocationController.shared.userCoordinates else {
+            viewState = .error(message: ErrorMessageConstants.failedToPerformShowSearch)
             return
         }
         
+        viewState = .dataLoading
+        self.searchingState = state
+        isSearchingByState = true
+        isSearchingByDistance = false
+
+        await performShowSearchInState(state: state, userCoordinates: userCoordinates)
+    }
+
+    func performShowSearchWithCoordinates(_ userCoordinates: CLLocationCoordinate2D) async {
         let searchParameters = SearchParameters(
             q: "*",
             queryBy: "name",
             filterBy: "typesenseCoordinates:(\(userCoordinates.latitude), \(userCoordinates.longitude), \(searchRadiusInMiles) mi)",
             sortBy: "typesenseCoordinates(\(userCoordinates.latitude), \(userCoordinates.longitude)):asc"
         )
-        
+
         do {
             let (data, _) = try await TypesenseController.client.collection(name: FbConstants.shows).documents().search(searchParameters, for: Show.self)
             if let fetchedNearbyShows = data?.hits,
                !fetchedNearbyShows.isEmpty {
-                nearbyShows = fetchedNearbyShows
+                fetchedShows = fetchedNearbyShows
                 viewState = .dataLoaded
             } else {
                 viewState = .dataNotFound
             }
         } catch {
-            viewState = .error(message: "Failed to perform nearby shows search. System error: \(error.localizedDescription)")
+            viewState = .error(message: "Failed to perform shows search. System error: \(error.localizedDescription)")
         }
     }
-    
+
+    func performShowSearchInState(state: String, userCoordinates: CLLocationCoordinate2D) async {
+        let searchParameters = SearchParameters(
+            q: "*",
+            queryBy: "state",
+            filterBy: "state:\(state)",
+            sortBy: "typesenseCoordinates(\(userCoordinates.latitude), \(userCoordinates.longitude)):asc"
+        )
+
+        do {
+            let (data, _) = try await TypesenseController.client.collection(name: FbConstants.shows).documents().search(searchParameters, for: Show.self)
+            if let fetchedNearbyShows = data?.hits,
+               !fetchedNearbyShows.isEmpty {
+                fetchedShows = fetchedNearbyShows
+                viewState = .dataLoaded
+            } else {
+                viewState = .dataNotFound
+            }
+        } catch {
+            viewState = .error(message: "Failed to perform shows search. System error: \(error.localizedDescription)")
+        }
+    }
+
     func changeSearchRadius(toValueInMiles value: Double) async {
         viewState = .dataLoading
         searchRadiusInMiles = value

@@ -109,7 +109,7 @@ struct TestingConstants {
         memberUids: [exampleUserJulian.id, exampleUserLou.id],
         genre: Genre.metalcore.rawValue,
         city: "Neptune",
-        state: BandState.NJ.rawValue
+        state: UsState.NJ.rawValue
     )
 
     /// An example band that matches a band being stored in Firestore Emulator
@@ -122,7 +122,7 @@ struct TestingConstants {
         memberUids: [exampleUserEric.id],
         genre: Genre.metal.rawValue,
         city: "New Brunswick",
-        state: BandState.NJ.rawValue
+        state: UsState.NJ.rawValue
     )
 
     static let exampleBandTheApples = Band(
@@ -134,7 +134,7 @@ struct TestingConstants {
         memberUids: [exampleUserCraig.id],
         genre: Genre.pop.rawValue,
         city: "Cupertino",
-        state: BandState.CA.rawValue
+        state: UsState.CA.rawValue
     )
 
     static let exampleBandCraigAndTheFettuccinis = Band(
@@ -145,7 +145,7 @@ struct TestingConstants {
         memberUids: [exampleUserCraig.id],
         genre: Genre.deathcore.rawValue,
         city: "Cupertino",
-        state: BandState.CA.rawValue
+        state: UsState.CA.rawValue
     )
 
     static let exampleBandForIntegrationTesting = Band(
@@ -156,7 +156,7 @@ struct TestingConstants {
         memberUids: [exampleUserEric.id],
         genre: Genre.pop.rawValue,
         city: "Dallas",
-        state: BandState.TX.rawValue
+        state: UsState.TX.rawValue
     )
 
     // MARK: - Example BandMembers
@@ -230,7 +230,7 @@ struct TestingConstants {
         addressIsPrivate: true,
         address: "570 Jernee Mill Rd, Sayreville, NJ 08872",
         city: "Sayreville",
-        state: BandState.NJ.rawValue,
+        state: UsState.NJ.rawValue,
         latitude: 40.4404902,
         longitude: -74.355283,
         typesenseCoordinates: [40.4404902, -74.355283],
@@ -263,7 +263,7 @@ struct TestingConstants {
         addressIsPrivate: false,
         address: "One Apple Park Way. Cupertino, CA 95014",
         city: "Cupertino",
-        state: BandState.CA.rawValue,
+        state: UsState.CA.rawValue,
         latitude: 37.332279,
         longitude: -122.010979,
         typesenseCoordinates: [37.332279, -122.010979],
@@ -296,7 +296,7 @@ struct TestingConstants {
         addressIsPrivate: true,
         address: "151 3rd St, San Francisco, CA 94103",
         city: "San Francisco",
-        state: BandState.CA.rawValue,
+        state: UsState.CA.rawValue,
         latitude: 37.764420,
         longitude: -122.439890,
         typesenseCoordinates: [37.764420, -122.439890],

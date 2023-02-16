@@ -14,7 +14,7 @@ final class AddEditBandViewModel: ObservableObject {
     @Published var bandBio = ""
     @Published var bandGenre: Genre = .alternative
     @Published var bandCity = ""
-    @Published var bandState: BandState = .AL
+    @Published var bandState: UsState = .AL
     @Published var userPlaysInBand = false
     @Published var userRoleInBand = Instrument.vocals
     
@@ -59,7 +59,7 @@ final class AddEditBandViewModel: ObservableObject {
             self.bandCity = bandToEdit.city
             
             if let bandToEditGenre = Genre(rawValue: bandToEdit.genre),
-               let bandToEditState = BandState(rawValue: bandToEdit.state) {
+               let bandToEditState = UsState(rawValue: bandToEdit.state) {
                 self.bandGenre = bandToEditGenre
                 self.bandState = bandToEditState
             }
