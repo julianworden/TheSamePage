@@ -12,7 +12,7 @@ struct MyShowsRootView: View {
     
     var body: some View {
         NavigationStack {
-            ZStack {
+            ZStack(alignment: .top) {
                 BackgroundColor()
                 
                 VStack {
@@ -31,8 +31,6 @@ struct MyShowsRootView: View {
                     if viewModel.selectedShowType == .playing {
                         MyPlayingShowsView(viewModel: viewModel)
                     }
-
-                    Spacer()
                 }
             }
             .navigationTitle("My Shows")

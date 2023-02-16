@@ -18,6 +18,8 @@ struct BandShowsList: View {
                 } label: {
                     BandShowRow(viewModel: viewModel, index: index)
                 }
+
+                Divider()
             }
         }
     }

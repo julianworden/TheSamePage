@@ -28,6 +28,8 @@ struct BandSearchResultsList: View {
                                 SearchResultRow(band: band)
                             }
                             .tint(.primary)
+
+                            Divider()
                         }
                     }
                 }

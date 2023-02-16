@@ -114,8 +114,6 @@ final class NotificationsViewModel: ObservableObject {
                     )
                 }
             }
-
-            viewState = .workCompleted
         } catch {
             viewState = .error(message: error.localizedDescription)
         }
@@ -133,6 +131,8 @@ final class NotificationsViewModel: ObservableObject {
             fullName: loggedInUser.fullName
         )
         try await DatabaseService.shared.addUserToBand(add: loggedInUser, as: bandMember, to: band, withBandInvite: bandInvite)
+
+        viewState = .workCompleted
     }
     
     func acceptShowInvite(showInvite: ShowInvite) async throws {
@@ -152,6 +152,8 @@ final class NotificationsViewModel: ObservableObject {
         )
         
         try await DatabaseService.shared.addBandToShow(add: band, as: showParticipant, withShowInvite: showInvite)
+
+        viewState = .workCompleted
     }
 
     func acceptShowApplication(showApplication: ShowApplication) async throws {
@@ -171,6 +173,8 @@ final class NotificationsViewModel: ObservableObject {
         )
 
         try await DatabaseService.shared.addBandToShow(add: band, as: showParticipant, withShowApplication: showApplication)
+
+        viewState = .workCompleted
     }
 
     func showInviteOrApplicationIsStillValid(showInvite: ShowInvite?, showApplication: ShowApplication?) async throws -> Bool {
@@ -187,6 +191,8 @@ final class NotificationsViewModel: ObservableObject {
 
     func declineNotification(notification: any UserNotification) async throws {
         try await DatabaseService.shared.deleteNotification(withId: notification.id)
+
+        viewState = .workCompleted
     }
     
     func removeListeners() {

@@ -21,7 +21,8 @@ struct ShowBacklineRow: View {
                 ListRowElements(
                     title: anyBackline.backline.name,
                     subtitle: anyBackline.details,
-                    iconName: anyBackline.iconName
+                    iconName: anyBackline.iconName,
+                    iconIsSfSymbol: false
                 )
 
                 Spacer()

@@ -32,6 +32,8 @@ struct UserSearchResultsList: View {
                                 }
                                 .tint(.primary)
                             }
+
+                            Divider()
                         }
                     }
                 }

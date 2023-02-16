@@ -18,6 +18,7 @@ struct ListRowElements: View {
     let subtitle: String?
     let secondaryText: String?
     let iconName: String
+    let iconIsSfSymbol: Bool
     let displayChevron: Bool
     let displayDivider: Bool
     
@@ -26,6 +27,7 @@ struct ListRowElements: View {
         subtitle: String? = nil,
         secondaryText: String? = nil,
         iconName: String,
+        iconIsSfSymbol: Bool,
         displayChevron: Bool = false,
         displayDivider: Bool = false
     ) {
@@ -33,6 +35,7 @@ struct ListRowElements: View {
         self.subtitle = subtitle
         self.secondaryText = secondaryText
         self.iconName = iconName
+        self.iconIsSfSymbol = iconIsSfSymbol
         self.displayChevron = displayChevron
         self.displayDivider = displayDivider
     }
@@ -40,9 +43,14 @@ struct ListRowElements: View {
     var body: some View {
         VStack {
             HStack(spacing: 10) {
-               Image(iconName)
-                    .listIconStyle()
-                
+                if iconIsSfSymbol {
+                    Image(systemName: iconName)
+                        .imageScale(.large)
+                } else {
+                    Image(iconName)
+                        .listIconStyle()
+                }
+
                 VStack(alignment: .leading) {
                     Text(title)
                     
@@ -81,6 +89,7 @@ struct ListRowElements_Previews: PreviewProvider {
             title: "Julian Worden",
             subtitle: "Vocals",
             iconName: "vocals",
+            iconIsSfSymbol: false,
             displayChevron: true,
             displayDivider: true
         )

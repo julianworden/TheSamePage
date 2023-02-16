@@ -19,8 +19,8 @@ struct BandShowRow: View {
             ListRowElements(
                 title: show.name,
                 subtitle: "At \(show.venue) on \(show.formattedDate)",
-                iconName: "stage",
-                displayDivider: true
+                iconName: "music.note.house",
+                iconIsSfSymbol: true
             )
             .foregroundColor(show.alreadyHappened ? .secondary : .primary)
         }

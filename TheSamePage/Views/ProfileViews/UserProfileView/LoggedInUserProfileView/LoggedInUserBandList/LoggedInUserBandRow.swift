@@ -19,7 +19,8 @@ struct LoggedInUserBandRow: View {
             ListRowElements(
                 title: band.name,
                 subtitle: "\(band.city), \(band.state)",
-                iconName: "band"
+                iconName: "person.3",
+                iconIsSfSymbol: true
             )
         }
     }

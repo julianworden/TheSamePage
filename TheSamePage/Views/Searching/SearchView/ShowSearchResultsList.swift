@@ -28,6 +28,8 @@ struct ShowSearchResultsList: View {
                                 SearchResultRow(show: show)
                             }
                             .tint(.primary)
+
+                            Divider()
                         }
                     }
                 }

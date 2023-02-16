@@ -19,7 +19,8 @@ struct ShowLineupRow: View {
             ListRowElements(
                 title: showParticipant.name,
                 subtitle: showParticipant.setTime?.unixDateAsDate.timeShortened,
-                iconName: "band"
+                iconName: "person.3",
+                iconIsSfSymbol: true
             )
         }
     }

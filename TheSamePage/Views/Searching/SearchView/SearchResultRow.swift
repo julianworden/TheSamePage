@@ -24,9 +24,9 @@ struct SearchResultRow: View {
                 ListRowElements(
                     title: band.name,
                     subtitle: "\(band.city), \(band.state)",
-                    iconName: "band",
-                    displayChevron: true,
-                    displayDivider: true
+                    iconName: "person.3",
+                    iconIsSfSymbol: true,
+                    displayChevron: true
                 )
             }
             
@@ -35,9 +35,9 @@ struct SearchResultRow: View {
                 ListRowElements(
                     title: user.profileBelongsToLoggedInUser ? "You" : user.username,
                     subtitle: user.fullName,
-                    iconName: "user",
-                    displayChevron: !user.profileBelongsToLoggedInUser,
-                    displayDivider: true
+                    iconName: "person",
+                    iconIsSfSymbol: true,
+                    displayChevron: !user.profileBelongsToLoggedInUser
                 )
             }
             
@@ -46,9 +46,9 @@ struct SearchResultRow: View {
                 ListRowElements(
                     title: show.name,
                     subtitle: show.venue,
-                    iconName: "stage",
-                    displayChevron: true,
-                    displayDivider: true
+                    iconName: "music.note.house",
+                    iconIsSfSymbol: true,
+                    displayChevron: true
                 )
             }
             

@@ -19,8 +19,8 @@ struct OtherUserBandRow: View {
             ListRowElements(
                 title: band.name,
                 subtitle: "\(band.city), \(band.state)",
-                iconName: "band",
-                displayDivider: true
+                iconName: "person.3",
+                iconIsSfSymbol: true
             )
         }
     }

@@ -33,7 +33,7 @@ struct NotificationsView: View {
                         ErrorMessage(message: "Unknown viewState")
                     }
                     
-                    Spacer()
+//                    Spacer()
                 }
             }
             .navigationTitle("Notifications")

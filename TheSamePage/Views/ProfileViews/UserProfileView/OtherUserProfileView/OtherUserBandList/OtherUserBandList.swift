@@ -20,6 +20,8 @@ struct OtherUserBandList: View {
                 }
                 .tint(.primary)
                 .padding(.horizontal)
+
+                Divider()
             }
         }
     }

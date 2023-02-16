@@ -42,7 +42,7 @@ struct ShowLocationTab: View {
 
                 Spacer()
 
-                VStack {
+                VStack(alignment: .trailing) {
                     if show.addressIsVisibleToUser {
                         Button {
                             viewModel.showDirectionsInMaps()

@@ -19,7 +19,8 @@ struct NotificationRow: View {
                 title: anyUserNotification.notificationTitle,
                 subtitle: anyUserNotification.notification.message,
                 secondaryText: anyUserNotification.notification.sentTimestamp.unixDateAsDate.timeOmittedNumericDate,
-                iconName: anyUserNotification.iconName
+                iconName: anyUserNotification.iconName,
+                iconIsSfSymbol: true
             )
 
             HStack {

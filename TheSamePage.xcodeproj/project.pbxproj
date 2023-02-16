@@ -85,7 +85,6 @@
 		AB36FF9428D361A100AAC00C /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF9328D361A100AAC00C /* DatabaseService.swift */; };
 		AB36FF9828D36A6600AAC00C /* SectionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF9728D36A6600AAC00C /* SectionTitle.swift */; };
 		AB37EBB2290966C90029588C /* FindShowsListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB37EBB1290966C90029588C /* FindShowsListRow.swift */; };
-		AB37EBB8290971390029588C /* ShowDetailsStaticRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB37EBB7290971390029588C /* ShowDetailsStaticRow.swift */; };
 		AB389FD32986DF10000C798C /* CreateUsernameViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB389FD22986DF10000C798C /* CreateUsernameViewModelTests.swift */; };
 		AB38E1B128FB21CB006D1788 /* AddEditShowAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38E1B028FB21CB006D1788 /* AddEditShowAddressView.swift */; };
 		AB38E1B328FB2422006D1788 /* CLPlacemark+formattedAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38E1B228FB2422006D1788 /* CLPlacemark+formattedAddress.swift */; };
@@ -379,7 +378,6 @@
 		AB36FF9328D361A100AAC00C /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		AB36FF9728D36A6600AAC00C /* SectionTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTitle.swift; sourceTree = "<group>"; };
 		AB37EBB1290966C90029588C /* FindShowsListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindShowsListRow.swift; sourceTree = "<group>"; };
-		AB37EBB7290971390029588C /* ShowDetailsStaticRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsStaticRow.swift; sourceTree = "<group>"; };
 		AB389FD22986DF10000C798C /* CreateUsernameViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUsernameViewModelTests.swift; sourceTree = "<group>"; };
 		AB38E1B028FB21CB006D1788 /* AddEditShowAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowAddressView.swift; sourceTree = "<group>"; };
 		AB38E1B228FB2422006D1788 /* CLPlacemark+formattedAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLPlacemark+formattedAddress.swift"; sourceTree = "<group>"; };
@@ -1518,7 +1516,6 @@
 			children = (
 				AB07296028F467010069B268 /* ShowDetailsTab.swift */,
 				AB07295528F454EE0069B268 /* ShowDetailsList.swift */,
-				AB37EBB7290971390029588C /* ShowDetailsStaticRow.swift */,
 			);
 			path = ShowDetailsTab;
 			sourceTree = "<group>";
@@ -1684,7 +1681,6 @@
 				AB1D5E38298719A100E62C29 /* UserSettingsViewModel.swift in Sources */,
 				AB36FF7428D358FB00AAC00C /* FindShowsView.swift in Sources */,
 				ABBADD7928DFE5FA00720C64 /* BandState.swift in Sources */,
-				AB37EBB8290971390029588C /* ShowDetailsStaticRow.swift in Sources */,
 				ABF83DCC291A965B006A06CC /* ListRowIcon.swift in Sources */,
 				AB5C0D3D292B14F40040CE97 /* LogicError.swift in Sources */,
 				ABD1D17128F30D3200791969 /* ShowType.swift in Sources */,

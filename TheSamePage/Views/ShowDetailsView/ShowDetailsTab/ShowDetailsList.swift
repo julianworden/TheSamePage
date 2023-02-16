@@ -18,7 +18,8 @@ struct ShowDetailsList: View {
                 if let showDescription = show.description {
                     ListRowElements(
                         title: showDescription,
-                        iconName: "notepad"
+                        iconName: "notepad",
+                        iconIsSfSymbol: false
                     )
                 }
 
@@ -26,14 +27,16 @@ struct ShowDetailsList: View {
                    !show.isFree {
                     ListRowElements(
                         title: "Tickets are \(showFormattedTicketPrice) each",
-                        iconName: "money"
+                        iconName: "money",
+                        iconIsSfSymbol: false
                     )
                 }
 
                 if show.isFree {
                     ListRowElements(
                         title: "Admission is free",
-                        iconName: "money"
+                        iconName: "money",
+                        iconIsSfSymbol: false
                     )
                 }
 
@@ -43,21 +46,24 @@ struct ShowDetailsList: View {
                     ListRowElements(
                         title: "Ticket sales are required",
                         subtitle: "You must sell at least \(showMinimumRequiredTicketsSold) tickets",
-                        iconName: "ticket"
+                        iconName: "ticket",
+                        iconIsSfSymbol: false
                     )
                 }
 
                 if show.hasBar {
                     ListRowElements(
                         title: "Drinks will be served",
-                        iconName: "alcohol"
+                        iconName: "alcohol",
+                        iconIsSfSymbol: false
                     )
                 }
 
                 if show.hasFood {
                     ListRowElements(
                         title: "Food will be served",
-                        iconName: "forkAndKnife"
+                        iconName: "forkAndKnife",
+                        iconIsSfSymbol: false
                     )
                 }
 
@@ -65,7 +71,8 @@ struct ShowDetailsList: View {
                     ListRowElements(
                         title: "21+ only",
                         subtitle: "Don't forget your ID!",
-                        iconName: "id"
+                        iconName: "id",
+                        iconIsSfSymbol: false
                     )
                 }
             }

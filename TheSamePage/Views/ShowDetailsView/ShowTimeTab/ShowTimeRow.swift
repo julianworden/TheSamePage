@@ -18,7 +18,8 @@ struct ShowTimeRow: View {
                 HStack {
                     ListRowElements(
                         title: viewModel.getShowTimeRowText(forShowTimeType: showTimeType),
-                        iconName: showTimeType.rowIconName
+                        iconName: showTimeType.rowIconName,
+                        iconIsSfSymbol: false
                     )
 
                     Spacer()

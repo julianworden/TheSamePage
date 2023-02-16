@@ -23,23 +23,26 @@ struct SearchView: View {
                         }
                     }
                     .pickerStyle(.segmented)
-                    
-                    switch viewModel.searchType {
-                    case .user:
-                        UserSearchResultsList(viewModel: viewModel)
-                            .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
-                            .autocorrectionDisabled(true)
-                        
-                    case .band:
-                        BandSearchResultsList(viewModel: viewModel)
-                            .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
-                            .autocorrectionDisabled(true)
-                        
-                    case .show:
-                        ShowSearchResultsList(viewModel: viewModel)
-                            .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
-                            .autocorrectionDisabled(true)
+
+                    ZStack {
+                        switch viewModel.searchType {
+                        case .user:
+                            UserSearchResultsList(viewModel: viewModel)
+                                .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
+                                .autocorrectionDisabled(true)
+
+                        case .band:
+                            BandSearchResultsList(viewModel: viewModel)
+                                .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
+                                .autocorrectionDisabled(true)
+
+                        case .show:
+                            ShowSearchResultsList(viewModel: viewModel)
+                                .searchable(text: $viewModel.queryText, prompt: Text(viewModel.searchBarPrompt))
+                                .autocorrectionDisabled(true)
+                        }
                     }
+                    .padding(.top, 5)
                 }
                 .padding(.horizontal)
             }

@@ -20,7 +20,8 @@ struct BandMemberListRow: View {
                 ListRowElements(
                     title: bandMember.bandMemberIsLoggedInUser ? "You" : bandMember.fullName,
                     subtitle: bandMember.role,
-                    iconName: bandMember.listRowIconName
+                    iconName: bandMember.listRowIconName,
+                    iconIsSfSymbol: false
                 )
             }
         }
