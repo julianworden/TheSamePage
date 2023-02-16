@@ -18,8 +18,8 @@ struct MyHostedShowsView: View {
 
             case .dataLoaded, .error:
                 List {
-                    Section("Shows You're Hosting") {
-                        ForEach(Array(viewModel.hostedShows.enumerated()), id: \.element) { index, show in
+                    Section("Upcoming shows You're Hosting") {
+                        ForEach(Array(viewModel.upcomingHostedShows.enumerated()), id: \.element) { index, show in
                             NavigationLink {
                                 ShowDetailsView(show: show)
                             } label: {
@@ -38,7 +38,7 @@ struct MyHostedShowsView: View {
                         shouldDisplayButton: true,
                         buttonText: "Create Show",
                         buttonImageName: "plus",
-                        message: "You're not hosting any shows"
+                        message: "You're not hosting any upcoming shows."
                     )
                 }
                 

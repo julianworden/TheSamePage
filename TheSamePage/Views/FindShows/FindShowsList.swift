@@ -14,9 +14,7 @@ struct FindShowList: View {
     var body: some View {
         List {
             Section(viewModel.fetchedShowsListHeaderText) {
-                ForEach(viewModel.fetchedShows, id: \.document) { result in
-                    let show = result.document!
-                    
+                ForEach(viewModel.fetchedShows) { show in
                     NavigationLink {
                         ShowDetailsView(show: show)
                     } label: {

@@ -18,8 +18,8 @@ struct MyPlayingShowsView: View {
                 
             case .dataLoaded, .error:
                 List {
-                    Section("Shows You're Playing") {
-                        ForEach(Array(viewModel.playingShows.enumerated()), id: \.element) { index, show in
+                    Section("Upcoming shows You're Playing") {
+                        ForEach(Array(viewModel.upcomingPlayingShows.enumerated()), id: \.element) { index, show in
                             NavigationLink {
                                 ShowDetailsView(show: show)
                             } label: {
@@ -32,10 +32,10 @@ struct MyPlayingShowsView: View {
                 .listStyle(.insetGrouped)
                 
             case .dataNotFound:
-                NoDataFoundMessage(message: "You're not playing any shows.")
+                NoDataFoundMessage(message: "You're not playing any upcoming shows.")
 
             default:
-                ErrorMessage(message: "Unknown ViewState given in MyPlayingShowsView.")
+                ErrorMessage(message: ErrorMessageConstants.invalidViewState)
             }
         }
         .errorAlert(

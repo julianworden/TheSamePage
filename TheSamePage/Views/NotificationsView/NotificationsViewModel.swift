@@ -120,6 +120,12 @@ final class NotificationsViewModel: ObservableObject {
     }
     
     func acceptBandInvite(bandInvite: BandInvite) async throws {
+        guard try await bandInviteIsStillValid(bandInvite: bandInvite) else {
+            try await DatabaseService.shared.deleteNotification(withId: bandInvite.id)
+            viewState = .error(message: ErrorMessageConstants.invalidBandInvite)
+            return
+        }
+
         let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
         let band = try await DatabaseService.shared.getBand(with: bandInvite.bandId)
         let bandMember = BandMember(
@@ -134,11 +140,21 @@ final class NotificationsViewModel: ObservableObject {
 
         viewState = .workCompleted
     }
+
+    func bandInviteIsStillValid(bandInvite: BandInvite) async throws -> Bool {
+        do {
+            let band = try await DatabaseService.shared.getBand(with: bandInvite.bandId)
+            return !band.memberUids.contains(bandInvite.recipientUid)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+            return false
+        }
+    }
     
     func acceptShowInvite(showInvite: ShowInvite) async throws {
         guard try await showInviteOrApplicationIsStillValid(showInvite: showInvite, showApplication: nil) else {
             try await DatabaseService.shared.deleteNotification(withId: showInvite.id)
-            viewState = .error(message: ErrorMessageConstants.showLineupIsFullOnAcceptShowInvite)
+            viewState = .error(message: ErrorMessageConstants.invalidShowInvite)
             return
         }
 
@@ -159,7 +175,7 @@ final class NotificationsViewModel: ObservableObject {
     func acceptShowApplication(showApplication: ShowApplication) async throws {
         guard try await showInviteOrApplicationIsStillValid(showInvite: nil, showApplication: showApplication) else {
             try await DatabaseService.shared.deleteNotification(withId: showApplication.id)
-            viewState = .error(message: ErrorMessageConstants.showLineupIsFullOnAcceptShowApplication)
+            viewState = .error(message: ErrorMessageConstants.invalidShowApplication)
             return
         }
 
@@ -180,10 +196,10 @@ final class NotificationsViewModel: ObservableObject {
     func showInviteOrApplicationIsStillValid(showInvite: ShowInvite?, showApplication: ShowApplication?) async throws -> Bool {
         if let showInvite {
             let show = try await DatabaseService.shared.getShow(showId: showInvite.showId)
-            return show.lineupIsFull == false
+            return !show.lineupIsFull && !show.bandIds.contains(showInvite.bandId)
         } else if let showApplication {
             let show = try await DatabaseService.shared.getShow(showId: showApplication.showId)
-            return show.lineupIsFull == false
+            return !show.lineupIsFull && !show.bandIds.contains(showApplication.bandId)
         }
 
         throw LogicError.unexpectedNilValue(message: "Failed to determine if notification is valid. Please restart The Same Page and try again.")

@@ -10,8 +10,8 @@ import Foundation
 
 @MainActor
 final class MyShowsViewModel: ObservableObject {
-    @Published var playingShows = [Show]()
-    @Published var hostedShows = [Show]()
+    @Published var upcomingPlayingShows = [Show]()
+    @Published var upcomingHostedShows = [Show]()
     @Published var selectedShowType = ShowType.hosting
     @Published var addEditShowSheetIsShowing = false
     @Published var myHostedShowsViewState = ViewState.dataLoading {
@@ -54,8 +54,12 @@ final class MyShowsViewModel: ObservableObject {
     /// Fetches all shows that the user is hosting.
     func getHostedShows() async {
         do {
-            hostedShows = try await DatabaseService.shared.getLoggedInUserHostedShows()
-            hostedShows.isEmpty ? (myHostedShowsViewState = .dataNotFound) : (myHostedShowsViewState = .dataLoaded)
+            let allHostedShows = try await DatabaseService.shared.getLoggedInUserHostedShows()
+            let upcomingHostedShows = allHostedShows.filter {
+                !$0.alreadyHappened
+            }
+            self.upcomingHostedShows = upcomingHostedShows
+            upcomingHostedShows.isEmpty ? (myHostedShowsViewState = .dataNotFound) : (myHostedShowsViewState = .dataLoaded)
         } catch {
             myHostedShowsViewState = .error(message: error.localizedDescription)
         }
@@ -64,8 +68,12 @@ final class MyShowsViewModel: ObservableObject {
     /// Fetches all shows that the user is playing.
     func getPlayingShows() async {
         do {
-            playingShows = try await DatabaseService.shared.getPlayingShows()
-            playingShows.isEmpty ? (myPlayingShowsViewState = .dataNotFound) : (myPlayingShowsViewState = .dataLoaded)
+            let allPlayingShows = try await DatabaseService.shared.getPlayingShows()
+            let upcomingPlayingShows = allPlayingShows.filter {
+                !$0.alreadyHappened
+            }
+            self.upcomingPlayingShows = upcomingPlayingShows
+            upcomingPlayingShows.isEmpty ? (myPlayingShowsViewState = .dataNotFound) : (myPlayingShowsViewState = .dataLoaded)
         } catch {
             myPlayingShowsViewState = .error(message: error.localizedDescription)
         }

@@ -235,7 +235,7 @@ final class NotificationsViewModelTests: XCTestCase {
             notificationId: showInvite.id
         )
 
-        XCTAssertEqual(sut.viewState, .error(message: ErrorMessageConstants.showLineupIsFullOnAcceptShowInvite), "An error should've been thrown because the show's lineup was filled since the invite was sent.")
+        XCTAssertEqual(sut.viewState, .error(message: ErrorMessageConstants.invalidShowInvite), "An error should've been thrown because the show's lineup was filled since the invite was sent.")
         XCTAssertFalse(showInviteExists, "The invite should get deleted since it's no longer valid.")
 
         try await testingDatabaseService.editShow(
@@ -322,7 +322,7 @@ final class NotificationsViewModelTests: XCTestCase {
             notificationId: showApplication.id
         )
 
-        XCTAssertEqual(sut.viewState, .error(message: ErrorMessageConstants.showLineupIsFullOnAcceptShowApplication), "An error should've been thrown because the show's lineup was filled since the application was sent.")
+        XCTAssertEqual(sut.viewState, .error(message: ErrorMessageConstants.invalidShowApplication), "An error should've been thrown because the show's lineup was filled since the application was sent.")
         XCTAssertFalse(showApplicationExists, "The application should get deleted since it's no longer valid.")
 
         try await testingDatabaseService.editShow(

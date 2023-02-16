@@ -34,8 +34,8 @@ final class MyShowsViewModelTests: XCTestCase {
     }
 
     func test_OnInit_DefaultValuesAreCorrect() {
-        XCTAssertTrue(sut.playingShows.isEmpty)
-        XCTAssertTrue(sut.hostedShows.isEmpty)
+        XCTAssertTrue(sut.upcomingPlayingShows.isEmpty)
+        XCTAssertTrue(sut.upcomingHostedShows.isEmpty)
         XCTAssertEqual(sut.selectedShowType, .hosting)
         XCTAssertEqual(sut.myHostedShowsViewState, .dataLoading)
         XCTAssertEqual(sut.myPlayingShowsViewState, .dataLoading)
@@ -50,7 +50,7 @@ final class MyShowsViewModelTests: XCTestCase {
 
         await sut.getHostedShows()
 
-        XCTAssertEqual(sut.hostedShows.count, 1, "Julian is hosting 1 show")
+        XCTAssertEqual(sut.upcomingHostedShows.count, 1, "Julian is hosting 1 show")
         XCTAssertEqual(sut.myHostedShowsViewState, .dataLoaded, "Data should've been loaded")
     }
 
@@ -59,7 +59,7 @@ final class MyShowsViewModelTests: XCTestCase {
 
         await sut.getHostedShows()
 
-        XCTAssertTrue(sut.hostedShows.isEmpty, "Mike is not hosting any shows")
+        XCTAssertTrue(sut.upcomingHostedShows.isEmpty, "Mike is not hosting any shows")
         XCTAssertEqual(sut.myHostedShowsViewState, .dataNotFound, "No data should've been found")
     }
 
@@ -68,7 +68,7 @@ final class MyShowsViewModelTests: XCTestCase {
 
         await sut.getPlayingShows()
 
-        XCTAssertEqual(sut.playingShows.count, 1, "Lou is playing 1 show")
+        XCTAssertEqual(sut.upcomingPlayingShows.count, 1, "Lou is playing 1 show")
         XCTAssertEqual(sut.myPlayingShowsViewState, .dataLoaded, "Data should've been loaded")
     }
 
@@ -77,7 +77,7 @@ final class MyShowsViewModelTests: XCTestCase {
 
         await sut.getPlayingShows()
 
-        XCTAssertTrue(sut.hostedShows.isEmpty, "Mike is not hosting any shows")
+        XCTAssertTrue(sut.upcomingHostedShows.isEmpty, "Mike is not hosting any shows")
         XCTAssertEqual(sut.myPlayingShowsViewState, .dataNotFound, "No data should've been found")
     }
 

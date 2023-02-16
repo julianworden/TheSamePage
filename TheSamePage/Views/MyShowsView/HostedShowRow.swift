@@ -18,8 +18,8 @@ struct HostedShowRow: View {
     }
     
     var body: some View {
-        if viewModel.hostedShows.indices.contains(index) {
-            let show = viewModel.hostedShows[index]
+        if viewModel.upcomingHostedShows.indices.contains(index) {
+            let show = viewModel.upcomingHostedShows[index]
             
             VStack(spacing: 0) {
                 HStack {

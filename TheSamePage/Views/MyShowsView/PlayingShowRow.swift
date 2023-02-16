@@ -18,8 +18,8 @@ struct PlayingShowRow: View {
     }
     
     var body: some View {
-        if viewModel.playingShows.indices.contains(index) {
-            let show = viewModel.playingShows[index]
+        if viewModel.upcomingPlayingShows.indices.contains(index) {
+            let show = viewModel.upcomingPlayingShows[index]
             
             VStack(spacing: 0) {
                 HStack {

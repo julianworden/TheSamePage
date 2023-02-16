@@ -12,7 +12,7 @@ import Typesense
 
 @MainActor
 final class FindShowsViewModel: ObservableObject {
-    @Published var fetchedShows = [SearchResultHit<Show>]()
+    @Published var fetchedShows = [Show]()
     @Published var searchRadiusInMiles: Double = 25
     var searchingState: String?
     var isSearchingByState = false
@@ -40,11 +40,11 @@ final class FindShowsViewModel: ObservableObject {
 
     var fetchedShowsListHeaderText: String {
         if isSearchingByDistance && !isSearchingByState {
-            return "Shows within \(searchRadiusInMiles.formatted()) miles"
+            return "Upcoming shows within \(searchRadiusInMiles.formatted()) miles"
         } else if isSearchingByState &&
                   !isSearchingByDistance,
                   let searchingState {
-            return "Shows in \(searchingState)"
+            return "Upcoming shows in \(searchingState)"
         } else {
             return "Results."
         }
@@ -52,11 +52,11 @@ final class FindShowsViewModel: ObservableObject {
 
     var noDataFoundText: String {
         if isSearchingByDistance && !isSearchingByState {
-            return NoDataFoundConstants.noShowsFoundNearby
+            return "We can't find any upcoming shows within \(searchRadiusInMiles.formatted()) miles of your current location. You can tap the button above to widen your search radius."
         } else if isSearchingByState &&
                   !isSearchingByDistance,
                   let searchingState {
-            return "We can't find any shows in \(searchingState)."
+            return "We can't find any upcoming shows in \(searchingState)."
         } else {
             return NoDataFoundConstants.noShowsFoundGeneric
         }
@@ -105,12 +105,18 @@ final class FindShowsViewModel: ObservableObject {
 
         do {
             let (data, _) = try await TypesenseController.client.collection(name: FbConstants.shows).documents().search(searchParameters, for: Show.self)
-            if let fetchedNearbyShows = data?.hits,
-               !fetchedNearbyShows.isEmpty {
-                fetchedShows = fetchedNearbyShows
-                viewState = .dataLoaded
-            } else {
-                viewState = .dataNotFound
+            if let fetchedNearbyShows = data?.hits {
+                var upcomingFetchedShows = [Show]()
+
+                for show in fetchedNearbyShows {
+                    if let show = show.document,
+                       !show.alreadyHappened {
+                        upcomingFetchedShows.append(show)
+                    }
+                }
+
+                fetchedShows = upcomingFetchedShows
+                fetchedShows.isEmpty ? (viewState = .dataNotFound) : (viewState = .dataLoaded)
             }
         } catch {
             viewState = .error(message: "Failed to perform shows search. System error: \(error.localizedDescription)")
@@ -127,12 +133,18 @@ final class FindShowsViewModel: ObservableObject {
 
         do {
             let (data, _) = try await TypesenseController.client.collection(name: FbConstants.shows).documents().search(searchParameters, for: Show.self)
-            if let fetchedNearbyShows = data?.hits,
-               !fetchedNearbyShows.isEmpty {
-                fetchedShows = fetchedNearbyShows
-                viewState = .dataLoaded
-            } else {
-                viewState = .dataNotFound
+            if let fetchedNearbyShows = data?.hits {
+                var upcomingFetchedShows = [Show]()
+
+                for show in fetchedNearbyShows {
+                    if let show = show.document,
+                       !show.alreadyHappened {
+                        upcomingFetchedShows.append(show)
+                    }
+                }
+
+                fetchedShows = upcomingFetchedShows
+                fetchedShows.isEmpty ? (viewState = .dataNotFound) : (viewState = .dataLoaded)
             }
         } catch {
             viewState = .error(message: "Failed to perform shows search. System error: \(error.localizedDescription)")

@@ -41,13 +41,16 @@ struct ErrorMessageConstants {
     // MARK: - ShowInvite
     static let bandIsAlreadyPlayingShow = "This band is already playing this show."
     static let showLineupIsFullOnSendShowInvite = "This show's lineup is full. To invite this band, either increase the show's max number of bands or remove a band from the show's lineup."
-    static let showLineupIsFullOnAcceptShowInvite = "Sorry, you can no longer accept this invite. This show's lineup is now full."
+    static let invalidShowInvite = "Sorry, this show invite is no longer valid."
 
     // MARK: - ShowApplication
-    static let showLineupIsFullOnAcceptShowApplication = "Sorry, you can no longer accept this application. This show's lineup is now full."
+    static let invalidShowApplication = "Sorry, this show application is no longer valid."
 
     // MARK: - Create Username
     static let usernameIsTooShort = "Your username must contain at least three characters."
+
+    // MARK: - BandInvite
+    static let invalidBandInvite = "Sorry, this band invite is no longer valid."
 
     // MARK: - Delete Account
     static let userIsStillBandAdminAndCannotDeleteAccount = "You are still a band admin for at least one band, so you will need to give another band member admin privelages before you can delete your account. Tap a band above, select the gear icon in its profile, and select \"Relinquish Admin Priveleges\" to do this."
