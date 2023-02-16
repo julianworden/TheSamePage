@@ -32,6 +32,8 @@ extension View {
                 }
                 
                 if let tryAgainAction {
+                    Button("Cancel", role: .cancel) { }
+
                     Button(tryAgainButtonText) {
                         Task {
                             await tryAgainAction()
