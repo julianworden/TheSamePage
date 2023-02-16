@@ -28,7 +28,7 @@ struct BandSettingsView: View {
                 case .dataLoading:
                     ProgressView()
 
-                case .dataLoaded, .performingWork, .workCompleted:
+                case .dataLoaded, .performingWork, .workCompleted, .error:
                     if viewModel.band.loggedInUserIsBandAdmin {
                         Form {
                             Section {
@@ -77,9 +77,6 @@ struct BandSettingsView: View {
                         .navigationBarTitleDisplayMode(.inline)
                         .navigationBarBackButtonHidden(viewModel.buttonsAreDisabled)
                     }
-
-                case .error:
-                    EmptyView()
 
                 default:
                     ErrorMessage(message: ErrorMessageConstants.invalidViewState)

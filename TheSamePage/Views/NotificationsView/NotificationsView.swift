@@ -20,14 +20,11 @@ struct NotificationsView: View {
                     case .dataLoading:
                         ProgressView()
                         
-                    case .dataLoaded, .performingWork, .workCompleted:
+                    case .dataLoaded, .performingWork, .workCompleted, .error:
                         NotificationsList(viewModel: viewModel)
                         
                     case .dataNotFound:
                         NoDataFoundMessage(message: "You do not have any pending notifications.")
-                        
-                    case .error:
-                        EmptyView()
                         
                     default:
                         ErrorMessage(message: "Unknown viewState")

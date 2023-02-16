@@ -19,15 +19,13 @@ struct FindShowsView: View {
                 case .dataLoading:
                     ProgressView()
                     
-                case .dataLoaded:
+                case .dataLoaded, .error:
                     FindShowList(viewModel: viewModel)
                     
                 case .dataNotFound:
                     Text(viewModel.noDataFoundText)
                         .multilineTextAlignment(.center)
 
-                case .error:
-                    EmptyView()
                 default:
                     ErrorMessage(message: ErrorMessageConstants.invalidViewState)
                 }

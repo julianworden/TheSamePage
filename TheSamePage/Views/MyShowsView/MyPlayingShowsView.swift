@@ -16,7 +16,7 @@ struct MyPlayingShowsView: View {
             case .dataLoading:
                 ProgressView()
                 
-            case .dataLoaded:
+            case .dataLoaded, .error:
                 List {
                     Section("Shows You're Playing") {
                         ForEach(Array(viewModel.playingShows.enumerated()), id: \.element) { index, show in
@@ -33,10 +33,7 @@ struct MyPlayingShowsView: View {
                 
             case .dataNotFound:
                 NoDataFoundMessage(message: "You're not playing any shows.")
-                
-            case .error:
-                EmptyView()
-                
+
             default:
                 ErrorMessage(message: "Unknown ViewState given in MyPlayingShowsView.")
             }

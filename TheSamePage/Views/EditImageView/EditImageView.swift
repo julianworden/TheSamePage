@@ -31,7 +31,7 @@ struct EditImageView: View {
 
                 Group {
                     switch viewModel.viewState {
-                    case .displayingView, .workCompleted:
+                    case .displayingView, .workCompleted, .error:
                         VStack {
                             if let updatedImage {
                                 Image(uiImage: updatedImage)
@@ -48,9 +48,6 @@ struct EditImageView: View {
 
                     case .performingWork:
                         ProgressView()
-
-                    case .error:
-                        EmptyView()
 
                     default:
                         ErrorMessage(message: ErrorMessageConstants.invalidViewState)

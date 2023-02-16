@@ -27,7 +27,7 @@ struct ChooseNewBandAdminView: View {
             case .dataNotFound:
                 NoDataFoundMessage(message: "This band doesn't have any members that can become the new band admin.")
 
-            case .dataLoaded, .workCompleted, .performingWork:
+            case .dataLoaded, .workCompleted, .performingWork, .error:
                 List {
                     Section {
                         ForEach(viewModel.usersPlayingInBand) { user in
@@ -53,9 +53,6 @@ struct ChooseNewBandAdminView: View {
                         Text("If you'd like to choose a new band admin that isn't already a member of this band, you'll need to invite them to join the band. If they accept, they can then be chosen as the new band admin.")
                     }
                 }
-
-            case .error:
-                EmptyView()
 
             default:
                 ErrorMessage(message: ErrorMessageConstants.invalidViewState)

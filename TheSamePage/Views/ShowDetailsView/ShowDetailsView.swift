@@ -25,7 +25,7 @@ struct ShowDetailsView: View {
                 case .dataLoading:
                     ProgressView()
 
-                case .dataLoaded, .displayingView:
+                case .dataLoaded, .displayingView, .error:
                     ScrollView {
                         VStack(spacing: 10) {
                             ShowDetailsHeader(viewModel: viewModel)
@@ -52,10 +52,6 @@ struct ShowDetailsView: View {
                             }
                         }
                     }
-
-                    // TODO: MAke this error handling more uniform with the rest of the app
-                case .error:
-                    EmptyView()
 
                 default:
                     ErrorMessage(message: ErrorMessageConstants.invalidViewState)

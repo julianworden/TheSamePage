@@ -23,7 +23,7 @@ struct AddMyBandToShowView: View {
                 case .dataLoading:
                     ProgressView()
 
-                case .dataLoaded, .workCompleted, .performingWork:
+                case .dataLoaded, .workCompleted, .performingWork, .error:
                     Form {
                         Section {
                             Picker("Choose a Band", selection: $viewModel.selectedBand) {
@@ -57,9 +57,6 @@ struct AddMyBandToShowView: View {
 
                 case .dataNotFound:
                     NoDataFoundMessage(message: "You are not the admin of any bands, you can only add bands of which you are the admin.")
-
-                case .error:
-                    EmptyView()
 
                 default:
                     ErrorMessage(message: ErrorMessageConstants.invalidViewState)

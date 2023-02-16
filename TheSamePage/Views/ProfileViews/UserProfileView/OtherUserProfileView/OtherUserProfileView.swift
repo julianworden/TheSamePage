@@ -25,7 +25,7 @@ struct OtherUserProfileView: View {
             case .dataLoading:
                 ProgressView()
                 
-            case .dataLoaded:
+            case .dataLoaded, .error:
                 if let user = viewModel.user {
                     ScrollView {
                         OtherUserProfileHeader(viewModel: viewModel)
@@ -55,9 +55,6 @@ struct OtherUserProfileView: View {
                         }
                     }
                 }
-                
-            case .error:
-                EmptyView()
                 
             default:
                 ErrorMessage(message: "Invalid viewState: \(viewModel.viewState)")

@@ -16,7 +16,7 @@ struct ShowSearchResultsList: View {
     var body: some View {
         Group {
             switch viewModel.viewState {
-            case .dataLoaded:
+            case .dataLoaded, .error, .displayingView:
                 ScrollView {
                     VStack(spacing: UiConstants.listRowSpacing) {
                         ForEach(viewModel.fetchedShows, id: \.document) { result in
@@ -36,9 +36,6 @@ struct ShowSearchResultsList: View {
                 
             case .dataNotFound:
                 NoDataFoundMessage(message: "No results.")
-                
-            case .error, .displayingView:
-                EmptyView()
                 
             default:
                 ErrorMessage(message: "Invalid viewState")

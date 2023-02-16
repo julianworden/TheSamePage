@@ -29,7 +29,7 @@ struct BandProfileView: View {
             case .dataLoading:
                 ProgressView()
                 
-            case .dataLoaded:
+            case .dataLoaded, .error:
                 if let band = viewModel.band {
                     ScrollView {
                         VStack {
@@ -93,9 +93,6 @@ struct BandProfileView: View {
                         }
                     }
                 }
-                
-            case .error:
-                EmptyView()
                 
             default:
                 ErrorMessage(message: "Unknown viewState provided")

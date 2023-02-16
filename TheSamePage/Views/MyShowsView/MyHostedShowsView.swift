@@ -16,7 +16,7 @@ struct MyHostedShowsView: View {
             case .dataLoading:
                 ProgressView()
 
-            case .dataLoaded:
+            case .dataLoaded, .error:
                 List {
                     Section("Shows You're Hosting") {
                         ForEach(Array(viewModel.hostedShows.enumerated()), id: \.element) { index, show in
@@ -41,9 +41,6 @@ struct MyHostedShowsView: View {
                         message: "You're not hosting any shows"
                     )
                 }
-                
-            case .error:
-                EmptyView()
                 
             default:
                 ErrorMessage(message: ErrorMessageConstants.invalidViewState)

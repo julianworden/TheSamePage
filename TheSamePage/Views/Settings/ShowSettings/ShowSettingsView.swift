@@ -25,7 +25,7 @@ struct ShowSettingsView: View {
                 case .dataLoading:
                     ProgressView()
 
-                case .dataLoaded:
+                case .dataLoaded, .error:
                     if viewModel.show.loggedInUserIsShowHost {
                         Form {
                             Section {
@@ -70,9 +70,6 @@ struct ShowSettingsView: View {
                         .navigationTitle("Show Settings")
                         .navigationBarTitleDisplayMode(.inline)
                     }
-
-                case .error:
-                    EmptyView()
 
                 default:
                     ErrorMessage(message: ErrorMessageConstants.invalidViewState)

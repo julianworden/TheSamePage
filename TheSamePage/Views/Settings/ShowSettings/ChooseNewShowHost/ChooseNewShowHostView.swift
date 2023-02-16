@@ -27,7 +27,7 @@ struct ChooseNewShowHostView: View {
             case .dataNotFound:
                 NoDataFoundMessage(message: "This show doesn't have any participants, so a new host can't be chosen.")
 
-            case .dataLoaded, .workCompleted, .performingWork:
+            case .dataLoaded, .workCompleted, .performingWork, .error:
                 List {
                     Section {
                         ForEach(viewModel.usersParticipatingInShow) { user in
@@ -53,9 +53,6 @@ struct ChooseNewShowHostView: View {
                         Text("If you'd like to choose a new show host that isn't already participating in this show, you'll need to invite them to join the show. If they accept, they can then be chosen as the new show host.")
                     }
                 }
-
-            case .error:
-                EmptyView()
 
             default:
                 ErrorMessage(message: ErrorMessageConstants.invalidViewState)

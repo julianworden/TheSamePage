@@ -25,7 +25,7 @@ struct SendBandInviteView: View {
                 case .dataLoading:
                     ProgressView()
 
-                case .dataLoaded, .workCompleted, .performingWork:
+                case .dataLoaded, .workCompleted, .performingWork, .error:
                     Form {
                         Picker("Which band would you like to invite \(viewModel.user.firstName) to?", selection: $viewModel.selectedBand) {
                             ForEach(viewModel.adminBands) { band in
@@ -51,9 +51,6 @@ struct SendBandInviteView: View {
                 case .dataNotFound:
                     NoDataFoundMessage(message: ErrorMessageConstants.userIsNotAdminOfAnyBands)
                         .padding(.horizontal)
-
-                case .error:
-                    EmptyView()
 
                 default:
                     ErrorMessage(message: "Unknown viewState set: \(viewModel.viewState)")
