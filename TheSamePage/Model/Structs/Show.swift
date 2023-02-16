@@ -176,7 +176,14 @@ struct Show: Codable, Equatable, Hashable, Identifiable {
     }
 
     var alreadyHappened: Bool {
-        return date.unixDateAsDate < Date.now ? true : false
+        let showDate = Calendar.current.startOfDay(for: Date(timeIntervalSince1970: date))
+        var dateComponent = DateComponents()
+        dateComponent.day = 1
+        if let dayAfterShow = Calendar.current.date(byAdding: dateComponent, to: showDate) {
+            return dayAfterShow < Date.now ? true : false
+        } else {
+            return false
+        }
     }
     
     static let example = Show(

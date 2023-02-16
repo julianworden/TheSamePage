@@ -12,7 +12,7 @@ import Typesense
 
 @MainActor
 final class FindShowsViewModel: ObservableObject {
-    @Published var fetchedShows = [Show]()
+    @Published var upcomingFetchedShows = [Show]()
     @Published var searchRadiusInMiles: Double = 25
     var searchingState: String?
     var isSearchingByState = false
@@ -115,8 +115,8 @@ final class FindShowsViewModel: ObservableObject {
                     }
                 }
 
-                fetchedShows = upcomingFetchedShows
-                fetchedShows.isEmpty ? (viewState = .dataNotFound) : (viewState = .dataLoaded)
+                self.upcomingFetchedShows = upcomingFetchedShows
+                upcomingFetchedShows.isEmpty ? (viewState = .dataNotFound) : (viewState = .dataLoaded)
             }
         } catch {
             viewState = .error(message: "Failed to perform shows search. System error: \(error.localizedDescription)")
@@ -143,8 +143,8 @@ final class FindShowsViewModel: ObservableObject {
                     }
                 }
 
-                fetchedShows = upcomingFetchedShows
-                fetchedShows.isEmpty ? (viewState = .dataNotFound) : (viewState = .dataLoaded)
+                self.upcomingFetchedShows = upcomingFetchedShows
+                upcomingFetchedShows.isEmpty ? (viewState = .dataNotFound) : (viewState = .dataLoaded)
             }
         } catch {
             viewState = .error(message: "Failed to perform shows search. System error: \(error.localizedDescription)")

@@ -207,7 +207,7 @@
 		ABBE3691296B06C30092F594 /* ChatMessageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE3690296B06C30092F594 /* ChatMessageTests.swift */; };
 		ABBE3693296B25200092F594 /* PlatformLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE3692296B25200092F594 /* PlatformLinkTests.swift */; };
 		ABBE3695296B26970092F594 /* ShowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE3694296B26970092F594 /* ShowTests.swift */; };
-		ABBE369B296B39AC0092F594 /* MockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE369A296B39AC0092F594 /* MockController.swift */; };
+		ABBE369B296B39AC0092F594 /* MockLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE369A296B39AC0092F594 /* MockLocationController.swift */; };
 		ABBE369D296B53660092F594 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE369C296B53660092F594 /* UserTests.swift */; };
 		ABBE36A1296B555A0092F594 /* LinkPlatformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE36A0296B555A0092F594 /* LinkPlatformTests.swift */; };
 		ABBE36A3296B566C0092F594 /* SearchTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE36A2296B566C0092F594 /* SearchTypeTests.swift */; };
@@ -493,7 +493,7 @@
 		ABBE3690296B06C30092F594 /* ChatMessageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageTests.swift; sourceTree = "<group>"; };
 		ABBE3692296B25200092F594 /* PlatformLinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformLinkTests.swift; sourceTree = "<group>"; };
 		ABBE3694296B26970092F594 /* ShowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTests.swift; sourceTree = "<group>"; };
-		ABBE369A296B39AC0092F594 /* MockController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockController.swift; sourceTree = "<group>"; };
+		ABBE369A296B39AC0092F594 /* MockLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocationController.swift; sourceTree = "<group>"; };
 		ABBE369C296B53660092F594 /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
 		ABBE36A0296B555A0092F594 /* LinkPlatformTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPlatformTests.swift; sourceTree = "<group>"; };
 		ABBE36A2296B566C0092F594 /* SearchTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTypeTests.swift; sourceTree = "<group>"; };
@@ -1197,7 +1197,7 @@
 		ABBE3699296B398D0092F594 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				ABBE369A296B39AC0092F594 /* MockController.swift */,
+				ABBE369A296B39AC0092F594 /* MockLocationController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1914,7 +1914,7 @@
 				ABBE3693296B25200092F594 /* PlatformLinkTests.swift in Sources */,
 				ABA054972974C05C006B5908 /* ShowSettingsViewModelTests.swift in Sources */,
 				ABC9F412296919A6004DE24B /* BandMemberTests.swift in Sources */,
-				ABBE369B296B39AC0092F594 /* MockController.swift in Sources */,
+				ABBE369B296B39AC0092F594 /* MockLocationController.swift in Sources */,
 				ABE3A2FD297775F100AA1548 /* LoggedInUserControllerTests.swift in Sources */,
 				ABADE07A2992A380001967FA /* AddEditSetTimeViewModelTests.swift in Sources */,
 				ABF9903E297584FC00FD32D1 /* ShowDetailsViewModelTests.swift in Sources */,

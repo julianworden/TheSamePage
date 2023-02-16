@@ -27,7 +27,7 @@ final class FindShowsViewModelTests: XCTestCase {
     func test_OnInit_DefaultValuesAreCorrect() {
         sut = FindShowsViewModel()
 
-        XCTAssertTrue(sut.fetchedShows.isEmpty)
+        XCTAssertTrue(sut.upcomingFetchedShows.isEmpty)
         XCTAssertEqual(sut.searchRadiusInMiles, 25)
         XCTAssertFalse(sut.isSearchingByState)
         XCTAssertFalse(sut.isSearchingByDistance)
@@ -59,7 +59,7 @@ final class FindShowsViewModelTests: XCTestCase {
         sut.isSearchingByDistance = true
         sut.searchRadiusInMiles = 25
 
-        XCTAssertEqual(sut.fetchedShowsListHeaderText, "Shows within 25 miles")
+        XCTAssertEqual(sut.fetchedShowsListHeaderText, "Upcoming shows within 25 miles")
     }
 
     func test_FetchedShowsListHeaderText_ReturnsCorrectValueWhenSearchingByState() {
@@ -67,7 +67,7 @@ final class FindShowsViewModelTests: XCTestCase {
         sut.isSearchingByState = true
         sut.searchingState = UsState.NJ.rawValue
 
-        XCTAssertEqual(sut.fetchedShowsListHeaderText, "Shows in \(UsState.NJ.rawValue)")
+        XCTAssertEqual(sut.fetchedShowsListHeaderText, "Upcoming shows in \(UsState.NJ.rawValue)")
     }
 
     func test_NoDataFoundText_ReturnsCorrectValueWhenSearchingByDistance() {
@@ -75,7 +75,7 @@ final class FindShowsViewModelTests: XCTestCase {
         sut.isSearchingByDistance = true
         sut.searchRadiusInMiles = 25
 
-        XCTAssertEqual(sut.noDataFoundText, NoDataFoundConstants.noShowsFoundNearby)
+        XCTAssertEqual(sut.noDataFoundText, "We can't find any upcoming shows within \(sut.searchRadiusInMiles.formatted()) miles of your current location. You can tap the button above to widen your search radius.")
     }
 
     func test_NoDataFoundText_ReturnsCorrectValueWhenSearchingByState() {
@@ -83,7 +83,7 @@ final class FindShowsViewModelTests: XCTestCase {
         sut.isSearchingByState = true
         sut.searchingState = UsState.NJ.rawValue
 
-        XCTAssertEqual(sut.noDataFoundText, "We can't find any shows in \(UsState.NJ.rawValue).")
+        XCTAssertEqual(sut.noDataFoundText, "We can't find any upcoming shows in \(UsState.NJ.rawValue).")
     }
 
     func test_SearchRadiusInMeters_ReturnsCorrectValue() {
@@ -96,35 +96,36 @@ final class FindShowsViewModelTests: XCTestCase {
 
     func test_OnFetchNearbyShowsWithLocationInNewJersey_ShowIsFetchedAndViewStateIsSet() async throws {
         try await testingDatabaseService.logInToJulianAccount()
-        MockController.setNewJerseyMockLocationControllerValues()
+        MockLocationController.setNewJerseyMockLocationControllerValues()
         sut = FindShowsViewModel()
 
         await sut.fetchNearbyShows()
 
-        XCTAssertEqual(sut.fetchedShows.count, 1, "There is 1 show that is in New Jersey that should be returned")
+        XCTAssertEqual(sut.upcomingFetchedShows.count, 1, "There is 1 show that is in New Jersey that should be returned")
         XCTAssertEqual(sut.viewState, .dataLoaded, "Data should've been found")
         XCTAssertTrue(sut.isSearchingByDistance)
     }
 
     func test_OnFetchNearbyShowsWithLocationInAlaska_NoShowsAreFetchedAndViewStateIsSet() async throws {
         try await testingDatabaseService.logInToJulianAccount()
-        MockController.setAlaskaMockLocationControllerValues()
+        MockLocationController.setAlaskaMockLocationControllerValues()
         sut = FindShowsViewModel()
 
         await sut.fetchNearbyShows()
 
-        XCTAssertTrue(sut.fetchedShows.isEmpty, "There should be no shows within 25 miles of Alaska")
+        XCTAssertTrue(sut.upcomingFetchedShows.isEmpty, "There should be no shows within 25 miles of Alaska")
         XCTAssertEqual(sut.viewState, .dataNotFound, "No data should've been found")
         XCTAssertTrue(sut.isSearchingByDistance)
     }
 
-    func test_OnFetchShowsInCa_ShowIsFetched() async throws {
+    func test_OnFetchShowsInNj_ShowIsFetched() async throws {
         try await testingDatabaseService.logInToJulianAccount()
+        MockLocationController.setNewJerseyMockLocationControllerValues()
         sut = FindShowsViewModel()
 
-        await sut.fetchShows(in: UsState.CA.rawValue)
+        await sut.fetchShows(in: UsState.NJ.rawValue)
 
-        XCTAssertEqual(sut.fetchedShows.count, 1)
+        XCTAssertEqual(sut.upcomingFetchedShows.count, 1)
         XCTAssertEqual(sut.viewState, .dataLoaded)
         XCTAssertTrue(sut.isSearchingByState)
     }
@@ -135,7 +136,7 @@ final class FindShowsViewModelTests: XCTestCase {
 
         await sut.fetchShows(in: UsState.AZ.rawValue)
 
-        XCTAssertTrue(sut.fetchedShows.isEmpty)
+        XCTAssertTrue(sut.upcomingFetchedShows.isEmpty)
         XCTAssertEqual(sut.viewState, .dataNotFound)
         XCTAssertTrue(sut.isSearchingByState)
     }
@@ -146,18 +147,18 @@ final class FindShowsViewModelTests: XCTestCase {
         try await Task.sleep(seconds: 1)
         try await testingDatabaseService.logInToJulianAccount()
         sut = FindShowsViewModel()
-        MockController.setAlaskaMockLocationControllerValues()
+        MockLocationController.setAlaskaMockLocationControllerValues()
 
         await sut.fetchNearbyShows()
 
-        XCTAssertTrue(sut.fetchedShows.isEmpty, "There should be no shows within 25 miles of Alaska")
+        XCTAssertTrue(sut.upcomingFetchedShows.isEmpty, "There should be no shows within 25 miles of Alaska")
         XCTAssertEqual(sut.viewState, .dataNotFound, "No data should've been found")
 
-        MockController.setNewJerseyMockLocationControllerValues()
+        MockLocationController.setNewJerseyMockLocationControllerValues()
 
         await sut.changeSearchRadius(toValueInMiles: 50)
 
-        XCTAssertEqual(sut.fetchedShows.count, 1, "Now that the location was changed to New Jersey, one show should've been found")
+        XCTAssertEqual(sut.upcomingFetchedShows.count, 1, "Now that the location was changed to New Jersey, one show should've been found")
         XCTAssertEqual(sut.viewState, .dataLoaded, "Data should've been found")
         XCTAssertEqual(sut.searchRadiusInMiles, 50, "The function call should've changed the searchRadiusInMiles value")
     }
@@ -166,7 +167,7 @@ final class FindShowsViewModelTests: XCTestCase {
         try await testingDatabaseService.logInToJulianAccount()
         sut = FindShowsViewModel()
         sut.addLocationNotificationObserver()
-        MockController.setNewJerseyMockLocationControllerValues()
+        MockLocationController.setNewJerseyMockLocationControllerValues()
         let notificationExpectation = XCTNSNotificationExpectation(name: .userLocationWasSet)
 
         NotificationCenter.default.post(
@@ -175,13 +176,13 @@ final class FindShowsViewModelTests: XCTestCase {
         )
         try await Task.sleep(seconds: 0.5)
         let predicate = NSPredicate { _,_ in
-            !self.sut.fetchedShows.isEmpty
+            !self.sut.upcomingFetchedShows.isEmpty
         }
         let showLoadedExpectation = XCTNSPredicateExpectation(predicate: predicate, object: nil)
 
         wait(for: [notificationExpectation], timeout: 2)
         wait(for: [showLoadedExpectation], timeout: 2)
-        XCTAssertEqual(sut.fetchedShows.count, 1, "1 show should be in New Jersey near the user.")
-        XCTAssertEqual(sut.fetchedShows.first?.document, TestingConstants.exampleShowDumpweedExtravaganza, "Dumpweed Extravaganza should be the only show near the user.")
+        XCTAssertEqual(sut.upcomingFetchedShows.count, 1, "1 show should be in New Jersey near the user.")
+        XCTAssertEqual(sut.upcomingFetchedShows.first, TestingConstants.exampleShowDumpweedExtravaganza, "Dumpweed Extravaganza should be the only show near the user.")
     }
 }

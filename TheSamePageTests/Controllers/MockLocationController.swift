@@ -10,9 +10,8 @@
 import MapKit
 import Foundation
 
-/// Sets values for LocationController.shared so that it can easily be used in tests
-
-struct MockController {
+/// Sets values for LocationController.shared so that it can easily be used in tests.
+struct MockLocationController {
     /// Sets location data in LocationController.shared to the SF MOMA in San Francisco, CA for testing.
     static func setAlaskaMockLocationControllerValues() {
         let mockLocationController = LocationController.shared
