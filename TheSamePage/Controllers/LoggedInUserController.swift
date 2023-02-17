@@ -126,13 +126,14 @@ class LoggedInUserController: ObservableObject {
         }
     }
     
-    func logOut() {
+    func logOut() async {
         self.loggedInUser = nil
         self.userImage = nil
         self.updatedImage = nil
         self.playingBands = []
 
         do {
+            try await DatabaseService.shared.deleteFcmTokenForUser(withUid: AuthController.getLoggedInUid())
             try AuthController.logOut()
         } catch {
             viewState = .error(message: error.localizedDescription)

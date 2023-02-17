@@ -21,7 +21,9 @@ struct DeleteAccountConfirmationView: View {
             case .performingWork:
                 deleteAccountButtonIsDisabled = true
             case .workCompleted:
-                loggedInUserController.logOut()
+                Task {
+                    await loggedInUserController.logOut()
+                }
                 navigationViewModel.popToRoot()
             case .error(let message):
                 loggedInUserController.errorMessageText = message

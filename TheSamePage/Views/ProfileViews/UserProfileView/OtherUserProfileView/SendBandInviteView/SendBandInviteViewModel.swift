@@ -48,7 +48,6 @@ final class SendBandInviteViewModel: ObservableObject {
         self.user = user
     }
 
-    // TODO: This should get bands that the user is the admin of but is not a member of, too
     func getLoggedInUserAdminBands() async {
         do {
             adminBands = try await DatabaseService.shared.getAdminBands(withUid: AuthController.getLoggedInUid())
@@ -89,9 +88,10 @@ final class SendBandInviteViewModel: ObservableObject {
                 let bandInviteId = try await DatabaseService.shared.sendBandInvite(invite: invite)
                 viewState = .workCompleted
                 return bandInviteId
+            } else {
+                viewState = .error(message: "There was an error sending this band invite. Please ensure you have an internet connection, restart The Same Page, and try again.")
+                return nil
             }
-
-            return nil
         } catch {
             viewState = .error(message: error.localizedDescription)
             return nil

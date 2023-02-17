@@ -1789,4 +1789,28 @@ class DatabaseService: NSObject {
             )
         }
     }
+
+    // MARK: - Firebase Cloud Messaging
+
+    func deleteFcmTokenForUser(withUid uid: String) async throws {
+        do {
+            try await db
+                .collection(FbConstants.users)
+                .document(uid)
+                .updateData([FbConstants.fcmToken: FieldValue.delete()])
+        } catch {
+            throw FirebaseError.connection(message: "Failed to complete log out", systemError: error.localizedDescription)
+        }
+    }
+
+    func updateFcmToken(to newFcmToken: String, forUserWithUid uid: String) async throws {
+        do {
+            try await db
+                .collection(FbConstants.users)
+                .document(uid)
+                .updateData([FbConstants.fcmToken: newFcmToken])
+        } catch {
+            throw FirebaseError.connection(message: "Failed to complete log log in", systemError: error.localizedDescription)
+        }
+    }
 }

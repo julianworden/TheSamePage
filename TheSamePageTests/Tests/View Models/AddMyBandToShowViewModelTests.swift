@@ -81,7 +81,7 @@ final class AddMyBandToShowViewModelTests: XCTestCase {
     func test_OnGetLoggedInUserBands_DataIsFetchedWhenExpected() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         sut = AddMyBandToShowViewModel(show: dumpweedExtravaganza)
-        await sut.getLoggedInUserBands()
+        await sut.getLoggedInUserAdminBands()
 
         XCTAssertEqual(sut.selectedBand, patheticFallacy, "Pathetic Fallacy should be the default selected band because that's Julian's only band")
         XCTAssertEqual(sut.viewState, .dataLoaded)
@@ -93,7 +93,7 @@ final class AddMyBandToShowViewModelTests: XCTestCase {
         try await testingDatabaseService.logInToLouAccount()
         sut = AddMyBandToShowViewModel(show: dumpweedExtravaganza)
 
-        await sut.getLoggedInUserBands()
+        await sut.getLoggedInUserAdminBands()
 
         XCTAssertNil(sut.selectedBand, "Lou is not the admin of any bands")
         XCTAssertEqual(sut.viewState, .dataNotFound, "No data should've been fetched")
@@ -119,7 +119,7 @@ final class AddMyBandToShowViewModelTests: XCTestCase {
     func test_OnAddBandThatIsAlreadyPlayingShow_ErrorIsThrown() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         sut = AddMyBandToShowViewModel(show: dumpweedExtravaganza)
-        await sut.getLoggedInUserBands()
+        await sut.getLoggedInUserAdminBands()
 
         await sut.addBandToShow()
 

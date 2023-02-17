@@ -47,13 +47,12 @@ final class AddMyBandToShowViewModel: ObservableObject {
     }
 
     // TODO: This should get bands that the user is the admin of but is not a member of, too
-    func getLoggedInUserBands() async {
+    func getLoggedInUserAdminBands() async {
         do {
-            let fetchedBands = try await DatabaseService.shared.getJoinedBands(withUid: AuthController.getLoggedInUid())
-            userBands = fetchedBands.filter { $0.adminUid == AuthController.getLoggedInUid() }
+            userBands = try await DatabaseService.shared.getAdminBands(withUid: AuthController.getLoggedInUid())
 
             if !userBands.isEmpty {
-                selectedBand = userBands.first!
+                selectedBand = userBands.first
                 viewState = .dataLoaded
             } else {
                 viewState = .dataNotFound
@@ -65,21 +64,11 @@ final class AddMyBandToShowViewModel: ObservableObject {
 
     func addBandToShow() async {
         guard let selectedBand else {
-            viewState = .error(message: LogicError.unexpectedNilValue(message: "Failed to add band to show. Please try again later").localizedDescription)
+            viewState = .error(message: "Failed to add band to show. Please try again later")
             return
         }
 
-        guard !show.lineupIsFull else {
-            invalidRequestAlertText = ErrorMessageConstants.showLineupIsFullOnSendShowInvite
-            invalidRequestAlertIsShowing = true
-            return
-        }
-
-        guard !show.bandIds.contains(selectedBand.id) else {
-            invalidRequestAlertText = ErrorMessageConstants.bandIsAlreadyPlayingShow
-            invalidRequestAlertIsShowing = true
-            return
-        }
+        guard addBandToShowRequestIsValid(with: selectedBand) else { return }
 
         do {
             let newShowParticipant = ShowParticipant(
@@ -95,5 +84,21 @@ final class AddMyBandToShowViewModel: ObservableObject {
         } catch {
             viewState = .error(message: error.localizedDescription)
         }
+    }
+
+    func addBandToShowRequestIsValid(with band: Band) -> Bool {
+        guard !show.lineupIsFull else {
+            invalidRequestAlertText = ErrorMessageConstants.showLineupIsFullOnSendShowInvite
+            invalidRequestAlertIsShowing = true
+            return false
+        }
+
+        guard !show.bandIds.contains(band.id) else {
+            invalidRequestAlertText = ErrorMessageConstants.bandIsAlreadyPlayingShow
+            invalidRequestAlertIsShowing = true
+            return false
+        }
+
+        return true
     }
 }

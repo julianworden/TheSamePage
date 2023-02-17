@@ -6,6 +6,7 @@
 //
 
 import FirebaseAuth
+import FirebaseMessaging
 import FirebaseFirestore
 import Foundation
 
@@ -46,16 +47,8 @@ final class LoginViewModel: ObservableObject {
         do {
             viewState = .performingWork
             let result = try await Auth.auth().signIn(withEmail: emailAddress, password: password)
-            if !result.user.isEmailVerified {
-                unverifiedEmailErrorShowing = true
-                logOutUser()
-                return
-            }
 
-            if await !userHasUsername() {
-                currentUserHasNoUsernameAlertIsShowing = true
-                return
-            }
+            guard await signInAttemptIsValid(result: result) else { return }
 
             viewState = .workCompleted
         } catch {
@@ -75,6 +68,21 @@ final class LoginViewModel: ObservableObject {
                 viewState = .error(message: "\(ErrorMessageConstants.unknownError). System error: \(error.localizedDescription)")
             }
         }
+    }
+
+    func signInAttemptIsValid(result: AuthDataResult) async -> Bool {
+        if !result.user.isEmailVerified {
+            unverifiedEmailErrorShowing = true
+            logOutUser()
+            return false
+        }
+
+        if await !userHasUsername() {
+            currentUserHasNoUsernameAlertIsShowing = true
+            return false
+        }
+
+        return true
     }
 
     func logOutUser() {

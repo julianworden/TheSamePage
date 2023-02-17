@@ -76,10 +76,10 @@ struct AddMyBandToShowView: View {
             .errorAlert(
                 isPresented: $viewModel.errorAlertIsShowing,
                 message: viewModel.errorAlertText,
-                tryAgainAction: { await viewModel.getLoggedInUserBands() }
+                tryAgainAction: { await viewModel.getLoggedInUserAdminBands() }
             )
             .task {
-                await viewModel.getLoggedInUserBands()
+                await viewModel.getLoggedInUserAdminBands()
             }
             .onChange(of: viewModel.bandAddedSuccessfully) { bandAddedSuccessfully in
                 if bandAddedSuccessfully {

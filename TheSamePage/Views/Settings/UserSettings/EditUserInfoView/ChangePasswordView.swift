@@ -24,7 +24,9 @@ struct ChangePasswordView: View {
             case .performingWork:
                 changePasswordButtonIsDisabled = true
             case .workCompleted:
-                loggedInUserController.logOut()
+                Task {
+                    await loggedInUserController.logOut()
+                }
                 navigationViewModel.popToRoot()
             case .error(let message):
                 loggedInUserController.errorMessageText = message
