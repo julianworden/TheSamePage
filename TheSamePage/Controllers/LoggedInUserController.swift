@@ -46,6 +46,15 @@ class LoggedInUserController: ObservableObject {
         }
     }
 
+    let db = Firestore.firestore()
+    var deviceFcmToken: String? {
+        didSet {
+            Task {
+                await updateFcmTokenIfNecessary()
+            }
+        }
+    }
+
     var userIsLoggedOut: Bool {
         return AuthController.userIsLoggedOut()
     }
@@ -58,7 +67,35 @@ class LoggedInUserController: ObservableObject {
         return hostedShows.filter { !$0.alreadyHappened }
     }
 
-    let db = Firestore.firestore()
+    init() {
+        addFcmTokenObserver()
+    }
+
+    func addFcmTokenObserver() {
+        NotificationCenter.default.addObserver(forName: .didReceiveRegistrationToken, object: nil, queue: .main) { notification in
+            if let fetchedFcmToken = notification.userInfo?[FbConstants.fcmToken] as? String {
+                Task { @MainActor in
+                    self.deviceFcmToken = fetchedFcmToken
+                }
+            }
+        }
+    }
+
+    func updateFcmTokenIfNecessary() async {
+        guard let deviceFcmToken,
+              let loggedInUser else {
+            viewState = .error(message: "Something went wrong. Please ensure you have an internet connection, restart The Same Page, and try again.")
+            return
+        }
+
+        do {
+            if try await AuthController.getLoggedInFcmToken() != deviceFcmToken  {
+                try await DatabaseService.shared.updateFcmToken(to: deviceFcmToken, forUserWithUid: loggedInUser.id)
+            }
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
 
     func callOnAppLaunchMethods() async {
         guard !AuthController.userIsLoggedOut() else { return }

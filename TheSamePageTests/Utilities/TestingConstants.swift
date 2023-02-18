@@ -26,7 +26,8 @@ struct TestingConstants {
         firstName: "Julian",
         lastName: "Worden",
         profileImageUrl: "http://127.0.0.1:9199/v0/b/the-same-page-9c69e.appspot.com/o/JMTech%20Profile%20Pic.jpeg?alt=media&token=511ccc65-8205-4d13-9802-74af76e42098",
-        emailAddress: "julianworden@gmail.com"
+        emailAddress: "julianworden@gmail.com",
+        fcmToken: "d8W9wttUlkTmtsGH11Yfud:APA91bHDtKMb7fPEoJHV_ngJ7wICa7xMOQ0JqI_Td8Q2rE4nto50iwUuylZz-PQhdB4yupXBqjDWxV3OH0SzJFA6uDZskK4Ziy0cfSdxNoz8sS3doUGu9Iix2jKE4uUSNki5IIX_pwqr"
     )
 
     /// An example user that matches a user being stored in Firestore Emulator

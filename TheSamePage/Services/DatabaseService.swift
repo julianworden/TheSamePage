@@ -1680,28 +1680,6 @@ class DatabaseService: NSObject {
         }
     }
     
-    func getChatFcmTokens(withUids uids: [String]) async throws -> [String] {
-        do {
-            var fetchedFcmTokens = [String]()
-            
-            for uid in uids {
-                let fetchedUser = try await db
-                    .collection(FbConstants.users)
-                    .document(uid).getDocument(as: User.self)
-                if let fcmToken = fetchedUser.fcmToken {
-                    fetchedFcmTokens.append(fcmToken)
-                }
-            }
-            
-            return fetchedFcmTokens
-        } catch {
-            throw FirebaseError.connection(
-                message: "Failed to set chat data",
-                systemError: error.localizedDescription
-            )
-        }
-    }
-    
     func deleteChat(for show: Show) async throws {
         do {
             let chatDocument = try await db

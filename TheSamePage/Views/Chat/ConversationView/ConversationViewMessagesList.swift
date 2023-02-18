@@ -46,10 +46,12 @@ struct ConversationViewMessagesList: View {
                     .textFieldStyle(.roundedBorder)
                     .focused($keyboardIsFocused)
 
-                AsyncButton {
-                    await viewModel.sendMessageButtonTapped(by: loggedInUserController.loggedInUser)
-                    withAnimation {
-                        proxy.scrollTo(viewModel.messages.count - 1, anchor: .bottom)
+                Button {
+                    Task {
+                        await viewModel.sendMessageButtonTapped(by: loggedInUserController.loggedInUser)
+                        withAnimation {
+                            proxy.scrollTo(viewModel.messages.count - 1, anchor: .bottom)
+                        }
                     }
                 } label: {
                     Image(systemName: "arrow.up")

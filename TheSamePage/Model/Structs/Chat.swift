@@ -15,22 +15,19 @@ struct Chat: Codable, Equatable, Identifiable {
     let userId: String?
     let name: String?
     let participantUids: [String]
-    let participantFcmTokens: [String]
-    
+
     init(
         id: String,
         showId: String? = nil,
         userId: String? = nil,
         name: String? = nil,
-        participantUids: [String],
-        participantFcmTokens: [String] = []
+        participantUids: [String]
     ) {
         self.id = id
         self.showId = showId
         self.userId = userId
         self.name = name
         self.participantUids = participantUids
-        self.participantFcmTokens = participantFcmTokens
     }
     
     /// A convenience property for filtering the logged in user's UID out of the

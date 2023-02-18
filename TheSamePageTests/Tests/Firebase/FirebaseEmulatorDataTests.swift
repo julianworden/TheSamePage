@@ -517,7 +517,6 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(chatInEmulator!.showId, TestingConstants.exampleShowDumpweedExtravaganza.id)
         XCTAssertEqual(chatInEmulator!.name, TestingConstants.exampleShowDumpweedExtravaganza.name)
         XCTAssertEqual(chatInEmulator!.participantUids, chatInTestingConstants.participantUids)
-        XCTAssertEqual(chatInEmulator!.participantFcmTokens, chatInTestingConstants.participantFcmTokens)
         XCTAssertEqual(chatInEmulator!.userId, chatInTestingConstants.userId)
     }
 

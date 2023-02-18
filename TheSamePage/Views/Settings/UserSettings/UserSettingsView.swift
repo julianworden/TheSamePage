@@ -44,9 +44,9 @@ struct UserSettingsView: View {
                                 actions: {
                                     Button("Cancel", role: .cancel) { }
                                     Button("Yes", role: .destructive) {
-                                        dismiss()
                                         Task {
                                             await loggedInUserController.logOut()
+                                            dismiss()
                                         }
                                     }
                                 },

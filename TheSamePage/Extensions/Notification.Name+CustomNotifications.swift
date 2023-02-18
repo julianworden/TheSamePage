@@ -16,4 +16,5 @@ extension Notification.Name {
     static let appOpenedViaNewInviteOrApplicationNotification = Notification.Name("appOpenedViaNewInviteOrApplicationNotification")
     static let appOpenedViaAcceptedBandInviteNotification = Notification.Name("appOpenedViaAcceptedBandInviteNotification")
     static let appOpenedViaAcceptedShowInviteOrApplicationNotification = Notification.Name("appOpenedViaAcceptedShowInviteOrApplicationNotification")
+    static let didReceiveRegistrationToken = Notification.Name("didReceiveRegistrationToken")
 }

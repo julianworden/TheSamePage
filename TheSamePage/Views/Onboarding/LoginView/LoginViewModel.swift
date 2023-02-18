@@ -50,6 +50,10 @@ final class LoginViewModel: ObservableObject {
 
             guard await signInAttemptIsValid(result: result) else { return }
 
+            if let deviceFcmToken = Messaging.messaging().fcmToken {
+                try await DatabaseService.shared.updateFcmToken(to: deviceFcmToken, forUserWithUid: result.user.uid)
+            }
+
             viewState = .workCompleted
         } catch {
             let error = AuthErrorCode(_nsError: error as NSError)

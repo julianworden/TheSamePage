@@ -116,13 +116,11 @@ class ConversationViewModel : ObservableObject {
                 if !show.participantUids.contains(show.hostUid) {
                     chatParticipantUids.append(show.hostUid)
                 }
-                let chatParticipantFcmTokens = try await DatabaseService.shared.getChatFcmTokens(withUids: chatParticipantUids)
                 var newChat = Chat(
                     id: "",
                     showId: show.id,
                     name: show.name,
-                    participantUids: chatParticipantUids,
-                    participantFcmTokens: chatParticipantFcmTokens
+                    participantUids: chatParticipantUids
                 )
                 let newChatId = try await DatabaseService.shared.createChat(chat: newChat)
                 newChat.id = newChatId
@@ -156,17 +154,21 @@ class ConversationViewModel : ObservableObject {
         do {
             let senderUid = user.id
             let senderFullName = user.fullName
-            let senderFcmToken = user.fcmToken
-            
-            let filteredFcmTokens = chat.participantFcmTokens.filter { $0 != senderFcmToken }
-            
+            var recipientFcmTokens = [String]()
+
+            for uid in chat.participantUidsWithoutLoggedInUser {
+                if let recipientFcmToken = try await DatabaseService.shared.getFcmToken(forUserWithUid: uid) {
+                    recipientFcmTokens.append(recipientFcmToken)
+                }
+            }
+
             let newChatMessage = ChatMessage(
                 text: messageText,
                 senderUid: senderUid,
                 chatId: chat.id,
                 senderFullName: senderFullName,
                 sentTimestamp: Date().timeIntervalSince1970,
-                recipientFcmTokens: filteredFcmTokens
+                recipientFcmTokens: recipientFcmTokens
             )
             
             try DatabaseService.shared.sendChatMessage(chatMessage: newChatMessage, chat: chat)
