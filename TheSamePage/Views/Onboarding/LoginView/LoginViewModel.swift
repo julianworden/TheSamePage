@@ -50,7 +50,8 @@ final class LoginViewModel: ObservableObject {
 
             guard await signInAttemptIsValid(result: result) else { return }
 
-            if let deviceFcmToken = Messaging.messaging().fcmToken {
+            if ProcessInfo.processInfo.environment["testing"] != "true",
+               let deviceFcmToken = Messaging.messaging().fcmToken {
                 try await DatabaseService.shared.updateFcmToken(to: deviceFcmToken, forUserWithUid: result.user.uid)
             }
 

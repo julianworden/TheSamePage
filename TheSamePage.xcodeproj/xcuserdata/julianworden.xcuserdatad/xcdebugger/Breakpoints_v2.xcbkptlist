@@ -7,170 +7,170 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2E2EE188-4562-4188-BA7A-675185D71A52"
+            uuid = "985013E3-522C-44F9-A982-D5B488776C69"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Views/ProfileViews/BandProfileView/BandProfileViewModel.swift"
+            filePath = "TheSamePageTests/Tests/View Models/NotificationsViewModelTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
-            landmarkName = "getLatestBandData()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "29AD9B77-C406-4B5B-B2CF-A90502F536F5"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Services/DatabaseService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "488"
-            endingLineNumber = "488"
-            landmarkName = "getBand(with:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "83E845B6-D8BA-42ED-A0A6-5E7030077D5F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
-            landmarkName = "getLatestShowData()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8B845AB2-A047-41D6-A22F-22E5EAC3A003"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
-            landmarkName = "getLatestShowData()"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
+            landmarkName = "test_OnAcceptShowInviteForShowWithFullLineup_InviteIsDeletedAndViewStateIsSet()"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "8B845AB2-A047-41D6-A22F-22E5EAC3A003 - e573b376ee53350a"
+                  uuid = "985013E3-522C-44F9-A982-D5B488776C69 - 1b1b4af9ea1df8f6"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for TheSamePage.ShowDetailsViewModel.getLatestShowData() async -&gt; ()"
-                  moduleName = "TheSamePage"
+                  symbolName = "(7) suspend resume partial function for TheSamePageTests.NotificationsViewModelTests.test_OnAcceptShowInviteForShowWithFullLineup_InviteIsDeletedAndViewStateIsSet() async throws -&gt; ()"
+                  moduleName = "TheSamePageTests"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Tests/View%20Models/NotificationsViewModelTests.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "181"
-                  endingLineNumber = "181"
-                  offsetFromSymbolStart = "2144">
+                  startingLineNumber = "232"
+                  endingLineNumber = "232"
+                  offsetFromSymbolStart = "276">
                </Location>
                <Location
-                  uuid = "8B845AB2-A047-41D6-A22F-22E5EAC3A003 - ab36acb05128479"
+                  uuid = "985013E3-522C-44F9-A982-D5B488776C69 - 6aabadb603353495"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for TheSamePage.ShowDetailsViewModel.getLatestShowData() async -&gt; ()"
-                  moduleName = "TheSamePage"
+                  symbolName = "(8) await resume partial function for TheSamePageTests.NotificationsViewModelTests.test_OnAcceptShowInviteForShowWithFullLineup_InviteIsDeletedAndViewStateIsSet() async throws -&gt; ()"
+                  moduleName = "TheSamePageTests"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Tests/View%20Models/NotificationsViewModelTests.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "176"
-                  endingLineNumber = "176"
+                  startingLineNumber = "232"
+                  endingLineNumber = "232"
                   offsetFromSymbolStart = "40">
                </Location>
                <Location
-                  uuid = "8B845AB2-A047-41D6-A22F-22E5EAC3A003 - ab36acb051284de"
+                  uuid = "985013E3-522C-44F9-A982-D5B488776C69 - c50d7a784f76bcf4"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for TheSamePage.ShowDetailsViewModel.getLatestShowData() async -&gt; ()"
-                  moduleName = "TheSamePage"
+                  symbolName = "(9) suspend resume partial function for TheSamePageTests.NotificationsViewModelTests.test_OnAcceptShowInviteForShowWithFullLineup_InviteIsDeletedAndViewStateIsSet() async throws -&gt; ()"
+                  moduleName = "TheSamePageTests"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Tests/View%20Models/NotificationsViewModelTests.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "181"
-                  endingLineNumber = "181"
-                  offsetFromSymbolStart = "180">
+                  startingLineNumber = "232"
+                  endingLineNumber = "232"
+                  offsetFromSymbolStart = "92">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "05446B9D-1E03-4CF0-912C-07FD2D530780"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "handleNotification(anyUserNotification:withAction:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "05446B9D-1E03-4CF0-912C-07FD2D530780 - f605de3b6e9bf493"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "100"
+                  endingLineNumber = "100"
+                  offsetFromSymbolStart = "2660">
                </Location>
                <Location
-                  uuid = "8B845AB2-A047-41D6-A22F-22E5EAC3A003 - 16394cf46f2cf7ab"
+                  uuid = "05446B9D-1E03-4CF0-912C-07FD2D530780 - 407ef0f88ff34b83"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for TheSamePage.ShowDetailsViewModel.getLatestShowData() async -&gt; ()"
+                  symbolName = "(8) await resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
                   moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "176"
-                  endingLineNumber = "176"
-                  offsetFromSymbolStart = "36">
+                  startingLineNumber = "100"
+                  endingLineNumber = "100"
+                  offsetFromSymbolStart = "40">
                </Location>
                <Location
-                  uuid = "8B845AB2-A047-41D6-A22F-22E5EAC3A003 - 16394cf46f2cf70c"
+                  uuid = "05446B9D-1E03-4CF0-912C-07FD2D530780 - 9ec7a04aefe8574"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for TheSamePage.ShowDetailsViewModel.getLatestShowData() async -&gt; ()"
+                  symbolName = "(9) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
                   moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "181"
-                  endingLineNumber = "181"
-                  offsetFromSymbolStart = "76">
+                  startingLineNumber = "99"
+                  endingLineNumber = "99"
+                  offsetFromSymbolStart = "56">
                </Location>
                <Location
-                  uuid = "8B845AB2-A047-41D6-A22F-22E5EAC3A003 - 4f5bdc3aafbf16a8"
+                  uuid = "05446B9D-1E03-4CF0-912C-07FD2D530780 - 9ec7a04aefe84ab"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for TheSamePage.ShowDetailsViewModel.getLatestShowData() async -&gt; ()"
+                  symbolName = "(9) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
                   moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "176"
-                  endingLineNumber = "176"
+                  startingLineNumber = "100"
+                  endingLineNumber = "100"
                   offsetFromSymbolStart = "64">
                </Location>
                <Location
-                  uuid = "8B845AB2-A047-41D6-A22F-22E5EAC3A003 - 4f5bdc3aafbf160f"
+                  uuid = "05446B9D-1E03-4CF0-912C-07FD2D530780 - db6d19be23c21cb0"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for TheSamePage.ShowDetailsViewModel.getLatestShowData() async -&gt; ()"
+                  symbolName = "(26) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
                   moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "181"
-                  endingLineNumber = "181"
-                  offsetFromSymbolStart = "128">
+                  startingLineNumber = "99"
+                  endingLineNumber = "99"
+                  offsetFromSymbolStart = "80">
+               </Location>
+               <Location
+                  uuid = "05446B9D-1E03-4CF0-912C-07FD2D530780 - db6d19be23c21d6f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(26) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "100"
+                  endingLineNumber = "100"
+                  offsetFromSymbolStart = "184">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -178,78 +178,337 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1CCEFBE2-3279-4138-AD03-769F4D0003C0"
+            uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
+            filePath = "TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "183"
-            endingLineNumber = "183"
-            landmarkName = "getLatestShowData()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DCFF3BF1-6537-4F17-9A5A-9DC1244D5702"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Views/ShowDetailsView/ShowDetailsView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D87B5480-E3E7-4B73-9889-0495CF4CE9BF"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
-            landmarkName = "callOnAppearMethods()"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
+            landmarkName = "handleNotification(anyUserNotification:withAction:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "D87B5480-E3E7-4B73-9889-0495CF4CE9BF - 7e40aec3b8f61c7a"
+                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - 9ec7a04aefe84ca"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for TheSamePage.ShowDetailsViewModel.callOnAppearMethods() async -&gt; ()"
+                  symbolName = "(9) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
                   moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "157"
-                  endingLineNumber = "157"
-                  offsetFromSymbolStart = "2196">
+                  startingLineNumber = "101"
+                  endingLineNumber = "101"
+                  offsetFromSymbolStart = "80">
                </Location>
                <Location
-                  uuid = "D87B5480-E3E7-4B73-9889-0495CF4CE9BF - 1b2ab3b2ac0004d8"
+                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - db879233c2f18f29"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for TheSamePage.ShowDetailsViewModel.callOnAppearMethods() async -&gt; ()"
+                  symbolName = "(10) await resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
                   moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "155"
-                  endingLineNumber = "155"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - 23aa173d7157ed8a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(11) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99"
+                  offsetFromSymbolStart = "88">
+               </Location>
+               <Location
+                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - 23aa173d7157ec34"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(11) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101"
+                  offsetFromSymbolStart = "112">
+               </Location>
+               <Location
+                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - 23aa173d7157ec34"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(11) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101"
+                  offsetFromSymbolStart = "220">
+               </Location>
+               <Location
+                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - 724c4a302a48c632"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(13) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101"
+                  offsetFromSymbolStart = "60">
+               </Location>
+               <Location
+                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - 72626f3440bde1b1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(27) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99"
+                  offsetFromSymbolStart = "84">
+               </Location>
+               <Location
+                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - 72626f3440bde00f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(27) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101"
+                  offsetFromSymbolStart = "196">
+               </Location>
+               <Location
+                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - ed177c4de437770c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(28) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101"
+                  offsetFromSymbolStart = "92">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4213761A-9909-4123-89F2-4E359F9773D5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "handleNotification(anyUserNotification:withAction:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4213761A-9909-4123-89F2-4E359F9773D5 - 23aa173d7157ec17"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(11) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "288">
+               </Location>
+               <Location
+                  uuid = "4213761A-9909-4123-89F2-4E359F9773D5 - b637c27a21ac904"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(12) await resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  uuid = "4213761A-9909-4123-89F2-4E359F9773D5 - 724c4a302a48c632"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(13) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101"
+                  offsetFromSymbolStart = "60">
+               </Location>
+               <Location
+                  uuid = "4213761A-9909-4123-89F2-4E359F9773D5 - 724c4a302a48c611"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(13) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "84">
+               </Location>
+               <Location
+                  uuid = "4213761A-9909-4123-89F2-4E359F9773D5 - ed177c4de437770c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(28) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101"
+                  offsetFromSymbolStart = "92">
+               </Location>
+               <Location
+                  uuid = "4213761A-9909-4123-89F2-4E359F9773D5 - ed177c4de437772f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(28) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "212">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B0B76F9C-C655-4768-B330-47BD6F8E077B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePageTests/Tests/View Models/NotificationsViewModelTests.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
+            landmarkName = "test_OnAcceptShowInviteForShowWithFullLineup_InviteIsDeletedAndViewStateIsSet()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B0B76F9C-C655-4768-B330-47BD6F8E077B - c50d7a784f76bc15"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(9) suspend resume partial function for TheSamePageTests.NotificationsViewModelTests.test_OnAcceptShowInviteForShowWithFullLineup_InviteIsDeletedAndViewStateIsSet() async throws -&gt; ()"
+                  moduleName = "TheSamePageTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Tests/View%20Models/NotificationsViewModelTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "233"
+                  endingLineNumber = "233"
+                  offsetFromSymbolStart = "144">
+               </Location>
+               <Location
+                  uuid = "B0B76F9C-C655-4768-B330-47BD6F8E077B - 42ca1801c89fecb3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(10) await resume partial function for TheSamePageTests.NotificationsViewModelTests.test_OnAcceptShowInviteForShowWithFullLineup_InviteIsDeletedAndViewStateIsSet() async throws -&gt; ()"
+                  moduleName = "TheSamePageTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Tests/View%20Models/NotificationsViewModelTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "233"
+                  endingLineNumber = "233"
+                  offsetFromSymbolStart = "48">
+               </Location>
+               <Location
+                  uuid = "B0B76F9C-C655-4768-B330-47BD6F8E077B - b3a72c261656245f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(11) suspend resume partial function for TheSamePageTests.NotificationsViewModelTests.test_OnAcceptShowInviteForShowWithFullLineup_InviteIsDeletedAndViewStateIsSet() async throws -&gt; ()"
+                  moduleName = "TheSamePageTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Tests/View%20Models/NotificationsViewModelTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "233"
+                  endingLineNumber = "233"
+                  offsetFromSymbolStart = "124">
+               </Location>
+               <Location
+                  uuid = "B0B76F9C-C655-4768-B330-47BD6F8E077B - 57454d6e4901651"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(17) suspend resume partial function for TheSamePageTests.NotificationsViewModelTests.test_OnAcceptShowInviteForShowWithFullLineup_InviteIsDeletedAndViewStateIsSet() async throws -&gt; ()"
+                  moduleName = "TheSamePageTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Tests/View%20Models/NotificationsViewModelTests.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "233"
+                  endingLineNumber = "233"
                   offsetFromSymbolStart = "44">
                </Location>
             </Locations>
@@ -258,144 +517,169 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "06B92FBD-1302-420D-8738-6D01EAA71D3B"
+            uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
+            filePath = "TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
-            landmarkName = "callOnAppearMethods()"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
+            landmarkName = "handleNotification(anyUserNotification:withAction:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "06B92FBD-1302-420D-8738-6D01EAA71D3B - 1b2ab3b2ac00043b"
+                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - 66a2c397b1ddc7a6"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for TheSamePage.ShowDetailsViewModel.callOnAppearMethods() async -&gt; ()"
+                  symbolName = "(22) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
                   moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "158"
-                  endingLineNumber = "158"
+                  startingLineNumber = "121"
+                  endingLineNumber = "121"
+                  offsetFromSymbolStart = "160">
+               </Location>
+               <Location
+                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - 1e57d12dd55752a7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(23) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "121"
+                  endingLineNumber = "121"
+                  offsetFromSymbolStart = "344">
+               </Location>
+               <Location
+                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - 894b26ab6ad13da4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(24) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "121"
+                  endingLineNumber = "121"
+                  offsetFromSymbolStart = "372">
+               </Location>
+               <Location
+                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - 207834208e4888a5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(25) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "121"
+                  endingLineNumber = "121"
+                  offsetFromSymbolStart = "404">
+               </Location>
+               <Location
+                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - db6d19be23c21b9a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(26) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "121"
+                  endingLineNumber = "121"
+                  offsetFromSymbolStart = "376">
+               </Location>
+               <Location
+                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - 72626f3440bde69b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(27) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "121"
+                  endingLineNumber = "121"
+                  offsetFromSymbolStart = "408">
+               </Location>
+               <Location
+                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - ed177c4de4377198"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(28) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "121"
+                  endingLineNumber = "121"
+                  offsetFromSymbolStart = "436">
+               </Location>
+               <Location
+                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - 840441cb39aedc99"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(29) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "121"
+                  endingLineNumber = "121"
+                  offsetFromSymbolStart = "328">
+               </Location>
+               <Location
+                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - f08277fd9bf77ba1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(30) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "121"
+                  endingLineNumber = "121"
+                  offsetFromSymbolStart = "356">
+               </Location>
+               <Location
+                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - 6bb7457b3f6ec6a6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(31) suspend resume partial function for TheSamePage.NotificationsViewModel.handleNotification(anyUserNotification: TheSamePage.AnyUserNotification, withAction: TheSamePage.NotificationAction) async -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "121"
+                  endingLineNumber = "121"
                   offsetFromSymbolStart = "388">
                </Location>
-               <Location
-                  uuid = "06B92FBD-1302-420D-8738-6D01EAA71D3B - 5c77c3f1ec92a5df"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) await resume partial function for TheSamePage.ShowDetailsViewModel.callOnAppearMethods() async -&gt; ()"
-                  moduleName = "TheSamePage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "155"
-                  endingLineNumber = "155"
-                  offsetFromSymbolStart = "44">
-               </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DC231846-8102-4204-ABC8-5ACDAB3AA753"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
-            landmarkName = "callOnAppearMethods()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "DC231846-8102-4204-ABC8-5ACDAB3AA753 - 5c77c3f1ec92a563"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) await resume partial function for TheSamePage.ShowDetailsViewModel.callOnAppearMethods() async -&gt; ()"
-                  moduleName = "TheSamePage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "159"
-                  endingLineNumber = "159"
-                  offsetFromSymbolStart = "388">
-               </Location>
-               <Location
-                  uuid = "DC231846-8102-4204-ABC8-5ACDAB3AA753 - 959053302d1dc6de"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) await resume partial function for TheSamePage.ShowDetailsViewModel.callOnAppearMethods() async -&gt; ()"
-                  moduleName = "TheSamePage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "155"
-                  endingLineNumber = "155"
-                  offsetFromSymbolStart = "32">
-               </Location>
-               <Location
-                  uuid = "DC231846-8102-4204-ABC8-5ACDAB3AA753 - d7dc43abcf04e4bc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(5) suspend resume partial function for TheSamePage.ShowDetailsViewModel.callOnAppearMethods() async -&gt; ()"
-                  moduleName = "TheSamePage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "155"
-                  endingLineNumber = "155"
-                  offsetFromSymbolStart = "32">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C97C0944-9297-4E0D-89E5-802BA931BE23"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Views/ShowDetailsView/ShowDetailsViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
-            landmarkName = "callOnAppearMethods()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "57556929-780A-40B7-90CC-0D8E6891946E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Services/DatabaseService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "848"
-            endingLineNumber = "848"
-            landmarkName = "getShow(showId:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

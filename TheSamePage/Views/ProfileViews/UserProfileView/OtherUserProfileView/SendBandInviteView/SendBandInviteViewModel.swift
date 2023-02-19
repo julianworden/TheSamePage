@@ -65,33 +65,32 @@ final class SendBandInviteViewModel: ObservableObject {
 
     // TODO: Make it so that this method throws an error if the user being invited is already in the band
     func sendBandInvite() async -> String? {
+        guard let selectedBand else {
+            viewState = .error(message: "There was an error sending this band invite. Please ensure you have an internet connection, restart The Same Page, and try again.")
+            return nil
+        }
+
         do {
             viewState = .performingWork
             let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
             
-            // TODO: Handle error
-            if let selectedBand {
-                let invite = BandInvite(
-                    id: "",
-                    recipientFcmToken: user.fcmToken,
-                    recipientUsername: user.username,
-                    senderFcmToken: loggedInUser.fcmToken,
-                    sentTimestamp: Date.now.timeIntervalSince1970,
-                    notificationType: NotificationType.bandInvite.rawValue,
-                    recipientUid: user.id,
-                    recipientRole: recipientRole.rawValue,
-                    bandId: selectedBand.id,
-                    senderUsername: loggedInUser.username,
-                    senderBand: selectedBand.name,
-                    message: "\(loggedInUser.username) is inviting you to join \(selectedBand.name)."
-                )
-                let bandInviteId = try await DatabaseService.shared.sendBandInvite(invite: invite)
-                viewState = .workCompleted
-                return bandInviteId
-            } else {
-                viewState = .error(message: "There was an error sending this band invite. Please ensure you have an internet connection, restart The Same Page, and try again.")
-                return nil
-            }
+            let invite = BandInvite(
+                id: "",
+                recipientFcmToken: user.fcmToken,
+                recipientUsername: user.username,
+                sentTimestamp: Date.now.timeIntervalSince1970,
+                notificationType: NotificationType.bandInvite.rawValue,
+                senderUid: loggedInUser.id,
+                recipientUid: user.id,
+                recipientRole: recipientRole.rawValue,
+                bandId: selectedBand.id,
+                senderUsername: loggedInUser.username,
+                senderBand: selectedBand.name,
+                message: "\(loggedInUser.username) is inviting you to join \(selectedBand.name)."
+            )
+            let bandInviteId = try await DatabaseService.shared.sendBandInvite(invite: invite)
+            viewState = .workCompleted
+            return bandInviteId
         } catch {
             viewState = .error(message: error.localizedDescription)
             return nil

@@ -69,16 +69,15 @@ final class SendShowApplicationViewModel: ObservableObject {
             viewState = .performingWork
 
             let recipientFcmToken = try await DatabaseService.shared.getFcmToken(forUserWithUid: show.hostUid)
-            let senderFcmToken = try await AuthController.getLoggedInFcmToken()
 
             let showApplication = ShowApplication(
                 id: "",
                 recipientFcmToken: recipientFcmToken,
-                senderFcmToken: senderFcmToken,
                 sentTimestamp: Date.now.timeIntervalSince1970,
                 bandName: selectedBand.name,
                 message: "\(selectedBand.name) wants to play \(show.name).",
                 recipientUid: show.hostUid,
+                senderUid: AuthController.getLoggedInUid(),
                 showId: show.id,
                 showName: show.name,
                 bandId: selectedBand.id

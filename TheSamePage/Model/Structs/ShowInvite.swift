@@ -12,9 +12,9 @@ import Foundation
 struct ShowInvite: UserNotification {
     var id: String
     var recipientFcmToken: String?
-    var senderFcmToken: String?
     var sentTimestamp: Double
     let notificationType: String
+    var senderUid: String
     let recipientUid: String
     let bandName: String
     var bandId: String
@@ -32,9 +32,9 @@ struct ShowInvite: UserNotification {
     static let example = ShowInvite(
         id: "a;slkdfja;lsdjf",
         recipientFcmToken: "a;lskdfa;sklfj",
-        senderFcmToken: "ertupwqeritnb",
         sentTimestamp: 123232,
         notificationType: NotificationType.showInvite.rawValue,
+        senderUid: "a;skldjfa;sldjf",
         recipientUid: ";askldjf;alskdjf",
         bandName: "Pathetic Fallacy",
         bandId: "a;lsdkjfa;lsdjf",

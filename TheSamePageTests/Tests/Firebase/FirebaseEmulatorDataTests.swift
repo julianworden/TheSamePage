@@ -351,11 +351,12 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(bandInviteInEmulator.id, bandInviteInTestingConstants.id)
         XCTAssertEqual(bandInviteInEmulator.sentTimestamp, bandInviteInTestingConstants.sentTimestamp)
         XCTAssertEqual(bandInviteInEmulator.notificationType, bandInviteInTestingConstants.notificationType)
-        XCTAssertEqual(bandInviteInEmulator.recipientUid, TestingConstants.exampleUserTas.id)
+        XCTAssertEqual(bandInviteInEmulator.recipientUid, bandInviteInTestingConstants.recipientUid)
         XCTAssertEqual(bandInviteInEmulator.recipientRole, bandInviteInTestingConstants.recipientRole)
-        XCTAssertEqual(bandInviteInEmulator.bandId, TestingConstants.exampleBandPatheticFallacy.id)
-        XCTAssertEqual(bandInviteInEmulator.senderUsername, TestingConstants.exampleUserJulian.username)
-        XCTAssertEqual(bandInviteInEmulator.senderBand, TestingConstants.exampleBandPatheticFallacy.name)
+        XCTAssertEqual(bandInviteInEmulator.bandId, bandInviteInTestingConstants.bandId)
+        XCTAssertEqual(bandInviteInEmulator.senderUsername, bandInviteInTestingConstants.senderUsername)
+        XCTAssertEqual(bandInviteInEmulator.senderBand, bandInviteInTestingConstants.senderBand)
+        XCTAssertEqual(bandInviteInEmulator.senderUid, bandInviteInTestingConstants.senderUid)
         XCTAssertEqual(
             bandInviteInEmulator.message,
             "\(TestingConstants.exampleUserJulian.username) is inviting you to join \(TestingConstants.exampleBandPatheticFallacy.name)"
@@ -382,8 +383,8 @@ final class FirebaseEmulatorDataTests: XCTestCase {
 
         XCTAssertEqual(showApplicationInEmulator.id, showApplicationInTestingConstants.id)
         XCTAssertEqual(showApplicationInEmulator.recipientFcmToken, showApplicationInTestingConstants.recipientFcmToken)
-        XCTAssertEqual(showApplicationInEmulator.senderFcmToken, showApplicationInTestingConstants.senderFcmToken)
         XCTAssertEqual(showApplicationInEmulator.notificationType, showApplicationInTestingConstants.notificationType)
+        XCTAssertEqual(showApplicationInEmulator.senderUid, showApplicationInTestingConstants.senderUid)
         XCTAssertEqual(showApplicationInEmulator.bandName, showApplicationInTestingConstants.bandName)
         XCTAssertEqual(showApplicationInEmulator.message, showApplicationInTestingConstants.message)
         XCTAssertEqual(showApplicationInEmulator.recipientUid, showApplicationInTestingConstants.recipientUid)

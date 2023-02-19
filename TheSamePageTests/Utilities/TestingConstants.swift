@@ -26,8 +26,7 @@ struct TestingConstants {
         firstName: "Julian",
         lastName: "Worden",
         profileImageUrl: "http://127.0.0.1:9199/v0/b/the-same-page-9c69e.appspot.com/o/JMTech%20Profile%20Pic.jpeg?alt=media&token=511ccc65-8205-4d13-9802-74af76e42098",
-        emailAddress: "julianworden@gmail.com",
-        fcmToken: "d8W9wttUlkTmtsGH11Yfud:APA91bHDtKMb7fPEoJHV_ngJ7wICa7xMOQ0JqI_Td8Q2rE4nto50iwUuylZz-PQhdB4yupXBqjDWxV3OH0SzJFA6uDZskK4Ziy0cfSdxNoz8sS3doUGu9Iix2jKE4uUSNki5IIX_pwqr"
+        emailAddress: "julianworden@gmail.com"
     )
 
     /// An example user that matches a user being stored in Firestore Emulator
@@ -317,6 +316,7 @@ struct TestingConstants {
         recipientUsername: exampleUserTas.username,
         sentTimestamp: 1673073450,
         notificationType: NotificationType.bandInvite.rawValue,
+        senderUid: exampleUserJulian.id,
         recipientUid: exampleUserTas.id,
         recipientRole: "Drums",
         bandId: exampleBandPatheticFallacy.id,
@@ -330,6 +330,7 @@ struct TestingConstants {
         recipientUsername: exampleUserMattForIntegrationTesting.username,
         sentTimestamp: 1673073450,
         notificationType: NotificationType.bandInvite.rawValue,
+        senderUid: exampleUserJulian.id,
         recipientUid: exampleUserMattForIntegrationTesting.id,
         recipientRole: "Bass Guitar",
         bandId: exampleBandPatheticFallacy.id,
@@ -344,6 +345,7 @@ struct TestingConstants {
         id: "",
         sentTimestamp: 1673565412,
         notificationType: NotificationType.showInvite.rawValue,
+        senderUid: exampleUserJulian.id,
         recipientUid: exampleUserMike.id,
         bandName: "Generation Underground",
         bandId: "",
@@ -364,11 +366,11 @@ struct TestingConstants {
     static let exampleShowApplicationForDumpweedExtravaganza = ShowApplication(
         id: "LHN7T2KCPTS8utVIHlXF",
         recipientFcmToken: nil,
-        senderFcmToken: nil,
         sentTimestamp: 167604400436.8428,
         bandName: exampleBandTheApples.name,
         message: "\(exampleBandTheApples.name) wants to play \(exampleShowDumpweedExtravaganza.name).",
         recipientUid: exampleUserJulian.id,
+        senderUid: exampleUserCraig.id,
         showId: exampleShowDumpweedExtravaganza.id,
         showName: exampleShowDumpweedExtravaganza.name,
         bandId: exampleBandTheApples.id

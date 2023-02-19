@@ -13,9 +13,9 @@ struct BandInvite: UserNotification {
     var id: String
     var recipientFcmToken: String?
     var recipientUsername: String
-    var senderFcmToken: String?
     let sentTimestamp: Double
     let notificationType: String
+    var senderUid: String
     var recipientUid: String
     let recipientRole: String
     let bandId: String
@@ -27,9 +27,9 @@ struct BandInvite: UserNotification {
         id: "aowiefawpoefijaw;ef",
         recipientFcmToken: "a;lskdfa;sklfj",
         recipientUsername: "julianworden",
-        senderFcmToken: "qweryqwouieh",
         sentTimestamp: Date.now.timeIntervalSince1970,
         notificationType: NotificationType.bandInvite.rawValue,
+        senderUid: ";aslkdfja;sldjf",
         recipientUid: "as;ldkfjapwoiefhaw;jgr",
         recipientRole: "Guitar",
         bandId: "aposiefjawpefhaw;jgn",

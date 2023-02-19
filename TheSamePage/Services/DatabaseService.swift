@@ -1221,10 +1221,22 @@ class DatabaseService: NSObject {
             .document(show.id)
             .updateData([FbConstants.participantUids: FieldValue.arrayRemove(showParticipantAsBand.memberUids)])
 
+        if !showParticipantAsBand.memberUids.contains(showParticipantAsBand.adminUid) {
+            try await db
+                .collection(FbConstants.shows)
+                .document(show.id)
+                .updateData([FbConstants.participantUids: FieldValue.arrayRemove([showParticipantAsBand.adminUid])])
+        }
+
         if let showChat = try await getChat(withShowId: show.id) {
             for uid in showParticipantAsBand.memberUids {
                 let bandMemberAsUser = try await getUser(withUid: uid)
                 try await removeUserFromChat(user: bandMemberAsUser, chat: showChat)
+            }
+
+            if !showParticipantAsBand.memberUids.contains(showParticipantAsBand.adminUid) {
+                let bandAdminAsUser = try await getUser(withUid: showParticipantAsBand.adminUid)
+                try await removeUserFromChat(user: bandAdminAsUser, chat: showChat)
             }
         }
     }

@@ -11,11 +11,11 @@ import Foundation
 struct ShowApplication: UserNotification {
     var id: String
     var recipientFcmToken: String?
-    var senderFcmToken: String?
     let sentTimestamp: Double
     let notificationType: String
     let bandName: String
     let message: String
+    var senderUid: String
     let recipientUid: String
     let showId: String
     let showName: String
@@ -24,19 +24,18 @@ struct ShowApplication: UserNotification {
     init(
         id: String,
         recipientFcmToken: String?,
-        senderFcmToken: String?,
         sentTimestamp: Double,
         notificationType: String = NotificationType.showApplication.rawValue,
         bandName: String,
         message: String,
         recipientUid: String,
+        senderUid: String,
         showId: String,
         showName: String,
         bandId: String
     ) {
         self.id = id
         self.recipientFcmToken = recipientFcmToken
-        self.senderFcmToken = senderFcmToken
         self.sentTimestamp = sentTimestamp
         self.notificationType = notificationType
         self.bandName = bandName
@@ -45,6 +44,7 @@ struct ShowApplication: UserNotification {
         self.showId = showId
         self.showName = showName
         self.bandId = bandId
+        self.senderUid = senderUid
     }
 
     var acceptanceMessage: String {

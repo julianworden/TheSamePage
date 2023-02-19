@@ -64,15 +64,14 @@ final class SendShowInviteViewModel: ObservableObject {
             
         do {
             let senderUsername = try await AuthController.getLoggedInUsername()
-            let senderFcmToken = try await AuthController.getLoggedInFcmToken()
             let recipientFcmToken = try await DatabaseService.shared.getFcmToken(forUserWithUid: band.adminUid)
 
             let showInvite = ShowInvite(
                 id: "",
                 recipientFcmToken: recipientFcmToken,
-                senderFcmToken: senderFcmToken,
                 sentTimestamp: Date.now.timeIntervalSince1970,
                 notificationType: NotificationType.showInvite.rawValue,
+                senderUid: AuthController.getLoggedInUid(),
                 recipientUid: band.adminUid,
                 bandName: band.name,
                 bandId: band.id,

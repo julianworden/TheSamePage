@@ -88,31 +88,34 @@ final class NotificationsViewModel: ObservableObject {
 
             if let bandInvite = anyUserNotification.notification as? BandInvite {
                 try await acceptBandInvite(bandInvite: bandInvite)
-                if let senderFcmToken = bandInvite.senderFcmToken {
+                if let senderFcmToken = try await DatabaseService.shared.getFcmToken(forUserWithUid: bandInvite.senderUid) {
                     try await FirebaseFunctionsController.notifyAcceptedBandInvite(
                         recipientFcmToken: senderFcmToken,
                         message: bandInvite.acceptanceMessage,
                         bandId: bandInvite.bandId
                     )
                 }
+                return
             } else if let showInvite = anyUserNotification.notification as? ShowInvite {
                 try await acceptShowInvite(showInvite: showInvite)
-                if let senderFcmToke = showInvite.senderFcmToken {
+                if let senderFcmToken = try await DatabaseService.shared.getFcmToken(forUserWithUid: showInvite.senderUid) {
                     try await FirebaseFunctionsController.notifyAcceptedShowInvite(
-                        recipientFcmToken: senderFcmToke,
+                        recipientFcmToken: senderFcmToken,
                         message: showInvite.acceptanceMessage,
                         showId: showInvite.showId
                     )
                 }
+                return
             } else if let showApplication = anyUserNotification.notification as? ShowApplication {
                 try await acceptShowApplication(showApplication: showApplication)
-                if let senderFcmToken = showApplication.senderFcmToken {
+                if let senderFcmToken = try await DatabaseService.shared.getFcmToken(forUserWithUid: showApplication.senderUid) {
                     try await FirebaseFunctionsController.notifyAcceptedShowApplication(
                         recipientFcmToken: senderFcmToken,
                         message: showApplication.acceptanceMessage,
                         showId: showApplication.showId
                     )
                 }
+                return
             }
         } catch {
             viewState = .error(message: error.localizedDescription)
