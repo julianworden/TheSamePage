@@ -70,6 +70,11 @@ final class SendBandInviteViewModel: ObservableObject {
             return nil
         }
 
+        guard !selectedBand.memberUids.contains(user.id) else {
+            viewState = .error(message: "This user is already a member of \(selectedBand.name).")
+            return nil
+        }
+
         do {
             viewState = .performingWork
             let loggedInUser = try await DatabaseService.shared.getLoggedInUser()

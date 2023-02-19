@@ -15,6 +15,7 @@ final class SendBandInviteViewModelTests: XCTestCase {
     var testingDatabaseService: TestingDatabaseService!
     let eric = TestingConstants.exampleUserEric
     let julian = TestingConstants.exampleUserJulian
+    let lou = TestingConstants.exampleUserLou
     let patheticFallacy = TestingConstants.exampleBandPatheticFallacy
     /// Makes it easier to delete an example band invite that's created for testing in tearDown method. Any band invite
     /// that's created in these tests should assign its id property to this property so that it can be deleted
@@ -121,5 +122,15 @@ final class SendBandInviteViewModelTests: XCTestCase {
         XCTAssertEqual(createdBandInvite.senderUsername, julian.username)
         XCTAssertEqual(createdBandInvite.senderBand, patheticFallacy.name)
         XCTAssertEqual(sut.viewState, .workCompleted, "This view state should be assigned if the send was successful")
+    }
+
+    func test_OnSendBandInviteToUserAlreadyInBand_ErrorIsThrown() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
+        sut = SendBandInviteViewModel(user: lou)
+        await sut.getLoggedInUserAdminBands()
+
+        _ = await sut.sendBandInvite()
+
+        XCTAssertEqual(sut.viewState, .error(message: "This user is already a member of \(patheticFallacy.name)."))
     }
 }
