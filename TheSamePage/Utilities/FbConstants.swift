@@ -46,6 +46,7 @@ struct FbConstants {
     static let openNotificationsTab = "openNotificationsTab"
     static let sentTimestamp = "sentTimestamp"
     static let fcmToken = "fcmToken"
+    static let currentViewerUids = "currentViewerUids"
 
     // MARK: - Firebase Functions
     static let recursiveDelete = "recursiveDelete"

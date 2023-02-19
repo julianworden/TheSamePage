@@ -65,6 +65,7 @@ class ConversationViewModel : ObservableObject {
 
         if let chat {
             addChatListener(forChat: chat)
+            await addChatViewer()
         }
     }
 
@@ -155,9 +156,11 @@ class ConversationViewModel : ObservableObject {
             let senderUid = user.id
             let senderFullName = user.fullName
             var recipientFcmTokens = [String]()
+            let upToDateChat = try await DatabaseService.shared.getChat(withId: chat.id)
 
             for uid in chat.participantUidsWithoutLoggedInUser {
-                if let recipientFcmToken = try await DatabaseService.shared.getFcmToken(forUserWithUid: uid) {
+                if !upToDateChat.currentViewerUids.contains(uid),
+                   let recipientFcmToken = try await DatabaseService.shared.getFcmToken(forUserWithUid: uid) {
                     recipientFcmTokens.append(recipientFcmToken)
                 }
             }
@@ -174,6 +177,32 @@ class ConversationViewModel : ObservableObject {
             try DatabaseService.shared.sendChatMessage(chatMessage: newChatMessage, chat: chat)
         } catch {
             // TODO: Figure out why this state isn't being changed when wifi is off
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func addChatViewer() async {
+        guard let chat else {
+            viewState = .error(message: "Something went wrong while fetching this chat's info. Please ensure you have an internet connection, restart The Same Page, and try again.")
+            return
+        }
+
+        do {
+            try await DatabaseService.shared.addUserToCurrentChatViewers(uid: AuthController.getLoggedInUid(), chatId: chat.id)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func removeChatViewer() async {
+        guard let chat else {
+            viewState = .error(message: "Something went wrong while fetching this chat's info. Please ensure you have an internet connection, restart The Same Page, and try again.")
+            return
+        }
+
+        do {
+            try await DatabaseService.shared.removeUserFromCurrentChatViewers(uid: AuthController.getLoggedInUid(), chatId: chat.id)
+        } catch {
             viewState = .error(message: error.localizedDescription)
         }
     }

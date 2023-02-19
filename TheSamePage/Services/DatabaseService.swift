@@ -516,7 +516,7 @@ class DatabaseService: NSObject {
                 }
             }
 
-            for bandDocument in memberBandsAsDocuments {
+            for bandDocument in adminBandsAsDocuments {
                 if let band = try? bandDocument.data(as: Band.self),
                    !allBands.contains(band) {
                     allBands.append(band)
@@ -1616,6 +1616,28 @@ class DatabaseService: NSObject {
                 message: "Failed to fetch chat",
                 systemError: error.localizedDescription
             )
+        }
+    }
+
+    func addUserToCurrentChatViewers(uid: String, chatId: String) async throws {
+        do {
+            try await db
+                .collection(FbConstants.chats)
+                .document(chatId)
+                .updateData([FbConstants.currentViewerUids: FieldValue.arrayUnion([uid])])
+        } catch {
+            throw FirebaseError.connection(message: "Failed to establish up-to-date chat info", systemError: error.localizedDescription)
+        }
+    }
+
+    func removeUserFromCurrentChatViewers(uid: String, chatId: String) async throws {
+        do {
+            try await db
+                .collection(FbConstants.chats)
+                .document(chatId)
+                .updateData([FbConstants.currentViewerUids: FieldValue.arrayRemove([uid])])
+        } catch {
+            throw FirebaseError.connection(message: "Failed to establish up-to-date chat info", systemError: error.localizedDescription)
         }
     }
     

@@ -11,6 +11,7 @@ import SwiftUI
 @MainActor
 class AppOpenedViaNotificationController: ObservableObject {
     @Published var presentViewFromNotification = false
+    @Published var appNotificationTapped = false
     @Published var selectedRootViewTab = 0
 
     var sheetDestination = AppOpenedViaNotificationSheetNavigatorViewDestination.none {
@@ -47,6 +48,7 @@ class AppOpenedViaNotificationController: ObservableObject {
             if let chatId = notification.userInfo?[FbConstants.chatId] as? String {
                 Task { @MainActor in
                     self.sheetDestination = .conversationView(chatId: chatId)
+                    self.appNotificationTapped.toggle()
                 }
             }
         }
@@ -57,8 +59,9 @@ class AppOpenedViaNotificationController: ObservableObject {
             if let openNotificationsTab = notification.userInfo?[FbConstants.openNotificationsTab] as? String {
                 if openNotificationsTab.isTrue {
                     Task { @MainActor in
+                        self.appNotificationTapped.toggle()
+                        self.presentViewFromNotification = false
                         self.selectedRootViewTab = 3
-                        self.presentViewFromNotification = true
                     }
                 }
             }
@@ -70,6 +73,7 @@ class AppOpenedViaNotificationController: ObservableObject {
             if let bandId = notification.userInfo?[FbConstants.bandId] as? String {
                 Task { @MainActor in
                     self.sheetDestination = .bandProfileView(bandId: bandId)
+                    self.appNotificationTapped.toggle()
                 }
             }
         }
@@ -80,6 +84,7 @@ class AppOpenedViaNotificationController: ObservableObject {
             if let showId = notification.userInfo?[FbConstants.showId] as? String {
                 Task { @MainActor in
                     self.sheetDestination = .showDetailsView(showId: showId)
+                    self.appNotificationTapped.toggle()
                 }
             }
         }

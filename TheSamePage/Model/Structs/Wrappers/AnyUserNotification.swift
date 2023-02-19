@@ -32,11 +32,11 @@ struct AnyUserNotification: Identifiable {
     var iconName: String {
         switch notificationType {
         case .bandInvite:
-            return "band"
+            return "person.3"
         case .showInvite:
-            return "stage"
+            return "music.note.house"
         case .showApplication:
-            return "notepad"
+            return "rectangle.and.pencil.and.ellipsis"
         }
     }
 }

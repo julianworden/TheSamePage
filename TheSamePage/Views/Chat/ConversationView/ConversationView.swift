@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ConversationView: View {
     @Environment(\.dismiss) var dismiss
+
+    @EnvironmentObject var appOpenedViaNotificationController: AppOpenedViaNotificationController
         
     @StateObject var viewModel: ConversationViewModel
     
@@ -53,12 +55,32 @@ struct ConversationView: View {
         }
         .onDisappear {
             viewModel.removeChatListener()
+            Task {
+                await viewModel.removeChatViewer()
+            }
         }
         .onChange(of: viewModel.messageText) { messageText in
             if !messageText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 viewModel.sendButtonIsDisabled = false
             } else {
                 viewModel.sendButtonIsDisabled = true
+            }
+        }
+        .onForeground {
+            Task {
+                await viewModel.addChatViewer()
+            }
+        }
+        .onBackground {
+            Task {
+                await viewModel.removeChatViewer()
+            }
+        }
+        .onChange(of: appOpenedViaNotificationController.presentViewFromNotification) { presentViewFromNotification in
+            if !presentViewFromNotification {
+                Task {
+                    await viewModel.removeChatViewer()
+                }
             }
         }
     }

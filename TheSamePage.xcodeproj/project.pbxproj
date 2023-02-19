@@ -89,6 +89,7 @@
 		AB36FF8F28D35E8C00AAC00C /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF8E28D35E8C00AAC00C /* Genre.swift */; };
 		AB36FF9428D361A100AAC00C /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF9328D361A100AAC00C /* DatabaseService.swift */; };
 		AB36FF9828D36A6600AAC00C /* SectionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB36FF9728D36A6600AAC00C /* SectionTitle.swift */; };
+		AB376CE429A2E215004C8E84 /* View+scenePhaseChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB376CE329A2E215004C8E84 /* View+scenePhaseChanges.swift */; };
 		AB37EBB2290966C90029588C /* FindShowsListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB37EBB1290966C90029588C /* FindShowsListRow.swift */; };
 		AB389FD32986DF10000C798C /* CreateUsernameViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB389FD22986DF10000C798C /* CreateUsernameViewModelTests.swift */; };
 		AB38E1B128FB21CB006D1788 /* AddEditShowAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB38E1B028FB21CB006D1788 /* AddEditShowAddressView.swift */; };
@@ -388,6 +389,7 @@
 		AB36FF8E28D35E8C00AAC00C /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		AB36FF9328D361A100AAC00C /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		AB36FF9728D36A6600AAC00C /* SectionTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTitle.swift; sourceTree = "<group>"; };
+		AB376CE329A2E215004C8E84 /* View+scenePhaseChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+scenePhaseChanges.swift"; sourceTree = "<group>"; };
 		AB37EBB1290966C90029588C /* FindShowsListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindShowsListRow.swift; sourceTree = "<group>"; };
 		AB389FD22986DF10000C798C /* CreateUsernameViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUsernameViewModelTests.swift; sourceTree = "<group>"; };
 		AB38E1B028FB21CB006D1788 /* AddEditShowAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowAddressView.swift; sourceTree = "<group>"; };
@@ -1087,6 +1089,7 @@
 			isa = PBXGroup;
 			children = (
 				ABFBA72029154F97006B1751 /* View+cornerRadius().swift */,
+				AB376CE329A2E215004C8E84 /* View+scenePhaseChanges.swift */,
 				ABF0BF6E299988490022B046 /* View+eraseToAnyView.swift */,
 				ABA42BC2292D176600ADE3AD /* Notification.Name+CustomNotifications.swift */,
 				AB38E1B228FB2422006D1788 /* CLPlacemark+formattedAddress.swift */,
@@ -1771,6 +1774,7 @@
 				ABBBC15929880D37005AF468 /* LeadingBandsAndShowsList.swift in Sources */,
 				AB5E490829003F8D0076EABE /* AddBacklineViewModel.swift in Sources */,
 				ABB93F3828F0732D0055659B /* AsyncButton.swift in Sources */,
+				AB376CE429A2E215004C8E84 /* View+scenePhaseChanges.swift in Sources */,
 				ABF8B81928FC43C400608657 /* CustomMapAnnotation.swift in Sources */,
 				ABE3EFA628D91960002EEF23 /* SignUpView.swift in Sources */,
 				AB668EB2291BF31D007899A9 /* OtherUserProfileHeader.swift in Sources */,

@@ -24,7 +24,7 @@ struct TheSamePageApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if !appOpenedViaNotificationController.presentViewFromNotification {
+            if !appOpenedViaNotificationController.appNotificationTapped {
                 RootView(appOpenedViaNotificationController: appOpenedViaNotificationController)
                     .fullScreenCover(isPresented: $appOpenedViaNotificationController.presentViewFromNotification) {
                         NavigationStack {
@@ -34,6 +34,7 @@ struct TheSamePageApp: App {
                     }
                     .environmentObject(loggedInUserController)
                     .environmentObject(networkController)
+                    .environmentObject(appOpenedViaNotificationController)
                     .onOpenURL { url in
                         print("App opened via Dynamic Link.")
 
@@ -65,6 +66,7 @@ struct TheSamePageApp: App {
                     }
                     .environmentObject(loggedInUserController)
                     .environmentObject(networkController)
+                    .environmentObject(appOpenedViaNotificationController)
                     .onOpenURL { url in
                         print("App opened via Dynamic Link.")
 

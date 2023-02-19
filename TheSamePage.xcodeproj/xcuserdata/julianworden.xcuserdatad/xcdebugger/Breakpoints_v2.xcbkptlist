@@ -83,7 +83,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "05446B9D-1E03-4CF0-912C-07FD2D530780 - f605de3b6e9bf493"
+                  uuid = "05446B9D-1E03-4CF0-912C-07FD2D530780 - f605de3b6e9bf417"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -93,12 +93,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "100"
-                  endingLineNumber = "100"
+                  startingLineNumber = "104"
+                  endingLineNumber = "104"
                   offsetFromSymbolStart = "2660">
                </Location>
                <Location
-                  uuid = "05446B9D-1E03-4CF0-912C-07FD2D530780 - 407ef0f88ff34b83"
+                  uuid = "05446B9D-1E03-4CF0-912C-07FD2D530780 - 407ef0f88ff34b07"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -108,12 +108,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "100"
-                  endingLineNumber = "100"
+                  startingLineNumber = "104"
+                  endingLineNumber = "104"
                   offsetFromSymbolStart = "40">
                </Location>
                <Location
-                  uuid = "05446B9D-1E03-4CF0-912C-07FD2D530780 - 9ec7a04aefe8574"
+                  uuid = "05446B9D-1E03-4CF0-912C-07FD2D530780 - 9ec7a04aefe8408"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -123,12 +123,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "99"
-                  endingLineNumber = "99"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
                   offsetFromSymbolStart = "56">
                </Location>
                <Location
-                  uuid = "05446B9D-1E03-4CF0-912C-07FD2D530780 - 9ec7a04aefe84ab"
+                  uuid = "05446B9D-1E03-4CF0-912C-07FD2D530780 - 9ec7a04aefe842f"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -138,12 +138,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "100"
-                  endingLineNumber = "100"
+                  startingLineNumber = "104"
+                  endingLineNumber = "104"
                   offsetFromSymbolStart = "64">
                </Location>
                <Location
-                  uuid = "05446B9D-1E03-4CF0-912C-07FD2D530780 - db6d19be23c21cb0"
+                  uuid = "05446B9D-1E03-4CF0-912C-07FD2D530780 - db6d19be23c21dcc"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -153,12 +153,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "99"
-                  endingLineNumber = "99"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
                   offsetFromSymbolStart = "80">
                </Location>
                <Location
-                  uuid = "05446B9D-1E03-4CF0-912C-07FD2D530780 - db6d19be23c21d6f"
+                  uuid = "05446B9D-1E03-4CF0-912C-07FD2D530780 - db6d19be23c21deb"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -168,8 +168,8 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "100"
-                  endingLineNumber = "100"
+                  startingLineNumber = "104"
+                  endingLineNumber = "104"
                   offsetFromSymbolStart = "184">
                </Location>
             </Locations>
@@ -191,7 +191,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - 9ec7a04aefe84ca"
+                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - 9ec7a04aefe844e"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -201,12 +201,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
                   offsetFromSymbolStart = "80">
                </Location>
                <Location
-                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - db879233c2f18f29"
+                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - db879233c2f18fad"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -216,12 +216,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
                   offsetFromSymbolStart = "44">
                </Location>
                <Location
-                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - 23aa173d7157ed8a"
+                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - 23aa173d7157ecf6"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -231,12 +231,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "99"
-                  endingLineNumber = "99"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
                   offsetFromSymbolStart = "88">
                </Location>
                <Location
-                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - 23aa173d7157ec34"
+                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - 23aa173d7157ecb0"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -246,12 +246,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
                   offsetFromSymbolStart = "112">
                </Location>
                <Location
-                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - 23aa173d7157ec34"
+                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - 23aa173d7157ecb0"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -261,12 +261,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
                   offsetFromSymbolStart = "220">
                </Location>
                <Location
-                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - 724c4a302a48c632"
+                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - 724c4a302a48c6b6"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -276,12 +276,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
                   offsetFromSymbolStart = "60">
                </Location>
                <Location
-                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - 72626f3440bde1b1"
+                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - 72626f3440bde0cd"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -291,12 +291,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "99"
-                  endingLineNumber = "99"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
                   offsetFromSymbolStart = "84">
                </Location>
                <Location
-                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - 72626f3440bde00f"
+                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - 72626f3440bde08b"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -306,12 +306,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
                   offsetFromSymbolStart = "196">
                </Location>
                <Location
-                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - ed177c4de437770c"
+                  uuid = "BC524AFF-C54D-458F-82F9-8CC4915EC3A2 - ed177c4de4377788"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -321,8 +321,8 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
                   offsetFromSymbolStart = "92">
                </Location>
             </Locations>
@@ -344,7 +344,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "4213761A-9909-4123-89F2-4E359F9773D5 - 23aa173d7157ec17"
+                  uuid = "4213761A-9909-4123-89F2-4E359F9773D5 - 23aa173d7157ec93"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -354,12 +354,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "102"
-                  endingLineNumber = "102"
+                  startingLineNumber = "106"
+                  endingLineNumber = "106"
                   offsetFromSymbolStart = "288">
                </Location>
                <Location
-                  uuid = "4213761A-9909-4123-89F2-4E359F9773D5 - b637c27a21ac904"
+                  uuid = "4213761A-9909-4123-89F2-4E359F9773D5 - b637c27a21ac980"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -369,12 +369,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "102"
-                  endingLineNumber = "102"
+                  startingLineNumber = "106"
+                  endingLineNumber = "106"
                   offsetFromSymbolStart = "40">
                </Location>
                <Location
-                  uuid = "4213761A-9909-4123-89F2-4E359F9773D5 - 724c4a302a48c632"
+                  uuid = "4213761A-9909-4123-89F2-4E359F9773D5 - 724c4a302a48c6b6"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -384,12 +384,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
                   offsetFromSymbolStart = "60">
                </Location>
                <Location
-                  uuid = "4213761A-9909-4123-89F2-4E359F9773D5 - 724c4a302a48c611"
+                  uuid = "4213761A-9909-4123-89F2-4E359F9773D5 - 724c4a302a48c695"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -399,12 +399,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "102"
-                  endingLineNumber = "102"
+                  startingLineNumber = "106"
+                  endingLineNumber = "106"
                   offsetFromSymbolStart = "84">
                </Location>
                <Location
-                  uuid = "4213761A-9909-4123-89F2-4E359F9773D5 - ed177c4de437770c"
+                  uuid = "4213761A-9909-4123-89F2-4E359F9773D5 - ed177c4de4377788"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -414,12 +414,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
                   offsetFromSymbolStart = "92">
                </Location>
                <Location
-                  uuid = "4213761A-9909-4123-89F2-4E359F9773D5 - ed177c4de437772f"
+                  uuid = "4213761A-9909-4123-89F2-4E359F9773D5 - ed177c4de43777ab"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -429,8 +429,8 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "102"
-                  endingLineNumber = "102"
+                  startingLineNumber = "106"
+                  endingLineNumber = "106"
                   offsetFromSymbolStart = "212">
                </Location>
             </Locations>
@@ -530,7 +530,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - 66a2c397b1ddc7a6"
+                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - 66a2c397b1ddc42a"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -540,12 +540,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "121"
-                  endingLineNumber = "121"
+                  startingLineNumber = "125"
+                  endingLineNumber = "125"
                   offsetFromSymbolStart = "160">
                </Location>
                <Location
-                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - 1e57d12dd55752a7"
+                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - 1e57d12dd557512b"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -555,12 +555,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "121"
-                  endingLineNumber = "121"
+                  startingLineNumber = "125"
+                  endingLineNumber = "125"
                   offsetFromSymbolStart = "344">
                </Location>
                <Location
-                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - 894b26ab6ad13da4"
+                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - 894b26ab6ad13e28"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -570,12 +570,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "121"
-                  endingLineNumber = "121"
+                  startingLineNumber = "125"
+                  endingLineNumber = "125"
                   offsetFromSymbolStart = "372">
                </Location>
                <Location
-                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - 207834208e4888a5"
+                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - 207834208e488b29"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -585,12 +585,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "121"
-                  endingLineNumber = "121"
+                  startingLineNumber = "125"
+                  endingLineNumber = "125"
                   offsetFromSymbolStart = "404">
                </Location>
                <Location
-                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - db6d19be23c21b9a"
+                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - db6d19be23c21816"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -600,12 +600,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "121"
-                  endingLineNumber = "121"
+                  startingLineNumber = "125"
+                  endingLineNumber = "125"
                   offsetFromSymbolStart = "376">
                </Location>
                <Location
-                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - 72626f3440bde69b"
+                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - 72626f3440bde517"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -615,12 +615,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "121"
-                  endingLineNumber = "121"
+                  startingLineNumber = "125"
+                  endingLineNumber = "125"
                   offsetFromSymbolStart = "408">
                </Location>
                <Location
-                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - ed177c4de4377198"
+                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - ed177c4de4377214"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -630,12 +630,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "121"
-                  endingLineNumber = "121"
+                  startingLineNumber = "125"
+                  endingLineNumber = "125"
                   offsetFromSymbolStart = "436">
                </Location>
                <Location
-                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - 840441cb39aedc99"
+                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - 840441cb39aedf15"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -645,12 +645,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "121"
-                  endingLineNumber = "121"
+                  startingLineNumber = "125"
+                  endingLineNumber = "125"
                   offsetFromSymbolStart = "328">
                </Location>
                <Location
-                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - f08277fd9bf77ba1"
+                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - f08277fd9bf7782d"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -660,12 +660,12 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "121"
-                  endingLineNumber = "121"
+                  startingLineNumber = "125"
+                  endingLineNumber = "125"
                   offsetFromSymbolStart = "356">
                </Location>
                <Location
-                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - 6bb7457b3f6ec6a6"
+                  uuid = "D75021C1-D467-49A7-BE07-055B796B4CC4 - 6bb7457b3f6ec52a"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -675,11 +675,27 @@
                   urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/NotificationsView/NotificationsViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "121"
-                  endingLineNumber = "121"
+                  startingLineNumber = "125"
+                  endingLineNumber = "125"
                   offsetFromSymbolStart = "388">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "45C2BF59-58C9-4895-A365-F08E0AF3D064"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Controllers/AppOpenedViaNotificationController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "addAppOpenedViaNewInviteOrApplicationNotificationObserver()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
