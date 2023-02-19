@@ -20,7 +20,7 @@ struct NotificationRow: View {
                 subtitle: anyUserNotification.notification.message,
                 secondaryText: anyUserNotification.notification.sentTimestamp.unixDateAsDate.timeOmittedNumericDate,
                 iconName: anyUserNotification.iconName,
-                iconIsSfSymbol: true
+                iconIsSfSymbol: false
             )
 
             HStack {

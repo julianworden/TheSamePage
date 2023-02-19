@@ -23,8 +23,8 @@ struct FindShowsView: View {
                     FindShowList(viewModel: viewModel)
                     
                 case .dataNotFound:
-                    Text(viewModel.noDataFoundText)
-                        .multilineTextAlignment(.center)
+                    NoDataFoundMessage(message: viewModel.noDataFoundText)
+                        .padding(.horizontal)
 
                 default:
                     ErrorMessage(message: ErrorMessageConstants.invalidViewState)

@@ -14,17 +14,14 @@ struct NotificationsView: View {
         NavigationStack {
             ZStack {
                 BackgroundColor()
-                
+
                 VStack {
                     switch viewModel.viewState {
                     case .dataLoading:
                         ProgressView()
                         
-                    case .dataLoaded, .performingWork, .workCompleted, .error:
+                    case .dataLoaded, .dataNotFound, .performingWork, .workCompleted, .error:
                         NotificationsList(viewModel: viewModel)
-                        
-                    case .dataNotFound:
-                        NoDataFoundMessage(message: "You do not have any pending notifications.")
                         
                     default:
                         ErrorMessage(message: "Unknown viewState")

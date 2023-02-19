@@ -24,16 +24,79 @@ struct TheSamePageApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView(appOpenedViaNotificationController: appOpenedViaNotificationController)
-                .environmentObject(loggedInUserController)
-                .environmentObject(networkController)
-                .fullScreenCover(isPresented: $appOpenedViaNotificationController.presentSheet) {
-                    NavigationStack {
-                        appOpenedViaNotificationController.sheetView()
-                            .environmentObject(loggedInUserController)
+            if !appOpenedViaNotificationController.presentViewFromNotification {
+                RootView(appOpenedViaNotificationController: appOpenedViaNotificationController)
+                    .fullScreenCover(isPresented: $appOpenedViaNotificationController.presentViewFromNotification) {
+                        NavigationStack {
+                            appOpenedViaNotificationController.sheetView()
+                                .environmentObject(loggedInUserController)
+                        }
                     }
-                }
+                    .environmentObject(loggedInUserController)
+                    .environmentObject(networkController)
+                    .onOpenURL { url in
+                        print("App opened via Dynamic Link.")
+
+                        print("Incoming URL at app startup is \(url)")
+                        let linkHandled = DynamicLinks.dynamicLinks().handleUniversalLink(url) { dynamicLink, error in
+                            guard error == nil else {
+                                print("Error: \(error!.localizedDescription)")
+                                return
+                            }
+
+                            if let dynamicLink {
+                                self.handleIncomingDynamicLink(dynamicLink)
+                            }
+                        }
+                    }
+                    .onAppear {
+                        if appOpenedViaNotificationController.presentViewFromNotification == true {
+                            appOpenedViaNotificationController.presentViewFromNotification = false
+                            appOpenedViaNotificationController.presentViewFromNotification = true
+                        }
+                    }
+            } else {
+                RootView(appOpenedViaNotificationController: appOpenedViaNotificationController)
+                    .fullScreenCover(isPresented: $appOpenedViaNotificationController.presentViewFromNotification) {
+                        NavigationStack {
+                            appOpenedViaNotificationController.sheetView()
+                                .environmentObject(loggedInUserController)
+                        }
+                    }
+                    .environmentObject(loggedInUserController)
+                    .environmentObject(networkController)
+                    .onOpenURL { url in
+                        print("App opened via Dynamic Link.")
+
+                        print("Incoming URL at app startup is \(url)")
+                        let linkHandled = DynamicLinks.dynamicLinks().handleUniversalLink(url) { dynamicLink, error in
+                            guard error == nil else {
+                                print("Error: \(error!.localizedDescription)")
+                                return
+                            }
+
+                            if let dynamicLink {
+                                self.handleIncomingDynamicLink(dynamicLink)
+                            }
+                        }
+                    }
+                    .onAppear {
+                        if appOpenedViaNotificationController.presentViewFromNotification == true {
+                            appOpenedViaNotificationController.presentViewFromNotification = false
+                            appOpenedViaNotificationController.presentViewFromNotification = true
+                        }
+                    }
+            }
         }
+    }
+
+    func handleIncomingDynamicLink(_ dynamicLink: DynamicLink) {
+        guard let url = dynamicLink.url else {
+            print("Dynamic link was successfully received, but it has no URL.")
+            return
+        }
+
+        print("Incoming link in Dynamic Link's URL property is \(url)")
     }
 }
 
@@ -42,7 +105,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         UITabBar.appearance().backgroundColor = .systemGroupedBackground
         
         FirebaseApp.configure()
-        useFirebaseEmulator()
+//        useFirebaseEmulator()
         FirebaseConfiguration.shared.setLoggerLevel(.min)
         
         Messaging.messaging().delegate = self

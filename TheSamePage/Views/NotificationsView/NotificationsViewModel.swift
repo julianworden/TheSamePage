@@ -75,6 +75,10 @@ final class NotificationsViewModel: ObservableObject {
                 }
         }
     }
+
+    func getUrl() -> URL {
+        return URL(string: ":KLSDJf")!
+    }
     
     func handleNotification(anyUserNotification: AnyUserNotification, withAction action: NotificationAction) async {
         do {

@@ -10,12 +10,12 @@ import SwiftUI
 
 @MainActor
 class AppOpenedViaNotificationController: ObservableObject {
-    @Published var presentSheet = false
+    @Published var presentViewFromNotification = false
     @Published var selectedRootViewTab = 0
 
     var sheetDestination = AppOpenedViaNotificationSheetNavigatorViewDestination.none {
         didSet {
-            presentSheet.toggle()
+            presentViewFromNotification.toggle()
         }
     }
 
@@ -58,6 +58,7 @@ class AppOpenedViaNotificationController: ObservableObject {
                 if openNotificationsTab.isTrue {
                     Task { @MainActor in
                         self.selectedRootViewTab = 3
+                        self.presentViewFromNotification = true
                     }
                 }
             }

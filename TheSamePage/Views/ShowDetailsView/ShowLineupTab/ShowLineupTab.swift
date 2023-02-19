@@ -60,24 +60,27 @@ struct ShowLineupTab: View {
                         buttonImageName: "envelope",
                         message: viewModel.noShowParticipantsText
                     )
-                    Button {
-                        viewModel.addMyBandToShowSheetIsShowing.toggle()
-                    } label: {
-                        Label("Add My Band", systemImage: "plus")
-                    }
-                    .buttonStyle(.bordered)
-                    .sheet(
-                        isPresented: $viewModel.addMyBandToShowSheetIsShowing,
-                        onDismiss: {
-                            Task {
-                                await viewModel.getLatestShowData()
-                                await viewModel.getShowParticipants()
-                            }
-                        },
-                        content: {
-                            AddMyBandToShowView(show: show)
+
+                    if show.loggedInUserIsShowHost {
+                        Button {
+                            viewModel.addMyBandToShowSheetIsShowing.toggle()
+                        } label: {
+                            Label("Add My Band", systemImage: "plus")
                         }
-                    )
+                        .buttonStyle(.bordered)
+                        .sheet(
+                            isPresented: $viewModel.addMyBandToShowSheetIsShowing,
+                            onDismiss: {
+                                Task {
+                                    await viewModel.getLatestShowData()
+                                    await viewModel.getShowParticipants()
+                                }
+                            },
+                            content: {
+                                AddMyBandToShowView(show: show)
+                            }
+                        )
+                    }
                 }
             }
             .padding(.horizontal)
