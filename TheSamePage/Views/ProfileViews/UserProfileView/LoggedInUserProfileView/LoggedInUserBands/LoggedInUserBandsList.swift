@@ -35,7 +35,6 @@ struct LoggedInUserBandList: View {
                 }
             }
         }
-        .padding(.horizontal)
         .padding(.top, 5)
     }
 }

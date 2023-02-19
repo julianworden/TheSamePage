@@ -13,8 +13,8 @@ struct LoggedInUserProfileView: View {
 
     @State private var errorAlertIsShowing = false
     @State private var errorAlertText = ""
-    @State private var createBandSheetIsShowing = false
     @State private var settingsButtonTapped = false
+    @State private var selectedTab = SelectedUserProfileTab.bands
 
     var body: some View {
         NavigationStack {
@@ -25,41 +25,24 @@ struct LoggedInUserProfileView: View {
                     VStack {
                         LoggedInUserProfileHeader()
 
-                        HStack {
-                            SectionTitle(title: "Member of")
-                        }
-
-                        if !loggedInUserController.playingBands.isEmpty {
-                            LoggedInUserBandList()
-
-                            Button {
-                                createBandSheetIsShowing.toggle()
-                            } label: {
-                                Label("Create Band", systemImage: "plus")
+                        Picker("Select a tab", selection: $selectedTab) {
+                            ForEach(SelectedUserProfileTab.allCases) { tab in
+                                Text(tab.rawValue)
                             }
-                            .buttonStyle(.bordered)
-                        } else if loggedInUserController.playingBands.isEmpty {
-                            NoDataFoundMessageWithButtonView(
-                                isPresentingSheet: $createBandSheetIsShowing,
-                                shouldDisplayButton: true,
-                                buttonText: "Create Band",
-                                buttonImageName: "plus",
-                                message: "You are not a member of any bands"
-                            )
-                            .padding(.top)
+                        }
+                        .pickerStyle(.segmented)
+
+                        switch selectedTab {
+                        case .bands:
+                            LoggedInUserBandsTab()
+                        case .shows:
+                            LoggedInUserShowsTab()
                         }
                     }
-                    .fullScreenCover(
-                        isPresented: $createBandSheetIsShowing,
-                        onDismiss: {
-                            Task {
-                                await loggedInUserController.getLoggedInUserPlayingBands()
-                            }
-                        },
-                        content: {
-                            AddEditBandView(bandToEdit: nil, isPresentedModally: true)
-                        }
-                    )
+                    .padding(.horizontal)
+                }
+                .refreshable {
+                    await loggedInUserController.callOnAppLaunchMethods()
                 }
             }
             .navigationTitle("Your Profile")
@@ -88,7 +71,6 @@ struct LoggedInUserProfileView: View {
                 // Without this, UserSettingsView will still be present after a user
                 // logs out and logs back in and navigates to the Profile tab.
                 settingsButtonTapped = false
-                await loggedInUserController.callOnAppLaunchMethods()
             }
         }
     }

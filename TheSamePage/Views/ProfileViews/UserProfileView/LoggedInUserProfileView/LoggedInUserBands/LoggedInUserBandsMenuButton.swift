@@ -34,7 +34,7 @@ struct LoggedInUserBandMenuButton: View {
                     Button("Yes", role: .destructive) {
                         Task {
                             await loggedInUserController.removeUserFromBand(remove: loggedInUser, from: band)
-                            await loggedInUserController.getLoggedInUserPlayingBands()
+                            await loggedInUserController.getLoggedInUserAllBands()
                             await loggedInUserController.getLoggedInUserInfo()
                         }
                     }

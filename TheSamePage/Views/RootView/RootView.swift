@@ -35,7 +35,7 @@ struct RootView: View {
 
                     MyShowsRootView()
                         .tabItem {
-                            Label("My Shows", systemImage: "music.mic")
+                            Label("My Shows", systemImage: "music.note.house")
                         }
                         .tag(2)
 

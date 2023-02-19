@@ -47,7 +47,7 @@
 		AB1F1746299952CA00C5B711 /* ChatInfoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1F1745299952CA00C5B711 /* ChatInfoViewModelTests.swift */; };
 		AB24876A298C149200BD4528 /* ShowLineupRowMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB248769298C149200BD4528 /* ShowLineupRowMenuButton.swift */; };
 		AB24876C298C188B00BD4528 /* EllipsesMenuIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24876B298C188A00BD4528 /* EllipsesMenuIcon.swift */; };
-		AB24876E298C1C3100BD4528 /* LoggedInUserBandMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24876D298C1C3100BD4528 /* LoggedInUserBandMenuButton.swift */; };
+		AB24876E298C1C3100BD4528 /* LoggedInUserBandsMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24876D298C1C3100BD4528 /* LoggedInUserBandsMenuButton.swift */; };
 		AB24E3A628D7C9B0002B4F2C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24E3A528D7C9B0002B4F2C /* LoginView.swift */; };
 		AB24E3A828D7C9C4002B4F2C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24E3A728D7C9C4002B4F2C /* LoginViewModel.swift */; };
 		AB272F882976FD3D00E74091 /* AddBacklineViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB272F872976FD3D00E74091 /* AddBacklineViewModelTests.swift */; };
@@ -56,6 +56,11 @@
 		AB285B0228F6FE8A00EB5F2B /* ShowTimeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285B0128F6FE8A00EB5F2B /* ShowTimeType.swift */; };
 		AB285B0428F6FF6600EB5F2B /* AddEditShowTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285B0328F6FF6600EB5F2B /* AddEditShowTimeView.swift */; };
 		AB285B0828F7086D00EB5F2B /* AddEditShowTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB285B0728F7086D00EB5F2B /* AddEditShowTimeViewModel.swift */; };
+		AB2A993529A1B0CF00C203BD /* SelectedUserProfileTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2A993429A1B0CF00C203BD /* SelectedUserProfileTab.swift */; };
+		AB2A993829A1B17000C203BD /* LoggedInUserShowList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2A993729A1B17000C203BD /* LoggedInUserShowList.swift */; };
+		AB2A993A29A1B19A00C203BD /* LoggedInUserShowRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2A993929A1B19A00C203BD /* LoggedInUserShowRow.swift */; };
+		AB2A993C29A1B24700C203BD /* LoggedInUserShowsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2A993B29A1B24700C203BD /* LoggedInUserShowsTab.swift */; };
+		AB2A993E29A1B31E00C203BD /* LoggedInUserBandsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2A993D29A1B31E00C203BD /* LoggedInUserBandsTab.swift */; };
 		AB2B867A28D9EE43004601B6 /* MyShowsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867928D9EE43004601B6 /* MyShowsViewModel.swift */; };
 		AB2B867C28D9F444004601B6 /* NoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867B28D9F444004601B6 /* NoImageView.swift */; };
 		AB2B867E28D9F884004601B6 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2B867D28D9F884004601B6 /* ImagePicker.swift */; };
@@ -126,8 +131,8 @@
 		AB657D252971A74600696EF4 /* SignUpViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB657D242971A74600696EF4 /* SignUpViewModelTests.swift */; };
 		AB657D27297233B500696EF4 /* OtherUserProfileViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB657D26297233B500696EF4 /* OtherUserProfileViewModelTests.swift */; };
 		AB66474E292D990B000B817E /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB66474D292D990B000B817E /* NetworkController.swift */; };
-		AB668EAD291BE647007899A9 /* LoggedInUserBandList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB668EAC291BE647007899A9 /* LoggedInUserBandList.swift */; };
-		AB668EAF291BE666007899A9 /* LoggedInUserBandRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB668EAE291BE666007899A9 /* LoggedInUserBandRow.swift */; };
+		AB668EAD291BE647007899A9 /* LoggedInUserBandsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB668EAC291BE647007899A9 /* LoggedInUserBandsList.swift */; };
+		AB668EAF291BE666007899A9 /* LoggedInUserBandsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB668EAE291BE666007899A9 /* LoggedInUserBandsRow.swift */; };
 		AB668EB2291BF31D007899A9 /* OtherUserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB668EB1291BF31D007899A9 /* OtherUserProfileHeader.swift */; };
 		AB668EB4291BF4C3007899A9 /* LoggedInUserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB668EB3291BF4C2007899A9 /* LoggedInUserProfileHeader.swift */; };
 		AB668EB7291C0180007899A9 /* BandAboutTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB668EB6291C0180007899A9 /* BandAboutTab.swift */; };
@@ -340,7 +345,7 @@
 		AB1F1745299952CA00C5B711 /* ChatInfoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoViewModelTests.swift; sourceTree = "<group>"; };
 		AB248769298C149200BD4528 /* ShowLineupRowMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLineupRowMenuButton.swift; sourceTree = "<group>"; };
 		AB24876B298C188A00BD4528 /* EllipsesMenuIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EllipsesMenuIcon.swift; sourceTree = "<group>"; };
-		AB24876D298C1C3100BD4528 /* LoggedInUserBandMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserBandMenuButton.swift; sourceTree = "<group>"; };
+		AB24876D298C1C3100BD4528 /* LoggedInUserBandsMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserBandsMenuButton.swift; sourceTree = "<group>"; };
 		AB24E3A528D7C9B0002B4F2C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		AB24E3A728D7C9C4002B4F2C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		AB272F872976FD3D00E74091 /* AddBacklineViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBacklineViewModelTests.swift; sourceTree = "<group>"; };
@@ -349,6 +354,11 @@
 		AB285B0128F6FE8A00EB5F2B /* ShowTimeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimeType.swift; sourceTree = "<group>"; };
 		AB285B0328F6FF6600EB5F2B /* AddEditShowTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowTimeView.swift; sourceTree = "<group>"; };
 		AB285B0728F7086D00EB5F2B /* AddEditShowTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowTimeViewModel.swift; sourceTree = "<group>"; };
+		AB2A993429A1B0CF00C203BD /* SelectedUserProfileTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedUserProfileTab.swift; sourceTree = "<group>"; };
+		AB2A993729A1B17000C203BD /* LoggedInUserShowList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserShowList.swift; sourceTree = "<group>"; };
+		AB2A993929A1B19A00C203BD /* LoggedInUserShowRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserShowRow.swift; sourceTree = "<group>"; };
+		AB2A993B29A1B24700C203BD /* LoggedInUserShowsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserShowsTab.swift; sourceTree = "<group>"; };
+		AB2A993D29A1B31E00C203BD /* LoggedInUserBandsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserBandsTab.swift; sourceTree = "<group>"; };
 		AB2B867928D9EE43004601B6 /* MyShowsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyShowsViewModel.swift; sourceTree = "<group>"; };
 		AB2B867B28D9F444004601B6 /* NoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoImageView.swift; sourceTree = "<group>"; };
 		AB2B867D28D9F884004601B6 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -419,8 +429,8 @@
 		AB657D242971A74600696EF4 /* SignUpViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModelTests.swift; sourceTree = "<group>"; };
 		AB657D26297233B500696EF4 /* OtherUserProfileViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserProfileViewModelTests.swift; sourceTree = "<group>"; };
 		AB66474D292D990B000B817E /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
-		AB668EAC291BE647007899A9 /* LoggedInUserBandList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserBandList.swift; sourceTree = "<group>"; };
-		AB668EAE291BE666007899A9 /* LoggedInUserBandRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserBandRow.swift; sourceTree = "<group>"; };
+		AB668EAC291BE647007899A9 /* LoggedInUserBandsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserBandsList.swift; sourceTree = "<group>"; };
+		AB668EAE291BE666007899A9 /* LoggedInUserBandsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserBandsRow.swift; sourceTree = "<group>"; };
 		AB668EB1291BF31D007899A9 /* OtherUserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserProfileHeader.swift; sourceTree = "<group>"; };
 		AB668EB3291BF4C2007899A9 /* LoggedInUserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserProfileHeader.swift; sourceTree = "<group>"; };
 		AB668EB6291C0180007899A9 /* BandAboutTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandAboutTab.swift; sourceTree = "<group>"; };
@@ -721,6 +731,16 @@
 			path = ShowTimeTab;
 			sourceTree = "<group>";
 		};
+		AB2A993629A1B16700C203BD /* LoggedInUserShows */ = {
+			isa = PBXGroup;
+			children = (
+				AB2A993B29A1B24700C203BD /* LoggedInUserShowsTab.swift */,
+				AB2A993729A1B17000C203BD /* LoggedInUserShowList.swift */,
+				AB2A993929A1B19A00C203BD /* LoggedInUserShowRow.swift */,
+			);
+			path = LoggedInUserShows;
+			sourceTree = "<group>";
+		};
 		AB2BF26A2919C3A000C65DD8 /* ConversationView */ = {
 			isa = PBXGroup;
 			children = (
@@ -913,6 +933,7 @@
 				AB7F381228EF1B56007741C7 /* NotificationType.swift */,
 				ABD1D17028F30D3200791969 /* ShowType.swift */,
 				AB07295728F4631D0069B268 /* SelectedShowDetailsTab.swift */,
+				AB2A993429A1B0CF00C203BD /* SelectedUserProfileTab.swift */,
 				ABF0DA8F291B111400BD5DD7 /* SelectedBandProfileTab.swift */,
 				AB285B0128F6FE8A00EB5F2B /* ShowTimeType.swift */,
 				ABA1DDCD28F9B2AC00E7A72E /* ViewState.swift */,
@@ -1095,7 +1116,8 @@
 				AB35A8CB28E9CFCF009FB203 /* LoggedInUserProfileView.swift */,
 				AB668EB3291BF4C2007899A9 /* LoggedInUserProfileHeader.swift */,
 				AB9C238C297B59850012BE9F /* LoggedInUserProfileImage.swift */,
-				AB668EB0291BE818007899A9 /* LoggedInUserBandList */,
+				AB2A993629A1B16700C203BD /* LoggedInUserShows */,
+				AB668EB0291BE818007899A9 /* LoggedInUserBands */,
 			);
 			path = LoggedInUserProfileView;
 			sourceTree = "<group>";
@@ -1112,14 +1134,15 @@
 			path = OtherUserProfileView;
 			sourceTree = "<group>";
 		};
-		AB668EB0291BE818007899A9 /* LoggedInUserBandList */ = {
+		AB668EB0291BE818007899A9 /* LoggedInUserBands */ = {
 			isa = PBXGroup;
 			children = (
-				AB668EAC291BE647007899A9 /* LoggedInUserBandList.swift */,
-				AB668EAE291BE666007899A9 /* LoggedInUserBandRow.swift */,
-				AB24876D298C1C3100BD4528 /* LoggedInUserBandMenuButton.swift */,
+				AB2A993D29A1B31E00C203BD /* LoggedInUserBandsTab.swift */,
+				AB668EAC291BE647007899A9 /* LoggedInUserBandsList.swift */,
+				AB668EAE291BE666007899A9 /* LoggedInUserBandsRow.swift */,
+				AB24876D298C1C3100BD4528 /* LoggedInUserBandsMenuButton.swift */,
 			);
-			path = LoggedInUserBandList;
+			path = LoggedInUserBands;
 			sourceTree = "<group>";
 		};
 		AB794E2B28E25902000ABB37 /* SearchView */ = {
@@ -1677,6 +1700,7 @@
 			files = (
 				AB5E48FC29003B950076EABE /* PercussionGearType.swift in Sources */,
 				AB5E48FE29003CA80076EABE /* VocalGear.swift in Sources */,
+				AB2A993E29A1B31E00C203BD /* LoggedInUserBandsTab.swift in Sources */,
 				ABD029B428E8978F00BDF73C /* BandMemberList.swift in Sources */,
 				AB7AC08F298F16D800650BCC /* ShowBacklineRowMenuButton.swift in Sources */,
 				AB1D5E3E29871C9E00E62C29 /* EditUserInfoViewModel.swift in Sources */,
@@ -1688,11 +1712,13 @@
 				AB5C0D3D292B14F40040CE97 /* LogicError.swift in Sources */,
 				ABD1D17128F30D3200791969 /* ShowType.swift in Sources */,
 				AB2B867A28D9EE43004601B6 /* MyShowsViewModel.swift in Sources */,
+				AB2A993A29A1B19A00C203BD /* LoggedInUserShowRow.swift in Sources */,
 				AB38E1B128FB21CB006D1788 /* AddEditShowAddressView.swift in Sources */,
 				ABF1C40A28ECF09F0004A3C1 /* BandSearchResultsList.swift in Sources */,
 				AB2C81612985A4B5001C68BE /* String+usernameFormat.swift in Sources */,
 				AB1ECDEA2993F0860086C32A /* ShowApplication.swift in Sources */,
 				ABE81451299E836100D4B180 /* NoDataFoundConstants.swift in Sources */,
+				AB2A993829A1B17000C203BD /* LoggedInUserShowList.swift in Sources */,
 				AB7F381128EF1AB4007741C7 /* NotificationsList.swift in Sources */,
 				AB092F5A2984B96700264659 /* CreateUsernameViewModel.swift in Sources */,
 				ABF83DD2291A9F03006A06CC /* UiConstants.swift in Sources */,
@@ -1713,6 +1739,7 @@
 				AB5E490629003F870076EABE /* AddBacklineView.swift in Sources */,
 				AB36FF9828D36A6600AAC00C /* SectionTitle.swift in Sources */,
 				AB07295628F454EE0069B268 /* ShowDetailsList.swift in Sources */,
+				AB2A993C29A1B24700C203BD /* LoggedInUserShowsTab.swift in Sources */,
 				AB1D5E342987145000E62C29 /* ReauthenticateView.swift in Sources */,
 				ABDC0D7B28D76FDE0054269E /* AddEditShowView.swift in Sources */,
 				ABA1020728DDE5BE00A4E818 /* NotificationsViewModel.swift in Sources */,
@@ -1833,6 +1860,7 @@
 				ABE3EFA828D919A2002EEF23 /* SignUpViewModel.swift in Sources */,
 				ABD323EF28E1180C00540B93 /* SendBandInviteView.swift in Sources */,
 				AB2BF26F2919C3D500C65DD8 /* ChatInfoViewModel.swift in Sources */,
+				AB2A993529A1B0CF00C203BD /* SelectedUserProfileTab.swift in Sources */,
 				AB132FA82991EDEA0055227C /* AddEditSetTimeView.swift in Sources */,
 				ABBEC0A82921D05600314BE5 /* BandSettingsViewModel.swift in Sources */,
 				ABD18AAD28EE14C1002286C3 /* SendShowInviteView.swift in Sources */,
@@ -1848,7 +1876,7 @@
 				ABA42BC5292D1E3400ADE3AD /* AddEditShowAddressViewModel.swift in Sources */,
 				ABF83DCA291A957E006A06CC /* BandMemberListRow.swift in Sources */,
 				AB36FF8328D35C0600AAC00C /* Show.swift in Sources */,
-				AB668EAD291BE647007899A9 /* LoggedInUserBandList.swift in Sources */,
+				AB668EAD291BE647007899A9 /* LoggedInUserBandsList.swift in Sources */,
 				ABCD5F64291B54D300E33934 /* BandShowsList.swift in Sources */,
 				AB36FF8F28D35E8C00AAC00C /* Genre.swift in Sources */,
 				ABB4C3FF29207CE600E2C153 /* NotificationAction.swift in Sources */,
@@ -1860,7 +1888,7 @@
 				AB1ECDE82993E6BD0086C32A /* SendShowApplicationViewModel.swift in Sources */,
 				AB132FA62991EDE40055227C /* AddEditSetTimeViewModel.swift in Sources */,
 				AB1D5E4129874CAC00E62C29 /* ChangeEmailAddressView.swift in Sources */,
-				AB668EAF291BE666007899A9 /* LoggedInUserBandRow.swift in Sources */,
+				AB668EAF291BE666007899A9 /* LoggedInUserBandsRow.swift in Sources */,
 				AB8326BA2912BB3500208414 /* ChatMessage.swift in Sources */,
 				ABE2FDFE298964DD00D5A951 /* UserSettingsNavigationViewModel.swift in Sources */,
 				ABE2FE0029896BA600D5A951 /* MockBackButton.swift in Sources */,
@@ -1869,7 +1897,7 @@
 				ABF83DD0291A98CB006A06CC /* ListRowElements.swift in Sources */,
 				AB38E1B328FB2422006D1788 /* CLPlacemark+formattedAddress.swift in Sources */,
 				AB285B0828F7086D00EB5F2B /* AddEditShowTimeViewModel.swift in Sources */,
-				AB24876E298C1C3100BD4528 /* LoggedInUserBandMenuButton.swift in Sources */,
+				AB24876E298C1C3100BD4528 /* LoggedInUserBandsMenuButton.swift in Sources */,
 				AB5E48F829003ACF0076EABE /* ElectricGuitarGear.swift in Sources */,
 				AB07296328F468530069B268 /* ShowLocationTab.swift in Sources */,
 				AB36FF8D28D35CDF00AAC00C /* BacklineItem.swift in Sources */,

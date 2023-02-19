@@ -494,6 +494,44 @@ class DatabaseService: NSObject {
         }
     }
 
+    func getAllBands(withUid uid: String) async throws -> [Band] {
+        do {
+            var allBands = [Band]()
+
+            let memberBandsAsDocuments = try await db
+                .collection(FbConstants.bands)
+                .whereField(FbConstants.memberUids, arrayContains: uid)
+                .getDocuments()
+                .documents
+
+            let adminBandsAsDocuments = try await db
+                .collection(FbConstants.bands)
+                .whereField(FbConstants.adminUid, isEqualTo: uid)
+                .getDocuments()
+                .documents
+
+            for bandDocument in memberBandsAsDocuments {
+                if let band = try? bandDocument.data(as: Band.self) {
+                    allBands.append(band)
+                }
+            }
+
+            for bandDocument in memberBandsAsDocuments {
+                if let band = try? bandDocument.data(as: Band.self),
+                   !allBands.contains(band) {
+                    allBands.append(band)
+                }
+            }
+
+            return allBands
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to fetch user band info",
+                systemError: error.localizedDescription
+            )
+        }
+    }
+
     /// Fetches user objects for all of the users listed in the memberUids property of a band.
     /// - Parameter band: The band whose members are being fetched.
     /// - Returns: The users that are playing in the band. Even if the admin of the band
@@ -849,6 +887,44 @@ class DatabaseService: NSObject {
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to fetch latest show data, it's possible this show was cancelled",
+                systemError: error.localizedDescription
+            )
+        }
+    }
+
+    func getAllShows(withUid uid: String) async throws -> [Show] {
+        do {
+            var allShows = [Show]()
+
+            let playingShowsAsDocuments = try await db
+                .collection(FbConstants.shows)
+                .whereField(FbConstants.participantUids, arrayContains: uid)
+                .getDocuments()
+                .documents
+
+            let hostedShowsAsDocuments = try await db
+                .collection(FbConstants.shows)
+                .whereField(FbConstants.hostUid, isEqualTo: uid)
+                .getDocuments()
+                .documents
+
+            for showDocument in playingShowsAsDocuments {
+                if let show = try? showDocument.data(as: Show.self) {
+                    allShows.append(show)
+                }
+            }
+
+            for showDocument in hostedShowsAsDocuments {
+                if let show = try? showDocument.data(as: Show.self),
+                   !allShows.contains(show) {
+                    allShows.append(show)
+                }
+            }
+
+            return allShows
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to fetch user show info",
                 systemError: error.localizedDescription
             )
         }

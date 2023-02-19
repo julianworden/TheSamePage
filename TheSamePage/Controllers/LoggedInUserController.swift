@@ -14,9 +14,10 @@ import UIKit.UIImage
 @MainActor
 class LoggedInUserController: ObservableObject {
     @Published var loggedInUser: User?
-    @Published var playingBands = [Band]()
     @Published var adminBands = [Band]()
     @Published var hostedShows = [Show]()
+    @Published var allShows = [Show]()
+    @Published var allBands = [Band]()
     
     /// The image loaded from the ProfileAsyncImage in LoggedInUserProfileView
     @Published var userImage: Image?
@@ -63,6 +64,10 @@ class LoggedInUserController: ObservableObject {
         return adminBands.isEmpty && hostedShows.isEmpty
     }
 
+    var playingBands: [Band] {
+        return allBands.filter { $0.loggedInUserIsBandMember }
+    }
+
     var upcomingHostedShows: [Show] {
         return hostedShows.filter { !$0.alreadyHappened }
     }
@@ -101,7 +106,8 @@ class LoggedInUserController: ObservableObject {
         guard !AuthController.userIsLoggedOut() else { return }
 
         await getLoggedInUserInfo()
-        await getLoggedInUserPlayingBands()
+        await getLoggedInUserAllBands()
+        await getLoggedInUserAllShows()
     }
 
     func getLoggedInUserInfo() async {
@@ -112,21 +118,31 @@ class LoggedInUserController: ObservableObject {
         }
     }
 
-    func getLoggedInUserPlayingBands() async {
-        guard let loggedInUser else { return }
-
-        do {
-            self.playingBands = try await DatabaseService.shared.getJoinedBands(withUid: loggedInUser.id)
-        } catch {
-            viewState = .error(message: error.localizedDescription)
-        }
-    }
-
     func getLoggedInUserAdminBands() async {
         guard let loggedInUser else { return }
 
         do {
             self.adminBands = try await DatabaseService.shared.getAdminBands(withUid: loggedInUser.id)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func getLoggedInUserAllBands() async {
+        guard let loggedInUser else { return }
+
+        do {
+            self.allBands = try await DatabaseService.shared.getAllBands(withUid: loggedInUser.id)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func getLoggedInUserAllShows() async {
+        guard let loggedInUser else { return }
+
+        do {
+            self.allShows = try await DatabaseService.shared.getAllShows(withUid: loggedInUser.id)
         } catch {
             viewState = .error(message: error.localizedDescription)
         }
@@ -167,7 +183,10 @@ class LoggedInUserController: ObservableObject {
         self.loggedInUser = nil
         self.userImage = nil
         self.updatedImage = nil
-        self.playingBands = []
+        self.allShows = []
+        self.allBands = []
+        self.hostedShows = []
+        self.adminBands = []
 
         do {
             try await DatabaseService.shared.deleteFcmTokenForUser(withUid: AuthController.getLoggedInUid())
