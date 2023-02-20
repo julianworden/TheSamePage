@@ -65,7 +65,10 @@ class ConversationViewModel : ObservableObject {
 
         if let chat {
             addChatListener(forChat: chat)
-            await addChatViewer()
+
+            if !EnvironmentVariableConstants.unitTestsAreRunning {
+                await addChatViewer()
+            }
         }
     }
 

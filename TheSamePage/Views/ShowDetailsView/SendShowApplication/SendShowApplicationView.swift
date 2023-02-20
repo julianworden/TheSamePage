@@ -17,52 +17,50 @@ struct SendShowApplicationView: View {
     }
 
     var body: some View {
-        NavigationStack {
-            Form {
-                if !viewModel.adminBands.isEmpty {
-                    Section {
-                        Picker("Which band wants to play this show?", selection: $viewModel.selectedBand) {
-                            ForEach(viewModel.adminBands) { band in
-                                Text(band.name).tag(band as Band?)
-                            }
+        Form {
+            if !viewModel.adminBands.isEmpty {
+                Section {
+                    Picker("Which band wants to play this show?", selection: $viewModel.selectedBand) {
+                        ForEach(viewModel.adminBands) { band in
+                            Text(band.name).tag(band as Band?)
                         }
-                        .id(viewModel.selectedBand)
                     }
-
-                    Section {
-                        AsyncButton {
-                            await viewModel.sendShowApplication()
-                        } label: {
-                            Text("Submit Show Application")
-                        }
-                        .disabled(viewModel.buttonsAreDisabled)
-                    }
-                } else if viewModel.adminBands.isEmpty {
-                    NoDataFoundMessage(message: ErrorMessageConstants.userIsNotAdminOfAnyBands)
+                    .id(viewModel.selectedBand)
                 }
-            }
-            .navigationTitle("Send Show Application")
-            .navigationBarTitleDisplayMode(.inline)
-            .interactiveDismissDisabled(viewModel.buttonsAreDisabled)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Back", role: .cancel) {
-                        dismiss()
+
+                Section {
+                    AsyncButton {
+                        await viewModel.sendShowApplication()
+                    } label: {
+                        Text("Submit Show Application")
                     }
                     .disabled(viewModel.buttonsAreDisabled)
                 }
+            } else if viewModel.adminBands.isEmpty {
+                NoDataFoundMessage(message: ErrorMessageConstants.userIsNotAdminOfAnyBands)
             }
-            .errorAlert(
-                isPresented: $viewModel.errorAlertIsShowing,
-                message: viewModel.errorAlertText
-            )
-            .task {
-                await viewModel.getLoggedInUserAdminBands()
-            }
-            .onChange(of: viewModel.asyncOperationCompletedSuccessfully) { asyncOperationCompletedSuccessfully in
-                if asyncOperationCompletedSuccessfully {
+        }
+        .navigationTitle("Send Show Application")
+        .navigationBarTitleDisplayMode(.inline)
+        .interactiveDismissDisabled(viewModel.buttonsAreDisabled)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Back", role: .cancel) {
                     dismiss()
                 }
+                .disabled(viewModel.buttonsAreDisabled)
+            }
+        }
+        .errorAlert(
+            isPresented: $viewModel.errorAlertIsShowing,
+            message: viewModel.errorAlertText
+        )
+        .task {
+            await viewModel.getLoggedInUserAdminBands()
+        }
+        .onChange(of: viewModel.asyncOperationCompletedSuccessfully) { asyncOperationCompletedSuccessfully in
+            if asyncOperationCompletedSuccessfully {
+                dismiss()
             }
         }
     }

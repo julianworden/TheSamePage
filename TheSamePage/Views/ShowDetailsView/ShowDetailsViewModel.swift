@@ -5,6 +5,7 @@
 //  Created by Julian Worden on 9/19/22.
 //
 
+import FirebaseDynamicLinks
 import FirebaseFirestore
 import Foundation
 import MapKit
@@ -22,12 +23,9 @@ final class ShowDetailsViewModel: ObservableObject {
     @Published var addBacklineSheetIsShowing = false
     @Published var bandSearchViewIsShowing = false
     @Published var editImageViewIsShowing = false
-    @Published var showApplicationSheetIsShowing = false
     @Published var addMyBandToShowSheetIsShowing = false
     @Published var editImageConfirmationDialogIsShowing = false
     @Published var deleteImageConfirmationAlertIsShowing = false
-    @Published var conversationViewIsShowing = false
-    @Published var showSettingsViewIsShowing = false
     /// Used to trigger AddEditSetTimeView sheet in ShowLineupTab.
     @Published var showParticipantToEdit: ShowParticipant?
     /// Used to trigger AddEditShowTimeView sheet in ShowTimeTab.
@@ -44,6 +42,8 @@ final class ShowDetailsViewModel: ObservableObject {
 
     @Published var errorAlertIsShowing = false
     var errorAlertText = ""
+
+    var shortenedShareLink: URL?
 
     @Published var viewState = ViewState.displayingView {
         didSet {
@@ -157,6 +157,7 @@ final class ShowDetailsViewModel: ObservableObject {
             await getLatestShowData()
             await getShowParticipants()
             await getBacklineItems()
+            await createDynamicLinkForShow()
             viewState = .dataLoaded
         }
     }
@@ -375,6 +376,16 @@ final class ShowDetailsViewModel: ObservableObject {
             viewState = .error(message: error.localizedDescription)
         }
     }
+
+    func createDynamicLinkForShow() async {
+        guard let show else {
+            print("Show object cannot be nil before generating dynamic link for show.")
+            return
+        }
+
+        shortenedShareLink = await DynamicLinkController.shared.createDynamicLinkForShow(show)
+    }
+
     
     func showDirectionsInMaps() {
         guard let show else {

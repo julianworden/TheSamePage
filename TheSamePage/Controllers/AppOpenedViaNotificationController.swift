@@ -20,7 +20,7 @@ class AppOpenedViaNotificationController: ObservableObject {
         addAppOpenedViaNewMessageNotificationObserver()
         addAppOpenedViaNewInviteOrApplicationNotificationObserver()
         addAppOpenedViaAcceptedBandInviteNotificationObserver()
-        addAppOpenedViaAcceptedShowInviteOrApplicationNotificationObserver()
+        addAppOpenedViaShowNotificationOrDynamicLinkNotificationObserver()
     }
 
     func sheetView() -> AnyView {
@@ -77,8 +77,8 @@ class AppOpenedViaNotificationController: ObservableObject {
         }
     }
 
-    func addAppOpenedViaAcceptedShowInviteOrApplicationNotificationObserver() {
-        NotificationCenter.default.addObserver(forName: .appOpenedViaAcceptedShowInviteOrApplicationNotification, object: nil, queue: .main) { notification in
+    func addAppOpenedViaShowNotificationOrDynamicLinkNotificationObserver() {
+        NotificationCenter.default.addObserver(forName: .appOpenedViaShowNotificationOrDynamicLink, object: nil, queue: .main) { notification in
             if let showId = notification.userInfo?[FbConstants.showId] as? String {
                 Task { @MainActor in
                     self.appNotificationTapped.toggle()

@@ -37,9 +37,9 @@ struct TheSamePageApp: App {
                     .environmentObject(appOpenedViaNotificationController)
                     .onOpenURL { url in
                         print("App opened via Dynamic Link.")
-
                         print("Incoming URL at app startup is \(url)")
-                        let linkHandled = DynamicLinks.dynamicLinks().handleUniversalLink(url) { dynamicLink, error in
+                        
+                        DynamicLinks.dynamicLinks().handleUniversalLink(url) { dynamicLink, error in
                             guard error == nil else {
                                 print("Error: \(error!.localizedDescription)")
                                 return
@@ -69,9 +69,9 @@ struct TheSamePageApp: App {
                     .environmentObject(appOpenedViaNotificationController)
                     .onOpenURL { url in
                         print("App opened via Dynamic Link.")
-
                         print("Incoming URL at app startup is \(url)")
-                        let linkHandled = DynamicLinks.dynamicLinks().handleUniversalLink(url) { dynamicLink, error in
+                        
+                        DynamicLinks.dynamicLinks().handleUniversalLink(url) { dynamicLink, error in
                             guard error == nil else {
                                 print("Error: \(error!.localizedDescription)")
                                 return
@@ -99,6 +99,21 @@ struct TheSamePageApp: App {
         }
 
         print("Incoming link in Dynamic Link's URL property is \(url)")
+
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+              let queryItems = components.queryItems else { return }
+
+        if components.path == DynamicLinkConstants.dynamicLinksEndpoint {
+            if let showIdQueryItem = queryItems.first(where: { $0.name == FbConstants.showId }) {
+                guard let showId = showIdQueryItem.value else { return }
+
+                NotificationCenter.default.post(
+                    name: .appOpenedViaShowNotificationOrDynamicLink,
+                    object: nil,
+                    userInfo: [FbConstants.showId: showId]
+                )
+            }
+        }
     }
 }
 
@@ -141,7 +156,7 @@ extension AppDelegate: MessagingDelegate {
     /// The method that delivers the FCM token to the app. It also listens for changes to the
     /// user's FCM token. This callback is fired at each app startup and whenever a new token is generated.
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        guard ProcessInfo.processInfo.environment["testing"] != "true",
+        guard !EnvironmentVariableConstants.unitTestsAreRunning,
               let fcmToken,
               !AuthController.userIsLoggedOut() else {
             return
@@ -188,7 +203,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
         if let showIdForAcceptedBandInviteOrApplication = userInfo[FbConstants.showId] {
             NotificationCenter.default.post(
-                name: .appOpenedViaAcceptedShowInviteOrApplicationNotification,
+                name: .appOpenedViaShowNotificationOrDynamicLink,
                 object: nil,
                 userInfo: [FbConstants.showId: showIdForAcceptedBandInviteOrApplication]
             )

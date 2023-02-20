@@ -10,7 +10,8 @@ import SwiftUI
 struct ShowDetailsView: View {
     @Environment(\.dismiss) var dismiss
 
-    @StateObject var viewModel: ShowDetailsViewModel
+    @StateObject private var viewModel: ShowDetailsViewModel
+    @StateObject private var sheetNavigator = ShowDetailsViewSheetNavigator()
 
     init(show: Show?, showId: String? = nil, isPresentedModally: Bool = false) {
         _viewModel = StateObject(wrappedValue: ShowDetailsViewModel(show: show, showId: showId, isPresentedModally: isPresentedModally))
@@ -63,6 +64,7 @@ struct ShowDetailsView: View {
         }
         .navigationTitle("Show Details")
         .navigationBarTitleDisplayMode(.inline)
+        // Tried putting ToolbarContent in separate view, wouldn't build when Menu was included. Don't know why.
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 if viewModel.isPresentedModally {
@@ -72,56 +74,52 @@ struct ShowDetailsView: View {
                 }
             }
 
-            if viewModel.viewState != .dataDeleted {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    if let show = viewModel.show {
-                        if show.loggedInUserIsInvolvedInShow {
-                            Button {
-                                viewModel.conversationViewIsShowing.toggle()
-                            } label: {
-                                Image(systemName: "bubble.right")
-                            }
-                            .fullScreenCover(isPresented: $viewModel.conversationViewIsShowing) {
-                                NavigationStack {
-                                    ConversationView(
+            if viewModel.viewState != .dataDeleted,
+               let show = viewModel.show {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    if let shortenedShareLink = viewModel.shortenedShareLink {
+                        ShareLink(item: shortenedShareLink) {
+                            Label("Share Show", systemImage: "square.and.arrow.up")
+                        }
+                    }
+
+                    if show.loggedInUserIsNotInvolvedInShow && !show.alreadyHappened {
+                        Button {
+                            sheetNavigator.sheetDestination = .showApplicationView(show: show)
+                        } label: {
+                            Label("Play This Show", systemImage: "pencil.and.ellipsis.rectangle")
+                        }
+                    }
+
+                    if show.loggedInUserIsInvolvedInShow || show.loggedInUserIsShowHost {
+                        Menu {
+                            if show.loggedInUserIsInvolvedInShow {
+                                Button {
+                                    sheetNavigator.sheetDestination = .conversationView(
                                         show: show,
                                         chatParticipantUids: show.participantUids
                                     )
+                                } label: {
+                                    Label("Chat", systemImage: "bubble.right")
                                 }
                             }
-                        } else if show.loggedInUserIsNotInvolvedInShow && !show.alreadyHappened {
-                            Button {
-                                viewModel.showApplicationSheetIsShowing.toggle()
-                            } label: {
-                                Label("Play This Show", systemImage: "pencil.and.ellipsis.rectangle")
-                            }
-                            .sheet(isPresented: $viewModel.showApplicationSheetIsShowing) {
-                                SendShowApplicationView(show: show)
-                            }
-                        }
-                    }
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    if let show = viewModel.show {
-                        if show.loggedInUserIsShowHost {
-                            Button {
-                                viewModel.showSettingsViewIsShowing.toggle()
-                            } label: {
-                                Image(systemName: "gear")
-                            }
-                            .fullScreenCover(
-                                isPresented: $viewModel.showSettingsViewIsShowing,
-                                onDismiss: {
-                                    Task {
-                                        await viewModel.getLatestShowData()
-                                    }
-                                },
-                                content: {
-                                    ShowSettingsView(show: show)
+
+                            if show.loggedInUserIsShowHost {
+                                Button {
+                                    sheetNavigator.sheetDestination = .showSettingsView(show: show)
+                                } label: {
+                                    Label("Settings", systemImage: "gear")
                                 }
-                            )
+                            }
+                        } label: {
+                            EllipsesMenuIcon()
                         }
+                        .fullScreenCover(isPresented: $sheetNavigator.presentSheet) {
+                            NavigationStack {
+                                sheetNavigator.sheetView()
+                            }
+                        }
+
                     }
                 }
             }
@@ -142,11 +140,11 @@ struct ShowDetailsView: View {
 }
 
 
-// TODO: Figure out why this preview crashes
-struct ShowDetailsRootView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            ShowDetailsView(show: Show.example)
+    // TODO: Figure out why this preview crashes
+    struct ShowDetailsRootView_Previews: PreviewProvider {
+        static var previews: some View {
+            NavigationStack {
+                ShowDetailsView(show: Show.example)
+            }
         }
     }
-}
