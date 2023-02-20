@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+// https://stackoverflow.com/questions/62840571/not-receiving-scenephase-changes
 extension View {
     func onBackground(_ completion: @escaping () -> Void) -> some View {
         self.onReceive(
