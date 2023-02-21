@@ -41,7 +41,7 @@ struct OtherUserProfileView: View {
                                 .padding(.top)
                         }
                     }
-                    .navigationTitle(user.username)
+                    .navigationTitle(user.name)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button {

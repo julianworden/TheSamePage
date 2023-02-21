@@ -33,7 +33,7 @@ struct SearchResultRow: View {
             if let user {
                 // TODO: Use the person SF Symbol instead to make the app more consistent with TabView and BandProfileView
                 ListRowElements(
-                    title: user.profileBelongsToLoggedInUser ? "You" : user.username,
+                    title: user.profileBelongsToLoggedInUser ? "You" : user.name,
                     subtitle: user.fullName,
                     iconName: "person",
                     iconIsSfSymbol: true,

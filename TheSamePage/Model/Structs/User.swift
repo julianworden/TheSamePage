@@ -9,9 +9,9 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
 
-struct User: Codable, Equatable, Hashable, Identifiable {
+struct User: Codable, Equatable, Hashable, Identifiable, Shareable {
     var id: String
-    let username: String
+    let name: String
     let firstName: String
     let lastName: String
     var profileImageUrl: String?
@@ -30,7 +30,7 @@ struct User: Codable, Equatable, Hashable, Identifiable {
     
     init(
         id: String,
-        username: String,
+        name: String,
         firstName: String,
         lastName: String,
         profileImageUrl: String? = nil,
@@ -39,7 +39,7 @@ struct User: Codable, Equatable, Hashable, Identifiable {
         fcmToken: String? = nil
     ) {
         self.id = id
-        self.username = username
+        self.name = name
         self.firstName = firstName
         self.lastName = lastName
         self.profileImageUrl = profileImageUrl
@@ -50,7 +50,7 @@ struct User: Codable, Equatable, Hashable, Identifiable {
     
     static let example = User(
         id: "alisuhefawuilfn",
-        username: "julianworden",
+        name: "julianworden",
         firstName: "Julian",
         lastName: "Worden",
         profileImageUrl: nil,

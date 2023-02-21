@@ -104,13 +104,31 @@ struct TheSamePageApp: App {
               let queryItems = components.queryItems else { return }
 
         if components.path == DynamicLinkConstants.dynamicLinksEndpoint {
-            if let showIdQueryItem = queryItems.first(where: { $0.name == FbConstants.showId }) {
-                guard let showId = showIdQueryItem.value else { return }
+            if let showIdQueryItem = queryItems.first(where: { $0.name == FbConstants.showId }),
+               let showId = showIdQueryItem.value {
 
                 NotificationCenter.default.post(
                     name: .appOpenedViaShowNotificationOrDynamicLink,
                     object: nil,
                     userInfo: [FbConstants.showId: showId]
+                )
+
+            } else if let bandIdQueryItem = queryItems.first(where: { $0.name == FbConstants.bandId }),
+                      let bandId = bandIdQueryItem.value {
+
+                NotificationCenter.default.post(
+                    name: .appOpenedViaBandNotificationOrDynamicLink,
+                    object: nil,
+                    userInfo: [FbConstants.bandId: bandId]
+                )
+
+            } else if let uidQueryItem = queryItems.first(where: { $0.name == FbConstants.uid }),
+                      let uid = uidQueryItem.value {
+
+                NotificationCenter.default.post(
+                    name: .appOpenedViaUserDynamicLink,
+                    object: nil,
+                    userInfo: [FbConstants.uid: uid]
                 )
             }
         }
@@ -195,7 +213,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
         if let bandIdForAcceptedBandInvite = userInfo[FbConstants.bandId] {
             NotificationCenter.default.post(
-                name: .appOpenedViaAcceptedBandInviteNotification,
+                name: .appOpenedViaBandNotificationOrDynamicLink,
                 object: nil,
                 userInfo: [FbConstants.bandId: bandIdForAcceptedBandInvite]
             )

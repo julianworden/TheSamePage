@@ -19,8 +19,8 @@ class AppOpenedViaNotificationController: ObservableObject {
     init() {
         addAppOpenedViaNewMessageNotificationObserver()
         addAppOpenedViaNewInviteOrApplicationNotificationObserver()
-        addAppOpenedViaAcceptedBandInviteNotificationObserver()
-        addAppOpenedViaShowNotificationOrDynamicLinkNotificationObserver()
+        addAppOpenedViaBandNotificationOrDynamicLinkObserver()
+        addAppOpenedViaShowNotificationOrDynamicLinkObserver()
     }
 
     func sheetView() -> AnyView {
@@ -33,6 +33,10 @@ class AppOpenedViaNotificationController: ObservableObject {
 
         case .bandProfileView(let bandId):
             return BandProfileView(band: nil, bandId: bandId, isPresentedModally: true).eraseToAnyView()
+
+        case .otherUserProfileView(let uid):
+            #warning("pass uid to view when possible")
+            return OtherUserProfileView(user: nil).eraseToAnyView()
 
         default:
             return Text("Invalid Sheet Destination").eraseToAnyView()
@@ -65,8 +69,8 @@ class AppOpenedViaNotificationController: ObservableObject {
         }
     }
 
-    func addAppOpenedViaAcceptedBandInviteNotificationObserver() {
-        NotificationCenter.default.addObserver(forName: .appOpenedViaAcceptedBandInviteNotification, object: nil, queue: .main) { notification in
+    func addAppOpenedViaBandNotificationOrDynamicLinkObserver() {
+        NotificationCenter.default.addObserver(forName: .appOpenedViaBandNotificationOrDynamicLink, object: nil, queue: .main) { notification in
             if let bandId = notification.userInfo?[FbConstants.bandId] as? String {
                 Task { @MainActor in
                     self.appNotificationTapped.toggle()
@@ -77,12 +81,24 @@ class AppOpenedViaNotificationController: ObservableObject {
         }
     }
 
-    func addAppOpenedViaShowNotificationOrDynamicLinkNotificationObserver() {
+    func addAppOpenedViaShowNotificationOrDynamicLinkObserver() {
         NotificationCenter.default.addObserver(forName: .appOpenedViaShowNotificationOrDynamicLink, object: nil, queue: .main) { notification in
             if let showId = notification.userInfo?[FbConstants.showId] as? String {
                 Task { @MainActor in
                     self.appNotificationTapped.toggle()
                     self.sheetDestination = .showDetailsView(showId: showId)
+                    self.presentViewFromNotification = true
+                }
+            }
+        }
+    }
+
+    func addAppOpenedViaUserDynamicLinkObserver() {
+        NotificationCenter.default.addObserver(forName: .appOpenedViaUserDynamicLink, object: nil, queue: .main) { notification in
+            if let uid = notification.userInfo?[FbConstants.uid] as? String {
+                Task { @MainActor in
+                    self.appNotificationTapped.toggle()
+                    self.sheetDestination = .otherUserProfileView(uid: uid)
                     self.presentViewFromNotification = true
                 }
             }

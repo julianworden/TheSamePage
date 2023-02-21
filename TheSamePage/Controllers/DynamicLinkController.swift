@@ -11,13 +11,12 @@ import Foundation
 struct DynamicLinkController {
     static let shared = DynamicLinkController()
 
-    func createDynamicLinkForShow(_ show: Show) async -> URL? {
+    func createDynamicLink(ofType dynamicLinkType: DynamicLinkType, for shareable: any Shareable) async -> URL? {
         var components = URLComponents()
+        let showIdQueryItem = URLQueryItem(name: dynamicLinkType.queryItemName, value: shareable.id)
         components.scheme = DynamicLinkConstants.https
         components.host = DynamicLinkConstants.jmtWebsiteHost
         components.path = DynamicLinkConstants.dynamicLinksEndpoint
-
-        let showIdQueryItem = URLQueryItem(name: FbConstants.showId, value: show.id)
         components.queryItems = [showIdQueryItem]
 
         guard let linkParameter = components.url else {
@@ -39,8 +38,8 @@ struct DynamicLinkController {
 
         shareLink.iOSParameters?.appStoreID = DynamicLinkConstants.appStoreId
         shareLink.socialMetaTagParameters = DynamicLinkSocialMetaTagParameters()
-        shareLink.socialMetaTagParameters?.title = "\(show.name) on The Same Page"
-        shareLink.socialMetaTagParameters?.descriptionText = "\(show.description ?? "Tap the button below to install the app!")"
+        shareLink.socialMetaTagParameters?.title = "\(shareable.name) on The Same Page"
+        shareLink.socialMetaTagParameters?.descriptionText = "Tap the button below to open the app! If you don't have The Same Page installed, you'll be redirected to its page on The App Store."
         shareLink.socialMetaTagParameters?.imageURL = URL(string: DynamicLinkConstants.previewImageUrl)
 
         guard let longUrl = shareLink.url else {

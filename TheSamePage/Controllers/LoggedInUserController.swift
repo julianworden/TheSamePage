@@ -207,7 +207,7 @@ class LoggedInUserController: ObservableObject {
     func validateIfUserHasUsername() async {
         do {
             let currentUser = try await DatabaseService.shared.getLoggedInUser()
-            if currentUser.username.isReallyEmpty {
+            if currentUser.name.isReallyEmpty {
                 currentUserHasNoUsernameAlertIsShowing = true
             } else {
                 currentUserHasNoUsernameAlertIsShowing = false

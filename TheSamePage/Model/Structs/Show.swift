@@ -11,7 +11,7 @@ import FirebaseFirestoreSwift
 import Foundation
 
 // TODO: Create individual properties for location
-struct Show: Codable, Equatable, Hashable, Identifiable {
+struct Show: Codable, Equatable, Hashable, Identifiable, Shareable {
     var id: String
     let name: String
     let description: String?

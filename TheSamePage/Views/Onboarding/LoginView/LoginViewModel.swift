@@ -119,7 +119,7 @@ final class LoginViewModel: ObservableObject {
     func userHasUsername() async -> Bool {
         do {
             let currentUser = try await DatabaseService.shared.getLoggedInUser()
-            if currentUser.username.isReallyEmpty {
+            if currentUser.name.isReallyEmpty {
                 return false
             } else {
                 return true

@@ -1337,7 +1337,7 @@ class DatabaseService: NSObject {
             }
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to add \(user.username) to \(show.name)",
+                message: "Failed to add \(user.name) to \(show.name)",
                 systemError: error.localizedDescription
             )
         }
@@ -1769,7 +1769,7 @@ class DatabaseService: NSObject {
                 )
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to add \(user.username) to chat",
+                message: "Failed to add \(user.name) to chat",
                 systemError: error.localizedDescription
             )
         }

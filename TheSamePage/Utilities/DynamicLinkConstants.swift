@@ -8,6 +8,7 @@
 import Foundation
 
 struct DynamicLinkConstants {
+    /// A redirect endpoint created on the julianmichaeltechnologies.com website.
     static let dynamicLinksEndpoint = "/dynamicLinks"
     static let jmtWebsiteHost = "www.julianmichaeltechnologies.com"
     static let https = "https"

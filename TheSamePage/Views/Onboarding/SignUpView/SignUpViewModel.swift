@@ -116,7 +116,7 @@ final class SignUpViewModel: ObservableObject {
         
         newUser = User(
             id: uid,
-            username: "",
+            name: "",
             firstName: firstName,
             lastName: lastName,
             profileImageUrl: profileImage == nil ? nil : try await DatabaseService.shared.uploadImage(image: profileImage!),

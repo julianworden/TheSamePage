@@ -82,16 +82,16 @@ final class SendBandInviteViewModel: ObservableObject {
             let invite = BandInvite(
                 id: "",
                 recipientFcmToken: user.fcmToken,
-                recipientUsername: user.username,
+                recipientUsername: user.name,
                 sentTimestamp: Date.now.timeIntervalSince1970,
                 notificationType: NotificationType.bandInvite.rawValue,
                 senderUid: loggedInUser.id,
                 recipientUid: user.id,
                 recipientRole: recipientRole.rawValue,
                 bandId: selectedBand.id,
-                senderUsername: loggedInUser.username,
+                senderUsername: loggedInUser.name,
                 senderBand: selectedBand.name,
-                message: "\(loggedInUser.username) is inviting you to join \(selectedBand.name)."
+                message: "\(loggedInUser.name) is inviting you to join \(selectedBand.name)."
             )
             let bandInviteId = try await DatabaseService.shared.sendBandInvite(invite: invite)
             viewState = .workCompleted

@@ -9,7 +9,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Foundation
 
-struct Band: Codable, Equatable, Hashable, Identifiable {
+struct Band: Codable, Equatable, Hashable, Identifiable, Shareable {
     var id: String
     let name: String
     let bio: String?

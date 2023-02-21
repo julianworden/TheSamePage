@@ -110,7 +110,7 @@ final class AddEditBandViewModel: ObservableObject {
                 dateJoined: Date.now.timeIntervalSince1970,
                 uid: loggedInUser.id,
                 role: userRoleInBand.rawValue,
-                username: loggedInUser.username,
+                username: loggedInUser.name,
                 fullName: loggedInUser.fullName
             )
             try await DatabaseService.shared.addUserToBand(add: loggedInUser, as: bandMember, to: band, withBandInvite: nil)

@@ -365,7 +365,7 @@ class TestingDatabaseService {
             dateJoined: Date.now.timeIntervalSince1970,
             uid: user.id,
             role: role,
-            username: user.username,
+            username: user.name,
             fullName: user.fullName
         )
 
@@ -938,7 +938,7 @@ class TestingDatabaseService {
 
         let newUser = User(
             id: uid,
-            username: username,
+            name: username,
             firstName: firstName,
             lastName: lastName,
             emailAddress: emailAddress

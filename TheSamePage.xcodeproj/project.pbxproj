@@ -127,6 +127,8 @@
 		AB5EFF9B2982BE4D000399DE /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5EFF9A2982BE4D000399DE /* ForgotPasswordView.swift */; };
 		AB5EFF9D2982BE58000399DE /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5EFF9C2982BE58000399DE /* ForgotPasswordViewModel.swift */; };
 		AB62A8D629A4363500D827DE /* DynamicLinkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB62A8D529A4363500D827DE /* DynamicLinkConstants.swift */; };
+		AB62A8D829A43D7200D827DE /* Shareable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB62A8D729A43D7200D827DE /* Shareable.swift */; };
+		AB62A8DA29A43DE300D827DE /* DynamicLinkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB62A8D929A43DE300D827DE /* DynamicLinkType.swift */; };
 		AB6514DD28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6514DC28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift */; };
 		AB6514DF28F911EB008DFDD0 /* ShowTimeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6514DE28F911EB008DFDD0 /* ShowTimeRow.swift */; };
 		AB657D2329719D5A00696EF4 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB657D2229719D5A00696EF4 /* LoginViewModelTests.swift */; };
@@ -431,6 +433,8 @@
 		AB5EFF9A2982BE4D000399DE /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		AB5EFF9C2982BE58000399DE /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		AB62A8D529A4363500D827DE /* DynamicLinkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLinkConstants.swift; sourceTree = "<group>"; };
+		AB62A8D729A43D7200D827DE /* Shareable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shareable.swift; sourceTree = "<group>"; };
+		AB62A8D929A43DE300D827DE /* DynamicLinkType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLinkType.swift; sourceTree = "<group>"; };
 		AB6514DC28F90F1D008DFDD0 /* Date+CustomTimeFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+CustomTimeFormat.swift"; sourceTree = "<group>"; };
 		AB6514DE28F911EB008DFDD0 /* ShowTimeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTimeRow.swift; sourceTree = "<group>"; };
 		AB657D2229719D5A00696EF4 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
@@ -951,6 +955,7 @@
 				ABA1DDCD28F9B2AC00E7A72E /* ViewState.swift */,
 				ABB4C3FE29207CE600E2C153 /* NotificationAction.swift */,
 				ABF0BF6C299987B30022B046 /* AppOpenedViaNotificationSheetNavigatorViewDestination.swift */,
+				AB62A8D929A43DE300D827DE /* DynamicLinkType.swift */,
 				AB5E48F629003ABD0076EABE /* Backline */,
 			);
 			path = Enums;
@@ -1210,6 +1215,7 @@
 			children = (
 				ABB4C3F729205AC400E2C153 /* UserNotification.swift */,
 				AB7AC086298EF9D700650BCC /* Backline.swift */,
+				AB62A8D729A43D7200D827DE /* Shareable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1719,6 +1725,7 @@
 				AB5E48FC29003B950076EABE /* PercussionGearType.swift in Sources */,
 				AB5E48FE29003CA80076EABE /* VocalGear.swift in Sources */,
 				AB2A993E29A1B31E00C203BD /* LoggedInUserBandsTab.swift in Sources */,
+				AB62A8DA29A43DE300D827DE /* DynamicLinkType.swift in Sources */,
 				ABD029B428E8978F00BDF73C /* BandMemberList.swift in Sources */,
 				AB7AC08F298F16D800650BCC /* ShowBacklineRowMenuButton.swift in Sources */,
 				AB1D5E3E29871C9E00E62C29 /* EditUserInfoViewModel.swift in Sources */,
@@ -1877,6 +1884,7 @@
 				ABF5563728DF93E40059E2DF /* BandProfileViewModel.swift in Sources */,
 				AB2B867E28D9F884004601B6 /* ImagePicker.swift in Sources */,
 				AB582B7E28FA3B3D00D357F3 /* LocationController.swift in Sources */,
+				AB62A8D829A43D7200D827DE /* Shareable.swift in Sources */,
 				AB36FF9428D361A100AAC00C /* DatabaseService.swift in Sources */,
 				AB3D2C3829060CCE00412A7E /* EditImageViewModel.swift in Sources */,
 				ABE3EFA828D919A2002EEF23 /* SignUpViewModel.swift in Sources */,

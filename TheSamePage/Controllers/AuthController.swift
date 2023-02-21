@@ -18,7 +18,7 @@ final class AuthController: ObservableObject {
     
     static func getLoggedInUsername() async throws -> String {
         let user = try await DatabaseService.shared.getLoggedInUser()
-        return user.username
+        return user.name
     }
 
     static func getLoggedInUser() -> FirebaseAuth.User? {
