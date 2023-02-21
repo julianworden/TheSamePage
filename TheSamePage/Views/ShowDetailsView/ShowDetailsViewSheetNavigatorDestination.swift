@@ -8,8 +8,8 @@
 import Foundation
 
 enum ShowDetailsViewSheetNavigatorDestination {
-    case none
     case showSettingsView(show: Show)
     case conversationView(show: Show, chatParticipantUids: [String])
     case showApplicationView(show: Show)
+    case none
 }

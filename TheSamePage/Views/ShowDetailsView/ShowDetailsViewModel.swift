@@ -43,7 +43,7 @@ final class ShowDetailsViewModel: ObservableObject {
     @Published var errorAlertIsShowing = false
     var errorAlertText = ""
 
-    var shortenedShareLink: URL?
+    var shortenedDynamicLink: URL?
 
     @Published var viewState = ViewState.displayingView {
         didSet {
@@ -89,6 +89,15 @@ final class ShowDetailsViewModel: ObservableObject {
         } else {
             return "No times have been added to this show. Only the show's host can add times."
         }
+    }
+
+    var shouldShowMenu: Bool {
+        guard let show else { return false }
+
+        return (show.loggedInUserIsNotInvolvedInShow && !show.alreadyHappened) ||
+                show.loggedInUserIsInvolvedInShow ||
+                shortenedDynamicLink != nil ||
+                show.loggedInUserIsShowHost
     }
 
     var mapAnnotations: [CustomMapAnnotation] {
@@ -383,7 +392,7 @@ final class ShowDetailsViewModel: ObservableObject {
             return
         }
 
-        shortenedShareLink = await DynamicLinkController.shared.createDynamicLinkForShow(show)
+        shortenedDynamicLink = await DynamicLinkController.shared.createDynamicLink(ofType: .show, for: show)
     }
 
     

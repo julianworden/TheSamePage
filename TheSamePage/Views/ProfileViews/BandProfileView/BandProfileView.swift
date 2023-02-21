@@ -11,6 +11,7 @@ struct BandProfileView: View {
     @Environment(\.dismiss) var dismiss
     
     @StateObject var viewModel: BandProfileViewModel
+    @StateObject var sheetNavigator = BandProfileViewSheetNavigator()
 
     init(
         band: Band?,
@@ -59,34 +60,41 @@ struct BandProfileView: View {
                     }
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
-                            if band.loggedInUserIsNotInvolvedWithBand {
-                                Button {
-                                    viewModel.sendShowInviteViewIsShowing.toggle()
-                                } label: {
-                                    Image(systemName: "envelope")
-                                }
-                                .sheet(isPresented: $viewModel.sendShowInviteViewIsShowing) {
-                                    SendShowInviteView(band: band)
-                                }
-                            }
-                        }
+                            if viewModel.shouldShowMenu {
+                                Menu {
+                                    if band.loggedInUserIsNotInvolvedWithBand {
+                                        Button {
+                                            sheetNavigator.sheetDestination = .sendShowInviteView(band: band)
+                                        } label: {
+                                            Label("Send Show Invite", systemImage: "envelope")
+                                        }
+                                    }
 
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            if band.loggedInUserIsBandAdmin {
-                                Button {
-                                    viewModel.bandSettingsViewIsShowing.toggle()
+                                    if let shortenedDynamicLink = viewModel.shortenedDynamicLink {
+                                        ShareLink(item: shortenedDynamicLink) {
+                                            Label("Share", systemImage: "square.and.arrow.up")
+                                        }
+                                    }
+
+                                    if band.loggedInUserIsBandAdmin {
+                                        Button {
+                                            sheetNavigator.sheetDestination = .bandSettingsView(band: band)
+                                        } label: {
+                                            Label("Settings", systemImage: "gear")
+                                        }
+                                    }
                                 } label: {
-                                    Label("Band settings", systemImage: "gear")
+                                    EllipsesMenuIcon()
                                 }
                                 .fullScreenCover(
-                                    isPresented: $viewModel.bandSettingsViewIsShowing,
+                                    isPresented: $sheetNavigator.presentSheet,
                                     onDismiss: {
                                         Task {
                                             await viewModel.getLatestBandData()
                                         }
                                     },
                                     content: {
-                                        BandSettingsView(band: band)
+                                        sheetNavigator.sheetView()
                                     }
                                 )
                             }

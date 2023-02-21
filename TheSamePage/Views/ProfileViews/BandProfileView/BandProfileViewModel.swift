@@ -21,17 +21,19 @@ class BandProfileViewModel: ObservableObject {
     @Published var bandWasDeleted = false
     @Published var addEditLinkSheetIsShowing = false
     @Published var addBandMemberSheetIsShowing = false
-    @Published var sendShowInviteViewIsShowing = false
     @Published var editImageViewIsShowing = false
     @Published var editImageConfirmationDialogIsShowing = false
     @Published var deleteImageConfirmationAlertIsShowing = false
-    @Published var bandSettingsViewIsShowing = false
 
     @Published var bandImage: Image?
     @Published var updatedImage: UIImage?
 
     @Published var errorAlertIsShowing = false
     var errorAlertText = ""
+
+    let isPresentedModally: Bool
+
+    var shortenedDynamicLink: URL?
     
     @Published var viewState = ViewState.dataLoading {
         didSet {
@@ -49,7 +51,13 @@ class BandProfileViewModel: ObservableObject {
             }
         }
     }
-    let isPresentedModally: Bool
+
+    var shouldShowMenu: Bool {
+        guard let band else { return false }
+
+        return band.loggedInUserIsNotInvolvedWithBand ||
+               band.loggedInUserIsBandAdmin
+    }
 
     init(
         band: Band?,
@@ -104,6 +112,7 @@ class BandProfileViewModel: ObservableObject {
             await getBandMembers()
             await getBandLinks()
             await getBandShows()
+            await createDynamicLinkForBand()
         }
     }
 
@@ -216,5 +225,14 @@ class BandProfileViewModel: ObservableObject {
         } catch {
             viewState = .error(message: error.localizedDescription)
         }
+    }
+
+    func createDynamicLinkForBand() async {
+        guard let band else {
+            print("Band object cannot be nil before generating Dynamic Link for band.")
+            return
+        }
+
+        shortenedDynamicLink = await DynamicLinkController.shared.createDynamicLink(ofType: .band, for: band)
     }
 }

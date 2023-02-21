@@ -76,23 +76,17 @@ struct ShowDetailsView: View {
 
             if viewModel.viewState != .dataDeleted,
                let show = viewModel.show {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    if let shortenedShareLink = viewModel.shortenedShareLink {
-                        ShareLink(item: shortenedShareLink) {
-                            Label("Share Show", systemImage: "square.and.arrow.up")
-                        }
-                    }
-
-                    if show.loggedInUserIsNotInvolvedInShow && !show.alreadyHappened {
-                        Button {
-                            sheetNavigator.sheetDestination = .showApplicationView(show: show)
-                        } label: {
-                            Label("Play This Show", systemImage: "pencil.and.ellipsis.rectangle")
-                        }
-                    }
-
-                    if show.loggedInUserIsInvolvedInShow || show.loggedInUserIsShowHost {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if viewModel.shouldShowMenu {
                         Menu {
+                            if show.loggedInUserIsNotInvolvedInShow && !show.alreadyHappened {
+                                Button {
+                                    sheetNavigator.sheetDestination = .showApplicationView(show: show)
+                                } label: {
+                                    Label("Play This Show", systemImage: "pencil.and.ellipsis.rectangle")
+                                }
+                            }
+
                             if show.loggedInUserIsInvolvedInShow {
                                 Button {
                                     sheetNavigator.sheetDestination = .conversationView(
@@ -101,6 +95,12 @@ struct ShowDetailsView: View {
                                     )
                                 } label: {
                                     Label("Chat", systemImage: "bubble.right")
+                                }
+                            }
+
+                            if let shortenedDynamicLink = viewModel.shortenedDynamicLink {
+                                ShareLink(item: shortenedDynamicLink) {
+                                    Label("Share", systemImage: "square.and.arrow.up")
                                 }
                             }
 
@@ -114,12 +114,19 @@ struct ShowDetailsView: View {
                         } label: {
                             EllipsesMenuIcon()
                         }
-                        .fullScreenCover(isPresented: $sheetNavigator.presentSheet) {
-                            NavigationStack {
-                                sheetNavigator.sheetView()
+                        .fullScreenCover(
+                            isPresented: $sheetNavigator.presentSheet,
+                            onDismiss: {
+                                Task {
+                                    await viewModel.getLatestShowData()
+                                }
+                            },
+                            content: {
+                                NavigationStack {
+                                    sheetNavigator.sheetView()
+                                }
                             }
-                        }
-
+                        )
                     }
                 }
             }
