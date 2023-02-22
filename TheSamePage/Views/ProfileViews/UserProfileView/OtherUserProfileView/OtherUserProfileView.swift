@@ -12,9 +12,10 @@ struct OtherUserProfileView: View {
     @Environment(\.dismiss) var dismiss
     
     @StateObject var viewModel: OtherUserProfileViewModel
+    @StateObject var sheetNavigator = OtherUserProfileViewSheetNavigator()
     
-    init(user: User?, bandMember: BandMember? = nil, isPresentedModally: Bool = false) {
-        _viewModel = StateObject(wrappedValue: OtherUserProfileViewModel(user: user, bandMember: bandMember, isPresentedModally: isPresentedModally))
+    init(user: User?, uid: String? = nil, bandMember: BandMember? = nil, isPresentedModally: Bool = false) {
+        _viewModel = StateObject(wrappedValue: OtherUserProfileViewModel(user: user, uid: uid, bandMember: bandMember, isPresentedModally: isPresentedModally))
     }
     
     var body: some View {
@@ -43,14 +44,26 @@ struct OtherUserProfileView: View {
                     }
                     .navigationTitle(user.name)
                     .toolbar {
+                        // TODO: Chat button here
+
                         ToolbarItem(placement: .navigationBarTrailing) {
-                            Button {
-                                viewModel.sendBandInviteViewIsShowing = true
+                            Menu {
+                                Button {
+                                    sheetNavigator.sheetDestination = .sendBandInvite(user: user)
+                                } label: {
+                                    Label("Send Band Invite", systemImage: "envelope")
+                                }
+
+                                if let shortenedDynamicLink = viewModel.shortenedDynamicLink {
+                                    ShareLink(item: ".\(shortenedDynamicLink.absoluteString)") {
+                                        Label("Share", systemImage: "square.and.arrow.up")
+                                    }
+                                }
                             } label: {
-                                Image(systemName: "envelope")
+                                EllipsesMenuIcon()
                             }
-                            .sheet(isPresented: $viewModel.sendBandInviteViewIsShowing) {
-                                SendBandInviteView(user: user)
+                            .fullScreenCover(isPresented: $sheetNavigator.presentSheet) {
+                                sheetNavigator.sheetView()
                             }
                         }
                     }

@@ -110,7 +110,7 @@ final class CreateUsernameViewModelTests: XCTestCase {
 
         XCTAssertEqual(sut.viewState, .workCompleted)
         XCTAssertEqual(currentUserInFirebaseAuth.displayName, "jdawg")
-        XCTAssertEqual(updatedJulianObjectInFirestore.username, "jdawg")
+        XCTAssertEqual(updatedJulianObjectInFirestore.name, "jdawg")
 
         try await restoreJulianUsername()
     }
@@ -130,16 +130,17 @@ final class CreateUsernameViewModelTests: XCTestCase {
 
         XCTAssertEqual(sut.viewState, .error(message: ErrorMessageConstants.usernameIsTooShort))
         XCTAssertEqual(currentUserInFirebaseAuth.displayName, "julianworden")
-        XCTAssertEqual(julianInFirestore.username, "julianworden")
+        XCTAssertEqual(julianInFirestore.name, "julianworden")
     }
 
     func restoreJulianUsername() async throws {
         try await testingDatabaseService.editUserInfo(
             uid: TestingConstants.exampleUserJulian.id,
-            field: FbConstants.username, newValue: TestingConstants.exampleUserJulian.username
+            field: FbConstants.name,
+            newValue: TestingConstants.exampleUserJulian.name
         )
         let changeRequest = AuthController.getLoggedInUser()?.createProfileChangeRequest()
-        changeRequest?.displayName = TestingConstants.exampleUserJulian.username
+        changeRequest?.displayName = TestingConstants.exampleUserJulian.name
         try await changeRequest?.commitChanges()
     }
 }

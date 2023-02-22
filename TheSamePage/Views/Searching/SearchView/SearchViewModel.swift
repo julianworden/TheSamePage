@@ -64,7 +64,7 @@ final class SearchViewModel: ObservableObject {
         guard !queryText.isEmpty else { return }
         
         let collectionParams = MultiSearchCollectionParameters(q: queryText, collection: FbConstants.users)
-        let searchParams = MultiSearchParameters(queryBy: "username")
+        let searchParams = MultiSearchParameters(queryBy: "name")
         
         do {
             let (data, _) = try await TypesenseController.client.multiSearch().perform(searchRequests: [collectionParams], commonParameters: searchParams, for: User.self)

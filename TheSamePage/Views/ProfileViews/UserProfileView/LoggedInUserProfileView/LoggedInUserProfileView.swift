@@ -48,6 +48,8 @@ struct LoggedInUserProfileView: View {
             .navigationTitle("Your Profile")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
+                #warning("Add sharing for your own profile")
+
                 ToolbarItem {
                     Button {
                         settingsButtonTapped.toggle()

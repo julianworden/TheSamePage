@@ -71,7 +71,7 @@ struct BandProfileView: View {
                                     }
 
                                     if let shortenedDynamicLink = viewModel.shortenedDynamicLink {
-                                        ShareLink(item: shortenedDynamicLink) {
+                                        ShareLink(item: ".\(shortenedDynamicLink.absoluteString)") {
                                             Label("Share", systemImage: "square.and.arrow.up")
                                         }
                                     }

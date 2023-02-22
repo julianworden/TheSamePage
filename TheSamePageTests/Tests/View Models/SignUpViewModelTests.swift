@@ -152,7 +152,7 @@ final class SignUpViewModelTests: XCTestCase {
         XCTAssertEqual(tim.firstName, createdUser.firstName)
         XCTAssertEqual(tim.lastName, createdUser.lastName)
         XCTAssertEqual(tim.emailAddress, createdUser.emailAddress)
-        XCTAssertTrue(createdUser.username.isEmpty, "The user should not yet have a username.")
+        XCTAssertTrue(createdUser.name.isEmpty, "The user should not yet have a username.")
     }
 
     func test_OnSignUpButtonTappedWithCompleteFormAndValidAccountInfoAndNoProfileImage_NewUserIsCreatedInFirebaseAuth() async throws {

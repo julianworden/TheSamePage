@@ -22,7 +22,7 @@ struct TestingConstants {
     /// An example user that matches a user being stored in Firestore Emulator
     static let exampleUserJulian = User(
         id: "qvJ5tmKpih3mFkUCet5CPREg3qjZ",
-        username: "julianworden",
+        name: "julianworden",
         firstName: "Julian",
         lastName: "Worden",
         profileImageUrl: "http://127.0.0.1:9199/v0/b/the-same-page-9c69e.appspot.com/o/JMTech%20Profile%20Pic.jpeg?alt=media&token=511ccc65-8205-4d13-9802-74af76e42098",
@@ -32,7 +32,7 @@ struct TestingConstants {
     /// An example user that matches a user being stored in Firestore Emulator
     static let exampleUserLou = User(
         id: "CsXJnPfi5ZT9jr2uQUsO4jz040Et",
-        username: "lousabba",
+        name: "lousabba",
         firstName: "Lou",
         lastName: "Sabba",
         emailAddress: "lousabba@gmail.com"
@@ -41,7 +41,7 @@ struct TestingConstants {
     /// An example user that matches a user being stored in Firestore Emulator
     static let exampleUserTas = User(
         id: "FNl8cxPCoELjL8WsxRfliNP0Lmhq",
-        username: "tascioppa",
+        name: "tascioppa",
         firstName: "Tas",
         lastName: "Cioppa",
         emailAddress: "tascioppa@gmail.com"
@@ -50,7 +50,7 @@ struct TestingConstants {
     /// An example user that matches a user being stored in Firestore Emulator
     static let exampleUserEric = User(
         id: "K4rrOL8effR2ULYb3dDN5eMlXvWn",
-        username: "ericpalermo",
+        name: "ericpalermo",
         firstName: "Eric",
         lastName: "Palermo",
         emailAddress: "ericpalermo@gmail.com"
@@ -59,7 +59,7 @@ struct TestingConstants {
     /// An example user that matches a user being stored in Firestore Emulator
     static let exampleUserMike = User(
         id: "0b5ozNAbBQ1ObJXNRCHDB4OjGzwi",
-        username: "mikeflorentine",
+        name: "mikeflorentine",
         firstName: "Mike",
         lastName: "Florentine",
         emailAddress: "mikeflorentine@gmail.com"
@@ -67,7 +67,7 @@ struct TestingConstants {
 
     static let exampleUserCraig = User(
         id: "pXKwVV75CSFjIlMOGU52oUVtELRt",
-        username: "craigfederighi",
+        name: "craigfederighi",
         firstName: "Craig",
         lastName: "Federighi",
         emailAddress: "craigfederighi@gmail.com"
@@ -75,7 +75,7 @@ struct TestingConstants {
 
     static let exampleUserForIntegrationTesting = User(
         id: "",
-        username: "exampleuser",
+        name: "exampleuser",
         firstName: "Example",
         lastName: "User",
         emailAddress: "exampleuser@gmail.com"
@@ -83,7 +83,7 @@ struct TestingConstants {
 
     static let exampleUserMattForIntegrationTesting = User(
         id: "",
-        username: "mattdiguiseppe",
+        name: "mattdiguiseppe",
         firstName: "Matt",
         lastName: "Diguiseppe",
         emailAddress: "mattdiguiseppe@gmail.com"
@@ -91,7 +91,7 @@ struct TestingConstants {
 
     static let exampleUserTimForIntegrationTesting = User(
         id: "",
-        username: "timcook",
+        name: "timcook",
         firstName: "Tim",
         lastName: "Cook",
         emailAddress: "timcook@gmail.com"
@@ -166,7 +166,7 @@ struct TestingConstants {
         dateJoined: 1673073450,
         uid: exampleUserJulian.id,
         role: Instrument.vocals.rawValue,
-        username: exampleUserJulian.username,
+        username: exampleUserJulian.name,
         fullName: exampleUserJulian.fullName
     )
 
@@ -175,7 +175,7 @@ struct TestingConstants {
         dateJoined: 1673073450,
         uid: exampleUserLou.id,
         role: Instrument.guitar.rawValue,
-        username: exampleUserLou.username,
+        username: exampleUserLou.name,
         fullName: exampleUserLou.fullName
     )
 
@@ -184,7 +184,7 @@ struct TestingConstants {
         dateJoined: 1673073450,
         uid: exampleUserEric.id,
         role: Instrument.vocals.rawValue,
-        username: exampleUserEric.username,
+        username: exampleUserEric.name,
         fullName: exampleUserEric.fullName
     )
 
@@ -193,7 +193,7 @@ struct TestingConstants {
         dateJoined: 1673073450,
         uid: exampleUserCraig.id,
         role: Instrument.guitar.rawValue,
-        username: exampleUserCraig.username,
+        username: exampleUserCraig.name,
         fullName: exampleUserCraig.fullName
     )
 
@@ -202,7 +202,7 @@ struct TestingConstants {
         dateJoined: 1674181413.480142,
         uid: exampleUserCraig.id,
         role: Instrument.guitar.rawValue,
-        username: exampleUserCraig.username,
+        username: exampleUserCraig.name,
         fullName: exampleUserCraig.fullName
     )
 
@@ -313,28 +313,28 @@ struct TestingConstants {
     /// An example band invite inviting exampleUserTas to join Pathetic Fallacy. Sent by exampleUserJulian.
     static let exampleBandInviteForTas = BandInvite(
         id: "I8jPC6U14IolWMSc8Ivp",
-        recipientUsername: exampleUserTas.username,
+        recipientUsername: exampleUserTas.name,
         sentTimestamp: 1673073450,
         notificationType: NotificationType.bandInvite.rawValue,
         senderUid: exampleUserJulian.id,
         recipientUid: exampleUserTas.id,
         recipientRole: "Drums",
         bandId: exampleBandPatheticFallacy.id,
-        senderUsername: exampleUserJulian.username,
+        senderUsername: exampleUserJulian.name,
         senderBand: exampleBandPatheticFallacy.name,
         message: "julianworden is inviting you to join Pathetic Fallacy"
     )
 
     static let exampleBandInviteForMatt = BandInvite(
         id: "",
-        recipientUsername: exampleUserMattForIntegrationTesting.username,
+        recipientUsername: exampleUserMattForIntegrationTesting.name,
         sentTimestamp: 1673073450,
         notificationType: NotificationType.bandInvite.rawValue,
         senderUid: exampleUserJulian.id,
         recipientUid: exampleUserMattForIntegrationTesting.id,
         recipientRole: "Bass Guitar",
         bandId: exampleBandPatheticFallacy.id,
-        senderUsername: exampleUserJulian.username,
+        senderUsername: exampleUserJulian.name,
         senderBand: exampleBandPatheticFallacy.name,
         message: "julianworden is inviting you to join Pathetic Fallacy"
     )
@@ -354,11 +354,11 @@ struct TestingConstants {
         showDate: exampleShowDumpweedExtravaganza.date,
         showVenue: exampleShowDumpweedExtravaganza.venue,
         showDescription: exampleShowDumpweedExtravaganza.description,
-        senderUsername: exampleUserJulian.username,
+        senderUsername: exampleUserJulian.name,
         hasFood: exampleShowDumpweedExtravaganza.hasFood,
         hasBar: exampleShowDumpweedExtravaganza.hasBar,
         is21Plus: exampleShowDumpweedExtravaganza.is21Plus,
-        message: "\(exampleUserJulian.username) is inviting Generation Underground to play \(exampleShowDumpweedExtravaganza.name) at \(exampleShowDumpweedExtravaganza.venue) on \(exampleShowDumpweedExtravaganza.formattedDate)"
+        message: "\(exampleUserJulian.name) is inviting Generation Underground to play \(exampleShowDumpweedExtravaganza.name) at \(exampleShowDumpweedExtravaganza.venue) on \(exampleShowDumpweedExtravaganza.formattedDate)"
     )
 
     // MARK: - Example ShowApplications

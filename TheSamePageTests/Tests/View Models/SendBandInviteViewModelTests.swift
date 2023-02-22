@@ -117,9 +117,9 @@ final class SendBandInviteViewModelTests: XCTestCase {
 
         XCTAssertEqual(createdBandInvite.id, createdBandInviteId)
         XCTAssertEqual(createdBandInvite.recipientRole, Instrument.bassGuitar.rawValue)
-        XCTAssertEqual(createdBandInvite.message, "\(julian.username) is inviting you to join \(patheticFallacy.name).")
+        XCTAssertEqual(createdBandInvite.message, "\(julian.name) is inviting you to join \(patheticFallacy.name).")
         XCTAssertEqual(createdBandInvite.bandId, patheticFallacy.id)
-        XCTAssertEqual(createdBandInvite.senderUsername, julian.username)
+        XCTAssertEqual(createdBandInvite.senderUsername, julian.name)
         XCTAssertEqual(createdBandInvite.senderBand, patheticFallacy.name)
         XCTAssertEqual(sut.viewState, .workCompleted, "This view state should be assigned if the send was successful")
     }

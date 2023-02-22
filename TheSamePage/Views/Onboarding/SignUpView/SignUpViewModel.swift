@@ -110,7 +110,11 @@ final class SignUpViewModel: ObservableObject {
     func registerUser() async throws -> String {
         let result = try await Auth.auth().createUser(withEmail: emailAddress.lowercasedAndTrimmed, password: password)
         let uid = result.user.uid
-        let fcmToken = Messaging.messaging().fcmToken
+        var fcmToken: String?
+
+        if !EnvironmentVariableConstants.unitTestsAreRunning {
+            fcmToken = Messaging.messaging().fcmToken
+        }
         
         let newUser: User
         

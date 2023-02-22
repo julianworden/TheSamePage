@@ -16,11 +16,11 @@ final class OtherUserProfileViewModel: ObservableObject {
     @Published var emailAddress: String?
     @Published var profileImageUrl: String?
     @Published var bands = [Band]()
-
-    @Published var sendBandInviteViewIsShowing = false
     
     @Published var errorAlertIsShowing = false
     var errorAlertText = ""
+
+    var shortenedDynamicLink: URL?
     
     @Published var viewState = ViewState.dataLoading {
         didSet {
@@ -38,17 +38,25 @@ final class OtherUserProfileViewModel: ObservableObject {
     }
     let isPresentedModally: Bool
     
-    init(user: User?, bandMember: BandMember? = nil, isPresentedModally: Bool = false) {
+    init(user: User?, uid: String? = nil, bandMember: BandMember? = nil, isPresentedModally: Bool = false) {
         self.isPresentedModally = isPresentedModally
         
         Task {
             if let user {
                 await initializeUser(user: user)
+                return
             }
 
             if let bandMember,
                let convertedUser = await convertBandMemberToUser(bandMember: bandMember) {
                 await initializeUser(user: convertedUser)
+                return
+            }
+
+            if let uid,
+               let convertedUser = await convertUidToUser(uid: uid) {
+                await initializeUser(user: convertedUser)
+                return
             }
         }
     }
@@ -61,10 +69,20 @@ final class OtherUserProfileViewModel: ObservableObject {
             self.emailAddress = user.emailAddress
             self.profileImageUrl = user.profileImageUrl
             self.bands = try await getBands(forUser: user)
+            self.shortenedDynamicLink = await createDynamicLinkForUser()
             
             viewState = .dataLoaded
         } catch {
             viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func convertUidToUser(uid: String) async -> User? {
+        do {
+            return try await DatabaseService.shared.getUser(withUid: uid)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+            return nil
         }
     }
     
@@ -80,5 +98,14 @@ final class OtherUserProfileViewModel: ObservableObject {
     // TODO: Incorporate a listener to this so the bands array is updated when the user joins a new band
     func getBands(forUser user: User) async throws -> [Band] {
         return try await DatabaseService.shared.getJoinedBands(withUid: user.id)
+    }
+
+    func createDynamicLinkForUser() async -> URL? {
+        guard let user else {
+            print("User object cannot be nil before generating Dynamic Link for user.")
+            return nil
+        }
+
+        return await DynamicLinkController.shared.createDynamicLink(ofType: .user, for: user)
     }
 }

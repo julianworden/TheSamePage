@@ -68,7 +68,7 @@ final class LoginViewModelTests: XCTestCase {
         let currentUser = testingDatabaseService.getLoggedInUserFromFirebaseAuth()
 
         XCTAssertNotNil(currentUser, "Julian should be the currentUser")
-        XCTAssertEqual(currentUser!.displayName, julian.username, "Julian's username should match the currentUser's display name")
+        XCTAssertEqual(currentUser!.displayName, julian.name, "Julian's username should match the currentUser's display name")
         XCTAssertEqual(currentUser!.email, julian.emailAddress, "Julian's email address should match the currentUser's email address")
     }
 
@@ -164,14 +164,15 @@ final class LoginViewModelTests: XCTestCase {
         try await testingDatabaseService.logInToJulianAccount()
         try await testingDatabaseService.editUserInfo(
             uid: TestingConstants.exampleUserJulian.id,
-            field: FbConstants.username, newValue: ""
+            field: FbConstants.name, newValue: ""
         )
     }
 
     func restoreJulianUsername() async throws {
         try await testingDatabaseService.editUserInfo(
             uid: TestingConstants.exampleUserJulian.id,
-            field: FbConstants.username, newValue: TestingConstants.exampleUserJulian.username
+            field: FbConstants.name,
+            newValue: TestingConstants.exampleUserJulian.name
         )
     }
 }

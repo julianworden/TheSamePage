@@ -32,7 +32,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(julianInEmulator.firstName, julianInTestingConstants.firstName)
         XCTAssertEqual(julianInEmulator.lastName, julianInTestingConstants.lastName)
         XCTAssertEqual(julianInEmulator.profileImageUrl, julianInTestingConstants.profileImageUrl)
-        XCTAssertEqual(julianInEmulator.username, julianInTestingConstants.username)
+        XCTAssertEqual(julianInEmulator.name, julianInTestingConstants.name)
         XCTAssertEqual(julianInEmulator.emailAddress, julianInTestingConstants.emailAddress)
         XCTAssertEqual(julianInEmulator.fcmToken, julianInTestingConstants.fcmToken)
         XCTAssertEqual(julianInEmulator.phoneNumber, julianInTestingConstants.phoneNumber)
@@ -46,7 +46,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(louInEmulator.firstName, louInTestingConstants.firstName)
         XCTAssertEqual(louInEmulator.lastName, louInTestingConstants.lastName)
         XCTAssertEqual(louInEmulator.profileImageUrl, louInTestingConstants.profileImageUrl)
-        XCTAssertEqual(louInEmulator.username, louInTestingConstants.username)
+        XCTAssertEqual(louInEmulator.name, louInTestingConstants.name)
         XCTAssertEqual(louInEmulator.emailAddress, louInTestingConstants.emailAddress)
         XCTAssertEqual(louInEmulator.fcmToken, louInTestingConstants.fcmToken)
         XCTAssertEqual(louInEmulator.phoneNumber, louInTestingConstants.phoneNumber)
@@ -60,7 +60,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(tasInEmulator.firstName, tasInTestingConstants.firstName)
         XCTAssertEqual(tasInEmulator.lastName, tasInTestingConstants.lastName)
         XCTAssertEqual(tasInEmulator.profileImageUrl, tasInTestingConstants.profileImageUrl)
-        XCTAssertEqual(tasInEmulator.username, tasInTestingConstants.username)
+        XCTAssertEqual(tasInEmulator.name, tasInTestingConstants.name)
         XCTAssertEqual(tasInEmulator.emailAddress, tasInTestingConstants.emailAddress)
         XCTAssertEqual(tasInEmulator.fcmToken, tasInTestingConstants.fcmToken)
         XCTAssertEqual(tasInEmulator.phoneNumber, tasInTestingConstants.phoneNumber)
@@ -74,7 +74,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(ericInEmulator.firstName, ericInTestingConstants.firstName)
         XCTAssertEqual(ericInEmulator.lastName, ericInTestingConstants.lastName)
         XCTAssertEqual(ericInEmulator.profileImageUrl, ericInTestingConstants.profileImageUrl)
-        XCTAssertEqual(ericInEmulator.username, ericInTestingConstants.username)
+        XCTAssertEqual(ericInEmulator.name, ericInTestingConstants.name)
         XCTAssertEqual(ericInEmulator.emailAddress, ericInTestingConstants.emailAddress)
         XCTAssertEqual(ericInEmulator.fcmToken, ericInTestingConstants.fcmToken)
         XCTAssertEqual(ericInEmulator.phoneNumber, ericInTestingConstants.phoneNumber)
@@ -88,7 +88,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(mikeInEmulator.firstName, mikeInTestingConstants.firstName)
         XCTAssertEqual(mikeInEmulator.lastName, mikeInTestingConstants.lastName)
         XCTAssertEqual(mikeInEmulator.profileImageUrl, mikeInTestingConstants.profileImageUrl)
-        XCTAssertEqual(mikeInEmulator.username, mikeInTestingConstants.username)
+        XCTAssertEqual(mikeInEmulator.name, mikeInTestingConstants.name)
         XCTAssertEqual(mikeInEmulator.emailAddress, mikeInTestingConstants.emailAddress)
         XCTAssertEqual(mikeInEmulator.fcmToken, mikeInTestingConstants.fcmToken)
         XCTAssertEqual(mikeInEmulator.phoneNumber, mikeInTestingConstants.phoneNumber)
@@ -359,7 +359,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(bandInviteInEmulator.senderUid, bandInviteInTestingConstants.senderUid)
         XCTAssertEqual(
             bandInviteInEmulator.message,
-            "\(TestingConstants.exampleUserJulian.username) is inviting you to join \(TestingConstants.exampleBandPatheticFallacy.name)"
+            "\(TestingConstants.exampleUserJulian.name) is inviting you to join \(TestingConstants.exampleBandPatheticFallacy.name)"
         )
     }
 

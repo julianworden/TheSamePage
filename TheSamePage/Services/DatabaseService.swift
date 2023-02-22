@@ -52,14 +52,14 @@ class DatabaseService: NSObject {
         try await db
             .collection(FbConstants.users)
             .document(currentUser.uid)
-            .updateData([FbConstants.username: username])
+            .updateData([FbConstants.name: username])
     }
     
     func newUsernameIsNotAlreadyTaken(_ username: String) async throws -> Bool {
         do {
             return try await db
                 .collection(FbConstants.users)
-                .whereField(FbConstants.username, isEqualTo: username)
+                .whereField(FbConstants.name, isEqualTo: username)
                 .getDocuments()
                 .documents
                 .isEmpty

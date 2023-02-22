@@ -101,6 +101,8 @@
 		AB3D2C3629060CC500412A7E /* EditImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3D2C3529060CC500412A7E /* EditImageView.swift */; };
 		AB3D2C3829060CCE00412A7E /* EditImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3D2C3729060CCE00412A7E /* EditImageViewModel.swift */; };
 		AB3E11E828D656FF000F147B /* OtherUserBandRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3E11E728D656FF000F147B /* OtherUserBandRow.swift */; };
+		AB42856729A5819800FD1C64 /* OtherUserProfileViewSheetNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB42856629A5819800FD1C64 /* OtherUserProfileViewSheetNavigator.swift */; };
+		AB42856829A5819800FD1C64 /* OtherUserProfileViewSheetNavigatorDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB42856529A5819800FD1C64 /* OtherUserProfileViewSheetNavigatorDestination.swift */; };
 		AB4750192900B55C0000DB13 /* AddPercussionBacklineForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4750182900B55C0000DB13 /* AddPercussionBacklineForm.swift */; };
 		AB4A461C29172832007F1C8B /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = AB4A461B29172832007F1C8B /* FirebaseFunctions */; };
 		AB4BD581292C388100E0360B /* AddressSearchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4BD580292C388100E0360B /* AddressSearchList.swift */; };
@@ -410,6 +412,8 @@
 		AB3D2C3529060CC500412A7E /* EditImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageView.swift; sourceTree = "<group>"; };
 		AB3D2C3729060CCE00412A7E /* EditImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageViewModel.swift; sourceTree = "<group>"; };
 		AB3E11E728D656FF000F147B /* OtherUserBandRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserBandRow.swift; sourceTree = "<group>"; };
+		AB42856529A5819800FD1C64 /* OtherUserProfileViewSheetNavigatorDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserProfileViewSheetNavigatorDestination.swift; sourceTree = "<group>"; };
+		AB42856629A5819800FD1C64 /* OtherUserProfileViewSheetNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserProfileViewSheetNavigator.swift; sourceTree = "<group>"; };
 		AB4750182900B55C0000DB13 /* AddPercussionBacklineForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPercussionBacklineForm.swift; sourceTree = "<group>"; };
 		AB4BD580292C388100E0360B /* AddressSearchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchList.swift; sourceTree = "<group>"; };
 		AB4BF6BF2965B6AD0007A33B /* FirebaseEmulatorDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEmulatorDataTests.swift; sourceTree = "<group>"; };
@@ -1153,6 +1157,8 @@
 				AB36FF7728D359E700AAC00C /* OtherUserProfileView.swift */,
 				AB668EB1291BF31D007899A9 /* OtherUserProfileHeader.swift */,
 				ABDC0D7128D74BFF0054269E /* OtherUserProfileViewModel.swift */,
+				AB42856629A5819800FD1C64 /* OtherUserProfileViewSheetNavigator.swift */,
+				AB42856529A5819800FD1C64 /* OtherUserProfileViewSheetNavigatorDestination.swift */,
 				ABD323ED28E117F800540B93 /* SendBandInviteView */,
 				AB35A8DB28E9DDDB009FB203 /* OtherUserBandList */,
 			);
@@ -1783,6 +1789,7 @@
 				ABA784EA290A3CFF0081CBF4 /* PlayingShowRow.swift in Sources */,
 				AB794E2D28E25A77000ABB37 /* SearchView.swift in Sources */,
 				ABF1C40628ECE83F0004A3C1 /* TypesenseController.swift in Sources */,
+				AB42856729A5819800FD1C64 /* OtherUserProfileViewSheetNavigator.swift in Sources */,
 				AB1D5E3C29871C9700E62C29 /* EditUserInfoView.swift in Sources */,
 				AB668EB7291C0180007899A9 /* BandAboutTab.swift in Sources */,
 				ABBBC15B29880D82005AF468 /* DeleteAccountConfirmationView.swift in Sources */,
@@ -1797,6 +1804,7 @@
 				AB3E11E828D656FF000F147B /* OtherUserBandRow.swift in Sources */,
 				ABB71C4A28FE08D500D3126D /* FindShowsViewModel.swift in Sources */,
 				ABF1C40228ECD0F60004A3C1 /* SearchResultRow.swift in Sources */,
+				AB42856829A5819800FD1C64 /* OtherUserProfileViewSheetNavigatorDestination.swift in Sources */,
 				AB7F381328EF1B56007741C7 /* NotificationType.swift in Sources */,
 				AB1B559829202E8300571316 /* SmallIconStyle.swift in Sources */,
 				ABA42BC3292D176600ADE3AD /* Notification.Name+CustomNotifications.swift in Sources */,

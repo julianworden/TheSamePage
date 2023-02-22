@@ -21,6 +21,7 @@ class AppOpenedViaNotificationController: ObservableObject {
         addAppOpenedViaNewInviteOrApplicationNotificationObserver()
         addAppOpenedViaBandNotificationOrDynamicLinkObserver()
         addAppOpenedViaShowNotificationOrDynamicLinkObserver()
+        addAppOpenedViaUserDynamicLinkObserver()
     }
 
     func sheetView() -> AnyView {
@@ -35,8 +36,7 @@ class AppOpenedViaNotificationController: ObservableObject {
             return BandProfileView(band: nil, bandId: bandId, isPresentedModally: true).eraseToAnyView()
 
         case .otherUserProfileView(let uid):
-            #warning("pass uid to view when possible")
-            return OtherUserProfileView(user: nil).eraseToAnyView()
+            return OtherUserProfileView(user: nil, uid: uid, isPresentedModally: true).eraseToAnyView()
 
         default:
             return Text("Invalid Sheet Destination").eraseToAnyView()

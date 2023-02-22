@@ -54,7 +54,7 @@ final class SearchViewModelTests: XCTestCase {
     }
 
     func test_OnClearFetchedResultsArrays_ClearsFetchedUsersArray() async {
-        sut.queryText = eric.username
+        sut.queryText = eric.name
         await sut.fetchUsers()
 
         sut.clearFetchedResultsArrays()
@@ -99,7 +99,7 @@ final class SearchViewModelTests: XCTestCase {
     }
 
     func test_OnFetchUsersWithResults_UserIsInFetchedUsersArrayAndViewStateIsSet() async {
-        sut.queryText = eric.username
+        sut.queryText = eric.name
 
         await sut.fetchUsers()
 
