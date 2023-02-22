@@ -65,6 +65,7 @@ class ConversationViewModel : ObservableObject {
 
         if let chat {
             addChatListener(forChat: chat)
+            await addUserToChatUpToDateParticipantUids()
 
             if !EnvironmentVariableConstants.unitTestsAreRunning {
                 await addChatViewer()
@@ -177,7 +178,7 @@ class ConversationViewModel : ObservableObject {
                 recipientFcmTokens: recipientFcmTokens
             )
             
-            try DatabaseService.shared.sendChatMessage(chatMessage: newChatMessage, chat: chat)
+            try await DatabaseService.shared.sendChatMessage(chatMessage: newChatMessage, chat: chat)
         } catch {
             // TODO: Figure out why this state isn't being changed when wifi is off
             viewState = .error(message: error.localizedDescription)
@@ -205,6 +206,20 @@ class ConversationViewModel : ObservableObject {
 
         do {
             try await DatabaseService.shared.removeUserFromCurrentChatViewers(uid: AuthController.getLoggedInUid(), chatId: chat.id)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    #warning("TEST")
+    func addUserToChatUpToDateParticipantUids() async {
+        guard let chat else {
+            viewState = .error(message: "Something went wrong while fetching this chat's info. Please ensure you have an internet connection, restart The Same Page, and try again.")
+            return
+        }
+
+        do {
+            try await DatabaseService.shared.addUserToChatUpToDateParticipantUids(add: AuthController.getLoggedInUid(), to: chat)
         } catch {
             viewState = .error(message: error.localizedDescription)
         }

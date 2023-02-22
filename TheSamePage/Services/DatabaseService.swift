@@ -297,12 +297,7 @@ class DatabaseService: NSObject {
             try await db
                 .collection(FbConstants.chats)
                 .document(chat.id)
-                .updateData(
-                    [
-                        FbConstants.participantUids: FieldValue.arrayRemove([user.id]),
-                        FbConstants.participantFcmTokens: (user.fcmToken != nil ? FieldValue.arrayRemove([user.fcmToken!]) : FieldValue.arrayRemove([]))
-                    ]
-                )
+                .updateData([FbConstants.participantUids: FieldValue.arrayRemove([user.id])])
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to remove you from \(chat.name ?? "chat")",
@@ -1328,12 +1323,7 @@ class DatabaseService: NSObject {
                 try await db
                     .collection(FbConstants.chats)
                     .document(showChat.id)
-                    .updateData(
-                        [
-                            FbConstants.participantUids: FieldValue.arrayUnion([user.id]),
-                            FbConstants.participantFcmTokens: (user.fcmToken != nil ? FieldValue.arrayUnion([user.fcmToken!]) : FieldValue.arrayUnion([]))
-                        ]
-                    )
+                    .updateData([FbConstants.participantUids: FieldValue.arrayUnion([user.id])])
             }
         } catch {
             throw FirebaseError.connection(
@@ -1729,12 +1719,7 @@ class DatabaseService: NSObject {
             try await db
                 .collection(FbConstants.chats)
                 .document(chat.id)
-                .updateData(
-                    [
-                        FbConstants.participantUids: FieldValue.arrayUnion(band.memberUids),
-                        FbConstants.participantFcmTokens: FieldValue.arrayUnion(band.memberFcmTokens)
-                    ]
-                )
+                .updateData([FbConstants.participantUids: FieldValue.arrayUnion(band.memberUids)])
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to add band to show chat",
@@ -1761,12 +1746,7 @@ class DatabaseService: NSObject {
             try await db
                 .collection(FbConstants.chats)
                 .document(chat.id)
-                .updateData(
-                    [
-                        FbConstants.participantUids: FieldValue.arrayUnion([user.id]),
-                        FbConstants.participantFcmTokens: (user.fcmToken != nil ? FieldValue.arrayUnion([user.fcmToken!]) : FieldValue.arrayUnion([]))
-                    ]
-                )
+                .updateData([FbConstants.participantUids: FieldValue.arrayUnion([user.id])])
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to add \(user.name) to chat",
@@ -1775,16 +1755,64 @@ class DatabaseService: NSObject {
         }
     }
     
-    func sendChatMessage(chatMessage: ChatMessage, chat: Chat) throws {
+    func sendChatMessage(chatMessage: ChatMessage, chat: Chat) async throws {
         do {
             _ = try db
                 .collection(FbConstants.chats)
                 .document(chat.id)
                 .collection(FbConstants.messages)
                 .addDocument(from: chatMessage)
+
+            try await updateChatWithNewChatMessage(update: chat, with: chatMessage)
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to send chat message",
+                systemError: error.localizedDescription
+            )
+        }
+    }
+
+    #warning("Test")
+    func updateChatWithNewChatMessage(update chat: Chat, with chatMessage: ChatMessage) async throws {
+        do {
+            _ = try await db
+                .collection(FbConstants.chats)
+                .document(chat.id)
+                .updateData(
+                    [
+                        FbConstants.upToDateParticipantUids: FieldValue.delete()
+                    ]
+                )
+
+            _ = try await db
+                .collection(FbConstants.chats)
+                .document(chat.id)
+                .updateData(
+                    [
+                        FbConstants.mostRecentMessageText: chatMessage.text,
+                        FbConstants.mostRecentMessageTimestamp: chatMessage.sentTimestamp,
+                        FbConstants.upToDateParticipantUids: FieldValue.arrayUnion([AuthController.getLoggedInUid()])
+                    ]
+                )
+
+
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to set up-to-date chat info",
+                systemError: error.localizedDescription
+            )
+        }
+    }
+
+    func addUserToChatUpToDateParticipantUids(add uid: String, to chat: Chat) async throws {
+        do {
+            _ = try await db
+                .collection(FbConstants.chats)
+                .document(chat.id)
+                .updateData([FbConstants.upToDateParticipantUids: FieldValue.arrayUnion([AuthController.getLoggedInUid()])])
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to update chat data",
                 systemError: error.localizedDescription
             )
         }

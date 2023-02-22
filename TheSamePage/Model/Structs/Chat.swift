@@ -16,6 +16,10 @@ struct Chat: Codable, Equatable, Identifiable {
     let name: String?
     let participantUids: [String]
     let currentViewerUids: [String]
+    let mostRecentMessageText: String?
+    let mostRecentMessageTimestamp: Double?
+    /// The UIDs for the users that have seen the latest message in the chat.
+    let upToDateParticipantUids: [String]
 
     init(
         id: String,
@@ -23,7 +27,10 @@ struct Chat: Codable, Equatable, Identifiable {
         userId: String? = nil,
         name: String? = nil,
         participantUids: [String],
-        currentViewerUids: [String] = []
+        currentViewerUids: [String] = [],
+        mostRecentMessageText: String? = nil,
+        mostRecentMessageTimestamp: Double? = nil,
+        upToDateParticipantUids: [String] = []
     ) {
         self.id = id
         self.showId = showId
@@ -31,6 +38,9 @@ struct Chat: Codable, Equatable, Identifiable {
         self.name = name
         self.participantUids = participantUids
         self.currentViewerUids = currentViewerUids
+        self.mostRecentMessageText = mostRecentMessageText
+        self.mostRecentMessageTimestamp = mostRecentMessageTimestamp
+        self.upToDateParticipantUids = upToDateParticipantUids
     }
     
     /// A convenience property for filtering the logged in user's UID out of the

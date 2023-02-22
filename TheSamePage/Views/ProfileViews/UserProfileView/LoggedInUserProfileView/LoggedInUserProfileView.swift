@@ -50,7 +50,7 @@ struct LoggedInUserProfileView: View {
             .navigationTitle("Your Profile")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
-                ToolbarItem {
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
                         if let shortenedDynamicLink = loggedInUserController.shortenedDynamicLink {
                             ShareLink(item: ".\(shortenedDynamicLink.absoluteString)") {
