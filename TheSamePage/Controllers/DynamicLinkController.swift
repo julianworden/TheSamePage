@@ -39,7 +39,7 @@ struct DynamicLinkController {
         shareLink.iOSParameters?.appStoreID = DynamicLinkConstants.appStoreId
         shareLink.socialMetaTagParameters = DynamicLinkSocialMetaTagParameters()
         shareLink.socialMetaTagParameters?.title = "\(shareable.name) on The Same Page"
-        shareLink.socialMetaTagParameters?.descriptionText = "Tap the button below to open the app! If you don't have The Same Page installed, you'll be redirected to its page on The App Store."
+        shareLink.socialMetaTagParameters?.descriptionText = "Tap the \"Open\" button to open or install The Same Page."
         shareLink.socialMetaTagParameters?.imageURL = URL(string: DynamicLinkConstants.previewImageUrl)
 
         guard let longUrl = shareLink.url else {

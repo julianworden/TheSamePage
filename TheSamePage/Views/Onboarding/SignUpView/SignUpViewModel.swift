@@ -144,7 +144,7 @@ final class SignUpViewModel: ObservableObject {
         if let appBundleId = Bundle.main.bundleIdentifier {
             actionCodeSettings.setIOSBundleID(appBundleId)
         }
-        actionCodeSettings.url = URL(string: "https://thesamepage.page.link")
+        actionCodeSettings.url = URL(string: DynamicLinkConstants.domainUriPrefix)
         
         try await user.sendEmailVerification(with: actionCodeSettings)
     }

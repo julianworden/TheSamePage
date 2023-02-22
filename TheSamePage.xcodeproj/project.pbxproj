@@ -241,6 +241,8 @@
 		ABCD5F62291B541F00E33934 /* BandShowsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCD5F61291B541F00E33934 /* BandShowsTab.swift */; };
 		ABCD5F64291B54D300E33934 /* BandShowsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCD5F63291B54D300E33934 /* BandShowsList.swift */; };
 		ABCD5F66291B551800E33934 /* BandShowRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCD5F65291B551800E33934 /* BandShowRow.swift */; };
+		ABCEBCCC29A67BB0009CC6F6 /* LoggedInUserProfileViewSheetNavigatorDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCEBCCB29A67BB0009CC6F6 /* LoggedInUserProfileViewSheetNavigatorDestination.swift */; };
+		ABCEBCCD29A67BB0009CC6F6 /* LoggedInUserProfileViewSheetNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCEBCCA29A67BB0009CC6F6 /* LoggedInUserProfileViewSheetNavigator.swift */; };
 		ABCF232829131E4E003DB6BB /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCF232729131E4E003DB6BB /* ConversationView.swift */; };
 		ABD029B428E8978F00BDF73C /* BandMemberList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD029B328E8978F00BDF73C /* BandMemberList.swift */; };
 		ABD18AAD28EE14C1002286C3 /* SendShowInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD18AAC28EE14C1002286C3 /* SendShowInviteView.swift */; };
@@ -543,6 +545,8 @@
 		ABCD5F61291B541F00E33934 /* BandShowsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandShowsTab.swift; sourceTree = "<group>"; };
 		ABCD5F63291B54D300E33934 /* BandShowsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandShowsList.swift; sourceTree = "<group>"; };
 		ABCD5F65291B551800E33934 /* BandShowRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandShowRow.swift; sourceTree = "<group>"; };
+		ABCEBCCA29A67BB0009CC6F6 /* LoggedInUserProfileViewSheetNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserProfileViewSheetNavigator.swift; sourceTree = "<group>"; };
+		ABCEBCCB29A67BB0009CC6F6 /* LoggedInUserProfileViewSheetNavigatorDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserProfileViewSheetNavigatorDestination.swift; sourceTree = "<group>"; };
 		ABCF232729131E4E003DB6BB /* ConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationView.swift; sourceTree = "<group>"; };
 		ABD029B328E8978F00BDF73C /* BandMemberList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMemberList.swift; sourceTree = "<group>"; };
 		ABD18AAC28EE14C1002286C3 /* SendShowInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendShowInviteView.swift; sourceTree = "<group>"; };
@@ -1145,6 +1149,8 @@
 				AB35A8CB28E9CFCF009FB203 /* LoggedInUserProfileView.swift */,
 				AB668EB3291BF4C2007899A9 /* LoggedInUserProfileHeader.swift */,
 				AB9C238C297B59850012BE9F /* LoggedInUserProfileImage.swift */,
+				ABCEBCCA29A67BB0009CC6F6 /* LoggedInUserProfileViewSheetNavigator.swift */,
+				ABCEBCCB29A67BB0009CC6F6 /* LoggedInUserProfileViewSheetNavigatorDestination.swift */,
 				AB2A993629A1B16700C203BD /* LoggedInUserShows */,
 				AB668EB0291BE818007899A9 /* LoggedInUserBands */,
 			);
@@ -1767,6 +1773,7 @@
 				ABE2FE022989722200D5A951 /* MockNavigationLinkRow.swift in Sources */,
 				AB36FF7628D3598900AAC00C /* MyShowsRootView.swift in Sources */,
 				ABEF10E728E64CE100A1DBAC /* AddEditLinkViewModel.swift in Sources */,
+				ABCEBCCD29A67BB0009CC6F6 /* LoggedInUserProfileViewSheetNavigator.swift in Sources */,
 				AB66474E292D990B000B817E /* NetworkController.swift in Sources */,
 				ABDC0D7428D75CC80054269E /* AuthController.swift in Sources */,
 				AB399AD928D4C1CE009B39F7 /* TextUtility.swift in Sources */,
@@ -1921,6 +1928,7 @@
 				AB37EBB2290966C90029588C /* FindShowsListRow.swift in Sources */,
 				ABD1D16F28F30CE500791969 /* MyPlayingShowsView.swift in Sources */,
 				AB62A8D629A4363500D827DE /* DynamicLinkConstants.swift in Sources */,
+				ABCEBCCC29A67BB0009CC6F6 /* LoggedInUserProfileViewSheetNavigatorDestination.swift in Sources */,
 				ABA42BC5292D1E3400ADE3AD /* AddEditShowAddressViewModel.swift in Sources */,
 				ABF83DCA291A957E006A06CC /* BandMemberListRow.swift in Sources */,
 				AB36FF8328D35C0600AAC00C /* Show.swift in Sources */,

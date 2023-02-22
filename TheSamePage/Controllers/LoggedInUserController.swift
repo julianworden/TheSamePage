@@ -48,13 +48,7 @@ class LoggedInUserController: ObservableObject {
     }
 
     let db = Firestore.firestore()
-    var deviceFcmToken: String? {
-        didSet {
-            Task {
-                await updateFcmTokenIfNecessary()
-            }
-        }
-    }
+    var shortenedDynamicLink: URL?
 
     var userIsLoggedOut: Bool {
         return AuthController.userIsLoggedOut()
@@ -72,42 +66,13 @@ class LoggedInUserController: ObservableObject {
         return hostedShows.filter { !$0.alreadyHappened }
     }
 
-    init() {
-        addFcmTokenObserver()
-    }
-
-    func addFcmTokenObserver() {
-        NotificationCenter.default.addObserver(forName: .didReceiveRegistrationToken, object: nil, queue: .main) { notification in
-            if let fetchedFcmToken = notification.userInfo?[FbConstants.fcmToken] as? String {
-                Task { @MainActor in
-                    self.deviceFcmToken = fetchedFcmToken
-                }
-            }
-        }
-    }
-
-    func updateFcmTokenIfNecessary() async {
-        guard let deviceFcmToken,
-              let loggedInUser else {
-            viewState = .error(message: "Something went wrong. Please ensure you have an internet connection, restart The Same Page, and try again.")
-            return
-        }
-
-        do {
-            if try await AuthController.getLoggedInFcmToken() != deviceFcmToken  {
-                try await DatabaseService.shared.updateFcmToken(to: deviceFcmToken, forUserWithUid: loggedInUser.id)
-            }
-        } catch {
-            viewState = .error(message: error.localizedDescription)
-        }
-    }
-
     func callOnAppLaunchMethods() async {
         guard !AuthController.userIsLoggedOut() else { return }
 
         await getLoggedInUserInfo()
         await getLoggedInUserAllBands()
         await getLoggedInUserAllShows()
+        await createDynamicLinkForUser()
     }
 
     func getLoggedInUserInfo() async {
@@ -281,6 +246,15 @@ class LoggedInUserController: ObservableObject {
                 viewState = .error(message: "\(ErrorMessageConstants.unknownError). System error: \(error.localizedDescription)")
             }
         }
+    }
+
+    func createDynamicLinkForUser() async {
+        guard let loggedInUser else {
+            print("User object cannot be nil before generating Dynamic Link for user.")
+            return
+        }
+
+        shortenedDynamicLink = await DynamicLinkController.shared.createDynamicLink(ofType: .user, for: loggedInUser)
     }
 
     func sendEmailVerificationEmailToCurrentUser() async throws {

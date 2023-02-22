@@ -11,6 +11,8 @@ import SwiftUI
 struct LoggedInUserProfileView: View {
     @EnvironmentObject var loggedInUserController: LoggedInUserController
 
+    @StateObject private var sheetNavigator = LoggedInUserProfileViewSheetNavigator()
+
     @State private var errorAlertIsShowing = false
     @State private var errorAlertText = ""
     @State private var settingsButtonTapped = false
@@ -48,13 +50,24 @@ struct LoggedInUserProfileView: View {
             .navigationTitle("Your Profile")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
-                #warning("Add sharing for your own profile")
-
                 ToolbarItem {
-                    Button {
-                        settingsButtonTapped.toggle()
+                    Menu {
+                        if let shortenedDynamicLink = loggedInUserController.shortenedDynamicLink {
+                            ShareLink(item: ".\(shortenedDynamicLink.absoluteString)") {
+                                Label("Share", systemImage: "square.and.arrow.up")
+                            }
+                        }
+
+                        Button {
+                            sheetNavigator.sheetDestination = .userSettingsView
+                        } label: {
+                            Label("Settings", systemImage: "gear")
+                        }
                     } label: {
-                        Label("Settings", systemImage: "gear")
+                        EllipsesMenuIcon()
+                    }
+                    .fullScreenCover(isPresented: $sheetNavigator.presentSheet) {
+                        sheetNavigator.sheetView()
                     }
                 }
             }
