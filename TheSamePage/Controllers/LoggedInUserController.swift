@@ -19,6 +19,7 @@ class LoggedInUserController: ObservableObject {
     @Published var allShows = [Show]()
     @Published var allBands = [Band]()
     @Published var allUserChats = [Chat]()
+    @Published var allUserNotifications = [AnyUserNotification]()
     
     /// The image loaded from the ProfileAsyncImage in LoggedInUserProfileView
     @Published var userImage: Image?
@@ -51,6 +52,7 @@ class LoggedInUserController: ObservableObject {
     let db = Firestore.firestore()
     var shortenedDynamicLink: URL?
     var chatsListener: ListenerRegistration?
+    var notificationsListener: ListenerRegistration?
 
     var userIsLoggedOut: Bool {
         return AuthController.userIsLoggedOut()
@@ -79,7 +81,9 @@ class LoggedInUserController: ObservableObject {
         await getLoggedInUserAllBands()
         await getLoggedInUserAllShows()
         await createDynamicLinkForUser()
-        getloggedInUserChats()
+        addLoggedInUserChatsListener()
+        addLoggedInUserNotificationsListener()
+
     }
 
     func getLoggedInUserInfo() async {
@@ -130,7 +134,7 @@ class LoggedInUserController: ObservableObject {
         }
     }
 
-    func getloggedInUserChats() {
+    func addLoggedInUserChatsListener() {
         guard loggedInUser != nil else { return }
 
         chatsListener = db
@@ -157,6 +161,39 @@ class LoggedInUserController: ObservableObject {
                     }
                 }
             }
+    }
+
+    func addLoggedInUserNotificationsListener() {
+        notificationsListener = db
+            .collection(FbConstants.users)
+            .document(AuthController.getLoggedInUid())
+            .collection(FbConstants.notifications)
+            .addSnapshotListener { snapshot, error in
+                if snapshot != nil && error == nil {
+                    // Do not check if snapshot.documents.isEmpty or else deleting the final notification
+                    // in the array will not update the UI in realtime.
+                    var notificationsAsAnyUserNotification = [AnyUserNotification]()
+
+                    for document in snapshot!.documents {
+                        if let bandInvite = try? document.data(as: BandInvite.self) {
+                            let bandInviteAsAnyUserNotification = AnyUserNotification(id: bandInvite.id, notification: bandInvite)
+                            notificationsAsAnyUserNotification.append(bandInviteAsAnyUserNotification)
+                        } else if let showInvite = try? document.data(as: ShowInvite.self) {
+                            let showInviteAsAnyUserNotification = AnyUserNotification(id: showInvite.id, notification: showInvite)
+                            notificationsAsAnyUserNotification.append(showInviteAsAnyUserNotification)
+                        } else if let showApplication = try? document.data(as: ShowApplication.self) {
+                            let showApplicationAsAnyUserNotification = AnyUserNotification(id: showApplication.id, notification: showApplication)
+                            notificationsAsAnyUserNotification.append(showApplicationAsAnyUserNotification)
+                        }
+                    }
+
+                    self.allUserNotifications = notificationsAsAnyUserNotification.sorted {
+                        $0.notification.sentTimestamp > $1.notification.sentTimestamp
+                    }
+                } else if error != nil {
+                    self.viewState = .error(message: "Failed to fetch up-to-date notifications. System Error: \(error!.localizedDescription)")
+                }
+        }
     }
 
     func deleteProfileImage() async {

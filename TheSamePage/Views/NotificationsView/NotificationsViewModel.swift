@@ -10,9 +10,6 @@ import Foundation
 
 @MainActor
 final class NotificationsViewModel: ObservableObject {
-    @Published var fetchedNotifications = [AnyUserNotification]()
-    @Published var selectedNotificationType = NotificationType.bandInvite
-
     @Published var buttonsAreDisabled = false
     
     @Published var viewState = ViewState.dataLoading {
@@ -39,46 +36,6 @@ final class NotificationsViewModel: ObservableObject {
     var errorAlertText = ""
     
     let db = Firestore.firestore()
-    var notificationsListener: ListenerRegistration?
-
-    func getNotifications() {
-        notificationsListener = db
-            .collection(FbConstants.users)
-            .document(AuthController.getLoggedInUid())
-            .collection(FbConstants.notifications)
-            .addSnapshotListener { snapshot, error in
-                if snapshot != nil && error == nil {
-                    // Do not check if snapshot.documents.isEmpty or else deleting the final notification
-                    // in the array will not update the UI in realtime.
-                    var notificationsAsAnyUserNotification = [AnyUserNotification]()
-
-                    for document in snapshot!.documents {
-                        if let bandInvite = try? document.data(as: BandInvite.self) {
-                            let bandInviteAsAnyUserNotification = AnyUserNotification(id: bandInvite.id, notification: bandInvite)
-                            notificationsAsAnyUserNotification.append(bandInviteAsAnyUserNotification)
-                        } else if let showInvite = try? document.data(as: ShowInvite.self) {
-                            let showInviteAsAnyUserNotification = AnyUserNotification(id: showInvite.id, notification: showInvite)
-                            notificationsAsAnyUserNotification.append(showInviteAsAnyUserNotification)
-                        } else if let showApplication = try? document.data(as: ShowApplication.self) {
-                            let showApplicationAsAnyUserNotification = AnyUserNotification(id: showApplication.id, notification: showApplication)
-                            notificationsAsAnyUserNotification.append(showApplicationAsAnyUserNotification)
-                        }
-                    }
-
-                    self.fetchedNotifications = notificationsAsAnyUserNotification.sorted {
-                        $0.notification.sentTimestamp > $1.notification.sentTimestamp
-                    }
-
-                    self.fetchedNotifications.isEmpty ? (self.viewState = .dataNotFound) : (self.viewState = .dataLoaded)
-                } else if error != nil {
-                    self.viewState = .error(message: "Failed to fetch up-to-date notifications. System error: \(error!.localizedDescription)")
-                }
-        }
-    }
-
-    func getUrl() -> URL {
-        return URL(string: ":KLSDJf")!
-    }
     
     func handleNotification(anyUserNotification: AnyUserNotification, withAction action: NotificationAction) async {
         do {
@@ -216,9 +173,5 @@ final class NotificationsViewModel: ObservableObject {
         try await DatabaseService.shared.deleteNotification(withId: notification.id)
 
         viewState = .workCompleted
-    }
-    
-    func removeListeners() {
-        notificationsListener?.remove()
     }
 }

@@ -61,82 +61,80 @@ final class NotificationsViewModelTests: XCTestCase {
     }
 
     func test_OnInit_DefaultValuesAreCorrect() {
-        XCTAssertTrue(sut.fetchedNotifications.isEmpty)
-        XCTAssertEqual(sut.selectedNotificationType, .bandInvite)
         XCTAssertEqual(sut.viewState, .dataLoading)
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
     }
 
-    func test_OnGetNotificationsWhenUserHasNotifications_NotificationsAreFetchedAndViewStateIsSet() async throws {
-        try await testingDatabaseService.logInToTasAccount()
+//    func test_OnGetNotificationsWhenUserHasNotifications_NotificationsAreFetchedAndViewStateIsSet() async throws {
+//        try await testingDatabaseService.logInToTasAccount()
+//
+//        sut.getNotifications()
+//        try await Task.sleep(seconds: 0.5)
+//
+//        XCTAssertEqual(sut.fetchedNotifications.count, 1, "Tas has one notification")
+//        XCTAssertEqual(sut.viewState, .dataLoaded, "Data should've been found")
+//    }
+//
+//    func test_OnGetNotificationsWhenUserHasNoNotifications_NoNotificationsAreFetchedAndViewStateIsSet() async throws {
+//        try await testingDatabaseService.logInToLouAccount()
+//
+//        sut.getNotifications()
+//        try await Task.sleep(seconds: 0.5)
+//
+//        XCTAssertTrue(sut.fetchedNotifications.isEmpty, "Lou has no notifications")
+//        XCTAssertEqual(sut.viewState, .dataNotFound, "No data should've been found")
+//    }
 
-        sut.getNotifications()
-        try await Task.sleep(seconds: 0.5)
+//    func test_OnNotificationReceived_FetchedNotificationsArrayUpdatesInRealtime() async throws {
+//        try await testingDatabaseService.logInToMikeAccount()
+//        let showInvite = try await createGenerationUndergroundAndSendInviteToPlayDumpweedExtravaganza()
+//
+//        sut.getNotifications()
+//        try await Task.sleep(seconds: 0.5)
+//
+//        XCTAssertEqual(sut.fetchedNotifications.count, 1, "Mike should only have 1 notification at this point")
+//
+//        self.createdShowInviteId = try testingDatabaseService.sendShowInvite(
+//            send: showInvite,
+//            toBandWithAdminUid: TestingConstants.exampleUserMike.id
+//        )
+//        try await Task.sleep(seconds: 0.5)
+//
+//        XCTAssertEqual(sut.fetchedNotifications.count, 2, "Mike now has 2 notifications")
+//
+//        // Cleans up the second sent notification
+//        try await testingDatabaseService.deleteNotification(
+//            withId: showInvite.id,
+//            forUserWithUid: TestingConstants.exampleUserMike.id
+//        )
+//    }
 
-        XCTAssertEqual(sut.fetchedNotifications.count, 1, "Tas has one notification")
-        XCTAssertEqual(sut.viewState, .dataLoaded, "Data should've been found")
-    }
-
-    func test_OnGetNotificationsWhenUserHasNoNotifications_NoNotificationsAreFetchedAndViewStateIsSet() async throws {
-        try await testingDatabaseService.logInToLouAccount()
-
-        sut.getNotifications()
-        try await Task.sleep(seconds: 0.5)
-
-        XCTAssertTrue(sut.fetchedNotifications.isEmpty, "Lou has no notifications")
-        XCTAssertEqual(sut.viewState, .dataNotFound, "No data should've been found")
-    }
-
-    func test_OnNotificationReceived_FetchedNotificationsArrayUpdatesInRealtime() async throws {
-        try await testingDatabaseService.logInToMikeAccount()
-        let showInvite = try await createGenerationUndergroundAndSendInviteToPlayDumpweedExtravaganza()
-
-        sut.getNotifications()
-        try await Task.sleep(seconds: 0.5)
-
-        XCTAssertEqual(sut.fetchedNotifications.count, 1, "Mike should only have 1 notification at this point")
-
-        self.createdShowInviteId = try testingDatabaseService.sendShowInvite(
-            send: showInvite,
-            toBandWithAdminUid: TestingConstants.exampleUserMike.id
-        )
-        try await Task.sleep(seconds: 0.5)
-
-        XCTAssertEqual(sut.fetchedNotifications.count, 2, "Mike now has 2 notifications")
-
-        // Cleans up the second sent notification
-        try await testingDatabaseService.deleteNotification(
-            withId: showInvite.id,
-            forUserWithUid: TestingConstants.exampleUserMike.id
-        )
-    }
-
-    func test_OnNotificationReceivedAfterRemovingListener_FetchedNotificationsArrayDoesNotUpdate() async throws {
-        try await testingDatabaseService.logInToMikeAccount()
-        let showInvite = try await createGenerationUndergroundAndSendInviteToPlayDumpweedExtravaganza()
-
-        sut.getNotifications()
-        try await Task.sleep(seconds: 0.5)
-
-        XCTAssertEqual(sut.fetchedNotifications.count, 1, "Mike should only have 1 notification")
-
-        sut.removeListeners()
-
-        self.createdShowInviteId = try testingDatabaseService.sendShowInvite(
-            send: showInvite,
-            toBandWithAdminUid: TestingConstants.exampleUserMike.id
-        )
-        try await Task.sleep(seconds: 0.5)
-
-        XCTAssertEqual(sut.fetchedNotifications.count, 1, "An additional notification shouldn't have been fetched because the listener was removed")
-
-        // Cleans up the second sent notification
-        try await testingDatabaseService.deleteNotification(
-            withId: showInvite.id,
-            forUserWithUid: TestingConstants.exampleUserMike.id
-        )
-    }
+//    func test_OnNotificationReceivedAfterRemovingListener_FetchedNotificationsArrayDoesNotUpdate() async throws {
+//        try await testingDatabaseService.logInToMikeAccount()
+//        let showInvite = try await createGenerationUndergroundAndSendInviteToPlayDumpweedExtravaganza()
+//
+//        sut.getNotifications()
+//        try await Task.sleep(seconds: 0.5)
+//
+//        XCTAssertEqual(sut.fetchedNotifications.count, 1, "Mike should only have 1 notification")
+//
+//        sut.removeListeners()
+//
+//        self.createdShowInviteId = try testingDatabaseService.sendShowInvite(
+//            send: showInvite,
+//            toBandWithAdminUid: TestingConstants.exampleUserMike.id
+//        )
+//        try await Task.sleep(seconds: 0.5)
+//
+//        XCTAssertEqual(sut.fetchedNotifications.count, 1, "An additional notification shouldn't have been fetched because the listener was removed")
+//
+//        // Cleans up the second sent notification
+//        try await testingDatabaseService.deleteNotification(
+//            withId: showInvite.id,
+//            forUserWithUid: TestingConstants.exampleUserMike.id
+//        )
+//    }
 
     func test_OnAcceptBandInvite_UserIsAddedToBand() async throws {
         let bandInvite = try await createMattUserAndSendBandInviteToJoinPatheticFallacy()

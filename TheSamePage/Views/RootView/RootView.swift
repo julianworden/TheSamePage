@@ -44,6 +44,7 @@ struct RootView: View {
                             Label("Notifications", systemImage: "bell")
                         }
                         .tag(3)
+                        .badge(loggedInUserController.allUserNotifications.count)
 
                     LoggedInUserProfileView()
                         .tabItem {

@@ -8,44 +8,28 @@
 import SwiftUI
 
 struct NotificationsView: View {
+    @EnvironmentObject var loggedInUserController: LoggedInUserController
+
     @StateObject var viewModel = NotificationsViewModel()
     
     var body: some View {
         NavigationStack {
             ZStack {
                 BackgroundColor()
-
-                VStack {
-                    switch viewModel.viewState {
-                    case .dataLoading:
-                        ProgressView()
-                        
-                    case .dataLoaded, .dataNotFound, .performingWork, .workCompleted, .error:
-                        NotificationsList(viewModel: viewModel)
-                        
-                    default:
-                        ErrorMessage(message: "Unknown viewState")
-                    }
-                }
+                NotificationsList(viewModel: viewModel)
             }
             .navigationTitle("Notifications")
             .errorAlert(
                 isPresented: $viewModel.errorAlertIsShowing,
                 message: viewModel.errorAlertText,
                 okButtonAction: {
-                    if viewModel.fetchedNotifications.isEmpty {
+                    if loggedInUserController.allUserNotifications.isEmpty {
                         viewModel.viewState = .dataNotFound
                     } else {
                         viewModel.viewState = .dataLoaded
                     }
                 }
             )
-            .task {
-                viewModel.getNotifications()
-            }
-            .onDisappear {
-                viewModel.removeListeners()
-            }
         }
     }
 }
