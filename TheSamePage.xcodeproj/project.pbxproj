@@ -248,6 +248,8 @@
 		ABD18AAD28EE14C1002286C3 /* SendShowInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD18AAC28EE14C1002286C3 /* SendShowInviteView.swift */; };
 		ABD18AAF28EE14C9002286C3 /* SendShowInviteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD18AAE28EE14C9002286C3 /* SendShowInviteViewModel.swift */; };
 		ABD18AB128EE2FAB002286C3 /* ShowInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD18AB028EE2FAB002286C3 /* ShowInvite.swift */; };
+		ABD19F6729A6E462003CDC28 /* AllChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD19F6629A6E462003CDC28 /* AllChatsView.swift */; };
+		ABD19F6929A6E639003CDC28 /* ChatRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD19F6829A6E639003CDC28 /* ChatRow.swift */; };
 		ABD1D16D28F30CDF00791969 /* MyHostedShowsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1D16C28F30CDF00791969 /* MyHostedShowsView.swift */; };
 		ABD1D16F28F30CE500791969 /* MyPlayingShowsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1D16E28F30CE500791969 /* MyPlayingShowsView.swift */; };
 		ABD1D17128F30D3200791969 /* ShowType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1D17028F30D3200791969 /* ShowType.swift */; };
@@ -552,6 +554,8 @@
 		ABD18AAC28EE14C1002286C3 /* SendShowInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendShowInviteView.swift; sourceTree = "<group>"; };
 		ABD18AAE28EE14C9002286C3 /* SendShowInviteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendShowInviteViewModel.swift; sourceTree = "<group>"; };
 		ABD18AB028EE2FAB002286C3 /* ShowInvite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowInvite.swift; sourceTree = "<group>"; };
+		ABD19F6629A6E462003CDC28 /* AllChatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllChatsView.swift; sourceTree = "<group>"; };
+		ABD19F6829A6E639003CDC28 /* ChatRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRow.swift; sourceTree = "<group>"; };
 		ABD1D16C28F30CDF00791969 /* MyHostedShowsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHostedShowsView.swift; sourceTree = "<group>"; };
 		ABD1D16E28F30CE500791969 /* MyPlayingShowsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlayingShowsView.swift; sourceTree = "<group>"; };
 		ABD1D17028F30D3200791969 /* ShowType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowType.swift; sourceTree = "<group>"; };
@@ -1378,6 +1382,7 @@
 		ABCF232629131E46003DB6BB /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				ABD19F6529A6E45B003CDC28 /* AllChatsView */,
 				AB2BF26A2919C3A000C65DD8 /* ConversationView */,
 				AB2BF26B2919C3B300C65DD8 /* ChatInfoView */,
 			);
@@ -1401,6 +1406,15 @@
 				ABD18AAE28EE14C9002286C3 /* SendShowInviteViewModel.swift */,
 			);
 			path = SendShowInviteView;
+			sourceTree = "<group>";
+		};
+		ABD19F6529A6E45B003CDC28 /* AllChatsView */ = {
+			isa = PBXGroup;
+			children = (
+				ABD19F6629A6E462003CDC28 /* AllChatsView.swift */,
+				ABD19F6829A6E639003CDC28 /* ChatRow.swift */,
+			);
+			path = AllChatsView;
 			sourceTree = "<group>";
 		};
 		ABD323ED28E117F800540B93 /* SendBandInviteView */ = {
@@ -1875,6 +1889,7 @@
 				AB36FF8728D35C2000AAC00C /* Band.swift in Sources */,
 				ABAB45F928F24C2400FA8F70 /* HostedShowRow.swift in Sources */,
 				AB6514DF28F911EB008DFDD0 /* ShowTimeRow.swift in Sources */,
+				ABD19F6929A6E639003CDC28 /* ChatRow.swift in Sources */,
 				AB3C73D528DC0A1D0038085A /* BandSearchView.swift in Sources */,
 				AB9DAB06292329BB009BE932 /* ShowSettingsViewModel.swift in Sources */,
 				ABE2FE0629897BF400D5A951 /* ChooseNewShowHostViewModel.swift in Sources */,
@@ -1936,6 +1951,7 @@
 				ABCD5F64291B54D300E33934 /* BandShowsList.swift in Sources */,
 				AB36FF8F28D35E8C00AAC00C /* Genre.swift in Sources */,
 				ABB4C3FF29207CE600E2C153 /* NotificationAction.swift in Sources */,
+				ABD19F6729A6E462003CDC28 /* AllChatsView.swift in Sources */,
 				AB36FF6628D356FD00AAC00C /* TheSamePageApp.swift in Sources */,
 				ABE07A0C29799A93009D3661 /* AddMyBandToShowView.swift in Sources */,
 				AB7AC08B298F043900650BCC /* ShowBacklineList.swift in Sources */,

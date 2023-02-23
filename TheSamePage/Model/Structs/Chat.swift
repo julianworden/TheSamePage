@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Chat: Codable, Equatable, Identifiable {
+struct Chat: Codable, Equatable, Hashable, Identifiable {
     var id: String
     /// The ID of the show that the chat belongs to. This is optional because it will
     /// make it easier to add chatting for all users at a later time.
@@ -50,5 +50,9 @@ struct Chat: Codable, Equatable, Identifiable {
         var filteredParticipantUids = [String]()
         filteredParticipantUids = participantUids.filter { $0 != AuthController.getLoggedInUid() }
         return filteredParticipantUids
+    }
+
+    var loggedInUserIsUpToDate: Bool {
+        upToDateParticipantUids.contains(AuthController.getLoggedInUid())
     }
 }

@@ -1772,17 +1772,12 @@ class DatabaseService: NSObject {
         }
     }
 
-    #warning("Test")
     func updateChatWithNewChatMessage(update chat: Chat, with chatMessage: ChatMessage) async throws {
         do {
             _ = try await db
                 .collection(FbConstants.chats)
                 .document(chat.id)
-                .updateData(
-                    [
-                        FbConstants.upToDateParticipantUids: FieldValue.delete()
-                    ]
-                )
+                .updateData([FbConstants.upToDateParticipantUids: FieldValue.delete()])
 
             _ = try await db
                 .collection(FbConstants.chats)

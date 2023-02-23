@@ -20,7 +20,7 @@ final class ShowDetailsViewSheetNavigator: ObservableObject {
     func sheetView() -> AnyView {
         switch sheetDestination {
         case .conversationView(let show, let chatParticipantUids):
-            return ConversationView(show: show, chatParticipantUids: chatParticipantUids).eraseToAnyView()
+            return ConversationView(show: show, chatParticipantUids: chatParticipantUids, isPresentedModally: true).eraseToAnyView()
 
         case .showApplicationView(let show):
             return SendShowApplicationView(show: show).eraseToAnyView()

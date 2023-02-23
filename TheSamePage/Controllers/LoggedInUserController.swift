@@ -18,6 +18,7 @@ class LoggedInUserController: ObservableObject {
     @Published var hostedShows = [Show]()
     @Published var allShows = [Show]()
     @Published var allBands = [Band]()
+    @Published var allUserChats = [Chat]()
     
     /// The image loaded from the ProfileAsyncImage in LoggedInUserProfileView
     @Published var userImage: Image?
@@ -49,6 +50,7 @@ class LoggedInUserController: ObservableObject {
 
     let db = Firestore.firestore()
     var shortenedDynamicLink: URL?
+    var chatsListener: ListenerRegistration?
 
     var userIsLoggedOut: Bool {
         return AuthController.userIsLoggedOut()
@@ -73,6 +75,7 @@ class LoggedInUserController: ObservableObject {
         await getLoggedInUserAllBands()
         await getLoggedInUserAllShows()
         await createDynamicLinkForUser()
+        getloggedInUserChats()
     }
 
     func getLoggedInUserInfo() async {
@@ -121,6 +124,35 @@ class LoggedInUserController: ObservableObject {
         } catch {
             viewState = .error(message: error.localizedDescription)
         }
+    }
+
+    func getloggedInUserChats() {
+        guard loggedInUser != nil else { return }
+
+        chatsListener = db
+            .collection(FbConstants.chats)
+            .whereField(FbConstants.participantUids, arrayContains: AuthController.getLoggedInUid())
+            .addSnapshotListener { snapshot, error in
+                if error != nil {
+                    self.viewState = .error(message: error!.localizedDescription)
+                    return
+                }
+
+                if let snapshot {
+                    let chatsAsDocuments = snapshot.documents
+                    var decodedChats = [Chat]()
+
+                    for document in chatsAsDocuments {
+                        if let chat = try? document.data(as: Chat.self) {
+                            decodedChats.append(chat)
+                        }
+                    }
+
+                    self.allUserChats = decodedChats.sorted {
+                        $0.mostRecentMessageTimestamp ?? 0 > $1.mostRecentMessageTimestamp ?? 0
+                    }
+                }
+            }
     }
 
     func deleteProfileImage() async {

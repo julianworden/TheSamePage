@@ -21,6 +21,7 @@ struct ListRowElements: View {
     let iconIsSfSymbol: Bool
     let displayChevron: Bool
     let displayDivider: Bool
+    let displayUnreadIndicator: Bool
     
     init(
         title: String,
@@ -29,7 +30,8 @@ struct ListRowElements: View {
         iconName: String,
         iconIsSfSymbol: Bool,
         displayChevron: Bool = false,
-        displayDivider: Bool = false
+        displayDivider: Bool = false,
+        displayUnreadIndicator: Bool = false
     ) {
         self.title = title
         self.subtitle = subtitle
@@ -38,6 +40,7 @@ struct ListRowElements: View {
         self.iconIsSfSymbol = iconIsSfSymbol
         self.displayChevron = displayChevron
         self.displayDivider = displayDivider
+        self.displayUnreadIndicator = displayUnreadIndicator
     }
     
     var body: some View {
@@ -53,11 +56,13 @@ struct ListRowElements: View {
 
                 VStack(alignment: .leading) {
                     Text(title)
+                        .bold(displayUnreadIndicator)
                     
                     if let subtitle,
                        !subtitle.isReallyEmpty {
                         Text(subtitle)
                             .font(.caption)
+                            .bold(displayUnreadIndicator)
                     }
 
                     if let secondaryText,
@@ -65,14 +70,23 @@ struct ListRowElements: View {
                         Text(secondaryText)
                             .font(.caption)
                             .foregroundColor(.secondary)
+                            .bold(displayUnreadIndicator)
                     }
                 }
                 .multilineTextAlignment(.leading)
                 
                 Spacer()
-                
-                if displayChevron {
-                    Image(systemName: "chevron.right")
+
+                HStack(spacing: 5) {
+                    if displayUnreadIndicator {
+                        Circle()
+                            .frame(width: 10, height: 10)
+                            .foregroundColor(.blue)
+                    }
+
+                    if displayChevron {
+                        Image(systemName: "chevron.right")
+                    }
                 }
             }
             

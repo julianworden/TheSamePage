@@ -38,14 +38,17 @@ class ConversationViewModel : ObservableObject {
     let userId: String?
     var chat: Chat?
     var chatId: String?
+    var isPresentedModally: Bool
     
     var chatMessagesListener: ListenerRegistration?
     let db = Firestore.firestore()
     
-    init(chatId: String? = nil, show: Show? = nil, userId: String? = nil, chatParticipantUids: [String] = []) {
+    init(chatId: String? = nil, show: Show? = nil, userId: String? = nil, chatParticipantUids: [String] = [], isPresentedModally: Bool = false) {
         self.show = show
         self.userId = userId
+        #warning("evaluate if this parameter should be in initializer")
         self.chatParticipantUids = chatParticipantUids
+        self.isPresentedModally = isPresentedModally
 
             Task {
                 if let chatId {
@@ -138,22 +141,23 @@ class ConversationViewModel : ObservableObject {
         }
     }
     
-    func sendMessageButtonTapped(by user: User?) async {
-        await sendChatMessage(fromUser: user)
+    @discardableResult func sendMessageButtonTapped(by user: User?) async -> ChatMessage? {
+        let newChatMessage = await sendChatMessage(fromUser: user)
         messageText = ""
+        return newChatMessage
     }
     
-    func sendChatMessage(fromUser user: User?) async {
+    func sendChatMessage(fromUser user: User?) async -> ChatMessage? {
         guard let chat,
               let user else {
             viewState = .error(
                 message: LogicError.unexpectedNilValue(message: "Failed to send chat message. Please relaunch The Same Page and try again").localizedDescription)
-            return
+            return nil
         }
 
         guard !messageText.isReallyEmpty else {
             viewState = .error(message: LogicError.emptyChatMessage.localizedDescription)
-            return
+            return nil
         }
         
         do {
@@ -179,9 +183,12 @@ class ConversationViewModel : ObservableObject {
             )
             
             try await DatabaseService.shared.sendChatMessage(chatMessage: newChatMessage, chat: chat)
+
+            return newChatMessage
         } catch {
             // TODO: Figure out why this state isn't being changed when wifi is off
             viewState = .error(message: error.localizedDescription)
+            return nil
         }
     }
 
@@ -211,7 +218,6 @@ class ConversationViewModel : ObservableObject {
         }
     }
 
-    #warning("TEST")
     func addUserToChatUpToDateParticipantUids() async {
         guard let chat else {
             viewState = .error(message: "Something went wrong while fetching this chat's info. Please ensure you have an internet connection, restart The Same Page, and try again.")

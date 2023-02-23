@@ -17,6 +17,7 @@ struct LoggedInUserProfileView: View {
     @State private var errorAlertText = ""
     @State private var settingsButtonTapped = false
     @State private var selectedTab = SelectedUserProfileTab.bands
+    @State private var allChatsViewIsShowing = false
 
     var body: some View {
         NavigationStack {
@@ -50,6 +51,17 @@ struct LoggedInUserProfileView: View {
             .navigationTitle("Your Profile")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        allChatsViewIsShowing.toggle()
+                    } label: {
+                        Label("Chats", systemImage: "bubble.right")
+                    }
+                    .fullScreenCover(isPresented: $allChatsViewIsShowing) {
+                        AllChatsView()
+                    }
+                }
+
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
                         if let shortenedDynamicLink = loggedInUserController.shortenedDynamicLink {

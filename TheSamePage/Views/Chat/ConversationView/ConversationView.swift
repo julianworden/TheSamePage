@@ -14,8 +14,8 @@ struct ConversationView: View {
         
     @StateObject var viewModel: ConversationViewModel
     
-    init(chatId: String? = nil, show: Show? = nil, userId: String? = nil, chatParticipantUids: [String] = []) {
-        _viewModel = StateObject(wrappedValue: ConversationViewModel(chatId: chatId, show: show, userId: userId, chatParticipantUids: chatParticipantUids))
+    init(chatId: String? = nil, show: Show? = nil, userId: String? = nil, chatParticipantUids: [String] = [], isPresentedModally: Bool = false) {
+        _viewModel = StateObject(wrappedValue: ConversationViewModel(chatId: chatId, show: show, userId: userId, chatParticipantUids: chatParticipantUids, isPresentedModally: isPresentedModally))
     }
 
     var body: some View {
@@ -31,17 +31,19 @@ struct ConversationView: View {
         .navigationTitle("Chat")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            if viewModel.isPresentedModally {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Back") {
+                        dismiss()
+                    }
+                }
+            }
+
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink {
                     ChatInfoView(show: viewModel.show, chatParticipantUids: viewModel.chatParticipantUids)
                 } label: {
                     Image(systemName: "info.circle")
-                }
-            }
-
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button("Back") {
-                    dismiss()
                 }
             }
         }

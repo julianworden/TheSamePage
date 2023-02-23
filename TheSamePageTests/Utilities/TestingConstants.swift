@@ -382,7 +382,10 @@ struct TestingConstants {
         id: "cpS2HseZT6XIG1qMRAKL",
         showId: exampleShowDumpweedExtravaganza.id,
         name: exampleShowDumpweedExtravaganza.name,
-        participantUids: [exampleUserJulian.id, exampleUserLou.id, exampleUserEric.id]
+        participantUids: [exampleUserJulian.id, exampleUserLou.id, exampleUserEric.id],
+        mostRecentMessageText: "Hell Yeah!",
+        mostRecentMessageTimestamp: 1676406074.836448,
+        upToDateParticipantUids: [exampleUserLou.id]
     )
 
     // MARK: - Example ChatMessages
