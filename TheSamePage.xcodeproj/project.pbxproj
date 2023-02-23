@@ -244,6 +244,7 @@
 		ABCEBCCC29A67BB0009CC6F6 /* LoggedInUserProfileViewSheetNavigatorDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCEBCCB29A67BB0009CC6F6 /* LoggedInUserProfileViewSheetNavigatorDestination.swift */; };
 		ABCEBCCD29A67BB0009CC6F6 /* LoggedInUserProfileViewSheetNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCEBCCA29A67BB0009CC6F6 /* LoggedInUserProfileViewSheetNavigator.swift */; };
 		ABCF232829131E4E003DB6BB /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCF232729131E4E003DB6BB /* ConversationView.swift */; };
+		ABD001C229A7C1AC007B1162 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD001C129A7C1AC007B1162 /* Badge.swift */; };
 		ABD029B428E8978F00BDF73C /* BandMemberList.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD029B328E8978F00BDF73C /* BandMemberList.swift */; };
 		ABD18AAD28EE14C1002286C3 /* SendShowInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD18AAC28EE14C1002286C3 /* SendShowInviteView.swift */; };
 		ABD18AAF28EE14C9002286C3 /* SendShowInviteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD18AAE28EE14C9002286C3 /* SendShowInviteViewModel.swift */; };
@@ -550,6 +551,7 @@
 		ABCEBCCA29A67BB0009CC6F6 /* LoggedInUserProfileViewSheetNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserProfileViewSheetNavigator.swift; sourceTree = "<group>"; };
 		ABCEBCCB29A67BB0009CC6F6 /* LoggedInUserProfileViewSheetNavigatorDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInUserProfileViewSheetNavigatorDestination.swift; sourceTree = "<group>"; };
 		ABCF232729131E4E003DB6BB /* ConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationView.swift; sourceTree = "<group>"; };
+		ABD001C129A7C1AC007B1162 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
 		ABD029B328E8978F00BDF73C /* BandMemberList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandMemberList.swift; sourceTree = "<group>"; };
 		ABD18AAC28EE14C1002286C3 /* SendShowInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendShowInviteView.swift; sourceTree = "<group>"; };
 		ABD18AAE28EE14C9002286C3 /* SendShowInviteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendShowInviteViewModel.swift; sourceTree = "<group>"; };
@@ -1005,6 +1007,7 @@
 				ABE2FE012989722200D5A951 /* MockNavigationLinkRow.swift */,
 				AB24876B298C188A00BD4528 /* EllipsesMenuIcon.swift */,
 				AB3074C4299020610025615F /* CustomTextField.swift */,
+				ABD001C129A7C1AC007B1162 /* Badge.swift */,
 			);
 			path = Miscellaneous;
 			sourceTree = "<group>";
@@ -1987,6 +1990,7 @@
 				ABF0BF6B29996B820022B046 /* AppOpenedViaNotificationController.swift in Sources */,
 				ABE2FE0429897BED00D5A951 /* ChooseNewShowHostView.swift in Sources */,
 				ABDC0D7928D76FC60054269E /* AddEditShowViewModel.swift in Sources */,
+				ABD001C229A7C1AC007B1162 /* Badge.swift in Sources */,
 				AB5EFF9D2982BE58000399DE /* ForgotPasswordViewModel.swift in Sources */,
 				AB9350C62996F9B000B1D2CA /* FirebaseFunctionsController.swift in Sources */,
 				AB5C0D3B292B14DE0040CE97 /* FirebaseError.swift in Sources */,

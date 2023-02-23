@@ -68,6 +68,10 @@ class LoggedInUserController: ObservableObject {
         return hostedShows.filter { !$0.alreadyHappened }
     }
 
+    var unreadChatCount: Int {
+        return allUserChats.filter { !$0.upToDateParticipantUids.contains(AuthController.getLoggedInUid()) }.count
+    }
+
     func callOnAppLaunchMethods() async {
         guard !AuthController.userIsLoggedOut() else { return }
 

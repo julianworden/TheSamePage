@@ -57,6 +57,8 @@ struct LoggedInUserProfileView: View {
                     } label: {
                         Label("Chats", systemImage: "bubble.right")
                     }
+//                    .padding(5)
+                    .overlay(Badge(count: loggedInUserController.unreadChatCount))
                     .fullScreenCover(isPresented: $allChatsViewIsShowing) {
                         AllChatsView()
                     }
