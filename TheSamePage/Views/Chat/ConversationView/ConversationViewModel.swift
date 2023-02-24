@@ -16,6 +16,7 @@ class ConversationViewModel : ObservableObject {
     @Published var chatParticipantUids = [String]()
     
     @Published var sendButtonIsDisabled = true
+    @Published var textFieldIsDisabled = false
     @Published var errorAlertIsShowing = false
     @Published var errorAlertText = ""
     
@@ -67,6 +68,8 @@ class ConversationViewModel : ObservableObject {
             await configureExistingChat(chat)
         } else if let chatId {
             _ = await configureChatWithId(chatId)
+        } else {
+            _ = await configureChatWithParticipantUids(chatParticipantUids)
         }
     }
 
@@ -130,6 +133,19 @@ class ConversationViewModel : ObservableObject {
             viewState = .error(message: error.localizedDescription)
         }
     }
+
+    func configureChatWithParticipantUids(_ participantUids: [String]) async {
+        do {
+            if let fetchedChat = try await DatabaseService.shared.getChat(ofType: .oneOnOne, withParticipantUids: participantUids) {
+                self.chat = fetchedChat
+                await configureExistingChat(fetchedChat)
+            } else {
+                viewState = .dataLoaded
+            }
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
     
     func configureShowChat(forShow show: Show) async -> String? {
         do {
@@ -154,6 +170,7 @@ class ConversationViewModel : ObservableObject {
             }
             var newChat = Chat(
                 id: "",
+                type: ChatType.show.rawValue,
                 showId: show.id,
                 name: show.name,
                 participantUids: chatParticipantUids
@@ -168,46 +185,34 @@ class ConversationViewModel : ObservableObject {
             return nil
         }
     }
-
-    func configureUserChat() async -> String? {
-        do {
-            if let fetchedChat = try await DatabaseService.shared.getChatBetween(usersWithUids: chatParticipantUids) {
-                self.chat = fetchedChat
-                viewState = .dataLoaded
-                return fetchedChat.id
-            } else {
-                viewState = .dataLoaded
-                return nil
-            }
-        } catch {
-            viewState = .error(message: error.localizedDescription)
-            return nil
-        }
-    }
     
     @discardableResult func sendMessageButtonTapped(by user: User?) async -> ChatMessage? {
         do {
+            textFieldIsDisabled = true
+
             if chat != nil {
-                messageText = ""
                 let newChatMessage = await sendChatMessage(fromUser: user)
+                textFieldIsDisabled = false
                 return newChatMessage
             } else {
                 var newChat = Chat(
                     id: "",
+                    type: ChatType.oneOnOne.rawValue,
                     name: "User Chat",
                     participantUids: chatParticipantUids
                 )
                 let newChatId = try await DatabaseService.shared.createChat(chat: newChat)
                 newChat.id = newChatId
                 self.chat = newChat
-                addChatMessagesListener(forChat: newChat)
+                await configureExistingChat(newChat)
 
                 let newChatMessage = await sendChatMessage(fromUser: user)
-                messageText = ""
+                textFieldIsDisabled = false
                 return newChatMessage
             }
         } catch {
             viewState = .error(message: error.localizedDescription)
+            textFieldIsDisabled = false
             return nil
         }
     }
@@ -224,6 +229,9 @@ class ConversationViewModel : ObservableObject {
             viewState = .error(message: LogicError.emptyChatMessage.localizedDescription)
             return nil
         }
+
+        let preservedMessageText = messageText
+        messageText = ""
         
         do {
             let senderUid = user.id
@@ -239,7 +247,7 @@ class ConversationViewModel : ObservableObject {
             }
 
             let newChatMessage = ChatMessage(
-                text: messageText,
+                text: preservedMessageText,
                 senderUid: senderUid,
                 chatId: chat.id,
                 senderFullName: senderFullName,

@@ -1609,6 +1609,44 @@ class DatabaseService: NSObject {
         }
     }
 
+    func getChat(ofType chatType: ChatType, withParticipantUids participantUids: [String]) async throws -> Chat? {
+        do {
+            guard !participantUids.isEmpty,
+                  let chatParticipantUid = participantUids.first else {
+                throw LogicError.unexpectedNilValue(message: "Something went wrong. Please restart The Same Page, ensure you have an internet connection, and try again.")
+            }
+
+            let possibleChatMatchesAsDocuments = try await db
+                .collection(FbConstants.chats)
+                .whereField(FbConstants.participantUids, arrayContains: chatParticipantUid)
+                .getDocuments()
+                .documents
+            
+            let possibleChatMatches = try possibleChatMatchesAsDocuments.map { try $0.data(as: Chat.self) }
+            let matchedChat = possibleChatMatches.filter {
+                $0.participantUids.count == participantUids.count &&
+                $0.type == chatType.rawValue &&
+                $0.participantUids.contains(participantUids)
+            }
+
+            if matchedChat.isEmpty {
+                return nil
+            }
+
+            guard matchedChat.count == 1,
+                  let chatToReturn = matchedChat.first else {
+                throw LogicError.unknown(message: "Something went wrong. Please restart The Same Page, ensure you have an internet connection, and try again.")
+            }
+
+            return chatToReturn
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to fetch or create chat",
+                systemError: error.localizedDescription
+            )
+        }
+    }
+
     func addUserToCurrentChatViewers(uid: String, chatId: String) async throws {
         do {
             try await db
@@ -1834,38 +1872,21 @@ class DatabaseService: NSObject {
         }
     }
 
-    func chatExists(forShowWithId id: String) async throws -> Bool {
-        do {
-            return try await !db
-                .collection(FbConstants.chats)
-                .whereField(FbConstants.showId, isEqualTo: id)
-                .getDocuments()
-                .documents
-                .isEmpty
-        } catch {
-            throw FirebaseError.connection(
-                message: "Failed to fetch chat details",
-                systemError: error.localizedDescription
-            )
-        }
-    }
-
-    func getChatBetween(usersWithUids uids: [String]) async throws -> Chat? {
-        do {
-            return try await db
-                .collection(FbConstants.chats)
-                .whereField(FbConstants.participantUids, isEqualTo: uids)
-                .getDocuments()
-                .documents
-                .first?
-                .data(as: Chat.self)
-        } catch {
-            throw FirebaseError.connection(
-                message: "Failed to fetch chat details",
-                systemError: error.localizedDescription
-            )
-        }
-    }
+//    func chatExists(forShowWithId id: String) async throws -> Bool {
+//        do {
+//            return try await !db
+//                .collection(FbConstants.chats)
+//                .whereField(FbConstants.showId, isEqualTo: id)
+//                .getDocuments()
+//                .documents
+//                .isEmpty
+//        } catch {
+//            throw FirebaseError.connection(
+//                message: "Failed to fetch chat details",
+//                systemError: error.localizedDescription
+//            )
+//        }
+//    }
     
     // MARK: - Firebase Storage
 

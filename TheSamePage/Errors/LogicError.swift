@@ -20,9 +20,9 @@ enum LogicError: Error, LocalizedError {
                 .unexpectedNilValue(let message, let systemError),
                 .unknown(message: let message, systemError: let systemError):
             if let systemError {
-                return "\(message). System error: \(systemError)"
+                return "\(message) System error: \(systemError)"
             } else {
-                return "\(message)."
+                return "\(message)"
             }
         case .incompleteForm:
             return ErrorMessageConstants.incompleteForm

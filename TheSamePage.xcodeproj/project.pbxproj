@@ -195,6 +195,7 @@
 		ABA42BC3292D176600ADE3AD /* Notification.Name+CustomNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA42BC2292D176600ADE3AD /* Notification.Name+CustomNotifications.swift */; };
 		ABA42BC5292D1E3400ADE3AD /* AddEditShowAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA42BC4292D1E3400ADE3AD /* AddEditShowAddressViewModel.swift */; };
 		ABA42BC8292D248400ADE3AD /* NotificationConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA42BC7292D248400ADE3AD /* NotificationConstants.swift */; };
+		ABA5ACB029A92C58002C5A96 /* ChatType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA5ACAF29A92C58002C5A96 /* ChatType.swift */; };
 		ABA75756296F92A8001F6B70 /* NotificationsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA75755296F92A8001F6B70 /* NotificationsViewModelTests.swift */; };
 		ABA784EA290A3CFF0081CBF4 /* PlayingShowRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA784E9290A3CFF0081CBF4 /* PlayingShowRow.swift */; };
 		ABAAB3392983456900C1285F /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = ABAAB3382983456900C1285F /* FirebaseDynamicLinks */; };
@@ -510,6 +511,7 @@
 		ABA42BC2292D176600ADE3AD /* Notification.Name+CustomNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+CustomNotifications.swift"; sourceTree = "<group>"; };
 		ABA42BC4292D1E3400ADE3AD /* AddEditShowAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowAddressViewModel.swift; sourceTree = "<group>"; };
 		ABA42BC7292D248400ADE3AD /* NotificationConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationConstants.swift; sourceTree = "<group>"; };
+		ABA5ACAF29A92C58002C5A96 /* ChatType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatType.swift; sourceTree = "<group>"; };
 		ABA75755296F92A8001F6B70 /* NotificationsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModelTests.swift; sourceTree = "<group>"; };
 		ABA784E9290A3CFF0081CBF4 /* PlayingShowRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingShowRow.swift; sourceTree = "<group>"; };
 		ABAB45F828F24C2400FA8F70 /* HostedShowRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostedShowRow.swift; sourceTree = "<group>"; };
@@ -974,6 +976,7 @@
 				ABB4C3FE29207CE600E2C153 /* NotificationAction.swift */,
 				ABF0BF6C299987B30022B046 /* AppOpenedViaNotificationSheetNavigatorViewDestination.swift */,
 				AB62A8D929A43DE300D827DE /* DynamicLinkType.swift */,
+				ABA5ACAF29A92C58002C5A96 /* ChatType.swift */,
 				AB5E48F629003ABD0076EABE /* Backline */,
 			);
 			path = Enums;
@@ -1786,6 +1789,7 @@
 				ABF83DD2291A9F03006A06CC /* UiConstants.swift in Sources */,
 				AB399ADB28D4C548009B39F7 /* LoggedInUserController.swift in Sources */,
 				ABCAAA0228E9ED6C00685F91 /* BandLinkList.swift in Sources */,
+				ABA5ACB029A92C58002C5A96 /* ChatType.swift in Sources */,
 				AB9C238F297B5C6B0012BE9F /* BandProfileImageButton.swift in Sources */,
 				ABE2FE022989722200D5A951 /* MockNavigationLinkRow.swift in Sources */,
 				AB36FF7628D3598900AAC00C /* MyShowsRootView.swift in Sources */,

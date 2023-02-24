@@ -9,6 +9,7 @@ import Foundation
 
 struct Chat: Codable, Equatable, Hashable, Identifiable {
     var id: String
+    let type: String
     /// The ID of the show that the chat belongs to. This is optional because it will
     /// make it easier to add chatting for all users at a later time.
     let showId: String?
@@ -23,6 +24,7 @@ struct Chat: Codable, Equatable, Hashable, Identifiable {
 
     init(
         id: String,
+        type: String,
         showId: String? = nil,
         userId: String? = nil,
         name: String? = nil,
@@ -33,6 +35,7 @@ struct Chat: Codable, Equatable, Hashable, Identifiable {
         upToDateParticipantUids: [String] = []
     ) {
         self.id = id
+        self.type = type
         self.showId = showId
         self.userId = userId
         self.name = name

@@ -45,6 +45,7 @@ struct ConversationViewMessagesList: View {
                 TextField("Message", text: $viewModel.messageText, axis: .vertical)
                     .textFieldStyle(.roundedBorder)
                     .focused($keyboardIsFocused)
+                    .disabled(viewModel.textFieldIsDisabled)
 
                 Button {
                     Task {
