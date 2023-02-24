@@ -21,7 +21,7 @@ struct AllChatsView: View {
                     VStack(spacing: UiConstants.listRowSpacing) {
                         ForEach(Array(loggedInUserController.allUserChats.enumerated()), id: \.element) { index, chat in
                             NavigationLink {
-                                ConversationView(chatId: chat.id, chatParticipantUids: chat.participantUids)
+                                ConversationView(chat: chat, chatParticipantUids: chat.participantUids)
                             } label: {
                                 ChatRow(index: index)
                             }

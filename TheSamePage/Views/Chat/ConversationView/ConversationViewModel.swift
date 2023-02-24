@@ -33,7 +33,7 @@ class ConversationViewModel : ObservableObject {
             }
         }
     }
-    
+
     var show: Show?
     let userId: String?
     var chat: Chat?
@@ -42,41 +42,35 @@ class ConversationViewModel : ObservableObject {
     
     var chatMessagesListener: ListenerRegistration?
     let db = Firestore.firestore()
+
+    var navigationTitle: String {
+        if let show {
+            return show.name
+        } else {
+            return "Chat"
+        }
+    }
     
-    init(chatId: String? = nil, show: Show? = nil, userId: String? = nil, chatParticipantUids: [String] = [], isPresentedModally: Bool = false) {
+    init(chat: Chat?, chatId: String? = nil, show: Show? = nil, userId: String? = nil, chatParticipantUids: [String] = [], isPresentedModally: Bool = false) {
+        self.chat = chat
         self.show = show
         self.userId = userId
-        #warning("evaluate if this parameter should be in initializer")
         self.chatParticipantUids = chatParticipantUids
         self.isPresentedModally = isPresentedModally
-
-            Task {
-                if let chatId {
-                    let chat = try await DatabaseService.shared.getChat(withId: chatId)
-                    self.show = try await DatabaseService.shared.getShow(showId: chat.showId ?? "")
-                    self.chat = chat
-                    self.chatParticipantUids = chat.participantUids
-                    await callOnAppearMethods()
-                }
-            }
-        }
+        self.chatId = chatId
+    }
     
     func callOnAppearMethods() async {
         if let show {
             _ = await configureShowChat(forShow: show)
-        }
-
-        if let chat {
-            addChatListener(forChat: chat)
-            await addUserToChatUpToDateParticipantUids()
-
-            if !EnvironmentVariableConstants.unitTestsAreRunning {
-                await addChatViewer()
-            }
+        } else if let chat {
+            await configureExistingChat(chat)
+        } else if let chatId {
+            _ = await configureChatWithId(chatId)
         }
     }
 
-    func addChatListener(forChat chat: Chat) {
+    func addChatMessagesListener(forChat chat: Chat) {
         chatMessagesListener = db
             .collection(FbConstants.chats)
             .document(chat.id)
@@ -85,12 +79,16 @@ class ConversationViewModel : ObservableObject {
             .limit(to: 20)
             .addSnapshotListener { snapshot, error in
                 if let snapshot, error == nil {
-                    guard !snapshot.documents.isEmpty else { return }
+                    guard !snapshot.documents.isEmpty else {
+                        self.viewState = .dataLoaded
+                        return
+                    }
 
                     let chatMessageDocuments = snapshot.documents
                     
                     if let chatMessages = try? chatMessageDocuments.map({ try $0.data(as: ChatMessage.self) }) {
                         self.messages = chatMessages.reversed()
+                        self.viewState = .dataLoaded
                     } else {
                         self.viewState = .error(message: "Failed to fetch up-to-date chat messages. Please relaunch The Same Page and try again.")
                     }
@@ -98,8 +96,6 @@ class ConversationViewModel : ObservableObject {
                     self.viewState = .error(message: error!.localizedDescription)
                 }
             }
-
-        viewState = .dataLoaded
     }
 
     func getMoreMessages(before timestamp: Double) async {
@@ -112,28 +108,76 @@ class ConversationViewModel : ObservableObject {
             viewState = .error(message: error.localizedDescription)
         }
     }
+
+    func configureExistingChat(_ chat: Chat) async {
+        addChatMessagesListener(forChat: chat)
+        await addUserToChatUpToDateParticipantUids(chat: chat)
+        if !EnvironmentVariableConstants.unitTestsAreRunning {
+            await addChatViewer()
+        }
+    }
+
+    func configureChatWithId(_ chatId: String) async {
+        do {
+            let chat = try await DatabaseService.shared.getChat(withId: chatId)
+            self.chat = chat
+            self.chatParticipantUids = chat.participantUids
+            if let chatShowId = chat.showId {
+                self.show = try await DatabaseService.shared.getShow(showId: chatShowId)
+            }
+            await configureExistingChat(chat)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
     
     func configureShowChat(forShow show: Show) async -> String? {
         do {
-            if try await DatabaseService.shared.chatExists(forShowWithId: show.id) {
-                let fetchedChat = try await DatabaseService.shared.getChat(withShowId: show.id)
-                self.chat = fetchedChat
-                return fetchedChat?.id
+            if let showChat = try await DatabaseService.shared.getChat(withShowId: show.id) {
+                self.chat = showChat
+                await configureExistingChat(showChat)
+                return showChat.id
             } else {
-                var chatParticipantUids = show.participantUids
-                if !show.participantUids.contains(show.hostUid) {
-                    chatParticipantUids.append(show.hostUid)
-                }
-                var newChat = Chat(
-                    id: "",
-                    showId: show.id,
-                    name: show.name,
-                    participantUids: chatParticipantUids
-                )
-                let newChatId = try await DatabaseService.shared.createChat(chat: newChat)
-                newChat.id = newChatId
-                self.chat = newChat
-                return newChatId
+                return await createNewShowChat(forShow: show)
+            }
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+            return nil
+        }
+    }
+
+    func createNewShowChat(forShow show: Show) async -> String? {
+        do {
+            var chatParticipantUids = show.participantUids
+            if !show.participantUids.contains(show.hostUid) {
+                chatParticipantUids.append(show.hostUid)
+            }
+            var newChat = Chat(
+                id: "",
+                showId: show.id,
+                name: show.name,
+                participantUids: chatParticipantUids
+            )
+            let newChatId = try await DatabaseService.shared.createChat(chat: newChat)
+            newChat.id = newChatId
+            self.chat = newChat
+            await configureExistingChat(newChat)
+            return newChatId
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+            return nil
+        }
+    }
+
+    func configureUserChat() async -> String? {
+        do {
+            if let fetchedChat = try await DatabaseService.shared.getChatBetween(usersWithUids: chatParticipantUids) {
+                self.chat = fetchedChat
+                viewState = .dataLoaded
+                return fetchedChat.id
+            } else {
+                viewState = .dataLoaded
+                return nil
             }
         } catch {
             viewState = .error(message: error.localizedDescription)
@@ -142,9 +186,30 @@ class ConversationViewModel : ObservableObject {
     }
     
     @discardableResult func sendMessageButtonTapped(by user: User?) async -> ChatMessage? {
-        let newChatMessage = await sendChatMessage(fromUser: user)
-        messageText = ""
-        return newChatMessage
+        do {
+            if chat != nil {
+                messageText = ""
+                let newChatMessage = await sendChatMessage(fromUser: user)
+                return newChatMessage
+            } else {
+                var newChat = Chat(
+                    id: "",
+                    name: "User Chat",
+                    participantUids: chatParticipantUids
+                )
+                let newChatId = try await DatabaseService.shared.createChat(chat: newChat)
+                newChat.id = newChatId
+                self.chat = newChat
+                addChatMessagesListener(forChat: newChat)
+
+                let newChatMessage = await sendChatMessage(fromUser: user)
+                messageText = ""
+                return newChatMessage
+            }
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+            return nil
+        }
     }
     
     func sendChatMessage(fromUser user: User?) async -> ChatMessage? {
@@ -218,12 +283,7 @@ class ConversationViewModel : ObservableObject {
         }
     }
 
-    func addUserToChatUpToDateParticipantUids() async {
-        guard let chat else {
-            viewState = .error(message: "Something went wrong while fetching this chat's info. Please ensure you have an internet connection, restart The Same Page, and try again.")
-            return
-        }
-
+    func addUserToChatUpToDateParticipantUids(chat: Chat) async {
         do {
             try await DatabaseService.shared.addUserToChatUpToDateParticipantUids(add: AuthController.getLoggedInUid(), to: chat)
         } catch {

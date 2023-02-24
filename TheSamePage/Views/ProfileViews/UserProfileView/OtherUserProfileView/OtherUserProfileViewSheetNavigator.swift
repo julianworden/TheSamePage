@@ -19,8 +19,8 @@ final class OtherUserProfileViewSheetNavigator: ObservableObject {
 
     func sheetView() -> AnyView {
         switch sheetDestination {
-        case .conversationView(let uid):
-            return ConversationView(userId: uid, chatParticipantUids: [AuthController.getLoggedInUid(), uid], isPresentedModally: true).eraseToAnyView()
+        case .conversationView(let chatParticipantUids):
+            return ConversationView(chat: nil, chatParticipantUids: chatParticipantUids, isPresentedModally: true).eraseToAnyView()
             
         case .sendBandInvite(let user):
             return SendBandInviteView(user: user).eraseToAnyView()

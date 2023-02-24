@@ -104,6 +104,6 @@ struct ConversationViewMessagesList: View {
 
 struct ConversationViewMessagesList_Previews: PreviewProvider {
     static var previews: some View {
-        ConversationViewMessagesList(viewModel: ConversationViewModel())
+        ConversationViewMessagesList(viewModel: ConversationViewModel(chat: nil))
     }
 }

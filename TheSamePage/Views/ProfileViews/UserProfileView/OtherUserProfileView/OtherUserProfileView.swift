@@ -44,7 +44,15 @@ struct OtherUserProfileView: View {
                     }
                     .navigationTitle(user.name)
                     .toolbar {
-                        // TODO: Chat button here
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button {
+                                if let otherChatMemberUid = viewModel.user?.id {
+                                    sheetNavigator.sheetDestination = .conversationView(chatParticipantUids: [AuthController.getLoggedInUid(), otherChatMemberUid])
+                                }
+                            } label: {
+                                Label("Chat", systemImage: "bubble.right")
+                            }
+                        }
 
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Menu {
@@ -63,7 +71,9 @@ struct OtherUserProfileView: View {
                                 EllipsesMenuIcon()
                             }
                             .fullScreenCover(isPresented: $sheetNavigator.presentSheet) {
-                                sheetNavigator.sheetView()
+                                NavigationStack {
+                                    sheetNavigator.sheetView()
+                                }
                             }
                         }
                     }

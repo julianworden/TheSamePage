@@ -1636,8 +1636,8 @@ class DatabaseService: NSObject {
     /// Instead, its ID property will be set from within this method.
     func createChat(chat: Chat) async throws -> String {
         do {
-            guard let showId = chat.showId,
-                  try await !chatExists(forShowWithId: showId) else { return "" }
+//            guard let showId = chat.showId,
+//                  try await !chatExists(forShowWithId: showId) else { return "" }
 
             let chatReference = try await db
                 .collection(FbConstants.chats)
@@ -1842,6 +1842,23 @@ class DatabaseService: NSObject {
                 .getDocuments()
                 .documents
                 .isEmpty
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to fetch chat details",
+                systemError: error.localizedDescription
+            )
+        }
+    }
+
+    func getChatBetween(usersWithUids uids: [String]) async throws -> Chat? {
+        do {
+            return try await db
+                .collection(FbConstants.chats)
+                .whereField(FbConstants.participantUids, isEqualTo: uids)
+                .getDocuments()
+                .documents
+                .first?
+                .data(as: Chat.self)
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to fetch chat details",

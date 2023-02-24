@@ -8,7 +8,7 @@
 import Foundation
 
 enum OtherUserProfileViewSheetNavigatorDestination {
-    case conversationView(uid: String)
+    case conversationView(chatParticipantUids: [String])
     case sendBandInvite(user: User)
     case none
 }

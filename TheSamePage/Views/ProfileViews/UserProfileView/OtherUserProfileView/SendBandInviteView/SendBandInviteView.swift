@@ -17,67 +17,65 @@ struct SendBandInviteView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                BackgroundColor()
-
-                switch viewModel.viewState {
-                case .dataLoading:
-                    ProgressView()
-
-                case .dataLoaded, .workCompleted, .performingWork, .error:
-                    Form {
-                        Picker("Which band would you like to invite \(viewModel.user.firstName) to?", selection: $viewModel.selectedBand) {
-                            ForEach(viewModel.adminBands) { band in
-                                Text(band.name).tag(band as Band?)
-                            }
+        ZStack {
+            BackgroundColor()
+            
+            switch viewModel.viewState {
+            case .dataLoading:
+                ProgressView()
+                
+            case .dataLoaded, .workCompleted, .performingWork, .error:
+                Form {
+                    Picker("Which band would you like to invite \(viewModel.user.firstName) to?", selection: $viewModel.selectedBand) {
+                        ForEach(viewModel.adminBands) { band in
+                            Text(band.name).tag(band as Band?)
                         }
-                        .id(viewModel.selectedBand)
-
-                        Picker("What role will \(viewModel.user.firstName) have?", selection: $viewModel.recipientRole) {
-                            ForEach(Instrument.allCases) { instrument in
-                                Text(instrument.rawValue)
-                            }
-                        }
-
-                        AsyncButton {
-                            _ = await viewModel.sendBandInvite()
-                        } label: {
-                            Text("Send Invite")
-                        }
-                        .disabled(viewModel.buttonsAreDisabled)
                     }
-
-                case .dataNotFound:
-                    NoDataFoundMessage(message: ErrorMessageConstants.userIsNotAdminOfAnyBands)
-                        .padding(.horizontal)
-
-                default:
-                    ErrorMessage(message: "Unknown viewState set: \(viewModel.viewState)")
-                }
-            }
-            .navigationTitle("Send Band Invite")
-            .navigationBarTitleDisplayMode(.inline)
-            .interactiveDismissDisabled(viewModel.buttonsAreDisabled)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Back") {
-                        dismiss()
+                    .id(viewModel.selectedBand)
+                    
+                    Picker("What role will \(viewModel.user.firstName) have?", selection: $viewModel.recipientRole) {
+                        ForEach(Instrument.allCases) { instrument in
+                            Text(instrument.rawValue)
+                        }
+                    }
+                    
+                    AsyncButton {
+                        _ = await viewModel.sendBandInvite()
+                    } label: {
+                        Text("Send Invite")
                     }
                     .disabled(viewModel.buttonsAreDisabled)
                 }
+                
+            case .dataNotFound:
+                NoDataFoundMessage(message: ErrorMessageConstants.userIsNotAdminOfAnyBands)
+                    .padding(.horizontal)
+                
+            default:
+                ErrorMessage(message: "Unknown viewState set: \(viewModel.viewState)")
             }
-            .errorAlert(
-                isPresented: $viewModel.errorAlertIsShowing,
-                message: viewModel.errorAlertText
-            )
-            .task {
-                await viewModel.getLoggedInUserAdminBands()
-            }
-            .onChange(of: viewModel.bandInviteSentSuccessfully) { bandInviteSentSuccessfully in
-                if bandInviteSentSuccessfully {
+        }
+        .navigationTitle("Send Band Invite")
+        .navigationBarTitleDisplayMode(.inline)
+        .interactiveDismissDisabled(viewModel.buttonsAreDisabled)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Back") {
                     dismiss()
                 }
+                .disabled(viewModel.buttonsAreDisabled)
+            }
+        }
+        .errorAlert(
+            isPresented: $viewModel.errorAlertIsShowing,
+            message: viewModel.errorAlertText
+        )
+        .task {
+            await viewModel.getLoggedInUserAdminBands()
+        }
+        .onChange(of: viewModel.bandInviteSentSuccessfully) { bandInviteSentSuccessfully in
+            if bandInviteSentSuccessfully {
+                dismiss()
             }
         }
     }

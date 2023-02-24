@@ -14,8 +14,22 @@ struct ConversationView: View {
         
     @StateObject var viewModel: ConversationViewModel
     
-    init(chatId: String? = nil, show: Show? = nil, userId: String? = nil, chatParticipantUids: [String] = [], isPresentedModally: Bool = false) {
-        _viewModel = StateObject(wrappedValue: ConversationViewModel(chatId: chatId, show: show, userId: userId, chatParticipantUids: chatParticipantUids, isPresentedModally: isPresentedModally))
+    init(
+        chat: Chat?,
+        chatId: String? = nil,
+        show: Show? = nil,
+        userId: String? = nil,
+        chatParticipantUids: [String] = [],
+        isPresentedModally: Bool = false
+    ) {
+        _viewModel = StateObject(wrappedValue: ConversationViewModel(
+            chat: chat,
+            chatId: chatId,
+            show: show,
+            userId: userId,
+            chatParticipantUids: chatParticipantUids,
+            isPresentedModally: isPresentedModally)
+        )
     }
 
     var body: some View {
@@ -28,7 +42,7 @@ struct ConversationView: View {
                 ConversationViewMessagesList(viewModel: viewModel)
             }
         }
-        .navigationTitle("Chat")
+        .navigationTitle(viewModel.navigationTitle)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             if viewModel.isPresentedModally {
@@ -69,13 +83,17 @@ struct ConversationView: View {
             }
         }
         .onForeground {
-            Task {
-                await viewModel.addChatViewer()
+            if viewModel.chat != nil {
+                Task {
+                    await viewModel.addChatViewer()
+                }
             }
         }
         .onBackground {
-            Task {
-                await viewModel.removeChatViewer()
+            if viewModel.chat != nil {
+                Task {
+                    await viewModel.removeChatViewer()
+                }
             }
         }
         .onChange(of: appOpenedViaNotificationController.presentViewFromNotification) { presentViewFromNotification in
@@ -90,6 +108,6 @@ struct ConversationView: View {
 
 struct ConversationView_Previews: PreviewProvider {
     static var previews: some View {
-        ConversationView(show: Show.example, chatParticipantUids: [])
+        ConversationView(chat: nil, show: Show.example, chatParticipantUids: [])
     }
 }
