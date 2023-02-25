@@ -63,7 +63,7 @@ final class SendShowInviteViewModel: ObservableObject {
         viewState = .performingWork
             
         do {
-            let senderUsername = try await AuthController.getLoggedInUsername()
+            let senderUsername = AuthController.getLoggedInUsername()
             let recipientFcmToken = try await DatabaseService.shared.getFcmToken(forUserWithUid: band.adminUid)
 
             let showInvite = ShowInvite(

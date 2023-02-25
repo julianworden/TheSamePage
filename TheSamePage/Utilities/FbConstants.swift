@@ -50,6 +50,8 @@ struct FbConstants {
     static let mostRecentMessageText = "mostRecentMessageText"
     static let mostRecentMessageTimestamp = "mostRecentMessageTimestamp"
     static let upToDateParticipantUids = "upToDateParticipantUids"
+    static let mostRecentMessageSenderUsername = "mostRecentMessageSenderUsername"
+    static let participantUsernames = "participantUsernames"
 
     // MARK: - Firebase Functions
     static let recursiveDelete = "recursiveDelete"

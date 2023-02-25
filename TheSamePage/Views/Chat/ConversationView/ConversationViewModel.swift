@@ -168,12 +168,18 @@ class ConversationViewModel : ObservableObject {
             if !show.participantUids.contains(show.hostUid) {
                 chatParticipantUids.append(show.hostUid)
             }
+            var newChatParticipantUsernames = [String]()
+            for uid in chatParticipantUids {
+                let user = try await DatabaseService.shared.getUser(withUid: uid)
+                newChatParticipantUsernames.append(user.name)
+            }
             var newChat = Chat(
                 id: "",
                 type: ChatType.show.rawValue,
                 showId: show.id,
                 name: show.name,
-                participantUids: chatParticipantUids
+                participantUids: chatParticipantUids,
+                participantUsernames: newChatParticipantUsernames
             )
             let newChatId = try await DatabaseService.shared.createChat(chat: newChat)
             newChat.id = newChatId
@@ -195,11 +201,18 @@ class ConversationViewModel : ObservableObject {
                 textFieldIsDisabled = false
                 return newChatMessage
             } else {
+                var newChatParticipantUsernames = [String]()
+                for uid in chatParticipantUids {
+                    let user = try await DatabaseService.shared.getUser(withUid: uid)
+                    newChatParticipantUsernames.append(user.name)
+                }
+
                 var newChat = Chat(
                     id: "",
                     type: ChatType.oneOnOne.rawValue,
                     name: "User Chat",
-                    participantUids: chatParticipantUids
+                    participantUids: chatParticipantUids,
+                    participantUsernames: newChatParticipantUsernames
                 )
                 let newChatId = try await DatabaseService.shared.createChat(chat: newChat)
                 newChat.id = newChatId
@@ -259,7 +272,6 @@ class ConversationViewModel : ObservableObject {
 
             return newChatMessage
         } catch {
-            // TODO: Figure out why this state isn't being changed when wifi is off
             viewState = .error(message: error.localizedDescription)
             return nil
         }

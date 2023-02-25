@@ -17,8 +17,8 @@ struct ChatRow: View {
             let chat = loggedInUser.allUserChats[index]
 
             ListRowElements(
-                title: chat.name ?? "",
-                subtitle: chat.mostRecentMessageText ?? "",
+                title: chat.showId == nil ? chat.participantUsernamesWithoutLoggedInUser.first! : chat.name ?? "Chat",
+                subtitle: "\(chat.mostRecentMessageSenderUsernameDescription) \(chat.mostRecentMessageText ?? "")",
                 secondaryText: chat.mostRecentMessageTimestamp?.unixDateAsDate.timeAndDate ?? "",
                 iconName: chat.showId == nil ? "person" : "music.note.house",
                 iconIsSfSymbol: true,

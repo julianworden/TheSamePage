@@ -297,7 +297,12 @@ class DatabaseService: NSObject {
             try await db
                 .collection(FbConstants.chats)
                 .document(chat.id)
-                .updateData([FbConstants.participantUids: FieldValue.arrayRemove([user.id])])
+                .updateData(
+                    [
+                        FbConstants.participantUids: FieldValue.arrayRemove([user.id]),
+                        FbConstants.participantUsernames: FieldValue.arrayRemove([user.name])
+                    ]
+                )
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to remove you from \(chat.name ?? "chat")",
@@ -1784,7 +1789,12 @@ class DatabaseService: NSObject {
             try await db
                 .collection(FbConstants.chats)
                 .document(chat.id)
-                .updateData([FbConstants.participantUids: FieldValue.arrayUnion([user.id])])
+                .updateData(
+                    [
+                        FbConstants.participantUids: FieldValue.arrayUnion([user.id]),
+                        FbConstants.participantUsernames: FieldValue.arrayUnion([user.name])
+                    ]
+                )
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to add \(user.name) to chat",
@@ -1824,7 +1834,8 @@ class DatabaseService: NSObject {
                     [
                         FbConstants.mostRecentMessageText: chatMessage.text,
                         FbConstants.mostRecentMessageTimestamp: chatMessage.sentTimestamp,
-                        FbConstants.upToDateParticipantUids: FieldValue.arrayUnion([AuthController.getLoggedInUid()])
+                        FbConstants.upToDateParticipantUids: FieldValue.arrayUnion([AuthController.getLoggedInUid()]),
+                        FbConstants.mostRecentMessageSenderUsername: AuthController.getLoggedInUsername()
                     ]
                 )
 

@@ -16,9 +16,12 @@ final class AuthController: ObservableObject {
         return Auth.auth().currentUser?.uid ?? "Unknown UID"
     }
     
-    static func getLoggedInUsername() async throws -> String {
-        let user = try await DatabaseService.shared.getLoggedInUser()
-        return user.name
+    static func getLoggedInUsername() -> String {
+        if let loggedInUsername = Auth.auth().currentUser?.displayName {
+            return loggedInUsername
+        } else {
+            return "No Username Found"
+        }
     }
 
     static func getLoggedInUser() -> FirebaseAuth.User? {
