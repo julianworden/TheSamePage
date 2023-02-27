@@ -27,7 +27,7 @@ class AppOpenedViaNotificationController: ObservableObject {
     func sheetView() -> AnyView {
         switch sheetDestination {
         case .conversationView(let chatId):
-            return ConversationView(chat: nil, chatId: chatId, isPresentedModally: true).eraseToAnyView()
+            return ConversationView(chat: nil, chatId: chatId, chatParticipantUids: [], isPresentedModally: true).eraseToAnyView()
 
         case .showDetailsView(let showId):
             return ShowDetailsView(show: nil, showId: showId, isPresentedModally: true).eraseToAnyView()

@@ -40,6 +40,7 @@ struct SendShowInviteView: View {
                         }
                         .disabled(viewModel.buttonsAreDisabled)
                     }
+                    .scrollDismissesKeyboard(.interactively)
 
                 case .dataNotFound:
                     Text("No hosted shows found, you are not hosting any shows. You can create a show in the My Shows tab.")

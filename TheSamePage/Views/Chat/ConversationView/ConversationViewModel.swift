@@ -142,7 +142,10 @@ class ConversationViewModel : ObservableObject {
             } else {
                 viewState = .dataLoaded
             }
+        } catch FirebaseError.dataNotFound {
+            viewState = .dataLoaded
         } catch {
+            print(error)
             viewState = .error(message: error.localizedDescription)
         }
     }
@@ -156,6 +159,9 @@ class ConversationViewModel : ObservableObject {
             } else {
                 return await createNewShowChat(forShow: show)
             }
+        } catch FirebaseError.dataNotFound {
+            viewState = .dataLoaded
+            return nil
         } catch {
             viewState = .error(message: error.localizedDescription)
             return nil
@@ -210,7 +216,6 @@ class ConversationViewModel : ObservableObject {
                 var newChat = Chat(
                     id: "",
                     type: ChatType.oneOnOne.rawValue,
-                    name: "User Chat",
                     participantUids: chatParticipantUids,
                     participantUsernames: newChatParticipantUsernames
                 )
@@ -247,8 +252,6 @@ class ConversationViewModel : ObservableObject {
         messageText = ""
         
         do {
-            let senderUid = user.id
-            let senderFullName = user.fullName
             var recipientFcmTokens = [String]()
             let upToDateChat = try await DatabaseService.shared.getChat(withId: chat.id)
 
@@ -261,10 +264,13 @@ class ConversationViewModel : ObservableObject {
 
             let newChatMessage = ChatMessage(
                 text: preservedMessageText,
-                senderUid: senderUid,
+                senderUid: user.id,
                 chatId: chat.id,
-                senderFullName: senderFullName,
-                sentTimestamp: Date().timeIntervalSince1970,
+                chatName: chat.name,
+                chatType: chat.type,
+                senderFullName: user.fullName,
+                senderUsername: user.name,
+                sentTimestamp: Date.now.timeIntervalSince1970,
                 recipientFcmTokens: recipientFcmTokens
             )
             

@@ -23,7 +23,7 @@ struct LoggedInUserProfileView: View {
         NavigationStack {
             ZStack {
                 BackgroundColor()
-                
+
                 ScrollView {
                     VStack {
                         LoggedInUserProfileHeader()

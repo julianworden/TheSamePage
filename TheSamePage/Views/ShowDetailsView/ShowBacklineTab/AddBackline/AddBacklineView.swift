@@ -71,6 +71,7 @@ struct AddBacklineView: View {
             .navigationTitle("Add Backline Gear")
             .navigationBarTitleDisplayMode(.inline)
             .interactiveDismissDisabled(viewModel.buttonsAreDisabled)
+            .scrollDismissesKeyboard(.interactively)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel", role: .cancel) {

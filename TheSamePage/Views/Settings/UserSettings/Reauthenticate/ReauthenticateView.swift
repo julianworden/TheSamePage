@@ -41,6 +41,7 @@ struct ReauthenticateView: View {
         }
         .navigationTitle("Confirm Account Info")
         .navigationBarTitleDisplayMode(.inline)
+        .scrollDismissesKeyboard(.interactively)
         .errorAlert(
             isPresented: $viewModel.errorAlertIsShowing,
             message: viewModel.errorAlertText

@@ -60,6 +60,7 @@ struct AddEditShowTimeView: View {
             .navigationTitle("Edit Show Time")
             .navigationBarTitleDisplayMode(.inline)
             .interactiveDismissDisabled(viewModel.buttonsAreDisabled)
+            .scrollDismissesKeyboard(.interactively)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel", role: .cancel) {

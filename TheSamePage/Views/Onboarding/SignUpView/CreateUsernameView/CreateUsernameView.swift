@@ -48,6 +48,7 @@ struct CreateUsernameView: View {
         .navigationTitle("Create a Username")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
+        .scrollDismissesKeyboard(.interactively)
         .errorAlert(
             isPresented: $viewModel.errorAlertIsShowing,
             message: viewModel.errorAlertText

@@ -56,6 +56,7 @@ struct UserSettingsView: View {
                     }
                     .navigationTitle("Profile Settings")
                     .navigationBarTitleDisplayMode(.inline)
+                    .scrollDismissesKeyboard(.interactively)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             Button("Back") {

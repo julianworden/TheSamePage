@@ -77,6 +77,7 @@ struct BandSettingsView: View {
                         .navigationTitle("Band Settings")
                         .navigationBarTitleDisplayMode(.inline)
                         .navigationBarBackButtonHidden(viewModel.buttonsAreDisabled)
+                        .scrollDismissesKeyboard(.interactively)
                     }
 
                 case .workCompleted:

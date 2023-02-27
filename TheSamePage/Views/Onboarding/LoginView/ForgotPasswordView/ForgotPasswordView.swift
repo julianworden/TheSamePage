@@ -38,6 +38,7 @@ struct ForgotPasswordView: View {
         .navigationTitle("Password Reset")
         .navigationBarTitleDisplayMode(.inline)
         .interactiveDismissDisabled(viewModel.buttonsAreDisabled)
+        .scrollDismissesKeyboard(.interactively)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button("Cancel", role: .cancel) {

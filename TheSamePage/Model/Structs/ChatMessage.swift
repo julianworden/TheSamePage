@@ -16,7 +16,10 @@ struct ChatMessage: Codable, Equatable, Identifiable {
     let text: String
     let senderUid: String
     let chatId: String
+    let chatName: String?
+    let chatType: String
     let senderFullName: String
+    let senderUsername: String
     let sentTimestamp: Double
     var recipientFcmTokens: [String] = []
     
@@ -28,7 +31,10 @@ struct ChatMessage: Codable, Equatable, Identifiable {
         text: "Hello, how is everyone?",
         senderUid: "a;weifawhj;lefahjwef",
         chatId: "a;sldfja;sldkj",
+        chatName: "Sick Chat",
+        chatType: ChatType.oneOnOne.rawValue,
         senderFullName: "Julian Worden",
+        senderUsername: "julianworden",
         sentTimestamp: 3636363636,
         recipientFcmTokens: ["a;slkdfja;sldf", "al;wifhwurte"]
     )

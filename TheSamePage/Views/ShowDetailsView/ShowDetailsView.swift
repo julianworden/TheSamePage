@@ -74,6 +74,22 @@ struct ShowDetailsView: View {
                 }
             }
 
+            ToolbarItem(placement: .navigationBarTrailing) {
+                if let show = viewModel.show,
+                   show.loggedInUserIsInvolvedInShow {
+                    Button {
+                        viewModel.conversationViewIsShowing.toggle()
+                    } label: {
+                        Label("Chat", systemImage: "bubble.right")
+                    }
+                    .fullScreenCover(isPresented: $viewModel.conversationViewIsShowing) {
+                        NavigationStack {
+                            ConversationView(chat: nil, show: show, chatParticipantUids: show.participantUids, isPresentedModally: true)
+                        }
+                    }
+                }
+            }
+
             if viewModel.viewState != .dataDeleted,
                let show = viewModel.show {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -84,17 +100,6 @@ struct ShowDetailsView: View {
                                     sheetNavigator.sheetDestination = .showApplicationView(show: show)
                                 } label: {
                                     Label("Play This Show", systemImage: "pencil.and.ellipsis.rectangle")
-                                }
-                            }
-
-                            if show.loggedInUserIsInvolvedInShow {
-                                Button {
-                                    sheetNavigator.sheetDestination = .conversationView(
-                                        show: show,
-                                        chatParticipantUids: show.participantUids
-                                    )
-                                } label: {
-                                    Label("Chat", systemImage: "bubble.right")
                                 }
                             }
 

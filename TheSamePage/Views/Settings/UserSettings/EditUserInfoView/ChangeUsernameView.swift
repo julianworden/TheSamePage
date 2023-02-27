@@ -75,6 +75,7 @@ struct ChangeUsernameView: View {
             }
         }
         .navigationTitle("Change Username")
+        .scrollDismissesKeyboard(.interactively)
         .errorAlert(
             isPresented: $loggedInUserController.errorMessageShowing,
             message: loggedInUserController.errorMessageText,

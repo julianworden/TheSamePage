@@ -1574,7 +1574,7 @@ class DatabaseService: NSObject {
         do {
             let chat = try await db
                 .collection(FbConstants.chats)
-                .whereField("showId", isEqualTo: showId)
+                .whereField(FbConstants.showId, isEqualTo: showId)
                 .getDocuments()
             
             // Each show should only have 1 chat
@@ -1582,6 +1582,8 @@ class DatabaseService: NSObject {
             
             let fetchedChat = try chat.documents[0].data(as: Chat.self)
             return fetchedChat
+        } catch Swift.DecodingError.keyNotFound {
+            throw FirebaseError.dataNotFound
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to get fetch show chat",
@@ -1644,7 +1646,10 @@ class DatabaseService: NSObject {
             }
 
             return chatToReturn
+        } catch Swift.DecodingError.keyNotFound {
+            throw FirebaseError.dataNotFound
         } catch {
+            print(error)
             throw FirebaseError.connection(
                 message: "Failed to fetch or create chat",
                 systemError: error.localizedDescription

@@ -64,6 +64,7 @@ struct AddEditSetTimeView: View {
             .navigationTitle("Change Set Time")
             .navigationBarTitleDisplayMode(.inline)
             .interactiveDismissDisabled(viewModel.buttonsAreDisabled)
+            .scrollDismissesKeyboard(.interactively)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Back") {

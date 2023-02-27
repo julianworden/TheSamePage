@@ -46,6 +46,7 @@ struct AddEditLinkView: View {
             }
             .navigationTitle(viewModel.linkUrl == "" ? "Add Link" : "Edit Link")
             .navigationBarTitleDisplayMode(.inline)
+            .scrollDismissesKeyboard(.interactively)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel", role: .cancel) {

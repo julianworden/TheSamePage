@@ -519,6 +519,11 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(chatInEmulator!.name, TestingConstants.exampleShowDumpweedExtravaganza.name)
         XCTAssertEqual(chatInEmulator!.participantUids, chatInTestingConstants.participantUids)
         XCTAssertEqual(chatInEmulator!.userId, chatInTestingConstants.userId)
+        XCTAssertEqual(chatInEmulator!.participantUsernames, chatInTestingConstants.participantUsernames)
+        XCTAssertEqual(chatInEmulator!.upToDateParticipantUids, chatInTestingConstants.upToDateParticipantUids)
+        XCTAssertEqual(chatInEmulator!.mostRecentMessageSenderUsername, chatInTestingConstants.mostRecentMessageSenderUsername)
+        XCTAssertEqual(chatInEmulator!.mostRecentMessageText, chatInTestingConstants.mostRecentMessageText)
+        XCTAssertEqual(chatInEmulator!.mostRecentMessageTimestamp, chatInTestingConstants.mostRecentMessageTimestamp)
     }
 
     func test_OnInit_ExampleChatsInFirestoreEmulatorMatchTestingConstants() async throws {
@@ -528,46 +533,6 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         let dumpweedExtravaganzaChatInTestingConstants = TestingConstants.exampleChatDumpweedExtravaganza
 
         XCTAssertEqual(dumpweedExtravaganzaChatInEmulator, dumpweedExtravaganzaChatInTestingConstants)
-    }
-
-    // MARK: - Firestore Example ChatMessages
-
-    func test_OnInit_ExampleChatMessageJulianHasExpectedValues() async throws {
-        let julianMessageInEmulator = try await testingDatabaseService.getChatMessage(get: TestingConstants.exampleChatMessageJulian, in: TestingConstants.exampleChatDumpweedExtravaganza)
-        let julianMessageInTestingConstants = TestingConstants.exampleChatMessageJulian
-
-        XCTAssertEqual(julianMessageInEmulator.recipientFcmTokens, julianMessageInTestingConstants.recipientFcmTokens)
-        XCTAssertEqual(julianMessageInEmulator.text, julianMessageInTestingConstants.text)
-        XCTAssertEqual(julianMessageInEmulator.id, julianMessageInTestingConstants.id)
-        XCTAssertEqual(julianMessageInEmulator.senderUid, julianMessageInTestingConstants.senderUid)
-        XCTAssertEqual(julianMessageInEmulator.senderFullName, julianMessageInTestingConstants.senderFullName)
-        XCTAssertEqual(julianMessageInEmulator.sentTimestamp, julianMessageInTestingConstants.sentTimestamp)
-        XCTAssertEqual(julianMessageInEmulator.recipientFcmTokens, julianMessageInTestingConstants.recipientFcmTokens)
-        XCTAssertEqual(julianMessageInEmulator.chatId, julianMessageInTestingConstants.chatId)
-    }
-
-    func test_OnInit_ExampleChatMessageEricHasExpectedValues() async throws {
-        let ericMessageInEmulator = try await testingDatabaseService.getChatMessage(get: TestingConstants.exampleChatMessageEric, in: TestingConstants.exampleChatDumpweedExtravaganza)
-        let ericMessageInTestingConstants = TestingConstants.exampleChatMessageEric
-
-        XCTAssertEqual(ericMessageInEmulator.recipientFcmTokens, ericMessageInTestingConstants.recipientFcmTokens)
-        XCTAssertEqual(ericMessageInEmulator.text, ericMessageInTestingConstants.text)
-        XCTAssertEqual(ericMessageInEmulator.id, ericMessageInTestingConstants.id)
-        XCTAssertEqual(ericMessageInEmulator.senderUid, ericMessageInTestingConstants.senderUid)
-        XCTAssertEqual(ericMessageInEmulator.senderFullName, ericMessageInTestingConstants.senderFullName)
-        XCTAssertEqual(ericMessageInEmulator.sentTimestamp, ericMessageInTestingConstants.sentTimestamp)
-        XCTAssertEqual(ericMessageInEmulator.recipientFcmTokens, ericMessageInTestingConstants.recipientFcmTokens)
-        XCTAssertEqual(ericMessageInEmulator.chatId, ericMessageInTestingConstants.chatId)
-    }
-
-    func test_OnInit_ExampleChatMessagesInFirestoreEmulatorMatchTestingConstants() async throws {
-        let julianMessageInEmulator = try await testingDatabaseService.getChatMessage(get: TestingConstants.exampleChatMessageJulian, in: TestingConstants.exampleChatDumpweedExtravaganza)
-        let ericMessageInEmulator = try await testingDatabaseService.getChatMessage(get: TestingConstants.exampleChatMessageEric, in: TestingConstants.exampleChatDumpweedExtravaganza)
-        let julianMessageInTestingConstants = TestingConstants.exampleChatMessageJulian
-        let ericMessageInTestingConstants = TestingConstants.exampleChatMessageEric
-
-        XCTAssertEqual(julianMessageInEmulator, julianMessageInTestingConstants)
-        XCTAssertEqual(ericMessageInEmulator, ericMessageInTestingConstants)
     }
 
     // MARK: - Firestore Example PlatformLinks

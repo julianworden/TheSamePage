@@ -104,6 +104,7 @@ struct AddEditShowView: View {
         }
         .navigationTitle(viewModel.showToEdit == nil ? "Create Show" : "Update Show ifno")
         .navigationBarTitleDisplayMode(.inline)
+        .scrollDismissesKeyboard(.interactively)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 if viewModel.isPresentedModally {

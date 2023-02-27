@@ -19,16 +19,18 @@ struct ConversationView: View {
         chatId: String? = nil,
         show: Show? = nil,
         userId: String? = nil,
-        chatParticipantUids: [String] = [],
+        chatParticipantUids: [String],
         isPresentedModally: Bool = false
     ) {
-        _viewModel = StateObject(wrappedValue: ConversationViewModel(
-            chat: chat,
-            chatId: chatId,
-            show: show,
-            userId: userId,
-            chatParticipantUids: chatParticipantUids,
-            isPresentedModally: isPresentedModally)
+        _viewModel = StateObject(
+            wrappedValue: ConversationViewModel(
+                chat: chat,
+                chatId: chatId,
+                show: show,
+                userId: userId,
+                chatParticipantUids: chatParticipantUids,
+                isPresentedModally: isPresentedModally
+            )
         )
     }
 

@@ -398,7 +398,10 @@ struct TestingConstants {
         text: "Hey, it's Julian!",
         senderUid: exampleUserJulian.id,
         chatId: exampleChatDumpweedExtravaganza.id,
+        chatName: exampleShowDumpweedExtravaganza.name,
+        chatType: ChatType.show.rawValue,
         senderFullName: exampleUserJulian.fullName,
+        senderUsername: exampleUserJulian.name,
         sentTimestamp: 1673217276
     )
 
@@ -407,7 +410,10 @@ struct TestingConstants {
         text: "Hey, it's Eric!",
         senderUid: exampleUserEric.id,
         chatId: exampleChatDumpweedExtravaganza.id,
+        chatName: exampleShowDumpweedExtravaganza.name,
+        chatType: ChatType.show.rawValue,
         senderFullName: exampleUserEric.fullName,
+        senderUsername: exampleUserEric.name,
         sentTimestamp: 1673187671.7910519
     )
 

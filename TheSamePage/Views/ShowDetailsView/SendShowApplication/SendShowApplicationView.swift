@@ -43,6 +43,7 @@ struct SendShowApplicationView: View {
         .navigationTitle("Send Show Application")
         .navigationBarTitleDisplayMode(.inline)
         .interactiveDismissDisabled(viewModel.buttonsAreDisabled)
+        .scrollDismissesKeyboard(.interactively)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button("Back", role: .cancel) {

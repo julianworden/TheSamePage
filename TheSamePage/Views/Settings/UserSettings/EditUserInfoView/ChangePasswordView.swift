@@ -76,6 +76,7 @@ struct ChangePasswordView: View {
             }
         }
         .navigationTitle("Change Password")
+        .scrollDismissesKeyboard(.interactively)
         .errorAlert(
             isPresented: $loggedInUserController.errorMessageShowing,
             message: loggedInUserController.errorMessageText,

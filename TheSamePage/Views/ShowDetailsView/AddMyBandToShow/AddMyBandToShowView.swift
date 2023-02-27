@@ -54,6 +54,7 @@ struct AddMyBandToShowView: View {
 
                         }
                     }
+                    .scrollDismissesKeyboard(.interactively)
 
                 case .dataNotFound:
                     NoDataFoundMessage(message: "You are not the admin of any bands, you can only add bands of which you are the admin.")

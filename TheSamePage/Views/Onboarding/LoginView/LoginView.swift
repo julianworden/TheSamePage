@@ -85,6 +85,7 @@ struct LoginView: View {
                 }
             }
             .navigationTitle("Log In")
+            .scrollDismissesKeyboard(.interactively)
             .fullScreenCover(
                 isPresented: $viewModel.createUsernameSheetIsShowing,
                 onDismiss: {

@@ -26,6 +26,7 @@ final class ShowDetailsViewModel: ObservableObject {
     @Published var addMyBandToShowSheetIsShowing = false
     @Published var editImageConfirmationDialogIsShowing = false
     @Published var deleteImageConfirmationAlertIsShowing = false
+    @Published var conversationViewIsShowing = false
     /// Used to trigger AddEditSetTimeView sheet in ShowLineupTab.
     @Published var showParticipantToEdit: ShowParticipant?
     /// Used to trigger AddEditShowTimeView sheet in ShowTimeTab.
@@ -95,7 +96,6 @@ final class ShowDetailsViewModel: ObservableObject {
         guard let show else { return false }
 
         return (show.loggedInUserIsNotInvolvedInShow && !show.alreadyHappened) ||
-                show.loggedInUserIsInvolvedInShow ||
                 shortenedDynamicLink != nil ||
                 show.loggedInUserIsShowHost
     }

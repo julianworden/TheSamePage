@@ -46,6 +46,7 @@ struct SendBandInviteView: View {
                     }
                     .disabled(viewModel.buttonsAreDisabled)
                 }
+                .scrollDismissesKeyboard(.interactively)
                 
             case .dataNotFound:
                 NoDataFoundMessage(message: ErrorMessageConstants.userIsNotAdminOfAnyBands)

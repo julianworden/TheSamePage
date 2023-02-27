@@ -78,6 +78,7 @@ struct ShowSettingsView: View {
                     }
                     .navigationTitle("Show Settings")
                     .navigationBarTitleDisplayMode(.inline)
+                    .scrollDismissesKeyboard(.interactively)
                 }
                 
             case .workCompleted:

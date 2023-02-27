@@ -77,6 +77,7 @@ struct AddEditBandView: View {
             .navigationTitle(viewModel.bandToEdit == nil ? "Create a Band" : "Update Band Info")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(viewModel.buttonsAreDisabled)
+            .scrollDismissesKeyboard(.interactively)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     if viewModel.isPresentedModally {

@@ -90,6 +90,7 @@ struct ChangeEmailAddressView: View {
             )
         }
         .navigationTitle("Change Email Address")
+        .scrollDismissesKeyboard(.interactively)
         .errorAlert(
             isPresented: $loggedInUserController.errorMessageShowing,
             message: loggedInUserController.errorMessageText,

@@ -8,17 +8,29 @@ exports.notifyNewMessage = functions.firestore
     .document('chats/{chat}/messages/{message}')
     .onCreate((snapshot, context) => {
         const message = snapshot.data();
-        const chatId = message['chatId']
+        const chatId = message['chatId'];
         const messageText = message['text'];
-        const senderName = message['senderFullName'];
         const recipientFcmTokens = message['recipientFcmTokens'];
+        const chatType = message['chatType'];
+        const chatName = message['chatName'];
+        const senderUsername = message['senderUsername'];
+        var newMessageNotificationTitle;
+        var newMessageNotificationBody;
+
+        if (chatType === 'Show') {
+            newMessageNotificationTitle = `New Message in ${chatName}.`;
+            newMessageNotificationBody = `${senderUsername}: ${messageText}`;
+        } else if (chatType === 'One on One') {
+            newMessageNotificationTitle = `New Message from ${senderUsername}.`;
+            newMessageNotificationBody = messageText;
+        }
 
         functions.logger.log('Recipient FCM tokens are:', recipientFcmTokens, 'Message text is:', messageText);
 
         const payload = {
             notification: {
-                title: `${senderName} sent you a message.`,
-                body: messageText
+                title: newMessageNotificationTitle,
+                body: newMessageNotificationBody
             },
             data: {
                 chatId: chatId
