@@ -640,6 +640,18 @@ class TestingDatabaseService {
             .data(as: Chat.self)
     }
 
+    func getChat(withId chatId: String) async throws -> Chat? {
+        guard await chatExists(withId: chatId) else { return nil }
+
+        return try await db
+            .collection(FbConstants.chats)
+            .whereField(FbConstants.id, isEqualTo: chatId)
+            .getDocuments()
+            .documents
+            .first!
+            .data(as: Chat.self)
+    }
+
     func getChats(forUserWithUid uid: String) async throws -> [Chat] {
         let chatDocuments = try await db
             .collection(FbConstants.chats)
@@ -677,6 +689,18 @@ class TestingDatabaseService {
         }
     }
 
+    func chatExists(withId chatId: String) async -> Bool {
+        do {
+            return try await !db
+                .collection(FbConstants.chats)
+                .whereField(FbConstants.id, isEqualTo: chatId)
+                .getDocuments()
+                .documents
+                .isEmpty
+        } catch {
+            return false
+        }
+    }
     func addUserToChat(user: User, showId: String) async throws {
         let chatQuery = try await db
             .collection(FbConstants.chats)
@@ -719,10 +743,10 @@ class TestingDatabaseService {
     }
 
     func deleteChat(withId id: String) async throws {
-        try await db
-            .collection(FbConstants.chats)
-            .document(id)
-            .delete()
+        _ = try await Functions
+            .functions()
+            .httpsCallable(FbConstants.recursiveDelete)
+            .call([FbConstants.path: "\(FbConstants.chats)/\(id)"])
     }
 
     func removeUserFromChat(uid: String, chatId: String) async throws {

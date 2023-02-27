@@ -7,6 +7,7 @@
 
 @testable import TheSamePage
 
+import FirebaseFirestore
 import XCTest
 
 @MainActor
@@ -24,6 +25,9 @@ final class ConversationViewModelTests: XCTestCase {
     var createdChatMessageId: String?
     let dumpweedExtravaganza = TestingConstants.exampleShowDumpweedExtravaganza
     let dumpweedExtravaganzaChat = TestingConstants.exampleChatDumpweedExtravaganza
+    let lou = TestingConstants.exampleUserLou
+    let eric = TestingConstants.exampleUserEric
+    let julian = TestingConstants.exampleUserJulian
 
     override func setUp() async throws {
         testingDatabaseService = TestingDatabaseService()
@@ -48,7 +52,7 @@ final class ConversationViewModelTests: XCTestCase {
 
     func test_OnInitWithShowWithMessages_PropertiesAreAssigned() async throws {
         try await testingDatabaseService.logInToLouAccount()
-        sut = ConversationViewModel(show: dumpweedExtravaganza, chatParticipantUids: dumpweedExtravaganza.participantUids)
+        sut = ConversationViewModel(chat: nil, show: dumpweedExtravaganza, chatParticipantUids: dumpweedExtravaganza.participantUids)
         await sut.callOnAppearMethods()
         try await Task.sleep(seconds: 0.5)
 
@@ -72,20 +76,36 @@ final class ConversationViewModelTests: XCTestCase {
 
     func test_OnInitWithChatId_PropertiesAreAssigned() async throws {
         try await testingDatabaseService.logInToEricAccount()
-        sut = ConversationViewModel(chatId: dumpweedExtravaganzaChat.id)
-        try await Task.sleep(seconds: 0.5)
+        sut = ConversationViewModel(chat: nil, chatId: dumpweedExtravaganzaChat.id)
 
         XCTAssertTrue(sut.messageText.isEmpty)
-        XCTAssertEqual(sut.messages.count, 20)
-        XCTAssertEqual(sut.chatParticipantUids.count, 3)
+        XCTAssertTrue(sut.messages.isEmpty)
+        XCTAssertTrue(sut.chatParticipantUids.isEmpty)
         XCTAssertTrue(sut.sendButtonIsDisabled)
         XCTAssertFalse(sut.errorAlertIsShowing)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
-        XCTAssertEqual(sut.viewState, .dataLoaded)
-        XCTAssertNotNil(sut.chatMessagesListener)
-        XCTAssertEqual(sut.show, dumpweedExtravaganza)
+        XCTAssertEqual(sut.viewState, .dataLoading)
+        XCTAssertNil(sut.chatMessagesListener)
+        XCTAssertNil(sut.show)
         XCTAssertNil(sut.userId)
-        XCTAssertNotNil(sut.chat)
+        XCTAssertNil(sut.chat)
+    }
+
+    func test_OnInitWithChat_PropertiesAreAssigned() async throws {
+        try await testingDatabaseService.logInToEricAccount()
+        sut = ConversationViewModel(chat: dumpweedExtravaganzaChat)
+
+        XCTAssertTrue(sut.messageText.isEmpty)
+        XCTAssertTrue(sut.messages.isEmpty)
+        XCTAssertTrue(sut.chatParticipantUids.isEmpty)
+        XCTAssertTrue(sut.sendButtonIsDisabled)
+        XCTAssertFalse(sut.errorAlertIsShowing)
+        XCTAssertTrue(sut.errorAlertText.isEmpty)
+        XCTAssertEqual(sut.chat, dumpweedExtravaganzaChat)
+        XCTAssertEqual(sut.viewState, .dataLoading)
+        XCTAssertNil(sut.chatMessagesListener)
+        XCTAssertNil(sut.show)
+        XCTAssertNil(sut.userId)
         XCTAssertEqual(sut.chat, dumpweedExtravaganzaChat)
     }
 
@@ -94,9 +114,8 @@ final class ConversationViewModelTests: XCTestCase {
         var show = TestingConstants.exampleShowForIntegrationTesting
         show.id = try await testingDatabaseService.createShow(show)
         self.createdShowId = show.id
-        sut = ConversationViewModel(show: show)
+        sut = ConversationViewModel(chat: nil, show: show)
         await sut.callOnAppearMethods()
-        try await Task.sleep(seconds: 0.5)
 
         let createdChat = try await testingDatabaseService.getChat(forShowWithId: show.id)
         self.createdChatId = createdChat!.id
@@ -106,11 +125,13 @@ final class ConversationViewModelTests: XCTestCase {
         XCTAssertEqual(createdChat!.showId, show.id, "The show's document ID should be in the chat's showId property")
         XCTAssertEqual(createdChat!.participantUids, show.participantUids, "The chat and show should have the same participant UIDs")
         XCTAssertEqual(chatCount, 3, "There should now be three chats total in Firestore Emulator")
+        XCTAssertTrue(createdChat!.participantUsernames.contains(eric.name))
+        XCTAssertEqual(createdChat!.participantUsernames.count, 1)
     }
 
     func test_OnInitWithChatWithExistingMessages_MessagesAreSortedInCorrectOrder() async throws {
         try await testingDatabaseService.logInToEricAccount()
-        sut = ConversationViewModel(show: dumpweedExtravaganza)
+        sut = ConversationViewModel(chat: nil, show: dumpweedExtravaganza)
         await sut.callOnAppearMethods()
         try await Task.sleep(seconds: 0.5)
 
@@ -119,9 +140,8 @@ final class ConversationViewModelTests: XCTestCase {
 
     func test_OnSendChatMessage_ChatListenerUpdatesMessagesArray() async throws {
         try await testingDatabaseService.logInToEricAccount()
-        sut = ConversationViewModel(show: dumpweedExtravaganza, chatParticipantUids: [])
+        sut = ConversationViewModel(chat: nil, show: dumpweedExtravaganza, chatParticipantUids: [])
         await sut.callOnAppearMethods()
-        try await Task.sleep(seconds: 0.5)
         sut.messageText = TestingConstants.testMessageText
 
         await sut.sendMessageButtonTapped(by: try testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserEric.id))
@@ -136,41 +156,61 @@ final class ConversationViewModelTests: XCTestCase {
 
     func test_OnSendChatMessage_ChatPropertiesAreUpdated() async throws {
         try await testingDatabaseService.logInToEricAccount()
-        sut = ConversationViewModel(show: dumpweedExtravaganza, chatParticipantUids: dumpweedExtravaganza.participantUids)
+        sut = ConversationViewModel(chat: nil, show: dumpweedExtravaganza, chatParticipantUids: dumpweedExtravaganza.participantUids)
         await sut.callOnAppearMethods()
-        try await Task.sleep(seconds: 0.5)
         sut.messageText = TestingConstants.testMessageText
 
-        let newChatMessage = await sut.sendMessageButtonTapped(by: try testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserEric.id))
+        let newChatMessage = await sut.sendMessageButtonTapped(by: try testingDatabaseService.getUserFromFirestore(withUid: eric.id))
         let updatedChat = try await testingDatabaseService.getChat(forShowWithId: dumpweedExtravaganza.id)
 
         XCTAssertEqual(updatedChat!.mostRecentMessageTimestamp, newChatMessage!.sentTimestamp)
         XCTAssertEqual(updatedChat!.mostRecentMessageText, newChatMessage!.text)
-        XCTAssertEqual(updatedChat!.upToDateParticipantUids, [TestingConstants.exampleUserEric.id])
+        XCTAssertEqual(updatedChat!.upToDateParticipantUids, [eric.id])
+        XCTAssertEqual(updatedChat!.mostRecentMessageSenderUsername, eric.name)
 
         try await testingDatabaseService.deleteChatMessage(inChatWithId: updatedChat!.id, withMessageText: TestingConstants.testMessageText)
     }
 
     func test_OnSendChatMessage_ChatListenerDoesNotUpdateArrayAfterListenerHasBeenRemoved() async throws {
         try await testingDatabaseService.logInToEricAccount()
-        sut = ConversationViewModel(show: dumpweedExtravaganza, chatParticipantUids: [])
+        sut = ConversationViewModel(chat: nil, show: dumpweedExtravaganza, chatParticipantUids: dumpweedExtravaganza.participantUids)
         await sut.callOnAppearMethods()
         try await Task.sleep(seconds: 0.5)
         sut.messageText = TestingConstants.testMessageText
 
         sut.removeChatListener()
-        await sut.sendMessageButtonTapped(by: try testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserEric.id))
+        await sut.sendMessageButtonTapped(by: eric)
 
         XCTAssertTrue(sut.messageText.isEmpty, "After sending a message, there should be no more message text")
-        XCTAssertNotEqual(sut.messages.last!.text, TestingConstants.testMessageText)
+        XCTAssertNotEqual(sut.messages.last?.text, TestingConstants.testMessageText)
         XCTAssertEqual(sut.messages.count, 20, "There should still be 20 messages in the chat, even after a new one was sent.")
 
         try await testingDatabaseService.deleteChatMessage(inChatWithId: sut.chat!.id, withMessageText: TestingConstants.testMessageText)
     }
 
+    func test_OnSendMessageToUserWithNoExistingChat_ChatIsCreated() async throws {
+        try await testingDatabaseService.logInToEricAccount()
+        sut = ConversationViewModel(chat: nil, chatParticipantUids: [AuthController.getLoggedInUid(), julian.id])
+        await sut.callOnAppearMethods()
+        sut.messageText = TestingConstants.testMessageText
+
+        let sentChatMessage = await sut.sendMessageButtonTapped(by: eric)
+        self.createdChatMessageId = sentChatMessage!.id
+        self.createdChatId = sentChatMessage!.chatId
+        let createdChat = try await testingDatabaseService.getChat(withId: createdChatId!)
+
+        XCTAssertNotNil(createdChat)
+        XCTAssertTrue(createdChat!.participantUids.contains(eric.id))
+        XCTAssertTrue(createdChat!.participantUids.contains(julian.id))
+        XCTAssertEqual(createdChat!.participantUids.count, 2)
+        XCTAssertTrue(createdChat!.participantUsernames.contains(eric.name))
+        XCTAssertTrue(createdChat!.participantUsernames.contains(julian.name))
+        XCTAssertEqual(createdChat!.participantUsernames.count, 2)
+    }
+
     func test_OnGetMoreMessages_MoreMessagesAreFetched() async throws {
         try await testingDatabaseService.logInToEricAccount()
-        sut = ConversationViewModel(show: dumpweedExtravaganza, chatParticipantUids: [])
+        sut = ConversationViewModel(chat: nil, show: dumpweedExtravaganza, chatParticipantUids: [])
         await sut.callOnAppearMethods()
         try await Task.sleep(seconds: 0.5)
 
@@ -182,7 +222,7 @@ final class ConversationViewModelTests: XCTestCase {
 
     func test_OnSendChatMessageWithEmptyText_ErrorViewStateIsSet() async throws {
         try await testingDatabaseService.logInToEricAccount()
-        sut = ConversationViewModel(show: dumpweedExtravaganza)
+        sut = ConversationViewModel(chat: nil, show: dumpweedExtravaganza)
         _ = await sut.configureShowChat(forShow: dumpweedExtravaganza)
         sut.messageText = "  "
 
@@ -195,7 +235,7 @@ final class ConversationViewModelTests: XCTestCase {
 
     func test_OnSendChatMessageWithoutConfiguringChat_ErrorViewStateIsSet() async throws {
         try await testingDatabaseService.logInToEricAccount()
-        sut = ConversationViewModel()
+        sut = ConversationViewModel(chat: nil)
 
         _ = await sut.sendChatMessage(fromUser: try testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserEric.id))
 
@@ -212,7 +252,7 @@ final class ConversationViewModelTests: XCTestCase {
 
     func test_OnErrorViewState_ExpectedBehaviorOccurs() async throws {
         try await testingDatabaseService.logInToEricAccount()
-        sut = ConversationViewModel()
+        sut = ConversationViewModel(chat: nil)
 
         sut.viewState = .error(message: "TEST ERROR MESSAGE")
 

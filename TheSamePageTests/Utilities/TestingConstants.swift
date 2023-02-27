@@ -380,11 +380,14 @@ struct TestingConstants {
 
     static let exampleChatDumpweedExtravaganza = Chat(
         id: "cpS2HseZT6XIG1qMRAKL",
+        type: ChatType.show.rawValue,
         showId: exampleShowDumpweedExtravaganza.id,
         name: exampleShowDumpweedExtravaganza.name,
         participantUids: [exampleUserJulian.id, exampleUserLou.id, exampleUserEric.id],
+        participantUsernames: [exampleUserJulian.name, exampleUserLou.name, exampleUserEric.name],
         mostRecentMessageText: "Hell Yeah!",
         mostRecentMessageTimestamp: 1676406074.836448,
+        mostRecentMessageSenderUsername: exampleUserLou.name,
         upToDateParticipantUids: [exampleUserLou.id]
     )
 

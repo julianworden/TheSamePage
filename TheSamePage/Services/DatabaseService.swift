@@ -623,7 +623,7 @@ class DatabaseService: NSObject {
     func setNewBandAdmin(user: User, band: Band) async throws {
         do {
             guard band.memberUids.contains(user.id) else {
-                throw LogicError.unknown(message: "\(user.fullName) cannot be the admin of this band because they are not currently a member of the band")
+                throw LogicError.unknown(message: "\(user.fullName) cannot be the admin of this band because they are not currently a member of the band.")
             }
 
             try await db
@@ -1010,7 +1010,7 @@ class DatabaseService: NSObject {
     func setNewShowHost(user: User, show: Show) async throws {
         do {
             guard show.participantUids.contains(user.id) else {
-                throw LogicError.unknown(message: "\(user.fullName) cannot host this show because they are not participating in it")
+                throw LogicError.unknown(message: "\(user.fullName) cannot host this show because they are not participating in it.")
             }
 
             try await db

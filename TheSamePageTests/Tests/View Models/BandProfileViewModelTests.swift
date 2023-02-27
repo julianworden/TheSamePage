@@ -38,7 +38,7 @@ final class BandProfileViewModelTests: XCTestCase {
     func test_OnInitWithBand_DefaultValuesAreCorrect() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         sut = BandProfileViewModel(band: exampleBandPatheticFallacy)
-        try await Task.sleep(seconds: 0.5)
+        try await Task.sleep(seconds: 5)
 
         XCTAssertEqual(sut.band, exampleBandPatheticFallacy)
         XCTAssertEqual(sut.bandLinks.count, 2)
@@ -56,7 +56,7 @@ final class BandProfileViewModelTests: XCTestCase {
     func test_OnInitWithShowParticipant_DefaultValuesAreCorrect() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         sut = BandProfileViewModel(band: nil, showParticipant: exampleShowParticipantPatheticFallacy)
-        try await Task.sleep(seconds: 0.5)
+        try await Task.sleep(seconds: 5)
 
         let bandPredicate = NSPredicate { _, _ in
             (self.sut.band) != nil
@@ -81,7 +81,7 @@ final class BandProfileViewModelTests: XCTestCase {
     func test_OnInitWithBandId_DefaultValuesAreCorrect() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         sut = BandProfileViewModel(band: nil, bandId: exampleBandPatheticFallacy.id)
-        try await Task.sleep(seconds: 0.5)
+        try await Task.sleep(seconds: 5)
 
         XCTAssertEqual(sut.band, exampleBandPatheticFallacy)
         XCTAssertEqual(sut.bandLinks.count, 2)

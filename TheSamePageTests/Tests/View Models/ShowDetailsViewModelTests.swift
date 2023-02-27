@@ -234,6 +234,7 @@ final class ShowDetailsViewModelTests: XCTestCase {
         XCTAssertTrue(sut.showParticipants.contains(showParticipantPatheticFallacy), "Pathetic Fallacy is playing this show")
     }
 
+    #warning("Test that user is removed from chat's participantUsernames property.")
     func test_OnRemoveShowParticipantFromShow_ShowParticipantIsRemovedFromShow() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         sut = ShowDetailsViewModel(show: dumpweedExtravaganza)
