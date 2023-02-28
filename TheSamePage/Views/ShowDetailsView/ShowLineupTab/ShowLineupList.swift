@@ -36,6 +36,7 @@ struct ShowLineupList: View {
                     }
                 }
             }
+            .padding(.top, 5)
             .sheet(
                 item: $viewModel.showParticipantToEdit,
                 onDismiss: {

@@ -891,6 +891,39 @@ class TestingDatabaseService {
             .delete()
     }
 
+    func getAllBackline(for show: Show) async throws -> [any Backline] {
+        do {
+            let backlineItemsAsDocumentsArray = try await db
+                .collection(FbConstants.shows)
+                .document(show.id)
+                .collection(FbConstants.backlineItems)
+                .getDocuments()
+                .documents
+
+            var backline = [any Backline]()
+
+            for document in backlineItemsAsDocumentsArray {
+                if let backlineItem = try? document.data(as: BacklineItem.self) {
+                    backline.append(backlineItem)
+                } else if let drumKitBacklineItem = try? document.data(as: DrumKitBacklineItem.self) {
+                    backline.append(drumKitBacklineItem)
+                }
+            }
+
+            return backline
+        } catch DecodingError.valueNotFound, DecodingError.keyNotFound {
+            throw FirebaseError.dataDeleted
+        }
+    }
+
+    func restoreBackline(_ backline: any Backline, in show: Show) async throws {
+        if let backlineItem = backline as? BacklineItem {
+            try await createBacklineItem(create: backlineItem, in: show)
+        } else if let drumKitBacklineItem = backline as? DrumKitBacklineItem {
+            try await createDrumKitBacklineItem(create: drumKitBacklineItem, in: show)
+        }
+    }
+
     // MARK: - Firebase Storage
 
     func uploadImage(_ image: UIImage) async throws -> String? {

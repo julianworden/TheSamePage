@@ -20,7 +20,6 @@ struct ShowLineupTab: View {
 
                         Spacer()
                     }
-                    .padding(.top, 5)
 
                     ShowLineupList(viewModel: viewModel)
 

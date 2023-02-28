@@ -1266,11 +1266,21 @@ class DatabaseService: NSObject {
             .document(show.id)
             .updateData([FbConstants.participantUids: FieldValue.arrayRemove(showParticipantAsBand.memberUids)])
 
+        for uid in showParticipantAsBand.memberUids {
+            if uid != show.hostUid {
+                try await deleteBackline(fromUserWithUid: uid, in: show)
+            }
+        }
+
         if !showParticipantAsBand.memberUids.contains(showParticipantAsBand.adminUid) {
             try await db
                 .collection(FbConstants.shows)
                 .document(show.id)
                 .updateData([FbConstants.participantUids: FieldValue.arrayRemove([showParticipantAsBand.adminUid])])
+
+            if showParticipantAsBand.adminUid != show.hostUid {
+                try await deleteBackline(fromUserWithUid: showParticipantAsBand.adminUid, in: show)
+            }
         }
 
         if let showChat = try await getChat(withShowId: show.id) {
@@ -1407,6 +1417,70 @@ class DatabaseService: NSObject {
         }
     }
 
+    func deleteBacklineItem(delete backline: any Backline, inShowWithId showId: String) async throws {
+        guard let backlineItemId = backline.id else {
+            throw LogicError.unexpectedNilValue(message: "Failed to delete backline item, please try again.")
+        }
+
+        do {
+            try await db
+                .collection(FbConstants.shows)
+                .document(showId)
+                .collection(FbConstants.backlineItems)
+                .document(backlineItemId)
+                .delete()
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to delete backline item",
+                systemError: error.localizedDescription
+            )
+        }
+    }
+
+    func deleteDrumKitBacklineItem(delete drumKitBacklineItem: DrumKitBacklineItem, inShowWithId showId: String) async throws {
+        guard let drumKitBacklineItemId = drumKitBacklineItem.id else {
+            throw LogicError.unexpectedNilValue(message: "Failed to delete backline item, please try again.")
+        }
+
+        do {
+            try await db
+                .collection(FbConstants.shows)
+                .document(showId)
+                .collection(FbConstants.backlineItems)
+                .document(drumKitBacklineItemId)
+                .delete()
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to delete backline item",
+                systemError: error.localizedDescription
+            )
+        }
+    }
+
+    func deleteBackline(fromUserWithUid uid: String, in show: Show) async throws {
+        do {
+            let backlineAsDocuments = try await db
+                .collection(FbConstants.shows)
+                .document(show.id)
+                .collection(FbConstants.backlineItems)
+                .whereField(FbConstants.backlinerUid, isEqualTo: uid)
+                .getDocuments()
+                .documents
+
+            for backlineDocument in backlineAsDocuments {
+                if let backlineItem = try? backlineDocument.data(as: BacklineItem.self) {
+                    try await deleteBacklineItem(delete: backlineItem, inShowWithId: show.id)
+                } else if let drumKitBacklineItem = try? backlineDocument.data(as: DrumKitBacklineItem.self) {
+                    try await deleteBacklineItem(delete: drumKitBacklineItem, inShowWithId: show.id)
+                }
+            }
+        } catch DecodingError.valueNotFound, DecodingError.keyNotFound {
+            return
+        } catch {
+            throw FirebaseError.connection(message: "Failed to delete backline from show participant.", systemError: error.localizedDescription)
+        }
+    }
+
     func deleteNotification(withId id: String) async throws {
         do {
             try await db
@@ -1452,46 +1526,6 @@ class DatabaseService: NSObject {
                 .updateData([FbConstants.imageUrl: FieldValue.delete()])
         } catch {
             throw FirebaseError.connection(message: "Failed to delete image", systemError: error.localizedDescription)
-        }
-    }
-
-    func deleteBacklineItem(delete backlineItem: BacklineItem, inShowWithId showId: String) async throws {
-        guard let backlineItemId = backlineItem.id else {
-            throw LogicError.unexpectedNilValue(message: "Failed to delete backline item, please try again.")
-        }
-
-        do {
-            try await db
-                .collection(FbConstants.shows)
-                .document(showId)
-                .collection(FbConstants.backlineItems)
-                .document(backlineItemId)
-                .delete()
-        } catch {
-            throw FirebaseError.connection(
-                message: "Failed to delete backline item",
-                systemError: error.localizedDescription
-            )
-        }
-    }
-
-    func deleteDrumKitBacklineItem(delete drumKitBacklineItem: DrumKitBacklineItem, inShowWithId showId: String) async throws {
-        guard let drumKitBacklineItemId = drumKitBacklineItem.id else {
-            throw LogicError.unexpectedNilValue(message: "Failed to delete backline item, please try again.")
-        }
-
-        do {
-            try await db
-                .collection(FbConstants.shows)
-                .document(showId)
-                .collection(FbConstants.backlineItems)
-                .document(drumKitBacklineItemId)
-                .delete()
-        } catch {
-            throw FirebaseError.connection(
-                message: "Failed to delete backline item",
-                systemError: error.localizedDescription
-            )
         }
     }
 

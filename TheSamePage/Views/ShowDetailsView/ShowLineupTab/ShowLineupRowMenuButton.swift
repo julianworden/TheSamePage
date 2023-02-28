@@ -50,6 +50,7 @@ struct ShowLineupRowMenuButton: View {
                                 await viewModel.removeShowParticipantFromShow(showParticipant: showParticipant)
                                 await viewModel.getLatestShowData()
                                 await viewModel.getShowParticipants()
+                                await viewModel.getBacklineItems()
                             }
                         }
                     },

@@ -8,7 +8,7 @@
 import FirebaseFirestoreSwift
 import Foundation
 
-protocol Backline {
+protocol Backline: Codable {
     var id: String? { get }
     var backlinerUid: String { get }
     var backlinerFullName: String { get }

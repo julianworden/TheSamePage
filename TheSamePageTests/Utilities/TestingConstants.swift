@@ -460,6 +460,8 @@ struct TestingConstants {
 
     // MARK: - Example Backline
 
+    static let exampleShowDumpweedExtravaganzaAllBackline: [any Backline] = [exampleElectricGuitarBacklineItemDumpweedExtravaganza, exampleBassGuitarBacklineItemDumpweedExtravaganza, exampleDrumKitPieceBacklineItemDumpweedExtravaganza, exampleAuxPercussionBacklineItemDumpweedExtravaganza, exampleDrumKitBacklineItemDumpweedExtravaganza]
+
     static let exampleElectricGuitarBacklineItemDumpweedExtravaganza = BacklineItem(
         id: "uaiGeXYUKkGRAgf1U7DS",
         backlinerUid: exampleUserJulian.id,
