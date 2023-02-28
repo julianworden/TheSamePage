@@ -81,10 +81,8 @@ class DatabaseService: NSObject {
                 .getDocument()
                 .data(as: User.self)
           // Should only happen if user's account was deleted since the last time they opened the app
-        } catch Swift.DecodingError.valueNotFound {
-            throw FirebaseError.userNotFound(
-                message: "Failed to fetch your account information. Please log in again"
-            )
+        } catch DecodingError.valueNotFound, DecodingError.keyNotFound {
+            throw FirebaseError.dataDeleted
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to fetch user",

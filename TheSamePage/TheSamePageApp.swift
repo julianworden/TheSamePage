@@ -21,7 +21,7 @@ struct TheSamePageApp: App {
     @StateObject var loggedInUserController = LoggedInUserController()
     @StateObject var networkController = NetworkController()
     @StateObject var appOpenedViaNotificationController = AppOpenedViaNotificationController()
-
+    
     var body: some Scene {
         WindowGroup {
             if !appOpenedViaNotificationController.appNotificationTapped {
@@ -138,22 +138,22 @@ struct TheSamePageApp: App {
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         UITabBar.appearance().backgroundColor = .systemGroupedBackground
-        
+
         FirebaseApp.configure()
         useFirebaseEmulator()
         FirebaseConfiguration.shared.setLoggerLevel(.min)
-        
+
         Messaging.messaging().delegate = self
         UNUserNotificationCenter.current().delegate = self
-        
+
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(
             options: authOptions,
             completionHandler: { _, _ in }
         )
-        
+
         application.registerForRemoteNotifications()
-        
+
         return true
     }
 
@@ -192,7 +192,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([[.banner, .sound]])
     }
-    
+
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
         if let idForChatContainingMessage = userInfo[FbConstants.chatId] {
@@ -229,7 +229,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
         completionHandler()
     }
-    
+
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
     }

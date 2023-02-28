@@ -75,7 +75,10 @@ class LoggedInUserController: ObservableObject {
     }
 
     func callOnAppLaunchMethods() async {
-        guard !AuthController.userIsLoggedOut() else { return }
+        guard !AuthController.userIsLoggedOut() else {
+            currentUserIsInvalid = true
+            return
+        }
 
         await getLoggedInUserInfo()
         await getLoggedInUserAllBands()
@@ -89,13 +92,18 @@ class LoggedInUserController: ObservableObject {
     func getLoggedInUserInfo() async {
         do {
             self.loggedInUser = try await DatabaseService.shared.getLoggedInUser()
+        } catch FirebaseError.dataDeleted {
+            currentUserIsInvalid = true
         } catch {
             viewState = .error(message: error.localizedDescription)
         }
     }
 
     func getLoggedInUserAdminBands() async {
-        guard let loggedInUser else { return }
+        guard let loggedInUser else {
+            currentUserIsInvalid = true
+            return
+        }
 
         do {
             self.adminBands = try await DatabaseService.shared.getAdminBands(withUid: loggedInUser.id)
@@ -105,8 +113,10 @@ class LoggedInUserController: ObservableObject {
     }
 
     func getLoggedInUserAllBands() async {
-        guard let loggedInUser else { return }
-
+        guard let loggedInUser else {
+            currentUserIsInvalid = true
+            return
+        }
         do {
             self.allBands = try await DatabaseService.shared.getAllBands(withUid: loggedInUser.id)
         } catch {
@@ -115,8 +125,10 @@ class LoggedInUserController: ObservableObject {
     }
 
     func getLoggedInUserAllShows() async {
-        guard let loggedInUser else { return }
-
+        guard let loggedInUser else {
+            currentUserIsInvalid = true
+            return
+        }
         do {
             self.allShows = try await DatabaseService.shared.getAllShows(withUid: loggedInUser.id)
         } catch {
@@ -135,7 +147,10 @@ class LoggedInUserController: ObservableObject {
     }
 
     func addLoggedInUserChatsListener() {
-        guard loggedInUser != nil else { return }
+        guard loggedInUser != nil else {
+            currentUserIsInvalid = true
+            return
+        }
 
         chatsListener = db
             .collection(FbConstants.chats)
@@ -229,6 +244,7 @@ class LoggedInUserController: ObservableObject {
         do {
             try await DatabaseService.shared.deleteFcmTokenForUser(withUid: AuthController.getLoggedInUid())
             try AuthController.logOut()
+            currentUserIsInvalid = true
         } catch {
             viewState = .error(message: error.localizedDescription)
         }
@@ -243,6 +259,12 @@ class LoggedInUserController: ObservableObject {
     }
 
     func validateIfUserHasUsername() async {
+        guard !userIsLoggedOut,
+              AuthController.loggedInUserEmailIsVerified() else {
+            currentUserIsInvalid = true
+            return
+        }
+
         do {
             let currentUser = try await DatabaseService.shared.getLoggedInUser()
             if currentUser.name.isReallyEmpty {
@@ -323,7 +345,7 @@ class LoggedInUserController: ObservableObject {
 
     func createDynamicLinkForUser() async {
         guard let loggedInUser else {
-            print("User object cannot be nil before generating Dynamic Link for user.")
+            currentUserIsInvalid = true
             return
         }
 

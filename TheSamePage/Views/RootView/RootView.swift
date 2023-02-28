@@ -19,7 +19,8 @@ struct RootView: View {
         ZStack {
             BackgroundColor()
 
-            if !loggedInUserController.userIsLoggedOut {
+            if !loggedInUserController.userIsLoggedOut,
+               loggedInUserController.loggedInUser != nil {
                 TabView(selection: $appOpenedViaNotificationController.selectedRootViewTab) {
                     FindShowsView()
                         .tabItem {
@@ -52,9 +53,6 @@ struct RootView: View {
                         }
                         .tag(4)
                 }
-                .task {
-                    await loggedInUserController.validateIfUserHasUsername()
-                }
                 .alert(
                     "Error",
                     isPresented: $loggedInUserController.currentUserHasNoUsernameAlertIsShowing,
@@ -68,6 +66,8 @@ struct RootView: View {
                         CreateUsernameView(navigationViewModel: OnboardingNavigationViewModel())
                     }
                 }
+            } else if loggedInUserController.loggedInUser == nil {
+                 ProgressView()
             }
         }
         .fullScreenCover(
@@ -85,6 +85,7 @@ struct RootView: View {
         )
         .task {
             await loggedInUserController.validateUserLogInStatusAndEmailVerification()
+            await loggedInUserController.validateIfUserHasUsername()
             if !loggedInUserController.currentUserIsInvalid && !loggedInUserController.currentUserHasNoUsernameAlertIsShowing {
                 await loggedInUserController.callOnAppLaunchMethods()
             }

@@ -46,7 +46,6 @@ struct ChangeEmailAddressView: View {
         Form {
             Section {
                 CustomTextField("New Email Address", text: $newEmailAddress, keyboardType: .emailAddress)
-
                 CustomTextField("Confirm Email Address", text: $confirmedNewEmailAddress, keyboardType: .emailAddress)
             } footer: {
                 Text("Please be sure to enter a valid email address, you will need to verify it before you can use your account again.")
