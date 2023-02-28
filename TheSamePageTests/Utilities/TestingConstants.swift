@@ -466,6 +466,7 @@ struct TestingConstants {
         id: "uaiGeXYUKkGRAgf1U7DS",
         backlinerUid: exampleUserJulian.id,
         backlinerFullName: exampleUserJulian.fullName,
+        backlinerUsername: exampleUserJulian.name,
         type: BacklineItemType.electricGuitar.rawValue,
         name: ElectricGuitarGear.comboAmp.rawValue,
         notes: "Marshall"
@@ -475,6 +476,7 @@ struct TestingConstants {
         id: "LVgcRJZ704y7g6ohpWVj",
         backlinerUid: exampleUserJulian.id,
         backlinerFullName: exampleUserJulian.fullName,
+        backlinerUsername: exampleUserJulian.name,
         type: BacklineItemType.bassGuitar.rawValue,
         name: BassGuitarGear.cab.rawValue,
         notes: "Ampeg 8 X 12"
@@ -484,6 +486,7 @@ struct TestingConstants {
         id: "1ia024xU5y71R6vngnIe",
         backlinerUid: exampleUserJulian.id,
         backlinerFullName: exampleUserJulian.fullName,
+        backlinerUsername: exampleUserJulian.name,
         type: BacklineItemType.percussion.rawValue,
         name: DrumKitPiece.kick.rawValue,
         notes: "DW Kick"
@@ -493,6 +496,7 @@ struct TestingConstants {
         id: "8QZ2veMzoawxQaRcx1iE",
         backlinerUid: exampleUserJulian.id,
         backlinerFullName: exampleUserJulian.fullName,
+        backlinerUsername: exampleUserJulian.name,
         type: BacklineItemType.percussion.rawValue,
         name: AuxillaryPercussion.congas.rawValue
     )
@@ -501,6 +505,7 @@ struct TestingConstants {
         id: "aG8zt3O28acN0f5uk2Oe",
         backlinerUid: exampleUserJulian.id,
         backlinerFullName: exampleUserJulian.fullName,
+        backlinerUsername: exampleUserJulian.name,
         type: BacklineItemType.percussion.rawValue,
         name: PercussionGearType.fullKit.rawValue,
         notes: "Pearl kit with Ziljian Cymbals",

@@ -20,8 +20,13 @@ struct OtherUserProfileHeader: View {
                         .profileImageStyle()
                 }
                 
-                Text(user.fullName)
+                Text(user.name)
                     .font(.title.bold())
+
+                Text(user.fullName)
+                    .font(.title3)
+                    .foregroundColor(.secondary)
+                
             }
             .padding()
         }

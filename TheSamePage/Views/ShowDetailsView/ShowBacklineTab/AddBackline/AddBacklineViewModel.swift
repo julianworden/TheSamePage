@@ -113,6 +113,7 @@ final class AddBacklineViewModel: ObservableObject {
                 backlineItem = BacklineItem(
                     backlinerUid: loggedInUser.id,
                     backlinerFullName: loggedInUser.fullName,
+                    backlinerUsername: AuthController.getLoggedInUsername(),
                     type: selectedGearType.rawValue,
                     name: newBacklineItemName,
                     notes: backlineGearNotes.isReallyEmpty ? nil : backlineGearNotes
@@ -126,6 +127,7 @@ final class AddBacklineViewModel: ObservableObject {
                     drumKitBacklineItem = DrumKitBacklineItem(
                         backlinerUid: loggedInUser.id,
                         backlinerFullName: loggedInUser.fullName,
+                        backlinerUsername: AuthController.getLoggedInUsername(),
                         type: selectedGearType.rawValue,
                         name: selectedPercussionGearType.rawValue,
                         notes: backlineGearNotes.isReallyEmpty ? nil : backlineGearNotes,
@@ -136,6 +138,7 @@ final class AddBacklineViewModel: ObservableObject {
                     backlineItem = BacklineItem(
                         backlinerUid: loggedInUser.id,
                         backlinerFullName: loggedInUser.fullName,
+                        backlinerUsername: AuthController.getLoggedInUsername(),
                         type: selectedGearType.rawValue,
                         name: selectedDrumKitPiece.rawValue,
                         notes: backlineGearNotes.isReallyEmpty ? nil : backlineGearNotes
@@ -145,6 +148,7 @@ final class AddBacklineViewModel: ObservableObject {
                     backlineItem = BacklineItem(
                         backlinerUid: loggedInUser.id,
                         backlinerFullName: loggedInUser.fullName,
+                        backlinerUsername: AuthController.getLoggedInUsername(),
                         type: selectedGearType.rawValue,
                         name: selectedAuxillaryPercussion.rawValue,
                         notes: backlineGearNotes.isReallyEmpty ? nil : backlineGearNotes

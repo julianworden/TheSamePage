@@ -21,6 +21,7 @@ struct ShowBacklineRow: View {
                 ListRowElements(
                     title: anyBackline.backline.name,
                     subtitle: anyBackline.details,
+                    secondaryText: "Backlined by: \(anyBackline.backline.backlinerUsername)",
                     iconName: anyBackline.iconName,
                     iconIsSfSymbol: false
                 )

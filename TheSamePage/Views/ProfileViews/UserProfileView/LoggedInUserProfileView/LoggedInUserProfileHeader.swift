@@ -15,8 +15,12 @@ struct LoggedInUserProfileHeader: View {
             VStack(spacing: UiConstants.profileHeaderVerticalSpacing) {
                 LoggedInUserProfileImage()
 
-                Text(user.fullName)
+                Text(user.name)
                     .font(.title.bold())
+
+                Text(user.fullName)
+                    .font(.title3)
+                    .foregroundColor(.secondary)
 
                 HStack {
                     Label("\(loggedInUserController.allShows.count) \(loggedInUserController.allShows.count == 1 ? "Show" : "Shows")", systemImage: "music.note.house")

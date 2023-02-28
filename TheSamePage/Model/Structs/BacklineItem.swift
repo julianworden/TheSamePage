@@ -14,6 +14,7 @@ struct BacklineItem: Backline, Codable, Equatable, Hashable, Identifiable {
     let backlinerUid: String
     /// The first and last name of the user that added this item to a show's backline
     let backlinerFullName: String
+    let backlinerUsername: String
     let type: String
     let name: String
     let notes: String?
@@ -26,6 +27,7 @@ struct BacklineItem: Backline, Codable, Equatable, Hashable, Identifiable {
         id: String? = nil,
         backlinerUid: String,
         backlinerFullName: String,
+        backlinerUsername: String,
         type: String,
         name: String,
         notes: String? = nil
@@ -33,6 +35,7 @@ struct BacklineItem: Backline, Codable, Equatable, Hashable, Identifiable {
         self.id = id
         self.backlinerUid = backlinerUid
         self.backlinerFullName = backlinerFullName
+        self.backlinerUsername = backlinerUsername
         self.type = type
         self.name = name
         self.notes = notes

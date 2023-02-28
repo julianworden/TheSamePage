@@ -12,6 +12,7 @@ protocol Backline: Codable {
     var id: String? { get }
     var backlinerUid: String { get }
     var backlinerFullName: String { get }
+    var backlinerUsername: String { get }
     var type: String { get }
     var name: String { get }
     var notes: String? { get }
