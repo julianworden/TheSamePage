@@ -832,17 +832,9 @@ class DatabaseService: NSObject {
             let bandShows = try await getShowsForBand(band: band)
 
             for show in bandShows {
-                let chat = try await getChat(withShowId: show.id)
+                let bandAsShowParticipant = try await convertBandToShowParticipant(band: band, show: show)
 
-                for member in bandMembers {
-                    let memberAsUser = try await convertBandMemberToUser(bandMember: member)
-                    try await removeUserFromShow(uid: memberAsUser.id, show: show)
-                    if let chat {
-                        try await removeUserFromChat(user: memberAsUser, chat: chat)
-                    }
-                }
-
-                try await removeBandFromShow(bandId: band.id, showId: show.id)
+                try await removeShowParticipantFromShow(remove: bandAsShowParticipant, from: show)
             }
 
             try await FirebaseFunctionsController.recursiveDelete(path: "\(FbConstants.bands)/\(band.id)")
@@ -1244,29 +1236,6 @@ class DatabaseService: NSObject {
         }
     }
 
-    func removeBandFromShow(bandId: String, showId: String) async throws {
-        try await db
-            .collection(FbConstants.shows)
-            .document(showId)
-            .updateData([FbConstants.bandIds: FieldValue.arrayRemove([bandId])])
-
-        let showParticipantDocument = try await db
-            .collection(FbConstants.shows)
-            .document(showId)
-            .collection(FbConstants.participants)
-            .whereField(FbConstants.bandId, isEqualTo: bandId)
-            .getDocuments()
-            .documents
-             .first!
-
-        try await db
-            .collection(FbConstants.shows)
-            .document(showId)
-            .collection(FbConstants.participants)
-            .document(showParticipantDocument.documentID)
-            .delete()
-    }
-
     /// Removes a band from a show. This method removes the band's id from the show's bandIds property, removes
     /// each of the band's member's UIDs from the show's participantUids property, and removes each of the band's
     /// member's from the show's chat.
@@ -1557,6 +1526,27 @@ class DatabaseService: NSObject {
                 .updateData([FbConstants.setTime: FieldValue.delete()])
         } catch {
             throw FirebaseError.connection(message: "Failed to delete set time", systemError: error.localizedDescription)
+        }
+    }
+
+    func convertBandToShowParticipant(band: Band, show: Show) async throws -> ShowParticipant {
+        do {
+            let showParticipantAsDocumentArray = try await db
+                .collection(FbConstants.shows)
+                .document(show.id)
+                .collection(FbConstants.participants)
+                .whereField(FbConstants.bandId, isEqualTo: band.id)
+                .getDocuments()
+                .documents
+
+            guard showParticipantAsDocumentArray.count == 1,
+                  let showParticipantAsDocument = showParticipantAsDocumentArray.first else {
+                throw FirebaseError.dataNotFound
+            }
+
+            return try showParticipantAsDocument.data(as: ShowParticipant.self)
+        } catch {
+            throw FirebaseError.connection(message: "Failed to perform band operation", systemError: error.localizedDescription)
         }
     }
 

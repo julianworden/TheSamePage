@@ -68,8 +68,8 @@ final class OtherUserProfileViewModel: ObservableObject {
             self.lastName = user.lastName
             self.emailAddress = user.emailAddress
             self.profileImageUrl = user.profileImageUrl
-            self.bands = try await getBands(forUser: user)
             self.shortenedDynamicLink = await createDynamicLinkForUser()
+            self.bands = try await getBands(forUser: user)
             
             viewState = .dataLoaded
         } catch {
