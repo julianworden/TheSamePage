@@ -25,7 +25,7 @@ struct UserSearchResultsList: View {
                         ForEach(viewModel.fetchedUsers, id: \.document) { result in
                             let user = result.document!
                             
-                            if user.profileBelongsToLoggedInUser {
+                            if user.isLoggedInUser {
                                 SearchResultRow(user: user)
                             } else {
                                 NavigationLink {

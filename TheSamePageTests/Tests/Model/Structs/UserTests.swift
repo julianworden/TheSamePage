@@ -25,13 +25,13 @@ final class UserTests: XCTestCase {
     func test_ProfileBelongsToLoggedInUser_ReturnsTrueWhenProfileBelongsToLoggedInUser() async throws {
         try await testingDatabaseService.logInToJulianAccount()
 
-        XCTAssertTrue(julian.profileBelongsToLoggedInUser, "Julian is signed in")
+        XCTAssertTrue(julian.isLoggedInUser, "Julian is signed in")
     }
 
     func test_ProfileBelongsToLoggedInUser_ReturnsFalseWhenProfileDoesNotBelongToLoggedInUser() async throws {
         try await testingDatabaseService.logInToLouAccount()
 
-        XCTAssertFalse(julian.profileBelongsToLoggedInUser, "Julian is not signed in")
+        XCTAssertFalse(julian.isLoggedInUser, "Julian is not signed in")
     }
 
     func test_fullName_ReturnsCorrectValue() {

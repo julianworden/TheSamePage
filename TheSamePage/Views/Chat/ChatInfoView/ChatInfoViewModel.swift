@@ -36,6 +36,23 @@ final class ChatInfoViewModel: ObservableObject {
     init(show: Show?, chatParticipantUids: [String]) {
         self.show = show
         self.chatParticipantUids = chatParticipantUids
+
+        Task {
+            await fetchChatParticipantsAsUsers()
+            if show != nil {
+                await fetchShowHostAsUser()
+            }
+        }
+    }
+
+    #warning("Test")
+    func chatParticipantRowSubtitleText(for chatParticipant: User) -> String {
+        if let show,
+           chatParticipant.id == show.hostUid {
+            return "Show Host"
+        } else {
+            return ""
+        }
     }
 
     func fetchChatParticipantsAsUsers() async {
@@ -45,10 +62,17 @@ final class ChatInfoViewModel: ObservableObject {
             var chatParticipants = [User]()
 
             for uid in chatParticipantUids {
-                chatParticipants.append(try await DatabaseService.shared.getUser(withUid: uid))
+                let participantAsUser = try await DatabaseService.shared.getUser(withUid: uid)
+                if !self.chatParticipants.contains(participantAsUser) {
+                    chatParticipants.append(participantAsUser)
+                }
             }
 
             self.chatParticipants = chatParticipants
+
+            if show == nil {
+                viewState = .dataLoaded
+            }
         } catch {
             viewState = .error(message: error.localizedDescription)
         }
@@ -61,7 +85,11 @@ final class ChatInfoViewModel: ObservableObject {
         }
 
         do {
-            showHost = try await DatabaseService.shared.getUser(withUid: show.hostUid)
+            let showHost = try await DatabaseService.shared.getUser(withUid: show.hostUid)
+            if !chatParticipants.contains(showHost) {
+                self.chatParticipants.append(showHost)
+            }
+
             viewState = .dataLoaded
         } catch {
             viewState = .error(message: error.localizedDescription)

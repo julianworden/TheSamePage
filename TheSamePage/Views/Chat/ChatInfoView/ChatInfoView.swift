@@ -24,24 +24,27 @@ struct ChatInfoView: View {
 
             case .dataLoaded:
                 List {
-                    if viewModel.show != nil,
-                       let showHost = viewModel.showHost {
-                        Section("Show Host") {
-                            NavigationLink {
-                                OtherUserProfileView(user: showHost)
-                            } label: {
-                                Text(showHost.fullName)
-                            }
-                        }
-                    }
-
                     if !viewModel.chatParticipantUids.isEmpty {
-                        Section("Show Partipants") {
+                        Section("Participants") {
                             ForEach(viewModel.chatParticipants) { chatParticipant in
-                                NavigationLink {
-                                    OtherUserProfileView(user: chatParticipant)
-                                } label: {
-                                    Text(chatParticipant.fullName)
+                                if chatParticipant.isLoggedInUser {
+                                    ListRowElements(
+                                        title: "You",
+                                        subtitle: viewModel.chatParticipantRowSubtitleText(for: chatParticipant),
+                                        iconName: "person",
+                                        iconIsSfSymbol: true
+                                    )
+                                } else {
+                                    NavigationLink {
+                                        OtherUserProfileView(user: chatParticipant)
+                                    } label: {
+                                        ListRowElements(
+                                            title: chatParticipant.name,
+                                            subtitle: viewModel.chatParticipantRowSubtitleText(for: chatParticipant),
+                                            iconName: "person",
+                                            iconIsSfSymbol: true
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -52,12 +55,6 @@ struct ChatInfoView: View {
 
             default:
                 ErrorMessage(message: ErrorMessageConstants.invalidViewState)
-            }
-        }
-        .task {
-            await viewModel.fetchChatParticipantsAsUsers()
-            if viewModel.show != nil {
-                await viewModel.fetchShowHostAsUser()
             }
         }
     }
