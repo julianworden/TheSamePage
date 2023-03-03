@@ -233,12 +233,7 @@ class DatabaseService: NSObject {
             try await db
                 .collection(FbConstants.bands)
                 .document(band.id)
-                .updateData(
-                    [
-                        FbConstants.memberUids: FieldValue.arrayRemove([user.id]),
-                        FbConstants.memberFcmTokens: (user.fcmToken != nil ? FieldValue.arrayRemove([user.fcmToken!]): FieldValue.arrayRemove([]))
-                    ]
-                )
+                .updateData([FbConstants.memberUids: FieldValue.arrayRemove([user.id])])
             
             try await db
                 .collection(FbConstants.bands)
@@ -674,12 +669,7 @@ class DatabaseService: NSObject {
             try await db
                 .collection(FbConstants.bands)
                 .document(band.id)
-                .updateData(
-                    [
-                        FbConstants.memberUids: FieldValue.arrayUnion([bandMember.uid]),
-                        FbConstants.memberFcmTokens: (user.fcmToken != nil ? FieldValue.arrayUnion([user.fcmToken!]) : FieldValue.arrayUnion([]))
-                    ]
-                )
+                .updateData([FbConstants.memberUids: FieldValue.arrayUnion([bandMember.uid])])
             
             let bandShows = try await getShowsForBand(band: band)
             

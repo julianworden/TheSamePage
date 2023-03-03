@@ -16,7 +16,6 @@ struct Band: Codable, Equatable, Hashable, Identifiable, Shareable {
     var profileImageUrl: String?
     let adminUid: String
     var memberUids: [String]
-    let memberFcmTokens: [String]
     let genre: String
     let city: String
     let state: String
@@ -28,7 +27,6 @@ struct Band: Codable, Equatable, Hashable, Identifiable, Shareable {
         profileImageUrl: String? = nil,
         adminUid: String,
         memberUids: [String] = [],
-        memberFcmTokens: [String] = [],
         genre: String,
         city: String,
         state: String
@@ -39,7 +37,6 @@ struct Band: Codable, Equatable, Hashable, Identifiable, Shareable {
         self.profileImageUrl = profileImageUrl
         self.adminUid = adminUid
         self.memberUids = memberUids
-        self.memberFcmTokens = memberFcmTokens
         self.genre = genre
         self.city = city
         self.state = state
@@ -66,7 +63,6 @@ struct Band: Codable, Equatable, Hashable, Identifiable, Shareable {
         name: "Pathetic Fallacy",
         bio: "A bangin metalcore band from New Jersey. We will slay all the shows. ALL OF THEM!!! Nobody will be spared, not even your mom.",
         adminUid: "sdfadgasergawergae",
-        memberFcmTokens: ["a;woiefajwef"],
         genre: Genre.rock.rawValue,
         city: "Neptune",
         state: "NJ"

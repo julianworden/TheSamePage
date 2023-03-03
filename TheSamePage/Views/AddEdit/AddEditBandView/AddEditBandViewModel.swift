@@ -96,7 +96,6 @@ final class AddEditBandViewModel: ObservableObject {
             bio: bandBio,
             profileImageUrl: image == nil ? nil : try await DatabaseService.shared.uploadImage(image: image!),
             adminUid: loggedInUser.id,
-            memberFcmTokens: [loggedInUser.fcmToken ?? ""],
             genre: bandGenre.rawValue,
             city: bandCity,
             state: bandState.rawValue
@@ -132,7 +131,6 @@ final class AddEditBandViewModel: ObservableObject {
             profileImageUrl: bandToEdit.profileImageUrl,
             adminUid: bandToEdit.adminUid,
             memberUids: bandToEdit.memberUids,
-            memberFcmTokens: bandToEdit.memberFcmTokens,
             genre: bandGenre.rawValue,
             city: bandCity,
             state: bandState.rawValue

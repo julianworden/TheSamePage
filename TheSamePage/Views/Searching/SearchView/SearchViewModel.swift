@@ -35,7 +35,7 @@ final class SearchViewModel: ObservableObject {
                 errorAlertText = message
                 errorAlertIsShowing = true
             default:
-                if viewState != .dataNotFound && viewState != .dataLoaded {
+                if viewState != .dataNotFound && viewState != .dataLoaded && viewState != .dataLoading{
                     errorAlertText = ErrorMessageConstants.invalidViewState
                     errorAlertIsShowing = true
                 }
@@ -62,6 +62,8 @@ final class SearchViewModel: ObservableObject {
 
     func fetchUsers() async {
         guard !queryText.isEmpty else { return }
+
+        viewState = .dataLoading
         
         let collectionParams = MultiSearchCollectionParameters(q: queryText, collection: FbConstants.users)
         let searchParams = MultiSearchParameters(queryBy: "name")
@@ -85,6 +87,8 @@ final class SearchViewModel: ObservableObject {
     
     func fetchBands() async {
         guard !queryText.isEmpty else { return }
+
+        viewState = .dataLoading
         
         let collectionParams = MultiSearchCollectionParameters(q: queryText, collection: FbConstants.bands)
         let searchParams = MultiSearchParameters(queryBy: "name")
@@ -108,6 +112,8 @@ final class SearchViewModel: ObservableObject {
     
     func fetchShows() async {
         guard !queryText.isEmpty else { return }
+
+        viewState = .dataLoading
         
         let collectionParams = MultiSearchCollectionParameters(q: queryText, collection: FbConstants.shows)
         let searchParams = MultiSearchParameters(queryBy: "name")

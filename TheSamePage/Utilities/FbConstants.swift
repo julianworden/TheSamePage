@@ -30,8 +30,6 @@ struct FbConstants {
     static let uid = "uid"
     static let name = "name"
     static let username = "username"
-    static let participantFcmTokens = "participantFcmTokens"
-    static let memberFcmTokens = "memberFcmTokens"
     static let backlineItems = "backlineItems"
     static let profileImageUrl = "profileImageUrl"
     static let imageUrl = "imageUrl"

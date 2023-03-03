@@ -714,12 +714,7 @@ class TestingDatabaseService {
         try await db
             .collection(FbConstants.chats)
             .document(chat.id)
-            .updateData(
-                [
-                    FbConstants.participantUids: FieldValue.arrayUnion([user.id]),
-                    FbConstants.participantFcmTokens: (user.fcmToken != nil ? FieldValue.arrayUnion([user.fcmToken!]) : FieldValue.arrayUnion([]))
-                ]
-            )
+            .updateData([FbConstants.participantUids: FieldValue.arrayUnion([user.id])])
     }
 
     func addBandToChat(band: Band, showId: String) async throws {
@@ -734,12 +729,7 @@ class TestingDatabaseService {
         try await db
             .collection(FbConstants.chats)
             .document(chat.id)
-            .updateData(
-                [
-                    FbConstants.participantUids: FieldValue.arrayUnion(band.memberUids),
-                    FbConstants.participantFcmTokens: FieldValue.arrayUnion(band.memberFcmTokens)
-                ]
-            )
+            .updateData([FbConstants.participantUids: FieldValue.arrayUnion(band.memberUids)])
     }
 
     func deleteChat(withId id: String) async throws {

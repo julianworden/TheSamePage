@@ -92,8 +92,8 @@
             filePath = "TheSamePage/Services/DatabaseService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "512"
-            endingLineNumber = "512"
+            startingLineNumber = "507"
+            endingLineNumber = "507"
             landmarkName = "getAllBands(withUid:)"
             landmarkType = "7">
             <Locations>
@@ -140,8 +140,8 @@
             filePath = "TheSamePage/Services/DatabaseService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "513"
-            endingLineNumber = "513"
+            startingLineNumber = "508"
+            endingLineNumber = "508"
             landmarkName = "getAllBands(withUid:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -156,8 +156,8 @@
             filePath = "TheSamePage/Services/DatabaseService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "517"
-            endingLineNumber = "517"
+            startingLineNumber = "512"
+            endingLineNumber = "512"
             landmarkName = "getAllBands(withUid:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -172,8 +172,8 @@
             filePath = "TheSamePage/Services/DatabaseService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "518"
-            endingLineNumber = "518"
+            startingLineNumber = "513"
+            endingLineNumber = "513"
             landmarkName = "getAllBands(withUid:)"
             landmarkType = "7">
             <Locations>
@@ -220,8 +220,8 @@
             filePath = "TheSamePage/Services/DatabaseService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "519"
-            endingLineNumber = "519"
+            startingLineNumber = "514"
+            endingLineNumber = "514"
             landmarkName = "getAllBands(withUid:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -236,8 +236,8 @@
             filePath = "TheSamePage/Services/DatabaseService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "520"
-            endingLineNumber = "520"
+            startingLineNumber = "515"
+            endingLineNumber = "515"
             landmarkName = "getAllBands(withUid:)"
             landmarkType = "7">
          </BreakpointContent>

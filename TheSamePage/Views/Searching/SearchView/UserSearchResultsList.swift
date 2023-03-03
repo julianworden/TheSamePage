@@ -16,6 +16,9 @@ struct UserSearchResultsList: View {
     var body: some View {
         Group {
             switch viewModel.viewState {
+            case .dataLoading:
+                ProgressView()
+
             case .dataLoaded, .error, .displayingView:
                 ScrollView {
                     VStack(spacing: UiConstants.listRowSpacing) {
