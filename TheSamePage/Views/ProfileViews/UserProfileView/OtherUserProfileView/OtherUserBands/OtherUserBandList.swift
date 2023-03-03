@@ -19,11 +19,12 @@ struct OtherUserBandList: View {
                     OtherUserBandRow(viewModel: viewModel, index: index)
                 }
                 .tint(.primary)
-                .padding(.horizontal)
 
                 Divider()
             }
         }
+        .padding(.top, 5)
+        .padding(.horizontal)
     }
 }
 

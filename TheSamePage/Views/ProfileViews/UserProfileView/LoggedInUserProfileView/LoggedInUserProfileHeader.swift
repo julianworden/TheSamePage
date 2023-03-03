@@ -23,9 +23,9 @@ struct LoggedInUserProfileHeader: View {
                     .foregroundColor(.secondary)
 
                 HStack {
-                    Label("\(loggedInUserController.allShows.count) \(loggedInUserController.allShows.count == 1 ? "Show" : "Shows")", systemImage: "music.note.house")
+                    Label("\(loggedInUserController.allBands.count) \(loggedInUserController.allBands.count == 1 ? "Band" : "Bands")", systemImage: "person.3")
                     Spacer()
-                    Label("\(loggedInUserController.allBands.count) \(loggedInUserController.allShows.count == 1 ? "Band" : "Bands")", systemImage: "person.3")
+                    Label("\(loggedInUserController.allShows.count) \(loggedInUserController.allShows.count == 1 ? "Show" : "Shows")", systemImage: "music.note.house")
                 }
             }
             .onChange(of: loggedInUserController.updatedImage) { updatedImage in

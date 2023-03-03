@@ -30,10 +30,10 @@ final class OtherUserProfileViewModelTests: XCTestCase {
     func test_OnInitWithUser_DefaultValuesAreAssigned() {
         sut = OtherUserProfileViewModel(user: nil, bandMember: ericBandMember)
         let predicate = NSPredicate { _,_ in
-            !self.sut.bands.isEmpty
+            !self.sut.shows.isEmpty
         }
         let initializerExpectation = XCTNSPredicateExpectation(predicate: predicate, object: nil)
-        wait(for: [initializerExpectation], timeout: 2)
+        wait(for: [initializerExpectation], timeout: 4)
 
         XCTAssertEqual(sut.user, ericUser)
         XCTAssertEqual(sut.firstName, ericUser.firstName)
@@ -42,13 +42,15 @@ final class OtherUserProfileViewModelTests: XCTestCase {
         XCTAssertEqual(sut.profileImageUrl, ericUser.profileImageUrl)
         XCTAssertEqual(sut.bands.count, 1, "Eric is only a member of one band, Dumpweed")
         XCTAssertEqual(sut.bands.first!, TestingConstants.exampleBandDumpweed, "Eric is a member of Dumpweed")
+        XCTAssertEqual(sut.shows.count, 1, "Eric's only band, Dumpweed, is only playing one show.")
+        XCTAssertEqual(sut.shows.first!, TestingConstants.exampleShowDumpweedExtravaganza)
         XCTAssertEqual(sut.viewState, .dataLoaded)
     }
 
     func test_OnInitWithBandMember_DefaultValuesAreAssigned() {
         sut = OtherUserProfileViewModel(user: nil, bandMember: ericBandMember)
         let predicate = NSPredicate { _,_ in
-            !self.sut.bands.isEmpty
+            !self.sut.shows.isEmpty
         }
         let initializerExpectation = XCTNSPredicateExpectation(predicate: predicate, object: nil)
         wait(for: [initializerExpectation], timeout: 4)
@@ -61,13 +63,15 @@ final class OtherUserProfileViewModelTests: XCTestCase {
         XCTAssertEqual(sut.profileImageUrl, ericUser.profileImageUrl)
         XCTAssertEqual(sut.bands.count, 1, "Eric is only a member of one band, Dumpweed")
         XCTAssertEqual(sut.bands.first!, TestingConstants.exampleBandDumpweed, "Eric is a member of Dumpweed")
+        XCTAssertEqual(sut.shows.count, 1, "Eric's only band, Dumpweed, is only playing one show.")
+        XCTAssertEqual(sut.shows.first!, TestingConstants.exampleShowDumpweedExtravaganza)
         XCTAssertEqual(sut.viewState, .dataLoaded)
     }
 
     func test_OnInitWithUid_DefaultValuesAreAssigned() {
         sut = OtherUserProfileViewModel(user: nil, uid: ericUser.id)
         let predicate = NSPredicate { _,_ in
-            !self.sut.bands.isEmpty
+            !self.sut.shows.isEmpty
         }
         let initializerExpectation = XCTNSPredicateExpectation(predicate: predicate, object: nil)
 
@@ -80,6 +84,8 @@ final class OtherUserProfileViewModelTests: XCTestCase {
         XCTAssertEqual(sut.profileImageUrl, ericUser.profileImageUrl)
         XCTAssertEqual(sut.bands.count, 1, "Eric is only a member of one band, Dumpweed")
         XCTAssertEqual(sut.bands.first!, TestingConstants.exampleBandDumpweed, "Eric is a member of Dumpweed")
+        XCTAssertEqual(sut.shows.count, 1, "Eric's only band, Dumpweed, is only playing one show.")
+        XCTAssertEqual(sut.shows.first!, TestingConstants.exampleShowDumpweedExtravaganza)
         XCTAssertEqual(sut.viewState, .dataLoaded)
     }
 

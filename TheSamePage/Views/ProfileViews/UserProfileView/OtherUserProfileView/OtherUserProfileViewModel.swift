@@ -15,7 +15,9 @@ final class OtherUserProfileViewModel: ObservableObject {
     @Published var lastName: String?
     @Published var emailAddress: String?
     @Published var profileImageUrl: String?
+    @Published var selectedTab = SelectedUserProfileTab.bands
     @Published var bands = [Band]()
+    @Published var shows = [Show]()
     
     @Published var errorAlertIsShowing = false
     var errorAlertText = ""
@@ -62,19 +64,16 @@ final class OtherUserProfileViewModel: ObservableObject {
     }
     
     func initializeUser(user: User) async {
-        do {
-            self.user = user
-            self.firstName = user.firstName
-            self.lastName = user.lastName
-            self.emailAddress = user.emailAddress
-            self.profileImageUrl = user.profileImageUrl
-            self.shortenedDynamicLink = await createDynamicLinkForUser()
-            self.bands = try await getBands(forUser: user)
-            
-            viewState = .dataLoaded
-        } catch {
-            viewState = .error(message: error.localizedDescription)
-        }
+        self.user = user
+        self.firstName = user.firstName
+        self.lastName = user.lastName
+        self.emailAddress = user.emailAddress
+        self.profileImageUrl = user.profileImageUrl
+        self.shortenedDynamicLink = await createDynamicLinkForUser()
+        await getAllUserBands()
+        await getAllUserShows()
+
+        viewState = .dataLoaded
     }
 
     func convertUidToUser(uid: String) async -> User? {
@@ -94,10 +93,31 @@ final class OtherUserProfileViewModel: ObservableObject {
             return nil
         }
     }
-    
-    // TODO: Incorporate a listener to this so the bands array is updated when the user joins a new band
-    func getBands(forUser user: User) async throws -> [Band] {
-        return try await DatabaseService.shared.getJoinedBands(withUid: user.id)
+
+    func getAllUserBands() async {
+        guard let user else {
+            viewState = .error(message: "Failed to fetch up-to-date user info. Please ensure you have an internet connection, restart The Same Page, and try again.")
+            return
+        }
+
+        do {
+            self.bands = try await DatabaseService.shared.getAllBands(withUid: user.id)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
+    }
+
+    func getAllUserShows() async {
+        guard let user else {
+            viewState = .error(message: "Failed to fetch up-to-date user info. Please ensure you have an internet connection, restart The Same Page, and try again.")
+            return
+        }
+
+        do {
+            self.shows = try await DatabaseService.shared.getAllShows(withUid: user.id)
+        } catch {
+            viewState = .error(message: error.localizedDescription)
+        }
     }
 
     func createDynamicLinkForUser() async -> URL? {

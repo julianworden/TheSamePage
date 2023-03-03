@@ -12,7 +12,7 @@ struct OtherUserProfileHeader: View {
         
     var body: some View {
         if let user = viewModel.user {
-            VStack {
+            VStack(spacing: UiConstants.profileHeaderVerticalSpacing) {
                 if let userProfileImageUrl = user.profileImageUrl {
                     ProfileAsyncImage(url: URL(string: userProfileImageUrl), loadedImage: .constant(nil))
                 } else {
@@ -26,9 +26,14 @@ struct OtherUserProfileHeader: View {
                 Text(user.fullName)
                     .font(.title3)
                     .foregroundColor(.secondary)
-                
+
+                HStack {
+                    Label("\(viewModel.bands.count) \(viewModel.bands.count == 1 ? "Band" : "Bands")", systemImage: "person.3")
+                    Spacer()
+                    Label("\(viewModel.shows.count) \(viewModel.shows.count == 1 ? "Show" : "Shows")", systemImage: "music.note.house")
+                }
             }
-            .padding()
+            .padding(.horizontal)
         }
     }
 }

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB04AE8529B234D5004E9787 /* OtherUserBandsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB04AE8429B234D5004E9787 /* OtherUserBandsTab.swift */; };
+		AB04AE8729B234EE004E9787 /* OtherUserShowsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB04AE8629B234EE004E9787 /* OtherUserShowsTab.swift */; };
+		AB04AE8929B23EB1004E9787 /* OtherUserShowsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB04AE8829B23EB1004E9787 /* OtherUserShowsList.swift */; };
+		AB04AE8B29B23EF5004E9787 /* OtherUserShowRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB04AE8A29B23EF5004E9787 /* OtherUserShowRow.swift */; };
 		AB05170F29972AD6007069AD /* ShowApplicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB05170E29972AD6007069AD /* ShowApplicationTests.swift */; };
 		AB05171129972B81007069AD /* BandInviteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB05171029972B81007069AD /* BandInviteTests.swift */; };
 		AB05171329972BD4007069AD /* ShowInviteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB05171229972BD4007069AD /* ShowInviteTests.swift */; };
@@ -328,6 +332,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AB04AE8429B234D5004E9787 /* OtherUserBandsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserBandsTab.swift; sourceTree = "<group>"; };
+		AB04AE8629B234EE004E9787 /* OtherUserShowsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserShowsTab.swift; sourceTree = "<group>"; };
+		AB04AE8829B23EB1004E9787 /* OtherUserShowsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserShowsList.swift; sourceTree = "<group>"; };
+		AB04AE8A29B23EF5004E9787 /* OtherUserShowRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserShowRow.swift; sourceTree = "<group>"; };
 		AB05170E29972AD6007069AD /* ShowApplicationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowApplicationTests.swift; sourceTree = "<group>"; };
 		AB05171029972B81007069AD /* BandInviteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandInviteTests.swift; sourceTree = "<group>"; };
 		AB05171229972BD4007069AD /* ShowInviteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowInviteTests.swift; sourceTree = "<group>"; };
@@ -660,6 +668,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AB04AE8229B2348C004E9787 /* OtherUserShows */ = {
+			isa = PBXGroup;
+			children = (
+				AB04AE8629B234EE004E9787 /* OtherUserShowsTab.swift */,
+				AB04AE8829B23EB1004E9787 /* OtherUserShowsList.swift */,
+				AB04AE8A29B23EF5004E9787 /* OtherUserShowRow.swift */,
+			);
+			path = OtherUserShows;
+			sourceTree = "<group>";
+		};
+		AB04AE8329B23493004E9787 /* OtherUserBands */ = {
+			isa = PBXGroup;
+			children = (
+				AB04AE8429B234D5004E9787 /* OtherUserBandsTab.swift */,
+				AB35A8DE28E9DE29009FB203 /* OtherUserBandList.swift */,
+				AB3E11E728D656FF000F147B /* OtherUserBandRow.swift */,
+			);
+			path = OtherUserBands;
+			sourceTree = "<group>";
+		};
 		AB07295C28F4661D0069B268 /* ShowBacklineTab */ = {
 			isa = PBXGroup;
 			children = (
@@ -806,15 +834,6 @@
 			path = ProfileViews;
 			sourceTree = "<group>";
 		};
-		AB35A8DB28E9DDDB009FB203 /* OtherUserBandList */ = {
-			isa = PBXGroup;
-			children = (
-				AB35A8DE28E9DE29009FB203 /* OtherUserBandList.swift */,
-				AB3E11E728D656FF000F147B /* OtherUserBandRow.swift */,
-			);
-			path = OtherUserBandList;
-			sourceTree = "<group>";
-		};
 		AB36FF5928D356FD00AAC00C = {
 			isa = PBXGroup;
 			children = (
@@ -849,8 +868,8 @@
 				AB6514DA28F90EED008DFDD0 /* Extensions */,
 				AB1B559429200C8400571316 /* ViewModifiers */,
 				ABB4C3F629205AB500E2C153 /* Protocols */,
-				AB36FF6928D356FE00AAC00C /* Assets.xcassets */,
 				AB5C0D39292B0C9D0040CE97 /* Errors */,
+				AB36FF6928D356FE00AAC00C /* Assets.xcassets */,
 				AB6C09DE28D4C7F500990313 /* GoogleService-Info.plist */,
 				AB36FF6B28D356FE00AAC00C /* Preview Content */,
 			);
@@ -1175,8 +1194,9 @@
 				ABDC0D7128D74BFF0054269E /* OtherUserProfileViewModel.swift */,
 				AB42856629A5819800FD1C64 /* OtherUserProfileViewSheetNavigator.swift */,
 				AB42856529A5819800FD1C64 /* OtherUserProfileViewSheetNavigatorDestination.swift */,
+				AB04AE8329B23493004E9787 /* OtherUserBands */,
+				AB04AE8229B2348C004E9787 /* OtherUserShows */,
 				ABD323ED28E117F800540B93 /* SendBandInviteView */,
-				AB35A8DB28E9DDDB009FB203 /* OtherUserBandList */,
 			);
 			path = OtherUserProfileView;
 			sourceTree = "<group>";
@@ -1818,6 +1838,7 @@
 				AB794E2D28E25A77000ABB37 /* SearchView.swift in Sources */,
 				ABF1C40628ECE83F0004A3C1 /* TypesenseController.swift in Sources */,
 				AB42856729A5819800FD1C64 /* OtherUserProfileViewSheetNavigator.swift in Sources */,
+				AB04AE8729B234EE004E9787 /* OtherUserShowsTab.swift in Sources */,
 				AB1D5E3C29871C9700E62C29 /* EditUserInfoView.swift in Sources */,
 				AB668EB7291C0180007899A9 /* BandAboutTab.swift in Sources */,
 				ABBBC15B29880D82005AF468 /* DeleteAccountConfirmationView.swift in Sources */,
@@ -1900,7 +1921,9 @@
 				AB3C73D528DC0A1D0038085A /* BandSearchView.swift in Sources */,
 				AB9DAB06292329BB009BE932 /* ShowSettingsViewModel.swift in Sources */,
 				ABE2FE0629897BF400D5A951 /* ChooseNewShowHostViewModel.swift in Sources */,
+				AB04AE8B29B23EF5004E9787 /* OtherUserShowRow.swift in Sources */,
 				ABFB2D482909E33B009A6F65 /* ShowLineupRow.swift in Sources */,
+				AB04AE8929B23EB1004E9787 /* OtherUserShowsList.swift in Sources */,
 				ABDC0D7028D748FD0054269E /* NotificationsView.swift in Sources */,
 				ABA1DDCE28F9B2AC00E7A72E /* ViewState.swift in Sources */,
 				AB7F381528EF20EA007741C7 /* ShowParticipant.swift in Sources */,
@@ -1982,6 +2005,7 @@
 				AB36FF8D28D35CDF00AAC00C /* BacklineItem.swift in Sources */,
 				AB9D086128FDA24B0098A244 /* UserSettingsView.swift in Sources */,
 				AB07296128F467010069B268 /* ShowDetailsTab.swift in Sources */,
+				AB04AE8529B234D5004E9787 /* OtherUserBandsTab.swift in Sources */,
 				ABF1C40C28ECF0A50004A3C1 /* ShowSearchResultsList.swift in Sources */,
 				AB07295F28F466510069B268 /* ShowLineupTab.swift in Sources */,
 				AB9C238D297B59850012BE9F /* LoggedInUserProfileImage.swift in Sources */,

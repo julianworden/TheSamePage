@@ -30,16 +30,20 @@ struct OtherUserProfileView: View {
                 if let user = viewModel.user {
                     ScrollView {
                         OtherUserProfileHeader(viewModel: viewModel)
-                        
-                            HStack {
-                                SectionTitle(title: "Member of")
-                            }
 
-                        if !viewModel.bands.isEmpty {
-                            OtherUserBandList(viewModel: viewModel)
-                        } else {
-                            NoDataFoundMessage(message: "This user is not a member of any bands")
-                                .padding(.top)
+                        Picker("Select a tab", selection: $viewModel.selectedTab) {
+                            ForEach(SelectedUserProfileTab.allCases) { tab in
+                                Text(tab.rawValue)
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                        .padding(.horizontal)
+
+                        switch viewModel.selectedTab {
+                        case .bands:
+                            OtherUserBandsTab(viewModel: viewModel)
+                        case .shows:
+                            OtherUserShowsTab(viewModel: viewModel)
                         }
                     }
                     .navigationTitle(user.name)
