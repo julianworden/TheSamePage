@@ -8,11 +8,11 @@
 import Foundation
 
 struct ErrorMessageConstants {
-    static let unknownError = "An unknown error occurred, please try again"
-    static let checkYourConnection = "Please confirm you have an internet connection"
+    static let unknownError = "An unknown error occurred, please try again."
+    static let checkYourConnection = "Please confirm you have an internet connection."
     static let invalidViewState = "Invalid ViewState."
     static let incompleteForm = "The form is incomplete. Please ensure you've filled all the required fields."
-    static let deviceIsOffline = "NOTE: Your device is not connected to the internet"
+    static let deviceIsOffline = "NOTE: Your device is not connected to the internet."
     static let emptyChatMessage = "You cannot send an empty message."
     static let invalidEmailAddress = "Please enter a valid email address."
     static let userIsNotAdminOfAnyBands = "You are not the admin of any bands. You can only interact with others on behalf of your band if you are the band admin."

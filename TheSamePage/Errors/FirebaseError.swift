@@ -18,9 +18,9 @@ enum FirebaseError: Error, LocalizedError {
         switch self {
         case .auth(let message, let systemError),
              .connection(let message, let systemError):
-            return "\(message). \(ErrorMessageConstants.checkYourConnection). System error: \(systemError)"
+            return "\(message) \(ErrorMessageConstants.checkYourConnection) System error: \(systemError)"
         case .userNotFound(let message):
-            return "\(message)."
+            return "\(message)"
         case .dataDeleted:
             return "The data could not be displayed because it was deleted."
         case .dataNotFound:

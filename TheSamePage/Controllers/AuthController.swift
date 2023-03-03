@@ -49,7 +49,7 @@ final class AuthController: ObservableObject {
             try Auth.auth().signOut()
         } catch {
             throw FirebaseError.auth(
-                message: "Failed to log out",
+                message: "Failed to log out.",
                 systemError: error.localizedDescription
             )
         }

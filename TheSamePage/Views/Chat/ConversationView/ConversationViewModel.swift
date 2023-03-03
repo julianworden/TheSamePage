@@ -239,7 +239,7 @@ class ConversationViewModel : ObservableObject {
         guard let chat,
               let user else {
             viewState = .error(
-                message: LogicError.unexpectedNilValue(message: "Failed to send chat message. Please relaunch The Same Page and try again").localizedDescription)
+                message: LogicError.unexpectedNilValue(message: "Failed to send chat message. Please relaunch The Same Page and try again.").localizedDescription)
             return nil
         }
 

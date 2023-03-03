@@ -35,7 +35,7 @@ class DatabaseService: NSObject {
                 .setData(from: user)
         } catch {
             throw FirebaseError.connection(
-                message: "There was an error creating your account",
+                message: "There was an error creating your account.",
                 systemError: error.localizedDescription
             )
         }
@@ -65,7 +65,7 @@ class DatabaseService: NSObject {
                 .isEmpty
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to determine if username is unique",
+                message: "Failed to determine if username is unique.",
                 systemError: error.localizedDescription
             )
         }
@@ -85,7 +85,7 @@ class DatabaseService: NSObject {
             throw FirebaseError.dataDeleted
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch user",
+                message: "Failed to fetch user.",
                 systemError: error.localizedDescription
             )
         }
@@ -121,7 +121,7 @@ class DatabaseService: NSObject {
             return try query.documents.map { try $0.data(as: Show.self) }
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch your hosted shows",
+                message: "Failed to fetch your hosted shows.",
                 systemError: error.localizedDescription
             )
         }
@@ -140,7 +140,7 @@ class DatabaseService: NSObject {
             }
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch your hosted shows",
+                message: "Failed to fetch your hosted shows.",
                 systemError: error.localizedDescription
             )
         }
@@ -158,7 +158,7 @@ class DatabaseService: NSObject {
             return try query.documents.map { try $0.data(as: Show.self) }
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch your shows",
+                message: "Failed to fetch your shows.",
                 systemError: error.localizedDescription
             )
         }
@@ -189,7 +189,7 @@ class DatabaseService: NSObject {
             return anyUserNotifications
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch your notification",
+                message: "Failed to fetch your notification.",
                 systemError: error.localizedDescription
             )
         }
@@ -218,7 +218,7 @@ class DatabaseService: NSObject {
             return nil
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to update your profile image",
+                message: "Failed to update your profile image.",
                 systemError: error.localizedDescription
             )
         }
@@ -260,7 +260,7 @@ class DatabaseService: NSObject {
             }
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to remove you from \(band.name)",
+                message: "Failed to remove you from \(band.name).",
                 systemError: error.localizedDescription
             )
         }
@@ -303,7 +303,7 @@ class DatabaseService: NSObject {
                 )
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to remove you from \(chat.name ?? "chat")",
+                message: "Failed to remove you from \(chat.name ?? "chat").",
                 systemError: error.localizedDescription
             )
         }
@@ -317,7 +317,7 @@ class DatabaseService: NSObject {
                 .updateData([FbConstants.participantUids: FieldValue.arrayRemove([uid])])
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to remove you from \(show.name)",
+                message: "Failed to remove you from \(show.name).",
                 systemError: error.localizedDescription
             )
         }
@@ -336,7 +336,7 @@ class DatabaseService: NSObject {
             return try query.documents.map { try $0.data(as: Band.self) }
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch your bands",
+                message: "Failed to fetch your bands.",
                 systemError: error.localizedDescription
             )
         }
@@ -355,7 +355,7 @@ class DatabaseService: NSObject {
             return try query.documents.map { try $0.data(as: Band.self) }
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch your bands",
+                message: "Failed to fetch your bands.",
                 systemError: error.localizedDescription
             )
         }
@@ -373,7 +373,7 @@ class DatabaseService: NSObject {
                 .getDocument(as: User.self)
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch user profile",
+                message: "Failed to fetch user profile.",
                 systemError: error.localizedDescription
             )
         }
@@ -400,7 +400,7 @@ class DatabaseService: NSObject {
             return try userAsBandMemberDocuments.first!.data(as: BandMember.self)
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch user profile",
+                message: "Failed to fetch user profile.",
                 systemError: error.localizedDescription
             )
         }
@@ -410,7 +410,7 @@ class DatabaseService: NSObject {
     /// - Parameter user: The user who will have their profile image deleted.
     func deleteUserProfileImage(forUser user: User) async throws {
         guard let profileImageUrl = user.profileImageUrl else {
-            throw LogicError.unexpectedNilValue(message: "Profile image delete failed, you don't have a profile image")
+            throw LogicError.unexpectedNilValue(message: "Profile image delete failed, you don't have a profile image.")
         }
 
         do {
@@ -421,7 +421,7 @@ class DatabaseService: NSObject {
                 .document(user.id)
                 .updateData([FbConstants.profileImageUrl: FieldValue.delete()])
         } catch {
-            throw FirebaseError.connection(message: "Failed to delete image", systemError: error.localizedDescription)
+            throw FirebaseError.connection(message: "Failed to delete image.", systemError: error.localizedDescription)
         }
     }
 
@@ -452,7 +452,7 @@ class DatabaseService: NSObject {
             try await Auth.auth().currentUser?.delete()
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to delete account. Please try again",
+                message: "Failed to delete account. Please try again.",
                 systemError: error.localizedDescription
             )
         }
@@ -467,7 +467,7 @@ class DatabaseService: NSObject {
                 .document(AuthController.getLoggedInUid())
                 .updateData([FbConstants.emailAddress: emailAddress])
         } catch {
-            throw FirebaseError.connection(message: "Email address update failed", systemError: error.localizedDescription)
+            throw FirebaseError.connection(message: "Email address update failed.", systemError: error.localizedDescription)
         }
     }
 
@@ -486,7 +486,7 @@ class DatabaseService: NSObject {
             throw FirebaseError.dataDeleted
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch band",
+                message: "Failed to fetch band.",
                 systemError: error.localizedDescription
             )
         }
@@ -524,7 +524,7 @@ class DatabaseService: NSObject {
             return allBands
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch user band info",
+                message: "Failed to fetch user band info.",
                 systemError: error.localizedDescription
             )
         }
@@ -548,7 +548,7 @@ class DatabaseService: NSObject {
             return usersPlayingInBand
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch the users that are playing in this band",
+                message: "Failed to fetch the users that are playing in this band.",
                 systemError: error.localizedDescription
             )
         }
@@ -568,7 +568,7 @@ class DatabaseService: NSObject {
             return fetchedShows
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch band's shows",
+                message: "Failed to fetch band's shows.",
                 systemError: error.localizedDescription
             )
         }
@@ -588,7 +588,7 @@ class DatabaseService: NSObject {
             return try query.documents.map { try $0.data(as: BandMember.self) }
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch band members",
+                message: "Failed to fetch band members.",
                 systemError: error.localizedDescription
             )
         }
@@ -606,7 +606,7 @@ class DatabaseService: NSObject {
             return bandReference.documentID
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to create band",
+                message: "Failed to create band.",
                 systemError: error.localizedDescription
             )
         }
@@ -630,7 +630,7 @@ class DatabaseService: NSObject {
                 .updateData([FbConstants.adminUid: user.id])
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to designate new band admin. Please try again",
+                message: "Failed to designate new band admin. Please try again.",
                 systemError: error.localizedDescription
             )
         }
@@ -643,7 +643,7 @@ class DatabaseService: NSObject {
                 .document(band.id).setData(from: band, merge: true)
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to update band info",
+                message: "Failed to update band info.",
                 systemError: error.localizedDescription
             )
         }
@@ -694,7 +694,7 @@ class DatabaseService: NSObject {
             }
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to add you to \(band.name)",
+                message: "Failed to add you to \(band.name).",
                 systemError: error.localizedDescription
             )
         }
@@ -713,7 +713,7 @@ class DatabaseService: NSObject {
                 .addDocument(from: link)
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to add \(link.platformName) link for \(band.name)",
+                message: "Failed to add \(link.platformName) link for \(band.name).",
                 systemError: error.localizedDescription
             )
         }
@@ -742,7 +742,7 @@ class DatabaseService: NSObject {
             return nil
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to update \(band.name)'s profile image",
+                message: "Failed to update \(band.name)'s profile image.",
                 systemError: error.localizedDescription
             )
         }
@@ -762,7 +762,7 @@ class DatabaseService: NSObject {
             return bandInviteDocument.documentID
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to send band invite",
+                message: "Failed to send band invite.",
                 systemError: error.localizedDescription
             )
         }
@@ -781,7 +781,7 @@ class DatabaseService: NSObject {
             return try query.documents.map { try $0.data(as: PlatformLink.self) }
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch \(band.name)'s links",
+                message: "Failed to fetch \(band.name)'s links.",
                 systemError: error.localizedDescription
             )
         }
@@ -799,7 +799,7 @@ class DatabaseService: NSObject {
                 .getDocument(as: Band.self)
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch band profile",
+                message: "Failed to fetch band profile.",
                 systemError: error.localizedDescription
             )
         }
@@ -809,7 +809,7 @@ class DatabaseService: NSObject {
     /// - Parameter band: The band that will have their profile image deleted.
     func deleteBandImage(forBand band: Band) async throws {
         guard let profileImageUrl = band.profileImageUrl else {
-            throw LogicError.unexpectedNilValue(message: "Image delete failed, this band doesn't have a profile image")
+            throw LogicError.unexpectedNilValue(message: "Image delete failed, this band doesn't have a profile image.")
         }
 
         do {
@@ -820,13 +820,12 @@ class DatabaseService: NSObject {
                 .document(band.id)
                 .updateData([FbConstants.profileImageUrl: FieldValue.delete()])
         } catch {
-            throw FirebaseError.connection(message: "Failed to delete image", systemError: error.localizedDescription)
+            throw FirebaseError.connection(message: "Failed to delete image.", systemError: error.localizedDescription)
         }
     }
 
     func deleteBand(_ band: Band) async throws {
         do {
-            let bandMembers = try await getBandMembers(forBand: band)
             let bandShows = try await getShowsForBand(band: band)
 
             for show in bandShows {
@@ -838,7 +837,7 @@ class DatabaseService: NSObject {
             try await FirebaseFunctionsController.recursiveDelete(path: "\(FbConstants.bands)/\(band.id)")
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to delete show chat",
+                message: "Failed to delete show chat.",
                 systemError: error.localizedDescription
             )
         }
@@ -848,6 +847,7 @@ class DatabaseService: NSObject {
         guard let platformLinkId = link.id else {
             throw LogicError.unexpectedNilValue(message: "Failed to delete band link. Please try again.")
         }
+        
         do {
             try await db
                 .collection(FbConstants.bands)
@@ -857,7 +857,7 @@ class DatabaseService: NSObject {
                 .delete()
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to delete band link",
+                message: "Failed to delete band link.",
                 systemError: error.localizedDescription
             )
         }
@@ -876,7 +876,7 @@ class DatabaseService: NSObject {
             throw FirebaseError.dataDeleted
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch latest show data, it's possible this show was cancelled",
+                message: "Failed to fetch latest show data, it's possible this show was cancelled.",
                 systemError: error.localizedDescription
             )
         }
@@ -914,7 +914,7 @@ class DatabaseService: NSObject {
             return allShows
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch user show info",
+                message: "Failed to fetch user show info.",
                 systemError: error.localizedDescription
             )
         }
@@ -947,7 +947,7 @@ class DatabaseService: NSObject {
             return try query.documents.map { try $0.data(as: ShowParticipant.self) }
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch the lineup for \(show.name)",
+                message: "Failed to fetch the lineup for \(show.name).",
                 systemError: error.localizedDescription
             )
         }
@@ -971,7 +971,7 @@ class DatabaseService: NSObject {
             return usersPlayingShow
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch the users that are playing this show",
+                message: "Failed to fetch the users that are playing this show.",
                 systemError: error.localizedDescription
             )
         }
@@ -985,7 +985,7 @@ class DatabaseService: NSObject {
                 .setData(from: show, merge: true)
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to update \(show.name)",
+                message: "Failed to update \(show.name).",
                 systemError: error.localizedDescription
             )
         }
@@ -1009,7 +1009,7 @@ class DatabaseService: NSObject {
                 .updateData([FbConstants.hostUid: user.id])
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to designate new show host. Please try again",
+                message: "Failed to designate new show host. Please try again.",
                 systemError: error.localizedDescription
             )
         }
@@ -1039,7 +1039,7 @@ class DatabaseService: NSObject {
             return nil
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to update image for \(show.name)",
+                message: "Failed to update image for \(show.name).",
                 systemError: error.localizedDescription
             )
         }
@@ -1059,7 +1059,7 @@ class DatabaseService: NSObject {
             return showInviteDocument.documentID
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to send show invite to \(invite.bandName)",
+                message: "Failed to send show invite to \(invite.bandName).",
                 systemError: error.localizedDescription
             )
         }
@@ -1076,7 +1076,7 @@ class DatabaseService: NSObject {
             return showApplicationDocument.documentID
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to send show application",
+                message: "Failed to send show application.",
                 systemError: error.localizedDescription
             )
         }
@@ -1131,7 +1131,7 @@ class DatabaseService: NSObject {
             try await deleteNotification(withId: showInvite.id)
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to add \(band.name) to \(showInvite.showName)",
+                message: "Failed to add \(band.name) to \(showInvite.showName).",
                 systemError: error.localizedDescription
             )
         }
@@ -1178,7 +1178,7 @@ class DatabaseService: NSObject {
             try await deleteNotification(withId: showApplication.id)
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to add \(band.name) to \(showApplication.showName)",
+                message: "Failed to add \(band.name) to \(showApplication.showName).",
                 systemError: error.localizedDescription
             )
         }
@@ -1228,7 +1228,7 @@ class DatabaseService: NSObject {
             }
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to add \(band.name) to \(show.name)",
+                message: "Failed to add \(band.name) to \(show.name).",
                 systemError: error.localizedDescription
             )
         }
@@ -1309,7 +1309,7 @@ class DatabaseService: NSObject {
             }
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to add \(user.name) to \(show.name)",
+                message: "Failed to add \(user.name) to \(show.name).",
                 systemError: error.localizedDescription
             )
         }
@@ -1323,7 +1323,7 @@ class DatabaseService: NSObject {
                 .updateData([showTimeType.fbFieldValueName: time.timeIntervalSince1970])
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to add \(showTimeType.rawValue) time to \(show.name)",
+                message: "Failed to add \(showTimeType.rawValue) time to \(show.name).",
                 systemError: error.localizedDescription
             )
         }
@@ -1337,7 +1337,7 @@ class DatabaseService: NSObject {
                 .updateData([showTimeType.fbFieldValueName: FieldValue.delete()])
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to delete \(showTimeType.rawValue) time from \(show.name)",
+                message: "Failed to delete \(showTimeType.rawValue) time from \(show.name).",
                 systemError: error.localizedDescription
             )
         }
@@ -1362,10 +1362,10 @@ class DatabaseService: NSObject {
                 return drumKitBacklineItem.documentID
             }
 
-            throw LogicError.unexpectedNilValue(message: "Invalid Backline item assignment")
+            throw LogicError.unexpectedNilValue(message: "Invalid Backline item assignment.")
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to add backline item to \(show.name)",
+                message: "Failed to add backline item to \(show.name).",
                 systemError: error.localizedDescription
             )
         }
@@ -1393,7 +1393,7 @@ class DatabaseService: NSObject {
             return backlineItemsAsAnyBackline
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch backline items for \(show.name)",
+                message: "Failed to fetch backline items for \(show.name).",
                 systemError: error.localizedDescription
             )
         }
@@ -1409,7 +1409,7 @@ class DatabaseService: NSObject {
             return try query.documents.map { try $0.data(as: DrumKitBacklineItem.self) }
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch drumkit backline items for \(show.name)",
+                message: "Failed to fetch drumkit backline items for \(show.name).",
                 systemError: error.localizedDescription
             )
         }
@@ -1429,7 +1429,7 @@ class DatabaseService: NSObject {
                 .delete()
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to delete backline item",
+                message: "Failed to delete backline item.",
                 systemError: error.localizedDescription
             )
         }
@@ -1449,7 +1449,7 @@ class DatabaseService: NSObject {
                 .delete()
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to delete backline item",
+                message: "Failed to delete backline item.",
                 systemError: error.localizedDescription
             )
         }
@@ -1490,7 +1490,7 @@ class DatabaseService: NSObject {
 
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to delete notification",
+                message: "Failed to delete notification.",
                 systemError: error.localizedDescription
             )
         }
@@ -1502,7 +1502,7 @@ class DatabaseService: NSObject {
             try await deleteChat(for: show)
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to cancel \(show.name)",
+                message: "Failed to cancel \(show.name).",
                 systemError: error.localizedDescription
             )
         }
@@ -1512,7 +1512,7 @@ class DatabaseService: NSObject {
     /// - Parameter show: The show that will have their profile image deleted.
     func deleteShowImage(forShow show: Show) async throws {
         guard let showImageUrl = show.imageUrl else {
-            throw LogicError.unexpectedNilValue(message: "Image delete failed, this show doesn't have an image")
+            throw LogicError.unexpectedNilValue(message: "Image delete failed, this show doesn't have an image.")
         }
 
         do {
@@ -1523,13 +1523,13 @@ class DatabaseService: NSObject {
                 .document(show.id)
                 .updateData([FbConstants.imageUrl: FieldValue.delete()])
         } catch {
-            throw FirebaseError.connection(message: "Failed to delete image", systemError: error.localizedDescription)
+            throw FirebaseError.connection(message: "Failed to delete image.", systemError: error.localizedDescription)
         }
     }
 
     func addEditSetTime(newSetTime: Date, for showParticipant: ShowParticipant, in show: Show) async throws {
         guard let showParticipantId = showParticipant.id else {
-            throw LogicError.unexpectedNilValue(message: "Failed to edit set time, please restart The Same Page and try again")
+            throw LogicError.unexpectedNilValue(message: "Failed to edit set time, please restart The Same Page and try again.")
         }
 
         do {
@@ -1540,13 +1540,13 @@ class DatabaseService: NSObject {
                 .document(showParticipantId)
                 .updateData([FbConstants.setTime: newSetTime.timeIntervalSince1970])
         } catch {
-            throw FirebaseError.connection(message: "Failed to edit set time", systemError: error.localizedDescription)
+            throw FirebaseError.connection(message: "Failed to edit set time.", systemError: error.localizedDescription)
         }
     }
 
     func deleteSetTime(for showParticipant: ShowParticipant, in show: Show) async throws {
         guard let showParticipantId = showParticipant.id else {
-            throw LogicError.unexpectedNilValue(message: "Failed to delete set time, please restart The Same Page and try again")
+            throw LogicError.unexpectedNilValue(message: "Failed to delete set time, please restart The Same Page and try again.")
         }
 
         do {
@@ -1557,7 +1557,7 @@ class DatabaseService: NSObject {
                 .document(showParticipantId)
                 .updateData([FbConstants.setTime: FieldValue.delete()])
         } catch {
-            throw FirebaseError.connection(message: "Failed to delete set time", systemError: error.localizedDescription)
+            throw FirebaseError.connection(message: "Failed to delete set time.", systemError: error.localizedDescription)
         }
     }
 
@@ -1578,7 +1578,7 @@ class DatabaseService: NSObject {
 
             return try showParticipantAsDocument.data(as: ShowParticipant.self)
         } catch {
-            throw FirebaseError.connection(message: "Failed to perform band operation", systemError: error.localizedDescription)
+            throw FirebaseError.connection(message: "Failed to perform band operation.", systemError: error.localizedDescription)
         }
     }
 
@@ -1608,7 +1608,7 @@ class DatabaseService: NSObject {
             throw FirebaseError.dataNotFound
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to get fetch show chat",
+                message: "Failed to get fetch show chat.",
                 systemError: error.localizedDescription
             )
         }
@@ -1632,7 +1632,7 @@ class DatabaseService: NSObject {
                 .getDocument(as: Chat.self)
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch chat",
+                message: "Failed to fetch chat.",
                 systemError: error.localizedDescription
             )
         }
@@ -1673,7 +1673,7 @@ class DatabaseService: NSObject {
         } catch {
             print(error)
             throw FirebaseError.connection(
-                message: "Failed to fetch or create chat",
+                message: "Failed to fetch or create chat.",
                 systemError: error.localizedDescription
             )
         }
@@ -1686,7 +1686,7 @@ class DatabaseService: NSObject {
                 .document(chatId)
                 .updateData([FbConstants.currentViewerUids: FieldValue.arrayUnion([uid])])
         } catch {
-            throw FirebaseError.connection(message: "Failed to establish up-to-date chat info", systemError: error.localizedDescription)
+            throw FirebaseError.connection(message: "Failed to establish up-to-date chat info.", systemError: error.localizedDescription)
         }
     }
 
@@ -1697,7 +1697,7 @@ class DatabaseService: NSObject {
                 .document(chatId)
                 .updateData([FbConstants.currentViewerUids: FieldValue.arrayRemove([uid])])
         } catch {
-            throw FirebaseError.connection(message: "Failed to establish up-to-date chat info", systemError: error.localizedDescription)
+            throw FirebaseError.connection(message: "Failed to establish up-to-date chat info.", systemError: error.localizedDescription)
         }
     }
     
@@ -1723,7 +1723,7 @@ class DatabaseService: NSObject {
             return chatReference.documentID
         } catch {
             throw FirebaseError.connection(
-                message: "Faled to create chat",
+                message: "Faled to create chat.",
                 systemError: error.localizedDescription
             )
         }
@@ -1744,7 +1744,7 @@ class DatabaseService: NSObject {
             return fetchedChatMessages
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to fetch chat messages",
+                message: "Failed to fetch chat messages.",
                 systemError: error.localizedDescription
             )
         }
@@ -1765,10 +1765,10 @@ class DatabaseService: NSObject {
             if let chatMessages = try? chatMessageDocuments.map({ try $0.data(as: ChatMessage.self) }) {
                 return chatMessages
             } else {
-                throw LogicError.decode(message: "Failed to decode new messages. Please restart The Same Page and try again")
+                throw LogicError.decode(message: "Failed to decode new messages. Please restart The Same Page and try again.")
             }
         } catch {
-            throw FirebaseError.connection(message: "Failed to fetch new messages", systemError: error.localizedDescription)
+            throw FirebaseError.connection(message: "Failed to fetch new messages.", systemError: error.localizedDescription)
         }
     }
 
@@ -1792,7 +1792,7 @@ class DatabaseService: NSObject {
                 .updateData([FbConstants.participantUids: FieldValue.arrayUnion(band.memberUids)])
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to add band to show chat",
+                message: "Failed to add band to show chat.",
                 systemError: error.localizedDescription
             )
         }
@@ -1824,7 +1824,7 @@ class DatabaseService: NSObject {
                 )
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to add \(user.name) to chat",
+                message: "Failed to add \(user.name) to chat.",
                 systemError: error.localizedDescription
             )
         }
@@ -1841,7 +1841,7 @@ class DatabaseService: NSObject {
             try await updateChatWithNewChatMessage(update: chat, with: chatMessage)
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to send chat message",
+                message: "Failed to send chat message.",
                 systemError: error.localizedDescription
             )
         }
@@ -1869,7 +1869,7 @@ class DatabaseService: NSObject {
 
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to set up-to-date chat info",
+                message: "Failed to set up-to-date chat info.",
                 systemError: error.localizedDescription
             )
         }
@@ -1883,7 +1883,7 @@ class DatabaseService: NSObject {
                 .updateData([FbConstants.upToDateParticipantUids: FieldValue.arrayUnion([AuthController.getLoggedInUid()])])
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to update chat data",
+                message: "Failed to update chat data.",
                 systemError: error.localizedDescription
             )
         }
@@ -1904,7 +1904,7 @@ class DatabaseService: NSObject {
             try await FirebaseFunctionsController.recursiveDelete(path: "\(FbConstants.chats)/\(chat.id)")
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to delete show chat",
+                message: "Failed to delete show chat.",
                 systemError: error.localizedDescription
             )
         }
@@ -1953,7 +1953,7 @@ class DatabaseService: NSObject {
             return imageUrl?.absoluteString
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to upload image",
+                message: "Failed to upload image.",
                 systemError: error.localizedDescription
             )
         }
@@ -1971,7 +1971,7 @@ class DatabaseService: NSObject {
             try await storageReference.delete()
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to delete image",
+                message: "Failed to delete image.",
                 systemError: error.localizedDescription
             )
         }
@@ -1986,7 +1986,7 @@ class DatabaseService: NSObject {
                 .document(uid)
                 .updateData([FbConstants.fcmToken: FieldValue.delete()])
         } catch {
-            throw FirebaseError.connection(message: "Failed to complete log out", systemError: error.localizedDescription)
+            throw FirebaseError.connection(message: "Failed to complete log out.", systemError: error.localizedDescription)
         }
     }
 
@@ -1997,7 +1997,7 @@ class DatabaseService: NSObject {
                 .document(uid)
                 .updateData([FbConstants.fcmToken: newFcmToken])
         } catch {
-            throw FirebaseError.connection(message: "Failed to complete log log in", systemError: error.localizedDescription)
+            throw FirebaseError.connection(message: "Failed to complete log log in.", systemError: error.localizedDescription)
         }
     }
 }
