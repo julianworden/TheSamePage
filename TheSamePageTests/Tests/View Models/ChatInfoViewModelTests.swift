@@ -38,7 +38,6 @@ final class ChatInfoViewModelTests: XCTestCase {
         XCTAssertEqual(sut.viewState, .dataLoading)
         XCTAssertEqual(sut.show, dumpweedExtravaganza)
         XCTAssertEqual(sut.chatParticipantUids, [julian.id])
-        XCTAssertNil(sut.showHost)
     }
 
     func test_OnErrorViewState_ExpectedBehaviorOccurs() {
@@ -59,7 +58,23 @@ final class ChatInfoViewModelTests: XCTestCase {
         XCTAssertTrue(sut.errorAlertIsShowing)
     }
 
-    func test_OnFetchChatParticipants() async throws {
+    func test_OnGetChatParticipantRowSubtitleText_ShowHostTextIsFetched() {
+        sut = ChatInfoViewModel(show: dumpweedExtravaganza, chatParticipantUids: [julian.id])
+
+        let subtitleText = sut.getChatParticipantRowSubtitleText(for: julian)
+
+        XCTAssertEqual(subtitleText, "Show Host")
+    }
+
+    func test_OnGetChatParticipantRowSubtitleText_EmptyStringIsFetched() {
+        sut = ChatInfoViewModel(show: dumpweedExtravaganza, chatParticipantUids: [julian.id])
+
+        let subtitleText = sut.getChatParticipantRowSubtitleText(for: eric)
+
+        XCTAssertTrue(subtitleText.isEmpty)
+    }
+
+    func test_OnFetchChatParticipants_ChatParticipantsAreFetched() async {
         sut = ChatInfoViewModel(show: dumpweedExtravaganza, chatParticipantUids: dumpweedExtravaganza.participantUids)
 
         await sut.fetchChatParticipantsAsUsers()
@@ -70,12 +85,24 @@ final class ChatInfoViewModelTests: XCTestCase {
         XCTAssertEqual(sut.chatParticipants.count, 3)
     }
 
-    func test_OnFetchShowHostAsUser() async throws {
+    func test_OnFetchShowHostAsUser_ShowHostIsAddedToChatParticipantsArray() async {
         sut = ChatInfoViewModel(show: dumpweedExtravaganza, chatParticipantUids: dumpweedExtravaganza.participantUids)
 
         await sut.fetchShowHostAsUser()
 
-        XCTAssertEqual(sut.showHost, julian)
-        XCTAssertEqual(sut.viewState, .dataLoaded)
+        XCTAssertTrue(sut.chatParticipants.contains(julian))
+        XCTAssertEqual(sut.chatParticipants.count, 1)
+    }
+
+    func test_OnFetchShowHostAsUser_ShowHostIsNotAddedToArrayIfTheyAreAlreadyPresent() async {
+        sut = ChatInfoViewModel(show: dumpweedExtravaganza, chatParticipantUids: dumpweedExtravaganza.participantUids)
+
+        await sut.fetchChatParticipantsAsUsers()
+        await sut.fetchShowHostAsUser()
+
+        XCTAssertTrue(sut.chatParticipants.contains(julian))
+        XCTAssertTrue(sut.chatParticipants.contains(lou))
+        XCTAssertTrue(sut.chatParticipants.contains(eric))
+        XCTAssertEqual(sut.chatParticipants.count, 3)
     }
 }

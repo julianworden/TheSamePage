@@ -242,12 +242,12 @@ final class ConversationViewModelTests: XCTestCase {
         XCTAssertEqual(
             sut.viewState,
             .error(
-                message: LogicError.unexpectedNilValue(message: "Failed to send chat message. Please relaunch The Same Page and try again").localizedDescription
+                message: "Failed to send chat message. Please relaunch The Same Page and try again."
             ),
             "This error should be thrown because configureChat was not called"
         )
         XCTAssertTrue(sut.errorAlertIsShowing, "The error alert should be showing because configureChat was not called")
-        XCTAssertEqual(sut.errorAlertText, LogicError.unexpectedNilValue(message: "Failed to send chat message. Please relaunch The Same Page and try again").localizedDescription, "The error message should be assigned")
+        XCTAssertEqual(sut.errorAlertText, "Failed to send chat message. Please relaunch The Same Page and try again.", "The error message should be assigned")
     }
 
     func test_OnErrorViewState_ExpectedBehaviorOccurs() async throws {

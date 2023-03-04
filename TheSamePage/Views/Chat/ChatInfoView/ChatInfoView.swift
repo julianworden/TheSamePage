@@ -30,7 +30,7 @@ struct ChatInfoView: View {
                                 if chatParticipant.isLoggedInUser {
                                     ListRowElements(
                                         title: "You",
-                                        subtitle: viewModel.chatParticipantRowSubtitleText(for: chatParticipant),
+                                        subtitle: viewModel.getChatParticipantRowSubtitleText(for: chatParticipant),
                                         iconName: "person",
                                         iconIsSfSymbol: true
                                     )
@@ -40,7 +40,7 @@ struct ChatInfoView: View {
                                     } label: {
                                         ListRowElements(
                                             title: chatParticipant.name,
-                                            subtitle: viewModel.chatParticipantRowSubtitleText(for: chatParticipant),
+                                            subtitle: viewModel.getChatParticipantRowSubtitleText(for: chatParticipant),
                                             iconName: "person",
                                             iconIsSfSymbol: true
                                         )

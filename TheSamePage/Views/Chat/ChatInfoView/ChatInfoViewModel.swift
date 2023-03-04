@@ -31,7 +31,6 @@ final class ChatInfoViewModel: ObservableObject {
     }
 
     var show: Show?
-    var showHost: User?
 
     init(show: Show?, chatParticipantUids: [String]) {
         self.show = show
@@ -45,8 +44,7 @@ final class ChatInfoViewModel: ObservableObject {
         }
     }
 
-    #warning("Test")
-    func chatParticipantRowSubtitleText(for chatParticipant: User) -> String {
+    func getChatParticipantRowSubtitleText(for chatParticipant: User) -> String {
         if let show,
            chatParticipant.id == show.hostUid {
             return "Show Host"
@@ -84,11 +82,13 @@ final class ChatInfoViewModel: ObservableObject {
             return
         }
 
+        guard !chatParticipants.contains(where: { user in
+            user.id == show.hostUid
+        }) else { return }
+
         do {
             let showHost = try await DatabaseService.shared.getUser(withUid: show.hostUid)
-            if !chatParticipants.contains(showHost) {
-                self.chatParticipants.append(showHost)
-            }
+            self.chatParticipants.append(showHost)
 
             viewState = .dataLoaded
         } catch {
