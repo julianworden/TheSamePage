@@ -72,8 +72,7 @@ struct FindShowsView: View {
             }
             .errorAlert(
                 isPresented: $viewModel.errorMessageIsShowing,
-                message: viewModel.errorMessageText,
-                tryAgainAction: viewModel.fetchNearbyShows
+                message: viewModel.errorMessageText
             )
             .task {
                 // Keeps the search parameters from resetting every time this view is shown.

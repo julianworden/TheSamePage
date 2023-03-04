@@ -18,7 +18,7 @@ final class LocationController: NSObject, ObservableObject, CLLocationManagerDel
     @Published var userRegion: MKCoordinateRegion?
     
     var locationManager: CLLocationManager?
-    
+
     func startLocationServices() {
         locationManager = CLLocationManager()
             
@@ -32,9 +32,9 @@ final class LocationController: NSObject, ObservableObject, CLLocationManagerDel
         case .notDetermined:
             manager.requestWhenInUseAuthorization()
         case .denied:
-            print("You've denied location permission")
+            print("Denied location permission.")
         case .restricted:
-            print("Your location permissions are restricted")
+            print("Location permissions are restricted.")
         case .authorizedAlways, .authorizedWhenInUse:
             userLocation = manager.location
             userCoordinates = manager.location?.coordinate
@@ -43,10 +43,11 @@ final class LocationController: NSObject, ObservableObject, CLLocationManagerDel
                 userRegion = MKCoordinateRegion(center: userCoordinates, latitudinalMeters: 0.5, longitudinalMeters: 0.5)
                 locationSet = true
             }
-
-            NotificationCenter.default.post(name: .userLocationWasSet, object: nil)
         @unknown default:
             break
         }
+
+        let locationPermissionStatus = manager.authorizationStatus
+        NotificationCenter.default.post(name: .userLocationWasSet, object: nil, userInfo: ["locationPermissionStatus": locationPermissionStatus])
     }
 }

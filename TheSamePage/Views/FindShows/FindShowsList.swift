@@ -12,20 +12,39 @@ struct FindShowList: View {
     @ObservedObject var viewModel: FindShowsViewModel
 
     var body: some View {
-        List {
-            Section(viewModel.fetchedShowsListHeaderText) {
-                ForEach(viewModel.upcomingFetchedShows) { show in
-                    NavigationLink {
-                        ShowDetailsView(show: show)
-                    } label: {
-                        FindShowsListRow(show: show)
+        if viewModel.userHasGivenLocationPermission || viewModel.isSearchingByState {
+            List {
+                Section(viewModel.fetchedShowsListHeaderText) {
+                    ForEach(viewModel.upcomingFetchedShows) { show in
+                        NavigationLink {
+                            ShowDetailsView(show: show)
+                        } label: {
+                            FindShowsListRow(show: show)
+                        }
                     }
                 }
             }
-        }
-        .listStyle(.insetGrouped)
-        .refreshable {
-            await viewModel.fetchNearbyShows()
+            .listStyle(.insetGrouped)
+            .refreshable {
+                await viewModel.fetchNearbyShows()
+            }
+        } else if !viewModel.userHasGivenLocationPermission {
+            VStack {
+                NoDataFoundMessage(message: "You've denied location permissions for The Same Page. Although you can still search for shows by state, you cannot search for shows that are near your current location. If you'd like, you can give The Same Page permission to access your location by using your phone's Settings.")
+                
+                Button {
+                    let openSettingsUrlString = UIApplication.openSettingsURLString
+                    if let openSettingsUrl = URL(string: openSettingsUrlString) {
+                        UIApplication.shared.open(openSettingsUrl)
+                    }
+                } label: {
+                    Label("Go to Settings", systemImage: "gear")
+                }
+                .buttonStyle(.bordered)
+            }
+            .padding(.horizontal)
+        } else {
+            Text("Hello")
         }
     }
 }

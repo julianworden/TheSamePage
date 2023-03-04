@@ -7,318 +7,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FEED8404-C741-4987-8A63-AB7B9DB80F9D"
+            uuid = "1AC8A857-D091-485C-8059-A0A648813961"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Views/ProfileViews/UserProfileView/OtherUserProfileView/OtherUserProfileViewModel.swift"
+            filePath = "TheSamePage/Views/FindShows/FindShowsList.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
-            landmarkName = "getAllUserBands()"
-            landmarkType = "7">
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "body"
+            landmarkType = "24">
             <Locations>
                <Location
-                  uuid = "FEED8404-C741-4987-8A63-AB7B9DB80F9D - f28a0a10a1ce2d54"
+                  uuid = "1AC8A857-D091-485C-8059-A0A648813961 - 3fdda9b42c3b0b85"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for TheSamePage.OtherUserProfileViewModel.getAllUserBands() async -&gt; ()"
+                  symbolName = "TheSamePage.FindShowList.body.getter : some"
                   moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ProfileViews/UserProfileView/OtherUserProfileView/OtherUserProfileViewModel.swift"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/FindShows/FindShowsList.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
-                  offsetFromSymbolStart = "148">
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "2964">
                </Location>
                <Location
-                  uuid = "FEED8404-C741-4987-8A63-AB7B9DB80F9D - 3aa0c0fee9e4dcb1"
+                  uuid = "1AC8A857-D091-485C-8059-A0A648813961 - 7d693b4fc845191c"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for TheSamePage.OtherUserProfileViewModel.getAllUserBands() async -&gt; ()"
+                  symbolName = "closure #3 () -&gt; SwiftUI.TupleView&lt;(TheSamePage.NoDataFoundMessage, SwiftUI.Button&lt;SwiftUI.Text&gt;)&gt; in TheSamePage.FindShowList.body.getter : some"
                   moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ProfileViews/UserProfileView/OtherUserProfileView/OtherUserProfileViewModel.swift"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/FindShows/FindShowsList.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
-                  offsetFromSymbolStart = "44">
-               </Location>
-               <Location
-                  uuid = "FEED8404-C741-4987-8A63-AB7B9DB80F9D - 2dc150531c77152"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for TheSamePage.OtherUserProfileViewModel.getAllUserBands() async -&gt; ()"
-                  moduleName = "TheSamePage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ProfileViews/UserProfileView/OtherUserProfileView/OtherUserProfileViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
-                  offsetFromSymbolStart = "100">
-               </Location>
-               <Location
-                  uuid = "FEED8404-C741-4987-8A63-AB7B9DB80F9D - 4ac9688f49c01b53"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for TheSamePage.OtherUserProfileViewModel.getAllUserBands() async -&gt; ()"
-                  moduleName = "TheSamePage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ProfileViews/UserProfileView/OtherUserProfileView/OtherUserProfileViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
-                  offsetFromSymbolStart = "64">
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "292">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B9003427-9894-4381-944D-AA9759DCD73D"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Services/DatabaseService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "507"
-            endingLineNumber = "507"
-            landmarkName = "getAllBands(withUid:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "B9003427-9894-4381-944D-AA9759DCD73D - e4d2d85dfe08f42a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(5) suspend resume partial function for TheSamePage.DatabaseService.getAllBands(withUid: Swift.String) async throws -&gt; Swift.Array&lt;TheSamePage.Band&gt;"
-                  moduleName = "TheSamePage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "512"
-                  endingLineNumber = "512"
-                  offsetFromSymbolStart = "492">
-               </Location>
-               <Location
-                  uuid = "B9003427-9894-4381-944D-AA9759DCD73D - e4d2d85dfe08f42a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(5) suspend resume partial function for TheSamePage.DatabaseService.getAllBands(withUid: Swift.String) async throws -&gt; Swift.Array&lt;TheSamePage.Band&gt;"
-                  moduleName = "TheSamePage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "512"
-                  endingLineNumber = "512"
-                  offsetFromSymbolStart = "1168">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F7A7CFB7-CA59-45B1-8FA7-19A88D09178B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Services/DatabaseService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "508"
-            endingLineNumber = "508"
-            landmarkName = "getAllBands(withUid:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DCEFFFEA-0F87-49D9-986D-BEA10811E970"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Services/DatabaseService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "512"
-            endingLineNumber = "512"
-            landmarkName = "getAllBands(withUid:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "558BD9F8-6E54-48F2-87E9-A1294B0E0BAA"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Services/DatabaseService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "513"
-            endingLineNumber = "513"
-            landmarkName = "getAllBands(withUid:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "558BD9F8-6E54-48F2-87E9-A1294B0E0BAA - e4d2d85dfe08f4f0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(5) suspend resume partial function for TheSamePage.DatabaseService.getAllBands(withUid: Swift.String) async throws -&gt; Swift.Array&lt;TheSamePage.Band&gt;"
-                  moduleName = "TheSamePage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "518"
-                  endingLineNumber = "518"
-                  offsetFromSymbolStart = "1792">
-               </Location>
-               <Location
-                  uuid = "558BD9F8-6E54-48F2-87E9-A1294B0E0BAA - e4d2d85dfe08f4f0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(5) suspend resume partial function for TheSamePage.DatabaseService.getAllBands(withUid: Swift.String) async throws -&gt; Swift.Array&lt;TheSamePage.Band&gt;"
-                  moduleName = "TheSamePage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "518"
-                  endingLineNumber = "518"
-                  offsetFromSymbolStart = "2756">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "92357248-EE2D-47A3-85ED-C8A5D502DADD"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Services/DatabaseService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "514"
-            endingLineNumber = "514"
-            landmarkName = "getAllBands(withUid:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F3C0CE1D-912F-40C2-AB41-9B89C610216E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Services/DatabaseService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "515"
-            endingLineNumber = "515"
-            landmarkName = "getAllBands(withUid:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B4C46E9D-94DD-45E0-97CE-47286FB0ED0D"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Views/ProfileViews/UserProfileView/OtherUserProfileView/OtherUserProfileViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "init(user:uid:bandMember:isPresentedModally:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "B4C46E9D-94DD-45E0-97CE-47286FB0ED0D - e0fb7d8a84d12887"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "default argument 3 of TheSamePage.OtherUserProfileViewModel.init(user: Swift.Optional&lt;TheSamePage.User&gt;, uid: Swift.Optional&lt;Swift.String&gt;, bandMember: Swift.Optional&lt;TheSamePage.BandMember&gt;, isPresentedModally: Swift.Bool) -&gt; TheSamePage.OtherUserProfileViewModel"
-                  moduleName = "TheSamePage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ProfileViews/UserProfileView/OtherUserProfileView/OtherUserProfileViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "42"
-                  endingLineNumber = "42"
-                  offsetFromSymbolStart = "4">
-               </Location>
-               <Location
-                  uuid = "B4C46E9D-94DD-45E0-97CE-47286FB0ED0D - 5021cd7072c6d989"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TheSamePage.OtherUserProfileViewModel.__allocating_init(user: Swift.Optional&lt;TheSamePage.User&gt;, uid: Swift.Optional&lt;Swift.String&gt;, bandMember: Swift.Optional&lt;TheSamePage.BandMember&gt;, isPresentedModally: Swift.Bool) -&gt; TheSamePage.OtherUserProfileViewModel"
-                  moduleName = "TheSamePage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ProfileViews/UserProfileView/OtherUserProfileView/OtherUserProfileViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "40">
-               </Location>
-               <Location
-                  uuid = "B4C46E9D-94DD-45E0-97CE-47286FB0ED0D - 859283ee053df8b1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TheSamePage.OtherUserProfileViewModel.init(user: Swift.Optional&lt;TheSamePage.User&gt;, uid: Swift.Optional&lt;Swift.String&gt;, bandMember: Swift.Optional&lt;TheSamePage.BandMember&gt;, isPresentedModally: Swift.Bool) -&gt; TheSamePage.OtherUserProfileViewModel"
-                  moduleName = "TheSamePage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Views/ProfileViews/UserProfileView/OtherUserProfileView/OtherUserProfileViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "13"
-                  endingLineNumber = "13"
-                  offsetFromSymbolStart = "600">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "40E32AF5-2E50-425D-9AB4-09F27BCCB316"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TheSamePage/Views/ProfileViews/UserProfileView/OtherUserProfileView/OtherUserProfileViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "init(user:uid:bandMember:isPresentedModally:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

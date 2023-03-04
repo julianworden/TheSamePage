@@ -15,11 +15,13 @@ final class FindShowsViewModel: ObservableObject {
     @Published var upcomingFetchedShows = [Show]()
     @Published var searchRadiusInMiles: Double = 25
     var searchingState: String?
-    var isSearchingByState = false
-    var isSearchingByDistance = false
+    @Published var isSearchingByState = false
+    @Published var isSearchingByDistance = false
     
     @Published var errorMessageIsShowing = false
     @Published var errorMessageText = ""
+    @Published var userHasGivenLocationPermission = false
+    var locationAuthorizationStatus = CLAuthorizationStatus.notDetermined
     
     @Published var viewState = ViewState.dataLoading {
         didSet {
@@ -66,6 +68,17 @@ final class FindShowsViewModel: ObservableObject {
         let milesValue = Measurement(value: searchRadiusInMiles, unit: UnitLength.miles)
         return milesValue.converted(to: UnitLength.meters).value
     }
+
+    var userHasAuthorizedLocationPermission: Bool {
+        switch locationAuthorizationStatus {
+        case .authorizedWhenInUse, .authorizedAlways:
+            return true
+        case .restricted, .denied, .notDetermined:
+            return false
+        @unknown default:
+            return false
+        }
+    }
     
     func fetchNearbyShows() async {
         guard !AuthController.userIsLoggedOut(),
@@ -81,8 +94,7 @@ final class FindShowsViewModel: ObservableObject {
     }
 
     func fetchShows(in state: String) async {
-        guard !AuthController.userIsLoggedOut(),
-              let userCoordinates = LocationController.shared.userCoordinates else {
+        guard !AuthController.userIsLoggedOut() else {
             viewState = .error(message: ErrorMessageConstants.failedToPerformShowSearch)
             return
         }
@@ -92,7 +104,7 @@ final class FindShowsViewModel: ObservableObject {
         isSearchingByState = true
         isSearchingByDistance = false
 
-        await performShowSearchInState(state: state, userCoordinates: userCoordinates)
+        await performShowSearchInState(state: state)
     }
 
     func performShowSearchWithCoordinates(_ userCoordinates: CLLocationCoordinate2D) async {
@@ -123,12 +135,11 @@ final class FindShowsViewModel: ObservableObject {
         }
     }
 
-    func performShowSearchInState(state: String, userCoordinates: CLLocationCoordinate2D) async {
+    func performShowSearchInState(state: String) async {
         let searchParameters = SearchParameters(
             q: "*",
             queryBy: "state",
-            filterBy: "state:\(state)",
-            sortBy: "typesenseCoordinates(\(userCoordinates.latitude), \(userCoordinates.longitude)):asc"
+            filterBy: "state:\(state)"
         )
 
         do {
@@ -153,22 +164,39 @@ final class FindShowsViewModel: ObservableObject {
 
     func changeSearchRadius(toValueInMiles value: Double) async {
         viewState = .dataLoading
+        isSearchingByState = false
+        isSearchingByDistance = true
         searchRadiusInMiles = value
-        await fetchNearbyShows()
+
+        if userHasGivenLocationPermission {
+            await fetchNearbyShows()
+        } else {
+            self.userHasGivenLocationPermission = false
+            self.viewState = .dataLoaded
+        }
     }
 
     func addLocationNotificationObserver() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(locationDataWasSet),
-            name: .userLocationWasSet,
-            object: nil
-        )
-    }
+        NotificationCenter.default.addObserver(forName: .userLocationWasSet, object: nil, queue: .main) {
+            if let locationAuthorizationStatus = $0.userInfo?["locationPermissionStatus"] as? CLAuthorizationStatus {
+                Task { @MainActor in
+                    self.locationAuthorizationStatus = locationAuthorizationStatus
 
-    @objc func locationDataWasSet() {
-        Task {
-            await fetchNearbyShows()
+                    switch locationAuthorizationStatus {
+                    case .notDetermined:
+                        return
+                    case .restricted, .denied:
+                        self.userHasGivenLocationPermission = false
+                        self.viewState = .dataLoaded
+                    case .authorizedAlways, .authorizedWhenInUse:
+                        self.userHasGivenLocationPermission = true
+                        self.viewState = .dataLoading
+                        await self.fetchNearbyShows()
+                    @unknown default:
+                        print("Unknown location authorizations status provided.")
+                    }
+                }
+            }
         }
     }
 }
