@@ -51,6 +51,7 @@ struct FbConstants {
     static let mostRecentMessageSenderUsername = "mostRecentMessageSenderUsername"
     static let participantUsernames = "participantUsernames"
     static let backlinerUid = "backlinerUid"
+    static let recipientUid = "recipientUid"
 
     // MARK: - Firebase Functions
     static let recursiveDelete = "recursiveDelete"

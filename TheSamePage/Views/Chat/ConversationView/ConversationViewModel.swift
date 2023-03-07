@@ -88,7 +88,7 @@ class ConversationViewModel : ObservableObject {
                     }
 
                     let chatMessageDocuments = snapshot.documents
-                    
+
                     if let chatMessages = try? chatMessageDocuments.map({ try $0.data(as: ChatMessage.self) }) {
                         self.messages = chatMessages.reversed()
                         self.viewState = .dataLoaded
@@ -152,7 +152,8 @@ class ConversationViewModel : ObservableObject {
     
     func configureShowChat(forShow show: Show) async -> String? {
         do {
-            if let showChat = try await DatabaseService.shared.getChat(withShowId: show.id) {
+            if let showChatId = show.chatId {
+                let showChat = try await DatabaseService.shared.getChat(withId: showChatId)
                 self.chat = showChat
                 await configureExistingChat(showChat)
                 return showChat.id
@@ -188,6 +189,7 @@ class ConversationViewModel : ObservableObject {
                 participantUsernames: newChatParticipantUsernames
             )
             let newChatId = try await DatabaseService.shared.createChat(chat: newChat)
+            try await DatabaseService.shared.addChatIdToShow(add: newChatId, to: show)
             newChat.id = newChatId
             self.chat = newChat
             await configureExistingChat(newChat)

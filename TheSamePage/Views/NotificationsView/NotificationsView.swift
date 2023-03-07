@@ -20,15 +20,8 @@ struct NotificationsView: View {
             }
             .navigationTitle("Notifications")
             .errorAlert(
-                isPresented: $viewModel.errorAlertIsShowing,
-                message: viewModel.errorAlertText,
-                okButtonAction: {
-                    if loggedInUserController.allUserNotifications.isEmpty {
-                        viewModel.viewState = .dataNotFound
-                    } else {
-                        viewModel.viewState = .dataLoaded
-                    }
-                }
+                isPresented: $loggedInUserController.errorMessageShowing,
+                message: loggedInUserController.errorMessageText
             )
         }
     }

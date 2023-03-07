@@ -42,6 +42,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable, Shareable {
     var is21Plus: Bool
     let genre: String
     var maxNumberOfBands: Int
+    var chatId: String?
     
     init(id: String,
          name: String,
@@ -70,7 +71,8 @@ struct Show: Codable, Equatable, Hashable, Identifiable, Shareable {
          hasBar: Bool,
          is21Plus: Bool,
          genre: String,
-         maxNumberOfBands: Int
+         maxNumberOfBands: Int,
+         chatId: String? = nil
     ) {
         self.id = id
         self.name = name
@@ -102,6 +104,7 @@ struct Show: Codable, Equatable, Hashable, Identifiable, Shareable {
         self.is21Plus = is21Plus
         self.genre = genre
         self.maxNumberOfBands = maxNumberOfBands
+        self.chatId = chatId
     }
     
     // TODO: Use a custom Date .formatted() extension for this instead

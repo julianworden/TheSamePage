@@ -23,6 +23,17 @@ struct NotificationsList: View {
             }
             .padding(.horizontal)
         }
+        .errorAlert(
+            isPresented: $viewModel.errorAlertIsShowing,
+            message: viewModel.errorAlertText,
+            okButtonAction: {
+                if loggedInUserController.allUserNotifications.isEmpty {
+                    viewModel.viewState = .dataNotFound
+                } else {
+                    viewModel.viewState = .dataLoaded
+                }
+            }
+        )
     }
 }
 

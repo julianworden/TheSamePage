@@ -183,6 +183,7 @@ class LoggedInUserController: ObservableObject {
             .collection(FbConstants.users)
             .document(AuthController.getLoggedInUid())
             .collection(FbConstants.notifications)
+            .whereField(FbConstants.recipientUid, isEqualTo: AuthController.getLoggedInUid())
             .addSnapshotListener { snapshot, error in
                 if snapshot != nil && error == nil {
                     // Do not check if snapshot.documents.isEmpty or else deleting the final notification

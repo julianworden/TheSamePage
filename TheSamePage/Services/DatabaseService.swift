@@ -1572,11 +1572,20 @@ class DatabaseService: NSObject {
         }
     }
 
+    func addChatIdToShow(add chatId: String, to show: Show) async throws {
+        do {
+            try await db
+                .collection(FbConstants.shows)
+                .document(show.id)
+                .updateData([FbConstants.chatId: chatId])
+        } catch {
+
+        }
+    }
+
 
     
     // MARK: - Chats
-
-
 
     /// Fetches the chat that belongs to a given show.
     /// - Parameter showId: The ID of the show that the fetched chat is associated with.
@@ -1588,17 +1597,17 @@ class DatabaseService: NSObject {
                 .collection(FbConstants.chats)
                 .whereField(FbConstants.showId, isEqualTo: showId)
                 .getDocuments()
-            
+
             // Each show should only have 1 chat
             guard !chat.documents.isEmpty && chat.documents[0].exists && chat.documents.count == 1 else { return nil }
-            
+
             let fetchedChat = try chat.documents[0].data(as: Chat.self)
             return fetchedChat
         } catch Swift.DecodingError.keyNotFound {
             throw FirebaseError.dataNotFound
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to get fetch show chat.",
+                message: "Failed to fetch show chat.",
                 systemError: error.localizedDescription
             )
         }
@@ -1658,7 +1667,7 @@ class DatabaseService: NSObject {
             }
 
             return chatToReturn
-        } catch Swift.DecodingError.keyNotFound {
+        } catch DecodingError.keyNotFound, DecodingError.valueNotFound {
             throw FirebaseError.dataNotFound
         } catch {
             print(error)
@@ -1696,14 +1705,11 @@ class DatabaseService: NSObject {
     /// Instead, its ID property will be set from within this method.
     func createChat(chat: Chat) async throws -> String {
         do {
-//            guard let showId = chat.showId,
-//                  try await !chatExists(forShowWithId: showId) else { return "" }
-
             let chatReference = try await db
                 .collection(FbConstants.chats)
-                .addDocument(data: [:])
+                .addDocument(data: [FbConstants.participantUids: chat.participantUids])
 
-            try chatReference .setData(from: chat) { error in
+            try chatReference.setData(from: chat, merge: true) { error in
                 if let error {
                     print(error)
                 }
