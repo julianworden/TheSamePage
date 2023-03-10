@@ -11,11 +11,14 @@ struct OtherUserShowsTab: View {
     @ObservedObject var viewModel: OtherUserProfileViewModel
 
     var body: some View {
-        if !viewModel.bands.isEmpty {
-            OtherUserShowsList(viewModel: viewModel)
-        } else {
-            NoDataFoundMessage(message: "This user is not affiliated with any bands on The Same Page.")
+        Group {
+            if !viewModel.bands.isEmpty {
+                OtherUserShowsList(viewModel: viewModel)
+            } else {
+                NoDataFoundMessage(message: "This user hasn't been involved in any shows on The Same Page.")
+            }
         }
+        .padding(.horizontal)
     }
 }
 

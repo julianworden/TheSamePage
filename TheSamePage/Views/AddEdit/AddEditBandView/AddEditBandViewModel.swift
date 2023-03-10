@@ -39,6 +39,7 @@ final class AddEditBandViewModel: ObservableObject {
             case .error(let message):
                 errorAlertText = message
                 errorAlertIsShowing = true
+                buttonsAreDisabled = false
             default:
                 errorAlertText = ErrorMessageConstants.invalidViewState
                 errorAlertIsShowing = true

@@ -24,7 +24,6 @@ struct OtherUserShowsList: View {
             }
         }
         .padding(.top, 5)
-        .padding(.horizontal)
     }
 }
 

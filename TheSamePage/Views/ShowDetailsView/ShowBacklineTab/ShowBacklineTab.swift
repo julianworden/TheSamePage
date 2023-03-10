@@ -16,28 +16,30 @@ struct ShowBacklineTab: View {
                 if viewModel.showHasBackline {
                     ShowBacklineList(viewModel: viewModel)
 
-                    Button {
-                        viewModel.addBacklineSheetIsShowing.toggle()
-                    } label: {
-                        Label("Add Backline", systemImage: "plus")
-                    }
-                    .buttonStyle(.bordered)
-                    .sheet(
-                        isPresented: $viewModel.addBacklineSheetIsShowing,
-                        onDismiss: {
-                            Task {
-                                await viewModel.getBacklineItems()
-                            }
-                        },
-                        content: {
-                            AddBacklineView(show: show)
+                    if show.loggedInUserIsInvolvedInShow && !show.alreadyHappened {
+                        Button {
+                            viewModel.addBacklineSheetIsShowing.toggle()
+                        } label: {
+                            Label("Add Backline", systemImage: "plus")
                         }
-                    )
+                        .buttonStyle(.bordered)
+                        .sheet(
+                            isPresented: $viewModel.addBacklineSheetIsShowing,
+                            onDismiss: {
+                                Task {
+                                    await viewModel.getBacklineItems()
+                                }
+                            },
+                            content: {
+                                AddBacklineView(show: show)
+                            }
+                        )
+                    }
 
                 } else if !viewModel.showHasBackline {
                     NoDataFoundMessageWithButtonView(
                         isPresentingSheet: $viewModel.addBacklineSheetIsShowing,
-                        shouldDisplayButton: show.loggedInUserIsInvolvedInShow,
+                        shouldDisplayButton: show.loggedInUserIsInvolvedInShow && !show.alreadyHappened,
                         buttonText: "Add Backline",
                         buttonImageName: "plus",
                         message: viewModel.noBacklineMessageText

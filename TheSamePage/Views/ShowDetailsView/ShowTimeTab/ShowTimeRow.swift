@@ -24,7 +24,7 @@ struct ShowTimeRow: View {
 
                     Spacer()
 
-                    if show.loggedInUserIsShowHost {
+                    if show.loggedInUserIsShowHost && !show.alreadyHappened {
                         Menu {
                             Button {
                                 viewModel.selectedShowTimeType = showTimeType
