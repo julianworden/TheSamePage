@@ -9,4 +9,5 @@ import Foundation
 
 struct NotificationConstants {
     static let showPlacemark = "showPlacemark"
+    static let locationPermissionStatus = "locationPermissionStatus"
 }

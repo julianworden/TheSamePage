@@ -52,6 +52,9 @@ struct FbConstants {
     static let participantUsernames = "participantUsernames"
     static let backlinerUid = "backlinerUid"
     static let recipientUid = "recipientUid"
+    static let firstName = "firstName"
+    static let lastName = "lastName"
+    static let bandAdminUid = "bandAdminUid"
 
     // MARK: - Firebase Functions
     static let recursiveDelete = "recursiveDelete"

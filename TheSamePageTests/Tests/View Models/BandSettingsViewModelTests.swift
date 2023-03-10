@@ -7,6 +7,7 @@
 
 @testable import TheSamePage
 
+import FirebaseFirestore
 import XCTest
 
 @MainActor
@@ -80,20 +81,29 @@ final class BandSettingsViewModelTests: XCTestCase {
         sut = BandSettingsViewModel(band: patheticFallacy)
 
         await sut.deleteBand()
-        let updatedDumpweedExtravaganzaChat = try await testingDatabaseService.getChat(forShowWithId: dumpweedExtravaganza.id)
-        let updatedDumpweedExtravaganza = try await testingDatabaseService.getShow(withId: dumpweedExtravaganza.id)
 
         do {
             _ = try await testingDatabaseService.getBand(withId: patheticFallacy.id)
             XCTFail("The band was deleted, so this method shouldn't have successfully fetched anything.")
         } catch {
             XCTAssertEqual(sut.viewState, .workCompleted)
-            XCTAssertFalse(updatedDumpweedExtravaganzaChat!.participantUids.contains(exampleUserLou.id), "Lou should've been removed from the show's chat since he was a part of Pathetic Fallacy")
-            XCTAssertFalse(updatedDumpweedExtravaganzaChat!.participantUids.contains(exampleUserJulian.id), "Julian should've been removed from the show's chat since he was a part of Pathetic Fallacy")
+        }
+
+        do {
+            _ = try await testingDatabaseService.getChat(withId: dumpweedExtravaganza.chatId!)
+            XCTFail("The user was removed from this chat, so they should no longer be able to read it.")
+        } catch FirestoreErrorCode.permissionDenied {
+            XCTAssert(true)
+        } catch {
+            print(error.localizedDescription)
+            XCTFail("The only reason this test should've failed was because the user no longer has permission to read the chat's data.")
+        }
+
+        do {
+            let updatedDumpweedExtravaganza = try await testingDatabaseService.getShow(withId: dumpweedExtravaganza.id)
             XCTAssertEqual(updatedDumpweedExtravaganza.bandIds.count, 1, "There should now be one band on the show")
             XCTAssertFalse(updatedDumpweedExtravaganza.participantUids.contains(exampleUserLou.id), "Lou should've been removed from the show since he was a part of Pathetic Fallacy")
             XCTAssertFalse(updatedDumpweedExtravaganza.participantUids.contains(exampleUserJulian.id), "Julian should've been removed from the show since he was a part of Pathetic Fallacy")
-
             try await testingDatabaseService.restorePatheticFallacy(
                 band: patheticFallacy,
                 show: dumpweedExtravaganza,
@@ -105,6 +115,8 @@ final class BandSettingsViewModelTests: XCTestCase {
                     TestingConstants.examplePlatformLinkPatheticFallacyInstagram
                 ]
             )
+        } catch {
+            print(error)
         }
     }
 }

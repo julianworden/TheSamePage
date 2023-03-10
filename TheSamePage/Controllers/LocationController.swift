@@ -48,6 +48,6 @@ final class LocationController: NSObject, ObservableObject, CLLocationManagerDel
         }
 
         let locationPermissionStatus = manager.authorizationStatus
-        NotificationCenter.default.post(name: .userLocationWasSet, object: nil, userInfo: ["locationPermissionStatus": locationPermissionStatus])
+        NotificationCenter.default.post(name: .userLocationWasSet, object: nil, userInfo: [NotificationConstants.locationPermissionStatus: locationPermissionStatus])
     }
 }

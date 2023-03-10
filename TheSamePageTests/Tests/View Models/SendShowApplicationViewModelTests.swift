@@ -30,10 +30,6 @@ final class SendShowApplicationViewModelTests: XCTestCase {
     }
 
     override func tearDown() async throws {
-        if let createdShowApplicationId {
-            try await testingDatabaseService.deleteNotification(withId: createdShowApplicationId, forUserWithUid: julian.id)
-        }
-
         try testingDatabaseService.logOut()
         sut = nil
         testingDatabaseService = nil
@@ -115,10 +111,14 @@ final class SendShowApplicationViewModelTests: XCTestCase {
         sut = SendShowApplicationViewModel(show: appleParkThrowdown)
         await sut.getLoggedInUserAdminBands()
 
-        createdShowApplicationId = await sut.sendShowApplication()
-        let showApplicationExists = try await testingDatabaseService.notificationExists(forUserWithUid: craig.id, notificationId: createdShowApplicationId!)
+        let createdShowApplicationId = await sut.sendShowApplication()
+        try testingDatabaseService.logOut()
+        try await testingDatabaseService.logInToCraigAccount()
+        let showApplicationExists = try await testingDatabaseService.notificationExists(forUserWithUid: craig.id, notificationId: createdShowApplicationId)
 
         XCTAssertEqual(sut.viewState, .workCompleted)
         XCTAssertTrue(showApplicationExists)
+
+        try await testingDatabaseService.deleteNotification(withId: createdShowApplicationId, forUserWithUid: craig.id)
     }
 }

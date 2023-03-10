@@ -22,6 +22,7 @@ struct ChatMessage: Codable, Equatable, Identifiable {
     let senderUsername: String
     let sentTimestamp: Double
     var recipientFcmTokens: [String] = []
+    // Add recipientUids property
     
     var senderIsLoggedInUser: Bool {
         return senderUid == AuthController.getLoggedInUid()

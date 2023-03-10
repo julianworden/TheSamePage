@@ -57,6 +57,12 @@ struct Band: Codable, Equatable, Hashable, Identifiable, Shareable {
     var loggedInUserIsInvolvedWithBand: Bool {
         return loggedInUserIsBandAdmin || loggedInUserIsBandMember
     }
+
+    var memberAndAdminUids: [String] {
+        var uids = memberUids
+        uids.append(adminUid)
+        return uids
+    }
     
     static let example = Band(
         id: "a;efhalskehasf",

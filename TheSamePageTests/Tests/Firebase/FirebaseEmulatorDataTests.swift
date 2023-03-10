@@ -11,10 +11,10 @@ import XCTest
 
 final class FirebaseEmulatorDataTests: XCTestCase {
     var testingDatabaseService: TestingDatabaseService!
+    let dumpweedExtravaganza = TestingConstants.exampleShowDumpweedExtravaganza
 
     override func setUp() async throws {
         testingDatabaseService = TestingDatabaseService()
-        try await testingDatabaseService.logInToJulianAccount()
     }
 
     override func tearDownWithError() throws {
@@ -25,6 +25,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     // MARK: - Firestore Example Users
 
     func test_OnInit_ExampleUserJulianInFirestoreEmulatorHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let julianInEmulator = try await testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserJulian.id)
         let julianInTestingConstants = TestingConstants.exampleUserJulian
 
@@ -39,6 +40,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleUserLouInFirestoreEmulatorHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let louInEmulator = try await testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserLou.id)
         let louInTestingConstants = TestingConstants.exampleUserLou
 
@@ -53,6 +55,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleUserTasInFirestoreEmulatorHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let tasInEmulator = try await testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserTas.id)
         let tasInTestingConstants = TestingConstants.exampleUserTas
 
@@ -67,6 +70,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleUserEricInFirestoreEmulatorHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let ericInEmulator = try await testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserEric.id)
         let ericInTestingConstants = TestingConstants.exampleUserEric
 
@@ -81,6 +85,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleUserMikeInFirestoreEmulatorHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let mikeInEmulator = try await testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserMike.id)
         let mikeInTestingConstants = TestingConstants.exampleUserMike
 
@@ -95,6 +100,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleUsersInFirestoreEmulatorMatchTestingConstants() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let julianInEmulator = try await testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserJulian.id)
         let ericInEmulator = try await testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserEric.id)
         let louInEmulator = try await testingDatabaseService.getUserFromFirestore(withUid: TestingConstants.exampleUserLou.id)
@@ -111,6 +117,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     // MARK: - Firestore Example Bands
 
     func test_OnInit_ExampleBandPatheticFallacyInFirestoreEmulatorHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let patheticFallacyInEmulator = try await testingDatabaseService.getBand(withId: TestingConstants.exampleBandPatheticFallacy.id)
         let patheticFallacyInTestingConstants = TestingConstants.exampleBandPatheticFallacy
 
@@ -126,6 +133,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleBandDumpweedInFirestoreEmulatorHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let dumpweedInEmulator = try await testingDatabaseService.getBand(withId: TestingConstants.exampleBandDumpweed.id)
         let dumpweedInTestingConstants = TestingConstants.exampleBandDumpweed
 
@@ -141,6 +149,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleBandTheApplesInFirestoreEmulatorHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let theApplesInEmulator = try await testingDatabaseService.getBand(withId: TestingConstants.exampleBandTheApples.id)
         let theApplesInTestingConstants = TestingConstants.exampleBandTheApples
 
@@ -156,6 +165,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleBandCraigAndTheFettuccinisInFirestoreEmulatorHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let craigAndTheFettuccinisInEmulator = try await testingDatabaseService.getBand(withId: TestingConstants.exampleBandCraigAndTheFettuccinis.id)
         let craigAndTheFettuccinisInTestingConstants = TestingConstants.exampleBandCraigAndTheFettuccinis
 
@@ -171,6 +181,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleBandsInFirestoreEmulatorMatchTestingConstants() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let patheticFallacyInEmulator = try await testingDatabaseService.getBand(withId: TestingConstants.exampleBandPatheticFallacy.id)
         let dumpweedInEmulator = try await testingDatabaseService.getBand(withId: TestingConstants.exampleBandDumpweed.id)
         let theApplesInEmulator = try await testingDatabaseService.getBand(withId: TestingConstants.exampleBandTheApples.id)
@@ -185,6 +196,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     // MARK: - Firestore Example Shows
 
     func test_OnInit_ExampleShowDumpweedExtravaganzaInFirestoreEmulatorHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let exampleShowInEmulator = try await testingDatabaseService.getShow(
             withId: TestingConstants.exampleShowDumpweedExtravaganza.id
         )
@@ -220,9 +232,11 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(exampleShowInEmulator.doorsTime, exampleShowInTestingConstants.doorsTime)
         XCTAssertEqual(exampleShowInEmulator.musicStartTime, exampleShowInTestingConstants.musicStartTime)
         XCTAssertEqual(exampleShowInEmulator.endTime, exampleShowInTestingConstants.endTime)
+        XCTAssertEqual(exampleShowInEmulator.chatId, exampleShowInTestingConstants.chatId)
     }
 
     func test_OnInit_ExampleShowAppleParkThrowdownInFirebaseEmulatorHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let exampleShowInEmulator = try await testingDatabaseService.getShow(
             withId: TestingConstants.exampleShowAppleParkThrowdown.id
         )
@@ -258,9 +272,11 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(exampleShowInEmulator.doorsTime, exampleShowInTestingConstants.doorsTime)
         XCTAssertEqual(exampleShowInEmulator.musicStartTime, exampleShowInTestingConstants.musicStartTime)
         XCTAssertEqual(exampleShowInEmulator.endTime, exampleShowInTestingConstants.endTime)
+        XCTAssertEqual(exampleShowInEmulator.chatId, exampleShowInTestingConstants.chatId)
     }
     
     func test_OnInit_ExampleShowsInFirestoreEmulatorMatcheExampleShowsInTestingConstants() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let dumpweedExtravaganzaInEmulator = try await testingDatabaseService.getShow(withId: TestingConstants.exampleShowDumpweedExtravaganza.id)
         let dumpweedExtravaganzaInTestingConstants = TestingConstants.exampleShowDumpweedExtravaganza
         let AppleParkThrowdownInEmulator = try await testingDatabaseService.getShow(
@@ -275,6 +291,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     // MARK: - Firestore Example ShowParticipants
 
     func test_OnInit_ExampleShowParticipantPatheticFallacyInDumpweedExtravaganzaHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let patheticFallacyInEmulator = try await testingDatabaseService.getShowParticipant(
             TestingConstants.exampleShowParticipantPatheticFallacyInDumpweedExtravaganza
         )
@@ -289,6 +306,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleShowParticipantDumpweedInDumpweedExtravaganzaHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let dumpweedInEmulator = try await testingDatabaseService.getShowParticipant(
             TestingConstants.exampleShowParticipantDumpweedInDumpweedExtravaganza
         )
@@ -304,6 +322,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleShowParticipantTheApplesInAppleParkThrowdownHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let theApplesInEmulator = try await testingDatabaseService.getShowParticipant(
             TestingConstants.exampleShowParticipantTheApplesInAppleParkThrowdown
         )
@@ -317,6 +336,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleShowParticipantsInFirestoreEmulatorMatchTestingConstants() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let patheticFallacyInEmulator = try await testingDatabaseService.getShowParticipant(
             TestingConstants.exampleShowParticipantPatheticFallacyInDumpweedExtravaganza
         )
@@ -338,6 +358,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     // MARK: - Firestore Example BandInvites
 
     func test_OnInit_ExampleBandInviteInFirestoreEmulatorHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToTasAccount()
         let bandInviteInEmulator = try await testingDatabaseService.getBandInvite(
             withId: TestingConstants.exampleBandInviteForTas.id,
             forUserWithUid: TestingConstants.exampleUserTas.id
@@ -360,6 +381,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleBandInvitesInFirestoreEmulatorMatchTestingConstants() async throws {
+        try await testingDatabaseService.logInToTasAccount()
         let bandInviteInEmulator = try await testingDatabaseService.getBandInvite(
             withId: TestingConstants.exampleBandInviteForTas.id,
             forUserWithUid: TestingConstants.exampleUserTas.id
@@ -371,6 +393,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     // MARK: - Firestore Example ShowApplications
 
     func test_OnInit_ExampleShowApplicationInFirestoreEmulatorHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let showApplicationInEmulator = try await testingDatabaseService.getShowApplication(
             withId: TestingConstants.exampleShowApplicationForDumpweedExtravaganza.id,
             forUserWithUid: TestingConstants.exampleUserJulian.id
@@ -393,6 +416,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     // MARK: - Firestore Example BandMembers
 
     func test_OnInit_ExampleBandMemberJulianInFirestoreEmulatorHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let bandMemberJulianInEmulator = try await testingDatabaseService.getBandMember(
             withFullName:  TestingConstants.exampleBandMemberJulian.fullName,
             inBandWithId: TestingConstants.exampleBandPatheticFallacy.id
@@ -408,6 +432,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleBandMemberLouInFirestoreEmulatorHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let bandMemberLouInEmulator = try await testingDatabaseService.getBandMember(
             withFullName: TestingConstants.exampleBandMemberLou.fullName,
             inBandWithId: TestingConstants.exampleBandPatheticFallacy.id
@@ -423,6 +448,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleBandMemberEricInFirestoreEmulatorHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let bandMemberEricInEmulator = try await testingDatabaseService.getBandMember(
             withFullName: TestingConstants.exampleBandMemberEric.fullName,
             inBandWithId: TestingConstants.exampleBandDumpweed.id
@@ -438,6 +464,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleBandMemberCraigInTheApplesInFirestoreEmulatorHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let bandMemberCraigInEmulator = try await testingDatabaseService.getBandMember(
             withFullName: TestingConstants.exampleBandMemberCraigInTheApples.fullName,
             inBandWithId: TestingConstants.exampleBandTheApples.id
@@ -453,6 +480,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleBandMemberCragInCraigAndTheFettuccinisInFirestoreEmulatorAsExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let bandMemberCraigInEmulator = try await testingDatabaseService.getBandMember(
             withFullName: TestingConstants.exampleBandMemberCraigInCraigAndTheFettuccinis.fullName,
             inBandWithId: TestingConstants.exampleBandCraigAndTheFettuccinis.id
@@ -468,6 +496,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleBandMembersInFirestoreEmulatorMatchTestingConstants() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let bandMemberJulianInEmulator = try await testingDatabaseService.getBandMember(
             withFullName: TestingConstants.exampleBandMemberJulian.fullName,
             inBandWithId: TestingConstants.exampleBandPatheticFallacy.id
@@ -505,27 +534,24 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     // MARK: - Firestore Example Chats
 
     func test_OnInit_ExampleChatDumpweedExtravaganzaInFirestoreEmulatorHasExpectedValues() async throws {
-        let chatInEmulator = try await testingDatabaseService.getChat(
-            forShowWithId: TestingConstants.exampleShowDumpweedExtravaganza.id
-        )
+        try await testingDatabaseService.logInToJulianAccount()
+        let chatInEmulator = try await testingDatabaseService.getChat(withId: dumpweedExtravaganza.chatId!)
         let chatInTestingConstants = TestingConstants.exampleChatDumpweedExtravaganza
 
-        XCTAssertEqual(chatInEmulator!.id, chatInTestingConstants.id)
-        XCTAssertEqual(chatInEmulator!.showId, TestingConstants.exampleShowDumpweedExtravaganza.id)
-        XCTAssertEqual(chatInEmulator!.name, TestingConstants.exampleShowDumpweedExtravaganza.name)
-        XCTAssertEqual(chatInEmulator!.participantUids, chatInTestingConstants.participantUids)
-        XCTAssertEqual(chatInEmulator!.userId, chatInTestingConstants.userId)
-        XCTAssertEqual(chatInEmulator!.participantUsernames, chatInTestingConstants.participantUsernames)
-        XCTAssertEqual(chatInEmulator!.upToDateParticipantUids, chatInTestingConstants.upToDateParticipantUids)
-        XCTAssertEqual(chatInEmulator!.mostRecentMessageSenderUsername, chatInTestingConstants.mostRecentMessageSenderUsername)
-        XCTAssertEqual(chatInEmulator!.mostRecentMessageText, chatInTestingConstants.mostRecentMessageText)
-        XCTAssertEqual(chatInEmulator!.mostRecentMessageTimestamp, chatInTestingConstants.mostRecentMessageTimestamp)
+        XCTAssertEqual(chatInEmulator.id, chatInTestingConstants.id)
+        XCTAssertEqual(chatInEmulator.showId, TestingConstants.exampleShowDumpweedExtravaganza.id)
+        XCTAssertEqual(chatInEmulator.name, TestingConstants.exampleShowDumpweedExtravaganza.name)
+        XCTAssertEqual(chatInEmulator.participantUids, chatInTestingConstants.participantUids)
+        XCTAssertEqual(chatInEmulator.participantUsernames, chatInTestingConstants.participantUsernames)
+        XCTAssertEqual(chatInEmulator.upToDateParticipantUids, chatInTestingConstants.upToDateParticipantUids)
+        XCTAssertEqual(chatInEmulator.mostRecentMessageSenderUsername, chatInTestingConstants.mostRecentMessageSenderUsername)
+        XCTAssertEqual(chatInEmulator.mostRecentMessageText, chatInTestingConstants.mostRecentMessageText)
+        XCTAssertEqual(chatInEmulator.mostRecentMessageTimestamp, chatInTestingConstants.mostRecentMessageTimestamp)
     }
 
     func test_OnInit_ExampleChatsInFirestoreEmulatorMatchTestingConstants() async throws {
-        let dumpweedExtravaganzaChatInEmulator = try await testingDatabaseService.getChat(
-            forShowWithId: TestingConstants.exampleShowDumpweedExtravaganza.id
-        )
+        try await testingDatabaseService.logInToJulianAccount()
+        let dumpweedExtravaganzaChatInEmulator = try await testingDatabaseService.getChat(withId: dumpweedExtravaganza.chatId!)
         let dumpweedExtravaganzaChatInTestingConstants = TestingConstants.exampleChatDumpweedExtravaganza
 
         XCTAssertEqual(dumpweedExtravaganzaChatInEmulator, dumpweedExtravaganzaChatInTestingConstants)
@@ -534,6 +560,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     // MARK: - Firestore Example PlatformLinks
 
     func test_OnInit_ExamplePlatformLinkPatheticFallacyInstagramHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let instagramLinkInEmulator = try await testingDatabaseService.getPlatformLink(
             get: TestingConstants.examplePlatformLinkPatheticFallacyInstagram,
             for: TestingConstants.exampleBandPatheticFallacy
@@ -546,6 +573,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExamplePlatformLinkPatheticFallacyFacebookHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let facebookLinkInEmulator = try await testingDatabaseService.getPlatformLink(
             get: TestingConstants.examplePlatformLinkPatheticFallacyFacebook,
             for: TestingConstants.exampleBandPatheticFallacy
@@ -558,6 +586,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExamplePlatformLinksInFirestoreEmulatorMatchTestingConstants() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let instagramLinkInEmulator = try await testingDatabaseService.getPlatformLink(
             get: TestingConstants.examplePlatformLinkPatheticFallacyInstagram,
             for: TestingConstants.exampleBandPatheticFallacy
@@ -576,6 +605,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     // MARK: - Firestore Example Backline
 
     func test_OnInit_ExampleElectricGuitarBacklineItemDumpweedExtravaganzaHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let backlineItemInEmulator = try await testingDatabaseService.getBacklineItem(
             withId: TestingConstants.exampleElectricGuitarBacklineItemDumpweedExtravaganza.id!,
             inShowWithId: TestingConstants.exampleShowDumpweedExtravaganza.id
@@ -592,6 +622,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleBassGuitarBacklineItemDumpweedExtravaganzaHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let backlineItemInEmulator = try await testingDatabaseService.getBacklineItem(
             withId: TestingConstants.exampleBassGuitarBacklineItemDumpweedExtravaganza.id!,
             inShowWithId: TestingConstants.exampleShowDumpweedExtravaganza.id
@@ -608,6 +639,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleAuxPercussionBacklineItemDumpweedExtravaganzaHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let backlineItemInEmulator = try await testingDatabaseService.getBacklineItem(
             withId: TestingConstants.exampleAuxPercussionBacklineItemDumpweedExtravaganza.id!,
             inShowWithId: TestingConstants.exampleShowDumpweedExtravaganza.id
@@ -624,6 +656,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleDrumKitPieceBacklineItemDumpweedExtravaganzaHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let backlineItemInEmulator = try await testingDatabaseService.getBacklineItem(
             withId: TestingConstants.exampleDrumKitPieceBacklineItemDumpweedExtravaganza.id!,
             inShowWithId: TestingConstants.exampleShowDumpweedExtravaganza.id
@@ -640,6 +673,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleDrumKitBacklineItemDumpweedExtravaganzaHasExpectedValues() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let backlineItemInEmulator = try await testingDatabaseService.getDrumKitBacklineItem(
             withId: TestingConstants.exampleDrumKitBacklineItemDumpweedExtravaganza.id!,
             inShowWithId: TestingConstants.exampleShowDumpweedExtravaganza.id
@@ -657,6 +691,7 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     }
 
     func test_OnInit_ExampleBacklineInFirestoreEmulatorMatchTestingConstants() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         let exampleElectricGuitarBacklineItemDumpweedExtravaganzaInEmulator = try await testingDatabaseService.getBacklineItem(
             withId: TestingConstants.exampleElectricGuitarBacklineItemDumpweedExtravaganza.id!,
             inShowWithId: TestingConstants.exampleShowDumpweedExtravaganza.id
@@ -702,11 +737,15 @@ final class FirebaseEmulatorDataTests: XCTestCase {
         XCTAssertEqual(currentUser.uid, TestingConstants.exampleUserJulian.id)
     }
 
-    func test_OnLogIn_CurrentUserExists() {
+    func test_OnLogIn_CurrentUserExists() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
+
         XCTAssertTrue(testingDatabaseService.userIsLoggedIn(), "The user should've been signed in during setUp before this test was run")
     }
 
-    func test_OnLogOut_FirebaseAuthEmulatorLogsOutUser() throws {
+    func test_OnLogOut_FirebaseAuthEmulatorLogsOutUser() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
+
         XCTAssertNotNil(testingDatabaseService.getLoggedInUserFromFirebaseAuth(), "The user should've been signed in during setUp before this test was run")
 
         try testingDatabaseService.logOut()
@@ -717,6 +756,8 @@ final class FirebaseEmulatorDataTests: XCTestCase {
     // MARK: - Firebase Storage
 
     func test_OnInit_FirebaseStorageEmulatorContainsExampleUserProfileImage() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
+
         let profileImageUrl = try await testingDatabaseService.getDownloadLinkForImage(
             at: TestingConstants.exampleUserJulian.profileImageUrl
         )

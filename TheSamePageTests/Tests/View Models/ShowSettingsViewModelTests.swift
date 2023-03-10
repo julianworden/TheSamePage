@@ -65,6 +65,7 @@ final class ShowSettingsViewModelTests: XCTestCase {
     func test_OnCancelShow_ShowIsCancelledSuccessfully() async throws {
         var dumpweedExtravaganzaDup = dumpweedExtravaganza
         dumpweedExtravaganzaDup.id = ""
+        dumpweedExtravaganzaDup.chatId = nil
         self.createdShowId = try await testingDatabaseService.createShow(dumpweedExtravaganzaDup)
         let createdShow = try await testingDatabaseService.getShow(withId: createdShowId!)
         sut = ShowSettingsViewModel(show: createdShow)

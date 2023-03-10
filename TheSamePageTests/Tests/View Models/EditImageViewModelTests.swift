@@ -110,10 +110,7 @@ final class EditImageViewModelTests: XCTestCase {
     func test_OnEditUserProfileImage_ImageIsEditedAndOldImageIsDeleted() async throws {
         try await testingDatabaseService.logInToExampleAccountForIntegrationTesting()
         var exampleUser = TestingConstants.exampleUserForIntegrationTesting
-        self.createdUserUid = try await testingDatabaseService.createExampleUserWithProfileImageInFirestore(
-            withUser: exampleUser
-        )
-        exampleUser.id = createdUserUid!
+        try await testingDatabaseService.addProfileImageUrl(forUser: exampleUser)
         let createdUserWithOldProfileImageUrl = try await testingDatabaseService.getUserFromFirestore(withUid: exampleUser.id)
         exampleUser.profileImageUrl = createdUserWithOldProfileImageUrl.profileImageUrl
         sut = EditImageViewModel(user: exampleUser)

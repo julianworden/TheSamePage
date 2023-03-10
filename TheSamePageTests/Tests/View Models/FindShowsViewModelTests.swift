@@ -7,6 +7,7 @@
 
 @testable import TheSamePage
 
+import CoreLocation
 import XCTest
 
 @MainActor
@@ -147,6 +148,7 @@ final class FindShowsViewModelTests: XCTestCase {
         try await Task.sleep(seconds: 1)
         try await testingDatabaseService.logInToJulianAccount()
         sut = FindShowsViewModel()
+        sut.userHasGivenLocationPermission = true
         MockLocationController.setAlaskaMockLocationControllerValues()
 
         await sut.fetchNearbyShows()
@@ -172,7 +174,8 @@ final class FindShowsViewModelTests: XCTestCase {
 
         NotificationCenter.default.post(
             name: .userLocationWasSet,
-            object: nil
+            object: nil,
+            userInfo: [NotificationConstants.locationPermissionStatus: CLAuthorizationStatus.authorizedWhenInUse]
         )
         try await Task.sleep(seconds: 0.5)
         let predicate = NSPredicate { _,_ in

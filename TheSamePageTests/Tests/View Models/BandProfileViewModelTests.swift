@@ -201,11 +201,11 @@ final class BandProfileViewModelTests: XCTestCase {
             forBandWithId: exampleBandPatheticFallacy.id
         )
         let dumpweedExtravangaUpdated = try await testingDatabaseService.getShow(withId: dumpweedExtravaganza.id)
-        let dumpweedExtravaganzaChatUpdated = try await testingDatabaseService.getChat(forShowWithId: dumpweedExtravaganza.id)
+        let dumpweedExtravaganzaChatUpdated = try await testingDatabaseService.getChat(withId: dumpweedExtravaganza.chatId!)
 
         XCTAssertFalse(patheticFallacyWithoutJulian.memberUids.contains(exampleUserLou.id), "Lou left PF")
         XCTAssertFalse (patheticFallacyUpdatedBandMembers.contains(exampleBandMemberLou), "Lou left PF")
-        XCTAssertFalse(dumpweedExtravaganzaChatUpdated!.participantUids.contains(exampleUserLou.id), "Lou should no longer be in any chats for shows that PF is playing")
+        XCTAssertFalse(dumpweedExtravaganzaChatUpdated.participantUids.contains(exampleUserLou.id), "Lou should no longer be in any chats for shows that PF is playing")
         XCTAssertFalse(dumpweedExtravangaUpdated.participantUids.contains(exampleUserLou.id), "Lou should no longer be a participant in any shows that PF is playing")
 
         try await testingDatabaseService.restorePatheticFallacy(

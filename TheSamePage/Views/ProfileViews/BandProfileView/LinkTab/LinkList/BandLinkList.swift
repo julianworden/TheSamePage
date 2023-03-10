@@ -24,7 +24,7 @@ struct BandLinkList: View {
                             Spacer()
 
                             // This force unwrap is safe because this list is only shown if viewModel.band != nil
-                            if viewModel.band!.loggedInUserIsBandAdmin {
+                            if viewModel.band!.loggedInUserIsInvolvedWithBand {
                                 BandLinkMenuButton(viewModel: viewModel, link: link)
                             }
                         }

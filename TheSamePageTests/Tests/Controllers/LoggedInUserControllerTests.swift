@@ -17,7 +17,6 @@ final class LoggedInUserControllerTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    // TODO: Implement this test once loggedInUserController can allow user to leave band
 //    func test_OnLeaveBand_UserLeavesBand() async throws {
 //        sut = BandSettingsViewModel(band: patheticFallacy)
 //

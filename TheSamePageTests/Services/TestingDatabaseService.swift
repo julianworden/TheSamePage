@@ -44,21 +44,16 @@ class TestingDatabaseService {
             .getDocument(as: User.self)
     }
 
-    func createExampleUserWithProfileImageInFirestore(withUser user: User) async throws -> String {
-        let profileImageUrl = try await uploadImage(UIImage(systemName: "plus")!)
-        var userCopy = user
-        userCopy.profileImageUrl = profileImageUrl
-
-        let docRef = try db
+    func addProfileImageUrl(forUser user: User) async throws {
+        if let profileImageUrl = try await uploadImage(UIImage(systemName: "plus")!) {
+            try await db
             .collection(FbConstants.users)
-            .addDocument(from: userCopy)
-
-        return docRef.documentID
+            .document(user.id)
+            .updateData([FbConstants.profileImageUrl: profileImageUrl])
+        }
     }
 
     func deleteUserFromFirestore(withUid uid: String) async throws {
-        _ = try await Functions.functions().httpsCallable(FbConstants.recursiveDelete).call([FbConstants.path: "\(FbConstants.users)/\(uid)"])
-
         let userShows = try await getPlayingShows(forUserWithUid: uid)
         for show in userShows {
             try await removeUserFromShow(uid: uid, showId: show.id)
@@ -73,6 +68,8 @@ class TestingDatabaseService {
         for band in userBands {
             try await removeUserFromBand(uid: uid, bandId: band.id)
         }
+
+        _ = try await Functions.functions().httpsCallable(FbConstants.recursiveDelete).call([FbConstants.path: "\(FbConstants.users)/\(uid)"])
     }
 
     func editUserInfo(uid: String, field: String, newValue: String) async throws {
@@ -196,11 +193,18 @@ class TestingDatabaseService {
     func addBandToShow(add band: Band, as showParticipant: ShowParticipant, to show: Show) async throws -> String {
         do {
             // Add showParticipant to the show's participants collection
-            let showParticipantDocument = try db
+            let showParticipantDocument = try await db
                 .collection(FbConstants.shows)
                 .document(show.id)
                 .collection(FbConstants.participants)
-                .addDocument(from: showParticipant)
+                .addDocument(
+                    data: [
+                        FbConstants.name: showParticipant.name,
+                        FbConstants.bandId: showParticipant.bandId,
+                        FbConstants.bandAdminUid: showParticipant.bandAdminUid,
+                        FbConstants.showId: showParticipant.showId
+                    ]
+                )
 
             // Add the band's ID to the show's bandIds property
             try await db
@@ -217,17 +221,23 @@ class TestingDatabaseService {
                             FbConstants.participantUids: FieldValue.arrayUnion(band.memberUids)
                         ]
                     )
-                try await addBandToChat(band: band, showId: show.id)
+
+                if let showChatId = show.chatId {
+                    var uidsForUsersToAddToChat = band.memberUids
+                    if !band.memberUids.contains(band.adminUid) {
+                        uidsForUsersToAddToChat.append(band.adminUid)
+                    }
+
+                    try await addUsersToChat(uids: uidsForUsersToAddToChat, chatId: showChatId)
+                }
             }
 
             // Check to see if the band admin is already in the memberUids array. If it isn't, add it to the show's participantUids property.
             if !band.memberUids.contains(band.adminUid) {
-                let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
                 try await db
                     .collection(FbConstants.shows)
                     .document(show.id)
                     .updateData([FbConstants.participantUids: FieldValue.arrayUnion([band.adminUid])])
-                try await addUserToChat(user: loggedInUser, showId: show.id)
             }
 
             return showParticipantDocument.documentID
@@ -401,7 +411,12 @@ class TestingDatabaseService {
         try await db
             .collection(FbConstants.chats)
             .document(chat.id)
-            .updateData([FbConstants.participantUids: chat.participantUids])
+            .updateData(
+                [
+                    FbConstants.participantUids: chat.participantUids,
+                    FbConstants.participantUsernames: chat.participantUsernames
+                ]
+            )
 
         try await db
             .collection(FbConstants.shows)
@@ -545,12 +560,17 @@ class TestingDatabaseService {
     }
 
     func sendShowInvite(send showInvite: ShowInvite, toBandWithAdminUid bandAdminUid: String) throws -> String {
-        return try db
+        let docRef = try db
             .collection(FbConstants.users)
             .document(bandAdminUid)
             .collection(FbConstants.notifications)
-            .addDocument(from: showInvite)
-            .documentID
+            .addDocument(from: showInvite) { error in
+                if let error {
+                    print(error.localizedDescription)
+                }
+            }
+
+        return docRef.documentID
     }
 
     // MARK: - Firestore ShowApplications
@@ -640,16 +660,11 @@ class TestingDatabaseService {
             .data(as: Chat.self)
     }
 
-    func getChat(withId chatId: String) async throws -> Chat? {
-        guard await chatExists(withId: chatId) else { return nil }
-
+    func getChat(withId chatId: String) async throws -> Chat {
         return try await db
             .collection(FbConstants.chats)
-            .whereField(FbConstants.id, isEqualTo: chatId)
-            .getDocuments()
-            .documents
-            .first!
-            .data(as: Chat.self)
+            .document(chatId)
+            .getDocument(as: Chat.self)
     }
 
     func getChats(forUserWithUid uid: String) async throws -> [Chat] {
@@ -701,35 +716,30 @@ class TestingDatabaseService {
             return false
         }
     }
-    func addUserToChat(user: User, showId: String) async throws {
-        let chatQuery = try await db
-            .collection(FbConstants.chats)
-            .whereField(FbConstants.showId, isEqualTo: showId)
-            .getDocuments()
 
-        guard !chatQuery.documents.isEmpty && chatQuery.documents.count == 1 else { return }
+    func addUsersToChat(uids: [String], chatId: String) async throws {
+        do {
+            var usernamesForUsers = [String]()
+            for uid in uids {
+                let user = try await getUserFromFirestore(withUid: uid)
+                usernamesForUsers.append(user.name)
+            }
 
-        let chat = try chatQuery.documents[0].data(as: Chat.self)
-
-        try await db
-            .collection(FbConstants.chats)
-            .document(chat.id)
-            .updateData([FbConstants.participantUids: FieldValue.arrayUnion([user.id])])
-    }
-
-    func addBandToChat(band: Band, showId: String) async throws {
-        let chatQuery = try await db
-            .collection(FbConstants.chats)
-            .whereField(FbConstants.showId, isEqualTo: showId)
-            .getDocuments()
-
-        guard !chatQuery.documents.isEmpty && chatQuery.documents.count == 1 else { return }
-
-        let chat = try chatQuery.documents[0].data(as: Chat.self)
-        try await db
-            .collection(FbConstants.chats)
-            .document(chat.id)
-            .updateData([FbConstants.participantUids: FieldValue.arrayUnion(band.memberUids)])
+            try await db
+                .collection(FbConstants.chats)
+                .document(chatId)
+                .updateData(
+                    [
+                        FbConstants.participantUids: FieldValue.arrayUnion(uids),
+                        FbConstants.participantUsernames: FieldValue.arrayUnion(usernamesForUsers)
+                    ]
+                )
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to add user to chat.",
+                systemError: error.localizedDescription
+            )
+        }
     }
 
     func deleteChat(withId id: String) async throws {
@@ -744,14 +754,6 @@ class TestingDatabaseService {
             .collection(FbConstants.chats)
             .document(chatId)
             .updateData([FbConstants.participantUids: FieldValue.arrayRemove([uid])])
-    }
-
-    func getTotalChatCountInFirestore() async throws -> Int {
-        return try await db
-            .collection(FbConstants.chats)
-            .count
-            .getAggregation(source: .server)
-            .count as! Int
     }
 
     func getChatMessage(get chatMessage: ChatMessage, in chat: Chat) async throws -> ChatMessage {

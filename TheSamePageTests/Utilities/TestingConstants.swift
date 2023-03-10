@@ -74,7 +74,7 @@ struct TestingConstants {
     )
 
     static let exampleUserForIntegrationTesting = User(
-        id: "",
+        id: "XuGLWeK21EwCiTJgrhKZTPCCoSLk",
         name: "exampleuser",
         firstName: "Example",
         lastName: "User",
@@ -239,7 +239,8 @@ struct TestingConstants {
         hasBar: true,
         is21Plus: true,
         genre: Genre.rock.rawValue,
-        maxNumberOfBands: 3
+        maxNumberOfBands: 3,
+        chatId: "cpS2HseZT6XIG1qMRAKL"
     )
 
     static let exampleShowAppleParkThrowdown = Show(
@@ -272,7 +273,8 @@ struct TestingConstants {
         hasBar: false,
         is21Plus: false,
         genre: Genre.pop.rawValue,
-        maxNumberOfBands: 3
+        maxNumberOfBands: 3,
+        chatId: "WiAizzEwGzQ3DFOg2Xop"
     )
 
     static let exampleShowForIntegrationTesting = Show(

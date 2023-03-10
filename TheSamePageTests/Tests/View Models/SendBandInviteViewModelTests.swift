@@ -113,6 +113,8 @@ final class SendBandInviteViewModelTests: XCTestCase {
         sut.recipientRole = .bassGuitar
 
         self.createdBandInviteId = await sut.sendBandInvite()
+        try testingDatabaseService.logOut()
+        try await testingDatabaseService.logInToEricAccount()
         let createdBandInvite = try await testingDatabaseService.getBandInvite(withId: createdBandInviteId!, forUserWithUid: eric.id)
 
         XCTAssertEqual(createdBandInvite.id, createdBandInviteId)

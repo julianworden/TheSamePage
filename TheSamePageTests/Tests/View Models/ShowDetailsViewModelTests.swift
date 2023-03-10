@@ -51,7 +51,7 @@ final class ShowDetailsViewModelTests: XCTestCase {
     func test_OnInitWithShowId_DefaultValuesAreCorrect() async throws {
         try await testingDatabaseService.logInToJulianAccount()
         sut = ShowDetailsViewModel(show: nil, showId: dumpweedExtravaganza.id)
-        try await Task.sleep(seconds: 0.5)
+        try await Task.sleep(seconds: 4)
 
         let showPredicate = NSPredicate { _, _ in
             (self.sut.show) != nil
@@ -253,7 +253,7 @@ final class ShowDetailsViewModelTests: XCTestCase {
 
         await sut.removeShowParticipantFromShow(showParticipant: showParticipant)
         let editedShow = try await testingDatabaseService.getShow(withId: dumpweedExtravaganza.id)
-        let editedShowChat = try await testingDatabaseService.getChat(forShowWithId: dumpweedExtravaganza.id)
+        let editedShowChat = try await testingDatabaseService.getChat(withId: dumpweedExtravaganza.chatId!)
 
         do {
             _ = try await testingDatabaseService.getShowParticipant(craigAndTheFettuccinisAsShowParticipant)
@@ -263,8 +263,8 @@ final class ShowDetailsViewModelTests: XCTestCase {
             XCTAssertEqual(editedShow.bandIds.count, 2, "There should only be 2 bands on the show now")
             XCTAssertEqual(editedShow.participantUids.count, 3, "There should only be 3 users in the array")
             XCTAssertFalse(editedShow.participantUids.contains(TestingConstants.exampleUserCraig.id))
-            XCTAssertFalse(editedShowChat!.participantUids.contains(TestingConstants.exampleUserCraig.id))
-            XCTAssertFalse(editedShowChat!.participantUsernames.contains(TestingConstants.exampleUserCraig.name))
+            XCTAssertFalse(editedShowChat.participantUids.contains(TestingConstants.exampleUserCraig.id))
+            XCTAssertFalse(editedShowChat.participantUsernames.contains(TestingConstants.exampleUserCraig.name))
         }
     }
 

@@ -16,7 +16,6 @@ final class SignUpViewModelTests: XCTestCase {
     /// Makes it easier to delete an example user that's created for testing in tearDown method. Any user
     /// that's created in these tests should assign its id property to this property so that it can be deleted
     /// during tearDown.
-    var createdUserUid: String?
     var createdImageDownloadUrl: String?
     let tim = TestingConstants.exampleUserTimForIntegrationTesting
 
@@ -26,16 +25,6 @@ final class SignUpViewModelTests: XCTestCase {
     }
 
     override func tearDown() async throws {
-        if let createdImageDownloadUrl {
-            try await testingDatabaseService.deleteImage(at: createdImageDownloadUrl)
-            self.createdImageDownloadUrl = nil
-        }
-
-        if let createdUserUid {
-            try await testingDatabaseService.deleteAccountInFirebaseAuthAndFirestore(forUserWithUid: createdUserUid)
-            self.createdUserUid = nil
-        }
-
         try testingDatabaseService.logOut()
         sut = nil
         testingDatabaseService = nil
@@ -137,47 +126,53 @@ final class SignUpViewModelTests: XCTestCase {
     func test_OnSignUpButtonTappedWithCompleteFormAndValidAccountInfoAndNoProfileImage_NewUserIsSignedIn() async throws {
         setTimCookAccountInfoInViewModelProperties()
 
-        createdUserUid = await sut.signUpButtonTapped()
+        let createdUid = await sut.signUpButtonTapped()
 
         XCTAssertFalse(AuthController.userIsLoggedOut(), "The user should be logged in after creating their account.")
+
+        try await testingDatabaseService.deleteAccountInFirebaseAuthAndFirestore(forUserWithUid: createdUid)
     }
 
     func test_OnSignUpButtonTappedWithCompleteFormAndValidAccountInfoAndNoProfileImage_NewUserIsCreatedInFirestore() async throws {
         setTimCookAccountInfoInViewModelProperties()
 
-        createdUserUid = await sut.signUpButtonTapped()
-        try await testingDatabaseService.logInToTimAccount()
-        let createdUser = try await testingDatabaseService.getUserFromFirestore(withUid: createdUserUid!)
+        let createdUserUid = await sut.signUpButtonTapped()
+        let createdUser = try await testingDatabaseService.getUserFromFirestore(withUid: createdUserUid)
 
         XCTAssertEqual(tim.firstName, createdUser.firstName)
         XCTAssertEqual(tim.lastName, createdUser.lastName)
         XCTAssertEqual(tim.emailAddress, createdUser.emailAddress)
         XCTAssertTrue(createdUser.name.isEmpty, "The user should not yet have a username.")
+
+        try await testingDatabaseService.deleteAccountInFirebaseAuthAndFirestore(forUserWithUid: createdUserUid)
     }
 
     func test_OnSignUpButtonTappedWithCompleteFormAndValidAccountInfoAndNoProfileImage_NewUserIsCreatedInFirebaseAuth() async throws {
         setTimCookAccountInfoInViewModelProperties()
 
-        createdUserUid = await sut.signUpButtonTapped()
-        try await testingDatabaseService.logInToTimAccount()
+        let createdUid = await sut.signUpButtonTapped()
         let createdUser = testingDatabaseService.getLoggedInUserFromFirebaseAuth()
 
         XCTAssertNotNil(createdUser, "The user should've been created and become the Auth.auth().currentUser")
         XCTAssertEqual(tim.emailAddress, createdUser!.email)
+
+        try await testingDatabaseService.deleteAccountInFirebaseAuthAndFirestore(forUserWithUid: createdUid)
     }
 
     func test_OnSignUpButtonTappedWithCompleteFormAndValidAccountInfoAndWithProfileImage_NewUserAndImageAreCreated() async throws {
         setTimCookAccountInfoInViewModelProperties()
         sut.profileImage = TestingConstants.uiImageForTesting
 
-        createdUserUid = await sut.signUpButtonTapped()
-        try await testingDatabaseService.logInToTimAccount()
-        let createdUser = try await testingDatabaseService.getUserFromFirestore(withUid: createdUserUid!)
-        createdImageDownloadUrl = createdUser.profileImageUrl
+        let createdUserUid = await sut.signUpButtonTapped()
+        let createdUser = try await testingDatabaseService.getUserFromFirestore(withUid: createdUserUid)
+        let createdImageDownloadUrl = createdUser.profileImageUrl
         let profileImageExistsInFirebaseStorage = try await testingDatabaseService.imageExists(at: createdImageDownloadUrl)
 
         XCTAssertNotNil(createdImageDownloadUrl, "The user should have a profile image")
         XCTAssertTrue(profileImageExistsInFirebaseStorage, "The user's profile image should be getting stored in Firebase Storage")
+
+        try await testingDatabaseService.deleteImage(at: createdImageDownloadUrl!)
+        try await testingDatabaseService.deleteAccountInFirebaseAuthAndFirestore(forUserWithUid: createdUserUid)
     }
 
     func test_OnSignUpButtonTappedWithEmailAddressesThatDoNotMatch_ErrorViewStateIsSet() async {

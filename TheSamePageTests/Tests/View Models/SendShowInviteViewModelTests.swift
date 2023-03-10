@@ -25,14 +25,9 @@ final class SendShowInviteViewModelTests: XCTestCase {
 
     override func setUp() async throws {
         testingDatabaseService = TestingDatabaseService()
-        try await testingDatabaseService.logInToJulianAccount()
     }
 
     override func tearDown() async throws {
-        if let createdShowInviteId {
-            try await testingDatabaseService.deleteNotification(withId: createdShowInviteId, forUserWithUid: craig.id)
-        }
-
         try testingDatabaseService.logOut()
         sut = nil
         testingDatabaseService = nil
@@ -110,10 +105,13 @@ final class SendShowInviteViewModelTests: XCTestCase {
     }
 
     func test_OnSendShowInvite_InviteIsSentSuccessfully() async throws {
+        try await testingDatabaseService.logInToJulianAccount()
         sut = SendShowInviteViewModel(band: theApples)
         await sut.getHostedShows()
 
-        createdShowInviteId = await sut.sendShowInvite()
+        let createdShowInviteId = await sut.sendShowInvite()
+        try testingDatabaseService.logOut()
+        try await testingDatabaseService.logInToCraigAccount()
         let createdShowInvite = try await testingDatabaseService.getShowInvite(
             withId: createdShowInviteId!, forUserWithUid: craig.id
         )
@@ -127,6 +125,8 @@ final class SendShowInviteViewModelTests: XCTestCase {
         XCTAssertEqual(createdShowInvite.senderUsername, julian.name)
         XCTAssertEqual(createdShowInvite.showVenue, dumpweedExtravaganza.venue)
         XCTAssertEqual(createdShowInvite.message, "\(julian.name) is inviting \(theApples.name) to play \(dumpweedExtravaganza.name).")
+
+        try await testingDatabaseService.deleteNotification(withId: createdShowInviteId!, forUserWithUid: craig.id)
     }
 
     func test_OnGetHostedShowsWithUserThatIsHostingShow_DataIsFetchedAndViewStateIsSet() async throws {

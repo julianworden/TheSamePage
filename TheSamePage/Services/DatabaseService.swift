@@ -29,10 +29,20 @@ class DatabaseService: NSObject {
     ///   - user: The user being created in Firestore.
     func createUserObject(user: User) async throws {
         do {
-            try db
+            try await db
                 .collection(FbConstants.users)
                 .document(user.id)
-                .setData(from: user)
+                .setData(
+                    [
+                        FbConstants.id: user.id,
+                        FbConstants.name: user.name,
+                        FbConstants.firstName: user.firstName,
+                        FbConstants.lastName: user.lastName,
+                        FbConstants.emailAddress: user.emailAddress,
+                        FbConstants.profileImageUrl: user.profileImageUrl ?? ""
+                    ]
+                )
+
         } catch {
             throw FirebaseError.connection(
                 message: "There was an error creating your account.",
@@ -248,8 +258,8 @@ class DatabaseService: NSObject {
                 for show in bandShows {
                     try await removeUserFromShow(uid: user.id, show: show)
                     
-                    if let showChat = try await getChat(withShowId: show.id) {
-                        try await removeUserFromChat(user: user, chat: showChat)
+                    if let showChatId = show.chatId {
+                        try await removeUsersFromChat(uids: [user.id], chatId: showChatId)
                     }
                 }
             }
@@ -285,20 +295,26 @@ class DatabaseService: NSObject {
             .delete()
     }
     
-    func removeUserFromChat(user: User, chat: Chat) async throws {
+    func removeUsersFromChat(uids: [String], chatId: String) async throws {
         do {
+            var usernamesFromUids = [String]()
+            for uid in uids {
+                let user = try await getUser(withUid: uid)
+                usernamesFromUids.append(user.name)
+            }
+
             try await db
                 .collection(FbConstants.chats)
-                .document(chat.id)
+                .document(chatId)
                 .updateData(
                     [
-                        FbConstants.participantUids: FieldValue.arrayRemove([user.id]),
-                        FbConstants.participantUsernames: FieldValue.arrayRemove([user.name])
+                        FbConstants.participantUsernames: FieldValue.arrayRemove(usernamesFromUids),
+                        FbConstants.participantUids: FieldValue.arrayRemove(uids)
                     ]
                 )
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to remove you from \(chat.name ?? "chat").",
+                message: "Failed to remove you from chat.",
                 systemError: error.localizedDescription
             )
         }
@@ -432,7 +448,7 @@ class DatabaseService: NSObject {
 
         let userChats = try await getChats(forUserWithUid: uid)
         for chat in userChats {
-            try await removeUserFromChat(user: loggedInUser, chat: chat)
+            try await removeUsersFromChat(uids: [loggedInUser.id], chatId: chat.id)
         }
 
         let userBands = try await getJoinedBands(withUid: uid)
@@ -595,9 +611,18 @@ class DatabaseService: NSObject {
         do {
             let bandReference = try db
                 .collection(FbConstants.bands)
-                .addDocument(from: band)
-            
-            try await bandReference.updateData(["id": bandReference.documentID])
+                .addDocument(from: band) { error in
+                    if let error {
+                        print(error.localizedDescription)
+                    }
+                }
+            let bandDocumentId = bandReference.documentID
+
+            try await db
+                .collection(FbConstants.bands)
+                .document(bandDocumentId)
+                .updateData([FbConstants.id: bandDocumentId])
+
             return bandReference.documentID
         } catch {
             throw FirebaseError.connection(
@@ -659,17 +684,19 @@ class DatabaseService: NSObject {
         withBandInvite bandInvite: BandInvite?
     ) async throws {
         do {
+            // User must be added to Band before being added in the band's participants collection to allow security rules to work.
+            try await db
+                .collection(FbConstants.bands)
+                .document(band.id)
+                .updateData([FbConstants.memberUids: FieldValue.arrayUnion([bandMember.uid])])
+
             let bandMemberDocument = try db
                 .collection(FbConstants.bands)
                 .document(band.id)
                 .collection(FbConstants.members)
                 .addDocument(from: bandMember)
+
             try await bandMemberDocument.updateData([FbConstants.id: bandMemberDocument.documentID])
-            
-            try await db
-                .collection(FbConstants.bands)
-                .document(band.id)
-                .updateData([FbConstants.memberUids: FieldValue.arrayUnion([bandMember.uid])])
             
             let bandShows = try await getShowsForBand(band: band)
             
@@ -684,7 +711,7 @@ class DatabaseService: NSObject {
             }
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to add you to \(band.name).",
+                message: "Failed to add you to band.",
                 systemError: error.localizedDescription
             )
         }
@@ -747,7 +774,11 @@ class DatabaseService: NSObject {
                 .collection(FbConstants.users)
                 .document(invite.recipientUid)
                 .collection(FbConstants.notifications)
-                .addDocument(from: invite)
+                .addDocument(from: invite) { error in
+                    if let error {
+                        print(error.localizedDescription)
+                    }
+                }
             try await bandInviteDocument.updateData([FbConstants.id: bandInviteDocument.documentID])
             return bandInviteDocument.documentID
         } catch {
@@ -827,7 +858,7 @@ class DatabaseService: NSObject {
             try await FirebaseFunctionsController.recursiveDelete(path: "\(FbConstants.bands)/\(band.id)")
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to delete show chat.",
+                message: "Failed to delete band.",
                 systemError: error.localizedDescription
             )
         }
@@ -1088,40 +1119,33 @@ class DatabaseService: NSObject {
                 .document(showInvite.showId)
                 .collection(FbConstants.participants)
                 .addDocument(from: showParticipant)
-            
-            // Add the band's ID to the show's bandIds property
+
             try await db
                 .collection(FbConstants.shows)
                 .document(showInvite.showId)
-                .updateData([FbConstants.bandIds: FieldValue.arrayUnion([band.id])])
-            
-            if !band.memberUids.isEmpty {
-                try await db
-                    .collection(FbConstants.shows)
-                    .document(showInvite.showId)
-                    .updateData(
-                        [
-                            FbConstants.participantUids: FieldValue.arrayUnion(band.memberUids)
-                        ]
-                    )
-                try await addBandToChat(band: band, showId: showInvite.showId)
+                .updateData(
+                    [
+                        FbConstants.participantUids: FieldValue.arrayUnion(band.memberAndAdminUids),
+                        FbConstants.bandIds: FieldValue.arrayUnion([band.id])
+                    ]
+                )
+
+
+            let show = try await getShow(showId: showInvite.showId)
+
+            if let showChatId = show.chatId {
+                var uidsForUsersToAddToChat = band.memberUids
+                if !uidsForUsersToAddToChat.contains(band.adminUid) {
+                    uidsForUsersToAddToChat.append(band.adminUid)
+                }
+
+                try await addUsersToChat(uids: uidsForUsersToAddToChat, chatId: showChatId)
             }
-            
-            // Check to see if the band admin is already in the memberUids array. If it isn't, add it to the show's participantUids property.
-            if !band.memberUids.contains(band.adminUid) {
-                let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
-                try await db
-                    .collection(FbConstants.shows)
-                    .document(showInvite.showId)
-                    .updateData([FbConstants.participantUids: FieldValue.arrayUnion([band.adminUid])])
-                try await addUserToChat(user: loggedInUser, showId: showInvite.showId)
-            }
-            
             
             try await deleteNotification(withId: showInvite.id)
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to add \(band.name) to \(showInvite.showName).",
+                message: "Failed to add band to show.",
                 systemError: error.localizedDescription
             )
         }
@@ -1136,34 +1160,26 @@ class DatabaseService: NSObject {
                 .collection(FbConstants.participants)
                 .addDocument(from: showParticipant)
 
-            // Add the band's ID to the show's bandIds property
             try await db
                 .collection(FbConstants.shows)
                 .document(showApplication.showId)
-                .updateData([FbConstants.bandIds: FieldValue.arrayUnion([band.id])])
+                .updateData(
+                    [
+                        FbConstants.participantUids: FieldValue.arrayUnion(band.memberAndAdminUids),
+                        FbConstants.bandIds: FieldValue.arrayUnion([band.id])
+                    ]
+                )
 
-            if !band.memberUids.isEmpty {
-                try await db
-                    .collection(FbConstants.shows)
-                    .document(showApplication.showId)
-                    .updateData(
-                        [
-                            FbConstants.participantUids: FieldValue.arrayUnion(band.memberUids)
-                        ]
-                    )
-                try await addBandToChat(band: band, showId: showApplication.showId)
+            let show = try await getShow(showId: showApplication.showId)
+
+            if let showChatId = show.chatId {
+                var uidsForUsersToAddToChat = band.memberUids
+                if !uidsForUsersToAddToChat.contains(band.adminUid) {
+                    uidsForUsersToAddToChat.append(band.adminUid)
+                }
+
+                try await addUsersToChat(uids: uidsForUsersToAddToChat, chatId: showChatId)
             }
-
-            // Check to see if the band admin is already in the memberUids array. If it isn't, add it to the show's participantUids property.
-            if !band.memberUids.contains(band.adminUid) {
-                let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
-                try await db
-                    .collection(FbConstants.shows)
-                    .document(showApplication.showId)
-                    .updateData([FbConstants.participantUids: FieldValue.arrayUnion([band.adminUid])])
-                try await addUserToChat(user: loggedInUser, showId: showApplication.showId)
-            }
-
 
             try await deleteNotification(withId: showApplication.id)
         } catch {
@@ -1189,33 +1205,26 @@ class DatabaseService: NSObject {
                 .collection(FbConstants.participants)
                 .addDocument(from: showParticipant)
 
-            // Add the band's ID to the show's bandIds property
-            try await db
-                .collection(FbConstants.shows)
-                .document(show.id)
-                .updateData([FbConstants.bandIds: FieldValue.arrayUnion([band.id])])
-
             if !band.memberUids.isEmpty {
                 try await db
                     .collection(FbConstants.shows)
                     .document(show.id)
                     .updateData(
                         [
-                            FbConstants.participantUids: FieldValue.arrayUnion(band.memberUids)
+                            FbConstants.participantUids: FieldValue.arrayUnion(band.memberAndAdminUids),
+                            FbConstants.bandIds: FieldValue.arrayUnion([band.id])
                         ]
                     )
-                try await addBandToChat(band: band, showId: show.id)
+
+                if let showChatId = show.chatId {
+                    var uidsForUsersToAddToChat = band.memberUids
+                    if !uidsForUsersToAddToChat.contains(band.adminUid) {
+                        uidsForUsersToAddToChat.append(band.adminUid)
+                    }
+                    try await addUsersToChat(uids: uidsForUsersToAddToChat, chatId: showChatId)
+                }
             }
 
-            // Check to see if the band admin is already in the memberUids array. If it isn't, add it to the show's participantUids property.
-            if !band.memberUids.contains(band.adminUid) {
-                let loggedInUser = try await DatabaseService.shared.getLoggedInUser()
-                try await db
-                    .collection(FbConstants.shows)
-                    .document(show.id)
-                    .updateData([FbConstants.participantUids: FieldValue.arrayUnion([band.adminUid])])
-                try await addUserToChat(user: loggedInUser, showId: show.id)
-            }
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to add \(band.name) to \(show.name).",
@@ -1271,16 +1280,13 @@ class DatabaseService: NSObject {
             }
         }
 
-        if let showChat = try await getChat(withShowId: show.id) {
-            for uid in showParticipantAsBand.memberUids {
-                let bandMemberAsUser = try await getUser(withUid: uid)
-                try await removeUserFromChat(user: bandMemberAsUser, chat: showChat)
+        if let showChatId = show.chatId {
+            var uidsToRemoveFromShowChat = showParticipantAsBand.memberUids
+            if !uidsToRemoveFromShowChat.contains(showParticipantAsBand.adminUid) {
+                uidsToRemoveFromShowChat.append(showParticipantAsBand.adminUid)
             }
 
-            if !showParticipantAsBand.memberUids.contains(showParticipantAsBand.adminUid) {
-                let bandAdminAsUser = try await getUser(withUid: showParticipantAsBand.adminUid)
-                try await removeUserFromChat(user: bandAdminAsUser, chat: showChat)
-            }
+            try await removeUsersFromChat(uids: uidsToRemoveFromShowChat, chatId: showChatId)
         }
     }
     
@@ -1291,10 +1297,10 @@ class DatabaseService: NSObject {
                 .document(show.id)
                 .updateData([FbConstants.participantUids: FieldValue.arrayUnion([user.id])])
             
-            if let showChat = try await getChat(withShowId: show.id) {
+            if let showChatId = show.chatId {
                 try await db
                     .collection(FbConstants.chats)
-                    .document(showChat.id)
+                    .document(showChatId)
                     .updateData([FbConstants.participantUids: FieldValue.arrayUnion([user.id])])
             }
         } catch {
@@ -1489,7 +1495,9 @@ class DatabaseService: NSObject {
     func cancelShow(show: Show) async throws {
         do {
             try await FirebaseFunctionsController.recursiveDelete(path: "\(FbConstants.shows)/\(show.id)")
-            try await deleteChat(for: show)
+            if let showChatId = show.chatId {
+                try await deleteChat(withId: showChatId)
+            }
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to cancel \(show.name).",
@@ -1587,31 +1595,31 @@ class DatabaseService: NSObject {
     
     // MARK: - Chats
 
-    /// Fetches the chat that belongs to a given show.
-    /// - Parameter showId: The ID of the show that the fetched chat is associated with.
-    /// - Returns: The fetched chat associated with the show passed into the showId property. Returns nil if no chat is found for a show.
-    /// It is up to the caller to determine what actions to take when nil is returned.
-    func getChat(withShowId showId: String) async throws -> Chat? {
-        do {
-            let chat = try await db
-                .collection(FbConstants.chats)
-                .whereField(FbConstants.showId, isEqualTo: showId)
-                .getDocuments()
-
-            // Each show should only have 1 chat
-            guard !chat.documents.isEmpty && chat.documents[0].exists && chat.documents.count == 1 else { return nil }
-
-            let fetchedChat = try chat.documents[0].data(as: Chat.self)
-            return fetchedChat
-        } catch Swift.DecodingError.keyNotFound {
-            throw FirebaseError.dataNotFound
-        } catch {
-            throw FirebaseError.connection(
-                message: "Failed to fetch show chat.",
-                systemError: error.localizedDescription
-            )
-        }
-    }
+//    /// Fetches the chat that belongs to a given show.
+//    /// - Parameter showId: The ID of the show that the fetched chat is associated with.
+//    /// - Returns: The fetched chat associated with the show passed into the showId property. Returns nil if no chat is found for a show.
+//    /// It is up to the caller to determine what actions to take when nil is returned.
+//    func getChat(withShowId showId: String) async throws -> Chat? {
+//        do {
+//            let chat = try await db
+//                .collection(FbConstants.chats)
+//                .whereField(FbConstants.showId, isEqualTo: showId)
+//                .getDocuments()
+//
+//            // Each show should only have 1 chat
+//            guard !chat.documents.isEmpty && chat.documents[0].exists && chat.documents.count == 1 else { return nil }
+//
+//            let fetchedChat = try chat.documents[0].data(as: Chat.self)
+//            return fetchedChat
+//        } catch Swift.DecodingError.keyNotFound {
+//            throw FirebaseError.dataNotFound
+//        } catch {
+//            throw FirebaseError.connection(
+//                message: "Failed to fetch show chat.",
+//                systemError: error.localizedDescription
+//            )
+//        }
+//    }
 
     func getChats(forUserWithUid uid: String) async throws -> [Chat] {
         let chatDocuments = try await db
@@ -1705,17 +1713,16 @@ class DatabaseService: NSObject {
     /// Instead, its ID property will be set from within this method.
     func createChat(chat: Chat) async throws -> String {
         do {
-            let chatReference = try await db
+            // Done this way because
+            let chatReference = try db
                 .collection(FbConstants.chats)
-                .addDocument(data: [FbConstants.participantUids: chat.participantUids])
-
-            try chatReference.setData(from: chat, merge: true) { error in
-                if let error {
-                    print(error)
+                .addDocument(from: chat) { error in
+                    if let error {
+                        print(error)
+                    }
                 }
-            }
 
-            try await chatReference.updateData(["id": chatReference.documentID])
+            try await chatReference.updateData([FbConstants.id: chatReference.documentID])
             return chatReference.documentID
         } catch {
             throw FirebaseError.connection(
@@ -1767,60 +1774,31 @@ class DatabaseService: NSObject {
             throw FirebaseError.connection(message: "Failed to fetch new messages.", systemError: error.localizedDescription)
         }
     }
-
-    /// Called when a band admin accepts a show invite for their band. This allows the band to gain access to the show's chat.
-    /// - Parameters:
-    ///   - band: The band that will be joining the chat.
-    ///   - showId: The ID of the show that the chat belongs to. Also the value of the show's chat's showId property.
-    func addBandToChat(band: Band, showId: String) async throws {
-        do {
-            let chatQuery = try await db
-                .collection(FbConstants.chats)
-                .whereField(FbConstants.showId, isEqualTo: showId)
-                .getDocuments()
-            
-            guard !chatQuery.documents.isEmpty && chatQuery.documents.count == 1 else { return }
-            
-            let chat = try chatQuery.documents[0].data(as: Chat.self)
-            try await db
-                .collection(FbConstants.chats)
-                .document(chat.id)
-                .updateData([FbConstants.participantUids: FieldValue.arrayUnion(band.memberUids)])
-        } catch {
-            throw FirebaseError.connection(
-                message: "Failed to add band to show chat.",
-                systemError: error.localizedDescription
-            )
-        }
-    }
     
-    /// Adds a specific user to a show's chat.
+    /// Adds specific users to a chat. As of version 1.0, this method is only used to add users to a show chat in bulk.
     /// - Parameters:
-    ///   - uid: The UID of the user being added to the chat.
-    ///   - showId: The ID of the show whose chat the user is getting added to.
-    func addUserToChat(user: User, showId: String) async throws {
+    ///   - uids: The UIDs of the users being added to the chat.
+    ///   - chatId: The ID of the chat the users are getting added to.
+    func addUsersToChat(uids: [String], chatId: String) async throws {
         do {
-            let chatQuery = try await db
-                .collection(FbConstants.chats)
-                .whereField(FbConstants.showId, isEqualTo: showId)
-                .getDocuments()
-            
-            guard !chatQuery.documents.isEmpty && chatQuery.documents.count == 1 else { return }
-            
-            let chat = try chatQuery.documents[0].data(as: Chat.self)
-            
+            var usernamesForUsers = [String]()
+            for uid in uids {
+                let user = try await getUser(withUid: uid)
+                usernamesForUsers.append(user.name)
+            }
+
             try await db
                 .collection(FbConstants.chats)
-                .document(chat.id)
+                .document(chatId)
                 .updateData(
                     [
-                        FbConstants.participantUids: FieldValue.arrayUnion([user.id]),
-                        FbConstants.participantUsernames: FieldValue.arrayUnion([user.name])
+                        FbConstants.participantUids: FieldValue.arrayUnion(uids),
+                        FbConstants.participantUsernames: FieldValue.arrayUnion(usernamesForUsers)
                     ]
                 )
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to add \(user.name) to chat.",
+                message: "Failed to add user to chat.",
                 systemError: error.localizedDescription
             )
         }
@@ -1885,19 +1863,9 @@ class DatabaseService: NSObject {
         }
     }
     
-    func deleteChat(for show: Show) async throws {
+    func deleteChat(withId chatId: String) async throws {
         do {
-            let chatDocument = try await db
-                .collection(FbConstants.chats)
-                .whereField(FbConstants.showId, isEqualTo: show.id)
-                .getDocuments()
-                .documents
-            
-            guard !chatDocument.isEmpty else { return }
-            
-            let chat = try chatDocument[0].data(as: Chat.self)
-
-            try await FirebaseFunctionsController.recursiveDelete(path: "\(FbConstants.chats)/\(chat.id)")
+            try await FirebaseFunctionsController.recursiveDelete(path: "\(FbConstants.chats)/\(chatId)")
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to delete show chat.",
@@ -1994,26 +1962,6 @@ class DatabaseService: NSObject {
                 .updateData([FbConstants.fcmToken: newFcmToken])
         } catch {
             throw FirebaseError.connection(message: "Failed to complete log log in.", systemError: error.localizedDescription)
-        }
-    }
-}
-
-extension UIImage {
-    func resized(to newSize: CGSize) -> UIImage {
-        return UIGraphicsImageRenderer(size: newSize).image { _ in
-            let hScale = newSize.height / size.height
-            let vScale = newSize.width / size.width
-            let scale = max(hScale, vScale) // scaleToFill
-            let resizeSize = CGSize(width: size.width*scale, height: size.height*scale)
-            var middle = CGPoint.zero
-            if resizeSize.width > newSize.width {
-                middle.x -= (resizeSize.width-newSize.width)/2.0
-            }
-            if resizeSize.height > newSize.height {
-                middle.y -= (resizeSize.height-newSize.height)/2.0
-            }
-
-            draw(in: CGRect(origin: middle, size: resizeSize))
         }
     }
 }

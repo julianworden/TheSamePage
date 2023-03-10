@@ -178,7 +178,7 @@ final class FindShowsViewModel: ObservableObject {
 
     func addLocationNotificationObserver() {
         NotificationCenter.default.addObserver(forName: .userLocationWasSet, object: nil, queue: .main) {
-            if let locationAuthorizationStatus = $0.userInfo?["locationPermissionStatus"] as? CLAuthorizationStatus {
+            if let locationAuthorizationStatus = $0.userInfo?[NotificationConstants.locationPermissionStatus] as? CLAuthorizationStatus {
                 Task { @MainActor in
                     self.locationAuthorizationStatus = locationAuthorizationStatus
 

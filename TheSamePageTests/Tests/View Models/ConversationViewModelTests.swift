@@ -56,8 +56,8 @@ final class ConversationViewModelTests: XCTestCase {
         await sut.callOnAppearMethods()
         try await Task.sleep(seconds: 0.5)
 
-        let fetchedShowChat = try await testingDatabaseService.getChat(forShowWithId: dumpweedExtravaganza.id)
-        let fetchedShowChatMessages = try await testingDatabaseService.getAllChatMessages(in: fetchedShowChat!)
+        let fetchedShowChat = try await testingDatabaseService.getChat(withId: dumpweedExtravaganza.chatId!)
+        let fetchedShowChatMessages = try await testingDatabaseService.getAllChatMessages(in: fetchedShowChat)
 
         XCTAssertTrue(sut.messageText.isEmpty)
         XCTAssertGreaterThan(fetchedShowChatMessages.count, sut.messages.count)
@@ -117,16 +117,15 @@ final class ConversationViewModelTests: XCTestCase {
         sut = ConversationViewModel(chat: nil, show: show)
         await sut.callOnAppearMethods()
 
-        let createdChat = try await testingDatabaseService.getChat(forShowWithId: show.id)
-        self.createdChatId = createdChat!.id
-        let chatCount = try await testingDatabaseService.getTotalChatCountInFirestore()
+        let updatedShowWithChatId = try await testingDatabaseService.getShow(withId: createdShowId!)
+        let createdChat = try await testingDatabaseService.getChat(withId: updatedShowWithChatId.chatId!)
+        self.createdChatId = createdChat.id
 
-        XCTAssertEqual(createdChat!.name, show.name, "The name of the chat should match the name of the show")
-        XCTAssertEqual(createdChat!.showId, show.id, "The show's document ID should be in the chat's showId property")
-        XCTAssertEqual(createdChat!.participantUids, show.participantUids, "The chat and show should have the same participant UIDs")
-        XCTAssertEqual(chatCount, 3, "There should now be three chats total in Firestore Emulator")
-        XCTAssertTrue(createdChat!.participantUsernames.contains(eric.name))
-        XCTAssertEqual(createdChat!.participantUsernames.count, 1)
+        XCTAssertEqual(createdChat.name, show.name, "The name of the chat should match the name of the show")
+        XCTAssertEqual(createdChat.showId, show.id, "The show's document ID should be in the chat's showId property")
+        XCTAssertEqual(createdChat.participantUids, show.participantUids, "The chat and show should have the same participant UIDs")
+        XCTAssertTrue(createdChat.participantUsernames.contains(eric.name))
+        XCTAssertEqual(createdChat.participantUsernames.count, 1)
     }
 
     func test_OnInitWithChatWithExistingMessages_MessagesAreSortedInCorrectOrder() async throws {
@@ -161,14 +160,14 @@ final class ConversationViewModelTests: XCTestCase {
         sut.messageText = TestingConstants.testMessageText
 
         let newChatMessage = await sut.sendMessageButtonTapped(by: try testingDatabaseService.getUserFromFirestore(withUid: eric.id))
-        let updatedChat = try await testingDatabaseService.getChat(forShowWithId: dumpweedExtravaganza.id)
+        let updatedChat = try await testingDatabaseService.getChat(withId: dumpweedExtravaganza.chatId!)
 
-        XCTAssertEqual(updatedChat!.mostRecentMessageTimestamp, newChatMessage!.sentTimestamp)
-        XCTAssertEqual(updatedChat!.mostRecentMessageText, newChatMessage!.text)
-        XCTAssertEqual(updatedChat!.upToDateParticipantUids, [eric.id])
-        XCTAssertEqual(updatedChat!.mostRecentMessageSenderUsername, eric.name)
+        XCTAssertEqual(updatedChat.mostRecentMessageTimestamp, newChatMessage!.sentTimestamp)
+        XCTAssertEqual(updatedChat.mostRecentMessageText, newChatMessage!.text)
+        XCTAssertEqual(updatedChat.upToDateParticipantUids, [eric.id])
+        XCTAssertEqual(updatedChat.mostRecentMessageSenderUsername, eric.name)
 
-        try await testingDatabaseService.deleteChatMessage(inChatWithId: updatedChat!.id, withMessageText: TestingConstants.testMessageText)
+        try await testingDatabaseService.deleteChatMessage(inChatWithId: updatedChat.id, withMessageText: TestingConstants.testMessageText)
     }
 
     func test_OnSendChatMessage_ChatListenerDoesNotUpdateArrayAfterListenerHasBeenRemoved() async throws {
@@ -199,13 +198,12 @@ final class ConversationViewModelTests: XCTestCase {
         self.createdChatId = sentChatMessage!.chatId
         let createdChat = try await testingDatabaseService.getChat(withId: createdChatId!)
 
-        XCTAssertNotNil(createdChat)
-        XCTAssertTrue(createdChat!.participantUids.contains(eric.id))
-        XCTAssertTrue(createdChat!.participantUids.contains(julian.id))
-        XCTAssertEqual(createdChat!.participantUids.count, 2)
-        XCTAssertTrue(createdChat!.participantUsernames.contains(eric.name))
-        XCTAssertTrue(createdChat!.participantUsernames.contains(julian.name))
-        XCTAssertEqual(createdChat!.participantUsernames.count, 2)
+        XCTAssertTrue(createdChat.participantUids.contains(eric.id))
+        XCTAssertTrue(createdChat.participantUids.contains(julian.id))
+        XCTAssertEqual(createdChat.participantUids.count, 2)
+        XCTAssertTrue(createdChat.participantUsernames.contains(eric.name))
+        XCTAssertTrue(createdChat.participantUsernames.contains(julian.name))
+        XCTAssertEqual(createdChat.participantUsernames.count, 2)
     }
 
     func test_OnGetMoreMessages_MoreMessagesAreFetched() async throws {

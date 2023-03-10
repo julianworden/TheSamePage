@@ -118,6 +118,9 @@ class ConversationViewModel : ObservableObject {
         if !EnvironmentVariableConstants.unitTestsAreRunning {
             await addChatViewer()
         }
+        if self.chat != nil {
+            viewState = .dataLoaded
+        }
     }
 
     func configureChatWithId(_ chatId: String) async {
@@ -158,7 +161,8 @@ class ConversationViewModel : ObservableObject {
                 await configureExistingChat(showChat)
                 return showChat.id
             } else {
-                return await createNewShowChat(forShow: show)
+                let newShowChatId = await createNewShowChat(forShow: show)
+                return newShowChatId
             }
         } catch FirebaseError.dataNotFound {
             viewState = .dataLoaded
@@ -186,7 +190,8 @@ class ConversationViewModel : ObservableObject {
                 showId: show.id,
                 name: show.name,
                 participantUids: chatParticipantUids,
-                participantUsernames: newChatParticipantUsernames
+                participantUsernames: newChatParticipantUsernames,
+                upToDateParticipantUids: [AuthController.getLoggedInUid()]
             )
             let newChatId = try await DatabaseService.shared.createChat(chat: newChat)
             try await DatabaseService.shared.addChatIdToShow(add: newChatId, to: show)
@@ -219,7 +224,8 @@ class ConversationViewModel : ObservableObject {
                     id: "",
                     type: ChatType.oneOnOne.rawValue,
                     participantUids: chatParticipantUids,
-                    participantUsernames: newChatParticipantUsernames
+                    participantUsernames: newChatParticipantUsernames,
+                    upToDateParticipantUids: [AuthController.getLoggedInUid()]
                 )
                 let newChatId = try await DatabaseService.shared.createChat(chat: newChat)
                 newChat.id = newChatId

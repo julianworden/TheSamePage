@@ -41,6 +41,7 @@ class LoggedInUserController: ObservableObject {
         didSet {
             switch viewState {
             case .error(let message):
+                print("ERROR THROWN")
                 errorMessageText = message
                 errorMessageShowing = true
             default:
@@ -81,6 +82,7 @@ class LoggedInUserController: ObservableObject {
         }
 
         await getLoggedInUserInfo()
+        
         await getLoggedInUserAllBands()
         await getLoggedInUserAllShows()
         await createDynamicLinkForUser()
@@ -157,7 +159,7 @@ class LoggedInUserController: ObservableObject {
             .whereField(FbConstants.participantUids, arrayContains: AuthController.getLoggedInUid())
             .addSnapshotListener { snapshot, error in
                 if error != nil {
-                    self.viewState = .error(message: error!.localizedDescription)
+                    self.viewState = .error(message: "Error while fetching up-to-date chats. \(error!.localizedDescription)")
                     return
                 }
 
@@ -234,6 +236,8 @@ class LoggedInUserController: ObservableObject {
     }
     
     func logOut() async {
+        self.chatsListener?.remove()
+        self.notificationsListener?.remove()
         self.loggedInUser = nil
         self.userImage = nil
         self.updatedImage = nil
@@ -241,6 +245,8 @@ class LoggedInUserController: ObservableObject {
         self.allBands = []
         self.hostedShows = []
         self.adminBands = []
+        self.allUserChats = []
+        self.allUserNotifications = []
 
         do {
             try await DatabaseService.shared.deleteFcmTokenForUser(withUid: AuthController.getLoggedInUid())
