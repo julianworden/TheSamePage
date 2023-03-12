@@ -32,7 +32,11 @@ class LoggedInUserController: ObservableObject {
     @Published var currentUserIsInvalid = false
     @Published var currentUserHasNoUsernameAlertIsShowing = false
     @Published var createUsernameSheetIsShowing = false
-    @Published var accountDeletionWasSuccessful = false
+    @Published var accountDeletionWasSuccessful = false {
+        didSet {
+            currentUserIsInvalid = true
+        }
+    }
     @Published var passwordChangeWasSuccessful = false
     @Published var usernameChangeWasSuccessful = false
     @Published var emailAddressChangeWasSuccessful = false
@@ -41,7 +45,7 @@ class LoggedInUserController: ObservableObject {
         didSet {
             switch viewState {
             case .error(let message):
-                print("ERROR THROWN")
+                print("ERROR THROWN: \(message)")
                 errorMessageText = message
                 errorMessageShowing = true
             default:
@@ -59,8 +63,8 @@ class LoggedInUserController: ObservableObject {
         return AuthController.userIsLoggedOut()
     }
 
-    var loggedInUserIsNotLeadingAnyShowsOrBands: Bool {
-        return adminBands.isEmpty && hostedShows.isEmpty
+    var loggedInUserIsNotLeadingAnyUpcomingShowsOrBands: Bool {
+        return adminBands.isEmpty && upcomingHostedShows.isEmpty
     }
 
     var playingBands: [Band] {
@@ -286,6 +290,17 @@ class LoggedInUserController: ObservableObject {
 
     func deleteAccount() async {
         do {
+            chatsListener?.remove()
+            notificationsListener?.remove()
+            self.loggedInUser = nil
+            self.userImage = nil
+            self.updatedImage = nil
+            self.allShows = []
+            self.allBands = []
+            self.hostedShows = []
+            self.adminBands = []
+            self.allUserChats = []
+            self.allUserNotifications = []
             try await DatabaseService.shared.deleteAccountInFirebaseAuthAndFirestore(forUserWithUid: AuthController.getLoggedInUid())
             accountDeletionWasSuccessful = true
         } catch {

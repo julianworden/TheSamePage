@@ -7,121 +7,184 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "516D283A-57B8-4623-875B-D049EA155525"
+            uuid = "C2466C53-89AA-418F-8D3C-7D811C9B0062"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TheSamePageTests/Tests/View Models/ShowSettingsViewModelTests.swift"
+            filePath = "TheSamePage/Services/DatabaseService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "test_OnCancelShow_ShowIsCancelledSuccessfully()"
+            startingLineNumber = "1329"
+            endingLineNumber = "1329"
+            landmarkName = "removeShowParticipantFromShow(remove:from:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "516D283A-57B8-4623-875B-D049EA155525 - 8d262c799aa79e47"
+                  uuid = "C2466C53-89AA-418F-8D3C-7D811C9B0062 - 4604e9fc6be8639a"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(7) suspend resume partial function for TheSamePageTests.ShowSettingsViewModelTests.test_OnCancelShow_ShowIsCancelledSuccessfully() async throws -&gt; ()"
-                  moduleName = "TheSamePageTests"
+                  symbolName = "(9) suspend resume partial function for TheSamePage.DatabaseService.removeShowParticipantFromShow(remove: TheSamePage.ShowParticipant, from: TheSamePage.Show) async throws -&gt; ()"
+                  moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Tests/View%20Models/ShowSettingsViewModelTests.swift"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "73"
-                  endingLineNumber = "73"
-                  offsetFromSymbolStart = "144">
+                  startingLineNumber = "1329"
+                  endingLineNumber = "1329"
+                  offsetFromSymbolStart = "780">
                </Location>
                <Location
-                  uuid = "516D283A-57B8-4623-875B-D049EA155525 - 32a15753ab90a184"
+                  uuid = "C2466C53-89AA-418F-8D3C-7D811C9B0062 - 4604e9fc6be8639a"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(8) await resume partial function for TheSamePageTests.ShowSettingsViewModelTests.test_OnCancelShow_ShowIsCancelledSuccessfully() async throws -&gt; ()"
-                  moduleName = "TheSamePageTests"
+                  symbolName = "(9) suspend resume partial function for TheSamePage.DatabaseService.removeShowParticipantFromShow(remove: TheSamePage.ShowParticipant, from: TheSamePage.Show) async throws -&gt; ()"
+                  moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Tests/View%20Models/ShowSettingsViewModelTests.swift"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "73"
-                  endingLineNumber = "73"
-                  offsetFromSymbolStart = "48">
+                  startingLineNumber = "1329"
+                  endingLineNumber = "1329"
+                  offsetFromSymbolStart = "876">
                </Location>
                <Location
-                  uuid = "516D283A-57B8-4623-875B-D049EA155525 - 5c46a647641c5a41"
+                  uuid = "C2466C53-89AA-418F-8D3C-7D811C9B0062 - d4d5250e2bbffbd0"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(9) suspend resume partial function for TheSamePageTests.ShowSettingsViewModelTests.test_OnCancelShow_ShowIsCancelledSuccessfully() async throws -&gt; ()"
-                  moduleName = "TheSamePageTests"
+                  symbolName = "(11) suspend resume partial function for TheSamePage.DatabaseService.removeShowParticipantFromShow(remove: TheSamePage.ShowParticipant, from: TheSamePage.Show) async throws -&gt; ()"
+                  moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Tests/View%20Models/ShowSettingsViewModelTests.swift"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "73"
-                  endingLineNumber = "73"
-                  offsetFromSymbolStart = "80">
+                  startingLineNumber = "1329"
+                  endingLineNumber = "1329"
+                  offsetFromSymbolStart = "700">
                </Location>
                <Location
-                  uuid = "516D283A-57B8-4623-875B-D049EA155525 - 8cdca821e2fd70b0"
+                  uuid = "C2466C53-89AA-418F-8D3C-7D811C9B0062 - d4d5250e2bbffbd0"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(12) suspend resume partial function for TheSamePageTests.ShowSettingsViewModelTests.test_OnCancelShow_ShowIsCancelledSuccessfully() async throws -&gt; ()"
-                  moduleName = "TheSamePageTests"
+                  symbolName = "(11) suspend resume partial function for TheSamePage.DatabaseService.removeShowParticipantFromShow(remove: TheSamePage.ShowParticipant, from: TheSamePage.Show) async throws -&gt; ()"
+                  moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Tests/View%20Models/ShowSettingsViewModelTests.swift"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "73"
-                  endingLineNumber = "73"
-                  offsetFromSymbolStart = "44">
+                  startingLineNumber = "1329"
+                  endingLineNumber = "1329"
+                  offsetFromSymbolStart = "796">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2B9AA4A1-61BB-43F0-94F0-A2B3A0DBB495"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheSamePage/Services/DatabaseService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1330"
+            endingLineNumber = "1330"
+            landmarkName = "removeShowParticipantFromShow(remove:from:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2B9AA4A1-61BB-43F0-94F0-A2B3A0DBB495 - 4604e9fc6be86345"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(9) suspend resume partial function for TheSamePage.DatabaseService.removeShowParticipantFromShow(remove: TheSamePage.ShowParticipant, from: TheSamePage.Show) async throws -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1330"
+                  endingLineNumber = "1330"
+                  offsetFromSymbolStart = "1056">
                </Location>
                <Location
-                  uuid = "516D283A-57B8-4623-875B-D049EA155525 - c205aa2a3f4ed245"
+                  uuid = "2B9AA4A1-61BB-43F0-94F0-A2B3A0DBB495 - d4d5250e2bbffb0f"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(5) suspend resume partial function for TheSamePageTests.ShowSettingsViewModelTests.test_OnCancelShow_ShowIsCancelledSuccessfully() async throws -&gt; ()"
-                  moduleName = "TheSamePageTests"
+                  symbolName = "(11) suspend resume partial function for TheSamePage.DatabaseService.removeShowParticipantFromShow(remove: TheSamePage.ShowParticipant, from: TheSamePage.Show) async throws -&gt; ()"
+                  moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Tests/View%20Models/ShowSettingsViewModelTests.swift"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "73"
-                  endingLineNumber = "73"
-                  offsetFromSymbolStart = "296">
+                  startingLineNumber = "1330"
+                  endingLineNumber = "1330"
+                  offsetFromSymbolStart = "976">
                </Location>
                <Location
-                  uuid = "516D283A-57B8-4623-875B-D049EA155525 - 182035c081dbe5ba"
+                  uuid = "2B9AA4A1-61BB-43F0-94F0-A2B3A0DBB495 - 61862e0d0b0f77fb"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(6) await resume partial function for TheSamePageTests.ShowSettingsViewModelTests.test_OnCancelShow_ShowIsCancelledSuccessfully() async throws -&gt; ()"
-                  moduleName = "TheSamePageTests"
+                  symbolName = "(12) await resume partial function for TheSamePage.DatabaseService.removeShowParticipantFromShow(remove: TheSamePage.ShowParticipant, from: TheSamePage.Show) async throws -&gt; ()"
+                  moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Tests/View%20Models/ShowSettingsViewModelTests.swift"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "73"
-                  endingLineNumber = "73"
+                  startingLineNumber = "1330"
+                  endingLineNumber = "1330"
                   offsetFromSymbolStart = "40">
                </Location>
                <Location
-                  uuid = "516D283A-57B8-4623-875B-D049EA155525 - 8d262c799aa79e47"
+                  uuid = "2B9AA4A1-61BB-43F0-94F0-A2B3A0DBB495 - 2aafa136d12a850d"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(7) suspend resume partial function for TheSamePageTests.ShowSettingsViewModelTests.test_OnCancelShow_ShowIsCancelledSuccessfully() async throws -&gt; ()"
-                  moduleName = "TheSamePageTests"
+                  symbolName = "(13) suspend resume partial function for TheSamePage.DatabaseService.removeShowParticipantFromShow(remove: TheSamePage.ShowParticipant, from: TheSamePage.Show) async throws -&gt; ()"
+                  moduleName = "TheSamePage"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePageTests/Tests/View%20Models/ShowSettingsViewModelTests.swift"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "73"
-                  endingLineNumber = "73"
+                  startingLineNumber = "1330"
+                  endingLineNumber = "1330"
+                  offsetFromSymbolStart = "88">
+               </Location>
+               <Location
+                  uuid = "2B9AA4A1-61BB-43F0-94F0-A2B3A0DBB495 - d8bed8a906845c52"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(21) suspend resume partial function for TheSamePage.DatabaseService.removeShowParticipantFromShow(remove: TheSamePage.ShowParticipant, from: TheSamePage.Show) async throws -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1294"
+                  endingLineNumber = "1294"
+                  offsetFromSymbolStart = "76">
+               </Location>
+               <Location
+                  uuid = "2B9AA4A1-61BB-43F0-94F0-A2B3A0DBB495 - d8bed8a90684590e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(21) suspend resume partial function for TheSamePage.DatabaseService.removeShowParticipantFromShow(remove: TheSamePage.ShowParticipant, from: TheSamePage.Show) async throws -&gt; ()"
+                  moduleName = "TheSamePage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/julianworden/Desktop/XcodeProjects/JulianMichaelTechnologies/TheSamePage/TheSamePage/Services/DatabaseService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1330"
+                  endingLineNumber = "1330"
                   offsetFromSymbolStart = "92">
                </Location>
             </Locations>

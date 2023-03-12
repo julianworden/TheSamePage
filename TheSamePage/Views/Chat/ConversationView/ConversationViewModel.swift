@@ -175,10 +175,7 @@ class ConversationViewModel : ObservableObject {
 
     func createNewShowChat(forShow show: Show) async -> String? {
         do {
-            var chatParticipantUids = show.participantUids
-            if !show.participantUids.contains(show.hostUid) {
-                chatParticipantUids.append(show.hostUid)
-            }
+            var chatParticipantUids = show.participantUids + [show.hostUid]
             var newChatParticipantUsernames = [String]()
             for uid in chatParticipantUids {
                 let user = try await DatabaseService.shared.getUser(withUid: uid)

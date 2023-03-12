@@ -60,7 +60,9 @@ struct Band: Codable, Equatable, Hashable, Identifiable, Shareable {
 
     var memberAndAdminUids: [String] {
         var uids = memberUids
-        uids.append(adminUid)
+        if !uids.contains(adminUid) {
+            uids.append(adminUid)
+        }
         return uids
     }
     

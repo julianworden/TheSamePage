@@ -82,11 +82,19 @@ struct ShowDetailsView: View {
                     } label: {
                         Label("Chat", systemImage: "bubble.right")
                     }
-                    .fullScreenCover(isPresented: $viewModel.conversationViewIsShowing) {
-                        NavigationStack {
-                            ConversationView(chat: nil, show: show, chatParticipantUids: show.participantUids, isPresentedModally: true)
+                    .fullScreenCover(
+                        isPresented: $viewModel.conversationViewIsShowing,
+                        onDismiss: {
+                            Task {
+                                await viewModel.getLatestShowData()
+                            }
+                        },
+                        content: {
+                            NavigationStack {
+                                ConversationView(chat: nil, show: show, chatParticipantUids: show.participantUids, isPresentedModally: true)
+                            }
                         }
-                    }
+                    )
                 }
             }
 

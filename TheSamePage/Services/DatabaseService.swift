@@ -259,7 +259,8 @@ class DatabaseService: NSObject {
                     try await removeUserFromShow(uid: user.id, show: show)
                     
                     if let showChatId = show.chatId {
-                        try await removeUsersFromChat(uids: [user.id], chatId: showChatId)
+                        let showChat = try await getChat(withId: showChatId)
+                        try await removeUsersFromChat(uids: [user.id], chat: showChat)
                     }
                 }
             }
@@ -294,8 +295,15 @@ class DatabaseService: NSObject {
             .document(bandMemberId)
             .delete()
     }
-    
-    func removeUsersFromChat(uids: [String], chatId: String) async throws {
+
+    /// Removes users from a chat's participantUids array and participantUsernames array. If a user's UID or username is listed in either of these arrays
+    /// twice, only one of those instances will be removed from the chat. This is useful for show chats where the user is in two bands that are on the show
+    /// and one of those bands leaves the show. If all instances of a user's UID and username should be deleted and duplicates should not be respected,
+    /// use DatabaseService.removeUserFromChat(uid:chat:) instead.
+    /// - Parameters:
+    ///   - uids: The UIDs for the users that are leaving the chat.
+    ///   - chat: The chats that the users are leaving.
+    func removeUsersFromChat(uids: [String], chat: Chat) async throws {
         do {
             var usernamesFromUids = [String]()
             for uid in uids {
@@ -303,13 +311,55 @@ class DatabaseService: NSObject {
                 usernamesFromUids.append(user.name)
             }
 
+            var updatedChatParticipantUidsArray = chat.participantUids
+            var updatedChatParticipantUsernamesArray = chat.participantUsernames
+            for uid in uids {
+                if let index = updatedChatParticipantUidsArray.firstIndex(of: uid) {
+                    updatedChatParticipantUidsArray.remove(at: index)
+                }
+            }
+
+            for username in usernamesFromUids {
+                if let index = updatedChatParticipantUsernamesArray.firstIndex(of: username) {
+                    updatedChatParticipantUsernamesArray.remove(at: index)
+                }
+            }
+
             try await db
                 .collection(FbConstants.chats)
-                .document(chatId)
+                .document(chat.id)
                 .updateData(
                     [
-                        FbConstants.participantUsernames: FieldValue.arrayRemove(usernamesFromUids),
-                        FbConstants.participantUids: FieldValue.arrayRemove(uids)
+                        FbConstants.participantUsernames: updatedChatParticipantUsernamesArray,
+                        FbConstants.participantUids: updatedChatParticipantUidsArray
+                    ]
+                )
+        } catch {
+            throw FirebaseError.connection(
+                message: "Failed to remove you from chat.",
+                systemError: error.localizedDescription
+            )
+        }
+    }
+
+    /// Removes a specific user from a chat. This method uses Firestore's FieldValue.arrayRemove method, which means that it
+    /// will delete all instances of the user's UID and username from the chat's participantUids and participantUsernames array, respectively.
+    /// If a user should be removed from a chat, but any duplicates of its UID or username should be preserved in these properties,
+    /// use DatabaseService.removeUsersFromChat(uids:chat:) instead.
+    /// - Parameters:
+    ///   - uid: The UID of the user to be removed from the chat.
+    ///   - chat: The chat from which the user should be.
+    func removeUserFromChat(uid: String, chat: Chat) async throws {
+        do {
+            let usernameForUid = try await getUser(withUid: uid).name
+
+            try await db
+                .collection(FbConstants.chats)
+                .document(chat.id)
+                .updateData(
+                    [
+                        FbConstants.participantUsernames: FieldValue.arrayRemove([usernameForUid]),
+                        FbConstants.participantUids: FieldValue.arrayRemove([uid])
                     ]
                 )
         } catch {
@@ -437,24 +487,28 @@ class DatabaseService: NSObject {
     }
 
     func deleteUserFromFirestore(withUid uid: String) async throws {
-        let loggedInUser = try await getLoggedInUser()
+        let user = try await getUser(withUid: uid)
 
-        try await FirebaseFunctionsController.recursiveDelete(path: "\(FbConstants.users)/\(uid)")
+        if let userProfileImageUrl = user.profileImageUrl {
+            try await deleteImage(at: userProfileImageUrl)
+        }
+
+        let userChats = try await getChats(forUserWithUid: uid)
+        for chat in userChats {
+            try await removeUserFromChat(uid: uid, chat: chat)
+        }
 
         let userShows = try await getPlayingShows()
         for show in userShows {
             try await removeUserFromShow(uid: uid, show: show)
         }
 
-        let userChats = try await getChats(forUserWithUid: uid)
-        for chat in userChats {
-            try await removeUsersFromChat(uids: [loggedInUser.id], chatId: chat.id)
-        }
-
         let userBands = try await getJoinedBands(withUid: uid)
         for band in userBands {
             try await removeUserFromBand(uid: uid, bandId: band.id)
         }
+
+        try await FirebaseFunctionsController.recursiveDelete(path: "\(FbConstants.users)/\(uid)")
     }
 
     func deleteAccountInFirebaseAuthAndFirestore(forUserWithUid uid: String) async throws {
@@ -702,7 +756,7 @@ class DatabaseService: NSObject {
             
             if !bandShows.isEmpty {
                 for show in bandShows {
-                    try await addUserToShow(add: user, to: show)
+                    try await addUsersToShow(uids: [user.id], show: show)
                 }
             }
             
@@ -826,7 +880,9 @@ class DatabaseService: NSObject {
         }
     }
 
-    /// Deletes a band's profile image in Firebase Storage, and deletes the value in their profileImageUrl property.
+    /// Deletes a band's profile image in Firebase Storage, and deletes the value in their profileImageUrl property. This method is designed to
+    /// be used in EditImageView so that if, for some reason, a user is able to press the delete button for their band when the band doesn't have an image,
+    /// they'll see an error.
     /// - Parameter band: The band that will have their profile image deleted.
     func deleteBandImage(forBand band: Band) async throws {
         guard let profileImageUrl = band.profileImageUrl else {
@@ -853,6 +909,10 @@ class DatabaseService: NSObject {
                 let bandAsShowParticipant = try await convertBandToShowParticipant(band: band, show: show)
 
                 try await removeShowParticipantFromShow(remove: bandAsShowParticipant, from: show)
+            }
+
+            if let bandImageUrl = band.profileImageUrl {
+                try await deleteImage(at: bandImageUrl)
             }
 
             try await FirebaseFunctionsController.recursiveDelete(path: "\(FbConstants.bands)/\(band.id)")
@@ -1113,6 +1173,8 @@ class DatabaseService: NSObject {
     /// - Parameter band: The band to be added to the show.
     func addBandToShow(add band: Band, as showParticipant: ShowParticipant, withShowInvite showInvite: ShowInvite) async throws {
         do {
+            let show = try await getShow(showId: showInvite.showId)
+
             // Add showParticipant to the show's participants collection
             _ = try db
                 .collection(FbConstants.shows)
@@ -1120,26 +1182,20 @@ class DatabaseService: NSObject {
                 .collection(FbConstants.participants)
                 .addDocument(from: showParticipant)
 
+            var updatedShowParticipantUids = show.participantUids + band.memberAndAdminUids
             try await db
                 .collection(FbConstants.shows)
                 .document(showInvite.showId)
                 .updateData(
                     [
-                        FbConstants.participantUids: FieldValue.arrayUnion(band.memberAndAdminUids),
+                        FbConstants.participantUids: updatedShowParticipantUids,
                         FbConstants.bandIds: FieldValue.arrayUnion([band.id])
                     ]
                 )
 
-
-            let show = try await getShow(showId: showInvite.showId)
-
             if let showChatId = show.chatId {
-                var uidsForUsersToAddToChat = band.memberUids
-                if !uidsForUsersToAddToChat.contains(band.adminUid) {
-                    uidsForUsersToAddToChat.append(band.adminUid)
-                }
-
-                try await addUsersToChat(uids: uidsForUsersToAddToChat, chatId: showChatId)
+                let showChat = try await getChat(withId: showChatId)
+                try await addUsersToChat(uids: band.memberAndAdminUids, chat: showChat)
             }
             
             try await deleteNotification(withId: showInvite.id)
@@ -1153,6 +1209,8 @@ class DatabaseService: NSObject {
 
     func addBandToShow(add band: Band, as showParticipant: ShowParticipant, withShowApplication showApplication: ShowApplication) async throws {
         do {
+            let show = try await getShow(showId: showApplication.showId)
+
             // Add showParticipant to the show's participants collection
             _ = try db
                 .collection(FbConstants.shows)
@@ -1160,25 +1218,20 @@ class DatabaseService: NSObject {
                 .collection(FbConstants.participants)
                 .addDocument(from: showParticipant)
 
+            var updatedShowParticipantUids = show.participantUids + band.memberAndAdminUids
             try await db
                 .collection(FbConstants.shows)
                 .document(showApplication.showId)
                 .updateData(
                     [
-                        FbConstants.participantUids: FieldValue.arrayUnion(band.memberAndAdminUids),
+                        FbConstants.participantUids: updatedShowParticipantUids,
                         FbConstants.bandIds: FieldValue.arrayUnion([band.id])
                     ]
                 )
 
-            let show = try await getShow(showId: showApplication.showId)
-
             if let showChatId = show.chatId {
-                var uidsForUsersToAddToChat = band.memberUids
-                if !uidsForUsersToAddToChat.contains(band.adminUid) {
-                    uidsForUsersToAddToChat.append(band.adminUid)
-                }
-
-                try await addUsersToChat(uids: uidsForUsersToAddToChat, chatId: showChatId)
+                let showChat = try await getChat(withId: showChatId)
+                try await addUsersToChat(uids: band.memberAndAdminUids, chat: showChat)
             }
 
             try await deleteNotification(withId: showApplication.id)
@@ -1206,22 +1259,20 @@ class DatabaseService: NSObject {
                 .addDocument(from: showParticipant)
 
             if !band.memberUids.isEmpty {
+                let showParticipantUids = show.participantUids + band.memberUids
                 try await db
                     .collection(FbConstants.shows)
                     .document(show.id)
                     .updateData(
                         [
-                            FbConstants.participantUids: FieldValue.arrayUnion(band.memberAndAdminUids),
+                            FbConstants.participantUids: showParticipantUids,
                             FbConstants.bandIds: FieldValue.arrayUnion([band.id])
                         ]
                     )
 
                 if let showChatId = show.chatId {
-                    var uidsForUsersToAddToChat = band.memberUids
-                    if !uidsForUsersToAddToChat.contains(band.adminUid) {
-                        uidsForUsersToAddToChat.append(band.adminUid)
-                    }
-                    try await addUsersToChat(uids: uidsForUsersToAddToChat, chatId: showChatId)
+                    let showChat = try await DatabaseService.shared.getChat(withId: showChatId)
+                    try await addUsersToChat(uids: band.memberAndAdminUids, chat: showChat)
                 }
             }
 
@@ -1258,54 +1309,45 @@ class DatabaseService: NSObject {
             .document(showParticipantId)
             .delete()
 
+        var updatedShowParticipantUidsArray = show.participantUids
+        for uid in showParticipantAsBand.memberAndAdminUids {
+            if let index = updatedShowParticipantUidsArray.firstIndex(of: uid) {
+                updatedShowParticipantUidsArray.remove(at: index)
+            }
+        }
         try await db
             .collection(FbConstants.shows)
             .document(show.id)
-            .updateData([FbConstants.participantUids: FieldValue.arrayRemove(showParticipantAsBand.memberUids)])
+            .updateData([FbConstants.participantUids: updatedShowParticipantUidsArray])
 
-        for uid in showParticipantAsBand.memberUids {
+        for uid in showParticipantAsBand.memberAndAdminUids {
             if uid != show.hostUid {
                 try await deleteBackline(fromUserWithUid: uid, in: show)
             }
         }
 
-        if !showParticipantAsBand.memberUids.contains(showParticipantAsBand.adminUid) {
-            try await db
-                .collection(FbConstants.shows)
-                .document(show.id)
-                .updateData([FbConstants.participantUids: FieldValue.arrayRemove([showParticipantAsBand.adminUid])])
-
-            if showParticipantAsBand.adminUid != show.hostUid {
-                try await deleteBackline(fromUserWithUid: showParticipantAsBand.adminUid, in: show)
-            }
-        }
-
         if let showChatId = show.chatId {
-            var uidsToRemoveFromShowChat = showParticipantAsBand.memberUids
-            if !uidsToRemoveFromShowChat.contains(showParticipantAsBand.adminUid) {
-                uidsToRemoveFromShowChat.append(showParticipantAsBand.adminUid)
-            }
-
-            try await removeUsersFromChat(uids: uidsToRemoveFromShowChat, chatId: showChatId)
+            let showChat = try await getChat(withId: showChatId)
+            try await removeUsersFromChat(uids: showParticipantAsBand.memberAndAdminUids, chat: showChat)
         }
     }
     
-    func addUserToShow(add user: User, to show: Show) async throws {
+    func addUsersToShow(uids: [String], show: Show) async throws {
         do {
+            let updatedShowParticipantUids = show.participantUids + uids
+
             try await db
                 .collection(FbConstants.shows)
                 .document(show.id)
-                .updateData([FbConstants.participantUids: FieldValue.arrayUnion([user.id])])
+                .updateData([FbConstants.participantUids: updatedShowParticipantUids])
             
             if let showChatId = show.chatId {
-                try await db
-                    .collection(FbConstants.chats)
-                    .document(showChatId)
-                    .updateData([FbConstants.participantUids: FieldValue.arrayUnion([user.id])])
+                let showChat = try await getChat(withId: showChatId)
+                try await addUsersToChat(uids: uids, chat: showChat)
             }
         } catch {
             throw FirebaseError.connection(
-                message: "Failed to add \(user.name) to \(show.name).",
+                message: "Failed to add user to show.",
                 systemError: error.localizedDescription
             )
         }
@@ -1494,10 +1536,13 @@ class DatabaseService: NSObject {
     
     func cancelShow(show: Show) async throws {
         do {
-            try await FirebaseFunctionsController.recursiveDelete(path: "\(FbConstants.shows)/\(show.id)")
             if let showChatId = show.chatId {
                 try await deleteChat(withId: showChatId)
             }
+            if let showImageUrl = show.imageUrl {
+                try await deleteImage(at: showImageUrl)
+            }
+            try await FirebaseFunctionsController.recursiveDelete(path: "\(FbConstants.shows)/\(show.id)")
         } catch {
             throw FirebaseError.connection(
                 message: "Failed to cancel \(show.name).",
@@ -1779,7 +1824,7 @@ class DatabaseService: NSObject {
     /// - Parameters:
     ///   - uids: The UIDs of the users being added to the chat.
     ///   - chatId: The ID of the chat the users are getting added to.
-    func addUsersToChat(uids: [String], chatId: String) async throws {
+    func addUsersToChat(uids: [String], chat: Chat) async throws {
         do {
             var usernamesForUsers = [String]()
             for uid in uids {
@@ -1787,13 +1832,16 @@ class DatabaseService: NSObject {
                 usernamesForUsers.append(user.name)
             }
 
+            let newChatParticipantUsernamesArray = usernamesForUsers + chat.participantUsernames
+            let newChatParticipantUidsArray = uids + chat.participantUids
+
             try await db
                 .collection(FbConstants.chats)
-                .document(chatId)
+                .document(chat.id)
                 .updateData(
                     [
-                        FbConstants.participantUids: FieldValue.arrayUnion(uids),
-                        FbConstants.participantUsernames: FieldValue.arrayUnion(usernamesForUsers)
+                        FbConstants.participantUids: newChatParticipantUidsArray,
+                        FbConstants.participantUsernames: newChatParticipantUsernamesArray
                     ]
                 )
         } catch {

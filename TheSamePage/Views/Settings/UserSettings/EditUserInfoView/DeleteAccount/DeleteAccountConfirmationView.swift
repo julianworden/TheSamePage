@@ -20,11 +20,6 @@ struct DeleteAccountConfirmationView: View {
             switch viewState {
             case .performingWork:
                 deleteAccountButtonIsDisabled = true
-            case .workCompleted:
-                Task {
-                    await loggedInUserController.logOut()
-                }
-                navigationViewModel.popToRoot()
             case .error(let message):
                 loggedInUserController.errorMessageText = message
                 loggedInUserController.errorMessageShowing = true
@@ -70,11 +65,6 @@ struct DeleteAccountConfirmationView: View {
         }
         .navigationBarBackButtonHidden(deleteAccountButtonIsDisabled ? true : false)
         .padding()
-        .onChange(of: loggedInUserController.accountDeletionWasSuccessful) { accountDeletionWasSuccessful in
-            if accountDeletionWasSuccessful {
-                viewState = .workCompleted
-            }
-        }
     }
 }
 

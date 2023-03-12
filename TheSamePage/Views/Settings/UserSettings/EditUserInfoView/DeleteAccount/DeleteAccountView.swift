@@ -22,9 +22,9 @@ struct DeleteAccountView: View {
 
             if searchingForHostedShowsAndAdminBands {
                 ProgressView()
-            } else if loggedInUserController.loggedInUserIsNotLeadingAnyShowsOrBands {
+            } else if loggedInUserController.loggedInUserIsNotLeadingAnyUpcomingShowsOrBands {
                 DeleteAccountConfirmationView(navigationViewModel: navigationViewModel)
-            } else if !loggedInUserController.hostedShows.isEmpty || !loggedInUserController.adminBands.isEmpty {
+            } else if !loggedInUserController.upcomingHostedShows.isEmpty || !loggedInUserController.adminBands.isEmpty {
                 LeadingBandsAndShowsList()
             }
         }

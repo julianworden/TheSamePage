@@ -123,9 +123,7 @@ final class ConversationViewModelTests: XCTestCase {
 
         XCTAssertEqual(createdChat.name, show.name, "The name of the chat should match the name of the show")
         XCTAssertEqual(createdChat.showId, show.id, "The show's document ID should be in the chat's showId property")
-        XCTAssertEqual(createdChat.participantUids, show.participantUids, "The chat and show should have the same participant UIDs")
         XCTAssertTrue(createdChat.participantUsernames.contains(eric.name))
-        XCTAssertEqual(createdChat.participantUsernames.count, 1)
     }
 
     func test_OnInitWithChatWithExistingMessages_MessagesAreSortedInCorrectOrder() async throws {
