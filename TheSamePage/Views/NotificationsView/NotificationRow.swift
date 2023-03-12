@@ -23,24 +23,28 @@ struct NotificationRow: View {
                 iconIsSfSymbol: true
             )
 
-            HStack {
-                Button {
-                    Task {
-                        await viewModel.handleNotification(anyUserNotification: anyUserNotification, withAction: .accept)
-                    }
-                } label: {
-                    Image(systemName: "checkmark.circle")
-                }
-                .disabled(viewModel.buttonsAreDisabled)
+            Spacer()
 
-                Button {
-                    Task {
-                        await viewModel.handleNotification(anyUserNotification: anyUserNotification, withAction: .decline)
+            VStack {
+                HStack {
+                    Button {
+                        Task {
+                            await viewModel.handleNotification(anyUserNotification: anyUserNotification, withAction: .accept)
+                        }
+                    } label: {
+                        Image(systemName: "checkmark.circle")
                     }
-                } label: {
-                    Image(systemName: "x.circle")
+                    .disabled(viewModel.buttonsAreDisabled)
+
+                    Button {
+                        Task {
+                            await viewModel.handleNotification(anyUserNotification: anyUserNotification, withAction: .decline)
+                        }
+                    } label: {
+                        Image(systemName: "x.circle")
+                    }
+                    .disabled(viewModel.buttonsAreDisabled)
                 }
-                .disabled(viewModel.buttonsAreDisabled)
 
                 if let showApplication = anyUserNotification.notification as? ShowApplication {
                     NavigationLink {
@@ -65,7 +69,7 @@ struct NotificationRow: View {
                         Image(systemName: "info.circle")
                     }
                     .disabled(viewModel.buttonsAreDisabled)
-                    
+
                 }
             }
             .buttonStyle(.bordered)

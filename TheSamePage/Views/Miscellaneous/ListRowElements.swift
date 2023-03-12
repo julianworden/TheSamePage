@@ -48,7 +48,7 @@ struct ListRowElements: View {
             HStack(spacing: 10) {
                 if iconIsSfSymbol {
                     Image(systemName: iconName)
-                        .imageScale(.large)
+                        .listIconStyle()
                 } else {
                     Image(iconName)
                         .listIconStyle()
