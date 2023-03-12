@@ -40,6 +40,10 @@ struct AnyBackline: Identifiable {
             return "acoustic guitar"
         case .percussion:
             return "drums"
+        case .stageGear:
+            return "stage"
+        case .keys:
+            return "keys"
         }
     }
 }

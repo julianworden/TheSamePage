@@ -118,6 +118,8 @@
 		AB55E7722901F651009F039B /* DrumKitBacklineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB55E7712901F651009F039B /* DrumKitBacklineItem.swift */; };
 		AB571CA929705961000629AA /* Double+UnixDateAsDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB571CA829705961000629AA /* Double+UnixDateAsDate.swift */; };
 		AB582B7E28FA3B3D00D357F3 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB582B7D28FA3B3D00D357F3 /* LocationController.swift */; };
+		AB5A6E2B29BE469A001D3280 /* StageGearType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A6E2A29BE469A001D3280 /* StageGearType.swift */; };
+		AB5A6E2D29BE680F001D3280 /* KeysGearType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A6E2C29BE680F001D3280 /* KeysGearType.swift */; };
 		AB5B77C528E72B8E00B32537 /* BandLinkRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5B77C428E72B8E00B32537 /* BandLinkRow.swift */; };
 		AB5C0D3B292B14DE0040CE97 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5C0D3A292B14DE0040CE97 /* FirebaseError.swift */; };
 		AB5C0D3D292B14F40040CE97 /* LogicError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5C0D3C292B14F40040CE97 /* LogicError.swift */; };
@@ -125,7 +127,6 @@
 		AB5E48F5290029B20076EABE /* FindShowsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E48F4290029B20076EABE /* FindShowsList.swift */; };
 		AB5E48F829003ACF0076EABE /* ElectricGuitarGear.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E48F729003ACF0076EABE /* ElectricGuitarGear.swift */; };
 		AB5E48FC29003B950076EABE /* PercussionGearType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E48FB29003B950076EABE /* PercussionGearType.swift */; };
-		AB5E48FE29003CA80076EABE /* VocalGear.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E48FD29003CA80076EABE /* VocalGear.swift */; };
 		AB5E490029003CF10076EABE /* BacklineItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E48FF29003CF10076EABE /* BacklineItemType.swift */; };
 		AB5E490629003F870076EABE /* AddBacklineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E490529003F870076EABE /* AddBacklineView.swift */; };
 		AB5E490829003F8D0076EABE /* AddBacklineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5E490729003F8D0076EABE /* AddBacklineViewModel.swift */; };
@@ -438,6 +439,8 @@
 		AB55E7712901F651009F039B /* DrumKitBacklineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrumKitBacklineItem.swift; sourceTree = "<group>"; };
 		AB571CA829705961000629AA /* Double+UnixDateAsDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+UnixDateAsDate.swift"; sourceTree = "<group>"; };
 		AB582B7D28FA3B3D00D357F3 /* LocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
+		AB5A6E2A29BE469A001D3280 /* StageGearType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageGearType.swift; sourceTree = "<group>"; };
+		AB5A6E2C29BE680F001D3280 /* KeysGearType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeysGearType.swift; sourceTree = "<group>"; };
 		AB5B77C428E72B8E00B32537 /* BandLinkRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLinkRow.swift; sourceTree = "<group>"; };
 		AB5C0D3A292B14DE0040CE97 /* FirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
 		AB5C0D3C292B14F40040CE97 /* LogicError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicError.swift; sourceTree = "<group>"; };
@@ -445,7 +448,6 @@
 		AB5E48F4290029B20076EABE /* FindShowsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindShowsList.swift; sourceTree = "<group>"; };
 		AB5E48F729003ACF0076EABE /* ElectricGuitarGear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectricGuitarGear.swift; sourceTree = "<group>"; };
 		AB5E48FB29003B950076EABE /* PercussionGearType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercussionGearType.swift; sourceTree = "<group>"; };
-		AB5E48FD29003CA80076EABE /* VocalGear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocalGear.swift; sourceTree = "<group>"; };
 		AB5E48FF29003CF10076EABE /* BacklineItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BacklineItemType.swift; sourceTree = "<group>"; };
 		AB5E490529003F870076EABE /* AddBacklineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBacklineView.swift; sourceTree = "<group>"; };
 		AB5E490729003F8D0076EABE /* AddBacklineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBacklineViewModel.swift; sourceTree = "<group>"; };
@@ -1116,11 +1118,12 @@
 			isa = PBXGroup;
 			children = (
 				AB5E48FF29003CF10076EABE /* BacklineItemType.swift */,
+				AB5E48FB29003B950076EABE /* PercussionGearType.swift */,
 				AB5E48F729003ACF0076EABE /* ElectricGuitarGear.swift */,
 				AB7AC092298F1F2B00650BCC /* AcousticGuitarGear.swift */,
 				AB7AC090298F1F1400650BCC /* BassGuitarGear.swift */,
-				AB5E48FB29003B950076EABE /* PercussionGearType.swift */,
-				AB5E48FD29003CA80076EABE /* VocalGear.swift */,
+				AB5A6E2C29BE680F001D3280 /* KeysGearType.swift */,
+				AB5A6E2A29BE469A001D3280 /* StageGearType.swift */,
 			);
 			path = Backline;
 			sourceTree = "<group>";
@@ -1781,7 +1784,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB5E48FC29003B950076EABE /* PercussionGearType.swift in Sources */,
-				AB5E48FE29003CA80076EABE /* VocalGear.swift in Sources */,
 				AB2A993E29A1B31E00C203BD /* LoggedInUserBandsTab.swift in Sources */,
 				AB62A8DA29A43DE300D827DE /* DynamicLinkType.swift in Sources */,
 				ABD029B428E8978F00BDF73C /* BandMemberList.swift in Sources */,
@@ -1805,6 +1807,7 @@
 				AB2A993829A1B17000C203BD /* LoggedInUserShowList.swift in Sources */,
 				AB7F381128EF1AB4007741C7 /* NotificationsList.swift in Sources */,
 				ABBFC55B29A518E8006F60EF /* BandProfileViewSheetNavigatorDestination.swift in Sources */,
+				AB5A6E2B29BE469A001D3280 /* StageGearType.swift in Sources */,
 				AB092F5A2984B96700264659 /* CreateUsernameViewModel.swift in Sources */,
 				ABF83DD2291A9F03006A06CC /* UiConstants.swift in Sources */,
 				AB399ADB28D4C548009B39F7 /* LoggedInUserController.swift in Sources */,
@@ -1918,6 +1921,7 @@
 				ABAB45F928F24C2400FA8F70 /* HostedShowRow.swift in Sources */,
 				AB6514DF28F911EB008DFDD0 /* ShowTimeRow.swift in Sources */,
 				ABD19F6929A6E639003CDC28 /* ChatRow.swift in Sources */,
+				AB5A6E2D29BE680F001D3280 /* KeysGearType.swift in Sources */,
 				AB3C73D528DC0A1D0038085A /* BandSearchView.swift in Sources */,
 				AB9DAB06292329BB009BE932 /* ShowSettingsViewModel.swift in Sources */,
 				ABE2FE0629897BF400D5A951 /* ChooseNewShowHostViewModel.swift in Sources */,

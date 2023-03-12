@@ -8,9 +8,10 @@
 import Foundation
 
 enum PercussionGearType: String, CaseIterable, Identifiable {
-    case fullKit = "Full Kit"
     case kitPiece = "Kit Piece"
-    case auxillaryPercussion = "Aux. Percussion"
+    case fullKit = "Full Kit"
+    case auxiliaryPercussion = "Auxiliary Percussion"
+    case miscellaneous = "Miscellaneous"
     
     var id: Self { self }
 }
@@ -20,15 +21,19 @@ enum DrumKitPiece: String, CaseIterable, Identifiable {
     case kickPedal = "Kick Pedal"
     case snare = "Snare"
     case tom = "Tom"
-    case chinaCymbal = "China Cymbal"
-    case crashCymbal = "Crash Cymbal"
     case hiHat = "Hi-Hat"
+    case rideCymbal = "Ride Cymbal"
+    case crashCymbal = "Crash Cymbal"
+    case chinaCymbal = "China Cymbal"
+    case cymbal = "Cymbal"
     
     var id: Self { self }
 }
 
-enum AuxillaryPercussion: String, CaseIterable, Identifiable {
-    case congas = "Congas"
-    
+enum MiscellaneousPercussionGear: String, CaseIterable, Identifiable {
+    case rug = "Rug"
+    case throne = "Throne"
+    case hiHatClutch = "Hi-Hat Clutch"
+
     var id: Self { self }
 }

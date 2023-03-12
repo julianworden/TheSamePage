@@ -10,4 +10,6 @@ import Foundation
 struct UiConstants {
     static let listRowSpacing: CGFloat = 12
     static let profileHeaderVerticalSpacing: CGFloat = 7
+    static let backlineWheelPickerHeight: CGFloat = 125
+
 }

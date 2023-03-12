@@ -1182,7 +1182,7 @@ class DatabaseService: NSObject {
                 .collection(FbConstants.participants)
                 .addDocument(from: showParticipant)
 
-            var updatedShowParticipantUids = show.participantUids + band.memberAndAdminUids
+            let updatedShowParticipantUids = show.participantUids + band.memberAndAdminUids
             try await db
                 .collection(FbConstants.shows)
                 .document(showInvite.showId)
@@ -1218,7 +1218,7 @@ class DatabaseService: NSObject {
                 .collection(FbConstants.participants)
                 .addDocument(from: showParticipant)
 
-            var updatedShowParticipantUids = show.participantUids + band.memberAndAdminUids
+            let updatedShowParticipantUids = show.participantUids + band.memberAndAdminUids
             try await db
                 .collection(FbConstants.shows)
                 .document(showApplication.showId)
@@ -1639,32 +1639,6 @@ class DatabaseService: NSObject {
 
     
     // MARK: - Chats
-
-//    /// Fetches the chat that belongs to a given show.
-//    /// - Parameter showId: The ID of the show that the fetched chat is associated with.
-//    /// - Returns: The fetched chat associated with the show passed into the showId property. Returns nil if no chat is found for a show.
-//    /// It is up to the caller to determine what actions to take when nil is returned.
-//    func getChat(withShowId showId: String) async throws -> Chat? {
-//        do {
-//            let chat = try await db
-//                .collection(FbConstants.chats)
-//                .whereField(FbConstants.showId, isEqualTo: showId)
-//                .getDocuments()
-//
-//            // Each show should only have 1 chat
-//            guard !chat.documents.isEmpty && chat.documents[0].exists && chat.documents.count == 1 else { return nil }
-//
-//            let fetchedChat = try chat.documents[0].data(as: Chat.self)
-//            return fetchedChat
-//        } catch Swift.DecodingError.keyNotFound {
-//            throw FirebaseError.dataNotFound
-//        } catch {
-//            throw FirebaseError.connection(
-//                message: "Failed to fetch show chat.",
-//                systemError: error.localizedDescription
-//            )
-//        }
-//    }
 
     func getChats(forUserWithUid uid: String) async throws -> [Chat] {
         let chatDocuments = try await db

@@ -17,6 +17,8 @@ struct AddPercussionBacklineForm: View {
                     Text(percussionGearType.rawValue)
                 }
             }
+            .pickerStyle(WheelPickerStyle())
+            .frame(height: UiConstants.backlineWheelPickerHeight)
             
             switch viewModel.selectedPercussionGearType {
             case .fullKit:
@@ -62,13 +64,20 @@ struct AddPercussionBacklineForm: View {
                         Text(drumKitPiece.rawValue)
                     }
                 }
+                .pickerStyle(WheelPickerStyle())
+                .frame(height: UiConstants.backlineWheelPickerHeight)
                 
-            case .auxillaryPercussion:
-                Picker("Select Instrument", selection: $viewModel.selectedAuxillaryPercussion) {
-                    ForEach(AuxillaryPercussion.allCases) { auxillaryPercussion in
-                        Text(auxillaryPercussion.rawValue)
+            case .auxiliaryPercussion:
+                Text("Please write the name(s) of the auxiliary percussion instrument(s) you'd like to backline in the notes below.")
+
+            case .miscellaneous:
+                Picker("Select Gear", selection: $viewModel.selectedMiscellaneousPercussionGear) {
+                    ForEach(MiscellaneousPercussionGear.allCases) { miscellaneousPercussionGear in
+                        Text(miscellaneousPercussionGear.rawValue)
                     }
                 }
+                .pickerStyle(WheelPickerStyle())
+                .frame(height: UiConstants.backlineWheelPickerHeight)
             }
         }
     }
