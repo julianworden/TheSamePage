@@ -12,7 +12,7 @@ struct LoggedInUserBandList: View {
 
     var body: some View {
         VStack(spacing: UiConstants.listRowSpacing) {
-            ForEach(Array(loggedInUserController.playingBands.enumerated()), id: \.element) { index, band in
+            ForEach(Array(loggedInUserController.allBands.enumerated()), id: \.element) { index, band in
                 ZStack {
                     VStack {
                         HStack {

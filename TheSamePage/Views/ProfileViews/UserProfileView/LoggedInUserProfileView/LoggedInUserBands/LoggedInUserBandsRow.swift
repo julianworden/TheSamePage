@@ -13,8 +13,8 @@ struct LoggedInUserBandRow: View {
     let index: Int
     
     var body: some View {
-        if loggedInUserController.playingBands.indices.contains(index) {
-            let band = loggedInUserController.playingBands[index]
+        if loggedInUserController.allBands.indices.contains(index) {
+            let band = loggedInUserController.allBands[index]
             
             ListRowElements(
                 title: band.name,
