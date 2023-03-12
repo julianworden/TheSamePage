@@ -175,7 +175,7 @@ class ConversationViewModel : ObservableObject {
 
     func createNewShowChat(forShow show: Show) async -> String? {
         do {
-            var chatParticipantUids = show.participantUids + [show.hostUid]
+            let chatParticipantUids = show.participantUids + [show.hostUid]
             var newChatParticipantUsernames = [String]()
             for uid in chatParticipantUids {
                 let user = try await DatabaseService.shared.getUser(withUid: uid)
@@ -260,7 +260,8 @@ class ConversationViewModel : ObservableObject {
             var recipientFcmTokens = [String]()
             let upToDateChat = try await DatabaseService.shared.getChat(withId: chat.id)
 
-            for uid in chat.participantUidsWithoutLoggedInUser {
+            // Must be a Set because it's possible for a user's UID to appear in this property multiple times.
+            for uid in Set(chat.participantUidsWithoutLoggedInUser) {
                 if !upToDateChat.currentViewerUids.contains(uid),
                    let recipientFcmToken = try await DatabaseService.shared.getFcmToken(forUserWithUid: uid) {
                     recipientFcmTokens.append(recipientFcmToken)
