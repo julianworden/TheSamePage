@@ -23,6 +23,9 @@ struct NotificationsView: View {
                 isPresented: $loggedInUserController.errorMessageShowing,
                 message: loggedInUserController.errorMessageText
             )
+            .refreshable {
+                loggedInUserController.addLoggedInUserNotificationsListener()
+            }
         }
     }
 }

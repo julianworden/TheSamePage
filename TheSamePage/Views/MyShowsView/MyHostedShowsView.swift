@@ -30,6 +30,9 @@ struct MyHostedShowsView: View {
                     }
                 }
                 .listStyle(.insetGrouped)
+                .refreshable {
+                    await viewModel.getHostedShows()
+                }
 
             case .dataNotFound:
                 VStack {

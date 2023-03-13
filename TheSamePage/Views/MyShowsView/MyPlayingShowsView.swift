@@ -30,6 +30,9 @@ struct MyPlayingShowsView: View {
                     }
                 }
                 .listStyle(.insetGrouped)
+                .refreshable {
+                    await viewModel.getPlayingShows()
+                }
                 
             case .dataNotFound:
                 NoDataFoundMessage(message: "You're not playing any upcoming shows.")
