@@ -42,7 +42,7 @@ struct BandMembersTab: View {
             isPresented: $viewModel.addBandMemberSheetIsShowing,
             content: {
                 NavigationStack {
-                    MemberSearchView()
+                    UserSearchView(isPresentedModally: true)
                 }
             }
         )

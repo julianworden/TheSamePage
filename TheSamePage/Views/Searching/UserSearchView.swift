@@ -1,5 +1,5 @@
 //
-//  MemberSearchView.swift
+//  UserSearchView.swift
 //  TheSamePage
 //
 //  Created by Julian Worden on 9/22/22.
@@ -9,10 +9,12 @@ import SwiftUI
 
 /// Used throughout The Same Page when only user searching is needed, as opposed to band
 /// and show searching
-struct MemberSearchView: View {
+struct UserSearchView: View {
     @Environment(\.dismiss) var dismiss
 
     @StateObject var viewModel = SearchViewModel()
+
+    let isPresentedModally: Bool
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -26,9 +28,11 @@ struct MemberSearchView: View {
         .navigationTitle("Search for User")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button("Back") {
-                    dismiss()
+            if isPresentedModally {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Back") {
+                        dismiss()
+                    }
                 }
             }
         }
@@ -38,7 +42,7 @@ struct MemberSearchView: View {
 struct MemberSearchView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            MemberSearchView()
+            UserSearchView(isPresentedModally: true)
         }
     }
 }

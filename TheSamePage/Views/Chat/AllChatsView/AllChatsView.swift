@@ -42,6 +42,14 @@ struct AllChatsView: View {
                         dismiss()
                     }
                 }
+
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink {
+                        UserSearchView(isPresentedModally: false)
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
             }
             .errorAlert(
                 isPresented: $loggedInUserController.errorMessageShowing,

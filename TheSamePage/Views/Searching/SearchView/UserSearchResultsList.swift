@@ -12,7 +12,7 @@ struct UserSearchResultsList: View {
     @Environment(\.isSearching) var isSearching
     
     @ObservedObject var viewModel: SearchViewModel
-    
+
     var body: some View {
         Group {
             switch viewModel.viewState {
@@ -33,7 +33,6 @@ struct UserSearchResultsList: View {
                                 } label: {
                                     SearchResultRow(user: user)
                                 }
-                                .tint(.primary)
                             }
 
                             Divider()

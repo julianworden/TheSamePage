@@ -113,13 +113,14 @@
 		AB4BF6C02965B6AD0007A33B /* FirebaseEmulatorDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4BF6BF2965B6AD0007A33B /* FirebaseEmulatorDataTests.swift */; };
 		AB4BF6C32965BA730007A33B /* TestingDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8627BE2926751B001537D9 /* TestingDatabaseService.swift */; };
 		AB4D097C292725C500B5DB4D /* ShowAddressSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4D097B292725C500B5DB4D /* ShowAddressSearchResults.swift */; };
-		AB5054A728DC91CF00321380 /* MemberSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054A628DC91CF00321380 /* MemberSearchView.swift */; };
+		AB5054A728DC91CF00321380 /* UserSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054A628DC91CF00321380 /* UserSearchView.swift */; };
 		AB5054B328DCA04900321380 /* BandInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054B228DCA04900321380 /* BandInvite.swift */; };
 		AB55E7722901F651009F039B /* DrumKitBacklineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB55E7712901F651009F039B /* DrumKitBacklineItem.swift */; };
 		AB571CA929705961000629AA /* Double+UnixDateAsDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB571CA829705961000629AA /* Double+UnixDateAsDate.swift */; };
 		AB582B7E28FA3B3D00D357F3 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB582B7D28FA3B3D00D357F3 /* LocationController.swift */; };
 		AB5A6E2B29BE469A001D3280 /* StageGearType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A6E2A29BE469A001D3280 /* StageGearType.swift */; };
 		AB5A6E2D29BE680F001D3280 /* KeysGearType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A6E2C29BE680F001D3280 /* KeysGearType.swift */; };
+		AB5A6E2F29BEA46B001D3280 /* UserSearchViewNavigationLinkDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A6E2E29BEA46B001D3280 /* UserSearchViewNavigationLinkDestination.swift */; };
 		AB5B77C528E72B8E00B32537 /* BandLinkRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5B77C428E72B8E00B32537 /* BandLinkRow.swift */; };
 		AB5C0D3B292B14DE0040CE97 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5C0D3A292B14DE0040CE97 /* FirebaseError.swift */; };
 		AB5C0D3D292B14F40040CE97 /* LogicError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5C0D3C292B14F40040CE97 /* LogicError.swift */; };
@@ -433,7 +434,7 @@
 		AB4BD580292C388100E0360B /* AddressSearchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchList.swift; sourceTree = "<group>"; };
 		AB4BF6BF2965B6AD0007A33B /* FirebaseEmulatorDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEmulatorDataTests.swift; sourceTree = "<group>"; };
 		AB4D097B292725C500B5DB4D /* ShowAddressSearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAddressSearchResults.swift; sourceTree = "<group>"; };
-		AB5054A628DC91CF00321380 /* MemberSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberSearchView.swift; sourceTree = "<group>"; };
+		AB5054A628DC91CF00321380 /* UserSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchView.swift; sourceTree = "<group>"; };
 		AB5054B228DCA04900321380 /* BandInvite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandInvite.swift; sourceTree = "<group>"; };
 		AB55184529245D1F0085D1B6 /* TheSamePageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheSamePageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB55E7712901F651009F039B /* DrumKitBacklineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrumKitBacklineItem.swift; sourceTree = "<group>"; };
@@ -441,6 +442,7 @@
 		AB582B7D28FA3B3D00D357F3 /* LocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
 		AB5A6E2A29BE469A001D3280 /* StageGearType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageGearType.swift; sourceTree = "<group>"; };
 		AB5A6E2C29BE680F001D3280 /* KeysGearType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeysGearType.swift; sourceTree = "<group>"; };
+		AB5A6E2E29BEA46B001D3280 /* UserSearchViewNavigationLinkDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchViewNavigationLinkDestination.swift; sourceTree = "<group>"; };
 		AB5B77C428E72B8E00B32537 /* BandLinkRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandLinkRow.swift; sourceTree = "<group>"; };
 		AB5C0D3A292B14DE0040CE97 /* FirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
 		AB5C0D3C292B14F40040CE97 /* LogicError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicError.swift; sourceTree = "<group>"; };
@@ -998,6 +1000,7 @@
 				ABF0BF6C299987B30022B046 /* AppOpenedViaNotificationSheetNavigatorViewDestination.swift */,
 				AB62A8D929A43DE300D827DE /* DynamicLinkType.swift */,
 				ABA5ACAF29A92C58002C5A96 /* ChatType.swift */,
+				AB5A6E2E29BEA46B001D3280 /* UserSearchViewNavigationLinkDestination.swift */,
 				AB5E48F629003ABD0076EABE /* Backline */,
 			);
 			path = Enums;
@@ -1089,7 +1092,7 @@
 			children = (
 				AB794E2B28E25902000ABB37 /* SearchView */,
 				AB3C73D428DC0A1D0038085A /* BandSearchView.swift */,
-				AB5054A628DC91CF00321380 /* MemberSearchView.swift */,
+				AB5054A628DC91CF00321380 /* UserSearchView.swift */,
 			);
 			path = Searching;
 			sourceTree = "<group>";
@@ -1849,7 +1852,7 @@
 				ABADC999292529F90049ABAA /* Task+sleepInSeconds.swift in Sources */,
 				AB695A7929A30572003608A9 /* ShowDetailsViewSheetNavigator.swift in Sources */,
 				ABBBC1542988037E005AF468 /* DeleteAccountView.swift in Sources */,
-				AB5054A728DC91CF00321380 /* MemberSearchView.swift in Sources */,
+				AB5054A728DC91CF00321380 /* UserSearchView.swift in Sources */,
 				AB285AFA28F6F76200EB5F2B /* ShowTimeTab.swift in Sources */,
 				ABF0DA93291B135A00BD5DD7 /* BandMembersTab.swift in Sources */,
 				AB8326B82912BA2500208414 /* Chat.swift in Sources */,
@@ -1978,6 +1981,7 @@
 				ABD1D16F28F30CE500791969 /* MyPlayingShowsView.swift in Sources */,
 				AB62A8D629A4363500D827DE /* DynamicLinkConstants.swift in Sources */,
 				ABCEBCCC29A67BB0009CC6F6 /* LoggedInUserProfileViewSheetNavigatorDestination.swift in Sources */,
+				AB5A6E2F29BEA46B001D3280 /* UserSearchViewNavigationLinkDestination.swift in Sources */,
 				ABA42BC5292D1E3400ADE3AD /* AddEditShowAddressViewModel.swift in Sources */,
 				ABF83DCA291A957E006A06CC /* BandMemberListRow.swift in Sources */,
 				AB36FF8328D35C0600AAC00C /* Show.swift in Sources */,
