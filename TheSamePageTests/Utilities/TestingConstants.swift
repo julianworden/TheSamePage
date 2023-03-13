@@ -500,7 +500,8 @@ struct TestingConstants {
         backlinerFullName: exampleUserJulian.fullName,
         backlinerUsername: exampleUserJulian.name,
         type: BacklineItemType.percussion.rawValue,
-        name: AuxillaryPercussion.congas.rawValue
+        name: PercussionGearType.auxiliaryPercussion.rawValue,
+        notes: "Congas"
     )
 
     static let exampleDrumKitBacklineItemDumpweedExtravaganza = DrumKitBacklineItem(

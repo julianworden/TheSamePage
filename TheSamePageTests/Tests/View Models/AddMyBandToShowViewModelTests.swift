@@ -114,6 +114,7 @@ final class AddMyBandToShowViewModelTests: XCTestCase {
         XCTAssertEqual(sut.viewState, .workCompleted)
 
         try await testingDatabaseService.removeBandFromShow(bandId: craigAndTheFettuccinis.id, showId: appleParkThrowdown.id)
+        try await testingDatabaseService.restoreShow(appleParkThrowdown)
     }
 
     func test_OnAddBandThatIsAlreadyPlayingShow_ErrorIsThrown() async throws {

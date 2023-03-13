@@ -10,38 +10,53 @@ import Foundation
 @MainActor
 final class AddEditLinkViewModel: ObservableObject {
     @Published var linkPlatform = LinkPlatform.instagram
-    @Published var enteredText = ""
-    
-    var link: PlatformLink?
-    let band: Band
-    var linkUrl = ""
-    
-    init(link: PlatformLink?, band: Band) {
-        self.band = band
-        
-        if let link {
-            self.linkPlatform = link.platformNameAsPlatformLinkObject
-            self.linkUrl = link.url
-            self.link = link
+    @Published var enteredUrlAsString = ""
+
+    @Published var errorAlertIsShowing = false
+    var errorAlertText = ""
+    @Published var buttonsAreDisabled = false
+    @Published var dismissView = false
+
+    @Published var viewState = ViewState.displayingView {
+        didSet {
+            switch viewState {
+            case .performingWork:
+                buttonsAreDisabled = true
+            case .workCompleted:
+                dismissView = true
+            case .error(let message):
+                errorAlertText = message
+                errorAlertIsShowing = true
+                buttonsAreDisabled = false
+            default:
+                errorAlertText = ErrorMessageConstants.invalidViewState
+                errorAlertIsShowing = true
+            }
         }
     }
     
-    func createLink() {
-        switch linkPlatform {
-        case .spotify, .appleMusic:
-            linkUrl = enteredText
-        case .instagram:
-            linkUrl = linkPlatform.urlPrefix + enteredText.lowercased()
-        case .facebook:
-            linkUrl = linkPlatform.urlPrefix + enteredText.lowercased() + "/posts/?ref=page_internal"
-        case .none:
-            break
+    var linkToEdit: PlatformLink?
+    let band: Band
+
+    init(linkToEdit: PlatformLink?, band: Band) {
+        self.band = band
+        
+        if let linkToEdit {
+            self.linkPlatform = linkToEdit.platformNameAsPlatformLinkObject
+            self.enteredUrlAsString = linkToEdit.url
+            self.linkToEdit = linkToEdit
         }
     }
     
     func uploadBandLink() throws {
-        let newLink = PlatformLink(platformName: linkPlatform.rawValue, url: linkUrl)
+        viewState = .performingWork
 
-        try DatabaseService.shared.uploadBandLink(withLink: newLink, forBand: band)
+        if URL(string: enteredUrlAsString) != nil {
+            let newLink = PlatformLink(platformName: linkPlatform.rawValue, url: enteredUrlAsString)
+            try DatabaseService.shared.uploadBandLink(withLink: newLink, forBand: band)
+            viewState = .workCompleted
+        } else {
+            viewState = .error(message: "It looks like you entered an invalid URL. Please try again.")
+        }
     }
 }

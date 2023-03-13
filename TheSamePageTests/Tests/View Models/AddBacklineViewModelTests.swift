@@ -39,12 +39,11 @@ final class AddBacklineViewModelTests: XCTestCase {
 
     func test_OnInit_DefaultValuesAreCorrect() {
         XCTAssertEqual(sut.selectedGearType, .electricGuitar)
-        XCTAssertEqual(sut.selectedElectricGuitarGear, .comboAmp)
-        XCTAssertEqual(sut.selectedBassGuitarGear, .comboAmp)
+        XCTAssertEqual(sut.selectedElectricGuitarGear, .cab)
+        XCTAssertEqual(sut.selectedBassGuitarGear, .cab)
         XCTAssertEqual(sut.selectedAcousticGuitarGear, .amp)
         XCTAssertEqual(sut.selectedPercussionGearType, .fullKit)
-        XCTAssertEqual(sut.selectedDrumKitPiece, .kick)
-        XCTAssertEqual(sut.selectedAuxillaryPercussion, .congas)
+        XCTAssertEqual(sut.selectedDrumKitPiece, .snare)
         XCTAssertTrue(sut.backlineGearNotes.isEmpty)
         XCTAssertFalse(sut.kickIncluded)
         XCTAssertFalse(sut.snareIncluded)
@@ -58,6 +57,7 @@ final class AddBacklineViewModelTests: XCTestCase {
         XCTAssertEqual(sut.numberOfTomsIncluded, 1)
         XCTAssertEqual(sut.numberOfCymbalsIncluded, 1)
         XCTAssertEqual(sut.numberOfCymbalStandsIncluded, 1)
+        XCTAssertEqual(sut.backlineItemCount, 1)
         XCTAssertTrue(sut.includedKitPieces.isEmpty)
         XCTAssertTrue(sut.errorAlertText.isEmpty)
         XCTAssertEqual(sut.show, dumpweedExtravaganza)
@@ -164,8 +164,7 @@ final class AddBacklineViewModelTests: XCTestCase {
 
     func test_OnAddAuxPercussionBacklineItemToShow_BacklineItemIsAdded() async throws {
         sut.selectedGearType = .percussion
-        sut.selectedPercussionGearType = .auxillaryPercussion
-        sut.selectedAuxillaryPercussion = .congas
+        sut.selectedPercussionGearType = .auxiliaryPercussion
         sut.backlineGearNotes = "The best congas you've ever heard"
 
         createdBacklineDocumentId = await sut.addBacklineItemToShow()
@@ -178,7 +177,7 @@ final class AddBacklineViewModelTests: XCTestCase {
         XCTAssertEqual(createdBacklineItem.backlinerUid, lou.id)
         XCTAssertEqual(createdBacklineItem.backlinerFullName, lou.fullName)
         XCTAssertEqual(createdBacklineItem.type, BacklineItemType.percussion.rawValue)
-        XCTAssertEqual(createdBacklineItem.name, AuxillaryPercussion.congas.rawValue)
+        XCTAssertEqual(createdBacklineItem.name, PercussionGearType.auxiliaryPercussion.rawValue)
         XCTAssertEqual(createdBacklineItem.notes, "The best congas you've ever heard")
     }
 

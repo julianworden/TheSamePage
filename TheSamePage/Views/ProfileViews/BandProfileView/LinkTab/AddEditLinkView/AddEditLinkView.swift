@@ -15,7 +15,7 @@ struct AddEditLinkView: View {
     @StateObject var viewModel: AddEditLinkViewModel
     
     init(link: PlatformLink?, band: Band) {
-        _viewModel = StateObject(wrappedValue: AddEditLinkViewModel(link: link, band: band))
+        _viewModel = StateObject(wrappedValue: AddEditLinkViewModel(linkToEdit: link, band: band))
     }
     
     var body: some View {
@@ -29,22 +29,23 @@ struct AddEditLinkView: View {
                             }
                         }
                     }
-                    TextField("URL", text: $viewModel.enteredText)
+                    TextField("URL", text: $viewModel.enteredUrlAsString)
+                        .keyboardType(.webSearch)
                 }
 
                 Section {
                     Button("Save Link") {
                         do {
-                            viewModel.createLink()
                             try viewModel.uploadBandLink()
-                            dismiss()
                         } catch {
                             print(error)
                         }
                     }
+                } footer: {
+                    Text("Please be sure to enter the full URL to your profile to ensure your links take the visitor to the correct place.")
                 }
             }
-            .navigationTitle(viewModel.linkUrl == "" ? "Add Link" : "Edit Link")
+            .navigationTitle(viewModel.linkToEdit == nil ? "Add Link" : "Edit Link")
             .navigationBarTitleDisplayMode(.inline)
             .scrollDismissesKeyboard(.interactively)
             .toolbar {
@@ -52,6 +53,12 @@ struct AddEditLinkView: View {
                     Button("Cancel", role: .cancel) {
                         dismiss()
                     }
+                }
+            }
+            .errorAlert(isPresented: $viewModel.errorAlertIsShowing, message: viewModel.errorAlertText)
+            .onChange(of: viewModel.dismissView) { dismissView in
+                if dismissView {
+                    dismiss()
                 }
             }
         }
