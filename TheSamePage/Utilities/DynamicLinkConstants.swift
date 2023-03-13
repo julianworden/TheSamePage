@@ -16,4 +16,7 @@ struct DynamicLinkConstants {
     #warning("Change this to the correct app store ID after releasing")
     static let appStoreId = "284815942"
     static let domainUriPrefix = "https://thesamepage.page.link"
+    /// A Dynamic Link created from Firebase Console that redirects the user to https://www.julianmichaeltechnologies.com/accountmodificationlandingpage
+    /// if they try to open the app after verifying their email from a desktop, laptop, android phone, or tablet.
+    static let accountModificationLandingPage = "https://thesamepage.page.link/accountmodificationlandingpage"
 }

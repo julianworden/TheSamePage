@@ -39,7 +39,7 @@ class DatabaseService: NSObject {
                         FbConstants.firstName: user.firstName,
                         FbConstants.lastName: user.lastName,
                         FbConstants.emailAddress: user.emailAddress,
-                        FbConstants.profileImageUrl: user.profileImageUrl ?? ""
+                        FbConstants.profileImageUrl: user.profileImageUrl as Any
                     ]
                 )
 

@@ -108,7 +108,7 @@ final class LoginViewModel: ObservableObject {
             if let appBundleId = Bundle.main.bundleIdentifier {
                 actionCodeSettings.setIOSBundleID(appBundleId)
             }
-            actionCodeSettings.url = URL(string: "https://thesamepage.page.link")
+            actionCodeSettings.url = URL(string: DynamicLinkConstants.accountModificationLandingPage)
 
             try await Auth.auth().currentUser?.sendEmailVerification(with: actionCodeSettings)
         } catch {
