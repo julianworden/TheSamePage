@@ -230,7 +230,6 @@
 		ABBE3695296B26970092F594 /* ShowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE3694296B26970092F594 /* ShowTests.swift */; };
 		ABBE369B296B39AC0092F594 /* MockLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE369A296B39AC0092F594 /* MockLocationController.swift */; };
 		ABBE369D296B53660092F594 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE369C296B53660092F594 /* UserTests.swift */; };
-		ABBE36A1296B555A0092F594 /* LinkPlatformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE36A0296B555A0092F594 /* LinkPlatformTests.swift */; };
 		ABBE36A3296B566C0092F594 /* SearchTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE36A2296B566C0092F594 /* SearchTypeTests.swift */; };
 		ABBE36A6296B583B0092F594 /* AddEditShowViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE36A5296B583B0092F594 /* AddEditShowViewModelTests.swift */; };
 		ABBE94C228D8ADBF00790A04 /* ShowDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */; };
@@ -545,7 +544,6 @@
 		ABBE3694296B26970092F594 /* ShowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTests.swift; sourceTree = "<group>"; };
 		ABBE369A296B39AC0092F594 /* MockLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocationController.swift; sourceTree = "<group>"; };
 		ABBE369C296B53660092F594 /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
-		ABBE36A0296B555A0092F594 /* LinkPlatformTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPlatformTests.swift; sourceTree = "<group>"; };
 		ABBE36A2296B566C0092F594 /* SearchTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTypeTests.swift; sourceTree = "<group>"; };
 		ABBE36A5296B583B0092F594 /* AddEditShowViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditShowViewModelTests.swift; sourceTree = "<group>"; };
 		ABBE94C128D8ADBF00790A04 /* ShowDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailsView.swift; sourceTree = "<group>"; };
@@ -1320,7 +1318,6 @@
 		ABBE369F296B553C0092F594 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				ABBE36A0296B555A0092F594 /* LinkPlatformTests.swift */,
 				ABBE36A2296B566C0092F594 /* SearchTypeTests.swift */,
 			);
 			path = Enums;
@@ -2064,7 +2061,6 @@
 				ABCC3D742965CC6E006CF074 /* TestingConstants.swift in Sources */,
 				ABBE36A6296B583B0092F594 /* AddEditShowViewModelTests.swift in Sources */,
 				ABA0549529746385006B5908 /* SendShowInviteViewModelTests.swift in Sources */,
-				ABBE36A1296B555A0092F594 /* LinkPlatformTests.swift in Sources */,
 				AB7F6FC0296F0E7F00612D3B /* FindShowsViewModelTests.swift in Sources */,
 				AB05170F29972AD6007069AD /* ShowApplicationTests.swift in Sources */,
 				ABFF8169298A9F2700FAC995 /* ChooseNewShowHostViewModelTests.swift in Sources */,
@@ -2231,7 +2227,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheSamePage/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "The Same Page";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to find shows near you";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need access to your location so we can find shows near you.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need permission to access your photo library so that you can upload images to The Same Page.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -2268,7 +2265,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheSamePage/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "The Same Page";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to find shows near you";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need access to your location so we can find shows near you.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need permission to access your photo library so that you can upload images to The Same Page.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

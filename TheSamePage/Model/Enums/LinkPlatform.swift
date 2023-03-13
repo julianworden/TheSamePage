@@ -17,10 +17,9 @@ enum LinkPlatform: String, CaseIterable, Identifiable {
     case twitter = "Twitter"
     case snapchat = "Snapchat"
     case facebook = "Facebook"
+    case website = "Our Website"
     // For satisfying exhaustive enum requirements
     case none
     
     var id: Self { self }
-
-    #warning("Add icons for bandcamp, twitter, and snapchat once icons8 works.")
 }

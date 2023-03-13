@@ -424,13 +424,13 @@ struct TestingConstants {
     static let examplePlatformLinkPatheticFallacyInstagram = PlatformLink(
         id: "44nlImc9WbuhR9MbRMYc",
         platformName: LinkPlatform.instagram.rawValue,
-        url: "\(LinkPlatform.instagram.urlPrefix)pathfallacyband"
+        url: "https://www.instagram.com/p/BvfCVUinISu/"
     )
 
     static let examplePlatformLinkPatheticFallacyFacebook = PlatformLink(
         id: "1qsDTgUjO7sGbY18AzA7",
         platformName: LinkPlatform.facebook.rawValue,
-        url: "\(LinkPlatform.facebook.urlPrefix)pathfallacyband/posts/?ref=page_internal"
+        url: "https://www.facebook.com/PathFallacyBand"
     )
 
     // MARK: - Example ShowParticipants

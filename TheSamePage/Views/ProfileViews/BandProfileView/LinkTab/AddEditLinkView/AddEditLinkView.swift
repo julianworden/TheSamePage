@@ -42,7 +42,7 @@ struct AddEditLinkView: View {
                         }
                     }
                 } footer: {
-                    Text("Please be sure to enter the full URL to your profile to ensure your links take the visitor to the correct place.")
+                    Text("Please be sure to enter the full URL (including https://) to your profile or website to ensure your links take the visitor to the correct place.")
                 }
             }
             .navigationTitle(viewModel.linkToEdit == nil ? "Add Link" : "Edit Link")
