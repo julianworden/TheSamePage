@@ -99,8 +99,8 @@ firebase-debug.log*
 firebase-debug.*.log*
 
 ## App Files
-TheSamePage/GoogleService-Info.plist/
-TheSamePage/Notes.rtf/
+TheSamePage/GoogleService-Info.plist
+TheSamePage/Notes.rtf
 .DS_Store
 
 # Firebase cache
