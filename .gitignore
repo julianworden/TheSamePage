@@ -10,6 +10,7 @@ firestore.rules
 firestore.indexes.json
 firestore-debug.log
 functions/.DS_Store
+.firebaserc
 FirebaseEmulatorData/
 TheSamePage/GoogleService-Info.plist
 TheSamePage/Notes.rtf
