@@ -7,6 +7,10 @@ yarn-error.log*
 firebase-debug.log*
 firebase-debug.*.log*
 
+## App Files
+TheSamePage/GoogleService-Info.plist/
+TheSamePage/Notes.rtf/
+
 # Firebase cache
 .firebase/
 
