@@ -3,11 +3,19 @@
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 ## App Files
+.DS_Store
+ui-debug.log
+storage.rules
+firestore.rules
+firestore.indexes.json
+firestore-debug.log
+functions/.DS_Store
+FirebaseEmulatorData/
 TheSamePage/GoogleService-Info.plist
 TheSamePage/Notes.rtf
 TheSamePage/.DS_Store
-.DS_Store
 TheSamePage/Utilities/TypesenseConstants.swift
+
 
 ## User settings
 xcuserdata/
