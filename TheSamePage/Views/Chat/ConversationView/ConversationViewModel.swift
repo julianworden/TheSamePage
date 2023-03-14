@@ -113,13 +113,22 @@ class ConversationViewModel : ObservableObject {
     }
 
     func configureExistingChat(_ chat: Chat) async {
-        addChatMessagesListener(forChat: chat)
-        await addUserToChatUpToDateParticipantUids(chat: chat)
-        if !EnvironmentVariableConstants.unitTestsAreRunning {
-            await addChatViewer()
-        }
-        if self.chat != nil {
-            viewState = .dataLoaded
+        do {
+            addChatMessagesListener(forChat: chat)
+            await addUserToChatUpToDateParticipantUids(chat: chat)
+            if let chatShowId = chat.showId {
+                self.show = try await DatabaseService.shared.getShow(showId: chatShowId)
+            }
+            if !EnvironmentVariableConstants.unitTestsAreRunning {
+                await addChatViewer()
+            }
+            if self.chat != nil {
+                viewState = .dataLoaded
+            } else {
+                viewState = .error(message: "Failed to fetch chat, please try again.")
+            }
+        } catch {
+            viewState = .error(message: error.localizedDescription)
         }
     }
 

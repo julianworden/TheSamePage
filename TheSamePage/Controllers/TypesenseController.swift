@@ -10,7 +10,11 @@ import Typesense
 
 final class TypesenseController: ObservableObject {
     static var client: Client {
-        let config = Configuration(nodes: [Node(host: "hqftg6rxza8wb37sp-1.a1.typesense.net", port: "443", nodeProtocol: "https")], apiKey: "yXmJUEiW9MQy0qjJiGqO02JmcnbGEDhl")
+        let config = Configuration(
+            nodes: [Node(host: TypesenseConstants.host, port: TypesenseConstants.port, nodeProtocol: TypesenseConstants.nodeProtocol)],
+            apiKey: TypesenseConstants.apiKey
+        )
+
         return Client(config: config)
     }
 }

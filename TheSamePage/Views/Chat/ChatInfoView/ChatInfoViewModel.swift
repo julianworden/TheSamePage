@@ -82,9 +82,13 @@ final class ChatInfoViewModel: ObservableObject {
             return
         }
 
+        // No need to fetch show host as user if the host is already in chatParticipants array in the chat.
         guard !chatParticipants.contains(where: { user in
             user.id == show.hostUid
-        }) else { return }
+        }) else {
+            viewState = .dataLoaded
+            return
+        }
 
         do {
             let showHost = try await DatabaseService.shared.getUser(withUid: show.hostUid)

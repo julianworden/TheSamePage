@@ -33,6 +33,7 @@ struct UserSearchResultsList: View {
                                 } label: {
                                     SearchResultRow(user: user)
                                 }
+                                .tint(.primary)
                             }
 
                             Divider()

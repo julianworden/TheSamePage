@@ -113,6 +113,7 @@
 		AB4BF6C02965B6AD0007A33B /* FirebaseEmulatorDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4BF6BF2965B6AD0007A33B /* FirebaseEmulatorDataTests.swift */; };
 		AB4BF6C32965BA730007A33B /* TestingDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8627BE2926751B001537D9 /* TestingDatabaseService.swift */; };
 		AB4D097C292725C500B5DB4D /* ShowAddressSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4D097B292725C500B5DB4D /* ShowAddressSearchResults.swift */; };
+		AB4DA4D529C0ABF400D56BEC /* TypesenseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4DA4D429C0ABF400D56BEC /* TypesenseConstants.swift */; };
 		AB5054A728DC91CF00321380 /* UserSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054A628DC91CF00321380 /* UserSearchView.swift */; };
 		AB5054B328DCA04900321380 /* BandInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5054B228DCA04900321380 /* BandInvite.swift */; };
 		AB55E7722901F651009F039B /* DrumKitBacklineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB55E7712901F651009F039B /* DrumKitBacklineItem.swift */; };
@@ -433,6 +434,7 @@
 		AB4BD580292C388100E0360B /* AddressSearchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchList.swift; sourceTree = "<group>"; };
 		AB4BF6BF2965B6AD0007A33B /* FirebaseEmulatorDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEmulatorDataTests.swift; sourceTree = "<group>"; };
 		AB4D097B292725C500B5DB4D /* ShowAddressSearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAddressSearchResults.swift; sourceTree = "<group>"; };
+		AB4DA4D429C0ABF400D56BEC /* TypesenseConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypesenseConstants.swift; sourceTree = "<group>"; };
 		AB5054A628DC91CF00321380 /* UserSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchView.swift; sourceTree = "<group>"; };
 		AB5054B228DCA04900321380 /* BandInvite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandInvite.swift; sourceTree = "<group>"; };
 		AB55184529245D1F0085D1B6 /* TheSamePageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheSamePageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1063,6 +1065,7 @@
 				ABB4C3FC2920618900E2C153 /* FbConstants.swift */,
 				ABD56E1329A3B06B00A602D8 /* EnvironmentVariableConstants.swift */,
 				AB62A8D529A4363500D827DE /* DynamicLinkConstants.swift */,
+				AB4DA4D429C0ABF400D56BEC /* TypesenseConstants.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1941,6 +1944,7 @@
 				AB35A8CC28E9CFCF009FB203 /* LoggedInUserProfileView.swift in Sources */,
 				AB9C2391297B5F7D0012BE9F /* ShowImageButton.swift in Sources */,
 				ABB4C3F829205AC400E2C153 /* UserNotification.swift in Sources */,
+				AB4DA4D529C0ABF400D56BEC /* TypesenseConstants.swift in Sources */,
 				ABBBC1562988069F005AF468 /* ChangePasswordView.swift in Sources */,
 				AB571CA929705961000629AA /* Double+UnixDateAsDate.swift in Sources */,
 				ABF1C40828ECF0950004A3C1 /* UserSearchResultsList.swift in Sources */,
