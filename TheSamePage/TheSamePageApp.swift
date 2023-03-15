@@ -14,6 +14,9 @@ import FirebaseMessaging
 import FirebaseStorage
 import SwiftUI
 
+#warning("Add MORE GENRES")
+#warning("Make sure extensions folder isn't on GitHub and that it's in .gitignore")
+#warning("Reconfigure Typesense")
 @main
 struct TheSamePageApp: App {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
@@ -140,7 +143,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         UITabBar.appearance().backgroundColor = .systemGroupedBackground
 
         FirebaseApp.configure()
-//        useFirebaseEmulator()
+        useFirebaseEmulator()
         FirebaseConfiguration.shared.setLoggerLevel(.min)
 
         Messaging.messaging().delegate = self

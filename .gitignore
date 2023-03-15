@@ -11,7 +11,9 @@ firestore.indexes.json
 firestore-debug.log
 functions/.DS_Store
 .firebaserc
+extensions/
 FirebaseEmulatorData/
+FirebaseEmulatorDataForScreenshots/
 TheSamePage/GoogleService-Info.plist
 TheSamePage/Notes.rtf
 TheSamePage/.DS_Store

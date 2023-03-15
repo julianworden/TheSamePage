@@ -28,7 +28,7 @@ struct ChatBubble: View {
                         Spacer()
                     }
                     
-                    Text(chatMessage.senderFullName)
+                    Text(chatMessage.senderUsername)
                         .foregroundColor(.secondary)
                         .font(.caption)
                         .padding(senderIsLoggedInUser ? .trailing : .leading)
