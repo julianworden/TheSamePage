@@ -73,7 +73,7 @@ struct AddEditShowView: View {
             }
             
             Section {
-                Toggle("Show is free", isOn: $viewModel.showIsFree)
+                Toggle("Admission is free", isOn: $viewModel.showIsFree)
                 
                 if !viewModel.showIsFree {
                     TextField("Ticket Price (required)", text: $viewModel.ticketPrice)

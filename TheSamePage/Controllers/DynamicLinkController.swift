@@ -16,7 +16,7 @@ struct DynamicLinkController {
         let showIdQueryItem = URLQueryItem(name: dynamicLinkType.queryItemName, value: shareable.id)
         components.scheme = DynamicLinkConstants.https
         components.host = DynamicLinkConstants.jmtWebsiteHost
-        components.path = DynamicLinkConstants.dynamicLinksEndpoint
+        components.path = DynamicLinkConstants.theSamePageEndpoint
         components.queryItems = [showIdQueryItem]
 
         guard let linkParameter = components.url else {

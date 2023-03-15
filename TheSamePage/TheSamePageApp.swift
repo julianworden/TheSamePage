@@ -103,7 +103,7 @@ struct TheSamePageApp: App {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
               let queryItems = components.queryItems else { return }
 
-        if components.path == DynamicLinkConstants.dynamicLinksEndpoint {
+        if components.path == DynamicLinkConstants.theSamePageEndpoint {
             if let showIdQueryItem = queryItems.first(where: { $0.name == FbConstants.showId }),
                let showId = showIdQueryItem.value {
 
@@ -140,7 +140,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         UITabBar.appearance().backgroundColor = .systemGroupedBackground
 
         FirebaseApp.configure()
-        useFirebaseEmulator()
+//        useFirebaseEmulator()
         FirebaseConfiguration.shared.setLoggerLevel(.min)
 
         Messaging.messaging().delegate = self
