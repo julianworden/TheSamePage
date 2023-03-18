@@ -15,8 +15,8 @@ import FirebaseStorage
 import SwiftUI
 
 #warning("Add MORE GENRES")
-#warning("Make sure extensions folder isn't on GitHub and that it's in .gitignore")
-#warning("Reconfigure Typesense")
+#warning("Add MORE INSTRUMENTS")
+
 @main
 struct TheSamePageApp: App {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate

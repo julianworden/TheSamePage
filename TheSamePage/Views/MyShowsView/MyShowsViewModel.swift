@@ -58,7 +58,7 @@ final class MyShowsViewModel: ObservableObject {
             let upcomingHostedShows = allHostedShows.filter {
                 !$0.alreadyHappened
             }
-            self.upcomingHostedShows = upcomingHostedShows
+            self.upcomingHostedShows = upcomingHostedShows.sorted { $0.date.unixDateAsDate < $1.date.unixDateAsDate}
             upcomingHostedShows.isEmpty ? (myHostedShowsViewState = .dataNotFound) : (myHostedShowsViewState = .dataLoaded)
         } catch {
             myHostedShowsViewState = .error(message: error.localizedDescription)
@@ -72,7 +72,7 @@ final class MyShowsViewModel: ObservableObject {
             let upcomingPlayingShows = allPlayingShows.filter {
                 !$0.alreadyHappened
             }
-            self.upcomingPlayingShows = upcomingPlayingShows
+            self.upcomingPlayingShows = upcomingPlayingShows.sorted { $0.date.unixDateAsDate < $1.date.unixDateAsDate}
             upcomingPlayingShows.isEmpty ? (myPlayingShowsViewState = .dataNotFound) : (myPlayingShowsViewState = .dataLoaded)
         } catch {
             myPlayingShowsViewState = .error(message: error.localizedDescription)

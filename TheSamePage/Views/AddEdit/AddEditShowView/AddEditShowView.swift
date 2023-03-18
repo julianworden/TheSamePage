@@ -78,12 +78,16 @@ struct AddEditShowView: View {
                 if !viewModel.showIsFree {
                     TextField("Ticket Price (required)", text: $viewModel.ticketPrice)
                         .keyboardType(.numberPad)
-                    Toggle("Are ticket sales required?", isOn: $viewModel.ticketSalesAreRequired)
+                    Toggle("Show Has Ticket Quota", isOn: $viewModel.ticketSalesAreRequired)
                     
                     if viewModel.ticketSalesAreRequired {
-                        TextField("How many must be sold? (required)", text: $viewModel.minimumRequiredTicketsSold)
+                        TextField("How many tickets must be sold? (required)", text: $viewModel.minimumRequiredTicketsSold)
                             .keyboardType(.numberPad)
                     }
+                }
+            } footer: {
+                if !viewModel.ticketSalesAreRequired {
+                    Text("In some cases, bands may be required to sell a certain amount of tickets prior to the day of the show. Enable this option if that is the case for this show.")
                 }
             }
             

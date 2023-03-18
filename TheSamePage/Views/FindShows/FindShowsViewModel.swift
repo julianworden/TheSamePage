@@ -127,7 +127,7 @@ final class FindShowsViewModel: ObservableObject {
                     }
                 }
 
-                self.upcomingFetchedShows = upcomingFetchedShows
+                self.upcomingFetchedShows = upcomingFetchedShows.sorted { $0.date.unixDateAsDate < $1.date.unixDateAsDate }
                 upcomingFetchedShows.isEmpty ? (viewState = .dataNotFound) : (viewState = .dataLoaded)
             }
         } catch {
@@ -154,7 +154,7 @@ final class FindShowsViewModel: ObservableObject {
                     }
                 }
 
-                self.upcomingFetchedShows = upcomingFetchedShows
+                self.upcomingFetchedShows = upcomingFetchedShows.sorted { $0.date.unixDateAsDate < $1.date.unixDateAsDate }
                 upcomingFetchedShows.isEmpty ? (viewState = .dataNotFound) : (viewState = .dataLoaded)
             }
         } catch {

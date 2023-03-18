@@ -38,8 +38,9 @@ struct ChatBubble: View {
                     }
                 }
                 
-                VStack(alignment: senderIsLoggedInUser ? .trailing : .leading) {
+                VStack(alignment: senderIsLoggedInUser ? .trailing : .leading, spacing: 2) {
                     Text(chatMessage.text)
+                        .font(.body.leading(.tight))
                         
                     Text(chatMessage.sentTimestamp.unixDateAsDate.timeAndDate)
                         .font(.caption2)
