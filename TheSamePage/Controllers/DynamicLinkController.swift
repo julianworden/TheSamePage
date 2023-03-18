@@ -36,8 +36,7 @@ struct DynamicLinkController {
             shareLink.iOSParameters = DynamicLinkIOSParameters(bundleID: bundleId)
         }
 
-        #warning("Implement this after release, at release all links will direct you to a page on the JMT website if you don't have the app.")
-//        shareLink.iOSParameters?.appStoreID = DynamicLinkConstants.appStoreId
+        shareLink.iOSParameters?.appStoreID = DynamicLinkConstants.appStoreId
         shareLink.socialMetaTagParameters = DynamicLinkSocialMetaTagParameters()
         shareLink.socialMetaTagParameters?.title = "\(shareable.name) on The Same Page"
         shareLink.socialMetaTagParameters?.descriptionText = "Tap the \"Open\" button to open or install The Same Page."

@@ -140,7 +140,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         UITabBar.appearance().backgroundColor = .systemGroupedBackground
 
         FirebaseApp.configure()
-        useFirebaseEmulator()
+//        useFirebaseEmulator()
         FirebaseConfiguration.shared.setLoggerLevel(.min)
 
         Messaging.messaging().delegate = self
