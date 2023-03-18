@@ -14,9 +14,6 @@ import FirebaseMessaging
 import FirebaseStorage
 import SwiftUI
 
-#warning("Add MORE GENRES")
-#warning("Add MORE INSTRUMENTS")
-
 @main
 struct TheSamePageApp: App {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
