@@ -2152,7 +2152,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2206,7 +2206,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -2231,6 +2231,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheSamePage/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "The Same Page";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need access to your location so we can find shows near you.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need permission to access your photo library so that you can upload images to The Same Page.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -2269,6 +2270,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheSamePage/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "The Same Page";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need access to your location so we can find shows near you.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need permission to access your photo library so that you can upload images to The Same Page.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
