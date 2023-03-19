@@ -1,13 +1,15 @@
-# Rep Buddy
+# The Same Page
 The app the local music scene has always needed.
 
-<!--<p align="center">-->
-<!--    <img src="https://github.com/julianworden/RepBuddy/blob/main/READMEImages/iOS/ExerciseDetailsView.png" width=30% height=30%> <img src="https://github.com/julianworden/RepBuddy/blob/main/READMEImages/iOS/WorkoutDetailsView.png" width=30% height=30%>-->
-<!--</p>-->
-<!---->
-<!--<p align="center">-->
-<!--    <img src="https://github.com/julianworden/RepBuddy/blob/main/READMEImages/watchOS/ExerciseDetailsView.png" width=25% height=25%> <img src="https://github.com/julianworden/RepBuddy/blob/main/READMEImages/watchOS/WorkoutDetailsView.png" width=25% height=25%>-->
-<!--</p>-->
+<p align="center">
+    <img src="https://github.com/julianworden/TheSamePage/blob/main/READMEImages/01%20-%20Create%20Bands%20And%20Shows.jpeg" width=30% height=30%>
+    <img src="https://github.com/julianworden/TheSamePage/blob/main/READMEImages/02%20-%20Get%20Notified.jpeg" width=30% height=30%>
+</p>
+
+<p align="center">
+    <img src="https://github.com/julianworden/TheSamePage/blob/main/READMEImages/03%20-%20Chats.jpeg" width=30% height=30%>
+    <img src="https://github.com/julianworden/TheSamePage/blob/main/READMEImages/04%20-%20Find%20Shows.jpeg" width=30% height=30%>
+</p>
 
 ## Why I Made The Same Page
 
