@@ -48,15 +48,15 @@ The Same Page is a Firebase app, but downloading and running the code will not g
 </p>
 
 <p>
-You'll need to create your own Firebase project using Firebase Console and add your own GoogleService-Info.plist file to the TheSamePage folder. You can learn more about how to create a Firebase project [here](https://firebase.google.com/docs/ios/setup).
+You'll need to create your own Firebase project using Firebase Console and add your own GoogleService-Info.plist file to the TheSamePage folder. You can learn more about how to create a Firebase project https://firebase.google.com/docs/ios/setup
 </p>
 
 <p>
-You'll also need to create a TypeSense Cloud cluster and enter your cluster's info in the TheSamePage/Controllers/TypesenseController.swift file. You can learn more about Typesense [here](https://typesense.org).
+You'll also need to create a TypeSense Cloud cluster and enter your cluster's info in the TheSamePage/Controllers/TypesenseController.swift file. You can learn more about Typesense here: https://typesense.org
 </p> 
 
 <p>
-To fully integrate your Firebase project with Typesense, you'll also need to add the Typesense extension to your Firebase project. You can find more info about how to do this [here](https://firebase.google.com/docs/extensions).
+To fully integrate your Firebase project with Typesense, you'll also need to add the Typesense extension to your Firebase project. You can find more info about how to do this here: https://firebase.google.com/docs/extensions
 </p>
 
 ## Notes
