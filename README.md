@@ -48,7 +48,7 @@ The Same Page is a Firebase app, but downloading and running the code will not g
 </p>
 
 <p>
-You'll need to create your own Firebase project using Firebase Console and add your own GoogleService-Info.plist file to the TheSamePage folder. You can learn more about how to create a Firebase project https://firebase.google.com/docs/ios/setup
+You'll need to create your own Firebase project using Firebase Console and add your own GoogleService-Info.plist file to the TheSamePage folder. You can learn more about how to create a Firebase project here: https://firebase.google.com/docs/ios/setup
 </p>
 
 <p>
